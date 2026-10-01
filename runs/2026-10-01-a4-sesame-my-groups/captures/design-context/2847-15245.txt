@@ -1,0 +1,36 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/65a43c1f-2568-469a-bf63-e2274a89e5dd';
+const imgEllipsis = `${assetPathPrefix}/5f7e7.svg`;
+
+export default function TdTextStart() {
+  return (
+    <div
+      className="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex gap-[10px] items-start justify-center px-[24px] py-[4px] relative size-full"
+      data-node-id="2847:15245"
+      data-name="td-text-start">
+      <div
+        className="content-stretch flex items-center relative shrink-0"
+        data-node-id="2847:15246">
+        <div
+          className="relative rounded-[56px] shrink-0 size-[40px]"
+          data-node-id="2847:15247"
+          data-name="Icon-button">
+          <div
+            className="absolute inset-[0_-1.25%_0_1.25%] rounded-[56px]"
+            data-node-id="2847:15248"
+            data-name="Icon-button">
+            <div
+              className="absolute inset-[20%]"
+              data-node-id="I2847:15248;192:2740"
+              data-name="icon">
+              <img
+                alt=""
+                className="absolute block inset-0 max-w-none size-full"
+                src={imgEllipsis}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

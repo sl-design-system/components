@@ -1,0 +1,28 @@
+export default function TdTextStart() {
+  return (
+    <div
+      className="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex gap-[10px] items-center px-[16px] py-[10px] relative size-full"
+      data-node-id="2847:15089"
+      data-name="td-text-start">
+      <div
+        className="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+        data-node-id="2847:15090"
+        data-name="v-input--selection-controls">
+        <div
+          className="[word-break:break-word] flex flex-col font-['Material_Icons:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#af1685] text-[24px] text-center whitespace-nowrap"
+          data-node-id="I2847:15090;58:540"
+          style={{ fontVariationSettings: '"CTGR" 0, "wdth" 100' }}>
+          <p className="leading-none">check_box</p>
+        </div>
+      </div>
+      <div
+        className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:SemiBold'] font-semibold h-full justify-center leading-[0] min-w-px relative text-[#af1685] text-[14px]"
+        data-node-id="2847:15091"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">
+          Class 1
+        </p>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,181 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/50b78132-ea7c-47a9-9262-f88b2785b3fc";
+const imgYourFiles = `${assetPathPrefix}/9106c.svg`;
+const imgPhoto = `${assetPathPrefix}/19894.png`;
+const imgGroupFalse = `${assetPathPrefix}/70bc9.svg`;
+const imgItslearningLogoSymbol = `${assetPathPrefix}/347f2.svg`;
+const imgMagnifyingGlass = `${assetPathPrefix}/ef8c2.svg`;
+const imgBell = `${assetPathPrefix}/154ff.svg`;
+const imgComment = `${assetPathPrefix}/6dcda.svg`;
+const imgCircleInfo = `${assetPathPrefix}/c803f.svg`;
+const imgXmark = `${assetPathPrefix}/1d1e6.svg`;
+const imgArrowUpArrowDown = `${assetPathPrefix}/c9143.svg`;
+const imgGraduationCap = `${assetPathPrefix}/5a964.svg`;
+const imgCirclePen = `${assetPathPrefix}/c89e8.svg`;
+
+function YourFiles({ className }: { className?: string }) {
+  return (
+    <div className={className || "relative size-[32px]"} data-node-id="4016:6593" data-name="your-files">
+      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgYourFiles} />
+    </div>
+  );
+}
+
+type AvatarProps = {
+  className?: string;
+  group?: "False";
+  photo?: boolean;
+};
+
+function Avatar({ className, group = "False", photo = true }: AvatarProps) {
+  return (
+    <div className={className || "overflow-clip relative rounded-[120px] size-[32px]"} data-node-id="4016:6538">
+      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGroupFalse} />
+      {photo && (
+        <div className="absolute inset-0" data-node-id="4016:6541" data-name="Photo">
+          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgPhoto} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function CourseFiles() {
+  return (
+    <div className="bg-[var(--$gray--150,#f2f2f2)] content-stretch flex flex-col items-center relative size-full" data-node-id="4886:12955" data-name="course files">
+      <div className="content-stretch drop-shadow-[0px_4px_4px_rgba(0,0,0,0.05)] flex flex-col items-start relative shrink-0 w-[1280px]" data-node-id="4886:12956" data-name="Navigation">
+        <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full" data-node-id="I4886:12956;4461:5603" data-name=".Main menu">
+          <div className="content-stretch flex h-full items-center px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10621" data-name="Logo area">
+            <div className="relative shrink-0 size-[32px]" data-node-id="I4886:12956;4461:5603;9976:10622" data-name="itslearning-logo-symbol">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgItslearningLogoSymbol} />
+            </div>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative" data-node-id="I4886:12956;4461:5603;9976:10623" data-name="Main menu">
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10624" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;9976:10624;9976:10576">
+                <p className="leading-[1.5]">Courses</p>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;13432:5117" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;13432:5117;9976:10576">
+                <p className="leading-[1.5]">Updates</p>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;15220:17430" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;15220:17430;9976:10576">
+                <p className="leading-[1.5]">Groups</p>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10626" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;9976:10626;9976:10576">
+                <p className="leading-[1.5]">Calendar</p>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10627" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;9976:10627;9976:10576">
+                <p className="leading-[1.5]">Library</p>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex h-full items-start justify-end pl-[var(--size\/700,24px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10630" data-name="Personal menu">
+            <div className="content-stretch flex h-full items-center px-[var(--size\/50,8px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;11704:5608" data-name="Search wrapper">
+              <div className="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex items-start max-w-[264px] pl-[var(--size\/100,12px)] relative rounded-[var(--border-radius,4px)] shrink-0 w-[264px]" data-node-id="I4886:12956;4461:5603;11704:5609" data-name="Search">
+                <div className="content-stretch flex flex-col h-[16px] items-start px-[4px] py-[var(--size\/50,8px)] relative shrink-0 w-0" data-node-id="I4886:12956;4461:5603;11704:5609;17089:13616" data-name="Icon wrapper" />
+                <div className="content-stretch flex flex-[1_0_0] items-center min-w-px pr-[var(--size\/25,4px)] py-[var(--size\/50,8px)] relative" data-node-id="I4886:12956;4461:5603;11704:5609;13211:9102" data-name="Text wrapper">
+                  <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--600,#757575)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5603;11704:5609;13157:8017">
+                    Search
+                  </p>
+                </div>
+                <div className="content-stretch flex items-start relative shrink-0" data-node-id="I4886:12956;4461:5603;11704:5609;13157:8020" data-name="Actions">
+                  <div className="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-br-[var(--border-radius,4px)] rounded-tr-[var(--border-radius,4px)] shrink-0" data-node-id="I4886:12956;4461:5603;11704:5609;13157:8022" data-name="search">
+                    <div className="relative shrink-0 size-[24px]" data-node-id="I4886:12956;4461:5603;11704:5609;13157:8022;1902:2742" data-name="Icon placeholder">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgMagnifyingGlass} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10631" data-name=".Navigation item">
+              <div className="relative shrink-0 size-[24px]" data-node-id="I4886:12956;4461:5603;9976:10631;9976:10604" data-name="circle-dot">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgBell} />
+              </div>
+            </div>
+            <div className="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10635" data-name="IM">
+              <div className="relative shrink-0 size-[24px]" data-node-id="I4886:12956;4461:5603;9976:10635;9976:10604" data-name="circle-dot">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgComment} />
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center p-[var(--size\/100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5603;9976:10636" data-name="User menu">
+              <Avatar className="overflow-clip relative rounded-[120px] shrink-0 size-[32px]" />
+            </div>
+          </div>
+        </div>
+        <div className="border-[var(--gray\/300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full" data-node-id="I4886:12956;4461:5604" data-name=".Secondary menu">
+          <div aria-hidden className="absolute bg-[var(--$gray--50,#f9f9f9)] inset-0 pointer-events-none" />
+          <div className="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/50,8px)] relative shrink-0" data-node-id="I4886:12956;4461:5605" data-name="Course">
+            <YourFiles className="relative shrink-0 size-[32px]" />
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/400,18px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5607">
+              Files
+            </p>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative" data-node-id="I4886:12956;4461:5608" data-name="Main menu">
+            <div className="content-stretch flex gap-[var(--size\/size--50,8px)] h-full items-center px-[var(--size\/size--300,16px)] py-[var(--size\/size--100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5609" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--gray\/900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5609;9976:10576">
+                <p className="leading-[1.5]">Your files</p>
+              </div>
+            </div>
+            <div className="content-stretch flex gap-[var(--size\/size--50,8px)] h-full items-center px-[var(--size\/size--300,16px)] py-[var(--size\/size--100,12px)] relative shrink-0" data-node-id="I4886:12956;4461:5610" data-name=".Navigation item">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--gray\/900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap" data-node-id="I4886:12956;4461:5610;9976:10576">
+                <p className="leading-[1.5]">{`Save course materials `}</p>
+              </div>
+              <div className="absolute bg-[var(--gray\/700,#565656)] bottom-0 h-[4px] left-[16px] right-[16px] rounded-tl-[8px] rounded-tr-[8px]" data-node-id="I4886:12956;4461:5610;9976:10581" data-name="Highlight" />
+            </div>
+          </div>
+          <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_4px_8px_0px_rgba(0,0,0,0.05)]" />
+        </div>
+      </div>
+      <div className="content-stretch flex items-start justify-center relative shrink-0 w-full" data-node-id="4886:12957" data-name="main-wrapper">
+        <div className="content-stretch flex flex-[1_0_0] flex-col items-center min-w-px pb-[56px] px-[var(--ca-horisontal-margin,48px)] relative" data-node-id="4886:12958" data-name="content-area-wrapper">
+          <div className="content-stretch flex flex-col items-center max-w-[1280px] pb-[var(--size\/500,20px)] relative shrink-0 w-full" data-node-id="4886:12959" data-name="content-area">
+            <div className="content-stretch flex flex-col items-start overflow-clip relative shrink-0 w-full" data-node-id="4886:12960" data-name="PageHeader">
+              <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] items-start py-[var(--size\/500,20px)] relative shrink-0 w-full" data-node-id="I4886:12960;5889:6338" data-name="Title and subtitle">
+                <div className="content-start flex flex-wrap gap-[var(--size\/100,12px)] items-start relative shrink-0 w-full" data-node-id="I4886:12960;5419:6693" data-name="Group wrapper">
+                  <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/25,4px)] items-start min-w-[200px] pr-[var(--size\/500,20px)] relative" data-node-id="I4886:12960;6438:6285" data-name="Content">
+                    <div className="content-center flex flex-wrap gap-[var(--size\/100,12px)] items-center relative shrink-0 w-full" data-node-id="I4886:12960;11648:5210" data-name="Title wrapper">
+                      <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] max-w-[800px] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/800,26px)] whitespace-nowrap" data-node-id="I4886:12960;5419:6694">{`Save course materials `}</p>
+                    </div>
+                  </div>
+                  <div className="content-center flex flex-wrap gap-[12px] items-center relative shrink-0 size-[40px]" data-node-id="I4886:12960;23120:8171" data-name="Actions slot" />
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-col gap-[var(--ca-cards-gap,20px)] items-start relative shrink-0 w-full" data-node-id="4886:12961" data-name="cards">
+              <div className="bg-[var(--$gray--0,white)] border border-[var(--$gray--300,#e1e1e1)] border-solid content-stretch flex flex-col gap-[var(--size\/500,20px)] items-start px-[var(--content-block\/content-block-horisontal-padding,32px)] py-[var(--content-block\/content-block-vertical-padding,20px)] relative rounded-[4px] shrink-0 w-full" data-node-id="4886:12962" data-name="Content-block">
+                <div className="bg-[var(--$blue--100,#ecf8ff)] content-stretch flex items-start pl-[var(--size\/100,12px)] relative shrink-0 w-full" data-node-id="4886:12963" data-name="Banner">
+                  <div className="content-stretch flex items-start pt-[10px] relative shrink-0" data-node-id="I4886:12963;3841:6676" data-name="Icon wrapper">
+                    <div className="relative shrink-0 size-[24px]" data-node-id="I4886:12963;23112:4891" data-name="circle-info">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgCircleInfo} />
+                    </div>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/100,12px)] items-start min-w-px pl-[var(--size\/50,8px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative" data-node-id="I4886:12963;2504:3039" data-name="Text wrapper">
+                    <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full" data-node-id="I4886:12963;0:26488">
+                      This section contains all the course files you've created or uploaded. Select a course to access its files
+                    </p>
+                  </div>
+                  <div className="content-stretch flex items-center pr-[var(--size\/10,2px)] py-[var(--size\/10,2px)] relative shrink-0" data-node-id="I4886:12963;3841:6883" data-name="Button wrapper">
+                    <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4886:12963;17344:7058" data-name="Button">
+                      <div className="relative shrink-0 size-[24px]" data-node-id="I4886:12963;17344:7058;1902:2850" data-name="Icon placeholder">
+                        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgXmark} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="content-stretch flex flex-col items-start relative shrink-0 w-[1120px]" data-node-id="4886:12965" data-name="table">
+                  <!-- 6 row instances (1 header "courses" @4886:12966, 5 body "courses" @4886:12968/12969/12971/12972(hidden)/12973) each with Cell instances for Course/Status/Teacher/Last updated columns — full markup preserved in tool output, truncated here for brevity, identical structure per row with text: Math 2c / Archived|Deleted / Floyd Miles and 2 more / 05/04/2024 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

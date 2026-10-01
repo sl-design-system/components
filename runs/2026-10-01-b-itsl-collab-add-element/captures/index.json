@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "run": "b-itsl-collab-add-element",
+  "figma": {
+    "rootNodeId": "5006:43051"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "2275:4904",
+      "label": "get_design_context raw output — nodeId 5006:43051 (Q3gzx1pCseyKnFNDUOOjCw)",
+      "file": "captures/design-context/2275-4904.txt",
+      "bytes": 35076,
+      "capturedAt": "2026-10-01T16:18:26.152Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "5006:43051",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/5006-43051.txt",
+      "bytes": 14318,
+      "capturedAt": "2026-10-01T16:18:26.152Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/8.txt",
+      "bytes": 1971,
+      "capturedAt": "2026-10-01T16:18:26.152Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "123:456",
+      "label": "figma-code-connect-map.txt",
+      "file": "captures/code-connect/123-456.txt",
+      "bytes": 2111,
+      "capturedAt": "2026-10-01T16:18:26.152Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 43208,
+      "capturedAt": "2026-10-01T16:18:26.152Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

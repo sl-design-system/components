@@ -1,0 +1,38 @@
+export default function SlHelperTheme() {
+  return (
+    <div
+      className="content-stretch flex items-start relative size-full"
+      data-node-id="2847:15709"
+      data-name="sl-helper-theme">
+      <div
+        className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pt-[4px] relative"
+        data-node-id="I2847:15709;2711:11206"
+        data-name="sl-base-helper">
+        <div
+          className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+          data-node-id="I2847:15709;2711:11206;1165:4968"
+          data-name="core-icon">
+          <div
+            className="flex-[1_0_0] h-full min-w-px relative"
+            data-node-id="I2847:15709;2711:11206;1165:4968;399:65"
+            data-name="error-solid">
+            <div
+              className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Solid'] inset-0 justify-center leading-[0] not-italic text-[#ed1111] text-[15px] text-center"
+              data-node-id="I2847:15709;2711:11206;1165:4968;399:65;668:2526">
+              <p className="leading-[16px]">triangle-exclamation</p>
+            </div>
+          </div>
+        </div>
+        <div
+          className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#ed1111] text-[12px] whitespace-nowrap"
+          data-node-id="I2847:15709;2711:11206;1165:4969"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[16px]">
+            You cannot reactivate an active group. Please, disselect all active groups to be able to
+            continue.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,147 @@
+<frame id="334:20573" name="Group list" x="-12882" y="8320" width="1280" height="1024">
+  <frame id="334:20574" name="Frame 1" x="24" y="88" width="1200" height="136">
+    <frame id="334:20575" name="Frame 10" x="32" y="32" width="584" height="72">
+      <text id="334:20576" name="Welcome back, Sarah" x="0" y="0" width="329" height="40" />
+      <text id="334:20577" name="Select a group to view materials, follow your progress, and join today's lessons" x="0" y="48" width="584" height="24" />
+    </frame>
+  </frame>
+  <frame id="334:20578" name="Frame 427321606" x="56" y="232" width="1168" height="752">
+    <frame id="334:24372" name="Frame 427321744" x="0" y="0" width="1168" height="36">
+      <frame id="334:24373" name="Frame 427321745" x="0" y="0" width="136" height="36">
+        <instance id="334:22670" name="sl-badge" x="0" y="14" width="8" height="8" />
+        <frame id="334:20579" name="Frame 13" x="24" y="0" width="112" height="36">
+          <frame id="334:20580" name="Frame 427321740" x="0" y="0" width="936" height="36">
+            <frame id="334:20581" name="Frame 427321739" x="0" y="2" width="936" height="32">
+              <text id="334:20582" name="Live now" x="0" y="0" width="936" height="32" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="334:20583" name="Frame 427321743" x="0" y="60" width="1168" height="692">
+      <frame id="334:20584" name="Frame 427321612" x="0" y="0" width="1168" height="227">
+        <frame id="334:20585" name="Frame 6" x="0" y="0" width="1168" height="227">
+          <rounded-rectangle id="334:20586" name="image" x="24" y="24" width="130" height="182" />
+          <frame id="334:20587" name="Frame 32" x="178" y="24" width="695" height="172">
+            <frame id="334:20588" name="Frame 33" x="0" y="32" width="114" height="52">
+              <text id="334:20589" name="Class H4A" x="0" y="0" width="114" height="32" />
+              <text id="334:20590" name="English" x="0" y="32" width="47" height="20" />
+            </frame>
+            <frame id="334:20591" name="Frame 35" x="0" y="108" width="232.9326171875" height="32">
+              <frame id="334:20592" name="Group 1" x="0" y="0" width="232.9326171875" height="32">
+                <instance id="334:20593" name="sl-avatar" x="27.9324951171875" y="0" width="205" height="32" />
+                <frame id="334:20594" name="sl-avatar" x="18.666748046875" y="0" width="32" height="32">
+                  <frame id="334:20595" name="Frame 3" x="0" y="0" width="32" height="32">
+                    <frame id="334:20596" name="Avatar" x="0" y="0" width="32" height="32">
+                      <frame id="334:20597" name="Shape" x="0" y="0" width="32" height="32" />
+                      <frame id="334:20604" name="avatar-content" x="0" y="0" width="32" height="32">
+                        <instance id="334:20605" name="Mask" x="0" y="0" width="32" height="32" />
+                        <frame id="334:20606" name="avatar-content-variant" x="0" y="-2.384185791015625e-7" width="32" height="32">
+                          <frame id="334:20607" name="content" x="-31.3333740234375" y="-5.333333492279053" width="94.66666412353516" height="42.66666793823242">
+                            <text id="334:20608" name="initials" x="37" y="14.666661262512207" width="20" height="15" hidden="true" />
+                            <instance id="334:20609" name="Base/Icon" x="38" y="11.999995231628418" width="18.666667938232422" height="18.666667938232422" />
+                          </frame>
+                          <instance id="334:20610" name="Mask" x="0" y="0" width="32" height="32" />
+                        </frame>
+                        <rounded-rectangle id="334:20611" name="image" x="0" y="0" width="32" height="32" />
+                      </frame>
+                    </frame>
+                    <frame id="334:20612" name="Badge" x="18.6640625" y="-8" width="21.33333396911621" height="21.33333396911621" hidden="true">
+                      <instance id="334:20613" name="Mask" x="21.33333396911621" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      <text id="334:20614" name="Number" x="5.333333492279053" y="10" width="10.666666984558105" height="1" />
+                      <frame id="334:20615" name="Frame 2" x="0" y="0" width="21.33333396911621" height="21.33333396911621">
+                        <rounded-rectangle id="334:20616" name="Rectangle 2" x="5.333333492279053" y="5.333333492279053" width="10.666666984558105" height="10.666666984558105" />
+                        <instance id="334:20617" name="Mask" x="0" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="334:20618" name="sl-avatar" x="9.3333740234375" y="0" width="32" height="32">
+                  <frame id="334:20619" name="Frame 3" x="0" y="0" width="32" height="32">
+                    <frame id="334:20620" name="Avatar" x="0" y="0" width="32" height="32">
+                      <frame id="334:20621" name="Shape" x="0" y="0" width="32" height="32" />
+                      <frame id="334:20628" name="avatar-content" x="0" y="0" width="32" height="32">
+                        <instance id="334:20629" name="Mask" x="0" y="0" width="32" height="32" />
+                        <frame id="334:20630" name="avatar-content-variant" x="0" y="-2.384185791015625e-7" width="32" height="32">
+                          <frame id="334:20631" name="content" x="-31.33333396911621" y="-5.333333492279053" width="94.66666412353516" height="42.66666793823242">
+                            <text id="334:20632" name="initials" x="37.00004196166992" y="14.666661262512207" width="20" height="15" hidden="true" />
+                            <instance id="334:20633" name="Base/Icon" x="38.00004196166992" y="11.999995231628418" width="18.666667938232422" height="18.666667938232422" />
+                          </frame>
+                          <instance id="334:20634" name="Mask" x="0" y="0" width="32" height="32" />
+                        </frame>
+                        <rounded-rectangle id="334:20635" name="image" x="0" y="0" width="32" height="32" />
+                      </frame>
+                    </frame>
+                    <frame id="334:20636" name="Badge" x="18.6640625" y="-8" width="21.33333396911621" height="21.33333396911621" hidden="true">
+                      <instance id="334:20637" name="Mask" x="21.3333740234375" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      <text id="334:20638" name="Number" x="5.3333740234375" y="10" width="10.666666984558105" height="1" />
+                      <frame id="334:20639" name="Frame 2" x="0" y="0" width="21.33333396911621" height="21.33333396911621">
+                        <rounded-rectangle id="334:20640" name="Rectangle 2" x="5.3333740234375" y="5.333333492279053" width="10.666666984558105" height="10.666666984558105" />
+                        <instance id="334:20641" name="Mask" x="0" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="334:20642" name="sl-avatar" x="0" y="0" width="32" height="32">
+                  <frame id="334:20643" name="Frame 3" x="0" y="0" width="32" height="32">
+                    <frame id="334:20644" name="Avatar" x="0" y="0" width="32" height="32">
+                      <frame id="334:20645" name="Shape" x="0" y="0" width="32" height="32" />
+                      <frame id="334:20652" name="avatar-content" x="0" y="0" width="32" height="32">
+                        <instance id="334:20653" name="Mask" x="0" y="0" width="32" height="32" />
+                        <frame id="334:20654" name="avatar-content-variant" x="0" y="-2.384185791015625e-7" width="32" height="32">
+                          <frame id="334:20655" name="content" x="-31.33329200744629" y="-5.333333492279053" width="94.66666412353516" height="42.66666793823242">
+                            <text id="334:20656" name="initials" x="36.99995803833008" y="14.666661262512207" width="20" height="15" hidden="true" />
+                            <instance id="334:20657" name="Base/Icon" x="37.99995803833008" y="11.999995231628418" width="18.666667938232422" height="18.666667938232422" />
+                          </frame>
+                          <instance id="334:20658" name="Mask" x="0" y="0" width="32" height="32" />
+                        </frame>
+                        <rounded-rectangle id="334:20659" name="image" x="0" y="0" width="32" height="32" />
+                      </frame>
+                    </frame>
+                    <frame id="334:20660" name="Badge" x="18.6640625" y="-8" width="21.33333396911621" height="21.33333396911621" hidden="true">
+                      <instance id="334:20661" name="Mask" x="21.33329200744629" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      <text id="334:20662" name="Number" x="5.333292484283447" y="10" width="10.666666984558105" height="1" />
+                      <frame id="334:20663" name="Frame 2" x="0" y="0" width="21.33333396911621" height="21.33333396911621">
+                        <rounded-rectangle id="334:20664" name="Rectangle 2" x="5.333292484283447" y="5.333333492279053" width="10.666666984558105" height="10.666666984558105" />
+                        <instance id="334:20665" name="Mask" x="0" y="0" width="21.33333396911621" height="21.33333396911621" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="334:20666" name="Frame 427321612" x="912" y="49" width="206" height="140">
+            <frame id="334:20667" name="Frame 427321613" x="0" y="0" width="206" height="140">
+              <instance id="334:20668" name="Action 1" x="0" y="0" width="206" height="36" />
+              <instance id="334:20669" name="Action 3" x="0" y="52" width="206" height="36" />
+              <instance id="364:19522" name="Action 2" x="0" y="104" width="206" height="36" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="426:19696" name="Frame 427321746" x="0" y="267" width="1168" height="425">
+        <frame id="334:20670" name="Frame 13" x="0" y="0" width="1168" height="36">
+          <frame id="334:20671" name="Frame 427321740" x="0" y="0" width="1168" height="36">
+            <frame id="334:20672" name="Frame 427321739" x="0" y="2" width="1168" height="32">
+              <text id="334:20673" name="My groups" x="0" y="0" width="936" height="32" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="334:20676" name="Frame 427321742" x="0" y="60" width="1168" height="365">
+          <frame id="334:20677" name="Frame 20" x="0" y="0" width="1168" height="365">
+            <instance id="334:20678" name="sl-card Actionable" x="0" y="0" width="576" height="111" />
+            <instance id="334:20679" name="sl-card Actionable" x="592" y="0" width="576" height="111" />
+            <instance id="334:20680" name="sl-card Actionable" x="0" y="127" width="576" height="111" />
+            <instance id="334:20681" name="sl-card Actionable" x="592" y="127" width="576" height="111" />
+            <instance id="334:20682" name="sl-card Actionable" x="0" y="254" width="576" height="111" />
+            <instance id="334:20683" name="sl-card Actionable" x="422.6666564941406" y="254" width="406.6666564941406" height="111" hidden="true" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="334:20684" name="Frame 27" x="24" y="24" width="1200" height="40">
+    <instance id="334:20685" name="Frame 26" x="0" y="0" width="1200" height="40" />
+  </frame>
+</frame>

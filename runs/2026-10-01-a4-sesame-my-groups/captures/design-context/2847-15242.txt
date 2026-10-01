@@ -1,0 +1,18 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/682bb813-13ec-46e7-a42f-c8701f6d87a1';
+export default function ThTextStart() {
+  return (
+    <div
+      className="content-stretch flex gap-[10px] items-center justify-center px-[16px] py-[10px] relative size-full"
+      data-node-id="2847:15242"
+      data-name="th-text-start">
+      <div aria-hidden className="absolute bg-[#dedede] inset-0 pointer-events-none" />
+      <div
+        className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+        data-node-id="2847:15243"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">Action</p>
+      </div>
+      <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]" />
+    </div>
+  );
+}

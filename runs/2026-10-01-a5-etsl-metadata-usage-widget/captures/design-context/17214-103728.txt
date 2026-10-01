@@ -1,0 +1,35 @@
+export default function Bar() {
+  return (
+    <div
+      className="bg-white content-stretch flex flex-col gap-[2px] items-start relative size-full"
+      data-node-id="17214:103728"
+      data-name="bar">
+      <div
+        className="bg-white content-stretch flex h-[32px] items-center justify-center overflow-clip py-[8px] relative shrink-0 w-full"
+        data-node-id="I17214:103728;13432:17704"
+        data-name="Metric Container">
+        <div
+          className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#066] text-[14px]"
+          data-node-id="I17214:103728;13432:17705"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[20px]">Text (40)</p>
+        </div>
+      </div>
+      <div
+        className="h-[6px] relative shrink-0 w-full"
+        data-node-id="I17214:103728;13432:17706"
+        data-name="Determinate Indicator">
+        <div
+          className="absolute bg-[#ececf1] h-[6px] left-0 right-0 top-0"
+          data-node-id="I17214:103728;13432:17707"
+          data-name="Track"
+        />
+        <div
+          className="absolute bg-[#ca6f2a] h-[6px] left-0 right-[69.75%] top-0"
+          data-node-id="I17214:103728;13432:17708"
+          data-name="Indicator"
+        />
+      </div>
+    </div>
+  );
+}

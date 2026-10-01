@@ -1,0 +1,39 @@
+{
+  "_root_17264_29098": {},
+  "_per_node_probes": {
+    "17266:31419": {
+      "17266:31419": {
+        "source": "",
+        "version": "unknown",
+        "label": "SL Design System",
+        "hasTemplate": true,
+        "snippetImports": [],
+        "snippetNestedFunctions": [],
+        "snippet": "\n    <sl-button\n      \n      \n      \n      \n      \n      \n      variant=\"primary\"\n    >\n      \n    <sl-icon\n      name=\"far-plus\"\n      \n    ></sl-icon>\n  \n      Add new user\n      \n    </sl-button>\n  "
+      }
+    },
+    "17557:100187": {
+      "17557:100187": {
+        "source": "",
+        "version": "unknown",
+        "label": "SL Design System",
+        "hasTemplate": true,
+        "snippetImports": [],
+        "snippetNestedFunctions": [],
+        "snippet": "\n    <sl-form-field label=\"Last login date\">\n      <sl-select\n        \n        \n         placeholder=\"Select period\"\n        \n         value=\"Last 30 days\"\n      >\n        <!-- Insert options here -->\n      </sl-select>\n    </sl-form-field>\n  "
+      },
+      "0:3": {
+        "componentName": null,
+        "source": "https://github.com/sl-design-system/components/blob/main/packages/components/form/src/label.ts",
+        "version": "unknown",
+        "hasTemplate": false
+      }
+    },
+    "17266:31414": {},
+    "17264:29105": {},
+    "17264:29099": {},
+    "17264:29115": {},
+    "17264:29116": {},
+    "17264:29167": {}
+  }
+}

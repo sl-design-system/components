@@ -1,0 +1,24 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/d5349f0a-9979-489f-9c9f-ff18a4b16afc";
+const imgIcon = `${assetPathPrefix}/816ae.svg`;
+const imgSearch = `${assetPathPrefix}/7e0b2.svg`;
+const imgIcon1 = `${assetPathPrefix}/203b3.svg`;
+const imgHelp = `${assetPathPrefix}/0804d.svg`;
+const imgIcon2 = `${assetPathPrefix}/44357.svg`;
+
+export default function HeaderNavigation() {
+  return (
+    <div className="bg-[#643695] ..." data-node-id="5311:37151" data-name="Header-navigation">
+      <div data-node-id="I5311:37151;9353:30102" data-name="top navigation">
+        <div data-node-id="I5311:37151;9353:30103">
+          <div data-node-id="I5311:37151;9353:30104" data-name="top-navi-item-light">"My page" label + Icon</div>
+        </div>
+        <div data-node-id="I5311:37151;9353:30105" data-name="main navigation">
+          top-navi-item-light x3: "Learning materials" (active), "Tests", "Dashboard"
+        </div>
+        <div data-node-id="I5311:37151;9353:30113" data-name="settings and search">
+          4x top-navi-item-icon (search, notifications w/ number-tag badge "3", help, account)
+        </div>
+      </div>
+    </div>
+  );
+}

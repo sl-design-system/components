@@ -1,0 +1,3 @@
+{
+  "H1 mobile": "Font(family: \"Open Sans\", style: Bold, size: 24, weight: 700, lineHeight: 100, letterSpacing: 0)"
+}

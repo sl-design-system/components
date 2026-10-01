@@ -1,0 +1,20 @@
+type IconButtonProps = { className?: string; size?: "Default"; state?: "Default"; type?: "Primary" };
+function IconButton({ ... }) {
+  return (
+    <div data-node-id="11360:135454">
+      <img data-node-id="11360:135593" data-name="icon" />
+    </div>
+  );
+}
+export default function Breadcrumb2023() {
+  return (
+    <div data-node-id="5311:37122" data-name="breadcrumb-2023">
+      <div data-name="breadcrump">
+        row 1: "Start page" > "Kielititieto" > "Kieli, kulttuuri ja identiteetti" (current, bold)
+      </div>
+      <div data-name="navigation">
+        2x round purple Icon-button (chevron-left / chevron-right, prev/next subchapter nav)
+      </div>
+    </div>
+  );
+}

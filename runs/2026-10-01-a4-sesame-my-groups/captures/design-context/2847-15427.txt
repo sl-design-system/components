@@ -1,0 +1,26 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/a690b8e5-e900-4c47-bb8e-58600c8f6331';
+const imgLine39 = `${assetPathPrefix}/6018c.svg`;
+
+export default function Frame1000000739() {
+  return (
+    <div
+      className="content-stretch flex gap-[12px] items-center justify-end relative size-full"
+      data-node-id="2847:15427">
+      <div
+        className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+        data-node-id="2847:15428"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">40 Groups</p>
+      </div>
+      <div
+        className="flex h-[24px] items-center justify-center relative shrink-0 w-0"
+        data-node-id="2847:15429">
+        <div className="flex-none rotate-90">
+          <div className="h-0 relative w-[24px]">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLine39} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

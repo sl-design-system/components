@@ -1,0 +1,12 @@
+function SimpleToggle({ className, onOff = "Off", state = "Default" }) {
+  return <div data-node-id="1702:18966">{/* off-state switch graphic */}</div>;
+}
+function StudentView({ className }) {
+  return (
+    <div data-node-id="4701:55280" data-name="Student view">
+      <SimpleToggle />
+      <p>Student view</p>
+    </div>
+  );
+}
+export default function StudentView1() { return <StudentView />; }

@@ -1,0 +1,37 @@
+export default function ThTextStart() {
+  return (
+    <div
+      className="content-stretch flex gap-[10px] items-center px-[16px] py-[10px] relative size-full"
+      data-node-id="2847:15083"
+      data-name="th-text-start">
+      <div aria-hidden className="absolute bg-[#dedede] inset-0 pointer-events-none" />
+      <div
+        className="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+        data-node-id="2847:15084"
+        data-name="v-input--selection-controls">
+        <div
+          className="bg-[#af1685] border border-[#af1685] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[2px] shadow-[0px_0px_0px_0px_rgba(0,0,0,0)] shrink-0 size-[18px]"
+          data-node-id="2847:15085"
+          data-name="checkbox-box">
+          <div
+            className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+            data-node-id="2847:15086"
+            data-name="core-icon">
+            <div
+              className="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Solid'] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+              data-node-id="2847:15087">
+              <p className="leading-[16px]">minus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+        data-node-id="2847:15088"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">{`Name `}</p>
+      </div>
+      <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]" />
+    </div>
+  );
+}

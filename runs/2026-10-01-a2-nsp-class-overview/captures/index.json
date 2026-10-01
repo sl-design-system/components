@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "run": "a2-nsp-class-overview",
+  "figma": {
+    "rootNodeId": "2422:87039"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "2422:87052",
+      "label": "# sl-button-bar/Rectangle",
+      "file": "captures/design-context/2422-87052.txt",
+      "bytes": 3986,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2422:91204",
+      "label": "# sl-button-bar/Rectangle",
+      "file": "captures/design-context/2422-91204.txt",
+      "bytes": 3931,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2422:87221",
+      "label": "# sl-button-rectangular",
+      "file": "captures/design-context/2422-87221.txt",
+      "bytes": 5521,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "1:2",
+      "label": "# sl-button-rectangular",
+      "file": "captures/design-context/1-2.txt",
+      "bytes": 21684,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2388:66321",
+      "label": "# Row type=Default, State=Idle",
+      "file": "captures/design-context/2388-66321.txt",
+      "bytes": 36730,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2422:87812",
+      "label": "# Frame=true, Zebra=false, Horizontal dividers=true, Vertical dividers=false, Full Vertical dividers=false",
+      "file": "captures/design-context/2422-87812.txt",
+      "bytes": 5713,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2422:87812",
+      "label": "# Frame=true, Zebra=false, Horizontal dividers=true, Vertical dividers=false, Full Vertical dividers=false",
+      "file": "captures/design-context/2422-87812.txt",
+      "bytes": 5713,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "2034:6953",
+      "label": "# Type=Simple",
+      "file": "captures/design-context/2034-6953.txt",
+      "bytes": 26300,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "2422:87039",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/2422-87039.txt",
+      "bytes": 1847,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/8.txt",
+      "bytes": 2992,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "2422:87039",
+      "label": "figma-code-connect-map.json",
+      "file": "captures/code-connect/2422-87039.txt",
+      "bytes": 1927,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 45071,
+      "capturedAt": "2026-10-01T16:18:26.110Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

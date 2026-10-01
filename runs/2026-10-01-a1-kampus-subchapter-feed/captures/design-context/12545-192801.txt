@@ -1,0 +1,15 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/1616217e-314f-4604-8ad1-566cc715eeb1";
+type FullscreenToggleProps = { className?: string; state?: "Default" };
+function FullscreenToggle({ className, state = "Default" }) {
+  return (
+    <div data-node-id="12545:192801">
+      <div data-node-id="12545:192803" data-name="Icon-button"> {/* round white icon button, 40px */}
+        <img data-node-id="I12545:192803;192:2472" data-name="icon" />
+      </div>
+      <p>View fullscreen</p>
+    </div>
+  );
+}
+export default function FullscreenToggle1() {
+  return <FullscreenToggle />;
+}

@@ -1,0 +1,586 @@
+<!--
+Raw verbatim response of mcp__figma__get_metadata
+  fileKey: UBr399hnydpNF9P5Jb2vfx
+  nodeId:  2847:14994
+  server:  figma (remote)
+The tool returns XML, not JSON, despite the .json filename mandated by the pipeline.
+Preamble line returned by the tool: "Currently selected nodes: - 2847:14994: My Groups"
+-->
+<frame id="2847:14994" name="My Groups" x="3199" y="465" width="1280" height="1796">
+  <frame id="2847:14995" name="Frame 1000000745" x="128" y="152" width="1013" height="40">
+    <text id="2847:14996" name="Groups" x="0" y="0" width="352" height="40" />
+    <frame id="2847:14997" name="Frame 1000000830" x="554" y="0" width="459" height="40">
+      <instance id="2847:14998" name="sl-button" x="-329" y="0" width="221" height="40" />
+      <instance id="2847:14999" name="sl-button" x="-92" y="0" width="195" height="40" />
+      <instance id="2847:15000" name="sl-button" x="119" y="0" width="174" height="40" />
+      <frame id="2847:15001" name="Frame 26931" x="309" y="0" width="150" height="40">
+        <instance id="2847:15002" name="Button" x="0" y="0" width="150" height="40" />
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2847:15003" name="Frame 1000000825" x="0" y="0" width="1280" height="120">
+    <frame id="2847:15005" name="top navi bar" x="0" y="0" width="1280" height="56">
+      <frame id="2847:15006" name="MittSanoma 3" x="128" y="16" width="123.46666717529297" height="24">
+        <frame id="2847:15007" name="Clip path group" x="0" y="-2" width="144" height="28">
+          <frame id="2847:15008" name="clip0_7_3" x="0" y="0" width="123.46666717529297" height="24" />
+          <frame id="2847:15010" name="Logo_MyVanIn 1" x="3" y="-2" width="141" height="28">
+            <frame id="2847:15011" name="Group" x="33.928466796875" y="6.095703125" width="106.73484802246094" height="21.904706954956055" />
+            <frame id="2847:15019" name="Group" x="0" y="3" width="0" height="0" />
+            <vector id="2847:15036" name="Vector" x="38.984130859375" y="6.0712890625" width="12.351675987243652" height="11.9692964553833" hidden="true" />
+            <vector id="2847:15037" name="Vector" x="50.23095703125" y="6.0712890625" width="13.337303161621094" height="11.969473838806152" hidden="true" />
+            <vector id="2847:15038" name="Vector" x="64.956298828125" y="6.0712890625" width="11.4459228515625" height="11.969473838806152" hidden="true" />
+            <vector id="2847:15039" name="Vector" x="84.1669921875" y="6.0712890625" width="1.911102533340454" height="11.969473838806152" hidden="true" />
+            <vector id="2847:15040" name="Vector" x="90.281494140625" y="6.0712890625" width="11.44654655456543" height="11.969473838806152" hidden="true" />
+            <vector id="2847:15041" name="Vector" x="52.1025390625" y="22.8916015625" width="1.7388389110565186" height="2.5084846019744873" hidden="true" />
+            <vector id="2847:15042" name="Vector" x="55.35986328125" y="21.927734375" width="1.8736977577209473" height="3.4676337242126465" hidden="true" />
+            <vector id="2847:15043" name="Vector" x="57.602783203125" y="22.8916015625" width="1.7386599779129028" height="2.5084846019744873" hidden="true" />
+            <vector id="2847:15044" name="Vector" x="60.000244140625" y="22.8916015625" width="1.9136782884597778" height="2.4531352519989014" hidden="true" />
+            <vector id="2847:15045" name="Vector" x="62.438232421875" y="22.8916015625" width="2.2484395503997803" height="2.508396625518799" hidden="true" />
+            <vector id="2847:15046" name="Vector" x="65.215576171875" y="22.8916015625" width="3.3276195526123047" height="2.4532248973846436" hidden="true" />
+            <vector id="2847:15047" name="Vector" x="69.056884765625" y="22.8916015625" width="1.7390124797821045" height="2.5084846019744873" hidden="true" />
+            <vector id="2847:15048" name="Vector" x="72.30908203125" y="22.8916015625" width="1.863752841949463" height="2.503509521484375" hidden="true" />
+            <vector id="2847:15049" name="Vector" x="74.47705078125" y="22.8916015625" width="2.2486183643341064" height="2.508396625518799" hidden="true" />
+            <vector id="2847:15050" name="Vector" x="77.254638671875" y="22.8916015625" width="3.3275272846221924" height="2.4532248973846436" hidden="true" />
+            <vector id="2847:15051" name="Vector" x="81.28076171875" y="22.8916015625" width="2.1732828617095947" height="3.4425816535949707" hidden="true" />
+            <vector id="2847:15052" name="Vector" x="83.793212890625" y="22.8916015625" width="1.7386599779129028" height="2.5084846019744873" hidden="true" />
+            <vector id="2847:15053" name="Vector" x="86.191162109375" y="22.8916015625" width="1.9134125709533691" height="2.4531352519989014" hidden="true" />
+            <vector id="2847:15054" name="Vector" x="88.42919921875" y="22.947265625" width="2.0931429862976074" height="3.502194404602051" hidden="true" />
+            <frame id="2847:15055" name="Frame 26856" x="0" y="3" width="26.985349655151367" height="18.82195281982422" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="2847:15059" name="Frame 26802" x="459" y="0" width="363" height="58">
+        <instance id="2847:15060" name="menu item SU" x="0" y="10" width="131" height="36" />
+        <instance id="2847:15061" name="menu item SU" x="155" y="10" width="55" height="38" />
+        <instance id="2847:15062" name="menu item SU" x="234" y="10" width="43" height="36" />
+        <instance id="2847:15063" name="menu item SU" x="301" y="10" width="62" height="36" />
+      </frame>
+      <frame id="2847:15064" name="Frame 1000000818" x="874.9367065429688" y="0" width="277" height="56">
+        <instance id="2847:15065" name="avatar_SU" x="108" y="4" width="169" height="48" />
+      </frame>
+    </frame>
+    <frame id="2847:15066" name="secondary bar" x="0" y="56" width="1280" height="64">
+      <frame id="2847:15067" name="Frame 1397" x="799" y="12" width="353" height="40">
+        <frame id="2847:15068" name="School selection" x="0" y="0" width="353" height="40">
+          <frame id="2847:15069" name="Dropdown" x="0" y="8" width="353" height="24">
+            <text id="2847:15070" name="school-flag" x="0" y="0" width="16" height="24" />
+            <frame id="2847:15071" name="School label" x="16" y="0" width="209" height="24">
+              <frame id="2847:15072" name="roofing_FILL0_wght400_GRAD0_opsz48 2" x="8" y="0" width="24" height="24" hidden="true" />
+              <text id="2847:15074" name="Bogaerts International School" x="8" y="0" width="201" height="24" />
+            </frame>
+            <instance id="2847:15075" name="button" x="225" y="0" width="128" height="24" />
+          </frame>
+          <instance id="2847:15076" name="Button" x="161" y="0" width="74" height="40" hidden="true" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2847:15077" name="Frame 27134" x="125" y="232" width="1028" height="25">
+    <text id="2847:15078" name="ALL SCHOOL GROUPS" x="0" y="0" width="187" height="25" />
+    <frame id="2847:15079" name="Frame 26931" x="878" y="0" width="150" height="40" />
+  </frame>
+  <frame id="2847:15379" name="bulk panel" x="370" y="1466" width="540" height="56">
+    <frame id="2847:15380" name="Frame 27143" x="16" y="16" width="516" height="24">
+      <instance id="2847:15381" name="xmark" x="0" y="2" width="20" height="20" />
+      <frame id="2847:15382" name="panel" x="36" y="0" width="480" height="24">
+        <frame id="2847:15383" name="items selected" x="0" y="1.5" width="128" height="21">
+          <text id="2847:15384" name="Text" x="0" y="0" width="9" height="21" />
+          <text id="2847:15385" name="Text" x="11" y="0" width="117" height="21" />
+        </frame>
+        <frame id="2847:15386" name="buttons" x="152" y="0" width="328" height="24">
+          <vector id="2847:15387" name="Line 1" x="727.5" y="0" width="0.0000017484551335655851" height="40" hidden="true" />
+          <frame id="2847:15388" name="Frame 27142" x="10" y="0" width="318" height="24">
+            <instance id="2847:15389" name="sl-button" x="0" y="0" width="94" height="24" />
+            <instance id="2847:15390" name="sl-button" x="94" y="0" width="123" height="24" />
+            <instance id="2847:15391" name="sl-button" x="217" y="0" width="101" height="24" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <instance id="2847:15392" name="Cell" x="258.79998779296875" y="0" width="154.8000030517578" height="40" hidden="true" />
+  </frame>
+  <frame id="2847:15393" name="Frame 27076" x="972" y="432" width="72" height="20">
+    <frame id="2847:15394" name="Frame 27075" x="0" y="0" width="72" height="20" />
+  </frame>
+  <frame id="2847:15395" name="Frame 27162" x="128" y="297.453125" width="1023" height="180">
+    <frame id="2847:15396" name="Frame 27157" x="24" y="24" width="975" height="40">
+      <instance id="2847:15397" name="sl-searchfield" x="0" y="0" width="629" height="40" />
+    </frame>
+    <frame id="2847:15398" name="Frame 27147" x="24" y="88" width="975" height="68">
+      <frame id="2847:15399" name="Frame 26852" x="0" y="0" width="632" height="68">
+        <frame id="2847:15400" name="Dropdown" x="0" y="0" width="200" height="68">
+          <text id="2847:15401" name="Group status" x="0" y="0" width="200" height="24" />
+          <frame id="2847:15402" name="dropdown" x="0" y="28" width="200" height="40">
+            <text id="2847:15403" name="Active" x="16" y="8" width="45" height="24" />
+            <frame id="2847:15404" name="btn icons" x="172" y="14" width="12" height="12" />
+          </frame>
+        </frame>
+        <frame id="2847:15406" name="Dropdown" x="216" y="0" width="200" height="68">
+          <text id="2847:15407" name="Group type" x="0" y="0" width="200" height="24" />
+          <frame id="2847:15408" name="dropdown" x="0" y="28" width="200" height="40">
+            <text id="2847:15409" name="Select school year" x="16" y="8" width="28" height="24" />
+            <frame id="2847:15410" name="btn icons" x="172" y="14" width="12" height="12" />
+          </frame>
+        </frame>
+        <frame id="2847:15412" name="Dropdown" x="432" y="0" width="200" height="68">
+          <text id="2847:15413" name="School year" x="0" y="0" width="200" height="24" />
+          <frame id="2847:15414" name="dropdown" x="0" y="28" width="200" height="40">
+            <text id="2847:15415" name="Select school year" x="16" y="8" width="28" height="24" />
+            <frame id="2847:15416" name="btn icons" x="172" y="14" width="12" height="12" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="2847:15418" name="Frame 27156" x="734" y="28" width="241" height="40">
+        <frame id="2847:15419" name="Frame 27156" x="0" y="8" width="97" height="24">
+          <text id="2847:15420" name="xmark" x="0" y="0" width="11" height="24" />
+          <frame id="2847:15421" name="Frame 27154" x="19" y="0" width="78" height="24">
+            <text id="2847:15422" name="Clear filters" x="0" y="0" width="78" height="24" />
+          </frame>
+        </frame>
+        <frame id="2847:15423" name="button primary" x="121" y="0" width="120" height="40">
+          <text id="2847:15424" name="magnifying-glass" x="24" y="12" width="16" height="16" />
+          <text id="2847:15425" name="Search" x="48" y="8" width="48" height="24" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <instance id="2847:15426" name="Footer" x="0" y="1668" width="1280" height="128" />
+  <frame id="2847:15708" name="Frame 1000000839" x="128" y="518" width="1024" height="1068">
+    <frame id="2847:15427" name="Frame 1000000739" x="0" y="0" width="84" height="24">
+      <text id="2847:15428" name="span" x="0" y="2" width="72" height="20" />
+      <line id="2847:15429" name="Line 39" x="84" y="0" width="0" height="24" />
+    </frame>
+    <instance id="2847:15709" name="sl-helper-theme" x="0" y="32" width="83" height="20" />
+    <frame id="2847:15080" name="mat-table" x="0" y="60" width="1024" height="1008">
+      <frame id="2847:15081" name="mat-body" x="0" y="0" width="1024" height="1008">
+        <frame id="2847:15082" name="Frame" x="0" y="0" width="369" height="1008">
+          <frame id="2847:15083" name="th-text-start" x="0" y="0" width="369" height="48">
+            <frame id="2847:15084" name="v-input--selection-controls" x="16" y="8" width="32" height="32">
+              <frame id="2847:15085" name="checkbox-box" x="7" y="7" width="18" height="18">
+                <frame id="2847:15086" name="core-icon" x="1" y="1" width="16" height="16">
+                  <text id="2847:15087" name="minus" x="1.5" y="0" width="13" height="16" />
+                </frame>
+              </frame>
+            </frame>
+            <text id="2847:15088" name="span" x="58" y="14" width="44" height="20" />
+          </frame>
+          <frame id="2847:15089" name="td-text-start" x="0" y="48" width="369" height="48">
+            <instance id="2847:15090" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15091" name="Class 1" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15092" name="td-text-start" x="0" y="96" width="369" height="48">
+            <instance id="2847:15093" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15094" name="Class 2" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15095" name="td-text-start" x="0" y="144" width="369" height="48">
+            <instance id="2847:15096" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15097" name="Class 3" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15098" name="td-text-start" x="0" y="192" width="369" height="48">
+            <instance id="2847:15099" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15100" name="Study group French B1" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15101" name="td-text-start" x="0" y="240" width="369" height="48">
+            <instance id="2847:15102" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15103" name="Study group French B2" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15104" name="td-text-start" x="0" y="288" width="369" height="48">
+            <instance id="2847:15105" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15106" name="Study group French B3" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15107" name="td-text-start" x="0" y="336" width="369" height="48">
+            <instance id="2847:15108" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15109" name="Study group English B1" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15110" name="td-text-start" x="0" y="384" width="369" height="48">
+            <instance id="2847:15111" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15112" name="Study group English B1" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15113" name="td-text-start" x="0" y="432" width="369" height="48">
+            <instance id="2847:15114" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15115" name="Study group English B2" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15116" name="td-text-start" x="0" y="480" width="369" height="48">
+            <instance id="2847:15117" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15118" name="Study group English B3" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15119" name="td-text-start" x="0" y="528" width="369" height="48">
+            <instance id="2847:15120" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15121" name="Class 4" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15122" name="td-text-start" x="0" y="576" width="369" height="48">
+            <instance id="2847:15123" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15124" name="Class 5" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15125" name="td-text-start" x="0" y="624" width="369" height="48">
+            <instance id="2847:15126" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15127" name="Class 6" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15128" name="td-text-start" x="0" y="672" width="369" height="48">
+            <instance id="2847:15129" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15130" name="Class 7" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15131" name="td-text-start" x="0" y="720" width="369" height="48">
+            <instance id="2847:15132" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15133" name="Class 8" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15134" name="td-text-start" x="0" y="768" width="369" height="48">
+            <instance id="2847:15135" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15136" name="Class 9" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15137" name="td-text-start" x="0" y="816" width="369" height="48">
+            <instance id="2847:15138" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15139" name="Class 10" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15140" name="td-text-start" x="0" y="864" width="369" height="48">
+            <instance id="2847:15141" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15142" name="Class 11" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15143" name="td-text-start" x="0" y="912" width="369" height="48">
+            <instance id="2847:15144" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15145" name="Class 12" x="58" y="10" width="295" height="28" />
+          </frame>
+          <frame id="2847:15146" name="td-text-start" x="0" y="960" width="369" height="48">
+            <instance id="2847:15147" name="v-input--selection-controls" x="16" y="8" width="32" height="32" />
+            <text id="2847:15148" name="Class 13" x="58" y="10" width="295" height="28" />
+          </frame>
+        </frame>
+        <frame id="2847:15149" name="Frame" x="369" y="0" width="141" height="1008">
+          <frame id="2847:15150" name="th-text-start" x="0" y="0" width="141" height="48">
+            <text id="2847:15151" name="span" x="16" y="14" width="35" height="20" />
+          </frame>
+          <instance id="2847:15152" name="td-text-start" x="0" y="48" width="141" height="48" />
+          <instance id="2847:15153" name="td-text-start" x="0" y="96" width="141" height="48" />
+          <instance id="2847:15154" name="td-text-start" x="0" y="144" width="141" height="48" />
+          <instance id="2847:15155" name="td-text-start" x="0" y="192" width="141" height="48" />
+          <instance id="2847:15156" name="td-text-start" x="0" y="240" width="141" height="48" />
+          <instance id="2847:15157" name="td-text-start" x="0" y="288" width="141" height="48" />
+          <instance id="2847:15158" name="td-text-start" x="0" y="336" width="141" height="48" />
+          <instance id="2847:15159" name="td-text-start" x="0" y="384" width="141" height="48" />
+          <instance id="2847:15160" name="td-text-start" x="0" y="432" width="141" height="48" />
+          <instance id="2847:15161" name="td-text-start" x="0" y="480" width="141" height="48" />
+          <instance id="2847:15162" name="td-text-start" x="0" y="528" width="141" height="48" />
+          <instance id="2847:15163" name="td-text-start" x="0" y="576" width="141" height="48" />
+          <instance id="2847:15164" name="td-text-start" x="0" y="624" width="141" height="48" />
+          <instance id="2847:15165" name="td-text-start" x="0" y="672" width="141" height="48" />
+          <instance id="2847:15166" name="td-text-start" x="0" y="720" width="141" height="48" />
+          <instance id="2847:15167" name="td-text-start" x="0" y="768" width="141" height="48" />
+          <instance id="2847:15168" name="td-text-start" x="0" y="816" width="141" height="48" />
+          <instance id="2847:15169" name="td-text-start" x="0" y="864" width="141" height="48" />
+          <instance id="2847:15170" name="td-text-start" x="0" y="912" width="141" height="48" />
+          <instance id="2847:15171" name="td-text-start" x="0" y="960" width="141" height="48" />
+        </frame>
+        <frame id="2847:15172" name="Frame" x="510" y="0" width="137" height="1008">
+          <frame id="2847:15173" name="th-text-start" x="0" y="0" width="137" height="48">
+            <text id="2847:15174" name="span" x="16" y="14" width="85" height="20" />
+          </frame>
+          <instance id="2847:15175" name="td-text-start" x="0" y="48" width="137" height="48" />
+          <instance id="2847:15176" name="td-text-start" x="0" y="96" width="137" height="48" />
+          <instance id="2847:15177" name="td-text-start" x="0" y="144" width="137" height="48" />
+          <instance id="2847:15178" name="td-text-start" x="0" y="192" width="137" height="48" />
+          <instance id="2847:15179" name="td-text-start" x="0" y="240" width="137" height="48" />
+          <instance id="2847:15180" name="td-text-start" x="0" y="288" width="137" height="48" />
+          <instance id="2847:15181" name="td-text-start" x="0" y="336" width="137" height="48" />
+          <instance id="2847:15182" name="td-text-start" x="0" y="384" width="137" height="48" />
+          <instance id="2847:15183" name="td-text-start" x="0" y="432" width="137" height="48" />
+          <instance id="2847:15184" name="td-text-start" x="0" y="480" width="137" height="48" />
+          <instance id="2847:15185" name="td-text-start" x="0" y="528" width="137" height="48" />
+          <instance id="2847:15186" name="td-text-start" x="0" y="576" width="137" height="48" />
+          <instance id="2847:15187" name="td-text-start" x="0" y="624" width="137" height="48" />
+          <instance id="2847:15188" name="td-text-start" x="0" y="672" width="137" height="48" />
+          <instance id="2847:15189" name="td-text-start" x="0" y="720" width="137" height="48" />
+          <instance id="2847:15190" name="td-text-start" x="0" y="768" width="137" height="48" />
+          <instance id="2847:15191" name="td-text-start" x="0" y="816" width="137" height="48" />
+          <instance id="2847:15192" name="td-text-start" x="0" y="864" width="137" height="48" />
+          <instance id="2847:15193" name="td-text-start" x="0" y="912" width="137" height="48" />
+          <instance id="2847:15194" name="td-text-start" x="0" y="960" width="137" height="48" />
+        </frame>
+        <frame id="2847:15195" name="Frame" x="647" y="0" width="127" height="1008">
+          <frame id="2847:15196" name="th-text-start" x="0" y="0" width="127" height="48">
+            <text id="2847:15197" name="span" x="16" y="14" width="79" height="20" />
+          </frame>
+          <instance id="2847:15198" name="td-text-start" x="0" y="48" width="127" height="48" />
+          <instance id="2847:15199" name="td-text-start" x="0" y="96" width="127" height="48" />
+          <instance id="2847:15200" name="td-text-start" x="0" y="144" width="127" height="48" />
+          <instance id="2847:15201" name="td-text-start" x="0" y="192" width="127" height="48" />
+          <instance id="2847:15202" name="td-text-start" x="0" y="240" width="127" height="48" />
+          <instance id="2847:15203" name="td-text-start" x="0" y="288" width="127" height="48" />
+          <instance id="2847:15204" name="td-text-start" x="0" y="336" width="127" height="48" />
+          <instance id="2847:15205" name="td-text-start" x="0" y="384" width="127" height="48" />
+          <instance id="2847:15206" name="td-text-start" x="0" y="432" width="127" height="48" />
+          <instance id="2847:15207" name="td-text-start" x="0" y="480" width="127" height="48" />
+          <instance id="2847:15208" name="td-text-start" x="0" y="528" width="127" height="48" />
+          <instance id="2847:15209" name="td-text-start" x="0" y="576" width="127" height="48" />
+          <instance id="2847:15210" name="td-text-start" x="0" y="624" width="127" height="48" />
+          <instance id="2847:15211" name="td-text-start" x="0" y="672" width="127" height="48" />
+          <instance id="2847:15212" name="td-text-start" x="0" y="720" width="127" height="48" />
+          <instance id="2847:15213" name="td-text-start" x="0" y="768" width="127" height="48" />
+          <instance id="2847:15214" name="td-text-start" x="0" y="816" width="127" height="48" />
+          <instance id="2847:15215" name="td-text-start" x="0" y="864" width="127" height="48" />
+          <instance id="2847:15216" name="td-text-start" x="0" y="912" width="127" height="48" />
+          <instance id="2847:15217" name="td-text-start" x="0" y="960" width="127" height="48" />
+        </frame>
+        <frame id="2847:15218" name="Frame" x="774" y="0" width="134" height="1008">
+          <frame id="2847:15219" name="th-text-start" x="0" y="0" width="134" height="48">
+            <text id="2847:15220" name="span" x="16" y="14" width="65" height="20" />
+          </frame>
+          <instance id="2847:15221" name="td-text-start" x="0" y="48" width="134" height="48" />
+          <instance id="2847:15222" name="td-text-start" x="0" y="96" width="134" height="48" />
+          <instance id="2847:15223" name="td-text-start" x="0" y="144" width="134" height="48" />
+          <instance id="2847:15224" name="td-text-start" x="0" y="192" width="134" height="48" />
+          <instance id="2847:15225" name="td-text-start" x="0" y="240" width="134" height="48" />
+          <instance id="2847:15226" name="td-text-start" x="0" y="288" width="134" height="48" />
+          <instance id="2847:15227" name="td-text-start" x="0" y="336" width="134" height="48" />
+          <instance id="2847:15228" name="td-text-start" x="0" y="384" width="134" height="48" />
+          <instance id="2847:15229" name="td-text-start" x="0" y="432" width="134" height="48" />
+          <instance id="2847:15230" name="td-text-start" x="0" y="480" width="134" height="48" />
+          <instance id="2847:15231" name="td-text-start" x="0" y="528" width="134" height="48" />
+          <instance id="2847:15232" name="td-text-start" x="0" y="576" width="134" height="48" />
+          <instance id="2847:15233" name="td-text-start" x="0" y="624" width="134" height="48" />
+          <instance id="2847:15234" name="td-text-start" x="0" y="672" width="134" height="48" />
+          <instance id="2847:15235" name="td-text-start" x="0" y="720" width="134" height="48" />
+          <instance id="2847:15236" name="td-text-start" x="0" y="768" width="134" height="48" />
+          <instance id="2847:15237" name="td-text-start" x="0" y="816" width="134" height="48" />
+          <instance id="2847:15238" name="td-text-start" x="0" y="864" width="134" height="48" />
+          <instance id="2847:15239" name="td-text-start" x="0" y="912" width="134" height="48" />
+          <instance id="2847:15240" name="td-text-start" x="0" y="960" width="134" height="48" />
+        </frame>
+        <frame id="2847:15241" name="Frame" x="908" y="0" width="116" height="1008">
+          <frame id="2847:15242" name="th-text-start" x="0" y="0" width="116" height="48">
+            <text id="2847:15243" name="span" x="34" y="14" width="48" height="20" />
+            <instance id="2847:15244" name="table sorting icon" x="111" y="16" width="16" height="16" hidden="true" />
+          </frame>
+          <frame id="2847:15245" name="td-text-start" x="0" y="48" width="116" height="48">
+            <frame id="2847:15246" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15247" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15248" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15249" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15250" name="td-text-start" x="0" y="96" width="116" height="48">
+            <frame id="2847:15251" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15252" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15253" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15254" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15255" name="td-text-start" x="0" y="144" width="116" height="48">
+            <frame id="2847:15256" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15257" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15258" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15259" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15260" name="td-text-start" x="0" y="192" width="116" height="48">
+            <frame id="2847:15261" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15262" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15263" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15264" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15265" name="td-text-start" x="0" y="240" width="116" height="48">
+            <frame id="2847:15266" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15267" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15268" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15269" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15270" name="td-text-start" x="0" y="288" width="116" height="48">
+            <frame id="2847:15271" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15272" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15273" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15274" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15275" name="td-text-start" x="0" y="336" width="116" height="48">
+            <frame id="2847:15276" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15277" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15278" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15279" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15280" name="td-text-start" x="0" y="384" width="116" height="48">
+            <frame id="2847:15281" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15282" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15283" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15284" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15285" name="td-text-start" x="0" y="432" width="116" height="48">
+            <frame id="2847:15286" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15287" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15288" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15289" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15290" name="td-text-start" x="0" y="480" width="116" height="48">
+            <frame id="2847:15291" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15292" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15293" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15294" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15295" name="td-text-start" x="0" y="528" width="116" height="48">
+            <frame id="2847:15296" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15297" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15298" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15299" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15300" name="td-text-start" x="0" y="576" width="116" height="48">
+            <frame id="2847:15301" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15302" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15303" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15304" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15305" name="td-text-start" x="0" y="624" width="116" height="48">
+            <frame id="2847:15306" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15307" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15308" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15309" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15310" name="td-text-start" x="0" y="672" width="116" height="48">
+            <frame id="2847:15311" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15312" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15313" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15314" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15315" name="td-text-start" x="0" y="720" width="116" height="48">
+            <frame id="2847:15316" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15317" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15318" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15319" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15320" name="td-text-start" x="0" y="768" width="116" height="48">
+            <frame id="2847:15321" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15322" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15323" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15324" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15325" name="td-text-start" x="0" y="816" width="116" height="48">
+            <frame id="2847:15326" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15327" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15328" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15329" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15330" name="td-text-start" x="0" y="864" width="116" height="48">
+            <frame id="2847:15331" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15332" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15333" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15334" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15335" name="td-text-start" x="0" y="912" width="116" height="48">
+            <frame id="2847:15336" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15337" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15338" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15339" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15340" name="td-text-start" x="0" y="960" width="116" height="48">
+            <frame id="2847:15341" name="Frame 27028" x="38" y="4" width="40" height="40">
+              <frame id="2847:15342" name="Icon-button" x="0" y="0" width="40" height="40">
+                <instance id="2847:15343" name="Icon-button" x="0.5" y="0" width="40" height="40" />
+              </frame>
+            </frame>
+            <text id="2847:15344" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+        </frame>
+        <frame id="2847:15345" name="Frame" x="774.0000610351562" y="0" width="72" height="240" hidden="true">
+          <instance id="2847:15346" name="th-text-start" x="0" y="0" width="72" height="48" />
+          <frame id="2847:15347" name="Close" x="0" y="48" width="72" height="48">
+            <instance id="2847:15348" name="Icon-button" x="16" y="4" width="40" height="40" />
+          </frame>
+          <frame id="2847:15349" name="td-text-start" x="0" y="96" width="72" height="48">
+            <instance id="2847:15350" name="Icon-button" x="16" y="4" width="40" height="40" />
+            <text id="2847:15351" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15352" name="td-text-start" x="0" y="144" width="72" height="48">
+            <instance id="2847:15353" name="Icon-button" x="16" y="4" width="40" height="40" />
+            <text id="2847:15354" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+          <frame id="2847:15355" name="td-text-start" x="0" y="192" width="72" height="48">
+            <instance id="2847:15356" name="Icon-button" x="16" y="4" width="40" height="40" />
+            <text id="2847:15357" name="Frozen Yogurt" x="16" y="10" width="90" height="28" hidden="true" />
+          </frame>
+        </frame>
+        <frame id="2847:15358" name="group-card-dropdown" x="747" y="524.453125" width="237" height="184">
+          <frame id="2847:15359" name="Dropdown Panels" x="12" y="12" width="296" height="40" hidden="true">
+            <text id="2847:15360" name="Text" x="16" y="8" width="240" height="24" />
+            <instance id="2847:15361" name="check" x="264" y="8" width="24" height="24" />
+          </frame>
+          <frame id="2847:15362" name="Dropdown Panels" x="12" y="12" width="213" height="40">
+            <frame id="2847:15363" name="Frame 27093" x="6" y="2" width="29" height="36">
+              <text id="2847:15364" name="Text" x="32" y="6" width="128" height="24" />
+              <text id="2847:15365" name="eye" x="6.5" y="6" width="16" height="24" />
+            </frame>
+          </frame>
+          <frame id="2847:15366" name="Dropdown Panels" x="12" y="52" width="213" height="40">
+            <frame id="2847:15367" name="Button" x="6" y="2" width="29" height="36">
+              <instance id="2847:15368" name="Icon-left" x="8" y="8" width="16" height="16" hidden="true" />
+              <text id="2847:15369" name="trash" x="8" y="8" width="13" height="20" />
+            </frame>
+            <text id="2847:15370" name="Text" x="35" y="8" width="141" height="24" />
+          </frame>
+          <frame id="2847:15371" name="Dropdown Panels" x="12" y="92" width="213" height="40">
+            <frame id="2847:15372" name="Frame 27093" x="6" y="0" width="29" height="40">
+              <text id="2847:15373" name="box-archive" x="6.5" y="10" width="16" height="20" />
+              <text id="2847:15374" name="Text" x="32" y="6" width="128" height="24" />
+            </frame>
+          </frame>
+          <frame id="2847:15375" name="Dropdown Panels" x="12" y="132" width="213" height="40">
+            <frame id="2847:15376" name="Frame 27093" x="6" y="2" width="29" height="36">
+              <text id="2847:15377" name="boxes-packing" x="5.5" y="6" width="18" height="24" />
+              <text id="2847:15378" name="Text" x="32" y="6" width="128" height="24" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2847:15744" name="bulk panel" x="370" y="1483" width="540" height="56">
+    <frame id="2847:15745" name="Frame 27143" x="16" y="16" width="516" height="24">
+      <instance id="2847:15746" name="xmark" x="0" y="2" width="20" height="20" />
+      <frame id="2847:15747" name="panel" x="36" y="0" width="480" height="24">
+        <frame id="2847:15748" name="items selected" x="0" y="1.5" width="128" height="21">
+          <text id="2847:15749" name="Text" x="0" y="0" width="9" height="21" />
+          <text id="2847:15750" name="Text" x="11" y="0" width="117" height="21" />
+        </frame>
+        <frame id="2847:15751" name="buttons" x="152" y="0" width="328" height="24">
+          <vector id="2847:15752" name="Line 1" x="727.5" y="0" width="0.0000017484551335655851" height="40" hidden="true" />
+          <frame id="2847:15753" name="Frame 27142" x="10" y="0" width="318" height="24">
+            <instance id="2847:15754" name="sl-button" x="0" y="0" width="94" height="24" />
+            <instance id="2847:15755" name="sl-button" x="94" y="0" width="123" height="24" />
+            <instance id="2847:15756" name="sl-button" x="217" y="0" width="101" height="24" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <instance id="2847:15757" name="Cell" x="258.79998779296875" y="0" width="154.8000030517578" height="40" hidden="true" />
+  </frame>
+</frame>

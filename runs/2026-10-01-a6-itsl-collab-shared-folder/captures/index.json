@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "run": "a6-itsl-collab-shared-folder",
+  "figma": {
+    "rootNodeId": "4200:13792"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "4994:14459",
+      "label": "figma-design-context.md",
+      "file": "captures/design-context/4994-14459.txt",
+      "bytes": 39701,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4994:14459",
+      "label": "figma-design-context-part2.md (continuation)",
+      "file": "captures/design-context/4994-14459.part1.txt",
+      "bytes": 44833,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false,
+      "continuationOf": "4994:14459"
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4994:14459",
+      "label": "figma-design-context-part3.md (continuation)",
+      "file": "captures/design-context/4994-14459.part2.txt",
+      "bytes": 27271,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false,
+      "continuationOf": "4994:14459"
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "4200:13792",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/4200-13792.txt",
+      "bytes": 6465,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/8.txt",
+      "bytes": 2563,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures/code-connect/unknown-0.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 126235,
+      "capturedAt": "2026-10-01T16:18:26.131Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

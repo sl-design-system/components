@@ -1,0 +1,15 @@
+export default function Frame27134() {
+  return (
+    <div
+      className="content-stretch flex items-start justify-between relative size-full"
+      data-node-id="2847:15077">
+      <p
+        className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#8d8d8d] text-[18px] whitespace-nowrap"
+        data-node-id="2847:15078"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        ALL SCHOOL GROUPS
+      </p>
+      <div className="h-[40px] relative shrink-0 w-[150px]" data-node-id="2847:15079" />
+    </div>
+  );
+}

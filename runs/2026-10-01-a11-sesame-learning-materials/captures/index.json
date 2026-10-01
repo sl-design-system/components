@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "run": "a11-sesame-learning-materials",
+  "figma": {
+    "rootNodeId": "116:19049"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "116:19049",
+      "label": "get_design_context raw output for node 116:19049 (Learning materials), fileKey UBr399hnydpNF9P5Jb2vfx",
+      "file": "captures/design-context/116-19049.txt",
+      "bytes": 4072,
+      "capturedAt": "2026-10-01T16:18:26.105Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "116:19049",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/116-19049.txt",
+      "bytes": 12333,
+      "capturedAt": "2026-10-01T16:18:26.105Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": null,
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/unknown-0.txt",
+      "bytes": 120,
+      "capturedAt": "2026-10-01T16:18:26.105Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures/code-connect/unknown-0.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-01T16:18:26.105Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 78298,
+      "capturedAt": "2026-10-01T16:18:26.105Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

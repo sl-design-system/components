@@ -1,0 +1,22 @@
+function CardFooterTheory({ className, state = "Content information" }) {
+  return (
+    <div data-node-id="12026:147927">
+      <div data-name="Course information"><p>Text</p></div>
+    </div>
+  );
+}
+export default function TheoryCardUpdate() {
+  return (
+    <div data-node-id="5311:37127" data-name="Theory-card-UPDATE">
+      <div data-name="content">
+        <div data-name="image">{/* thumbnail photo, 170x128 */}</div>
+        <div data-name="text">
+          <h4>Kieli, kulttuuri ja identiteetti</h4>
+          <p>{lorem-ipsum description, 2-line clamp}</p>
+        </div>
+        <div data-name="tools"><Icon-button /> {/* overflow "..." menu */}</div>
+      </div>
+      <CardFooterTheory /> {/* footer row, "Text" content-type label, top purple border */}
+    </div>
+  );
+}

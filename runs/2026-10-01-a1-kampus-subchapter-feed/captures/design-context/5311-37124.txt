@@ -1,0 +1,12 @@
+export default function FeedFilters() {
+  return (
+    <div data-node-id="5311:37124" data-name="Feed filters">
+      <p>Filter</p>
+      <div>
+        Filter-pill "Show everything" (selected, purple bg)
+        Filter-pill "Text" + number-tag badge "11"
+        Filter-pill "Exercise" + number-tag badge "26"
+      </div>
+    </div>
+  );
+}

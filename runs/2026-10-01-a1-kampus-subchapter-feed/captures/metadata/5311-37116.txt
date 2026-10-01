@@ -1,0 +1,47 @@
+<frame id="5311:37116" name="Subchapter feed page" x="4486" y="312" width="1280" height="720">
+  <instance id="5311:37117" name="Fullscreen toggle" x="1192" y="569" width="88" height="122" />
+  <frame id="5311:37118" name="side-by-side" x="0" y="56" width="1280" height="664">
+    <instance id="5311:37119" name="Table of contents - proto/feed" x="74" y="0" width="360" height="664" hidden="true" />
+    <instance id="5311:37120" name="Table of contents - Elements basics" x="74" y="0" width="360" height="664" />
+    <frame id="5311:37121" name="content" x="434" y="0" width="846" height="664">
+      <instance id="5311:37122" name="breadcrumb-2023" x="24" y="0" width="798" height="64" />
+      <instance id="5311:37123" name="Feed headings (2023)" x="24" y="80" width="798" height="40" />
+      <instance id="5311:37124" name="Feed filters" x="24" y="136" width="798" height="32" />
+      <instance id="5311:37125" name="Student view" x="24" y="184" width="798" height="24" />
+      <instance id="5311:37126" name="Feed headings (2023)" x="24" y="224" width="798" height="56" />
+      <instance id="5311:37127" name="Theory-card-UPDATE" x="24" y="296" width="798" height="176" />
+      <instance id="5311:37128" name="Feed headings (2023)" x="24" y="488" width="798" height="56" />
+      <frame id="5311:37129" name="Frame 1452" x="24" y="560" width="798" height="144">
+        <frame id="5311:37130" name="Frame 1434" x="1" y="0" width="796" height="144">
+          <instance id="5311:37131" name="Exercise-card-UPDATE" x="0" y="0" width="390" height="144" />
+          <instance id="5311:37132" name="Exercise-card-UPDATE" x="406" y="0" width="390" height="144" />
+        </frame>
+      </frame>
+      <frame id="5311:37133" name="Frame 1435" x="24" y="720" width="798" height="144">
+        <frame id="5311:37134" name="Frame 1434" x="1" y="0" width="796" height="144">
+          <instance id="5311:37135" name="Exercise-card-UPDATE" x="0" y="0" width="390" height="144" />
+          <instance id="5311:37136" name="Exercise-card-UPDATE" x="406" y="0" width="390" height="144" />
+        </frame>
+      </frame>
+      <instance id="5311:37137" name="Feed headings (2023)" x="24" y="880" width="798" height="56" />
+      <instance id="5311:37138" name="Theory-card-UPDATE" x="24" y="952" width="798" height="176" />
+      <instance id="5311:37139" name="Theory-card-UPDATE" x="24" y="1144" width="798" height="176" />
+      <instance id="5311:37140" name="Feed headings (2023)" x="24" y="1336" width="798" height="56" />
+      <frame id="5311:37141" name="Frame 1453" x="24" y="1408" width="798" height="144">
+        <frame id="5311:37142" name="Frame 1434" x="1" y="0" width="796" height="144">
+          <instance id="5311:37143" name="Exercise-card-UPDATE" x="0" y="0" width="390" height="144" />
+          <instance id="5311:37144" name="Exercise-card-UPDATE" x="406" y="0" width="390" height="144" />
+        </frame>
+      </frame>
+      <frame id="5311:37145" name="Frame 1454" x="24" y="1568" width="798" height="144">
+        <frame id="5311:37146" name="Frame 1434" x="1" y="0" width="796" height="144">
+          <instance id="5311:37147" name="Exercise-card-UPDATE" x="0" y="0" width="390" height="144" />
+          <instance id="5311:37148" name="Exercise-card-UPDATE" x="406" y="0" width="390" height="144" />
+        </frame>
+      </frame>
+      <frame id="5311:37149" name="placeholder" x="314" y="1728" width="218" height="128" />
+    </frame>
+  </frame>
+  <instance id="5311:37150" name="Left-toolbar" x="0" y="56" width="74" height="664" />
+  <instance id="5311:37151" name="Header-navigation" x="0" y="0" width="1280" height="56" />
+</frame>

@@ -1,0 +1,13 @@
+Calls made (remote `figma` server), all returned an empty object literally `{}` — no entries, not even `null`-valued ones, for any node tested:
+
+- get_code_connect_map(nodeId=5006:43051) [whole frame subtree] -> {}
+- get_code_connect_map(nodeId=5006:43058) [Button instance, top-level Actions] -> {}
+- get_code_connect_map(nodeId=5006:43052) [Navigation instance] -> {}
+- get_code_connect_map(nodeId=5006:43065) [xlsx icon instance] -> {}
+
+Attempted nested-instance IDs (semicolon-qualified, e.g. "I5006:43052;9976:10654") were rejected by the remote server's input validation (nodeId must match "123:456" — nested/instance-qualified IDs are not accepted by this tool on the remote server):
+
+- get_code_connect_map(nodeId="I5006:43052;9976:10654") -> Input validation error: Node ID must be in the format "123:456" or "123-456"
+- get_code_connect_map(nodeId="I5006:43056;19853:9045") -> Input validation error: Node ID must be in the format "123:456" or "123-456"
+
+Conclusion: Code Connect is not resolvable at all via the remote `figma` server for this file (0 resolved, 0 `hasTemplate:false`, 0 explicit-null entries — the map is simply empty for every probe). This is consistent with the known "remote server is unreliable for get_code_connect_map" limitation noted in the pipeline skill. Per the design-analyst's escalation criteria, nodes were instead identified via: (a) `get_design_context`'s "Component descriptions" block, which surfaces the *Figma library's own* usage/documentation metadata for each instance's main component (Navigation, Button, PageHeader, Breadcrumb trail, Avatar, Search, etc., each with a styleguide.itsbuild.net / prom.itsldevops.net documentation link) — this is strong first-party evidence of identity independent of Code Connect; and (b) cross-referencing node/component names against the actual `packages/components/*` source in this repo (confirmed `sl-button`, `sl-tag`, `sl-breadcrumbs` custom-element registrations). See the manifest's "Existing SLDS Components Used" table for the resulting identifications, all flagged "(identified — CC map empty on remote server)".

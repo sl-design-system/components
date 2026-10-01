@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "run": "b-itsl-course-course-files",
+  "figma": {
+    "rootNodeId": "4007:3161"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_metadata",
+      "nodeId": "4007:3161",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/4007-3161.txt",
+      "bytes": 1787,
+      "capturedAt": "2026-10-01T16:18:26.154Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/8.txt",
+      "bytes": 2254,
+      "capturedAt": "2026-10-01T16:18:26.154Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "4007:3161",
+      "label": "figma-code-connect-map.txt",
+      "file": "captures/code-connect/4007-3161.txt",
+      "bytes": 2682,
+      "capturedAt": "2026-10-01T16:18:26.154Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 46407,
+      "capturedAt": "2026-10-01T16:18:26.154Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

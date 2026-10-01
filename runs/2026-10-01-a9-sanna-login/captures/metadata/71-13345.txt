@@ -1,0 +1,25 @@
+Currently selected nodes:
+- 71:13345: Login 1
+
+<frame id="71:13345" name="Login 1" x="10553" y="461" width="1512" height="982">
+  <instance id="71:13346" name="sl-button-pill" x="927" y="579" width="368" height="24" hidden="true" />
+  <instance id="71:13361" name="logo-wordmark" x="40" y="41" width="106.9979248046875" height="19.45416831970215" />
+  <instance id="71:13362" name="Image login" x="732" y="29" width="745" height="924" />
+  <frame id="71:13433" name="Frame 48097622" x="147" y="231" width="461" height="504">
+    <frame id="71:13434" name="Frame 48097623" x="-1.5" y="0" width="464" height="176">
+      <text id="71:13435" name="Component name" x="0" y="0" width="464" height="96" />
+      <text id="71:13436" name="Component name" x="0.5" y="136" width="463" height="40" />
+    </frame>
+    <frame id="71:13437" name="content inputs" x="43" y="256" width="375" height="120">
+      <frame id="71:13438" name="Frame 48097620" x="0" y="0" width="375" height="120">
+        <frame id="71:13439" name="Frame 48097619" x="0" y="0" width="375" height="120">
+          <frame id="71:13440" name="Frame 48097618" x="0" y="0" width="375" height="120">
+            <instance id="71:13441" name="sl-select (simple-prototype)" x="0" y="0" width="375" height="60" />
+            <instance id="71:13442" name="sl-button-pill" x="0" y="84" width="375" height="36" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <instance id="72:10150" name="footer" x="0" y="906" width="732" height="41" />
+</frame>

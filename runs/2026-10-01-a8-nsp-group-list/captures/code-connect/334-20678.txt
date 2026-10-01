@@ -1,0 +1,64 @@
+{
+  "_note": "The single call get_code_connect_map(nodeId=334:20573) over the full ~620-node subtree returned {} (empty). Per-node targeted calls on individual instance IDs within that same subtree DID return resolved snippets. Both are recorded below for reproducibility.",
+  "334:20573_full_subtree_call": {},
+  "per_node_calls": {
+    "334:20678": {},
+    "334:20685": {},
+    "334:20668": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      variant=\"primary\"\n    >\n      \n      Join live lesson\n      \n    </sl-button>\n  "
+    },
+    "334:20669": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      \n    >\n      \n      Use lesson code\n      \n    </sl-button>\n  "
+    },
+    "364:19522": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-button\n      \n      \n      fill=\"ghost\"\n      shape=\"pill\"\n      \n      \n      \n    >\n      \n      Open e-book\n      \n    </sl-button>\n  "
+    },
+    "334:22670": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-badge\n       color=\"red\"\n       emphasis=\"bold\"\n       size=\"sm\"\n      \n    >\n      \n      Status\n    </sl-badge>\n  "
+    },
+    "334:20593": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-avatar\n      color=\"primary\"\n      emphasis=\"bold\"\n      display-name=\"7 students already joined  \"\n      display-initials=\"JV\"\n      \n      \n      \n    >\n      Class\n      \n    </sl-avatar>\n  "
+    },
+    "334:20679": {},
+    "334:20680": {}
+  },
+  "unresolvable_format_errors": {
+    "note": "Instance-internal node IDs of the form I<parent>:<...>;<n>:<m> (e.g. children of Frame 26 / 334:20685) are rejected by get_code_connect_map with 'Node ID must be in the format 123:456 or 123-456'. These children were identified instead by sl-* naming from get_metadata: sl-button-pill, sl-badge, Logo, Frame 24.",
+    "rejected_ids": [
+      "I334:20685;111:12383",
+      "I334:20685;10:557",
+      "I334:20685;10:4007",
+      "I334:20685;67:2159"
+    ]
+  }
+}

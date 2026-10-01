@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+    "rootNodeId": "2142:48093",
+    "server": "mcp__figma__get_variable_defs (remote)",
+    "probeCount": 13,
+    "note": "Per-probe provenance for the exhaustive variable sweep that is a named goal of this run. `figma-variable-defs.json` holds the merged flat map (25 distinct variables); this file records WHICH node each variable came from. The root probe (2142:48093) is a strict superset of every sub-probe — no sub-probe surfaced a variable absent from the root.",
+    "coverage": "13 nodes spanning: root, app header, tabs, text/ghost/primary buttons, card with shadow, footer, empty state, select, radio group, checkbox, accordion, text input."
+  },
+  "probes": {
+    "2142:48093": {
+      "name": "Group details (root frame)",
+      "count": 25,
+      "response": {
+        "text button": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 24, letterSpacing: 0)",
+        "secondary text color": "#5D5D5D",
+        "Neutrals/$kampus-color-gray-1": "#F5F5F6",
+        "shadow-low": "Effect(type: DROP_SHADOW, color: #6D6E7359, offset: (0, 2), radius: 8, spread: 0)",
+        "Body/Small-bold": "Font(family: \"Open Sans\", style: Bold, size: 16, weight: 700, lineHeight: 24, letterSpacing: 0)",
+        "UI/Tiny-bold": "Font(family: \"Open Sans\", style: Bold, size: 12, weight: 700, lineHeight: 16, letterSpacing: 3)",
+        "Body/Small": "Font(family: \"Open Sans\", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0)",
+        "H3": "Font(family: \"Open Sans\", style: SemiBold, size: 18, weight: 600, lineHeight: 100, letterSpacing: 0)",
+        "H4": "Font(family: \"Open Sans\", style: SemiBold, size: 18, weight: 600, lineHeight: 100, letterSpacing: 0)",
+        "color/input/fieldLabel/text/default": "#323232",
+        "text/input/fieldLabel/label/sm": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 16, letterSpacing: 0)",
+        "color/input/textField/default/default/inputText": "#323232",
+        "text/input/textField/text/lg": "Font(family: \"Open Sans\", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0)",
+        "color/input/textField/default/default/background": "#FFFFFF",
+        "color/input/textField/default/default/border": "#9D9F9F",
+        "boxShadow/none": "Effect(type: DROP_SHADOW, color: #00000000, offset: (0, 0), radius: 0, spread: 0)",
+        "text/input/fieldLabel/tag/sm": "Font(family: \"Open Sans\", style: Regular, size: 14, weight: 400, lineHeight: 16, letterSpacing: 0)",
+        "color/input/option/default/checked/default/icon": "#FFFFFF",
+        "color/input/option/default/checked/default/background": "#01766D",
+        "color/input/option/default/checked/default/border": "#01766D",
+        "color/input/option/default/checked/default/label": "#323232",
+        "text/input/option/md": "Font(family: \"Open Sans\", style: Regular, size: 14, weight: 400, lineHeight: 20, letterSpacing: 0)",
+        "color/input/option/default/unchecked/default/background": "#FFFFFF",
+        "color/input/option/default/unchecked/default/border": "#5D5D5D",
+        "color/input/option/default/unchecked/default/label": "#323232",
+        "Gray/gray 300": "#BFBFBF"
+      }
+    },
+    "2142:48139": {
+      "name": "Frame 1000000824 — app header (top navi bar + secondary bar)",
+      "count": 0,
+      "response": {}
+    },
+    "2142:48135": {
+      "name": "tabs",
+      "count": 3,
+      "response": {
+        "Body/Small-bold": "Font(family: \"Open Sans\", style: Bold, size: 16, weight: 700, lineHeight: 24, letterSpacing: 0)",
+        "UI/Tiny-bold": "Font(family: \"Open Sans\", style: Bold, size: 12, weight: 700, lineHeight: 16, letterSpacing: 3)",
+        "Body/Small": "Font(family: \"Open Sans\", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0)"
+      }
+    },
+    "2142:48119": { "name": "Button-sesame — 'Archive group'", "count": 0, "response": {} },
+    "2142:48126": {
+      "name": "Linking code card",
+      "count": 3,
+      "response": {
+        "secondary text color": "#5D5D5D",
+        "Neutrals/$kampus-color-gray-1": "#F5F5F6",
+        "shadow-low": "Effect(type: DROP_SHADOW, color: #6D6E7359, offset: (0, 2), radius: 8, spread: 0)"
+      }
+    },
+    "2142:48477": { "name": "Footer", "count": 0, "response": {} },
+    "2142:48470": {
+      "name": "Frame 8829 — empty state",
+      "count": 1,
+      "response": { "Gray/gray 300": "#BFBFBF" }
+    },
+    "2142:48188": {
+      "name": "sl-select — 'Grade level' (inline row)",
+      "count": 3,
+      "response": {
+        "color/input/fieldLabel/text/default": "#323232",
+        "text/input/fieldLabel/label/sm": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 16, letterSpacing: 0)",
+        "boxShadow/none": "Effect(type: DROP_SHADOW, color: #00000000, offset: (0, 0), radius: 0, spread: 0)"
+      }
+    },
+    "2142:48455": {
+      "name": "sl-radio_group-theme — 'Login type'",
+      "count": 10,
+      "response": {
+        "color/input/fieldLabel/text/default": "#323232",
+        "text/input/fieldLabel/label/sm": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 16, letterSpacing: 0)",
+        "color/input/option/default/checked/default/icon": "#FFFFFF",
+        "color/input/option/default/checked/default/background": "#01766D",
+        "color/input/option/default/checked/default/border": "#01766D",
+        "color/input/option/default/checked/default/label": "#323232",
+        "text/input/option/md": "Font(family: \"Open Sans\", style: Regular, size: 14, weight: 400, lineHeight: 20, letterSpacing: 0)",
+        "color/input/option/default/unchecked/default/background": "#FFFFFF",
+        "color/input/option/default/unchecked/default/border": "#5D5D5D",
+        "color/input/option/default/unchecked/default/label": "#323232"
+      }
+    },
+    "2142:48467": {
+      "name": "sl-checkbox — 'Create another'",
+      "count": 1,
+      "response": {
+        "boxShadow/none": "Effect(type: DROP_SHADOW, color: #00000000, offset: (0, 0), radius: 0, spread: 0)"
+      }
+    },
+    "3659:36698": {
+      "name": "Accordion-multiple-view — 'Login types explained'",
+      "count": 0,
+      "response": {}
+    },
+    "2142:48182": {
+      "name": "sl-text_input — 'First name'",
+      "count": 7,
+      "response": {
+        "color/input/fieldLabel/text/default": "#323232",
+        "text/input/fieldLabel/label/sm": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 16, letterSpacing: 0)",
+        "color/input/textField/default/default/inputText": "#323232",
+        "text/input/textField/text/lg": "Font(family: \"Open Sans\", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0)",
+        "color/input/textField/default/default/background": "#FFFFFF",
+        "color/input/textField/default/default/border": "#9D9F9F",
+        "boxShadow/none": "Effect(type: DROP_SHADOW, color: #00000000, offset: (0, 0), radius: 0, spread: 0)"
+      }
+    },
+    "2142:48465": {
+      "name": "button primary — 'Create new student'",
+      "count": 1,
+      "response": {
+        "text button": "Font(family: \"Open Sans\", style: Bold, size: 14, weight: 700, lineHeight: 24, letterSpacing: 0)"
+      }
+    }
+  }
+}

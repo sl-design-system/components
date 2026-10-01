@@ -1,0 +1,42 @@
+{
+  "probe_method": "Per-node probing (not whole-subtree) per batch rule #2. Probed the top-level frame plus 13 individual component-instance node ids in 123:456 form, covering every distinct instance name seen in the metadata tree (sl-breadcrumb, SL-card, sl-button, sl-avatar x2, sl-searchfield, sl-icon, badge, sl-select (simple-prototype), sl-button-theme, sl-selectbox-theme, main nav icon, Component 22).",
+  "probed_nodes": {
+    "25124:56828": {
+      "name": "Chapter / Digital Exercises / Exercises (root frame)",
+      "result": {},
+      "note": "Code Connect lookup timed out on both the initial call and the retry; response was {} both times."
+    },
+    "25124:56831": { "name": "sl-breadcrumb", "result": {} },
+    "25124:56836": { "name": "SL-card", "result": {} },
+    "25124:56847": { "name": "sl-button", "result": {} },
+    "25124:56852": { "name": "sl-avatar", "result": {} },
+    "25124:56872": { "name": "sl-searchfield", "result": {} },
+    "25124:56880": { "name": "sl-icon", "result": {} },
+    "25124:56912": { "name": "badge", "result": {} },
+    "25124:57006": {
+      "name": "sl-select (simple-prototype)",
+      "result": {},
+      "note": "get_code_connect_map timed out on both the initial call and the retry (response {} both times). HOWEVER get_design_context on this same node (and its sibling 25124:57135) DID successfully resolve a Code Connect snippet -- see override below. The per-node map probe is therefore unreliable for this node; get_design_context is the source of truth."
+    },
+    "25124:57023": { "name": "sl-button-theme", "result": {} },
+    "25124:57146": { "name": "sl-selectbox-theme", "result": {} },
+    "25124:57176": { "name": "main nav icon", "result": {} },
+    "25124:57151": { "name": "sl-avatar (header)", "result": {} },
+    "25124:57024": { "name": "Component 22", "result": {} }
+  },
+  "design_context_overrides": {
+    "25124:57006": {
+      "name": "sl-select (simple-prototype)",
+      "resolved_via": "get_design_context (CodeConnectSnippet wrapper in response, not the get_code_connect_map tool)",
+      "snippet": "<sl-form-field label=\"Exercises level\"><sl-select placeholder=\"Placeholder\" value=\"Show all\"><sl-option>label</sl-option><sl-option>label</sl-option><sl-option>label</sl-option><sl-option>label</sl-option></sl-select></sl-form-field>",
+      "status": "CONNECTED (not unconnected/inferred)"
+    },
+    "25124:57135": {
+      "name": "sl-select (simple-prototype)",
+      "resolved_via": "get_design_context (CodeConnectSnippet wrapper in response, not the get_code_connect_map tool)",
+      "snippet": "same as 25124:57006",
+      "status": "CONNECTED (not unconnected/inferred)"
+    }
+  },
+  "outcome": "Mostly no Code Connect mappings via the get_code_connect_map tool (expected as-is-mode outcome for a non-SLDS source file, MyPortal Designs 2025). ONE exception found via get_design_context: the 'sl-select (simple-prototype)' component instances (nodes 25124:57006, 25124:57135) resolved to a real Code Connect snippet mapping to sl-form-field > sl-select > sl-option, even though the direct get_code_connect_map probe on the same node id returned {} with a timeout note both times. All other component identifications below (sl-breadcrumb, SL-card, sl-button, sl-avatar, sl-searchfield, sl-icon, badge, sl-selectbox-theme, sl-button-theme, main nav icon) remain INFERENCES from Figma layer/instance naming conventions, not verified Code Connect snippets. Per pipeline rule, this does not block the run; it is recorded factually and the manifest proceeds in full, flagging each component inventory entry as 'connected' or 'inferred, unconnected' individually."
+}

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "run": "a3-myportal-digital-exercises",
+  "figma": {
+    "rootNodeId": "25124:56828"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "25124:57138",
+      "label": "get_design_context — region: top chrome (header bar + quick actions), node 25124:57138",
+      "file": "captures/design-context/25124-57138.txt",
+      "bytes": 13007,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "25124:57173",
+      "label": "get_design_context — region: left sidebar menu, node 25124:57173",
+      "file": "captures/design-context/25124-57173.txt",
+      "bytes": 9373,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "25124:56831",
+      "label": "get_design_context — region: breadcrumb, node 25124:56831",
+      "file": "captures/design-context/25124-56831.txt",
+      "bytes": 3949,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "25124:56833",
+      "label": "get_design_context — region: card header (book cover, title, buttons, avatars), node 25124:56833",
+      "file": "captures/design-context/25124-56833.txt",
+      "bytes": 54614,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "25124:56868",
+      "label": "get_design_context — region: left nav tree (search + accordion of chapters, \"Chapter 2\" expanded showing Lessons/Digital Exercises/Print Exercises/Tests), node 25124:56868",
+      "file": "captures/design-context/25124-56868.txt",
+      "bytes": 53585,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "8300:30408",
+      "label": "get_design_context — region: main exercise list panel (\"Digital Exercises\" header, level select, exercise count, 4x \"Exercise block\" rows), node 25124:56996",
+      "file": "captures/design-context/8300-30408.txt",
+      "bytes": 46899,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "25124:56828",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/25124-56828.txt",
+      "bytes": 46876,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "600",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/600.txt",
+      "bytes": 4345,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "25124:56828",
+      "label": "figma-code-connect-map.json",
+      "file": "captures/code-connect/25124-56828.txt",
+      "bytes": 3665,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 194613,
+      "capturedAt": "2026-10-01T16:18:26.115Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

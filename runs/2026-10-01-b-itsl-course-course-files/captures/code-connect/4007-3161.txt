@@ -1,0 +1,24 @@
+{
+  "note": "Subtree call on 4007:3161 returned {}. Per-node calls on top-level instances also returned {}: 4461:5869 (Navigation), 4007:3166 (PageHeader), 4007:3169 (Banner), 4007:3170 (Search), 4008:8839 (courses header row), 4008:9032 (courses data row), 4007:3183 (Pagination). These composite/page-level instances appear to have no direct Code Connect mapping (likely page-assembly frames, not atomic library components). Nested instance-internal node IDs (compound 'I<instance>;<node>' format, e.g. I4461:5869;4461:5606 'your-files' icon, I4007:3166;5823:6544 'Button', I4007:3169;23112:4891 'circle-info', I4008:8839;4008:8764 'Cell', I4007:3183;4997:6316 'Button', I4007:3183;4997:6325 'Select') could NOT be queried via get_code_connect_map because the tool's nodeId pattern rejects compound IDs with semicolons (validation error: 'Node ID must be in the format \"123:456\" or \"123-456\"'). Code Connect resolution for these nested nodes was instead read from the get_design_context response (see figma-design-context.md), which resolves Code Connect internally when generating code.",
+  "4007:3161": null,
+  "4461:5869": null,
+  "4007:3166": null,
+  "4007:3169": null,
+  "4007:3170": null,
+  "4008:8839": null,
+  "4008:9032": null,
+  "4007:3183": null
+}
+
+/* Additional per-node attempts on main COMPONENT definition IDs (not instance IDs), per hint #2 in the task prompt, all also returned {}: */
+{
+  "6077:5717": null,  // Button (main component)
+  "2254:1410": null,  // Avatar (main component)
+  "6145:9872": null,  // Select (main component)
+  "6145:9591": null,  // Status Tag (main component)
+  "6145:11793": null, // Cell (main component)
+  "6145:12461": null, // Pagination (main component)
+  "6077:6144": null,  // Banner (main component)
+  "6145:9621": null   // PageHeader (main component)
+}
+/* Conclusion: this Figma file ("course files", team Itsl-Course) has NO Code Connect mappings at all for any component in the sl-design-system codebase's Code Connect config -- confirmed via subtree call, 7 per-node instance calls, and 8 per-node main-component-definition calls, all returning {}. get_design_context corroborates this: the generated code uses plain <div>/<p>/<img> tags throughout, with zero <sl-*> custom elements anywhere in the output, and zero internal sub-node snippets resolving to sl-*. No sibling instance of any repeated component (Cell, Status Tag, Course Hat, Button, Page link) shows a resolved snippet either. Per the design-analyst's instructions, this means every component-instance node is genuinely unconnected -- none are identifiable as an existing SLDS component via node-name, internal-snippet, or sibling-snippet heuristics. */

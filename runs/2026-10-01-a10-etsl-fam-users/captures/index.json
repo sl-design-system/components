@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "run": "a10-etsl-fam-users",
+  "figma": {
+    "rootNodeId": "17264:29098"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "nodeId": "33130:92562",
+      "label": "figma-design-context.md",
+      "file": "captures/design-context/33130-92562.txt",
+      "bytes": 58059,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "33130:92562",
+      "label": "figma-design-context-part2.md (continuation)",
+      "file": "captures/design-context/33130-92562.part1.txt",
+      "bytes": 7410,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false,
+      "continuationOf": "33130:92562"
+    },
+    {
+      "call": "get_metadata",
+      "nodeId": "17264:29098",
+      "label": "figma-metadata.txt",
+      "file": "captures/metadata/17264-29098.txt",
+      "bytes": 7583,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "nodeId": "800",
+      "label": "figma-variable-defs.json",
+      "file": "captures/variables/800.txt",
+      "bytes": 3387,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "123:456",
+      "label": "figma-code-connect-map.NOTE.md",
+      "file": "captures/code-connect/123-456.txt",
+      "bytes": 4696,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "nodeId": "17266:31419",
+      "label": "figma-code-connect-map.json",
+      "file": "captures/code-connect/17266-31419.txt",
+      "bytes": 1447,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 64692,
+      "capturedAt": "2026-10-01T16:18:26.101Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

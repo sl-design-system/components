@@ -1,0 +1,537 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/b0a50c5d-7844-4bd5-88a0-24a23b3e6bed';
+function ChevronDown({ className }: { className?: string }) {
+  return (
+    <div
+      className={className || 'relative size-[16px]'}
+      data-node-id="2:8679"
+      data-name="chevron-down">
+      <div
+        className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#222] text-[16px] text-center"
+        data-node-id="2:8680">
+        <p className="leading-[16px]">chevron-down</p>
+      </div>
+    </div>
+  );
+}
+
+export default function Frame1000000791() {
+  return (
+    <div
+      className="content-stretch flex flex-col gap-[40px] items-start relative size-full"
+      data-node-id="2142:48316">
+      <div
+        className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0"
+        data-node-id="2142:48317">
+        <div
+          className="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-start relative shrink-0"
+          data-node-id="2142:48318">
+          <p
+            className="font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#323] text-[18px] whitespace-nowrap"
+            data-node-id="2142:48319"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            Can’t find the student?
+          </p>
+          <p
+            className="font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] w-[562px]"
+            data-node-id="2142:48320"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            If you can’t find the student in the search suggestions or you add the student to school
+            records for the first time, hit Create new student button.
+          </p>
+        </div>
+        <div
+          className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0"
+          data-node-id="2142:48321">
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+            data-node-id="2142:48322"
+            data-name="sl-text_input-theme [DEPRECATED]">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+              data-node-id="2142:48323"
+              data-name="sl-label-theme [DEPRECATED]">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I2142:48323;2711:11259"
+                data-name="sl-base-label-sm">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I2142:48323;2711:11259;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48323;2711:11259;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">First name</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+              data-node-id="2142:48324"
+              data-name="sl_base-text_input">
+              <div
+                className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+                data-node-id="I2142:48324;2241:22370"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Karol</p>
+              </div>
+              <div
+                className="absolute inset-[-1px] z-[1]"
+                data-node-id="I2142:48324;2444:23862"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+            data-node-id="2142:48326"
+            data-name="sl-text_input-theme [DEPRECATED]">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+              data-node-id="2142:48327"
+              data-name="sl-label-theme [DEPRECATED]">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I2142:48327;2711:11259"
+                data-name="sl-base-label-sm">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I2142:48327;2711:11259;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48327;2711:11259;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Last name</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+              data-node-id="2142:48328"
+              data-name="sl_base-text_input">
+              <div
+                className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+                data-node-id="2142:48329"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Woźniak</p>
+              </div>
+              <div
+                className="absolute inset-[-1px] z-[1]"
+                data-node-id="2142:48332"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex flex-col h-[64px] isolate items-start relative shrink-0"
+            data-node-id="2142:48334"
+            data-name="sl-select">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-[34px] z-[2]"
+              data-node-id="2142:48335"
+              data-name="sl-label-theme">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I2142:48335;2711:11259"
+                data-name="label">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I2142:48335;2711:11259;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48335;2711:11259;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Grade level</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px relative z-[1]"
+              data-node-id="2142:48336"
+              data-name="dropdown+helper">
+              <div
+                className="content-stretch flex flex-col gap-[4px] h-[40px] isolate items-start relative shrink-0 w-[320px]"
+                data-node-id="2142:48337"
+                data-name="✏️ dropdown">
+                <div
+                  className="flex-[1_0_0] min-h-px relative w-full z-[2]"
+                  data-node-id="2142:48338"
+                  data-name="01">
+                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-start relative size-full">
+                    <div
+                      className="content-stretch flex flex-[1_0_0] items-start min-h-px relative w-full"
+                      data-node-id="2142:48339"
+                      data-name="sl_base-selecetbox-bg">
+                      <div
+                        className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex h-full isolate items-center justify-center relative rounded-[2px] shrink-0 w-[320px]"
+                        data-node-id="2142:48340"
+                        data-name="sl-selectbox-theme">
+                        <div
+                          className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] h-full isolate items-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-[320px] z-[1]"
+                          data-node-id="2142:48341"
+                          data-name="sl-base-selectbox">
+                          <div
+                            className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[14px] z-[5]"
+                            data-node-id="2142:48342"
+                            style={{ fontVariationSettings: '"wdth" 100' }}>
+                            <p className="leading-[20px]">3</p>
+                          </div>
+                          <div
+                            className="relative shrink-0 size-[16px] z-[2]"
+                            data-node-id="2142:48345"
+                            data-name="select-box-down">
+                            <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                              <ChevronDown className="flex-[1_0_0] h-full min-w-px relative" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] left-[12px] text-[#5d5d5d] text-[16px] top-1/2 whitespace-nowrap"
+                      data-node-id="2142:48347"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      <p className="leading-[24px]">​</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[68px]"
+            data-node-id="2142:48455"
+            data-name="sl-radio_group-theme">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full"
+              data-node-id="I2142:48455;2711:10634"
+              data-name="sl-label-theme">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I2142:48455;2711:10634;2711:11259"
+                data-name="sl-base-label-sm">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I2142:48455;2711:10634;2711:11259;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48455;2711:10634;2711:11259;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Login type</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full"
+              data-node-id="I2142:48455;2711:10635"
+              data-name="container">
+              <div
+                className="content-stretch flex items-start relative shrink-0 w-full"
+                data-node-id="I2142:48455;2711:10636"
+                data-name="sl-radio-1">
+                <div
+                  className="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                  data-node-id="I2142:48455;2711:10636;2711:12440"
+                  data-name="sl-radio-theme">
+                  <div
+                    className="content-stretch flex gap-[8px] items-center py-[4px] relative shrink-0"
+                    data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537"
+                    data-name="sl-base-radio">
+                    <div
+                      className="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[800px] shrink-0 size-[24px]"
+                      data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;240:40"
+                      data-name="radio-box">
+                      <div
+                        className="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                        data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;324:80"
+                        data-name="core-icon">
+                        <div
+                          className="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;324:80;399:65"
+                          data-name="svg-circle"
+                        />
+                      </div>
+                    </div>
+                    <p
+                      className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                      data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;240:42"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Easy login (simple username, password and QR code)
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex items-start relative shrink-0 w-full"
+                data-node-id="I2142:48455;2711:10637"
+                data-name="sl-radio-2">
+                <div
+                  className="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                  data-node-id="I2142:48455;2711:10637;2711:12440"
+                  data-name="sl-radio-theme">
+                  <div
+                    className="content-stretch flex gap-[8px] items-center py-[4px] relative shrink-0"
+                    data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507"
+                    data-name="sl-base-radio">
+                    <div
+                      className="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[800px] shrink-0 size-[24px]"
+                      data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507;240:40"
+                      data-name="radio-box"
+                    />
+                    <p
+                      className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                      data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507;240:42"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Regular
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            className="bg-[#f6f8f8] border-[#bfbfbf] border-b border-solid content-stretch cursor-pointer flex flex-col gap-[13px] items-start overflow-clip relative shrink-0 w-full"
+            data-node-id="3659:36698"
+            data-name="Accordion-multiple-view">
+            <div
+              className="content-stretch flex flex-col items-start relative shrink-0 w-full"
+              data-node-id="I3659:36698;3616:44042"
+              data-name="accordion-header">
+              <div
+                className="content-stretch flex flex-col items-start relative shrink-0 w-[255px]"
+                data-node-id="I3659:36698;3616:44042;4169:240"
+                data-name="accordion-header-base">
+                <div
+                  className="bg-[#f6f8f8] content-stretch flex flex-col items-start py-[16px] relative shrink-0 w-full"
+                  data-node-id="I3659:36698;3616:44042;4169:240;6223:9478"
+                  data-name="header">
+                  <div
+                    className="content-stretch flex gap-[8px] items-start px-[8px] relative shrink-0 w-full"
+                    data-node-id="I3659:36698;3616:44042;4169:240;6223:9479"
+                    data-name="title">
+                    <div
+                      className="h-[28px] overflow-clip relative shrink-0 w-[24px]"
+                      data-node-id="I3659:36698;3616:44042;4169:240;6223:9480"
+                      data-name="icon">
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[16px] top-1/2"
+                        data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46106">
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 absolute bg-[#323232] h-[16px] left-1/2 rounded-[0.825px] top-1/2 w-[1.979px]"
+                          data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46107"
+                        />
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 absolute flex h-[1.979px] items-center justify-center left-1/2 top-1/2 w-[16px]"
+                          data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46108">
+                          <div className="flex-none rotate-90">
+                            <div className="bg-[#323232] h-[16px] relative rounded-[0.825px] w-[1.979px]" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-[1_0_0] items-center min-w-px pr-[16px] relative"
+                      data-node-id="I3659:36698;3616:44042;4169:240;6223:9481"
+                      data-name="Icon-animation/accordion-title">
+                      <div
+                        className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[18px] text-left"
+                        data-node-id="I3659:36698;3616:44042;4169:240;6223:9481;5267:45993"
+                        style={{ fontVariationSettings: '"wdth" 100' }}>
+                        <p className="leading-[28px]">Login types explained</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </button>
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+            data-node-id="3659:36670"
+            data-name="sl-text_input-theme [DEPRECATED]">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+              data-node-id="I3659:36670;2711:11125"
+              data-name="sl-label-theme [DEPRECATED]">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I3659:36670;2711:11125;2711:11263"
+                data-name="sl-base-label-sm">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I3659:36670;2711:11125;2711:11263;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I3659:36670;2711:11125;2711:11263;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Email</p>
+                  </div>
+                </div>
+                <div
+                  className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I3659:36670;2711:11125;2711:11263;1215:5074"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  <p className="leading-[16px]">(optional)</p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+              data-node-id="I3659:36670;2711:11126"
+              data-name="sl_base-text_input-lg2">
+              <div
+                className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+                data-node-id="I3659:36670;2711:11126;2911:2320"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Type here</p>
+              </div>
+              <div
+                className="absolute inset-[-1px] z-[1]"
+                data-node-id="I3659:36670;2711:11126;2911:2322"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+            data-node-id="2142:48457"
+            data-name="sl-text_input-theme [DEPRECATED]">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+              data-node-id="I2142:48457;2711:11125"
+              data-name="sl-label-theme [DEPRECATED]">
+              <div
+                className="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                data-node-id="I2142:48457;2711:11125;2711:11259"
+                data-name="sl-base-label-sm">
+                <div
+                  className="content-stretch flex gap-[2px] items-center relative shrink-0"
+                  data-node-id="I2142:48457;2711:11125;2711:11259;1222:5054"
+                  data-name="label-container">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48457;2711:11125;2711:11259;1215:5039"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Username</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+              data-node-id="I2142:48457;2711:11126"
+              data-name="sl_base-text_input-lg2">
+              <div
+                className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+                data-node-id="I2142:48457;2711:11126;2911:2320"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">karol123</p>
+              </div>
+              <div
+                className="absolute inset-[-1px] z-[1]"
+                data-node-id="I2142:48457;2711:11126;2911:2322"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] left-[336px] text-[#01766d] text-[16px] top-[621px] tracking-[0.4px] whitespace-nowrap"
+          data-node-id="2142:48458"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[20px]">Regenerate</p>
+        </div>
+      </div>
+      <div
+        className="content-stretch flex items-center justify-end px-[8px] relative shrink-0 w-[992px]"
+        data-node-id="2142:48459">
+        <div
+          className="content-stretch flex flex-[1_0_0] flex-col gap-[16px] items-start min-w-px relative"
+          data-node-id="2142:48460">
+          <div
+            className="content-stretch flex items-center relative shrink-0"
+            data-node-id="2142:48461">
+            <div
+              className="content-stretch flex gap-[16px] items-center relative shrink-0"
+              data-node-id="2142:48462">
+              <div
+                className="content-stretch flex items-center relative shrink-0"
+                data-node-id="2142:48463">
+                <div
+                  className="content-stretch flex items-start relative shrink-0"
+                  data-node-id="2142:48464">
+                  <div
+                    className="bg-[#01766d] content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                    data-node-id="2142:48465"
+                    data-name="button primary">
+                    <p
+                      className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px] text-white whitespace-nowrap"
+                      data-node-id="I2142:48465;2846:104533"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Create new student
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p
+                className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#01766d] text-[14px] whitespace-nowrap"
+                data-node-id="2142:48466"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Cancel
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex items-start relative shrink-0"
+            data-node-id="2142:48467"
+            data-name="sl-checkbox">
+            <div
+              className="content-stretch flex items-start relative shrink-0"
+              data-node-id="2142:48468"
+              data-name="sl-checkbox-theme">
+              <div
+                className="content-stretch flex items-start relative shrink-0 w-[64px]"
+                data-node-id="2142:48469"
+                data-name="sl-base-checkbox">
+                <div
+                  className="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                  data-node-id="I2142:48469;2711:12456"
+                  data-name="sl-checkbox-theme [DEPRECATED]">
+                  <div
+                    className="content-stretch flex gap-[8px] items-center justify-center relative shrink-0"
+                    data-node-id="I2142:48469;2711:12456;3146:85266"
+                    data-name="sl-base-checkbox">
+                    <div
+                      className="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[2px] shrink-0 size-[20px]"
+                      data-node-id="I2142:48469;2711:12456;3146:85266;5293:3690"
+                      data-name="checkbox-box"
+                    />
+                    <p
+                      className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                      data-node-id="I2142:48469;2711:12456;3146:85266;5293:3692"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Create another
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

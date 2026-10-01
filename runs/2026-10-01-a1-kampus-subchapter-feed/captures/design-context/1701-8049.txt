@@ -1,0 +1,29 @@
+function StarOutlined({ className }) {
+  return <div data-node-id="1701:8049" data-name="star-outlined"><img/></div>;
+}
+type ExerciseCardUpdateProps = {
+  className?: string; assignment?: "Off"; device?: "Desktop"; hidden?: "Off";
+  property?: "Default"; type?: "Editor created";
+};
+function ExerciseCardUpdate({ ... }) {
+  return (
+    <div data-node-id="12033:148258">
+      <div data-name="Header">
+        <div data-name="Exercise type"><p>Self -correcting exercise</p></div>
+        <div>
+          <div data-name="exercise-icon">{/* purple square, exercise icon glyph */}</div>
+          <div data-name="heading"><p>1.7 Vastaa kysymyksiin</p></div>
+        </div>
+        <div data-name="tools"><Icon-button/> {/* overflow "..." menu */}</div>
+      </div>
+      <div data-name="card-footer-exercise">
+        <div data-name="Course information">
+          <div data-name=".exercise-difficulty-level">star + star-outlined + star-outlined
+          (1 of 3 filled — difficulty rating)</div>
+          <p>Exercise</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+export default function ExerciseCardUpdate1() { return <ExerciseCardUpdate />; }

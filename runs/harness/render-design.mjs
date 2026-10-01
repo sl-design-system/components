@@ -284,43 +284,52 @@ const buildStylesheet = classes =>
 
 // ---------------------------------------------------------------------------------------------
 
-const files = readdirSync(run)
-    .filter(name => /^figma-design-context.*\.md$/.test(name))
-    .sort(),
+/**
+ * Prefer the normalised captures when a run has them: one format, one reader, no guessing. The
+ * fallback below reads the run's original files, which arrived in four different shapes — and
+ * reading those is what made six runs look empty when they were only stored differently.
+ */
+const indexPath = join(run, 'captures', 'index.json'),
   regions = [];
 
-for (const name of files) {
-  const text = readFileSync(join(run, name), 'utf8'),
-    // Four runs, four conventions: `jsx` fences, `tsx` fences, no fences at all, and one file that
-    // stored prose about the probing instead of the output. There is no capture format, so the
-    // reader has to be tolerant — and the absence of a format is itself what the protocol must fix.
-    fenced = [...text.matchAll(/```(?:jsx|tsx|ts|js|javascript|typescript)?\n([\s\S]*?)```/g)].map(
-      m => m[1]
-    ),
-    // An unfenced file is markdown with the code pasted into it. Everything before the first
-    // module-level construct is prose, and feeding it to a TSX parser fails on the first `#`.
-    unfenced = (() => {
-      if (fenced.length || !/className=|data-node-id/.test(text)) return [];
+if (existsSync(indexPath)) {
+  for (const capture of JSON.parse(readFileSync(indexPath, 'utf8')).captures)
+    if (capture.call === 'get_design_context')
+      regions.push({
+        file: capture.file,
+        label: capture.label ?? capture.file,
+        nodeId: capture.nodeId ?? undefined,
+        source: readFileSync(join(run, capture.file), 'utf8')
+      });
+} else {
+  for (const name of readdirSync(run)
+    .filter(entry => /^figma-design-context.*\.md$/.test(entry))
+    .sort()) {
+    const text = readFileSync(join(run, name), 'utf8'),
+      fenced = [
+        ...text.matchAll(/```(?:jsx|tsx|ts|js|javascript|typescript)?\n([\s\S]*?)```/g)
+      ].map(m => m[1]),
+      unfenced = (() => {
+        if (fenced.length || !/className=|data-node-id/.test(text)) return [];
 
-      const start = text.search(/^(?:import |const |let |function |export |type |interface )/m);
-      return start === -1 ? [] : [text.slice(start)];
-    })(),
-    blocks = fenced.length ? fenced : unfenced;
+        const start = text.search(/^(?:import |const |let |function |export |type |interface )/m);
+        return start === -1 ? [] : [text.slice(start)];
+      })(),
+      blocks = fenced.length ? fenced : unfenced;
 
-  blocks.forEach((source, index) => {
-    // The node id names the region. A heading carries it when the run wrote one; otherwise the
-    // outermost element in the block carries its own.
-    const heading = text.match(/^#\s*(.+)$/m),
-      fromHeading = heading?.[1].match(/node\s+([\d:]+)/)?.[1],
-      fromBlock = source.match(/data-node-id="([\d:]+)"/)?.[1];
+    blocks.forEach((source, index) => {
+      const heading = text.match(/^#\s*(.+)$/m);
 
-    regions.push({
-      file: blocks.length > 1 ? `${name}#${index + 1}` : name,
-      label: heading?.[1] ?? name,
-      nodeId: (blocks.length > 1 ? fromBlock : (fromHeading ?? fromBlock)) ?? undefined,
-      source
+      regions.push({
+        file: blocks.length > 1 ? `${name}#${index + 1}` : name,
+        label: heading?.[1] ?? name,
+        nodeId:
+          source.match(/data-node-id="([\d:]+)"/)?.[1] ??
+          heading?.[1].match(/node\s+([\d:]+)/)?.[1],
+        source
+      });
     });
-  });
+  }
 }
 
 if (!regions.length) {

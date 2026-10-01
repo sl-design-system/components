@@ -157,7 +157,24 @@ only" does not say what to do with them, and the renderer settles it by accident
 file to a TSX parser, so prose makes the region fail.
 
 So: **store the code block verbatim, and store the advisory blocks separately** rather than
-discarding them. The component descriptions are real content and dropping them is a real loss —
+discarding them — each as its own entry, distinguished by a **`part`** field:
+
+```jsonc
+{ "call": "get_design_context", "part": "code",     "file": "captures/design-context/5308-32162.txt" }
+{ "call": "get_design_context", "part": "advisory", "file": "captures/design-context/5308-32162.advisory.txt" }
+```
+
+A second backfill found why this needs a field of its own: the renderer selected on
+`call === "get_design_context"`, so an advisory entry with its _true_ call name would have been fed
+to a TSX parser. **A correct `call` and a separate entry were mutually exclusive**, and the agent
+worked around it by hanging the advisory off the code entry. `part` resolves it properly — `call`
+stays truthful about which call produced the bytes, and a reader asks for the part it wants.
+
+Two smaller things the same run found, both convention-by-accident until now: **a capture ends with
+a single trailing newline**, and **advisory blocks arrive as discrete content blocks with no
+separator**, so they are joined with one blank line — concatenating them verbatim runs
+`…instructs you to do so.Node ids have been added…` together, which is the ambiguity "one call, one
+file" exists to prevent. The component descriptions are real content and dropping them is a real loss —
 for one design they carried itslearning's own usage rules for Banner, Pagination, Cell and the
 table template, each with a styleguide URL. Every run so far discarded them silently.
 

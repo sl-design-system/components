@@ -75,6 +75,9 @@ const normalise = run => {
 
       captures.push({
         call,
+        // Which part of the response this file holds. A design-context response has a code block
+        // and advisory blocks; a reader that wants one must not be handed the other.
+        part: 'code',
         nodeId: nodeId ?? null,
         label: label ?? null,
         file: `captures/${relative}`,

@@ -293,8 +293,12 @@ const indexPath = join(run, 'captures', 'index.json'),
   regions = [];
 
 if (existsSync(indexPath)) {
+  // Filter on `part`, not on `call`. A `get_design_context` response carries a code block **and**
+  // advisory blocks, and a backfill agent found that indexing the advisory text under its true
+  // call name would make this reader feed prose to a TSX parser — so a correct `call` and a
+  // separate entry were mutually exclusive. `part` separates them; `call` stays truthful.
   for (const capture of JSON.parse(readFileSync(indexPath, 'utf8')).captures)
-    if (capture.call === 'get_design_context')
+    if (capture.call === 'get_design_context' && (capture.part ?? 'code') === 'code')
       regions.push({
         file: capture.file,
         label: capture.label ?? capture.file,

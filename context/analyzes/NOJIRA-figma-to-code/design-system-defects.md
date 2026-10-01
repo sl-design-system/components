@@ -174,6 +174,21 @@ work.
 Worth a sweep rather than a single fix — any `@csspart` documented on a wrapper whose part lives
 in a nested shadow root has the same problem, and nothing in the build checks the claim.
 
+## D16 — An outer `::part()` rule beats the component's own `:disabled` styling
+
+Styling a component from outside via `::part()` produces a declaration that **wins over the
+component's internal state rules**. A10 set a colour through `::part()` on a paginator button; the
+component's own `button:is(:disabled)` rule lost, and both disabled arrows would have rendered in
+the enabled grey-700 instead of the design's lighter disabled grey.
+
+The consumer has to restate the disabled colour explicitly to get it back — here
+`--sl-color-foreground-disabled` → `#c8c8cf`, which then matched the design exactly.
+
+This is a hazard rather than a bug, but it is invisible: no still image flags it, because the
+element simply has the wrong shade. Anyone documenting `::part()` as the supported styling route
+should say that it overrides state styling and that every state the component handles internally
+must then be handled by the consumer too.
+
 ## D15 — Three gaps the runs hit repeatedly
 
 - **No 40px control size.** `md` is 36 and `lg` is 48. One run chose `md` deliberately because

@@ -155,7 +155,19 @@ console.log(
             hexesInDesign: anyHexes.length,
             valueRanking: byValue.slice(0, 5)
           }),
-      best: (nameMatchFailed ? byValue[0]?.theme : results[0]?.theme) ?? null,
+      // No evidence must not produce a name. With zero comparable tokens every theme scores 0,
+      // the sort is stable, and the first theme alphabetically came back as `best` — one run
+      // adopted `itslearning` from exactly that and carried it through six stages. A ranking of
+      // nothing has no winner.
+      best:
+        (nameMatchFailed
+          ? byValue[0]?.score > 0
+            ? byValue[0].theme
+            : null
+          : results[0]?.score > 0
+            ? results[0].theme
+            : null) ?? null,
+      evidence: nameMatchFailed ? (anyHexes.length ? 'hex values' : 'none') : 'token names',
       marginOverSecond: (() => {
         const ranked = nameMatchFailed ? byValue : results;
         return ranked[1]

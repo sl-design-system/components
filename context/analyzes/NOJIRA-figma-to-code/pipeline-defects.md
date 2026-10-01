@@ -150,10 +150,26 @@ switched off. Existing requirement R21; `A-NOJIRA-pipeline-staging` F11 proposes
 
 ## The reference screenshot does not match the frame it references
 
-**Observed:** `get_screenshot` returned **1280×727** for a 1280×720 frame — roughly 8px of canvas
-bleed. Nothing documents it, and every raw pixel comparison inherits the offset as a phantom
-vertical shift on every measurement in the run. B-Kampus caught it, normalised, and saved
-`reference-normalised.png` beside the original.
+**Observed, and worse than first recorded.** `get_screenshot` distorts the reference in **three
+different ways**, none documented, and which one you get depends on the frame:
+
+| Run                      | Frame     | Returned PNG  |       Scale |
+| ------------------------ | --------- | ------------- | ----------: |
+| A2 NSP `class overview`  | 1280×1003 | 1280×1003     |       exact |
+| B-Kampus `Notes panel`   | 1280×720  | 1280×**727**  | +7px canvas |
+| A11 Sesame               | 360×1871  | **361**×1871  |        +1px |
+| A4 Sesame `My Groups`    | 1280×1796 | 1141×**1600** |   **0.891** |
+| A5 ETSL                  | 1440×2032 | 1135×**1600** |   **0.788** |
+| B-Sesame `Group details` | 1280×2392 | 934×**1280**  |   **0.730** |
+
+The long edge is capped — at 1600, and at 1280 for the tallest frame — so **tall designs come back
+downscaled by up to 27%**. An earlier version of this entry called it "roughly 8px of canvas
+bleed", which is only the smallest of the three behaviours.
+
+Every pixel measurement in a downscaled run is against a reference that is not the design's size.
+Three of the runs above are affected, and a run that compares a 1280-wide capture against a
+934-wide reference is measuring nothing meaningful unless it normalised first — which some did and
+some did not.
 
 This was flagged on the very first run as "the reference screenshot does not correspond to the
 frame" and is still unaddressed. It is the most basic possible defect in a fidelity bench: **the

@@ -548,3 +548,40 @@ And a methodological one, which is the reason this entry is this long: **when a 
 tool, the tool is the thing to doubt first.** Every tool in this harness was written in one pass
 by one author under time pressure; every run's report is a second observer. I had the prior
 backwards.
+
+---
+
+## A ranking of nothing has no winner
+
+`theme-match` returned `best: bingel-dc` for a design with **zero comparable hex values**: every
+theme scored 0, the sort was stable, and the first theme alphabetically came out on top. A11 ran
+all six stages under a theme chosen that way — and then its sibling B-Sesame showed the file's
+discriminating colours match `my-digital-book`, which no earlier Sesame run used.
+
+So `itslearning` on A4 and A11 was never derived. It was the batch's original team-label guess on
+A4, and an alphabetical artefact on A11.
+
+The tool now returns `best: null` when the top score is zero, and reports `evidence` as
+`token names` / `hex values` / `none`. Verified not to disturb the real pairings.
+
+**Three of my own tools have now failed the same way**: produce a plausible value where the honest
+answer is "I cannot tell". A ranking with no evidence, a parse with no matches, a token count with
+no files. Each read as a result. **The cheapest defence is a field that says what the answer rests
+on**, which is why `evidence`, `filesScanned` and the parse guard all exist now — not to help the
+reader, but to make the empty case impossible to confuse with the confident one.
+
+## Cost figures were not only inconsistent — one was invented
+
+B-Sesame reported its Stage 1 cost as **13.9M tokens** on a basis no other run used: input plus
+output plus cache reads, summed from the transcripts, where 13.1M of it is cache read. Other runs
+reported a few hundred thousand counting something narrower. **These are not the same quantity and
+must never appear in one column.**
+
+More usefully, the same run disclosed: _"I earlier wrote 261,092 for Stage 1 into `progress.json`
+with no source. It was fabricated."_ It replaced the number with a measured one and recorded the
+correction in the file.
+
+A fabricated plausible number in a field nobody can check is the measurement problem in its purest
+form, and it was caught only because the run went back to look for the basis. `T-…-09` must
+therefore define **one quantity, counted one way, emitted by the harness rather than reported by
+the agent** — a number an agent writes about its own run is not a measurement.

@@ -1,0 +1,12 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "segmented-control",
+  "componentStatus": "draft",
+  "componentTagName": [
+	{
+	  "name": "Segmented control",
+	  "selector": "sl-segmented-control"
+	}
+  ]
+}
+

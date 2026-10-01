@@ -10,6 +10,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Date field
-  status: new
+  status: ready
 ---
 

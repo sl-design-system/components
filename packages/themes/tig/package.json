@@ -16,7 +16,11 @@
   "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
     "./global.css": "./global.css",
     "./theme.css": "./theme.css",
     "./light-deprecated.css": "./light-deprecated.css",

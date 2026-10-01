@@ -1,0 +1,192 @@
+:host {
+  /* Custom elements default to `display: inline`; the table is a full-width block in the card. */
+  display: block;
+}
+
+[part='table'] {
+  border-collapse: collapse;
+
+  /* The design's table is 1120px wide, which is simply the full width of its container. */
+  inline-size: 100%;
+
+  /* The select column is a fixed 60px and the other four share the remainder equally, which only
+     holds with a fixed layout. */
+  table-layout: fixed;
+}
+
+/* No size token resolves to 60px; this is the design's literal select-column width. */
+.col-select {
+  inline-size: 60px;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+/* Header row                                                                                     */
+/* -------------------------------------------------------------------------------------------- */
+
+th {
+  background: var(--sl-color-palette-grey-050);
+
+  /* `-subtle` is the 1px hairline in itslearning; `-default` resolves to 2px there. */
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  padding-block: 0;
+  padding-inline: var(--sl-size-100);
+  text-align: start;
+  vertical-align: top;
+}
+
+/*
+ * The design's 32px minimum lives on the header cell, but `min-block-size` is not reliably honoured
+ * on a `table-cell`, so it sits on the inner flex row instead — same rendered result.
+ */
+.th-inner {
+  align-items: flex-start;
+  display: flex;
+  min-block-size: var(--sl-size-400);
+}
+
+.th-label {
+  align-items: center;
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  justify-content: center;
+  line-height: var(--sl-text-new-body-md-lineHeight);
+
+  /* The design's label wrapper is 5px; itslearning has no 5px size step (050 is 4, 075 is 6). */
+  padding-block: 5px;
+  white-space: nowrap;
+}
+
+.sort-button {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-050);
+  justify-content: center;
+  min-block-size: var(--sl-size-400);
+  min-inline-size: var(--sl-size-400);
+  padding: var(--sl-size-050);
+}
+
+/* -------------------------------------------------------------------------------------------- */
+/* Data rows                                                                                      */
+/* -------------------------------------------------------------------------------------------- */
+
+tbody tr {
+  background: var(--sl-color-background-input-plain);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+}
+
+/* Keyed off the row-selected part, not aria-selected: on a plain <table> the table role has no
+   selection model, so aria-selected is semantically inert there and must not be the styling hook -
+   removing it later would silently drop the design's selected-row background. */
+tbody tr[part~='row-selected'] {
+  background: var(--sl-color-palette-grey-100);
+}
+
+/*
+ * The design centres every cell's content in a 48px row, and the row divider is a stroke drawn
+ * INSIDE that 48px (Figma: 32px header + 8 x 48px = the frame's 416px, with no extra pixel per
+ * divider). With `border-collapse: collapse` the 1px divider is part of the row box, so each
+ * cell's `padding-block-end` is one border-width short of its `padding-block-start`: the divider
+ * then fills that last pixel and the content still sits optically centred.
+ */
+td {
+  vertical-align: middle;
+}
+
+.select-cell {
+
+  /* `sl-checkbox` is 32px tall (its touch target), which is the tallest content in the row:
+     8 + 32 + 7 + 1px divider = 48. */
+  padding-block-end: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  padding-block-start: var(--sl-size-100);
+  padding-inline: var(--sl-size-100);
+  text-align: center;
+}
+
+.title-cell {
+  /* 12 + 24 (the disc, and the link's 24px line-height) + 11 + 1px divider = 48. */
+  padding-block-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-block-start: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.title-inner {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+/*
+ * The file-type disc. The design fills it with `$pigeongrey--100` (#d9e3e8), which has no token in
+ * any theme; `--sl-color-palette-grey-200` is the nearest neutral of the same weight.
+ */
+.file-kind {
+  background: var(--sl-color-palette-grey-200);
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-full);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-300);
+}
+
+a {
+  color: var(--sl-color-link-idle);
+  flex: 1;
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--sl-color-link-hover);
+}
+
+.text-cell {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* 12 + 24 (line-height) + 11 + 1px divider = 48. */
+  padding-block-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-block-start: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.actions-cell {
+  /* 4 + 40 (the icon button) + 3 + 1px divider = 48. */
+  padding-block-end: calc(var(--sl-size-050) - var(--sl-size-borderWidth-subtle));
+  padding-block-start: var(--sl-size-050);
+  padding-inline: var(--sl-size-100);
+}
+
+.action-button {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-050);
+  justify-content: center;
+  padding: var(--sl-size-100);
+}
+
+/* The design has no focus state; this is the keyboard affordance the native buttons need. */
+.sort-button:focus-visible,
+.action-button:focus-visible,
+a:focus-visible {
+  outline: var(--sl-size-borderWidth-default) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-025);
+}

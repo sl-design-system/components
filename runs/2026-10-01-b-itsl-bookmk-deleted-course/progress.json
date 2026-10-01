@@ -45,76 +45,190 @@
       "orchestratorResolvedQ14": "--sl-text-new-typeset-fontWeight-semiBold is 600 and -bold does not exist; --sl-fontWeight-700 exists and is exactly 700. Implementers told to use var(--sl-fontWeight-700)."
     },
     "3-implement": {
-      "status": "blocked",
-      "at": "2026-09-30T23:41:21.067Z",
-      "reason": "ACCOUNT-LEVEL WEEKLY USAGE LIMIT. All four leaf component-implementer subagents were launched in parallel and all four terminated early with the same API error: \"You have hit your weekly limit - resets Oct 4 at 8pm (Europe/Warsaw)\". This is not a pipeline defect and not recoverable inside this run.",
-      "blockerKind": "environment/quota",
-      "subagentsLaunched": 4,
-      "subagentsCompleted": 0,
-      "subagentsFailed": 4,
-      "partialOutput": {
-        "course-files-bulk-actions": "course-files-bulk-actions.ts + .css written; UNVALIDATED, and it carries one real type error",
-        "its-app-nav": "its-app-nav.ts written; its-app-nav.css NEVER WRITTEN, so the component is incomplete",
-        "course-files-table": "nothing written",
-        "course-files-pager": "nothing written"
-      },
-      "rootComponent": "course-files-page.ts / .css / .stories.ts never attempted - it is the dependency-order parent and all four of its children had to land first",
-      "typeCheckGate": {
-        "command": "node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/b-itsl-bookmk-deleted-course",
-        "verdict": "failed",
-        "totalErrors": 4,
-        "inScopeErrors": 1,
-        "inScope": [
-          "course-files-bulk-actions.ts(62,14): TS4114: This member must have an 'override' modifier because it overrides a member in the base class 'LitElement & ScopedElementsHost'."
-        ],
-        "baselineErrorsStillPresent": 2,
-        "regressionsOutsideScope": 0,
-        "note": "The harness also reported one error in examples/lit/src/_runs/b-kampus-notes-panel - a DIFFERENT run tree, correctly bucketed as errorsInOtherRuns, not caused by this run."
-      },
+      "status": "done",
+      "at": "2026-10-01T06:43:56.357Z",
+      "components": [
+        "sl-course-files-page (root)",
+        "sl-its-app-nav",
+        "sl-course-files-table",
+        "sl-course-files-bulk-actions",
+        "sl-course-files-pager"
+      ],
+      "files": 11,
+      "typeCheck": "clean - 0 errors in scope, 0 regressions outside it, the 2 grid.ts baseline errors still present",
+      "tokenCheck": "clean - 0 undeclared --sl-* references, 0 shorthand traps",
       "noStubsPresent": true,
-      "fontAwesomeImports": 0
+      "fontAwesomeImports": 0,
+      "resumeNotes": "Resumed after the quota blocker. its-app-nav.css was written by the orchestrator (its .ts had survived complete); the TS4114 on course-files-bulk-actions was a one-word override fix; course-files-table, course-files-pager and the root were implemented fresh."
     },
     "4-validate": {
-      "status": "not-reached",
-      "reason": "Stage 3 gate never passed; there is no root component and no story to render."
+      "status": "done",
+      "at": "2026-10-01T06:53:23.593Z",
+      "harnessVerdicts": {
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--basic": "rendered",
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--no-files": "rendered",
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--single-file": "rendered",
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--long-titles": "rendered",
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--many-pages": "rendered",
+        "runs-b-itsl-bookmk-deleted-course-course-files-page--all-file-kinds": "rendered"
+      },
+      "allStoriesClean": "0 console errors, 0 failed requests, 0 not-upgraded elements across all six",
+      "noImg404s": "The implementers used NO <img> tags at all - unavailable assets are rendered as correctly-sized empty boxes/discs - so the expected asset 404s never occurred.",
+      "reworkRounds": {
+        "course-files-page": 1,
+        "course-files-table": 1,
+        "its-app-nav": 0,
+        "course-files-bulk-actions": 0,
+        "course-files-pager": 0
+      },
+      "measuredGeometry": {
+        "method": "live DOM measurement in Chromium at 1280px under theme itslearning; testing/measure.mjs",
+        "meanAbsDeltaPx": 1.82,
+        "dimensionsCompared": 16,
+        "perElement": {
+          "nav": "1280x112 vs 1280x112 (exact)",
+          "banner": "1120x44 vs 1120x45 (-1)",
+          "search": "1120x36 vs 1120x40 (-4)",
+          "actionsButton": "100.9x36 vs 114x40 (-13.1,-4)",
+          "table": "1120x417 vs 1120x416 (+1)",
+          "rows": "48px each vs 48 (exact, all 8)",
+          "bulkBar": "1120x58 vs 1120x56 (+2)",
+          "pager": "1120x40 vs 1120x40 (exact)",
+          "card": "1184x773 vs 1184x777 (-4)"
+        }
+      },
+      "codeDefectsFixed": [
+        "sl-inline-message painted a 2px navy host border AND a 2px ::before accent stripe; the design Banner is a flat borderless #ecf8ff fill. Removed via outer-tree host rules - no !important, no ::part, no shadow piercing. Background now resolves to exactly rgb(236,248,255).",
+        "All 8 table rows were 59px against the design 48px, compounding ~89px. Root cause was NOT the spec guess: sl-checkbox host is 32px (its touch target), and the last 1px was the collapsed row divider. Fixed with calc(token - borderWidth) padding; rows now exactly 48.",
+        "Card content column was 1118px not 1120px - the 1px card hairline was eating into it. Padding now pays for the border; card stays 1184 outer, 1120 inner."
+      ],
+      "remainingDiscrepancies": [
+        "[DS-GAP] No 40px control size exists in itslearning: md is 36px (1lh + 2x --sl-size-100), lg is 48px (1lh + 2x --sl-size-175). The design uses 40px. Chose md because height error compounds down the page (md drifts the card 8px, lg 16px) while the Actions width error is local. Not forced with CSS.",
+        "[DS-GAP] Actions button 100.9px vs 114px wide - partly the md size, partly the accepted angle-down vs filled-caret glyph difference.",
+        "[DS-GAP] sl-checkbox host is 32px tall, which sets the FLOOR for the table row. A shorter row would need a change in sl-checkbox, not in this component.",
+        "[ENV] Font: the theme names Open Sans for every --sl-text-new-*-fontFamily and it does not load, so text renders in a fallback face. Measured document.body fontFamily is Lato - the design/s own font IS available in the browser; it is the theme/s font that is missing.",
+        "[TOKEN] Page title 24px vs the design 26px - itslearning has no 26px step (heading-lg 24, heading-xl 32).",
+        "[TOKEN] --600 #0b8356 (checked-checkbox fill) is genuinely unbound; sl-checkbox uses its own themed fill, so the three selected rows show purple where the design is green. Not overridden.",
+        "[ASSET] itslearning logo, your-files glyph, avatar photo and the four full-colour file-type glyphs are remote Figma assets. Rendered as correctly-sized empty boxes/discs. Never hand-drawn, never <img>-linked.",
+        "[ICON] bell, comment and download are not among the 54 icons itslearning registers. Omitted with hit boxes preserved; no substitute glyph drawn.",
+        "[TOKEN] Disc fill #d9e3e8 has no token in ANY theme; nearest neutral --sl-color-palette-grey-200 used.",
+        "[TOKEN] Card shadow: design 0 4px 8px #0000000D; itslearning ships only -sm/-overlay/-overflow. --sl-elevation-shadow-sm used, offsets and colour differ.",
+        "[COLOR] Banner text is --sl-color-foreground-info-bold (navy) from the component; the design uses #333. Not overridden."
+      ]
     },
     "5-author": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T06:53:23.594Z",
+      "scope": "examples/ path -> story enrichment only; no Vitest spec, no website docs, no changeset, no i18n extraction (per the pipeline skill example-path rule)",
+      "storiesAdded": ["NoFiles", "SingleFile", "LongTitles", "ManyPages", "AllFileKinds"],
+      "unreachableThroughPublicApi": "selection, banner-dismissal, current page, page size and sort are all internal @state, so no story can set them. Covering them needs Storybook play functions, not new props. Recorded rather than worked around by widening the component API."
     },
     "6-review": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T07:19:27.532Z",
+      "critical": [
+        {
+          "id": "C1a",
+          "what": "Clear selection destroyed keyboard focus - the panel is torn out of the DOM and the focused button with it, dumping the user at <body>.",
+          "fixed": true,
+          "how": "#onClearSelection now awaits updateComplete and focuses sl-search-field (chosen over the first row checkbox because it always exists, even when the file list is empty, and lives in the root own shadow root)."
+        },
+        {
+          "id": "C1b",
+          "what": "Pager prev/next disabled the focused button on reaching a bound, blurring to <body>.",
+          "fixed": true,
+          "how": "Swapped ?disabled for aria-disabled + an early return in the handler, so the button stays focusable and no-ops. Appearance byte-identical."
+        },
+        {
+          "id": "C2",
+          "what": "selectedIds was never reconciled against data, so a data change left the component selecting ids that no longer exist (NoFiles showed a bulk panel over an empty table).",
+          "fixed": true,
+          "how": "willUpdate prunes selectedIds against data.files. NoFiles now hides the panel; Basic still renders the design literal 2 selected out of 40."
+        },
+        {
+          "id": "C3",
+          "what": "Undisclosed reach-through: .card sl-inline-message::before { content: none } targets an undocumented implementation detail (inline-message paints its accent stripe with :host::before; there is no @csspart and no borderless API).",
+          "fixed": false,
+          "resolution": "ACCEPTED AND DISCLOSED, not removed. Removing it restores a 2px navy stripe the design does not have, which is a worse fidelity outcome. The cascade reasoning is sound (outer-tree rule beats :host, no !important needed) but the TARGET is private, so it would break silently if the stripe moved into a shadow element. The honest fix is a borderless/@csspart request on sl-inline-message."
+        }
+      ],
+      "reachThroughInventory": {
+        "total": 6,
+        "illegitimate": 0,
+        "undocumentedTargets": 2,
+        "detail": [
+          "[ACCEPTED, undocumented target] course-files-pager.css [part=page-size] [slot=button] - sl-select advertises ::part(selected-option)/::part(selected)/::part(placeholder) in its JSDoc but they CANNOT match: select.ts:269 creates the button with shadowRoot.createElement then this.prepend(), so it lands in LIGHT DOM, and the package declares no exportparts. Needed because select-button.css hard-sets :host{color:--sl-color-foreground-plain} (#4a4a4a) where the design needs #333333. A documented API that does not work is a DS defect.",
+          "[ACCEPTED, undocumented target] course-files-page.css .card sl-inline-message::before {content:none} - see C3.",
+          "[SOFT] course-files-page.css .card sl-inline-message host override - legal outer-tree host styling, but its padding is reasoned against the component internal border-derived calc().",
+          "[LEGITIMATE] course-files-bulk-actions.css sl-button::part(button) - button is a documented @csspart.",
+          "[LEGITIMATE] course-files-pager.css [part=page-size] - plain host styling of sl-select.",
+          "[LEGITIMATE] course-files-page.css .card sl-menu-button{align-self:start} - plain host styling."
+        ],
+        "absent": "No !important, no private --_* read or write, no ::slotted piercing, no >>> anywhere in the batch."
+      },
+      "ariaSelectedRuling": "NOT invalid - <tr> maps to role=row and ARIA 1.2 lists aria-selected among role row supported states, so axe will not fire. But it is INERT: the table role has no selection model. Do NOT promote to role=grid - that obligates full grid keyboard navigation which is not implemented and would be a worse a11y outcome. Actionable part fixed: the selected-row background now keys off tr[part~=row-selected] instead of the inert ARIA attribute.",
+      "minorsFixedByOrchestrator": [
+        "M1 missing 20px content-area bottom padding",
+        "M3 banner padding-inline still subtracting a removed border",
+        "M4 sl-avatar invented HN initials in a pixel-compared region (displayName dropped, accessible name moved to the wrapper)",
+        "M9 #onToggle could push a duplicate id (Set-dedupe)",
+        "M11 bogus HTMLElementTagNameMap on a scoped-only child",
+        "M12 JSDoc examples used unprefixed tag names",
+        "M19 bell/comment placeholders were tabbable no-ops (now disabled)",
+        "M21 search input and its button shared the accessible name Search",
+        "redundant duplicate 60px select-column width",
+        "stale NoFiles docstring after the C2 fix"
+      ],
+      "minorsCarriedToReport": [
+        "M2 breadcrumb uses --sl-color-link-idle; the design context binds $text #333333 - a real colour decision left open",
+        "M5 design header select cell is 55px vs 60px data cells; built uses 60 for both",
+        "M6 .model object literals rebuilt every parent render, so children re-render on unrelated state changes",
+        "M7 the table is never paged - page/pageSize do not slice data.files, so paging is inert",
+        "M10 bulk count is a frozen constant, so it never moves as the user checks rows",
+        "M14 table and pager use native <button> where the approved tree said sl-button - defensible, uncovered by any open question",
+        "M15 the bulk bar slot=actions is unreachable in this composition (root forwards no slot)",
+        "M16 inline-size 608px makes max-inline-size 712px dead code",
+        "M17 aria-live on the bulk count never fires",
+        "M18 numbered page buttons have accessible names 1..5 with no Page prefix",
+        "M20 the avatar has no keyboard entry point",
+        "M22 title link flex:1 makes the whole column width clickable",
+        "M23 stories have no argTypes",
+        "M24 Storybook default theme is sanoma-learning; only shoot.mjs pins itslearning via URL globals",
+        "M25 the unselected bulk state is unreachable from any story",
+        "7 raw px literals, each genuinely unmappable to a token and commented at the site (1280, 264, 60, 5, 608, 712)"
+      ]
     }
   },
   "themeDerived": {
-    "tool": "runs/harness/theme-match.mjs",
-    "toolResult": {
-      "colorTokensInDesign": 0,
-      "best": null,
-      "confident": false,
-      "absoluteAgreement": null,
-      "marginOverSecond": null,
-      "ranking": []
-    },
-    "toolFailedBecause": "theme-match.mjs keys on SLDS semantic variable PATHS (color/foreground/...). This design carries itslearning LEGACY Figma variables instead ($gray--900, $brand--800, Size/300, \"Body large\"), so the tool saw colorTokensInDesign: 0 and could score nothing. Not a drift finding - a namespace mismatch the tool does not handle.",
-    "fallbackMethod": "hex-value agreement: every distinct hex in figma-variable-defs.json searched literally in each packages/themes/*/theme.css",
+    "tool": "runs/harness/theme-match.mjs (re-run after the tool gained a hex fallback)",
     "best": "itslearning",
+    "method": "hex-value-fallback",
     "absoluteAgreement": 0.941,
+    "marginOverSecond": 15.9,
+    "confident": true,
     "matched": "16/17",
-    "secondBest": "bingel-dc (and 16 others) at 0.059 (1/17, only #ffffff)",
-    "marginOverSecond": 0.882,
-    "onlyUnmatchedHex": "#0b8356 ($green--600)",
-    "corroboratingEvidence": "default-font = \"Lato\"; Lato appears in exactly one theme.css in the repo: itslearning."
-  },
-  "blocker": {
-    "stage": "3-implement",
-    "kind": "environment/quota",
-    "message": "Weekly account usage limit reached; resets Oct 4 at 8pm (Europe/Warsaw). Four parallel implementer subagents all died on it within the same minute.",
-    "resumableFrom": "Stage 3. manifest.md holds both the design manifest and the full decomposition (5 components, verbatim shared types, per-component geometry specs, all 20 open questions with defaults), which is exactly what the runbook lists as the Stage 3 resume input. THEME-FACTS.md holds the run-specific hard constraints. Delete the two partial component folders and re-run Stage 3 from the manifest.",
-    "mustRefuseResumeIf": "pipelineCommit differs from cdae07695a8204b29ae71954c7011fb348ca3ddc"
+    "hexesInDesign": 17,
+    "colorTokensInDesign": 0,
+    "note": "The tool now reproduces automatically what this run had to derive by hand: name matching finds nothing because the frame binds itslearning LEGACY Figma variables ($gray--900, Size/300, Body large) rather than SLDS semantic colour paths. Hex agreement then picks itslearning at 0.941 against 0.059 for every other theme. Corroborated by default-font = Lato, which appears in exactly one theme.css in the repo.",
+    "onlyUnmatchedHex": "#0b8356 ($green--600)"
   },
   "pipelineTree": {
     "hash": "2176d63902204219ed29b22e775e902747248deb",
     "path": "tools/implement-design-plugin",
-    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
+    "verifiedAtResume": true
+  },
+  "resumedAt": "2026-10-01T06:43:56.356Z",
+  "headAtResume": "5f340f144bd548129b494ebf7e5d762f09c3733c",
+  "priorBlocker": {
+    "stage": "3-implement",
+    "kind": "environment/quota",
+    "message": "Weekly account usage limit; four parallel implementers died on it. Cleared and resumed.",
+    "clearedAt": "2026-10-01T06:43:56.357Z"
+  },
+  "finalGates": {
+    "typecheck": "clean - 0 in scope, 0 regressions, 2 baseline grid.ts errors present",
+    "checkTokens": "clean - 0 undeclared --sl-* references, 0 shorthand traps",
+    "gateValidatedLive": "check-tokens was proven non-vacuous by injecting --sl-color-does-not-exist and font: var(--sl-text-new-body-md); it reported invented-tokens and shorthand-trap respectively, then returned to clean once reverted.",
+    "forbiddenPatternSweep": "0 @fortawesome imports, 0 Icon.register, 0 font: shorthands, 0 var() fallbacks, 0 !important, 0 private --_*, exactly 1 customElements.define (the root)"
   }
 }

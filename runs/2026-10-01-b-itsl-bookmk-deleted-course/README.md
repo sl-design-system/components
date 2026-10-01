@@ -1,50 +1,56 @@
-# Run b-itsl-bookmk-deleted-course — BLOCKED at Stage 3
+# Run b-itsl-bookmk-deleted-course — COMPLETE
 
 Case `B-Itsl-Bookmk-4549-8339` · Itslearning Bookmarks · frame `Deleted course - content`
-(`ya00uFyX1rjxYWF0dlOsoT` / `4549:8339`) · pipeline commit `cdae0769`.
+(`ya00uFyX1rjxYWF0dlOsoT` / `4549:8339`) · pipeline tree `2176d639` · theme **itslearning**.
 
-| Stage       | Status                                                                     |
-| ----------- | -------------------------------------------------------------------------- |
-| 1 ingest    | **done**                                                                   |
-| 2 decompose | **done** — 5 components, 20 open questions, all defaults recorded          |
-| 3 implement | **BLOCKED** — account weekly usage limit, resets Oct 4 20:00 Europe/Warsaw |
-| 4 validate  | not reached                                                                |
-| 5 author    | not reached                                                                |
-| 6 review    | not reached                                                                |
+All six stages done. This run was blocked at Stage 3 by an account weekly usage limit on
+2026-09-30 and resumed on 2026-10-01 against the same pipeline tree; the guard was verified before
+resuming.
 
-All four leaf `component-implementer` subagents were launched in parallel and all four terminated
-early inside the same minute with the identical API error. This is an environment/quota blocker,
-not a pipeline defect.
+| Stage       | Status                                                                             |
+| ----------- | ---------------------------------------------------------------------------------- |
+| 1 ingest    | done                                                                               |
+| 2 decompose | done — 5 components, 20 open questions, every default recorded                     |
+| 3 implement | done — 11 files, typecheck **clean**, token check **clean**                        |
+| 4 validate  | done — all 6 stories `rendered`, mean geometry delta **1.82px** over 16 dimensions |
+| 5 author    | done — 5 variant stories (example path, so no spec/docs/changeset)                 |
+| 6 review    | done — 3 CRITICAL found, 3 resolved, 1 accepted-and-disclosed                      |
 
-## What is on disk
+## Theme
 
-`generated/` holds what the dying agents managed to flush — it is **partial and unvalidated**:
+`theme-match.mjs` initially scored nothing (`colorTokensInDesign: 0`) because this frame binds
+itslearning's **legacy** Figma variables (`$gray--900`, `Size/300`, `Body large`) rather than SLDS
+semantic colour paths. Derived by hand at 16/17 hex agreement; the tool has since gained a hex
+fallback and now reproduces it automatically: `itslearning`, `hex-value-fallback`, agreement
+**0.941**, margin over second **15.9x**, `confident: true`.
 
-- `course-files-bulk-actions/` — `.ts` + `.css`, carries one real type error (TS4114, a missing
-  `override` on the static `styles` member).
-- `its-app-nav/` — `.ts` only; **its `.css` was never written**, so the component is incomplete.
-- `course-files-table/`, `course-files-pager/`, and the root `course-files-page.*` — never written.
+## Code Connect
 
-`testing/` is empty: Stage 4 never ran, because there is no root component and therefore no story.
+`{}` at subtree scope **and** for all 11 significant nodes queried individually, including a retry
+with `codeConnectLabel: "SL Design System"`. Root cause: the frame comes from the itslearning
+Figma library, not the SLDS library — `get_design_context` emits zero `<sl-*>` tags. This is an
+absent-library condition, not the known scoping artifact, so `BLOCKED_ON_CODE_CONNECT` was
+correctly **not** raised.
 
-## Resuming
+## Contents
 
-Per the runbook, Stage 3 resumes from _manifest + decomposition_, and both are in `manifest.md`:
-the design manifest, the full five-component decomposition with verbatim shared types and
-per-component geometry specs, and all 20 open questions with the default chosen for each.
-`THEME-FACTS.md` carries the run-specific hard constraints (icon set, typography longhands,
-token map, border widths).
+- `manifest.md` — design manifest **and** the full decomposition (the Stage 3 resume input).
+- `THEME-FACTS.md` — the run's hard constraints: the 54 registered icons, the typography-longhand
+  rule, the verified design-colour → token map, border widths.
+- `generated/` — the 11 source files, and the resume source (the live tree is gitignored).
+- `testing/` — six captures plus their harness reports, and `measure.mjs`, the DOM measurement
+  script behind the 1.82px figure.
+- `progress.json` — per-stage status, theme evidence, every discrepancy, and the complete
+  reach-through inventory.
 
-To resume: delete the two partial component folders under
-`examples/lit/src/_runs/b-itsl-bookmk-deleted-course/` and re-run Stage 3 from `manifest.md`.
+## Reproducing the gates
 
-**Refuse the resume if `git rev-parse HEAD` is not `cdae07695a8204b29ae71954c7011fb348ca3ddc`** —
-a resume across a different pipeline commit produces a run that is half old and half new, and its
-numbers describe neither.
+```sh
+node runs/harness/typecheck.mjs   --scope examples/lit/src/_runs/b-itsl-bookmk-deleted-course
+node runs/harness/check-tokens.mjs --scope examples/lit/src/_runs/b-itsl-bookmk-deleted-course --theme itslearning
+node runs/harness/shoot.mjs --story runs-b-itsl-bookmk-deleted-course-course-files-page--basic \
+  --out /tmp/x.png --theme itslearning --width 1280 --height 1082 --full
+```
 
-## What the partial output already proves
-
-Every run-specific hard rule held in the code that did land, checked mechanically:
-no `@fortawesome` import, no `Icon.register`, no `font: var(--sl-text-new-*)` shorthand, no `var()`
-fallback, no raw hex, no bare `font-weight: 700`, no `customElements.define` in a child. The only
-two `sl-icon` names used (`search`, `xmark`) are both in the itslearning theme's registered set.
+Restore `generated/` into `examples/lit/src/_runs/b-itsl-bookmk-deleted-course/` first — that tree
+is gitignored and a clean checkout wipes it.

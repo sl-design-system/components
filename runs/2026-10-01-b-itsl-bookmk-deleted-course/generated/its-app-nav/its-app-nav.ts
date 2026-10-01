@@ -45,7 +45,7 @@ export type SlItsAppNavSearchEvent = CustomEvent<string>;
  * navigate/search events this component emits.
  *
  * ```html
- * <its-app-nav .model=${model}></its-app-nav>
+ * <sl-its-app-nav .model=${model}></sl-its-app-nav>
  * ```
  *
  * @fires sl-its-app-nav-navigate - Emitted when a primary or secondary menu item is activated.
@@ -103,7 +103,7 @@ export class ItsAppNav extends ScopedElementsMixin(LitElement) {
                   placeholder="Search"
                   @keydown=${this.#onSearchKeydown}
                 />
-                <button class="search-button" type="button" aria-label="Search" @click=${this.#onSearchClick}>
+                <button class="search-button" type="button" aria-label="Submit search" @click=${this.#onSearchClick}>
                   <sl-icon name="search" size="xl" aria-hidden="true"></sl-icon>
                 </button>
               </div>
@@ -112,15 +112,19 @@ export class ItsAppNav extends ScopedElementsMixin(LitElement) {
             <!-- "bell" and "comment" are not among the icons the itslearning theme registers.
                  Both hit boxes are rendered empty (but still labelled) so the spacing of the
                  right-hand cluster matches the design. -->
-            <button class="icon-button" type="button" aria-label="Notifications">
+            <button class="icon-button" type="button" aria-label="Notifications" disabled>
               <span class="icon-slot" aria-hidden="true"></span>
             </button>
-            <button class="icon-button" type="button" aria-label="Messages">
+            <button class="icon-button" type="button" aria-label="Messages" disabled>
               <span class="icon-slot" aria-hidden="true"></span>
             </button>
 
-            <div class="user-menu">
-              <sl-avatar image-only shape="circle" size="md" .displayName=${model?.userName ?? ''}></sl-avatar>
+            <div class="user-menu" role="img" aria-label=${ifDefined(model?.userName)}>
+              <!-- No displayName: sl-avatar falls back to rendering initials when it has a name
+                   and no picture, and the user photo is an unavailable remote Figma asset. Invented
+                   initials inside a pixel-compared region are the same defect class as a hand-drawn
+                   icon, so the circle is left empty and the accessible name lives on the wrapper. -->
+              <sl-avatar image-only shape="circle" size="md"></sl-avatar>
             </div>
           </div>
         </div>

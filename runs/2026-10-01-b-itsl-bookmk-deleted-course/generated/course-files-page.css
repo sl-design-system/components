@@ -1,0 +1,213 @@
+/*
+ * The itslearning "Course files" page shell: app chrome, page header, content card.
+ *
+ * Typography is written as longhands throughout. The itslearning theme declares no bare
+ * `--sl-text-new-*` custom property, so a `font:` shorthand would reference an undefined value
+ * and the browser would drop the whole declaration (family, size and line-height at once).
+ */
+
+:host {
+  /* Custom elements default to `display: inline`; the page is a block-level canvas. */
+  display: block;
+
+  /*
+   * The design's page canvas is `$gray--150` (#f2f2f2). The semantic token that resolves to that
+   * value is `--sl-color-background-disabled`, which is the wrong *role* for a page canvas, so
+   * the palette token is used instead and the role gap is reported.
+   */
+  background: var(--sl-color-palette-grey-150);
+
+  /* The design frame is a single 1280px breakpoint; there are no other widths in the file. */
+  inline-size: 1280px;
+
+  /* The frame's own 56px bottom padding below the content card. */
+  padding-block-end: var(--sl-size-700);
+}
+
+/* ------------------------------------------------------------------ content area (1184px) */
+
+.content-area {
+  /*
+   * `ca-horisontal-margin` = 48px each side, which is what yields the design's 1184px column
+   * inside the 1280px frame.
+   */
+  padding-inline: var(--sl-size-600);
+
+  /*
+   * `content-area-wrapper` (`4549:8342`) is 914 tall: 117 page header + 777 card + 20 below the
+   * card. Without this the card sits 56px above the frame bottom (the host's padding alone)
+   * instead of the design's 76px.
+   */
+  padding-block-end: var(--sl-size-250);
+}
+
+/* ------------------------------------------------------------------------------ page header */
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.breadcrumbs {
+  /* `Breadcrumb wrapper` has an 8px top padding above the trail. */
+  padding-block-start: var(--sl-size-100);
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+
+  /* The `Breadcrumb trail` gap between crumbs. */
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs li {
+  align-items: center;
+  display: flex;
+
+  /* The gap between a crumb's label and its trailing chevron. */
+  gap: var(--sl-size-050);
+
+  /* Each `Breadcrumb` node carries 4px of vertical padding. */
+  padding-block: var(--sl-size-050);
+}
+
+.breadcrumbs a {
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+
+  /*
+   * NOTE / discrepancy: the Figma node `I4549:8343;19853:9045;19853:6322;19853:6319` binds the
+   * crumb colour to `$text` (#333333 = `--sl-color-foreground-bold`), not to a link colour. The
+   * link token is used here per the implementation spec; flipping this one declaration to
+   * `--sl-color-foreground-bold` restores the design's colour exactly.
+   */
+  color: var(--sl-color-link-idle);
+  text-decoration: underline;
+}
+
+.breadcrumbs a:hover {
+  color: var(--sl-color-link-hover);
+}
+
+.breadcrumbs sl-icon {
+  color: var(--sl-color-foreground-subtle);
+}
+
+.page-header h1 {
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+
+  /*
+   * The design's `Title XL` is 26px/700. itslearning has no 26px step on the heading ramp, so the
+   * nearest one (24px) is used; the 2px delta is reported rather than hardcoded.
+   */
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+
+  /* `semiBold` is 600 in this theme and no `-bold` alias exists; 700 is its own token. */
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  color: var(--sl-color-foreground-bold);
+
+  /* The `Title and subtitle` block's 20px vertical padding, which also spaces the card below. */
+  margin: 0;
+  padding-block: var(--sl-size-250);
+}
+
+/* ----------------------------------------------------------------------------- content card */
+
+.card {
+  background: var(--sl-color-background-input-plain);
+
+  /* `-subtle` is the 1px hairline in itslearning; `-default` resolves to 2px there. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-md);
+
+  /*
+   * NOTE / discrepancy: the design's `layer-shadow` is `0 4px 8px #0000000D`. itslearning ships
+   * only `-sm`, `-overlay` and `-overflow`; `-sm` is the nearest and is NOT an exact match
+   * (different offsets and colours). Reported rather than hardcoded as a raw value.
+   */
+  box-shadow: var(--sl-elevation-shadow-sm);
+  display: flex;
+  flex-direction: column;
+
+  /* The `Content-block` node's own 20px gap between its stacked children. */
+  gap: var(--sl-size-250);
+
+  /*
+   * `content-block-horisontal-padding` = 32px, `content-block-vertical-padding` = 20px.
+   *
+   * The hairline above is drawn INSIDE the 1184px column (a Figma "inside" stroke overlays the
+   * frame's padding rather than widening the frame), so with `box-sizing: border-box` it would
+   * otherwise eat 1px of padding per side and leave a 1118px content column where the design's is
+   * 1120px. Subtracting the border width from the inline padding — the same idiom
+   * `inline-message.css` uses — keeps the card's outer edge at 1184px AND the content column at
+   * 1120px; the 1px it costs the padding is what the border itself paints over.
+   */
+  padding-block: var(--sl-size-250);
+  padding-inline: calc(var(--sl-size-400) - var(--sl-size-borderWidth-subtle));
+}
+
+/*
+ * The design's Banner is borderless with a flat `$blue--100` fill. `sl-inline-message` draws a
+ * `--sl-size-borderWidth-default` (2px in itslearning) `--sl-color-border-info-bold` outline on its
+ * own `:host`, and exposes no `borderless`/`flat` API — `variant`, `size`, `indismissible`,
+ * `noAction` and `noTitle` are its entire surface (verified in `inline-message.ts`). The two
+ * components genuinely differ, so the host is restyled from here.
+ *
+ * This is ordinary outer-scope styling of an element in this component's own shadow tree: normal
+ * declarations in the outer tree beat the shadow tree's own `:host` rule, so there is no
+ * `!important`, no `::part()` and no private `--_*` involved.
+ */
+.card sl-inline-message {
+  /*
+   * `$blue--100` #ecf8ff exactly. The component's own `--sl-color-background-info-subtlest` is
+   * #0055b01a — a translucent blue that composites to a lighter, flatter wash over the white card.
+   */
+  background: var(--sl-color-palette-blue-050);
+  border: none;
+
+  /*
+   * The component's own `padding-block` is `calc(var(--sl-size-150) - var(--sl-size-borderWidth-default))`
+   * = 10px, sized to sit inside the 2px border that is no longer drawn. Its tallest child is the
+   * 36px icon-only dismiss button, so 10px of padding yields a 56px banner against the design's
+   * 45px. 4px brings it to 44px — the closest reachable value, since the 36px button is a hard
+   * floor and no 4.5px step exists. The remaining 1px is reported, not forced.
+   */
+  padding-block: var(--sl-size-050);
+
+  /*
+   * The component's own inline padding is
+   * `calc(var(--sl-size-300) - var(--sl-size-borderWidth-default))` = 22px leading and
+   * `calc(var(--sl-size-150) - var(--sl-size-borderWidth-default))` = 10px trailing. Both subtract
+   * the 2px border removed above, so they are sized for a box this banner no longer is. The
+   * design's Banner is 12px leading / 0 trailing, so both sides are set explicitly here; without
+   * it the info icon sits 10px further in than the design puts it.
+   */
+  padding-inline-start: var(--sl-size-150);
+  padding-inline-end: var(--sl-size-none);
+}
+
+/*
+ * The other half of the navy outline: `sl-inline-message` also paints a leading accent stripe on
+ * the HOST's own `::before` (`background: var(--sl-color-border-info-bold)`), which survives
+ * `border: none` and leaves a 2px navy bar the design does not have — its Banner is a flat fill
+ * edge to edge. The host's `::before` belongs to this, the outer, tree, so removing it is the same
+ * ordinary override as the border: no `!important`, no `::part()`, no private `--_*`.
+ */
+.card sl-inline-message::before {
+  content: none;
+}
+
+/*
+ * The card's children stretch to its 1120px inner width by default; only the Actions button is
+ * intrinsically sized in the design.
+ */
+.card sl-menu-button {
+  align-self: start;
+}

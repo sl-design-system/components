@@ -151,6 +151,40 @@ Where Code Connect resolved, two runs received snippets that were valid and wron
 These are worth taking to whoever maintains the mappings: a wrong mapping is more expensive than a
 missing one, because it is delivered with authority and nothing downstream questions it.
 
+## D14 — `sl-select` documents a CSS part that cannot match
+
+`select.ts:61` declares:
+
+```
+@csspart selected-option - The container for the selected option within the select's internal
+`sl-select-button`, exposed for styling via `<sl-select>`
+```
+
+It is not exposed. The part lives inside `sl-select-button`'s shadow root, `sl-select` declares no
+`exportparts`, and `connectedCallback` builds the button with `shadowRoot.createElement`. So
+`sl-select::part(selected-option)` matches nothing, silently — a selector that fails is not an
+error.
+
+The confirming detail: **the component's own stories do not use the documented path.** Both
+`select.stories.ts:216` and `:256` reach for `sl-select-button::part(selected-option)`, targeting
+the inner element directly. The same tell as `sl-grid`, whose styling story reaches into private
+`--_` properties: when a component's own examples bypass its public API, the public API does not
+work.
+
+Worth a sweep rather than a single fix — any `@csspart` documented on a wrapper whose part lives
+in a nested shadow root has the same problem, and nothing in the build checks the claim.
+
+## D15 — Three gaps the runs hit repeatedly
+
+- **No 40px control size.** `md` is 36 and `lg` is 48. One run chose `md` deliberately because
+  height error compounds down a page, and recorded the delta.
+- **`sl-checkbox`'s 32px host sets a floor on table row height**, so a design with 48px rows
+  containing a checkbox cannot be matched exactly.
+- **No 18px or 26px type step**, which three separate designs asked for.
+
+None is a bug; together they are the measured shape of where the scale does not reach the designs
+in use.
+
 ## D11a — A token's value depends on an ancestor attribute nobody sets
 
 In `kampus`, `--sl-label-md-fontSize` resolves through a `-userGroup` indirection declared under

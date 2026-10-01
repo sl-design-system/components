@@ -187,26 +187,23 @@ declaring a value unbound; it now has to say search _by value_, not by name.
 
 ---
 
-## What the batch covered, and what stopped it
+## What the batch covered — final
 
-Fourteen of nineteen designs were attempted. **Nine completed all six stages**; four stopped on the
-account's weekly usage limit, not on anything in the pipeline; five were never launched when the
-limit arrived.
+Fourteen of nineteen designs attempted, **all fourteen finished**. Eleven completed all six stages
+outright; two reached Stage 6 with a handoff note at the iteration cap; one is the earlier smoke
+run. Four were interrupted by the account's weekly limit and **all four were resumed from their
+own transcripts and completed** — which is the resume design's first real test and it passed.
 
-| Outcome                     | Cases                                                                                                                          |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Six stages complete         | A1 Kampus · A4 Sesame · A8 NSP · A9 SANNA · A11 Sesame · B-Itsl-Bookmk `course files` · B-Itsl-Collab · B-NSP `home` · B-SANNA |
-| Stopped on quota, resumable | A5 ETSL (Stage 4) · B-Itsl-Bookmk `Deleted course` (Stage 3) · B-Itsl-Course (Stage 3) · B-Kampus `Notes panel` (Stage 3)      |
-| Never launched              | A2 NSP `class overview` · A3 + A7 MyPortal · A6 Itsl-Collab · A10 ETSL · B-Sesame `Group details`                              |
+Five were never launched: A3 and A7 MyPortal, A6 Itsl-Collab, A10 ETSL, B-Sesame `Group details`.
 
-Every stopped run is promoted with its partial output, its blocker recorded in `progress.json`,
-and a resume guard that fails if `HEAD` has moved. That design was written the night before the
-batch on the argument that a stopped run must not have to repeat what already succeeded. It was
-not a hypothetical twelve hours later.
+The scale case did run. A2 at 10,936 nodes was the one genuine unknown, and its answer is below.
 
-**The one case the corpus most needed is among the missing.** A2 `class overview` has 10,936 nodes
-— six times the largest design that did run — and it was scheduled last precisely because it was
-expected to be the most expensive. Nothing here says what the pipeline does at that size.
+Every stopped run was promoted with its partial output, its blocker in `progress.json`, and a
+resume guard. The guard needed one correction before it was usable: it stamped `HEAD`, which moved
+a dozen commits that never touched the pipeline, so it would have refused every resume for
+changes that could not affect a run. It stamps the **pipeline tree hash** now. A guard that always
+fires gets switched off, which is worse than no guard — and that only became visible by trying to
+use it.
 
 ---
 
@@ -238,34 +235,32 @@ Two further qualifications on the four that did resolve:
 
 ---
 
-## No theme loads the font it names
+## The themes ask for a font by a name that does not exist — corrected
 
-Checked in four themes, wrong in four.
+The first reading of this was wrong and is worth leaving visible, because the wrong version
+survived four independent confirmations.
 
-| Theme               | Fault                                                                  |
-| ------------------- | ---------------------------------------------------------------------- |
-| `kampus`            | `--sl-typography-*-fontFamily` is `'Open Sans'`; no `fonts.css` at all |
-| `itslearning`       | `--sl-text-new-*` is `'Open Sans'`; the Typekit ships only Lato        |
-| `teacher-assistant` | three tokens hardcode `'Open Sans'`; `fonts.css` never loads it        |
-| `sanoma-pro`        | names `'Open Sans'`, which is not shipped                              |
+Four runs reported text rendering in a fallback face and I recorded it as "no theme loads the font
+it names", implying missing font assets. B-Kampus measured it instead: a string in `'Open Sans'`
+renders **218.5px**, identical to a deliberately nonexistent family; the same string in
+`open-sans` renders **247.4px**. The font loads. `kampus/theme.css` carries **both** spellings —
+`'Open Sans'` 29 times, `'open-sans'` 18 — and Typekit registers the lowercase hyphenated form.
+`itslearning` has the same pair.
 
-So **every text pixel the batch captured was rendered in a fallback face**, usually the browser's
-default serif. Three designs name Lato as their own font, and two themes have a working Lato token
-in the older `--sl-text-*` namespace, beside the broken new one.
+So the repair is a spelling change in the theme, not a new asset, and the broken spelling sits
+entirely in the newer `--sl-text-new-*` namespace in both files examined.
 
-Two consequences, and the second is the awkward one.
+**Four runs agreeing on a symptom produced a confident and wrong cause.** Each observed serif text
+and each reported it truthfully; none measured the family, because the symptom had an obvious
+explanation and the obvious explanation was available for free. The one run that measured it got
+a different answer in a single command. For a bench this matters more than the bug: agreement
+across runs is evidence about the **symptom**, never about the cause, and the corpus will produce
+plenty of both.
 
-First, typography fidelity is not measurable today in any theme examined. Any text comparison
-scores the fallback.
+The consequence for guidance is unchanged and still uncomfortable: following the token guidance
+renders serif where writing the family from the design renders correctly.
 
-Second — **following the token guidance produces worse fidelity than ignoring it.** A run that
-writes `font-family: Lato` from the Figma value renders correctly; a run that uses the semantic
-token renders serif. A bench that scores "used the right token" and a bench that scores "looks
-like the design" return opposite verdicts here, and the design system, not the run, is why. The
-fidelity score has to be able to say _this run is correct and the output is wrong_, or it will
-train runs away from tokens.
-
----
+Full detail and the per-theme table: [`design-system-defects.md`](design-system-defects.md) D2.
 
 ## Two frames from one file produced a colliding component
 

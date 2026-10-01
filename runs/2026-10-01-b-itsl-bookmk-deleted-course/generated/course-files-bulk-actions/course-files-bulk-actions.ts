@@ -14,10 +14,6 @@ declare global {
     'sl-course-files-bulk-action': SlCourseFilesBulkActionEvent;
     'sl-course-files-clear-selection': SlCourseFilesClearSelectionEvent;
   }
-
-  interface HTMLElementTagNameMap {
-    'sl-course-files-bulk-actions': CourseFilesBulkActions;
-  }
 }
 
 /** The bulk actions this panel can offer for the current selection. */
@@ -59,7 +55,7 @@ const BULK_ACTIONS = [{ id: 'download', label: 'Download' }] as const;
  */
 export class CourseFilesBulkActions extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon

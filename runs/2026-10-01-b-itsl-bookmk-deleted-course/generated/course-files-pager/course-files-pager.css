@@ -1,0 +1,134 @@
+:host {
+  /*
+   * The pager row itself is the flex container from the design: the pager group on the left
+   * grows, the status + page size control sit at the trailing end.
+   */
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--sl-size-200);
+  inline-size: 100%;
+}
+
+[part='pager'] {
+  flex: 1;
+}
+
+[part='pager'] ul {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+
+  /* A UA `<ul>` carries markers, block margin and inline padding; the design has none. */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Shared reset + typography for every control in the pager group. */
+.step,
+[part~='page'] {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.step:focus-visible,
+[part~='page']:focus-visible {
+  outline-color: var(--sl-color-border-focused);
+}
+
+/* Previous / next: a 24px chevron in an 8px box. */
+.step {
+  align-items: center;
+  justify-content: center;
+  padding: var(--sl-size-100);
+}
+
+/*
+ * At the bounds the step button keeps its tab stop (`aria-disabled`, not `disabled`) so focus is
+ * never dropped to the body; it only has to *look* unavailable.
+ */
+.step[aria-disabled='true'] {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+}
+
+[part~='page'] {
+  align-items: center;
+  block-size: var(--sl-size-500);
+  justify-content: center;
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-200);
+  text-align: center;
+}
+
+/*
+ * The active page is a solid purple block. `#5d4a68` ($brand--700) has no semantic alias in the
+ * itslearning theme, so the palette token is the only exact match.
+ */
+[part~='page-current'] {
+  background: var(--sl-color-palette-purple-700);
+  color: var(--sl-color-palette-grey-000);
+}
+
+.control {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+[part='status'] {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/*
+ * `sl-select` already draws the design's input chrome itself: `--sl-color-background-input-plain`
+ * on a `--sl-size-borderWidth-default` (2px) `--sl-color-border-input` border with the
+ * `--sl-size-borderRadius-md` radius, and 12px of leading padding. Only the width, the value
+ * typography and the trailing inset are restated here.
+ */
+[part='page-size'] {
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  inline-size: var(--sl-size-1000);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+/*
+ * REACHING PAST THE PUBLIC API: `sl-select` creates its `sl-select-button` in its own light DOM
+ * under a scoped tag name, and sets no `exportparts`, so the documented
+ * `sl-select::part(selected-option)` hook does not actually match. `[slot='button']` is the only
+ * stable handle on that element. It is needed because the button hard-sets
+ * `color: var(--sl-color-foreground-plain)` (#4a4a4a) on its own `:host`, which beats inheritance,
+ * while the design's value text is #333333 = `--sl-color-foreground-bold`.
+ */
+[part='page-size'] [slot='button'] {
+  block-size: var(--sl-size-500);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-bold);
+
+  /*
+   * The design insets its caret 6px from the border box; the button's own border is part of that
+   * inset, so the padding is the remainder. (The component's default is 10px.)
+   */
+  padding-inline-end: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+}

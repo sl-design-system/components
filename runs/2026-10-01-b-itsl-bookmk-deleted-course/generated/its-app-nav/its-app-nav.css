@@ -1,0 +1,202 @@
+/*
+ * itslearning global app chrome: a 56px application bar over a 56px product bar.
+ *
+ * Two deliberate omissions, both recorded as Stage 4 discrepancies rather than invented:
+ *   - the itslearning logo and the "your-files" product glyph are remote Figma image assets that
+ *     are not available here, so `.logo` / `.product-icon` are empty 32x32 boxes that hold the
+ *     leading offset;
+ *   - `bell` and `comment` are not among the 54 icons the itslearning theme registers, so
+ *     `.icon-slot` is an empty 24x24 box inside a full-size, still-labelled hit target.
+ *
+ * Typography is written as longhands throughout. This theme declares no bare `--sl-text-new-*`
+ * custom property, so a `font:` shorthand would reference an undefined value and the browser
+ * would drop the whole declaration.
+ */
+
+:host {
+  /* The chrome is a block-level band spanning the page; it has no inline-level default to keep. */
+  display: block;
+}
+
+.chrome {
+  box-shadow: var(--sl-elevation-shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------------------------------------------------------- application bar (row 1) */
+
+.app-bar {
+  align-items: center;
+  background: var(--sl-color-background-input-plain);
+  block-size: var(--sl-size-700);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  box-sizing: border-box;
+  display: flex;
+  padding-inline: var(--sl-size-050);
+}
+
+.logo-area {
+  display: flex;
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.logo {
+  block-size: var(--sl-size-400);
+  inline-size: var(--sl-size-400);
+}
+
+.primary-nav ul,
+.secondary-nav ul {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-200);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.personal-menu {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  padding-inline-start: var(--sl-size-300);
+}
+
+.search {
+  align-items: center;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  inline-size: 264px;
+}
+
+.search-input {
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-bold);
+  flex: 1;
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  min-inline-size: 0;
+  padding-block: var(--sl-size-050);
+  padding-inline-start: var(--sl-size-150);
+}
+
+.search-input::placeholder {
+  color: var(--sl-color-foreground-subtlest);
+}
+
+.search-button {
+  align-items: center;
+  /* The button is attached to the field, so only its trailing corners are rounded. */
+  background: none;
+  border: none;
+  border-end-end-radius: var(--sl-size-borderRadius-md);
+  border-start-end-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding-block: var(--sl-size-050);
+  padding-inline: var(--sl-size-100);
+}
+
+.icon-button {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: var(--sl-size-150);
+}
+
+.icon-slot {
+  block-size: var(--sl-size-300);
+  display: block;
+  inline-size: var(--sl-size-300);
+}
+
+.user-menu {
+  align-items: center;
+  display: flex;
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-100);
+}
+
+/* -------------------------------------------------------------------- product bar (row 2) */
+
+.product-bar {
+  align-items: center;
+  /* The design also carries an inset shadow here; itslearning declares no inset elevation
+     token, so it is omitted rather than hardcoded. Recorded as a Stage 4 discrepancy. */
+  background: var(--sl-color-palette-grey-050);
+  block-size: var(--sl-size-700);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  box-sizing: border-box;
+  display: flex;
+  padding-inline: var(--sl-size-050);
+}
+
+.product {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.product-icon {
+  block-size: var(--sl-size-400);
+  inline-size: var(--sl-size-400);
+}
+
+.product-label {
+  color: var(--sl-color-foreground-bold);
+  /* The design sets 18px/700. itslearning has no 18px step, so this renders at the 16px
+     heading-md size. Recorded as a Stage 4 discrepancy. */
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  white-space: nowrap;
+}
+
+.secondary-nav li {
+  position: relative;
+}
+
+/* The active product tab is underlined by a bar pinned to the bottom of the bar itself, inset
+   to match the item's inline padding so it sits under the label rather than the whole box. */
+.highlight {
+  background: var(--sl-color-palette-grey-700);
+  block-size: var(--sl-size-050);
+  border-start-end-radius: var(--sl-size-borderRadius-lg);
+  border-start-start-radius: var(--sl-size-borderRadius-lg);
+  inset-block-end: 0;
+  inset-inline: var(--sl-size-200);
+  position: absolute;
+}

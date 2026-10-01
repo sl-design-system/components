@@ -29,6 +29,33 @@ that matters**, because those are the stages the plugin's own agents actually ra
 
 Do not start the batch harness for these runs. It would be a change.
 
+## How to run one
+
+In Claude Code, `/implement-design <url>`. The `link-workspaces.mjs` command above is run **once in
+any terminal** — it writes symlinks into `node_modules/`, which is repository state, not session
+state, so it does not need repeating per window.
+
+**Supply the four answers in the same message.** They are Stage 0's own questions and they belong
+to the operator, so giving them up front is the same information earlier, not a change to the
+skill. Paste this shape:
+
+```
+/implement-design <url>
+
+Stage 0 answers:
+- Figma MCP server: figma (remote)
+- Framework: lit
+- Internationalization: no
+- Output location: examples/lit/src/_runs/control-<case>-r<N>/
+```
+
+Note what happens next, because it is worth recording: **if the skill asks anyway despite having
+the answers, say so.** Its Stage 0 instruction is to ask in one batch, and whether it honours
+answers already given is a small but real property of how it is written.
+
+The output location is a base — the skill appends a folder derived from the root component's name,
+so a run lands in `control-<case>-r<N>/<component>/`. Still unique per run, which is the point.
+
 ## Stage 0 — the four answers, the same every time
 
 The skill asks these and they are legitimately the operator's to give; answering them is not

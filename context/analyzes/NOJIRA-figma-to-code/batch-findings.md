@@ -4,8 +4,17 @@ Companion to [`smoke-run-findings.md`](smoke-run-findings.md), which covers the 
 This file collects what only shows up **across** runs: what generalises from the simplest screen,
 what turned out to be specific to it, and what no single run could have revealed.
 
-Written while the batch is still executing, so entries are added as runs report. Each names the
-evidence it rests on.
+Each entry names the evidence it rests on.
+
+**Three documents, three audiences.** This one is the evidence and the reasoning — read it when
+you want to know why something is believed. Two companions turn it into work:
+
+| Document                                               | Audience                                      | Contains                                                                |
+| ------------------------------------------------------ | --------------------------------------------- | ----------------------------------------------------------------------- |
+| [`design-system-defects.md`](design-system-defects.md) | design system team, designers                 | faults in the components and themes themselves, with how to verify each |
+| [`pipeline-defects.md`](pipeline-defects.md)           | whoever writes the next version of the skills | what the pipeline must change, and which requirement each maps to       |
+
+Nothing in those two depends on this one; they are written to be handed over on their own.
 
 ---
 

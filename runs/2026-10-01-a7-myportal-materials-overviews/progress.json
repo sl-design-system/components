@@ -189,8 +189,41 @@
       "executedBy": "ORCHESTRATOR (stories were authored with the components in Stage 3; Stage 5 verified all five render clean)"
     },
     "6-review": {
-      "status": "in-progress",
-      "at": "2026-10-01T11:12:34.145Z"
+      "status": "done",
+      "at": "2026-10-01T11:25:45.512Z",
+      "executedBy": "implement-design:component-reviewer subagent",
+      "tokens": 110139,
+      "toolUses": 59,
+      "durationMs": 544257,
+      "critical": 2,
+      "criticalFixed": 2,
+      "minor": 15,
+      "minorFixed": 7,
+      "minorCarried": [
+        "no argTypes/args on the stories",
+        "filePanel.heading is derived state stored in the model (and breadcrumb duplicates materialHeader.title)",
+        "redundant aria-current on the breadcrumb (sl-breadcrumbs sets it) and href=# stub",
+        "dead model fields: A7ContributorGroup.id, and A7MaterialTreeSection.icon / A7FileEntry.fileType which now document which glyph each row omits",
+        ":host display without the conventions-required why comment (6 files)",
+        "parameter named event shadows the imported event decorator in material-tree",
+        "expanding an empty section yields an empty list (faithful to the design, no empty state)",
+        "three raw lengths without explaining comments: 369px, 240px, 160px (no token exists for any)"
+      ],
+      "criticalItems": [
+        "the icon-availability audit was run against a registry miscounted as 34 (real: 54), so iconGap was used where a registered icon exists - plus in the quick-actions row. FIXED: REGISTERED_GLYPHS predicate added to icon-gap.ts, derived from the theme with the command recorded inline; plus now renders as <sl-icon>.",
+        "the user chip declared aria-haspopup=menu plus a hardcoded aria-expanded=false with no backing state and no menu ever rendered - a false ARIA assertion. FIXED: both attributes removed, with a comment saying what must be true before they return."
+      ],
+      "minorFixedItems": [
+        "dangling aria-controls on 11 of 12 collapsed sections (ul now always rendered, ?hidden when collapsed)",
+        "4 dead duplicate CSS declarations removed",
+        "block-size 64px -> --sl-size-800 (exact token)",
+        "decorative avatar stack given aria-hidden (names already announced by the adjacent text)",
+        "aria-label duplicating a visible label -> aria-labelledby",
+        "@fires documented on all 12 events across 5 components",
+        "native @input -> the documented @sl-change API with a typed detail"
+      ],
+      "reviewerAlsoConfirmed": "0 raw hex, 0 var() fallbacks, 0 HTML-comment backtick traps, 1 guarded customElements.define (root only), complete scopedElements maps, correct @event/EventEmitter wiring, right-sized decomposition (none of the 4 repeated row types made into a component), heading order h1 then h2, no <main>",
+      "postFixRevalidation": "typecheck clean (0 inScope, 0 regressions); check-tokens clean (15 files, 152 references, 0 missing, 0 traps); all 5 stories rendered, 0 console errors; interaction check 13/13 wired; page 1440x1890 exact"
     }
   },
   "overrideAnalysis": {
@@ -246,19 +279,18 @@
     "largestUnavoidableColourDelta": "none - every bound hex resolves exactly",
     "colourTrap": "--sl-color-foreground-plain resolves to #373a3e; the design body foreground is #002649, which has NO semantic foreground token at all (only --sl-color-palette-blue-800). Using the semantic token would be valid, type-check, pass the token check, and be visibly wrong.",
     "iconsTheThemeLacks": {
-      "needed": 18,
-      "present": 3,
-      "missing": 15,
-      "present_list": [
-        "home-blank",
-        "chevron-down",
-        "breadcrumb-separator (supplied by sl-breadcrumbs)"
-      ],
-      "missing_list": [
+      "CORRECTED": true,
+      "registrySize": 54,
+      "previouslyRecorded": 34,
+      "countingBug": "icons.ts mixes quoted and bare object keys; a pattern matching only quoted keys undercounts by 20",
+      "distinctGlyphNamesDrawn": 21,
+      "registered": 5,
+      "absent": 16,
+      "registered_list": ["home-blank", "chevron-down", "plus", "search", "breadcrumb-separator"],
+      "absent_list": [
         "slash-forward",
         "presentation-screen",
         "pencil",
-        "plus",
         "comment",
         "note",
         "image",
@@ -271,12 +303,32 @@
         "file-pdf",
         "file-invoice-dollar",
         "file-doc",
-        "file-word",
-        "search"
+        "file-word"
       ],
-      "note": "search is unfixable from our side - it is rendered inside sl-search-field own shadow DOM. All others render as iconGap() with the drawn footprint preserved."
+      "costOfTheError": "plus was rendered as an empty gap though registered (now fixed); search was recorded as an unfixable gap though sl-search-field renders it, and the first capture already showed the magnifier",
+      "navRailNote": "the 7 nav-rail glyphs are exported SVG artwork, not FontAwesome names, so they correctly remain reserved footprints"
     },
     "largestUnavoidableTypographyDelta": "tree section headers: drawn 16/24 with letter-spacing 1 vs --sl-text-new-heading-md 16/20 and no letter-spacing token = -4px line-height per line; panel heading drawn 20/34 vs heading-lg 24/32; card title drawn 24/34 vs 24/32 = -2px",
     "fontFloor": "Proxima Nova is registered nowhere in this repo, and the Typekit kit qya8xxo does not load in the harness, so ALL text renders in a fallback face. Every text measurement in this run inherits that."
-  }
+  },
+  "cost": {
+    "basis": "sum of the subagent_tokens the harness reported for the three stage agents that actually ran as subagents. Stages 3, 4 and 5 were executed by the orchestrator directly and contribute 0 to this number. The orchestrator own token consumption is NOT instrumented and is therefore not included and not estimated.",
+    "total": 464798,
+    "perStage": {
+      "1-ingest": 226656,
+      "2-decompose": 128003,
+      "3-implement": 0,
+      "4-validate": 0,
+      "5-author": 0,
+      "6-review": 110139
+    },
+    "unmeasured": "orchestrator context (stages 3-5 in full, plus all coordination, theme derivation, geometry measurement and fix rounds)"
+  },
+  "provenanceNote": "external commit 4492b1511 (\"runs: A10 complete\") swept 45 files of this run folder into git while A7 was still mid-review - the committed snapshot is PRE-review. The working tree holds the final post-review code, uncommitted. No git write was issued by this run.",
+  "perFileThemeHypothesis": {
+    "result": "HOLDS FOR THIS FILE, and is not a general law",
+    "evidence": "A7 and A3 are two frames of fileKey 1yroCKkROktqhRCP2wwlzB and both resolve to bingel-int - by DIFFERENT methods (A3 token-name 0.80; A7 hex-value-fallback 1.00 but a dead tie between two colour-identical themes, decided only by A3 size tokens this frame does not bind)",
+    "counterexample": "sibling run A10 is committed under the title \"the theme belongs to the frame, not the file\", so the hypothesis does not generalise; A7+A3 agreeing is consistent with per-file for this file only"
+  },
+  "completedAt": "2026-10-01T11:26:37.696Z"
 }

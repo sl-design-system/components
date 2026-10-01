@@ -655,3 +655,53 @@ It is also cheap to catch, which is the frustrating part: dispatch each declared
 the root's state changed. A3 did exactly that after the fix and reported **8/8 events fire and
 mutate state**; B-Sesame reported **13/13**. The check exists in two runs' heads and nowhere in the
 pipeline.
+
+---
+
+## A 64% override rate did nothing, and that is the result
+
+A7 was selected for the corpus because it carries the **highest instance-override rate measured,
+64%**, on the theory that heavy overriding would stress a pipeline built on component mappings.
+
+It did not, because **there were no mappings**. Zero of 21 Code Connect probes resolved — the
+subtree and all 20 per-node calls returned `{}`, with no discrepancy between them. The mapping
+layer expressed nothing about any of the 57 live instances, so the question "how many overrides
+could the mapping not express?" has the answer 57 of 57 over a denominator of zero.
+
+A7's own summary is the right one: **a 64% override rate and a 0% override rate would have
+produced an identical run.**
+
+That retires a metric. Override rate only measures anything where mappings exist, which in this
+corpus is the minority. It also means the corpus selection partly optimised for a property that
+cannot matter for most of the designs it selected — the same shape as `libraryPct` counting any
+published library rather than ours.
+
+The structural evidence A7 did find came from the metadata, not from mappings: a detached
+`sl-select` tree container, 4 of 11 nav icons hand-built, **21 badge wrappers for 20 badges** with
+the extra one on the only active row (active-by-copy-paste), and one icon concept rendered three
+different ways — 12 `sl-icon`, 7 `<img>`, and 37 bare glyph nodes. None of that is visible to a
+mapping probe, and all of it is visible in the tree.
+
+---
+
+## The same grep error, twice, surviving to Stage 6
+
+A7 recorded its theme as having **34** registered icons. It has **54**. `icons.ts` mixes quoted and
+bare keys and the grep matched only quoted ones — **the identical error another run made earlier in
+the batch**, caught there by a reviewer and here only at Stage 6.
+
+The cost is instructive. The wrong inventory was written into a Stage 1 artifact, propagated into
+Stage 2 and into five components, and produced two visible defects: `plus` rendered as an empty gap
+although registered, and `search` logged as unobtainable although `sl-search-field` renders it —
+_"the first capture already showed the magnifier and I didn't look."_
+
+The lesson is not "write better greps". It is that **`check-tokens.mjs` mechanically checks an
+asserted token name, and nothing mechanically checks an asserted inventory.** A claim like "this
+theme registers 34 icons" is exactly as checkable and exactly as load-bearing, and it travels
+through four stages unverified. Both failures were the same shape as the type-check parser: a
+pattern that silently matched a subset.
+
+A7's analyst also treated the run's own `progress.json` and `token-reference.md` as untrusted when
+they appeared mid-run, and re-derived every claim rather than reading them. That instinct was
+right, and it is the reason the error was caught at all — but it was caught by a reviewer reading
+carefully, not by a check.

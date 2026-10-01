@@ -57,6 +57,9 @@ declare global {
  * the Figma asset URLs expire and there is no export step. The cover therefore renders as a real
  * bordered box of the drawn size: border, radius and footprint are faithful and only the
  * photograph is absent.
+ *
+ * @fires sl-a7-myportal-digiboard-action - When the Digiboardware action is activated.
+ * @fires sl-a7-myportal-material-edit - When the Edit action is activated.
  */
 export class A7MaterialHeader extends ScopedElementsMixin(LitElement) {
   static override get scopedElements(): ScopedElementsMap {
@@ -121,7 +124,8 @@ export class A7MaterialHeader extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div class="group">
-        <ul class="stack">
+        <!-- Decorative: the names and role are announced by .group-text just below. -->
+        <ul aria-hidden="true" class="stack">
           ${group.people.map(
             person => html`
               <li>

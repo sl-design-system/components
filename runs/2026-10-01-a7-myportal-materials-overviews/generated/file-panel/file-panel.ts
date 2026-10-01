@@ -37,7 +37,10 @@ declare global {
  * its own padding, radius and row rhythm.
  *
  * All seven file-type glyphs are absent from the theme's registry, so every row's icon is an
- * `iconGap(24)` and the omission is recorded rather than filled with invented artwork.
+ * `iconGap(24)` and the omission is recorded rather than filled with invented artwork — the
+ * `fileType` key records which glyph each row is missing.
+ *
+ * @fires sl-a7-myportal-file-open - When a file row is activated.
  */
 export class A7FilePanel extends LitElement {
   static override styles: CSSResultGroup = styles;

@@ -54,7 +54,11 @@ const NAV_ITEMS: ReadonlyArray<{ id: A7NavRailItemId; label: string }> = [
 export class A7NavRail extends LitElement {
   static override styles: CSSResultGroup = styles;
 
-  /** Which destination is currently active. */
+  /**
+   * Which destination is currently active.
+   *
+   * @default 'home'
+   */
   @property({ reflect: true, attribute: 'active-item' }) activeItem: A7NavRailItemId = 'home';
 
   /** Emits when a destination is activated. */

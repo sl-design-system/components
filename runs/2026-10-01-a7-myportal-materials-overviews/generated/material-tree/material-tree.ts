@@ -3,7 +3,8 @@ import { Badge } from '@sl-design-system/badge';
 import { Icon } from '@sl-design-system/icon';
 import { SearchField } from '@sl-design-system/search-field';
 import { EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { iconGap } from '../icon-gap.js';
 import styles from './material-tree.css' with { type: 'css' };
@@ -60,6 +61,10 @@ const SEARCH_PLACEHOLDER = 'Search by name';
  * it is the only one of twenty rows whose badge sits inside a doubled
  * `sl-badge > badge-base-theme` frame cycle — the active state was produced by copy-paste rather
  * than by a component variant, so there is no variant to honour.
+ *
+ * @fires sl-a7-myportal-tree-search - On every committed search input.
+ * @fires sl-a7-myportal-tree-select - When a document type is chosen.
+ * @fires sl-a7-myportal-tree-toggle - When a section header is activated.
  */
 export class A7MaterialTree extends ScopedElementsMixin(LitElement) {
   static override get scopedElements(): ScopedElementsMap {
@@ -94,7 +99,7 @@ export class A7MaterialTree extends ScopedElementsMixin(LitElement) {
       <sl-search-field
         aria-label=${SEARCH_PLACEHOLDER}
         placeholder=${SEARCH_PLACEHOLDER}
-        @input=${this.#onSearch}
+        @sl-change=${this.#onSearch}
       ></sl-search-field>
       <ul class="tree">
         ${model.sections.map(section => this.#renderSection(section))}
@@ -118,13 +123,13 @@ export class A7MaterialTree extends ScopedElementsMixin(LitElement) {
             ? html`<sl-icon class="section-chevron" name="chevron-down"></sl-icon>`
             : html`<sl-badge>${section.count}</sl-badge>`}
         </button>
-        ${section.expanded
-          ? html`
-              <ul class="items" id="sect-${section.id}">
-                ${section.items.map(item => this.#renderItem(item))}
-              </ul>
-            `
-          : nothing}
+        <!--
+          Always rendered, hidden when collapsed, so the aria-controls IDREF above always resolves.
+          Rendering it conditionally left 11 of 12 sections pointing at an element that is not there.
+        -->
+        <ul class="items" id="sect-${section.id}" ?hidden=${!section.expanded}>
+          ${section.items.map(item => this.#renderItem(item))}
+        </ul>
       </li>
     `;
   }
@@ -151,7 +156,8 @@ export class A7MaterialTree extends ScopedElementsMixin(LitElement) {
     this.treeToggleEvent.emit({ expanded: !section.expanded, sectionId: section.id });
   }
 
-  #onSearch(event: Event & { target: SearchField }): void {
-    this.treeSearchEvent.emit({ query: String(event.target.value ?? '') });
+  /** `sl-change` is the documented SLDS API and carries the value as its detail. */
+  #onSearch({ detail }: SlChangeEvent<string | undefined>): void {
+    this.treeSearchEvent.emit({ query: detail ?? '' });
   }
 }

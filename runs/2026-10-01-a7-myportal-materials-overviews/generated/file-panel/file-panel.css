@@ -31,7 +31,6 @@ h2 {
   color: var(--sl-color-palette-blue-800);
   font-family: var(--sl-text-new-body-md-fontFamily);
   font-size: var(--sl-text-new-body-md-fontSize);
-  font-weight: var(--sl-text-new-body-md-fontWeight);
   line-height: var(--sl-text-new-body-md-lineHeight);
   margin: 0;
 }
@@ -49,7 +48,7 @@ button {
   align-items: center;
   appearance: none;
   background: var(--sl-elevation-surface-base-default);
-  block-size: 64px;
+  block-size: var(--sl-size-800);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-lg);
   cursor: pointer;

@@ -209,6 +209,15 @@
         "height": 24
       },
       {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
         "tag": "sl-a7-myportal-nav-rail",
         "depth": 1,
         "upgraded": true,

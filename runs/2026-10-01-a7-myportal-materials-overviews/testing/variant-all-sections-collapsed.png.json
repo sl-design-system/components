@@ -17,7 +17,7 @@
         "inGlobalRegistry": true,
         "hasShadowRoot": true,
         "width": 1440,
-        "height": 1130
+        "height": 1842
       },
       {
         "tag": "sl-a7-myportal-app-bar",
@@ -209,13 +209,22 @@
         "height": 24
       },
       {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
         "tag": "sl-a7-myportal-nav-rail",
         "depth": 1,
         "upgraded": true,
         "inGlobalRegistry": false,
         "hasShadowRoot": true,
         "width": 240,
-        "height": 1028
+        "height": 1740
       },
       {
         "tag": "sl-breadcrumbs",
@@ -350,7 +359,7 @@
         "inGlobalRegistry": false,
         "hasShadowRoot": true,
         "width": 369,
-        "height": 684
+        "height": 1396
       },
       {
         "tag": "sl-search-field",
@@ -372,6 +381,123 @@
       },
       {
         "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
         "depth": 2,
         "upgraded": true,
         "inGlobalRegistry": false,
@@ -485,7 +611,7 @@
         "inGlobalRegistry": false,
         "hasShadowRoot": true,
         "width": 767,
-        "height": 684
+        "height": 1396
       }
     ],
     "bodyHeight": 1890

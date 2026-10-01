@@ -204,3 +204,30 @@ Basis of record: **inherited from sibling run A3** (same Figma file, different f
 three numeric tokens this frame does not bind at all and resolves 3/3 to `bingel-int`. This run's
 own `theme-match` still ties at 15/15 for both and coin-flips to `bingel-dc`; see
 `token-reference.md` for the retraction of the two arguments that originally justified `bingel-dc`.
+
+---
+
+## Icon inventory correction (post-Stage-6)
+
+Stage 1 and Stage 2 both recorded the theme registry as **34 icons**. It is **54**. The cause was a
+counting bug carried in this run's own `token-reference.md`: `icons.ts` mixes quoted and bare object
+keys, and the grep used matched only quoted ones, undercounting by 20.
+
+Consequences, both corrected in the generated code:
+
+- **`plus` is registered** and was being rendered as an empty `iconGap(16)` in the quick-actions
+  row. Now rendered as `<sl-icon name="plus">`.
+- **`search` is registered** and was recorded as an unfixable gap inside `sl-search-field`. It was
+  never broken — the first Stage 4 capture already showed the magnifier, which contradicted the
+  claim before it was written down.
+
+Corrected figures: **21** distinct glyph names drawn, **5** registered (`home-blank`,
+`chevron-down`, `plus`, `search`, `breadcrumb-separator`), **16** absent. The seven nav-rail glyphs
+are exported SVG artwork rather than FontAwesome names, so they have no registry entry to match and
+correctly remain reserved footprints.
+
+**The generalisable finding is not the number.** A wrong inventory propagated from one unreviewed
+grep in a Stage 1 artifact into a Stage 2 decomposition and five implemented components, and was
+caught only at Stage 6 — by a reviewer that re-derived the figure instead of trusting the file. The
+batch has no mechanical check that an asserted theme inventory is real, the way `check-tokens.mjs`
+checks asserted token names.

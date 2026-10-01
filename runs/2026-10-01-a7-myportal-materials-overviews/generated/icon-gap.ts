@@ -4,9 +4,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 /**
  * A reserved, empty footprint standing in for an icon the active theme does not register.
  *
- * The `bingel-dc` theme registers exactly 34 icons. This design draws 18 distinct glyphs, of which
- * only `home-blank`, `chevron-down` and (inside `sl-breadcrumbs`) `breadcrumb-separator` exist.
- * The other 15 have no registry entry and cannot be obtained here: `@fortawesome/*` is not
+ * The `bingel-int` theme registers **54** icons. This design draws 21 distinct glyph names, of
+ * which **5** exist: `home-blank`, `chevron-down`, `plus`, `search` and `breadcrumb-separator`.
+ * The other 16 have no registry entry and cannot be obtained here: `@fortawesome/*` is not
  * installed, so importing it is a **render** blocker rather than a type error, and drawing a
  * replacement SVG by hand would put invented artwork into a pixel comparison.
  *
@@ -35,3 +35,28 @@ export function iconGap(inlineSize: number, blockSize: number = inlineSize): Tem
     })}
   ></span>`;
 }
+
+/**
+ * The glyph names this design draws that the `bingel-int` theme actually registers.
+ *
+ * Derived from the theme rather than assumed — re-derive with:
+ *
+ * ```sh
+ * node -e "const s=require('fs').readFileSync('packages/themes/bingel-int/icons.ts','utf8');\
+ *   console.log([...s.matchAll(/^  (?:'([^']+)'|([A-Za-z][\w-]*)):\s*\{/gm)].map(x=>x[1]||x[2]).join(' '))"
+ * ```
+ *
+ * Note the registry mixes quoted and bare object keys, so a pattern matching only quoted keys
+ * undercounts it by 20 — which is exactly the mistake this run made on its first pass, and it cost
+ * two registered glyphs (`plus`, `search`) that had been written off as missing.
+ *
+ * `breadcrumb-separator` is listed for completeness but is rendered by `sl-breadcrumbs` itself, and
+ * `search` by `sl-search-field` itself; neither is referenced directly by this run.
+ */
+export const REGISTERED_GLYPHS: ReadonlySet<string> = new Set([
+  'breadcrumb-separator',
+  'chevron-down',
+  'home-blank',
+  'plus',
+  'search'
+]);

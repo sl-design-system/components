@@ -133,10 +133,27 @@ a bare family in a shorthand drops the whole declaration.
 Expect text to render in a **fallback face**: the theme declares `'Open Sans'` (spaced, title
 case) while the Typekit kit `qya8xxo` registers Adobe's `open-sans`. Measure, do not pad.
 
-## Icons — `bingel-int` registers exactly 34
+## Icons — `bingel-int` registers exactly 54 (CORRECTED)
 
-(The `bingel-dc` and `bingel-int` icon registries are **byte-identical**, so the icon analysis done
-under the wrong theme carries over unchanged.)
+> **CORRECTED.** This file first said **34**. That was a counting bug, not a theme question: the
+> registry mixes quoted and bare object keys (`'angle-down':` vs `plus:`), and a pattern matching
+> only quoted keys undercounts it by 20. The real figure is **54**, and the error cost two glyphs
+> this design needs — `plus` and `search` — that had been written off as missing. `search` was
+> never actually broken: `sl-search-field` renders it from the registry, and the very first capture
+> showed the magnifier, which should have falsified the claim on the spot.
+>
+> The `bingel-dc` and `bingel-int` registries are byte-identical, so the theme correction did not
+> change this; only the recount did.
+>
+> Re-derive with:
+>
+> ```sh
+> node -e "const s=require('fs').readFileSync('packages/themes/bingel-int/icons.ts','utf8');\
+>   console.log([...s.matchAll(/^  (?:'([^']+)'|([A-Za-z][\w-]*)):\s*\{/gm)].length)"
+> ```
+>
+> Of the **21** distinct glyph names this design draws, **5** are registered — `home-blank`,
+> `chevron-down`, `plus`, `search`, `breadcrumb-separator` — and **16** are not.
 
 ```
 angle-down arrow-left arrow-right arrow-up-right-from-square badge-available badge-away

@@ -5,7 +5,7 @@ import { Option, Select } from '@sl-design-system/select';
 import { EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { iconGap } from '../icon-gap.js';
+import { REGISTERED_GLYPHS, iconGap } from '../icon-gap.js';
 import styles from './app-bar.css' with { type: 'css' };
 
 /** One entry in either of the app bar's two selects. */
@@ -51,7 +51,8 @@ declare global {
  * rather than part of the fetched record. The conventions allow that to stay with the component
  * that renders it, provided it is called out — this is the call-out.
  *
- * Every glyph here is absent from the theme's 34-icon registry, so all four render as `iconGap`.
+ * Of the four glyphs, only `plus` is in the theme's 54-icon registry; the other three render as a
+ * reserved `iconGap` footprint. The `glyph` field drives that choice rather than describing it.
  */
 const QUICK_ACTIONS: ReadonlyArray<{ id: A7QuickActionId; label: string; glyph: string }> = [
   { id: 'new-task', label: 'New task', glyph: 'plus' },
@@ -66,6 +67,11 @@ const QUICK_ACTIONS: ReadonlyArray<{ id: A7QuickActionId; label: string; glyph: 
  *
  * Presentational — it owns no data. The page hands it one {@link A7AppBarModel} and listens for
  * the four events it emits.
+ *
+ * @fires sl-a7-myportal-class-change - When the user picks a different class.
+ * @fires sl-a7-myportal-school-change - When the user picks a different school.
+ * @fires sl-a7-myportal-quick-action - When one of the four quick actions is activated.
+ * @fires sl-a7-myportal-user-menu-toggle - When the user chip is activated.
  */
 export class A7AppBar extends ScopedElementsMixin(LitElement) {
   static override get scopedElements(): ScopedElementsMap {
@@ -124,13 +130,12 @@ export class A7AppBar extends ScopedElementsMixin(LitElement) {
             )}
           </sl-select>
           ${iconGap(21, 24)}
-          <button
-            aria-expanded="false"
-            aria-haspopup="menu"
-            class="user"
-            type="button"
-            @click=${this.#onUserMenuToggle}
-          >
+          <!--
+            No aria-haspopup/aria-expanded here on purpose: no menu is ever rendered, so both would
+            be false assertions and aria-expanded would be a literal bound to nothing. Reintroduce
+            them together with the popup, bound to real state.
+          -->
+          <button class="user" type="button" @click=${this.#onUserMenuToggle}>
             <sl-avatar
               display-initials=${model.user.initials}
               display-name=${model.user.name}
@@ -141,13 +146,15 @@ export class A7AppBar extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
       <div class="quick-bar">
-        <span class="quick-bar-label">Quick actions:</span>
-        <ul aria-label="Quick actions" class="quick-actions">
+        <span class="quick-bar-label" id="quick-actions-label">Quick actions:</span>
+        <ul aria-labelledby="quick-actions-label" class="quick-actions">
           ${QUICK_ACTIONS.map(
             action => html`
               <li>
                 <button type="button" @click=${() => this.#onQuickAction(action.id)}>
-                  ${iconGap(16)}
+                  ${REGISTERED_GLYPHS.has(action.glyph)
+                    ? html`<sl-icon class="quick-glyph" name=${action.glyph}></sl-icon>`
+                    : iconGap(16)}
                   <span>${action.label}</span>
                 </button>
               </li>
@@ -158,12 +165,12 @@ export class A7AppBar extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onClassChange(event: Event & { target: Select }): void {
-    this.classChangeEvent.emit({ classId: String(event.target.value) });
+  #onClassChange(evt: Event & { target: Select }): void {
+    this.classChangeEvent.emit({ classId: String(evt.target.value) });
   }
 
-  #onSchoolChange(event: Event & { target: Select }): void {
-    this.schoolChangeEvent.emit({ schoolId: String(event.target.value) });
+  #onSchoolChange(evt: Event & { target: Select }): void {
+    this.schoolChangeEvent.emit({ schoolId: String(evt.target.value) });
   }
 
   #onQuickAction(action: A7QuickActionId): void {

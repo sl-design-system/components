@@ -30,7 +30,6 @@ button {
   display: flex;
   font-family: var(--sl-text-new-heading-md-fontFamily);
   font-size: var(--sl-text-new-heading-md-fontSize);
-  line-height: var(--sl-text-new-heading-md-lineHeight);
   font-weight: var(--sl-fontWeight-600);
   gap: var(--sl-size-150);
   inline-size: 100%;

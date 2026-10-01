@@ -68,7 +68,11 @@ export class A7MaterialsOverviewsPage extends ScopedElementsMixin(LitElement) {
 
   static override styles: CSSResultGroup = styles;
 
-  /** The page's data. Defaults to the design as drawn, so the element needs no configuration. */
+  /**
+   * The page's data. Defaults to the design as drawn, so the element needs no configuration.
+   *
+   * @default MOCK_PAGE
+   */
   @property({ attribute: false }) model: A7PageModel = MOCK_PAGE;
 
   /** The current search query. Filters the expanded section's rows. */

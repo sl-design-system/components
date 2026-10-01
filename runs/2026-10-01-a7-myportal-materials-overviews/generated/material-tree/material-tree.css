@@ -80,7 +80,6 @@
   display: flex;
   font-family: var(--sl-text-new-body-md-fontFamily);
   font-size: var(--sl-text-new-body-md-fontSize);
-  font-weight: var(--sl-text-new-body-md-fontWeight);
   line-height: var(--sl-text-new-body-md-lineHeight);
   font-weight: var(--sl-fontWeight-600);
   gap: var(--sl-size-125);

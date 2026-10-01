@@ -2,7 +2,8 @@
   "schemaVersion": 1,
   "run": "b-kampus-notes-panel",
   "figma": {
-    "rootNodeId": "5308:32158"
+    "rootNodeId": "5308:32158",
+    "fileKey": "73YHtIYl0UHXH8ST4J7VKI"
   },
   "normalisedFrom": "the run's own files; nothing was fetched",
   "captures": [
@@ -42,6 +43,124 @@
       "capturedAt": "2026-10-01T16:18:26.157Z",
       "truncated": false,
       "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "5308:32183",
+      "label": "header navigation bar",
+      "file": "captures/design-context/5308-32183.txt",
+      "bytes": 6501,
+      "capturedAt": "2026-10-01T00:00:00Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "advisoryFile": "captures/design-context/5308-32183.advisory.txt",
+      "advisoryBytes": 2035,
+      "advisoryNote": "the five advisory content blocks of the same response, verbatim; blank lines mark the MCP block boundaries. Kept out of the capture file because the renderer parses that file as TSX.",
+      "assetUrlsExpire": "2026-10-08",
+      "callArgs": {
+        "excludeScreenshot": true
+      }
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "5308:32182",
+      "label": "left toolbar rail",
+      "file": "captures/design-context/5308-32182.txt",
+      "bytes": 7083,
+      "capturedAt": "2026-10-01T00:00:00Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "advisoryFile": "captures/design-context/5308-32182.advisory.txt",
+      "advisoryBytes": 2244,
+      "advisoryNote": "the five advisory content blocks of the same response, verbatim; blank lines mark the MCP block boundaries. Kept out of the capture file because the renderer parses that file as TSX.",
+      "assetUrlsExpire": "2026-10-08",
+      "callArgs": {
+        "excludeScreenshot": true
+      }
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "5308:32162",
+      "label": "notes side panel — header, filters, note cards",
+      "file": "captures/design-context/5308-32162.txt",
+      "bytes": 14154,
+      "capturedAt": "2026-10-01T00:00:00Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "advisoryFile": "captures/design-context/5308-32162.advisory.txt",
+      "advisoryBytes": 2869,
+      "advisoryNote": "the five advisory content blocks of the same response, verbatim; blank lines mark the MCP block boundaries. Kept out of the capture file because the renderer parses that file as TSX.",
+      "assetUrlsExpire": "2026-10-08",
+      "callArgs": {
+        "excludeScreenshot": true
+      }
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "5308:32163",
+      "label": "content column — breadcrumb, chapter title, student-view toggle, subchapter card grid",
+      "file": "captures/design-context/5308-32163.txt",
+      "bytes": 30770,
+      "capturedAt": "2026-10-01T00:00:00Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "advisoryFile": "captures/design-context/5308-32163.advisory.txt",
+      "advisoryBytes": 2880,
+      "advisoryNote": "the five advisory content blocks of the same response, verbatim; blank lines mark the MCP block boundaries. Kept out of the capture file because the renderer parses that file as TSX.",
+      "assetUrlsExpire": "2026-10-08",
+      "callArgs": {
+        "excludeScreenshot": true
+      }
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "5308:32159",
+      "label": "fullscreen toggle",
+      "file": "captures/design-context/5308-32159.txt",
+      "bytes": 1539,
+      "capturedAt": "2026-10-01T00:00:00Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "advisoryFile": "captures/design-context/5308-32159.advisory.txt",
+      "advisoryBytes": 1766,
+      "advisoryNote": "the five advisory content blocks of the same response, verbatim; blank lines mark the MCP block boundaries. Kept out of the capture file because the renderer parses that file as TSX.",
+      "assetUrlsExpire": "2026-10-08",
+      "callArgs": {
+        "excludeScreenshot": true
+      },
+      "markupRootNote": "response markup roots at 12545:192801 (the main component), not at the queried instance id"
     }
-  ]
+  ],
+  "notCaptured": [
+    {
+      "nodeId": "5308:34107",
+      "name": "Number annotation",
+      "reason": "design annotation, 35x36 — not a region a developer places"
+    },
+    {
+      "nodeId": "5308:32161",
+      "name": "Table of contents - Elements basics",
+      "reason": "hidden=\"true\" in get_metadata; get_design_context omits hidden nodes entirely"
+    },
+    {
+      "nodeId": "5308:32181",
+      "name": "Student view",
+      "reason": "hidden=\"true\" in get_metadata; get_design_context omits hidden nodes entirely"
+    }
+  ],
+  "backfill": {
+    "date": "2026-10-01",
+    "what": "the five get_design_context captures below; the run itself stored prose about having called get_design_context instead of the raw output",
+    "untouched": [
+      "screenshot.png",
+      "figma-metadata.txt",
+      "figma-variable-defs.json",
+      "figma-code-connect-map.json"
+    ]
+  }
 }

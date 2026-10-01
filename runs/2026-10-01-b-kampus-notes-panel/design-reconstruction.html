@@ -1,0 +1,1898 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-b-kampus-notes-panel</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid transparent;
+    font: inherit;
+  }
+  body {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    background: #fff;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #111;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  .probe-error {
+    background: #fdecea;
+    color: #8b1a10;
+    padding: 8px;
+    font:
+      12px/1.4 ui-monospace,
+      monospace;
+    white-space: pre-wrap;
+  }
+  .probe-codeconnect {
+    outline: 2px dashed #b7791f;
+    background: #fffaf0;
+    color: #975a16;
+    font:
+      11px/1.3 ui-monospace,
+      monospace;
+    padding: 4px;
+    min-height: 16px;
+  }
+  .probe-undefined {
+    outline: 1px dotted #718096;
+    background: #f7fafc;
+    color: #4a5568;
+    font:
+      10px/1.2 ui-monospace,
+      monospace;
+    padding: 2px;
+    min-height: 8px;
+  }
+  .bg-\[\#643695\] {
+    background: #643695;
+  }
+  .content-stretch {
+    align-content: stretch;
+  }
+  .drop-shadow-\[0px_2px_4px_rgba\(109\,110\,115\,0\.35\)\] {
+    filter: drop-shadow(0px 2px 4px rgba(109, 110, 115, 0.35));
+  }
+  .flex {
+    display: flex;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .relative {
+    position: relative;
+  }
+  .size-full {
+    width: 100%;
+    height: 100%;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .px-\[24px\] {
+    padding-inline: 24px;
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+  .w-\[1280px\] {
+    width: 1280px;
+  }
+  .flex-\[1_0_0\] {
+    flex: 1 0 0;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .min-w-px {
+    min-width: 1px;
+  }
+  .self-stretch {
+    align-self: stretch;
+  }
+  .gap-\[8px\] {
+    gap: 8px;
+  }
+  .p-\[16px\] {
+    padding: 16px;
+  }
+  .size-\[16px\] {
+    width: 16px;
+    height: 16px;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .block {
+    display: block;
+  }
+  .inset-0 {
+    inset: 0;
+  }
+  .max-w-none {
+    max-width: none;
+  }
+  .\[word-break\:break-word\] {
+    word-break: break-word;
+  }
+  .font-\[\'Open_Sans\:SemiBold\'\] {
+    font-family: 'Open Sans:SemiBold';
+  }
+  .font-semibold {
+    font-weight: 600;
+  }
+  .leading-\[0\] {
+    line-height: 0;
+  }
+  .text-\[14px\] {
+    font-size: 14px;
+  }
+  .text-white {
+    color: #fff;
+  }
+  .tracking-\[0\.42px\] {
+    letter-spacing: 0.42px;
+  }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+  .leading-\[24px\] {
+    line-height: 24px;
+  }
+  .bg-\[\#7a4fa7\] {
+    background: #7a4fa7;
+  }
+  .py-\[16px\] {
+    padding-block: 16px;
+  }
+  .justify-end {
+    justify-content: flex-end;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .gap-\[4px\] {
+    gap: 4px;
+  }
+  .size-\[56px\] {
+    width: 56px;
+    height: 56px;
+  }
+  .size-\[24px\] {
+    width: 24px;
+    height: 24px;
+  }
+  .bg-\[\#db7109\] {
+    background: #db7109;
+  }
+  .left-\[33\.75px\] {
+    left: 33.75px;
+  }
+  .px-\[3px\] {
+    padding-inline: 3px;
+  }
+  .rounded-\[12px\] {
+    border-radius: 12px;
+  }
+  .top-\[7px\] {
+    top: 7px;
+  }
+  .text-\[10px\] {
+    font-size: 10px;
+  }
+  .tracking-\[0\.3px\] {
+    letter-spacing: 0.3px;
+  }
+  .leading-\[12px\] {
+    line-height: 12px;
+  }
+  .bg-white {
+    background: #fff;
+  }
+  .h-\[93\.24px\] {
+    height: 93.24px;
+  }
+  .w-\[74px\] {
+    width: 74px;
+  }
+  .object-cover {
+    object-fit: cover;
+  }
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  .border-\[\#cecfd2\] {
+    border-color: #cecfd2;
+  }
+  .border-b {
+    border-bottom-width: 1px;
+  }
+  .border-solid {
+    border-style: solid;
+  }
+  .px-\[4px\] {
+    padding-inline: 4px;
+  }
+  .py-\[8px\] {
+    padding-block: 8px;
+  }
+  .size-\[74px\] {
+    width: 74px;
+    height: 74px;
+  }
+  .font-\[\'Open_Sans\:Regular\'\] {
+    font-family: 'Open Sans:Regular';
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+  .min-w-full {
+    min-width: 100%;
+  }
+  .text-\[\#643695\] {
+    color: #643695;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .w-\[min-content\] {
+    width: min-content;
+  }
+  .left-\[46px\] {
+    left: 46px;
+  }
+  .top-\[9px\] {
+    top: 9px;
+  }
+  .font-\[\'Open_Sans\:Bold\'\] {
+    font-family: 'Open Sans:Bold';
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .text-\[12px\] {
+    font-size: 12px;
+  }
+  .tracking-\[0\.36px\] {
+    letter-spacing: 0.36px;
+  }
+  .leading-\[16px\] {
+    line-height: 16px;
+  }
+  .gap-\[10px\] {
+    gap: 10px;
+  }
+  .min-h-px {
+    min-height: 1px;
+  }
+  .w-full {
+    width: 100%;
+  }
+  .bg-\[\#f0ecf5\] {
+    background: #f0ecf5;
+  }
+  .rounded-\[inherit\] {
+    border-radius: inherit;
+  }
+  .shadow-\[inset_0px_-4px_0px_0px_\#643695\] {
+    box-shadow: inset 0px -4px 0px 0px #643695;
+  }
+  .border {
+    border-width: 1px;
+  }
+  .border-\[\#dfe3e6\] {
+    border-color: #dfe3e6;
+  }
+  .h-\[72px\] {
+    height: 72px;
+  }
+  .overflow-clip {
+    overflow: clip;
+  }
+  .w-\[360px\] {
+    width: 360px;
+  }
+  .left-\[359px\] {
+    left: 359px;
+  }
+  .rounded-\[56px\] {
+    border-radius: 56px;
+  }
+  .top-\[24px\] {
+    top: 24px;
+  }
+  .inset-\[16\.67\%\] {
+    inset: 16.67%;
+  }
+  .border-\[\#643695\] {
+    border-color: #643695;
+  }
+  .left-\[202px\] {
+    left: 202px;
+  }
+  .rounded-\[4px\] {
+    border-radius: 4px;
+  }
+  .top-\[16px\] {
+    top: 16px;
+  }
+  .-translate-y-1\/2 {
+    translate: 0 -50%;
+  }
+  .left-\[16px\] {
+    left: 16px;
+  }
+  .text-\[\#0e0e0f\] {
+    color: #0e0e0f;
+  }
+  .text-\[18px\] {
+    font-size: 18px;
+  }
+  .top-\[36px\] {
+    top: 36px;
+  }
+  .tracking-\[-0\.36px\] {
+    letter-spacing: -0.36px;
+  }
+  .right-\[16px\] {
+    right: 16px;
+  }
+  .size-\[40px\] {
+    width: 40px;
+    height: 40px;
+  }
+  .inset-\[20\%\] {
+    inset: 20%;
+  }
+  .gap-\[24px\] {
+    gap: 24px;
+  }
+  .px-\[16px\] {
+    padding-inline: 16px;
+  }
+  .gap-\[16px\] {
+    gap: 16px;
+  }
+  .size-\[20px\] {
+    width: 20px;
+    height: 20px;
+  }
+  .leading-\[20px\] {
+    line-height: 20px;
+  }
+  .text-\[16px\] {
+    font-size: 16px;
+  }
+  .w-\[149px\] {
+    width: 149px;
+  }
+  .h-\[270px\] {
+    height: 270px;
+  }
+  .items-end {
+    align-items: flex-end;
+  }
+  .\[text-decoration-skip-ink\:none\] {
+    text-decoration-skip-ink: none;
+  }
+  .\[text-underline-position\:from-font\] {
+    text-underline-position: from-font;
+  }
+  .decoration-from-font {
+    text-decoration-thickness: from-font;
+  }
+  .decoration-solid {
+    text-decoration-style: solid;
+  }
+  .underline {
+    text-decoration-line: underline;
+  }
+  .h-\[16px\] {
+    height: 16px;
+  }
+  .w-\[72px\] {
+    width: 72px;
+  }
+  .bg-\[\#f5f5f6\] {
+    background: #f5f5f6;
+  }
+  .h-\[132px\] {
+    height: 132px;
+  }
+  .ml-\[4\.32\%\] {
+    margin-left: 4.32%;
+  }
+  .mt-\[12px\] {
+    margin-top: 12px;
+  }
+  .text-\[\#29292b\] {
+    color: #29292b;
+  }
+  .w-\[91\.36\%\] {
+    width: 91.36%;
+  }
+  .ml-\[75\.61\%\] {
+    margin-left: 75.61%;
+  }
+  .mt-\[108px\] {
+    margin-top: 108px;
+  }
+  .text-\[\#444548\] {
+    color: #444548;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .w-\[22\.23\%\] {
+    width: 22.23%;
+  }
+  .h-\[24px\] {
+    height: 24px;
+  }
+  .ml-\[91\.35\%\] {
+    margin-left: 91.35%;
+  }
+  .mt-\[8px\] {
+    margin-top: 8px;
+  }
+  .w-\[6\.49\%\] {
+    width: 6.49%;
+  }
+  .h-\[8px\] {
+    height: 8px;
+  }
+  .h-\[90px\] {
+    height: 90px;
+  }
+  .mt-\[13px\] {
+    margin-top: 13px;
+  }
+  .w-\[65\.23\%\] {
+    width: 65.23%;
+  }
+  .bg-\[\#ffef99\] {
+    background: #ffef99;
+  }
+  .inset-\[91\.67\%_0_0_0\] {
+    inset: 91.67% 0 0 0;
+  }
+  .w-\[92\.33\%\] {
+    width: 92.33%;
+  }
+  .h-\[26px\] {
+    height: 26px;
+  }
+  .mt-\[40px\] {
+    margin-top: 40px;
+  }
+  .ml-\[75\.91\%\] {
+    margin-left: 75.91%;
+  }
+  .mt-\[66px\] {
+    margin-top: 66px;
+  }
+  .w-\[21\.93\%\] {
+    width: 21.93%;
+  }
+  .h-\[214px\] {
+    height: 214px;
+  }
+  .w-\[55\.91\%\] {
+    width: 55.91%;
+  }
+  .w-\[91\.72\%\] {
+    width: 91.72%;
+  }
+  .ml-\[76\.22\%\] {
+    margin-left: 76.22%;
+  }
+  .w-\[21\.62\%\] {
+    width: 21.62%;
+  }
+  .h-\[60px\] {
+    height: 60px;
+  }
+  .w-\[26\.47\%\] {
+    width: 26.47%;
+  }
+  .w-\[92\.02\%\] {
+    width: 92.02%;
+  }
+  .mt-\[36px\] {
+    margin-top: 36px;
+  }
+  .pb-\[48px\] {
+    padding-bottom: 48px;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .max-w-\[840px\] {
+    max-width: 840px;
+  }
+  .pb-\[8px\] {
+    padding-bottom: 8px;
+  }
+  .pt-\[16px\] {
+    padding-top: 16px;
+  }
+  .top-0 {
+    top: 0;
+  }
+  .px-\[8px\] {
+    padding-inline: 8px;
+  }
+  .h-\[40px\] {
+    height: 40px;
+  }
+  .text-\[30px\] {
+    font-size: 30px;
+  }
+  .tracking-\[-0\.9px\] {
+    letter-spacing: -0.9px;
+  }
+  .leading-\[38px\] {
+    line-height: 38px;
+  }
+  .h-\[20px\] {
+    height: 20px;
+  }
+  .w-\[40px\] {
+    width: 40px;
+  }
+  .inset-\[-20\%_0_-40\%_-15\%\] {
+    inset: -20% 0 -40% -15%;
+  }
+  .w-\[142px\] {
+    width: 142px;
+  }
+  .aspect-\[240\/180\] {
+    aspect-ratio: 240/180;
+  }
+  .bg-\[rgba\(100\,54\,149\,0\.2\)\] {
+    background: rgba(100, 54, 149, 0.2);
+  }
+  .min-h-\[64px\] {
+    min-height: 64px;
+  }
+  .right-0 {
+    right: 0;
+  }
+  .top-\[-0\.25px\] {
+    top: -0.25px;
+  }
+  .opacity-50 {
+    opacity: 0.5;
+  }
+  .text-\[\#6d6e73\] {
+    color: #6d6e73;
+  }
+  .w-\[264px\] {
+    width: 264px;
+  }
+  .h-\[128px\] {
+    height: 128px;
+  }
+  .w-\[218px\] {
+    width: 218px;
+  }
+  .py-\[24px\] {
+    padding-block: 24px;
+  }
+  .whitespace-pre {
+    white-space: pre;
+  }
+</style>
+<div
+  data-region="header navigation bar"
+  data-node-id="5308:32183"
+  style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 56px">
+  <div
+    class="bg-[#643695] content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-center relative size-full"
+    data-node-id="5308:32183"
+    data-name="Header-navigation">
+    <div
+      class="bg-[#643695] content-stretch flex items-start px-[24px] relative shrink-0 w-[1280px]"
+      data-node-id="I5308:32183;9353:30102"
+      data-name="top navigation">
+      <div
+        class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px relative self-stretch"
+        data-node-id="I5308:32183;9353:30103">
+        <div
+          class="bg-[#643695] content-stretch flex gap-[8px] items-center p-[16px] relative shrink-0"
+          data-node-id="I5308:32183;9353:30104"
+          data-name="top-navi-item-light">
+          <div
+            class="relative shrink-0 size-[16px]"
+            data-node-id="I5308:32183;9353:30104;9353:30321"
+            data-name="Icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d/816ae.svg" />
+          </div>
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+            data-node-id="I5308:32183;9353:30104;9353:30322">
+            <p class="leading-[24px]">My page</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex items-start relative shrink-0"
+        data-node-id="I5308:32183;9353:30105"
+        data-name="main navigation">
+        <div
+          class="bg-[#7a4fa7] content-stretch flex items-center justify-center px-[24px] py-[16px] relative shrink-0"
+          data-node-id="I5308:32183;9353:30106"
+          data-name="top-navi-item-light">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+            data-node-id="I5308:32183;9353:30106;9353:30319">
+            <p class="leading-[24px]">Learning materials</p>
+          </div>
+        </div>
+        <div
+          class="bg-[#643695] content-stretch flex items-center px-[24px] py-[16px] relative shrink-0"
+          data-node-id="I5308:32183;9353:30107"
+          data-name="top-navi-item-light">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+            data-node-id="I5308:32183;9353:30107;9353:30317">
+            <p class="leading-[24px]">Tests</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-center justify-center px-[24px] py-[16px] relative shrink-0"
+          data-node-id="I5308:32183;9353:30108"
+          data-name="top-navi-item-light">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+            data-node-id="I5308:32183;9353:30108;9353:30317">
+            <p class="leading-[24px]">Dashboard</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] items-center justify-end min-w-px relative"
+        data-node-id="I5308:32183;9353:30113"
+        data-name="settings and search">
+        <button
+          class="content-stretch cursor-pointer flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]"
+          data-node-id="I5308:32183;9353:30114"
+          data-name="top-navi-item-icon">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5308:32183;9353:30114;9353:30296"
+            data-name="Icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d/7e0b2.svg" />
+          </div>
+        </button>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]"
+          data-node-id="I5308:32183;9353:30115"
+          data-name="top-navi-item-icon">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5308:32183;9353:30115;9353:30296"
+            data-name="Icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d/203b3.svg" />
+          </div>
+          <div
+            class="absolute bg-[#db7109] content-stretch flex flex-col items-center justify-center left-[33.75px] px-[3px] py-px rounded-[12px] size-[16px] top-[7px]"
+            data-node-id="I5308:32183;9353:30115;9353:30299"
+            data-name="number-tag">
+            <div
+              class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[10px] text-white tracking-[0.3px] whitespace-nowrap"
+              data-node-id="I5308:32183;9353:30115;9353:30299;2178:8937">
+              <p class="leading-[12px]">3</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]"
+          data-node-id="I5308:32183;9353:30116"
+          data-name="top-navi-item-icon">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5308:32183;9353:30116;9353:30296"
+            data-name="Icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d/0804d.svg" />
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]"
+          data-node-id="I5308:32183;9353:30117"
+          data-name="top-navi-item-icon">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5308:32183;9353:30117;9353:30296"
+            data-name="Icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d/44357.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="left toolbar rail"
+  data-node-id="5308:32182"
+  style="position: absolute; left: 0px; top: 56px; width: 74px; height: 664px">
+  <div
+    class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-start relative size-full"
+    data-node-id="5308:32182"
+    data-name="Left-toolbar">
+    <div
+      class="h-[93.24px] relative shrink-0 w-[74px]"
+      data-node-id="I5308:32182;9353:30179"
+      data-name="image 14">
+      <img
+        alt=""
+        class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+        src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/f95c4.png" />
+    </div>
+    <div
+      class="content-stretch flex flex-col items-start justify-center relative shrink-0"
+      data-node-id="I5308:32182;9353:30181"
+      data-name="Feed Tools">
+      <div
+        class="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]"
+        data-node-id="I5308:32182;9353:30182"
+        data-name="Filter">
+        <div
+          class="relative shrink-0 size-[24px]"
+          data-node-id="I5308:32182;9353:30182;10019:35045"
+          data-name="toc">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/9421f.svg" />
+        </div>
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]"
+          data-node-id="I5308:32182;9353:30182;10019:35046">
+          <p class="leading-[12px]">Contents</p>
+        </div>
+      </div>
+      <div
+        class="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]"
+        data-node-id="I5308:32182;9353:30183"
+        data-name="Filter">
+        <div
+          class="relative shrink-0 size-[24px]"
+          data-node-id="I5308:32182;9353:30183;10019:35121"
+          data-name="edit-feed">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/b55c6.svg" />
+        </div>
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]"
+          data-node-id="I5308:32182;9353:30183;10019:35122">
+          <p class="leading-[12px]">Edit content</p>
+        </div>
+        <div
+          class="absolute left-[46px] size-[16px] top-[9px]"
+          data-node-id="I5308:32182;9353:30183;10020:35204"
+          data-name="number-tag">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/9666b.svg" />
+        </div>
+      </div>
+      <div
+        class="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]"
+        data-node-id="I5308:32182;9353:30184"
+        data-name="Filter">
+        <div
+          class="relative shrink-0 size-[24px]"
+          data-node-id="I5308:32182;9353:30184;10019:35062"
+          data-name="assignments">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/abd70.svg" />
+        </div>
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]"
+          data-node-id="I5308:32182;9353:30184;10019:35063">
+          <p class="leading-[12px]">Assignments</p>
+        </div>
+        <div
+          class="absolute bg-[#db7109] content-stretch flex flex-col items-center justify-center left-[46px] pb-px px-[3px] rounded-[12px] size-[16px] top-[9px]"
+          data-node-id="I5308:32182;9353:30184;10020:35109"
+          data-name="number-tag">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[12px] text-white tracking-[0.36px] whitespace-nowrap"
+            data-node-id="I5308:32182;9353:30184;10020:35109;2178:8937">
+            <p class="leading-[16px]">1</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[74px]"
+        data-node-id="I5308:32182;9353:30185"
+        data-name="left-toolbar-item">
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-center justify-center min-h-px px-[4px] py-[8px] relative w-full"
+          data-node-id="I5308:32182;9353:30185;10019:35137"
+          data-name="left-toolbar-item">
+          <div aria-hidden class="absolute bg-[#f0ecf5] inset-0 pointer-events-none"></div>
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5308:32182;9353:30185;10019:35137;10019:35059"
+            data-name="access-key-sec">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/5f924.svg" />
+          </div>
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]"
+            data-node-id="I5308:32182;9353:30185;10019:35137;10019:35060">
+            <p class="leading-[12px]">Notes</p>
+          </div>
+          <div
+            class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-4px_0px_0px_#643695]"></div>
+        </div>
+      </div>
+      <div
+        class="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]"
+        data-node-id="I5308:32182;10105:35650"
+        data-name="Filter">
+        <div
+          class="relative shrink-0 size-[24px]"
+          data-node-id="I5308:32182;10105:35650;10019:35059"
+          data-name="access-key-sec">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941/0b8fc.svg" />
+        </div>
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]"
+          data-node-id="I5308:32182;10105:35650;10019:35060">
+          <p class="leading-[12px]">Access key</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="notes side panel — header, filters, note cards"
+  data-node-id="5308:32162"
+  style="position: absolute; left: -203px; top: -247px; width: 360px; height: 664px">
+  <div
+    class="bg-white border border-[#dfe3e6] border-solid content-stretch flex flex-col items-center relative size-full"
+    data-node-id="5308:32162"
+    data-name="notes-sidepanel">
+    <div
+      class="bg-white h-[72px] overflow-clip relative shrink-0 w-[360px]"
+      data-node-id="I5308:32162;5308:29281"
+      data-name="header">
+      <div
+        class="absolute left-[359px] rounded-[56px] size-[24px] top-[24px]"
+        data-node-id="I5308:32162;5308:29283"
+        data-name="Icon-button">
+        <div
+          class="absolute inset-[16.67%]"
+          data-node-id="I5308:32162;5308:29283;4233:143"
+          data-name="icon">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/b8eb7.svg" />
+        </div>
+      </div>
+      <div
+        class="absolute left-[359px] rounded-[56px] size-[24px] top-[24px]"
+        data-node-id="I5308:32162;5308:29284"
+        data-name="Icon-button">
+        <div
+          class="absolute inset-[16.67%]"
+          data-node-id="I5308:32162;5308:29284;4233:143"
+          data-name="icon">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/b8eb7.svg" />
+        </div>
+      </div>
+      <div
+        class="absolute bg-white border border-[#643695] border-solid content-stretch flex gap-[8px] items-center justify-center left-[202px] px-[24px] py-[8px] rounded-[4px] top-[16px]"
+        data-node-id="I5308:32162;5308:29285"
+        data-name="Button">
+        <p
+          class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#643695] text-[14px] tracking-[0.42px] whitespace-nowrap"
+          data-node-id="I5308:32162;5308:29285;4:607">
+          See all
+        </p>
+      </div>
+      <div
+        class="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] left-[16px] text-[#0e0e0f] text-[18px] top-[36px] tracking-[-0.36px] whitespace-nowrap"
+        data-node-id="I5308:32162;5308:29286">
+        <p class="leading-[24px]">Notes</p>
+      </div>
+      <div
+        class="absolute right-[16px] rounded-[56px] size-[40px] top-[16px]"
+        data-node-id="I5308:32162;8034:123724"
+        data-name="Icon-button">
+        <div
+          class="absolute inset-[20%]"
+          data-node-id="I5308:32162;8034:123724;192:2740"
+          data-name="icon">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/d5ab9.svg" />
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-col gap-[24px] items-start px-[16px] relative shrink-0 w-full"
+      data-node-id="I5308:32162;5308:29287"
+      data-name="Notes">
+      <div
+        class="content-stretch flex gap-[16px] items-start relative shrink-0 w-full"
+        data-node-id="I5308:32162;5308:29288"
+        data-name="filters">
+        <div
+          class="content-stretch flex gap-[8px] items-center relative shrink-0"
+          data-node-id="I5308:32162;5308:29289"
+          data-name="Checkbox-with-text">
+          <div class="relative shrink-0 size-[20px]" data-node-id="4214:11777">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/5db8d.svg" />
+          </div>
+          <p
+            class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#0e0e0f] text-[16px] whitespace-nowrap"
+            data-node-id="I5308:32162;5308:29289;1385:75">
+            Highlights
+          </p>
+        </div>
+        <div
+          class="content-stretch flex gap-[8px] items-center relative shrink-0 w-[149px]"
+          data-node-id="I5308:32162;5308:29290"
+          data-name="Checkbox-with-text">
+          <div class="relative shrink-0 size-[20px]" data-node-id="4214:11777">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/5db8d.svg" />
+          </div>
+          <p
+            class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#0e0e0f] text-[16px] whitespace-nowrap"
+            data-node-id="I5308:32162;5308:29290;1385:75">
+            Notes
+          </p>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="I5308:32162;5308:29877"
+        data-name="notes_side-panel_content-area">
+        <div
+          class="content-stretch flex flex-col h-[270px] items-end relative shrink-0 w-full"
+          data-node-id="I5308:32162;5308:29877;5308:29499"
+          data-name="notes 1">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] min-w-full relative shrink-0 text-[#643695] text-[18px] tracking-[-0.36px] w-[min-content]"
+            data-node-id="I5308:32162;5308:29877;5308:29504">
+            <p
+              class="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">
+              1.7 Vastaa kysymyksiin
+            </p>
+          </div>
+          <div class="h-[16px] relative shrink-0 w-[72px]" data-node-id="5306:67706"></div>
+          <div
+            class="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full"
+            data-node-id="I5308:32162;5308:29877;5308:29506"
+            data-name="saved general">
+            <div
+              class="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[132px] ml-0 mt-0 relative rounded-[4px] row-1 w-full"
+              data-node-id="I5308:32162;5308:29877;5308:29508"></div>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]"
+              data-node-id="I5308:32162;5308:29877;5308:29510">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in convallis mauris,
+              quis interdum mi. Sed vulputate nec justo et tincidunt. !!
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.61%] mt-[108px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[22.23%]"
+              data-node-id="I5308:32162;5308:29877;5308:29511">
+              14.10.2020
+            </p>
+            <div
+              class="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]"
+              data-node-id="I5308:32162;5308:29877;5308:29512"
+              data-name="edit">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/0d15c.svg" />
+            </div>
+          </div>
+          <div class="h-[8px] relative shrink-0 w-[72px]" data-node-id="5306:67706"></div>
+          <div
+            class="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full"
+            data-node-id="I5308:32162;5308:29877;5308:29555"
+            data-name="saved">
+            <div
+              class="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[90px] ml-0 mt-0 relative rounded-[4px] row-1 w-full"
+              data-node-id="I5308:32162;5308:29877;5308:29557"></div>
+            <div
+              class="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[65.23%]"
+              data-node-id="5306:67778">
+              <div
+                class="absolute bg-[#ffef99] inset-0"
+                data-node-id="5306:67779"
+                data-name="selected with mouse"></div>
+              <div
+                class="absolute bg-[#db7109] inset-[91.67%_0_0_0]"
+                data-node-id="5306:67780"
+                data-name="underline"></div>
+            </div>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[92.33%]"
+              data-node-id="I5308:32162;5308:29877;5308:29560">
+              Dave is reading comic books
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal h-[26px] leading-[24px] ml-[4.32%] mt-[40px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]"
+              data-node-id="I5308:32162;5308:29877;5308:29561">
+              This is important.
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.91%] mt-[66px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.93%]"
+              data-node-id="I5308:32162;5308:29877;5308:29562">
+              14.10.2020
+            </p>
+            <div
+              class="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]"
+              data-node-id="I5308:32162;5308:29877;5308:29563"
+              data-name="edit">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/0d15c.svg" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col h-[214px] items-end relative shrink-0 w-full"
+          data-node-id="I5308:32162;5308:29877;5308:29568"
+          data-name="notes 2">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] min-w-full relative shrink-0 text-[#643695] text-[18px] tracking-[-0.36px] w-[min-content]"
+            data-node-id="I5308:32162;5308:29877;5308:29573">
+            <p
+              class="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">
+              2.11 Joku toinen tehtävä
+            </p>
+          </div>
+          <div class="h-[16px] relative shrink-0 w-[72px]" data-node-id="5306:67706"></div>
+          <div
+            class="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full"
+            data-node-id="I5308:32162;5308:29877;5308:29623"
+            data-name="saved">
+            <div
+              class="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[90px] ml-0 mt-0 relative rounded-[4px] row-1 w-full"
+              data-node-id="I5308:32162;5308:29877;5308:29625"></div>
+            <div
+              class="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[55.91%]"
+              data-node-id="5306:67778">
+              <div
+                class="absolute bg-[#ffef99] inset-0"
+                data-node-id="5306:67779"
+                data-name="selected with mouse"></div>
+              <div
+                class="absolute bg-[#db7109] inset-[91.67%_0_0_0]"
+                data-node-id="5306:67780"
+                data-name="underline"></div>
+            </div>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[91.72%]"
+              data-node-id="I5308:32162;5308:29877;5308:29628">
+              Lorem ipsum lalaaa laa
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal h-[26px] leading-[24px] ml-[4.32%] mt-[40px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]"
+              data-node-id="I5308:32162;5308:29877;5308:29629">
+              This will come to the exam.
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[76.22%] mt-[66px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.62%]"
+              data-node-id="I5308:32162;5308:29877;5308:29630">
+              19.10.2020
+            </p>
+            <div
+              class="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]"
+              data-node-id="I5308:32162;5308:29877;5308:29631"
+              data-name="edit">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/0d15c.svg" />
+            </div>
+          </div>
+          <div class="h-[8px] relative shrink-0 w-[72px]" data-node-id="5306:67706"></div>
+          <div
+            class="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full"
+            data-node-id="I5308:32162;5308:29877;5308:29634"
+            data-name="saved">
+            <div
+              class="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[60px] ml-0 mt-0 relative rounded-[4px] row-1 w-full"
+              data-node-id="I5308:32162;5308:29877;5308:29636"></div>
+            <div
+              class="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[26.47%]"
+              data-node-id="5306:67778">
+              <div
+                class="absolute bg-[#ffef99] inset-0"
+                data-node-id="5306:67779"
+                data-name="selected with mouse"></div>
+              <div
+                class="absolute bg-[#db7109] inset-[91.67%_0_0_0]"
+                data-node-id="5306:67780"
+                data-name="underline"></div>
+            </div>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[92.02%]"
+              data-node-id="I5308:32162;5308:29877;5308:29639">
+              Something
+            </p>
+            <p
+              class="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.91%] mt-[36px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.93%]"
+              data-node-id="I5308:32162;5308:29877;5308:29640">
+              19.10.2020
+            </p>
+            <div
+              class="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]"
+              data-node-id="I5308:32162;5308:29877;5308:29641"
+              data-name="edit">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7/0d15c.svg" />
+            </div>
+          </div>
+          <div class="h-[16px] relative shrink-0 w-[72px]" data-node-id="5306:67706"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="content column — breadcrumb, chapter title, student-view toggle, subchapter card grid"
+  data-node-id="5308:32163"
+  style="position: absolute; left: 434px; top: 56px; width: 846px; height: 840px">
+  <div
+    class="bg-[#f5f5f6] content-stretch flex flex-col gap-[16px] items-center pb-[48px] px-[24px] relative size-full"
+    data-node-id="5308:32163"
+    data-name="content">
+    <div
+      class="bg-gradient-to-b content-stretch flex from-[#f5f5f6] from-[64.637%] items-center justify-between max-w-[840px] pb-[8px] pt-[16px] shrink-0 sticky to-[rgba(255,255,255,0)] top-0 w-full"
+      data-node-id="5308:32164"
+      data-name="breadcrumb-2023">
+      <div
+        class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px relative"
+        data-node-id="I5308:32164;9353:30338"
+        data-name="breadcrump">
+        <div
+          class="content-stretch flex items-start relative shrink-0"
+          data-node-id="I5308:32164;9353:30339"
+          data-name="row 1">
+          <div
+            class="content-stretch flex gap-[8px] items-center justify-center px-[8px] relative rounded-[4px] shrink-0"
+            data-node-id="I5308:32164;9361:23223"
+            data-name="Startpage">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#643695] text-[14px] tracking-[0.42px] whitespace-nowrap"
+              data-node-id="I5308:32164;9361:23223;3632:244">
+              Start page
+            </p>
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="I5308:32164;9361:23223;3632:245"
+              data-name="Icon-right">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/6d126.svg" />
+            </div>
+          </div>
+          <div
+            class="content-stretch flex items-center px-[8px] relative rounded-[4px] self-stretch shrink-0"
+            data-node-id="I5308:32164;9361:23227"
+            data-name="Current page">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[20px] relative shrink-0 text-[#0e0e0f] text-[14px] whitespace-nowrap"
+              data-node-id="I5308:32164;9361:23228">
+              Chapter 1
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[8px] items-center justify-end min-w-px relative"
+        data-node-id="I5308:32164;9353:30349"
+        data-name="navigation">
+        <div
+          class="bg-[#643695] relative rounded-[56px] shrink-0 size-[40px]"
+          data-node-id="I5308:32164;9353:30350"
+          data-name="Icon-button">
+          <div
+            class="absolute inset-[20%]"
+            data-node-id="I5308:32164;9353:30350;192:2460"
+            data-name="icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/2b5e3.svg" />
+          </div>
+        </div>
+        <div
+          class="bg-[#643695] relative rounded-[56px] shrink-0 size-[40px]"
+          data-node-id="11360:135454">
+          <div class="absolute inset-[20%]" data-node-id="11360:135593" data-name="icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/07d88.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-col gap-[8px] h-[40px] items-start max-w-[840px] relative shrink-0 w-full"
+      data-node-id="5308:32165"
+      data-name="Chapter page title">
+      <div
+        class="content-stretch flex gap-[16px] items-center relative shrink-0"
+        data-node-id="I5308:32165;5039:54922">
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#0e0e0f] text-[30px] tracking-[-0.9px] whitespace-nowrap"
+          data-node-id="I5308:32165;5039:48980">
+          <p class="leading-[38px]">Chapter 1</p>
+        </div>
+        <div
+          class="content-stretch flex items-start relative shrink-0"
+          data-node-id="I5308:32165;5039:48981">
+          <div
+            class="content-stretch flex gap-[16px] items-center relative shrink-0"
+            data-node-id="I5308:32165;5039:48982"
+            data-name="Actions">
+            <div
+              class="relative rounded-[56px] shrink-0 size-[40px]"
+              data-node-id="I5308:32165;5039:48984"
+              data-name="Icon-button">
+              <div
+                class="absolute inset-[20%]"
+                data-node-id="I5308:32165;5039:48984;192:2740"
+                data-name="icon">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/dfe71.svg" />
+              </div>
+            </div>
+            <div
+              class="relative rounded-[56px] shrink-0 size-[40px]"
+              data-node-id="I5308:32165;5039:48985"
+              data-name="Icon-button">
+              <div
+                class="absolute inset-[20%]"
+                data-node-id="I5308:32165;5039:48985;192:2740"
+                data-name="icon">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/f3a5c.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex items-start max-w-[840px] relative shrink-0 w-full"
+      data-node-id="5308:32166">
+      <div
+        class="content-stretch flex gap-[16px] items-center relative shrink-0"
+        data-node-id="4701:55280"
+        data-name="Student view">
+        <div class="h-[20px] relative shrink-0 w-[40px]" data-node-id="1702:18966">
+          <div class="absolute inset-[-20%_0_-40%_-15%]">
+            <img
+              alt=""
+              class="block max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/06853.svg" />
+          </div>
+        </div>
+        <p
+          class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#0e0e0f] text-[16px] w-[142px]"
+          data-node-id="4701:55282">
+          Student view
+        </p>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-col gap-[24px] items-start max-w-[840px] relative shrink-0 w-full"
+      data-node-id="5308:32168"
+      data-name="subchapter-cards_grid">
+      <div
+        class="content-stretch flex gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="5308:32169">
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch"
+          data-node-id="5308:32170"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32170;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32170;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/a69f7.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32170;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32170;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32170;4882:40334;4882:40294">
+                  Subchapter 1.0
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32170;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32170;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+          data-node-id="5308:32171"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32171;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32171;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/be03a.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32171;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32171;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32171;4882:40334;4882:40294">
+                  Subchapter 1.1
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32171;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32171;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch"
+          data-node-id="5308:32172"
+          data-name="subchapter-card">
+          <div
+            class="bg-white border-2 border-[#cecfd2] border-dashed content-stretch flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32172;4882:40364"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start opacity-50 overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32172;4882:40364;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/87a03.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32172;4882:40364;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32172;4882:40364;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#6d6e73] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32172;4882:40364;4882:40294">
+                  Subchapter 1.2
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32172;4882:40364;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32172;4882:40364;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="5308:32173">
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch"
+          data-node-id="5308:32174"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32174;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32174;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/02e2a.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32174;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32174;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32174;4882:40334;4882:40294">
+                  Subchapter 1.3
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32174;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32174;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch"
+          data-node-id="5308:32175"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32175;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32175;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/afe59.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/36169.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32175;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32175;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32175;4882:40334;4882:40294">
+                  Subchapter 1.4
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32175;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32175;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+          data-node-id="5308:32176"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32176;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32176;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/afe59.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32176;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32176;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32176;4882:40334;4882:40294">
+                  Subchapter 1.5
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32176;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32176;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="5308:32177">
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0 w-[264px]"
+          data-node-id="5308:32178"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32178;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32178;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/40677.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/69c6a.png" /><img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/cee6c.png" />
+                <div
+                  class="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]"></div>
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/e8104.png" />
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32178;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32178;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32178;4882:40334;4882:40294">
+                  Subchapter 1.6
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32178;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32178;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0 w-[264px]"
+          data-node-id="5308:32179"
+          data-name="subchapter-card">
+          <div
+            class="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full"
+            data-node-id="I5308:32179;4882:40334"
+            data-name="🏗️ subchapter-link-card_base">
+            <div
+              class="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full"
+              data-node-id="I5308:32179;4882:40334;4882:40289"
+              data-name="image">
+              <div
+                aria-hidden
+                class="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                <img
+                  alt=""
+                  class="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full"
+                  src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/90f2e.png" />
+                <div
+                  class="absolute bg-[#643695] inset-0 mix-blend-overlay rounded-tl-[4px] rounded-tr-[4px]"></div>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full"
+              data-node-id="I5308:32179;4882:40334;4882:40291"
+              data-name="content">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch"
+                data-node-id="I5308:32179;4882:40334;4882:40293"
+                data-name="text">
+                <p
+                  class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full"
+                  data-node-id="I5308:32179;4882:40334;4882:40294">
+                  Teacher-created subchapter
+                </p>
+              </div>
+              <div
+                class="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]"
+                data-node-id="I5308:32179;4882:40334;4882:40323"
+                data-name="Icon-button">
+                <div
+                  class="absolute inset-[20%]"
+                  data-node-id="I5308:32179;4882:40334;4882:40323;192:2740"
+                  data-name="icon">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00/08a5b.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="h-[128px] relative shrink-0 w-[218px]"
+        data-node-id="5308:32180"
+        data-name="placeholder"></div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="fullscreen toggle"
+  data-node-id="5308:32159"
+  style="position: absolute; left: 1192px; top: 598px; width: 88px; height: 122px">
+  <div
+    class="content-stretch flex flex-col gap-[10px] items-center justify-center py-[24px] relative size-full"
+    data-node-id="12545:192801">
+    <div
+      class="bg-white drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] relative rounded-[56px] shrink-0 size-[40px]"
+      data-node-id="12545:192803"
+      data-name="Icon-button">
+      <div class="absolute inset-[20%]" data-node-id="I12545:192803;192:2472" data-name="icon">
+        <img
+          alt=""
+          class="absolute block inset-0 max-w-none size-full"
+          src="https://www.figma.com/api/mcp/asset/1f36e259-9dea-46b7-b7bb-4dca44a2142d/d756c.svg" />
+      </div>
+    </div>
+    <div
+      class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] relative shrink-0 text-[10px] text-black text-center tracking-[0.3px] whitespace-nowrap"
+      data-node-id="12545:192804">
+      <p class="leading-[12px] mb-0 whitespace-pre">View</p>
+      <p class="leading-[12px] whitespace-pre">fullscreen</p>
+    </div>
+  </div>
+</div>

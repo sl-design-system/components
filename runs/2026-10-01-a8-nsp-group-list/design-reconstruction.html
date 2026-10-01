@@ -9,6 +9,8 @@
   .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
   .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
                      font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .probe-undefined{outline:1px dotted #718096;background:#f7fafc;color:#4a5568;
+                   font:10px/1.2 ui-monospace,monospace;padding:2px;min-height:8px}
   .bg-\[rgba\(51\,102\,255\,0\)\]{background:rgba(51,102,255,0)}
   .content-stretch{align-content:stretch}
   .flex{display:flex}
@@ -38,20 +40,86 @@
   .text-\[color\:var\(--color\\\/foreground\\\/accent\\\/grey\\\/subtlest\,\#59636e\)\]{font-size:color:var(--color/foreground/accent/grey/subtlest,#59636e)}
   .text-\[length\:var\(--size\\\/text-new\\\/body\\\/lg\,16px\)\]{font-size:length:var(--size/text-new/body/lg,16px)}
   .leading-\[var\(--size\\\/lineheight\\\/300\,24px\)\]{line-height:var(--size/lineheight/300,24px)}
-  .gap-\[var\(--space-new\\\/lg\,16px\)\]{gap:var(--space-new/lg,16px)}
+  .gap-\[24px\]{gap:24px}
   .items-center{align-items:center}
   .w-full{width:100%}
+  .gap-\[16px\]{gap:16px}
+  .w-\[112px\]{width:112px}
+  .h-\[36px\]{height:36px}
+  .text-\[length\:var\(--size\\\/text-new\\\/heading\\\/lg\,24px\)\]{font-size:length:var(--size/text-new/heading/lg,24px)}
+  .w-\[936px\]{width:936px}
+  .leading-\[var\(--size\\\/lineheight\\\/400\,32px\)\]{line-height:var(--size/lineheight/400,32px)}
+  .gap-\[40px\]{gap:40px}
+  .h-\[227px\]{height:227px}
+  .bg-\[var\(--elevation\\\/surface\\\/raised\\\/default\,white\)\]{background:var(--elevation/surface/raised/default,white)}
+  .border{border-width:1px}
+  .border-\[var\(--color\\\/foreground\\\/accent\\\/teal\\\/bold\,\#0a5757\)\]{border-color:var(--color/foreground/accent/teal/bold,#0a5757)}
+  .border-solid{border-style:solid}
+  .gap-\[var\(--space-new\\\/xl\,24px\)\]{gap:var(--space-new/xl,24px)}
+  .p-\[var\(--space-new\\\/xl\,24px\)\]{padding:var(--space-new/xl,24px)}
+  .h-\[182px\]{height:182px}
+  .rounded-\[var\(--size\\\/borderradius\\\/lg\,8px\)\]{border-radius:var(--size/borderradius/lg,8px)}
+  .w-\[130px\]{width:130px}
+  .absolute{position:absolute}
+  .inset-0{inset:0}
+  .pointer-events-none{pointer-events:none}
+  .max-w-none{max-width:none}
+  .object-cover{object-fit:cover}
+  .py-\[var\(--space-new\\\/2xl\,32px\)\]{padding-block:var(--space-new/2xl,32px)}
+  .w-\[695px\]{width:695px}
+  .cursor-pointer{cursor:pointer}
+  .text-left{text-align:left}
+  .leading-\[var\(--size\\\/lineheight\\\/250\,20px\)\]{line-height:var(--size/lineheight/250,20px)}
+  .overflow-hidden{overflow:hidden}
+  .text-\[14px\]{font-size:14px}
+  .text-\[color\:var\(--color\\\/foreground\\\/plain\,\#25292f\)\]{font-size:color:var(--color/foreground/plain,#25292f)}
+  .text-ellipsis{text-overflow:ellipsis}
+  .gap-\[var\(--space-new\\\/lg\,16px\)\]{gap:var(--space-new/lg,16px)}
+  .ml-\[18\.67px\]{margin-left:18.67px}
+  .size-\[32px\]{width:32px;height:32px}
+  .-translate-y-1\/2{translate:0 -50%}
+  .aspect-\[80\/80\]{aspect-ratio:80/80}
+  .left-0{left:0}
+  .right-0{right:0}
+  .top-1\/2{top:50%}
+  .-translate-x-1\/2{translate:-50% 0}
+  .aspect-\[200\/200\]{aspect-ratio:200/200}
+  .bottom-0{bottom:0}
+  .left-1\/2{left:50%}
+  .top-0{top:0}
+  .ml-\[9\.33px\]{margin-left:9.33px}
+  .left-\[911px\]{left:911px}
+  .top-\[48px\]{top:48px}
+  .w-\[206px\]{width:206px}
   .flex-\[1_0_0\]{flex:1 0 0}
   .min-w-px{min-width:1px}
+  .justify-between{justify-content:space-between}
+  .gap-x-\[16px\]{column-gap:16px}
+  .gap-y-\[16px\]{row-gap:16px}
+  .min-w-\[280px\]{min-width:280px}
+  .gap-\[8px\]{gap:8px}
+  .h-\[111px\]{height:111px}
+  .rounded-\[var\(--size\\\/borderradius\\\/default\,4px\)\]{border-radius:var(--size/borderradius/default,4px)}
+  .border-\[length\:var\(--size\\\/borderwidth\\\/default\,1px\)\]{border-width:length:var(--size/borderwidth/default,1px)}
+  .border-\[var\(--color\\\/border\\\/plain\,\#d0d9e0\)\]{border-color:var(--color/border/plain,#d0d9e0)}
+  .min-h-px{min-height:1px}
+  .z-\[2\]{z-index:2}
+  .h-full{height:100%}
+  .z-\[3\]{z-index:3}
+  .w-\[80px\]{width:80px}
+  .p-\[var\(--space\\\/300\,24px\)\]{padding:var(--space/300,24px)}
+  .gap-\[var\(--space\\\/200\,16px\)\]{gap:var(--space/200,16px)}
+  .gap-\[var\(--space\\\/050\,4px\)\]{gap:var(--space/050,4px)}
+  .pr-\[16px\]{padding-right:16px}
+  .text-\[color\:var\(--color\\\/foreground\\\/bold\,\#222\)\]{font-size:color:var(--color/foreground/bold,#222)}
+  .text-\[length\:var\(--size\\\/text-new\\\/heading\\\/md\,16px\)\]{font-size:length:var(--size/text-new/heading/md,16px)}
+  .bg-\[var\(--color\\\/background\\\/neutral\\\/interactive\\\/plain\,\#818b98\)\]{background:var(--color/background/neutral/interactive/plain,#818b98)}
+  .inset-\[-1px_-0\.67px_-2px_-1px\]{inset:-1px -0.67px -2px -1px}
   .size-\[40px\]{width:40px;height:40px}
-  .absolute{position:absolute}
   .block{display:block}
-  .inset-0{inset:0}
-  .max-w-none{max-width:none}
   .rounded-\[var\(--size\\\/borderradius\\\/full\,800px\)\]{border-radius:var(--size/borderradius/full,800px)}
   .border-\[length\:var\(--size\\\/borderwidth\\\/action\,1px\)\]{border-width:length:var(--size/borderwidth/action,1px)}
   .border-\[var\(--color\\\/border\\\/primary\\\/bold\,\#1727b6\)\]{border-color:var(--color/border/primary/bold,#1727b6)}
-  .border-solid{border-style:solid}
   .gap-\[var\(--space-new\\\/sm\,6px\)\]{gap:var(--space-new/sm,6px)}
   .p-\[var\(--space\\\/125\,10px\)\]{padding:var(--space/125,10px)}
   .size-\[16px\]{width:16px;height:16px}
@@ -62,25 +130,10 @@
   .opacity-\[calc\(var\(--opacity\\\/interactive\\\/plain\\\/idle\,0\)\/100\)\]{opacity:calc(var(--opacity/interactive/plain/idle,0)/100)}
   .bg-\[var\(--color\\\/background\\\/neutral\\\/bold\,\#e0e6ea\)\]{background:var(--color/background/neutral/bold,#e0e6ea)}
   .p-\[var\(--space-new\\\/2xs\,2px\)\]{padding:var(--space-new/2xs,2px)}
-  .z-\[2\]{z-index:2}
-  .size-\[32px\]{width:32px;height:32px}
   .bg-\[var\(--color\\\/background\\\/primary\\\/bold\,\#36f\)\]{background:var(--color/background/primary/bold,#36f)}
-  .-translate-y-1\/2{translate:0 -50%}
-  .aspect-\[80\/80\]{aspect-ratio:80/80}
-  .left-0{left:0}
-  .right-0{right:0}
-  .top-1\/2{top:50%}
   .bg-\[var\(--color\\\/foreground\\\/primary\\\/onbold\,white\)\]{background:var(--color/foreground/primary/onbold,white)}
-  .-translate-x-1\/2{translate:-50% 0}
-  .aspect-\[200\/200\]{aspect-ratio:200/200}
-  .bottom-0{bottom:0}
-  .left-1\/2{left:50%}
-  .top-0{top:0}
-  .object-cover{object-fit:cover}
-  .pointer-events-none{pointer-events:none}
   .h-\[16px\]{height:16px}
   .w-\[24px\]{width:24px}
-  .h-full{height:100%}
   .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/icon\,\'Font_Awesome_7_Pro\:Regular\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/icon,'Font Awesome 7 Pro:Regular')}
   .font-\[var\(--icon\\\/typeset\\\/fontweight\\\/icon-regular\,normal\)\]{font-family:var(--icon/typeset/fontweight/icon-regular,normal)}
   .text-\[color\:var\(--color\\\/foreground\\\/secondary\\\/bold\,\#222\)\]{font-size:color:var(--color/foreground/secondary/bold,#222)}
@@ -122,7 +175,723 @@
   data-region="main content — Live now section and My groups grid"
   data-node-id="334:20578"
   style="position: absolute; left: 56px; top: 232px; width: 1168px; height: 752px">
-  <pre class="probe-error">Mask is not defined</pre>
+  <div
+    class="content-stretch flex flex-col gap-[24px] items-start relative size-full"
+    data-node-id="334:20578">
+    <div
+      class="content-stretch flex items-center relative shrink-0 w-full"
+      data-node-id="334:24372">
+      <div
+        class="content-stretch flex gap-[16px] items-center relative shrink-0"
+        data-node-id="334:24373">
+        <div data-code-connect="snippet" data-node-id="334:22670" class="probe-codeconnect">
+          Code Connect snippet
+        </div>
+        <div
+          class="content-stretch flex items-center relative shrink-0 w-[112px]"
+          data-node-id="334:20579">
+          <div
+            class="content-stretch flex flex-col h-[36px] items-center justify-center relative shrink-0"
+            data-node-id="334:20580">
+            <div
+              class="content-stretch flex items-center relative shrink-0"
+              data-node-id="334:20581">
+              <div
+                class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-[length:var(--size\/text-new\/heading\/lg,24px)] w-[936px]"
+                data-node-id="334:20582">
+                <p class="leading-[var(--size\/lineheight\/400,32px)]">Live now</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-col gap-[40px] items-start relative shrink-0 w-full"
+      data-node-id="334:20583">
+      <div
+        class="content-stretch flex flex-col h-[227px] items-start relative shrink-0 w-full"
+        data-node-id="334:20584">
+        <div
+          class="bg-[var(--elevation\/surface\/raised\/default,white)] border border-[var(--color\/foreground\/accent\/teal\/bold,#0a5757)] border-solid content-stretch flex gap-[var(--space-new\/xl,24px)] h-[227px] items-start p-[var(--space-new\/xl,24px)] relative rounded-[var(--size\/borderradius\/xl,12px)] shrink-0 w-full"
+          data-node-id="334:20585">
+          <div
+            class="h-[182px] relative rounded-[var(--size\/borderradius\/lg,8px)] shrink-0 w-[130px]"
+            data-node-id="334:20586"
+            data-name="image">
+            <div
+              aria-hidden
+              class="absolute inset-0 pointer-events-none rounded-[var(--size\/borderradius\/lg,8px)]">
+              <img
+                alt=""
+                class="absolute max-w-none object-cover rounded-[var(--size\/borderradius\/lg,8px)] size-full"
+                src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/02625.png" /><img
+                alt=""
+                class="absolute max-w-none object-cover rounded-[var(--size\/borderradius\/lg,8px)] size-full"
+                src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/6e85f.png" /><img
+                alt=""
+                class="absolute max-w-none object-cover rounded-[var(--size\/borderradius\/lg,8px)] size-full"
+                src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/d44ac.png" /><img
+                alt=""
+                class="absolute max-w-none object-cover rounded-[var(--size\/borderradius\/lg,8px)] size-full"
+                src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/e788a.png" /><img
+                alt=""
+                class="absolute max-w-none object-cover rounded-[var(--size\/borderradius\/lg,8px)] size-full"
+                src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/93032.png" />
+            </div>
+          </div>
+          <div
+            class="content-stretch flex flex-col gap-[var(--space-new\/xl,24px)] items-start py-[var(--space-new\/2xl,32px)] relative shrink-0 w-[695px]"
+            data-node-id="334:20587">
+            <a
+              class="[word-break:break-word] content-stretch cursor-pointer flex flex-col items-start relative shrink-0 text-left whitespace-nowrap"
+              data-node-id="334:20588"
+              ><div
+                class="flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-[length:var(--size\/text-new\/heading\/lg,24px)]"
+                data-node-id="334:20589">
+                <p class="leading-[var(--size\/lineheight\/400,32px)]">Class H4A</p>
+              </div>
+              <p
+                class="font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] leading-[var(--size\/lineheight\/250,20px)] overflow-hidden relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                data-node-id="334:20590">
+                English
+              </p></a
+            >
+            <div
+              class="content-stretch flex gap-[var(--space-new\/lg,16px)] items-start relative shrink-0"
+              data-node-id="334:20591">
+              <div
+                class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+                data-node-id="334:20592">
+                <div data-code-connect="snippet" data-node-id="334:20593" class="probe-codeconnect">
+                  Code Connect snippet
+                </div>
+                <div
+                  class="col-1 content-stretch flex isolate items-center ml-[18.67px] mt-0 relative row-1"
+                  data-node-id="334:20594"
+                  data-name="sl-avatar">
+                  <div
+                    class="content-stretch flex flex-col items-start relative shrink-0 z-[1]"
+                    data-node-id="334:20595">
+                    <div
+                      class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+                      data-node-id="334:20596"
+                      data-name="Avatar">
+                      <div
+                        class="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]"
+                        data-node-id="334:20604"
+                        data-name="avatar-content">
+                        <div
+                          data-code-connect="snippet"
+                          data-node-id="334:20605"
+                          class="probe-codeconnect">
+                          Code Connect snippet
+                        </div>
+                        <div
+                          class="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2"
+                          data-node-id="334:20606"
+                          data-name="avatar-content-variant">
+                          <div
+                            data-code-connect="snippet"
+                            data-node-id="334:20610"
+                            class="probe-codeconnect">
+                            Code Connect snippet
+                          </div>
+                        </div>
+                        <div
+                          class="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0"
+                          data-node-id="334:20611"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/ed8ae.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-1 content-stretch flex isolate items-center ml-[9.33px] mt-0 relative row-1"
+                  data-node-id="334:20618"
+                  data-name="sl-avatar">
+                  <div
+                    class="content-stretch flex flex-col items-start relative shrink-0 z-[1]"
+                    data-node-id="334:20619">
+                    <div
+                      class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+                      data-node-id="334:20620"
+                      data-name="Avatar">
+                      <div
+                        class="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]"
+                        data-node-id="334:20628"
+                        data-name="avatar-content">
+                        <div
+                          data-code-connect="snippet"
+                          data-node-id="334:20629"
+                          class="probe-codeconnect">
+                          Code Connect snippet
+                        </div>
+                        <div
+                          class="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2"
+                          data-node-id="334:20630"
+                          data-name="avatar-content-variant">
+                          <div
+                            data-code-connect="snippet"
+                            data-node-id="334:20634"
+                            class="probe-codeconnect">
+                            Code Connect snippet
+                          </div>
+                        </div>
+                        <div
+                          class="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0"
+                          data-node-id="334:20635"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/e1077.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-1 content-stretch flex isolate items-center ml-0 mt-0 relative row-1"
+                  data-node-id="334:20642"
+                  data-name="sl-avatar">
+                  <div
+                    class="content-stretch flex flex-col items-start relative shrink-0 z-[1]"
+                    data-node-id="334:20643">
+                    <div
+                      class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+                      data-node-id="334:20644"
+                      data-name="Avatar">
+                      <div
+                        class="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]"
+                        data-node-id="334:20652"
+                        data-name="avatar-content">
+                        <div
+                          data-code-connect="snippet"
+                          data-node-id="334:20653"
+                          class="probe-codeconnect">
+                          Code Connect snippet
+                        </div>
+                        <div
+                          class="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2"
+                          data-node-id="334:20654"
+                          data-name="avatar-content-variant">
+                          <div
+                            data-code-connect="snippet"
+                            data-node-id="334:20658"
+                            class="probe-codeconnect">
+                            Code Connect snippet
+                          </div>
+                        </div>
+                        <div
+                          class="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0"
+                          data-node-id="334:20659"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/f9979.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute content-stretch flex flex-col items-start left-[911px] top-[48px] w-[206px]"
+            data-node-id="334:20666">
+            <div
+              class="content-stretch cursor-pointer flex flex-col gap-[16px] items-start relative shrink-0 w-full"
+              data-node-id="334:20667">
+              <div data-code-connect="snippet" data-node-id="334:20668" class="probe-codeconnect">
+                Code Connect snippet
+              </div>
+              <div data-code-connect="snippet" data-node-id="334:20669" class="probe-codeconnect">
+                Code Connect snippet
+              </div>
+              <div data-code-connect="snippet" data-node-id="364:19522" class="probe-codeconnect">
+                Code Connect snippet
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="426:19696">
+        <div
+          class="content-stretch flex items-center justify-center relative shrink-0 w-full"
+          data-node-id="334:20670">
+          <div
+            class="content-stretch flex flex-[1_0_0] flex-col h-[36px] items-center justify-center min-w-px relative"
+            data-node-id="334:20671">
+            <div
+              class="content-stretch flex items-center justify-between relative shrink-0 w-full"
+              data-node-id="334:20672">
+              <div
+                class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-[length:var(--size\/text-new\/heading\/lg,24px)] w-[936px]"
+                data-node-id="334:20673">
+                <p class="leading-[var(--size\/lineheight\/400,32px)]">My groups</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0 w-full"
+          data-node-id="334:20676">
+          <div
+            class="gap-x-[16px] gap-y-[16px] grid grid-cols-[repeat(2,minmax(0,1fr))] grid-rows-[repeat(3,fit-content(100%))] relative shrink-0 w-full"
+            data-node-id="334:20677">
+            <div
+              class="col-1 content-stretch flex flex-col items-start justify-self-stretch min-w-[280px] relative row-1 self-start shrink-0"
+              data-node-id="334:20678"
+              data-name="sl-card Actionable">
+              <div
+                class="content-stretch flex flex-col gap-[8px] h-[111px] isolate items-start overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full"
+                data-node-id="I334:20678;4:7272"
+                data-name="sl-card Actionable">
+                <div
+                  class="bg-[var(--elevation\/surface\/raised\/default,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/plain,#d0d9e0)] border-solid content-stretch flex flex-[1_0_0] isolate items-start min-h-px overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] w-full z-[2]"
+                  data-node-id="I334:20678;4:7272;6001:771291"
+                  data-name="Truncate text=true, Image position=Left">
+                  <div
+                    class="content-stretch flex flex-col h-full items-start relative shrink-0 z-[3]"
+                    data-node-id="I334:20678;4:7272;6001:771291;5978:234416"
+                    data-name="media width/80">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] flex-col isolate items-center justify-center min-h-px overflow-clip relative w-[80px]"
+                      data-node-id="I334:20678;4:7272;6001:771291;5978:234416;5873:99982"
+                      data-name="media/Responsive">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full z-[3]"
+                        data-node-id="I334:20678;4:7272;6001:771291;5978:234416;5873:99982;5881:118341"
+                        data-name="Media Fill or Fit">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I334:20678;4:7272;6001:771291;5978:234416;5873:99982;5881:118341;5615:589178"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/ef6f4.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] h-full isolate items-start min-w-px overflow-clip p-[var(--space\/300,24px)] relative z-[2]"
+                    data-node-id="I334:20678;4:7272;6001:771291;5978:234417"
+                    data-name="Actionable Card Content">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative z-[1]"
+                      data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70402"
+                      data-name="card-content">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--space\/200,16px)] h-full items-start min-w-px relative"
+                        data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70403"
+                        data-name="content">
+                        <div
+                          class="content-stretch flex flex-col gap-[var(--space\/050,4px)] items-start relative shrink-0 w-full"
+                          data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70404"
+                          data-name="card-header">
+                          <div
+                            class="content-stretch flex items-center pr-[16px] relative shrink-0 w-full"
+                            data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70404;5100:36515"
+                            data-name="card-title">
+                            <div
+                              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/heading\/md,16px)]"
+                              data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70404;5100:36515;5100:36506">
+                              <p
+                                class="leading-[var(--size\/lineheight\/250,20px)] whitespace-pre-wrap">
+                                Class H5A
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px relative w-full"
+                          data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70405"
+                          data-name="card-body-slot-default">
+                          <p
+                            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-full leading-[var(--size\/lineheight\/250,20px)] min-w-px overflow-hidden relative text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                            data-node-id="I334:20678;4:7272;6001:771291;5978:234417;5974:70405;5100:36508">
+                            Biologie voor jou - havo 5
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute bg-[var(--color\/background\/neutral\/interactive\/plain,#818b98)] inset-[-1px_-0.67px_-2px_-1px] opacity-0 z-[1]"
+                    data-node-id="I334:20678;4:7272;6001:771291;6127:461719"
+                    data-name="interactive"></div>
+                </div>
+                <div
+                  class="absolute inset-0 z-[1]"
+                  data-node-id="I334:20678;4:7272;6008:72571"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </div>
+            <div
+              class="col-2 content-stretch flex flex-col items-start justify-self-stretch min-w-[280px] relative row-1 self-start shrink-0"
+              data-node-id="334:20679"
+              data-name="sl-card Actionable">
+              <div
+                class="content-stretch flex flex-col gap-[8px] h-[111px] isolate items-start overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full"
+                data-node-id="I334:20679;4:7272"
+                data-name="sl-card Actionable">
+                <div
+                  class="bg-[var(--elevation\/surface\/raised\/default,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/plain,#d0d9e0)] border-solid content-stretch flex flex-[1_0_0] isolate items-start min-h-px overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] w-full z-[2]"
+                  data-node-id="I334:20679;4:7272;6001:771291"
+                  data-name="Truncate text=true, Image position=Left">
+                  <div
+                    class="content-stretch flex flex-col h-full items-start relative shrink-0 z-[3]"
+                    data-node-id="I334:20679;4:7272;6001:771291;5978:234416"
+                    data-name="media width/80">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] flex-col isolate items-center justify-center min-h-px overflow-clip relative w-[80px]"
+                      data-node-id="I334:20679;4:7272;6001:771291;5978:234416;5873:99982"
+                      data-name="media/Responsive">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full z-[3]"
+                        data-node-id="I334:20679;4:7272;6001:771291;5978:234416;5873:99982;5881:118341"
+                        data-name="Media Fill or Fit">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I334:20679;4:7272;6001:771291;5978:234416;5873:99982;5881:118341;5615:589178"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/02625.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] h-full isolate items-start min-w-px overflow-clip p-[var(--space\/300,24px)] relative z-[2]"
+                    data-node-id="I334:20679;4:7272;6001:771291;5978:234417"
+                    data-name="Actionable Card Content">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative z-[1]"
+                      data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70402"
+                      data-name="card-content">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--space\/200,16px)] h-full items-start min-w-px relative"
+                        data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70403"
+                        data-name="content">
+                        <div
+                          class="content-stretch flex flex-col gap-[var(--space\/050,4px)] items-start relative shrink-0 w-full"
+                          data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70404"
+                          data-name="card-header">
+                          <div
+                            class="content-stretch flex items-center pr-[16px] relative shrink-0 w-full"
+                            data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70404;5100:36515"
+                            data-name="card-title">
+                            <div
+                              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/heading\/md,16px)]"
+                              data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70404;5100:36515;5100:36506">
+                              <p class="leading-[var(--size\/lineheight\/250,20px)]">Class V5B</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px relative w-full"
+                          data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70405"
+                          data-name="card-body-slot-default">
+                          <p
+                            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-full leading-[var(--size\/lineheight\/250,20px)] min-w-px overflow-hidden relative text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                            data-node-id="I334:20679;4:7272;6001:771291;5978:234417;5974:70405;5100:36508">
+                            Biologie voor jou - vwo 5
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute bg-[var(--color\/background\/neutral\/interactive\/plain,#818b98)] inset-[-1px_-0.67px_-2px_-1px] opacity-0 z-[1]"
+                    data-node-id="I334:20679;4:7272;6001:771291;6127:461719"
+                    data-name="interactive"></div>
+                </div>
+                <div
+                  class="absolute inset-0 z-[1]"
+                  data-node-id="I334:20679;4:7272;6008:72571"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </div>
+            <div
+              class="col-1 content-stretch flex flex-col items-start justify-self-stretch min-w-[280px] relative row-2 self-start shrink-0"
+              data-node-id="334:20680"
+              data-name="sl-card Actionable">
+              <div
+                class="content-stretch flex flex-col gap-[8px] h-[111px] isolate items-start overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full"
+                data-node-id="I334:20680;4:7272"
+                data-name="sl-card Actionable">
+                <div
+                  class="bg-[var(--elevation\/surface\/raised\/default,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/plain,#d0d9e0)] border-solid content-stretch flex flex-[1_0_0] isolate items-start min-h-px overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] w-full z-[2]"
+                  data-node-id="I334:20680;4:7272;6001:771291"
+                  data-name="Truncate text=true, Image position=Left">
+                  <div
+                    class="content-stretch flex flex-col h-full items-start relative shrink-0 z-[3]"
+                    data-node-id="I334:20680;4:7272;6001:771291;5978:234416"
+                    data-name="media width/80">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] flex-col isolate items-center justify-center min-h-px overflow-clip relative w-[80px]"
+                      data-node-id="I334:20680;4:7272;6001:771291;5978:234416;5873:99982"
+                      data-name="media/Responsive">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full z-[3]"
+                        data-node-id="I334:20680;4:7272;6001:771291;5978:234416;5873:99982;5881:118341"
+                        data-name="Media Fill or Fit">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I334:20680;4:7272;6001:771291;5978:234416;5873:99982;5881:118341;5615:589178"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/30eba.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] h-full isolate items-start min-w-px overflow-clip p-[var(--space\/300,24px)] relative z-[2]"
+                    data-node-id="I334:20680;4:7272;6001:771291;5978:234417"
+                    data-name="Actionable Card Content">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative z-[1]"
+                      data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70402"
+                      data-name="card-content">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--space\/200,16px)] h-full items-start min-w-px relative"
+                        data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70403"
+                        data-name="content">
+                        <div
+                          class="content-stretch flex flex-col gap-[var(--space\/050,4px)] items-start relative shrink-0 w-full"
+                          data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70404"
+                          data-name="card-header">
+                          <div
+                            class="content-stretch flex items-center pr-[16px] relative shrink-0 w-full"
+                            data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70404;5100:36515"
+                            data-name="card-title">
+                            <div
+                              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/heading\/md,16px)]"
+                              data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70404;5100:36515;5100:36506">
+                              <p class="leading-[var(--size\/lineheight\/250,20px)]">Class V6C</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px relative w-full"
+                          data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70405"
+                          data-name="card-body-slot-default">
+                          <p
+                            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-full leading-[var(--size\/lineheight\/250,20px)] min-w-px overflow-hidden relative text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                            data-node-id="I334:20680;4:7272;6001:771291;5978:234417;5974:70405;5100:36508">
+                            Biologie voor jou - vwo 6
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute bg-[var(--color\/background\/neutral\/interactive\/plain,#818b98)] inset-[-1px_-0.67px_-2px_-1px] opacity-0 z-[1]"
+                    data-node-id="I334:20680;4:7272;6001:771291;6127:461719"
+                    data-name="interactive"></div>
+                </div>
+                <div
+                  class="absolute inset-0 z-[1]"
+                  data-node-id="I334:20680;4:7272;6008:72571"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </div>
+            <div
+              class="col-2 content-stretch flex flex-col items-start justify-self-stretch min-w-[280px] relative row-2 self-start shrink-0"
+              data-node-id="334:20681"
+              data-name="sl-card Actionable">
+              <div
+                class="content-stretch flex flex-col gap-[8px] h-[111px] isolate items-start overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full"
+                data-node-id="I334:20681;4:7272"
+                data-name="sl-card Actionable">
+                <div
+                  class="bg-[var(--elevation\/surface\/raised\/default,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/plain,#d0d9e0)] border-solid content-stretch flex flex-[1_0_0] isolate items-start min-h-px overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] w-full z-[2]"
+                  data-node-id="I334:20681;4:7272;6001:771291"
+                  data-name="Truncate text=true, Image position=Left">
+                  <div
+                    class="content-stretch flex flex-col h-full items-start relative shrink-0 z-[3]"
+                    data-node-id="I334:20681;4:7272;6001:771291;5978:234416"
+                    data-name="media width/80">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] flex-col isolate items-center justify-center min-h-px overflow-clip relative w-[80px]"
+                      data-node-id="I334:20681;4:7272;6001:771291;5978:234416;5873:99982"
+                      data-name="media/Responsive">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full z-[3]"
+                        data-node-id="I334:20681;4:7272;6001:771291;5978:234416;5873:99982;5881:118341"
+                        data-name="Media Fill or Fit">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I334:20681;4:7272;6001:771291;5978:234416;5873:99982;5881:118341;5615:589178"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/eecf8.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] h-full isolate items-start min-w-px overflow-clip p-[var(--space\/300,24px)] relative z-[2]"
+                    data-node-id="I334:20681;4:7272;6001:771291;5978:234417"
+                    data-name="Actionable Card Content">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative z-[1]"
+                      data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70402"
+                      data-name="card-content">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--space\/200,16px)] h-full items-start min-w-px relative"
+                        data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70403"
+                        data-name="content">
+                        <div
+                          class="content-stretch flex flex-col gap-[var(--space\/050,4px)] items-start relative shrink-0 w-full"
+                          data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70404"
+                          data-name="card-header">
+                          <div
+                            class="content-stretch flex items-center pr-[16px] relative shrink-0 w-full"
+                            data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70404;5100:36515"
+                            data-name="card-title">
+                            <div
+                              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/heading\/md,16px)]"
+                              data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70404;5100:36515;5100:36506">
+                              <p class="leading-[var(--size\/lineheight\/250,20px)]">Class V4A</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px relative w-full"
+                          data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70405"
+                          data-name="card-body-slot-default">
+                          <p
+                            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-full leading-[var(--size\/lineheight\/250,20px)] min-w-px overflow-hidden relative text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                            data-node-id="I334:20681;4:7272;6001:771291;5978:234417;5974:70405;5100:36508">
+                            Biologie voor jou - vwo 4
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute bg-[var(--color\/background\/neutral\/interactive\/plain,#818b98)] inset-[-1px_-0.67px_-2px_-1px] opacity-0 z-[1]"
+                    data-node-id="I334:20681;4:7272;6001:771291;6127:461719"
+                    data-name="interactive"></div>
+                </div>
+                <div
+                  class="absolute inset-0 z-[1]"
+                  data-node-id="I334:20681;4:7272;6008:72571"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </div>
+            <div
+              class="col-1 content-stretch flex flex-col items-start justify-self-stretch min-w-[280px] relative row-3 self-start shrink-0"
+              data-node-id="334:20682"
+              data-name="sl-card Actionable">
+              <div
+                class="content-stretch flex flex-col gap-[8px] h-[111px] isolate items-start overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full"
+                data-node-id="I334:20682;4:7272"
+                data-name="sl-card Actionable">
+                <div
+                  class="bg-[var(--elevation\/surface\/raised\/default,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/plain,#d0d9e0)] border-solid content-stretch flex flex-[1_0_0] isolate items-start min-h-px overflow-clip relative rounded-[var(--size\/borderradius\/default,4px)] w-full z-[2]"
+                  data-node-id="I334:20682;4:7272;6001:771291"
+                  data-name="Truncate text=true, Image position=Left">
+                  <div
+                    class="content-stretch flex flex-col h-full items-start relative shrink-0 z-[3]"
+                    data-node-id="I334:20682;4:7272;6001:771291;5978:234416"
+                    data-name="media width/80">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] flex-col isolate items-center justify-center min-h-px overflow-clip relative w-[80px]"
+                      data-node-id="I334:20682;4:7272;6001:771291;5978:234416;5873:99982"
+                      data-name="media/Responsive">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] items-center min-h-px relative w-full z-[3]"
+                        data-node-id="I334:20682;4:7272;6001:771291;5978:234416;5873:99982;5881:118341"
+                        data-name="Media Fill or Fit">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I334:20682;4:7272;6001:771291;5978:234416;5873:99982;5881:118341;5615:589178"
+                          data-name="image">
+                          <img
+                            alt=""
+                            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                            src="https://www.figma.com/api/mcp/asset/d6588aed-328c-47da-aff5-2fda97cefa8f/07d4d.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] h-full isolate items-start min-w-px overflow-clip p-[var(--space\/300,24px)] relative z-[2]"
+                    data-node-id="I334:20682;4:7272;6001:771291;5978:234417"
+                    data-name="Actionable Card Content">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative z-[1]"
+                      data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70402"
+                      data-name="card-content">
+                      <div
+                        class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--space\/200,16px)] h-full items-start min-w-px relative"
+                        data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70403"
+                        data-name="content">
+                        <div
+                          class="content-stretch flex flex-col gap-[var(--space\/050,4px)] items-start relative shrink-0 w-full"
+                          data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70404"
+                          data-name="card-header">
+                          <div
+                            class="content-stretch flex items-center pr-[16px] relative shrink-0 w-full"
+                            data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70404;5100:36515"
+                            data-name="card-title">
+                            <div
+                              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/heading\/md,16px)]"
+                              data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70404;5100:36515;5100:36506">
+                              <p class="leading-[var(--size\/lineheight\/250,20px)]">Class H4A</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px relative w-full"
+                          data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70405"
+                          data-name="card-body-slot-default">
+                          <p
+                            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-full leading-[var(--size\/lineheight\/250,20px)] min-w-px overflow-hidden relative text-[14px] text-[color:var(--color\/foreground\/plain,#25292f)] text-ellipsis"
+                            data-node-id="I334:20682;4:7272;6001:771291;5978:234417;5974:70405;5100:36508">
+                            Biologie voor jou - havo 4
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="absolute bg-[var(--color\/background\/neutral\/interactive\/plain,#818b98)] inset-[-1px_-0.67px_-2px_-1px] opacity-0 z-[1]"
+                    data-node-id="I334:20682;4:7272;6001:771291;6127:461719"
+                    data-name="interactive"></div>
+                </div>
+                <div
+                  class="absolute inset-0 z-[1]"
+                  data-node-id="I334:20682;4:7272;6008:72571"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div
   data-region="top nav"

@@ -377,7 +377,7 @@ const rendered = [];
 
 for (const region of regions) {
   try {
-    const { code } = await transform(region.source, {
+    let { code } = await transform(region.source, {
       loader: 'tsx',
       jsx: 'transform',
       jsxFactory: 'h',
@@ -402,6 +402,41 @@ for (const region of regions) {
         },
         props?.name ?? props?.component ?? 'Code Connect snippet'
       );
+
+    // A capitalised JSX element is a component reference, and JSX evaluates children eagerly — so
+    // one undefined name throws before any placeholder handler runs and takes the **whole region**
+    // with it. `<Mask />` cost one capture 140 of its 179 nodes and the loss read as a shallow
+    // capture rather than as this bug. Hyphenated elements compile to intrinsic strings and were
+    // never affected, which is why it stayed hidden.
+    //
+    // So: find every capitalised element the block references, subtract the ones it defines, and
+    // stub the remainder as visible placeholders.
+    const referenced = new Set(
+        [...region.source.matchAll(/<([A-Z][A-Za-z0-9_]*)/g)].map(match => match[1])
+      ),
+      defined = new Set(
+        [...region.source.matchAll(/(?:function|const|let|class)\s+([A-Z][A-Za-z0-9_]*)/g)].map(
+          match => match[1]
+        )
+      ),
+      undefinedComponents = [...referenced].filter(
+        name => !defined.has(name) && name !== 'Fragment' && name !== 'CodeConnectSnippet'
+      );
+
+    const stubs = undefinedComponents
+      .map(
+        name =>
+          `const ${name} = props => h('div', { 'data-undefined-component': ${JSON.stringify(name)}, ` +
+          `'data-node-id': props && props['data-node-id'], class: 'probe-undefined' }, ${JSON.stringify(name)});`
+      )
+      .join('\n');
+
+    if (stubs) {
+      const { code: stubCode } = await transform(stubs, { loader: 'js', format: 'cjs' });
+
+      // eslint-disable-next-line no-param-reassign
+      code = `${stubCode}\n${code}`;
+    }
 
     new Function('exports', 'module', 'require', 'h', 'Fragment', 'CodeConnectSnippet', code)(
       exports,
@@ -463,6 +498,8 @@ img{max-width:100%;display:block}
 .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
 .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
                    font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+.probe-undefined{outline:1px dotted #718096;background:#f7fafc;color:#4a5568;
+                 font:10px/1.2 ui-monospace,monospace;padding:2px;min-height:8px}
 ${buildStylesheet(allClasses)}
 </style>
 ${body}
@@ -484,7 +521,12 @@ const report = {
   nodeIdsInOutput: [...readFileSync(out, 'utf8').matchAll(/data-node-id="/g)].length,
   classesSeen: allClasses.size,
   // The point of the probe: what the metadata could not express.
-  classesUnmapped: [...unknown].sort()
+  classesUnmapped: [...unknown].sort(),
+  // Named rather than silently stubbed: these are components the capture references and does not
+  // define — almost always Code Connect substitutions.
+  undefinedComponents: [
+    ...new Set(rendered.flatMap(region => region.undefinedComponents ?? []))
+  ].sort()
 };
 
 console.log(JSON.stringify(report, null, 2));

@@ -833,3 +833,44 @@ the skill unassisted. That needs a **controlled run**: the skill exactly as it s
 hints, no rules invented mid-run, no orchestrator substitutions, on one frozen case — and the same
 case re-run after a change. One design, twice, is enough to make every later comparison meaningful,
 and nothing in the corpus substitutes for it.
+
+---
+
+## One undefined component killed a whole region, and it looked like a shallow capture
+
+A backfill agent reported that `render-design.mjs` fails a region with `Mask is not defined` and —
+unusually — **verified the consequence rather than just the cause**: it stubbed the name in a
+throwaway copy outside the harness and watched the figure go from 39 nodes to 179.
+
+Confirmed by removing the fix again, which is the test that settles it:
+
+|                  |   nodes |                       regions |
+| ---------------- | ------: | ----------------------------: |
+| without the stub |  **39** | 2 of 3, `Mask is not defined` |
+| with the stub    | **179** |                        3 of 3 |
+
+JSX evaluates children eagerly, so a single undefined capitalised name throws before any
+placeholder handler runs and takes **the entire region** with it. Hyphenated elements compile to
+intrinsic strings and were never affected, which is exactly why it stayed hidden: the failure only
+reached captures containing a Code Connect substitution, which is the data we care most about.
+
+**This is the seventh time in this work a tool's limitation was about to be recorded as a property
+of the thing it measures** — and the first time the correction came from a subagent that then
+declined to patch a shared tool outside its scope, reporting the honest number beside the artifact
+instead. That is the behaviour worth keeping: it is the same discipline as refusing to pad a pixel
+gap whose cause is known.
+
+Across the corpus eight names are referenced and never defined — `CodeConnectSnippet` in fifteen
+captures, then `TitleComponent`, `Button`, `SlIcon`, `Icon`, `Mask`, `Tools`, `Pagination`. Every
+one of them is a Code Connect substitution, which is the thing the protocol tells runs to stop at.
+
+### What it costs the earlier conclusion
+
+The judgement that eleven of nineteen runs captured too little was **already corrected once** —
+six of those had data a reader could not parse — and this is the second correction to the same
+claim. With the fix, eight runs reconstruct a hundred nodes or more and the corpus total is 2,490
+against 2,114.
+
+The claim that keeps surviving in weaker form each time is worth stating at its current strength
+and no more: **capture depth varies enormously between runs, and most of what looked like missing
+data was unreadable or unrenderable data.**

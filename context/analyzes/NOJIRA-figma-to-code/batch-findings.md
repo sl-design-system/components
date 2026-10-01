@@ -80,23 +80,37 @@ is working. Given no instruction, "I am waiting" reads as a complete answer.
 
 ---
 
-## Decomposer open questions scale with the screen
+## Decomposer open questions: nine was the outlier, not the floor
 
-| Case                | Nodes | Component types | Open questions |
-| ------------------- | ----: | --------------: | -------------: |
-| A9 SANNA `Login 1`  |   894 |              32 |              9 |
-| A8 NSP `Group list` |   620 |              34 |             30 |
-| B-NSP `home`        |   464 |              32 |             32 |
+An earlier version of this section claimed the count scales with screen size. **It does not**, and
+the fuller data says something more useful.
 
-Nine on the first screen was not a floor for screens of that size — it was the low end of a wide
-spread. Two designs _smaller_ than the login page produced more than three times as many
-questions, each answered by a default nobody reviewed.
+| Case                            | Nodes | Component types | Open questions |
+| ------------------------------- | ----: | --------------: | -------------: |
+| A11 Sesame `Learning materials` |   395 |              13 |             11 |
+| B-Itsl-Collab `Add element`     |   458 |              40 |             22 |
+| B-NSP `home`                    |   464 |              32 |             32 |
+| B-Itsl-Bookmk `course files`    |   478 |              43 |             19 |
+| B-SANNA `Account creation`      |   506 |              23 |             20 |
+| A8 NSP `Group list`             |   620 |              34 |             30 |
+| A4 Sesame `My Groups`           |   822 |              39 |             15 |
+| B-Itsl-Bookmk `Deleted course`  |   885 |              58 |             20 |
+| **A9 SANNA `Login 1`**          |   894 |              32 |          **9** |
+| A1 Kampus `Subchapter feed`     |  1803 |              83 |             30 |
 
-This is the batch's central number. Each question is a decision the pipeline makes silently, and
-each is a place two runs of the same design can diverge. The variance budget has to be built
-against thirty per screen, not nine.
+Sort by nodes and the question count does not follow: the largest screen (1803 nodes, 83 component
+types) and a screen a quarter its size both produced 30. The smallest produced 11. **Screen size
+does not predict how many decisions the pipeline makes unsupervised.**
 
----
+What stands out instead is **A9 at nine** — the lowest count in the corpus, on the ninth-largest
+screen. It is also the only run that executed before the four hints existed. The reading that fits
+is uncomfortable: the first run did not ask fewer questions because its screen was simpler, but
+because it **noticed fewer things worth asking about**. Nine was never a floor to extrapolate from.
+
+For the variance budget this is worse than a clean scaling law would have been. A rule like
+"questions grow with complexity" could be planned around. **Twenty to thirty silent decisions per
+screen regardless of size, with no predictor**, cannot — which makes recording each question with
+its chosen default a requirement of the method rather than a nicety.
 
 ## Themes cannot be mapped per team
 
@@ -146,3 +160,130 @@ Two runs independently reported a missing token that existed: `--sl-elevation-su
 manufactures phantom gaps** — the token was in a different namespace because it carries a different
 meaning, which is exactly when a search by prefix fails. Hint 3 told runs to search before
 declaring a value unbound; it now has to say search _by value_, not by name.
+
+---
+
+## What the batch covered, and what stopped it
+
+Fourteen of nineteen designs were attempted. **Nine completed all six stages**; four stopped on the
+account's weekly usage limit, not on anything in the pipeline; five were never launched when the
+limit arrived.
+
+| Outcome                     | Cases                                                                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Six stages complete         | A1 Kampus · A4 Sesame · A8 NSP · A9 SANNA · A11 Sesame · B-Itsl-Bookmk `course files` · B-Itsl-Collab · B-NSP `home` · B-SANNA |
+| Stopped on quota, resumable | A5 ETSL (Stage 4) · B-Itsl-Bookmk `Deleted course` (Stage 3) · B-Itsl-Course (Stage 3) · B-Kampus `Notes panel` (Stage 3)      |
+| Never launched              | A2 NSP `class overview` · A3 + A7 MyPortal · A6 Itsl-Collab · A10 ETSL · B-Sesame `Group details`                              |
+
+Every stopped run is promoted with its partial output, its blocker recorded in `progress.json`,
+and a resume guard that fails if `HEAD` has moved. That design was written the night before the
+batch on the argument that a stopped run must not have to repeat what already succeeded. It was
+not a hypothetical twelve hours later.
+
+**The one case the corpus most needed is among the missing.** A2 `class overview` has 10,936 nodes
+— six times the largest design that did run — and it was scheduled last precisely because it was
+expected to be the most expensive. Nothing here says what the pipeline does at that size.
+
+---
+
+## The pipeline's central premise holds for a minority of the corpus
+
+Stage 1 is built on Code Connect: resolve the map, emit the snippets, treat unmapped instances as
+a blocker. Across ten measured designs the map resolved **four** times.
+
+| Code Connect result                          | Designs                                                              |
+| -------------------------------------------- | -------------------------------------------------------------------- |
+| Mappings resolved                            | A9 SANNA, B-SANNA, A8 NSP, B-NSP `home`                              |
+| Literal `{}` everywhere, probed node by node | A1 Kampus, A4 Sesame, B-Itsl-Collab, B-Itsl-Bookmk ×2, B-Itsl-Course |
+
+The empty cases are not a lookup failure. Those designs are drawn against **other** libraries —
+itslearning's own Web UI kit, Kampus's legacy Figma library — and `get_design_context` returns
+pages of markup with no `<sl-*>` element anywhere. For six of ten designs, **every component
+identification the pipeline made was an unverified inference by a language model reading a
+picture.** The authority the whole design rests on was absent.
+
+Two further qualifications on the four that did resolve:
+
+- **Subtree calls are unreliable where per-node calls work.** A8 got `{}` from the whole subtree
+  and real mappings from the same ids individually; B-NSP saw subtree calls time out outright.
+  Reading subtree emptiness as "unconnected" would have blocked two runs that were fully mapped.
+- **Resolved does not mean correct.** B-SANNA received `placeholder="[object Object]"` on three
+  text fields and a `checked` checkbox with its entire rich label dropped; A8 received an
+  `sl-avatar` whose `display-name` was the Figma layer caption, _"7 students already joined"_.
+  Reproduced faithfully, each is a defect delivered with authority.
+
+---
+
+## No theme loads the font it names
+
+Checked in four themes, wrong in four.
+
+| Theme               | Fault                                                                  |
+| ------------------- | ---------------------------------------------------------------------- |
+| `kampus`            | `--sl-typography-*-fontFamily` is `'Open Sans'`; no `fonts.css` at all |
+| `itslearning`       | `--sl-text-new-*` is `'Open Sans'`; the Typekit ships only Lato        |
+| `teacher-assistant` | three tokens hardcode `'Open Sans'`; `fonts.css` never loads it        |
+| `sanoma-pro`        | names `'Open Sans'`, which is not shipped                              |
+
+So **every text pixel the batch captured was rendered in a fallback face**, usually the browser's
+default serif. Three designs name Lato as their own font, and two themes have a working Lato token
+in the older `--sl-text-*` namespace, beside the broken new one.
+
+Two consequences, and the second is the awkward one.
+
+First, typography fidelity is not measurable today in any theme examined. Any text comparison
+scores the fallback.
+
+Second — **following the token guidance produces worse fidelity than ignoring it.** A run that
+writes `font-family: Lato` from the Figma value renders correctly; a run that uses the semantic
+token renders serif. A bench that scores "used the right token" and a bench that scores "looks
+like the design" return opposite verdicts here, and the design system, not the run, is why. The
+fidelity score has to be able to say _this run is correct and the output is wrong_, or it will
+train runs away from tokens.
+
+---
+
+## Two frames from one file produced a colliding component
+
+A1 `Subchapter feed` and B-Kampus `Notes panel` are different frames of the same Figma file. Both
+decomposed the same shared chrome, and both minted `sl-kampus-left-toolbar` from the **same source
+component** — with different APIs.
+
+The conventions require a guarded registration (`if (!customElements.get(...))`). That guard turns
+a duplicate definition from a thrown error into a **silent mis-render**: whichever file loads first
+wins, and the second frame gets the first frame's component wearing its own attribute names.
+
+This goes straight to the first goal — the design system team needing Figma and code to map
+identically. **The pipeline has no notion that two runs might describe the same component**, and
+the house style for safe registration is what hides the collision. One Figma component, two runs,
+two incompatible implementations, no error.
+
+---
+
+## What only ran once, and only Stage 5 caught
+
+Every static gate passed on all of these. They were found by interacting with the result.
+
+- **A4's root re-rendered 301 times per click** and froze the tab — a new model object literal per
+  render plus identity-based selection. `tsc` clean, capture clean, Stage 4 `MATCH`.
+- **A date rendered 04/04/2024 in `America/New_York`** from an ISO date-only string — the exact
+  off-by-one the decomposer chose ISO + `en-GB` to avoid, reintroduced at the formatting end.
+- **`aria-sort` announced a sort order the component never applied**, in the one capability the
+  `sl-grid` → `<table>` substitution existed to hand-reproduce.
+- **A consent link inside a checkbox label toggled the checkbox** on Enter, and sat focusable
+  inside an `aria-hidden` subtree.
+
+A still screenshot cannot see any of them. Whatever the bench becomes, **a fidelity score built
+only on pixels and the DOM would have passed all four**.
+
+---
+
+## Hint 4 was not sufficient as written
+
+The rule said the story must import its component rather than type-importing it. B-SANNA followed
+it with a **value** import and still got `nothing-rendered`: the binding was used only in a type
+position (`Pick<Page, …>`), so the compiler elided it anyway.
+
+Only a separate bare `import './x.js';` is reliable. Worth stating because it is the second time
+the same defect survived its own fix — the hint was written from one instance and generalised one
+step short of the rule that actually holds.

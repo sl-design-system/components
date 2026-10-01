@@ -781,3 +781,55 @@ guess.**
 
 That is the concrete, cheap thing this probe recommends: say how deep to walk, and say what the
 file looks like.
+
+---
+
+## What the batch actually measured — a limitation that has to be stated
+
+> _Were these runs executed with Jeroen's skill? If not, what are we testing?_
+
+The right question, and the answer is uncomfortable: **the plugin was used, but no run executed it
+unmodified, and several stages were not executed by it at all.**
+
+What is on disk: the plugin at `tools/implement-design-plugin/` with all six stage agents, every
+run prompt instructing the orchestrator to drive them by name, and ten of eighteen `progress.json`
+files naming `design-analyst`, `component-decomposer`, `component-implementer`, `visual-validator`,
+`component-author` or `component-reviewer`. **All eighteen also record work the orchestrator did
+directly.**
+
+### Which findings are about the pipeline, and which are about us
+
+| Stage                  | How it ran                                                                      | What its findings are worth                                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1 ingest**           | `design-analyst`, in most runs                                                  | **About the pipeline.** Code Connect empty or valid-but-wrong, `BLOCKED_ON_CODE_CONNECT` halting on non-SLDS designs, `hasTemplate: false`, capture depth |
+| **2 decompose**        | `component-decomposer`, in most runs                                            | **About the pipeline.** The open-question count — 11 to 32, no predictor — is the batch's central number and it is genuinely its behaviour                |
+| **3 implement**        | mixed; implementers died on quota and orchestrators wrote components themselves | Partly ours                                                                                                                                               |
+| **4 validate**         | mixed, **and we replaced its method** with `shoot.mjs`                          | Largely ours                                                                                                                                              |
+| **5–6 author, review** | frequently direct                                                               | Largely ours                                                                                                                                              |
+
+And a third category that does not depend on whose pipeline ran at all: every design-system defect,
+every Figma API behaviour — the four screenshot distortions, Code Connect substitution, variable
+modes — and every environment fault. Those are properties of the ground, valid regardless.
+
+### The part that is my doing
+
+Two instructions degraded the measurement deliberately, and both were right for throughput and
+wrong for validity:
+
+- **"If the subagent pool is saturated, do the work yourself."** It unblocked five stalled runs and
+  it means stages 3 to 6 were often not the plugin's agents.
+- **Five hints and three rules, supplied by hand and added mid-batch.** Each demonstrably changed
+  outcomes, which is why they are recorded as findings — but a run with them is not the pipeline a
+  developer would get.
+
+### What follows
+
+**The nineteen runs are a baseline for the pipeline _plus this supervision_, not for the pipeline
+alone.** That is still the right baseline for most of what we want — it shows what the approach can
+do when someone competent is watching, and every defect it surfaced is real.
+
+But it cannot answer "did the next version improve the skill", because there is no measurement of
+the skill unassisted. That needs a **controlled run**: the skill exactly as it ships, no added
+hints, no rules invented mid-run, no orchestrator substitutions, on one frozen case — and the same
+case re-run after a change. One design, twice, is enough to make every later comparison meaningful,
+and nothing in the corpus substitutes for it.

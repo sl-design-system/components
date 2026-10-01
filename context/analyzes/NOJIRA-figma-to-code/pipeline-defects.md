@@ -164,7 +164,22 @@ different ways**, none documented, and which one you get depends on the frame:
 
 The long edge is capped — at 1600, and at 1280 for the tallest frame — so **tall designs come back
 downscaled by up to 27%**. An earlier version of this entry called it "roughly 8px of canvas
-bleed", which is only the smallest of the three behaviours.
+bleed", which is only the smallest of the behaviours.
+
+**And there is a fourth, which is the dangerous one: the raster can come back at half brightness.**
+A3's reference has a per-channel maximum of exactly **128**, and its dominant colour — 1,052,109
+pixels — is `(128,128,128)`, which doubles to pure white. Every colour in the image is multiplied
+by 0.5. Three other runs checked were untouched at 255.
+
+The image still looks like a page, merely a dark one, so nothing about it announces the problem.
+**Any colour measured against it is wrong by a factor of two**, and a run that reported "the
+design's grey is `#797A7B`" was reading a halved `#F2F4F6`. A fidelity score comparing colours
+against this reference would produce numbers that are entirely fictional and entirely plausible.
+
+Normalisation therefore cannot be a per-run courtesy. The harness must fetch the reference,
+assert its dimensions against the frame, assert that a page-like image reaches 255 somewhere, and
+refuse the capture otherwise — because three of the four distortions are invisible to a reader and
+the fourth is invisible to a measurement.
 
 Every pixel measurement in a downscaled run is against a reference that is not the design's size.
 Three of the runs above are affected, and a run that compares a 1280-wide capture against a

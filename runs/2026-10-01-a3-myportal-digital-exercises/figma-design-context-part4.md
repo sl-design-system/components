@@ -1,0 +1,978 @@
+# get_design_context — region: card header (book cover, title, buttons, avatars), node 25124:56833
+
+```jsx
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/bbf0da7f-cbb9-4406-8bcc-b37bb061c7f8';
+const imgMediaFixedAspectRatio = `${assetPathPrefix}/f3328.png`;
+const imgLine13 = `${assetPathPrefix}/b7428.svg`;
+const imgAvatar = `${assetPathPrefix}/d639e.svg`;
+const imgAvatar1 = `${assetPathPrefix}/5758c.svg`;
+const imgAvatar2 = `${assetPathPrefix}/dd3ed.svg`;
+const imgAvatar3 = `${assetPathPrefix}/b162a.svg`;
+
+export default function Frame15555() {
+  return (
+    <div
+      className="border border-[#f2f3f5] border-solid content-stretch flex items-center justify-center overflow-clip p-[16px] relative rounded-[6px] size-full"
+      data-node-id="25124:56833">
+      <div
+        className="content-stretch flex flex-[1_0_0] gap-[16px] items-start min-w-px relative"
+        data-node-id="25124:56834">
+        <div
+          className="content-stretch flex h-[207.649px] items-start justify-center relative shrink-0 w-[156px]"
+          data-node-id="25124:56835">
+          <div
+            className="bg-white border-[#c7cdd3] border-[1.054px] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[4px] shrink-0 w-[156px]"
+            data-node-id="25124:56836"
+            data-name="SL-card">
+            <div
+              className="content-stretch flex items-start relative shrink-0 w-full"
+              data-node-id="I25124:56836;3050:8061">
+              <div
+                className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                data-node-id="I25124:56836;3050:8062"
+                data-name="Media Fixed Aspect Ratio">
+                <img
+                  alt=""
+                  className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                  src={imgMediaFixedAspectRatio}
+                />
+                <div
+                  className="content-stretch flex items-start relative shrink-0 w-full"
+                  data-node-id="I25124:56836;3050:8062;3050:8444"
+                  data-name="3:1">
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8445"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8445;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8445;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8445;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8445;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8446"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8446;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8446;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8446;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8446;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8447"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8447;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8447;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8447;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8447;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start relative shrink-0 w-full"
+                  data-node-id="I25124:56836;3050:8062;3050:8448"
+                  data-name="3:1">
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8449"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8449;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8449;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8449;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8449;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8450"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8450;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8450;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8450;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8450;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8451"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8451;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8451;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8451;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8451;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start relative shrink-0 w-full"
+                  data-node-id="I25124:56836;3050:8062;3050:8452"
+                  data-name="3:1">
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8453"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8453;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8453;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8453;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8453;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8454"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8454;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8454;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8454;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8454;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8455"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8455;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8455;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8455;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8455;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start relative shrink-0 w-full"
+                  data-node-id="I25124:56836;3050:8062;3050:8456"
+                  data-name="3:1">
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8457"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8457;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8457;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8457;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8457;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8458"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8458;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8458;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8458;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8458;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                    data-node-id="I25124:56836;3050:8062;3050:8459"
+                    data-name="Media Fixed Aspect Ratio">
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8459;3050:8145"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8459;3050:8145;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="content-stretch flex flex-col items-center justify-center overflow-clip relative shrink-0 w-full"
+                      data-node-id="I25124:56836;3050:8062;3050:8459;3050:8146"
+                      data-name="2:1 Fixed Aspect Ratio Spacer">
+                      <div
+                        className="flex h-[33.73px] items-center justify-center relative shrink-0 w-full"
+                        data-node-id="I25124:56836;3050:8062;3050:8459;3050:8146;5179:29084">
+                        <div className="-rotate-30 flex-none w-full">
+                          <div
+                            className="h-0 relative w-full"
+                            data-name="Aspect Ratio Lock - 30°"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex flex-[1_0_0] flex-col h-[208px] items-start justify-between min-w-px relative"
+          data-node-id="25124:56837">
+          <div
+            className="content-stretch flex flex-col items-start relative shrink-0 w-full"
+            data-node-id="25124:56838">
+            <div
+              className="content-stretch flex gap-[12px] items-start relative shrink-0 w-full"
+              data-node-id="25124:56839">
+              <div
+                className="content-stretch flex flex-[1_0_0] flex-col gap-[12px] items-start min-w-px relative"
+                data-node-id="25124:56840">
+                <div
+                  className="content-stretch flex items-center relative shrink-0"
+                  data-node-id="25124:56841">
+                  <p
+                    className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[34px] relative shrink-0 text-[#002649] text-[24px] whitespace-nowrap"
+                    data-node-id="25124:56842"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Reken Maar! 4
+                  </p>
+                </div>
+                <div
+                  className="[word-break:break-word] content-stretch flex flex-col font-['Open_Sans:Regular'] font-normal gap-[4px] items-start leading-[0] relative shrink-0 text-[#54585d] text-[14px] w-full"
+                  data-node-id="25124:56843">
+                  <div
+                    className="flex flex-col justify-center relative shrink-0 w-full"
+                    data-node-id="25124:56844"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[20px]">Uitgeverij VAN IN</p>
+                  </div>
+                  <div
+                    className="flex flex-col justify-center relative shrink-0 w-full"
+                    data-node-id="25124:56845"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[20px]">LO-J4</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex gap-[16px] items-start relative shrink-0"
+                data-node-id="25124:56846">
+                <div
+                  className="bg-[#0060b9] content-stretch flex flex-col items-start relative rounded-[4px] shrink-0"
+                  data-node-id="25124:56847"
+                  data-name="sl-button">
+                  <div
+                    className="content-stretch flex flex-col items-start relative shrink-0"
+                    data-node-id="I25124:56847;2603:6213"
+                    data-name="sl-button-theme">
+                    <div
+                      className="bg-[#0060b9] border border-[#0060b9] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                      data-node-id="I25124:56847;2603:6213;2603:5093"
+                      data-name="button">
+                      <div
+                        className="relative shrink-0 size-[16px]"
+                        data-node-id="I25124:56847;2603:6213;2603:5093;915:4542"
+                        data-name="icon-core-start">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                          <div
+                            className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                            data-node-id="I25124:56847;2603:6213;2603:5093;915:4543"
+                            data-name="icon-core-start">
+                            <div
+                              className="flex-[1_0_0] h-full min-w-px relative"
+                              data-node-id="I25124:56847;2603:6213;2603:5093;915:4543;404:33"
+                              data-name="icon-container">
+                              <div
+                                className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[16px] text-center text-white"
+                                data-node-id="I25124:56847;2603:6213;2603:5093;915:4543;404:33;802:2162">
+                                <p className="leading-[14px]">presentation-screen</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="[word-break:break-word] flex flex-col font-['Proxima_Nova:Semibold'] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+                        data-node-id="I25124:56847;2603:6213;2603:5093;915:4544">
+                        <p className="leading-[24px]">Digiboardware</p>
+                      </div>
+                      <div
+                        className="absolute inset-[-1px]"
+                        data-node-id="I25124:56847;2603:6213;2603:5093;2123:30628"
+                        data-name="Focus ring">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex flex-col items-start relative shrink-0"
+                  data-node-id="25124:56848"
+                  data-name="sl-button">
+                  <div
+                    className="content-stretch flex flex-col items-start relative shrink-0"
+                    data-node-id="I25124:56848;2603:6213"
+                    data-name="sl-button-theme">
+                    <div
+                      className="bg-white border border-[#e3e6ea] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                      data-node-id="I25124:56848;2603:6213;2603:5091"
+                      data-name="button">
+                      <div
+                        className="[word-break:break-word] flex flex-col font-['Proxima_Nova:Semibold'] justify-center leading-[0] not-italic relative shrink-0 text-[#002f62] text-[14px] text-center whitespace-nowrap"
+                        data-node-id="I25124:56848;2603:6213;2603:5091;915:4544">
+                        <p className="leading-[24px]">Lorem Ipsum</p>
+                      </div>
+                      <div
+                        className="relative shrink-0 size-[16px]"
+                        data-node-id="I25124:56848;2603:6213;2603:5091;915:4545"
+                        data-name="icon-core-end">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                          <div
+                            className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                            data-node-id="I25124:56848;2603:6213;2603:5091;915:4546"
+                            data-name="icon-core-end">
+                            <div
+                              className="flex-[1_0_0] h-full min-w-px relative"
+                              data-node-id="I25124:56848;2603:6213;2603:5091;915:4546;404:33"
+                              data-name="icon-container">
+                              <div
+                                className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#002f62] text-[16px] text-center"
+                                data-node-id="I25124:56848;2603:6213;2603:5091;915:4546;404:33;802:2162">
+                                <p className="leading-[14px]">arrow-right</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="absolute inset-[-1px]"
+                        data-node-id="I25124:56848;2603:6213;2603:5091;2123:30628"
+                        data-name="Focus ring">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="h-0 relative shrink-0 w-full" data-node-id="25124:56849">
+            <div className="absolute inset-[-1px_0_0_0]">
+              <img alt="" className="block max-w-none size-full" src={imgLine13} />
+            </div>
+          </div>
+          <div
+            className="content-stretch flex gap-[12px] items-end relative shrink-0 w-full"
+            data-node-id="25124:56850">
+            <div
+              className="content-stretch flex items-center relative shrink-0"
+              data-node-id="25124:56851">
+              <div
+                className="content-stretch flex items-start relative shrink-0"
+                data-node-id="25124:56852"
+                data-name="sl-avatar">
+                <div
+                  className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                  data-node-id="I25124:56852;5440:3721"
+                  data-name="sl-avatar-circle-text">
+                  <div
+                    className="relative shrink-0 size-[40px] z-[2]"
+                    data-node-id="I25124:56852;5440:3721;5440:3743"
+                    data-name="sl-avatar-circle">
+                    <div
+                      className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                      data-node-id="I25124:56852;5440:3721;5440:3743;5440:3966"
+                      data-name="Focus ring"
+                    />
+                    <div
+                      className="absolute left-0 size-[40px] top-0"
+                      data-node-id="I25124:56852;5440:3721;5440:3743;5440:3967"
+                      data-name="Avatar">
+                      <img
+                        alt=""
+                        className="absolute block inset-0 max-w-none size-full"
+                        src={imgAvatar}
+                      />
+                    </div>
+                    <div
+                      className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                      data-node-id="I25124:56852;5440:3721;5440:3743;5440:3972">
+                      <p className="leading-[20px]">DK</p>
+                    </div>
+                  </div>
+                  <div
+                    className="[word-break:break-word] content-stretch flex flex-col font-['Proxima_Nova:Regular'] items-start leading-[0] not-italic relative shrink-0 text-[14px] whitespace-nowrap z-[1]"
+                    data-node-id="I25124:56852;5440:3721;5440:3744"
+                    data-name="avatar-header">
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#002649]"
+                      data-node-id="I25124:56852;5440:3721;5440:3744;3219:1520">
+                      <p className="leading-[18px]">Daniele King</p>
+                    </div>
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#71777d]"
+                      data-node-id="I25124:56852;5440:3721;5440:3744;3219:1521">
+                      <p className="leading-[18px]">Administrator</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="content-stretch flex gap-[8px] items-center relative shrink-0"
+              data-node-id="25124:56853">
+              <div className="flex flex-row items-center self-stretch" data-node-id="25124:56854">
+                <div className="content-stretch flex h-full items-center relative shrink-0">
+                  <div
+                    className="content-stretch flex items-start mr-[-12px] relative shrink-0"
+                    data-node-id="25124:56855"
+                    data-name="sl-avatar">
+                    <div
+                      className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                      data-node-id="I25124:56855;5440:3721"
+                      data-name="sl-avatar-circle-text">
+                      <div
+                        className="relative shrink-0 size-[40px] z-[2]"
+                        data-node-id="I25124:56855;5440:3721;5440:3743"
+                        data-name="sl-avatar-circle">
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                          data-node-id="I25124:56855;5440:3721;5440:3743;5440:3966"
+                          data-name="Focus ring"
+                        />
+                        <div
+                          className="absolute left-0 size-[40px] top-0"
+                          data-node-id="I25124:56855;5440:3721;5440:3743;5440:3967"
+                          data-name="Avatar">
+                          <img
+                            alt=""
+                            className="absolute block inset-0 max-w-none size-full"
+                            src={imgAvatar1}
+                          />
+                        </div>
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                          data-node-id="I25124:56855;5440:3721;5440:3743;5440:3972">
+                          <p className="leading-[20px]">JV</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="content-stretch flex items-start relative shrink-0"
+                    data-node-id="25124:56856"
+                    data-name="sl-avatar">
+                    <div
+                      className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                      data-node-id="I25124:56856;5440:3721"
+                      data-name="sl-avatar-circle-text">
+                      <div
+                        className="relative shrink-0 size-[40px] z-[2]"
+                        data-node-id="I25124:56856;5440:3721;5440:3743"
+                        data-name="sl-avatar-circle">
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                          data-node-id="I25124:56856;5440:3721;5440:3743;5440:3966"
+                          data-name="Focus ring"
+                        />
+                        <div
+                          className="absolute left-0 size-[40px] top-0"
+                          data-node-id="I25124:56856;5440:3721;5440:3743;5440:3967"
+                          data-name="Avatar">
+                          <img
+                            alt=""
+                            className="absolute block inset-0 max-w-none size-full"
+                            src={imgAvatar}
+                          />
+                        </div>
+                        <div
+                          className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                          data-node-id="I25124:56856;5440:3721;5440:3743;5440:3972">
+                          <p className="leading-[20px]">DK</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex items-start relative shrink-0"
+                data-node-id="25124:56857"
+                data-name="sl-avatar">
+                <div
+                  className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                  data-node-id="I25124:56857;5440:3721"
+                  data-name="sl-avatar-circle-text">
+                  <div
+                    className="[word-break:break-word] content-stretch flex flex-col font-['Proxima_Nova:Regular'] items-start leading-[0] not-italic relative shrink-0 text-[14px] whitespace-nowrap z-[1]"
+                    data-node-id="I25124:56857;5440:3721;5440:3744"
+                    data-name="avatar-header">
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#002649]"
+                      data-node-id="I25124:56857;5440:3721;5440:3744;3219:1520">
+                      <p className="leading-[18px]">Jan Valeero, Daniele King</p>
+                    </div>
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#71777d]"
+                      data-node-id="I25124:56857;5440:3721;5440:3744;3219:1521">
+                      <p className="leading-[18px]">Co-authors (2)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="content-stretch flex gap-[8px] items-center relative shrink-0"
+              data-node-id="25124:56858">
+              <div
+                className="content-stretch flex items-center relative shrink-0"
+                data-node-id="25124:56859">
+                <div
+                  className="content-stretch flex items-start mr-[-12px] relative shrink-0"
+                  data-node-id="25124:56860"
+                  data-name="sl-avatar">
+                  <div
+                    className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                    data-node-id="I25124:56860;5440:3721"
+                    data-name="sl-avatar-circle-text">
+                    <div
+                      className="relative shrink-0 size-[40px] z-[2]"
+                      data-node-id="I25124:56860;5440:3721;5440:3743"
+                      data-name="sl-avatar-circle">
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                        data-node-id="I25124:56860;5440:3721;5440:3743;5440:3966"
+                        data-name="Focus ring"
+                      />
+                      <div
+                        className="absolute left-0 size-[40px] top-0"
+                        data-node-id="I25124:56860;5440:3721;5440:3743;5440:3967"
+                        data-name="Avatar">
+                        <img
+                          alt=""
+                          className="absolute block inset-0 max-w-none size-full"
+                          src={imgAvatar1}
+                        />
+                      </div>
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                        data-node-id="I25124:56860;5440:3721;5440:3743;5440:3972">
+                        <p className="leading-[20px]">JV</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start mr-[-12px] relative shrink-0"
+                  data-node-id="25124:56861"
+                  data-name="sl-avatar">
+                  <div
+                    className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                    data-node-id="I25124:56861;5440:3721"
+                    data-name="sl-avatar-circle-text">
+                    <div
+                      className="relative shrink-0 size-[40px] z-[2]"
+                      data-node-id="I25124:56861;5440:3721;5440:3743"
+                      data-name="sl-avatar-circle">
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                        data-node-id="I25124:56861;5440:3721;5440:3743;5440:3966"
+                        data-name="Focus ring"
+                      />
+                      <div
+                        className="absolute left-0 size-[40px] top-0"
+                        data-node-id="I25124:56861;5440:3721;5440:3743;5440:3967"
+                        data-name="Avatar">
+                        <img
+                          alt=""
+                          className="absolute block inset-0 max-w-none size-full"
+                          src={imgAvatar}
+                        />
+                      </div>
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                        data-node-id="I25124:56861;5440:3721;5440:3743;5440:3972">
+                        <p className="leading-[20px]">DK</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start mr-[-12px] relative shrink-0"
+                  data-node-id="25124:56862"
+                  data-name="sl-avatar">
+                  <div
+                    className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                    data-node-id="I25124:56862;5440:3721"
+                    data-name="sl-avatar-circle-text">
+                    <div
+                      className="relative shrink-0 size-[40px] z-[2]"
+                      data-node-id="I25124:56862;5440:3721;5440:3743"
+                      data-name="sl-avatar-circle">
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                        data-node-id="I25124:56862;5440:3721;5440:3743;5440:3966"
+                        data-name="Focus ring"
+                      />
+                      <div
+                        className="absolute left-0 size-[40px] top-0"
+                        data-node-id="I25124:56862;5440:3721;5440:3743;5440:3967"
+                        data-name="Avatar">
+                        <img
+                          alt=""
+                          className="absolute block inset-0 max-w-none size-full"
+                          src={imgAvatar2}
+                        />
+                      </div>
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                        data-node-id="I25124:56862;5440:3721;5440:3743;5440:3972">
+                        <p className="leading-[20px]">KW</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="content-stretch flex items-start relative shrink-0"
+                  data-node-id="25124:56863"
+                  data-name="sl-avatar">
+                  <div
+                    className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                    data-node-id="I25124:56863;5440:3721"
+                    data-name="sl-avatar-circle-text">
+                    <div
+                      className="relative shrink-0 size-[40px] z-[2]"
+                      data-node-id="I25124:56863;5440:3721;5440:3743"
+                      data-name="sl-avatar-circle">
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[40px] top-1/2"
+                        data-node-id="I25124:56863;5440:3721;5440:3743;5440:3966"
+                        data-name="Focus ring"
+                      />
+                      <div
+                        className="absolute left-0 size-[40px] top-0"
+                        data-node-id="I25124:56863;5440:3721;5440:3743;5440:3967"
+                        data-name="Avatar">
+                        <img
+                          alt=""
+                          className="absolute block inset-0 max-w-none size-full"
+                          src={imgAvatar3}
+                        />
+                      </div>
+                      <div
+                        className="-translate-x-1/2 -translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Proxima_Nova:Bold'] justify-center leading-[0] left-1/2 not-italic text-[14px] text-center text-white top-1/2 uppercase w-[40px]"
+                        data-node-id="I25124:56863;5440:3721;5440:3743;5440:3972">
+                        <p className="leading-[20px]">+2</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex items-start relative shrink-0"
+                data-node-id="25124:56864"
+                data-name="sl-avatar">
+                <div
+                  className="content-stretch flex gap-[16px] isolate items-center relative shrink-0"
+                  data-node-id="I25124:56864;5440:3721"
+                  data-name="sl-avatar-circle-text">
+                  <div
+                    className="[word-break:break-word] content-stretch flex flex-col font-['Proxima_Nova:Regular'] items-start leading-[0] not-italic relative shrink-0 text-[14px] whitespace-nowrap z-[1]"
+                    data-node-id="I25124:56864;5440:3721;5440:3744"
+                    data-name="avatar-header">
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#002649]"
+                      data-node-id="I25124:56864;5440:3721;5440:3744;3219:1520">
+                      <p className="leading-[18px]">
+                        Jan Valeero, Daniele King, Karl Watson and 2 others
+                      </p>
+                    </div>
+                    <div
+                      className="flex flex-col justify-center relative shrink-0 text-[#71777d]"
+                      data-node-id="I25124:56864;5440:3721;5440:3744;3219:1521">
+                      <p className="leading-[18px]">With own copy (5)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+Tool metadata for this call:
+
+- "SUPER CRITICAL" framework-conversion notice.
+- Node ids added as data attributes.
+- Styles contained in the design: card/border: #C7CDD3, body/foreground: #002649, text/heading/2: Font(family: "Open Sans", style: Bold, size: 24, weight: 700, lineHeight: 34, letterSpacing: 0), color/palette/neutral/700: #54585D, text/body/md/normal: Font(family: "Open Sans", style: Regular, size: 14, weight: 400, lineHeight: 20, letterSpacing: 0), button/primary/solid/idle/foreground: #FFFFFF, button/text/lg: Font(family: "Proxima Nova", style: Semibold, size: 14, weight: 600, lineHeight: 24, letterSpacing: 0), button/default/solid/idle/foreground: #002F62, button/default/solid/idle/background: #FFFFFF, button/default/solid/idle/border: #E3E6EA, color/palette/neutral/50: #F2F3F5, color/button/success/link/focus/foreground: #235500, Flowkit/White: #FFFFFF, color/button/warning/solid/idle/background: #FF9D00, color/button/default/outline/focus/border: #0074DF.
+- Component descriptions: sl-button (Node ID 9928:90133): "A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action." Documentation: https://sanomalearning.design/categories/components/button/usage/
+- Image assets note: images/SVGs are constants referencing `${assetPathPrefix}/<file>`, hosted on a remote server for 7 days.

@@ -1,0 +1,36 @@
+/**
+ * Chapter navigation column — a search field over a 12px-gapped stack of chapter rows.
+ *
+ * No `font:` shorthand: `bingel-int` declares zero `--sl-text-new-*` shorthands.
+ */
+:host {
+  display: block;
+  inline-size: 390px; /* layout dimension — the drawn left column, no spacing step matches */
+  flex: none;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-150);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

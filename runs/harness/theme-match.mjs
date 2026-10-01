@@ -110,6 +110,57 @@ for (const name of readdirSync(themesDir)) {
 
 results.sort((a, b) => b.score - a.score || b.compared - a.compared);
 
+// Colour is not the only evidence, and sometimes it is not the deciding evidence. Two themes in
+// this corpus are colour-identical and differ only in radii, border widths and fonts — a design
+// bound 10 colour tokens, which tied, and 3 size tokens, which separated them 3:0. A run found
+// that by hand after the tool reported an unbreakable tie.
+const scalarTokens = Object.entries(defs).filter(
+    ([token, value]) =>
+      !token.startsWith('color/') && typeof value === 'string' && /^-?\d+(\.\d+)?$/.test(value)
+  ),
+  byScalar = [];
+
+for (const name of readdirSync(themesDir)) {
+  const file = join(themesDir, name, 'theme.css');
+  if (!existsSync(file)) continue;
+
+  const theme = loadTheme(file),
+    compared = [],
+    matched = [];
+
+  for (const [token, value] of scalarTokens) {
+    const declared = theme.get(toCustomProperty(token));
+    if (declared === undefined) continue;
+
+    compared.push(token);
+    // Themes write these with a unit; the design reports a bare number.
+    if (normalise(declared).replace(/px$/, '') === normalise(value)) matched.push(token);
+  }
+
+  if (compared.length)
+    byScalar.push({
+      theme: name,
+      matched: matched.length,
+      compared: compared.length,
+      score: Number((matched.length / compared.length).toFixed(3))
+    });
+}
+
+byScalar.sort((a, b) => b.score - a.score || b.compared - a.compared);
+
+// Only consulted when colour leaves a genuine tie at the top — colour is the stronger signal when
+// it discriminates at all.
+const colourTied =
+    results.length > 1 && results[0].score > 0 && results[0].score === results[1].score,
+  tiedThemes = colourTied
+    ? results.filter(r => r.score === results[0].score).map(r => r.theme)
+    : [],
+  scalarAmongTied = byScalar.filter(r => tiedThemes.includes(r.theme)),
+  tieBreak =
+    colourTied && scalarAmongTied.length > 1 && scalarAmongTied[0].score > scalarAmongTied[1].score
+      ? scalarAmongTied[0]
+      : null;
+
 // A name match is better evidence than a value match — a name carries intent, a hex does not — so
 // this runs only when name matching produced nothing usable. "Nothing usable" has to include the
 // case where the design *has* colour tokens but under another library's paths
@@ -160,14 +211,26 @@ console.log(
       // adopted `itslearning` from exactly that and carried it through six stages. A ranking of
       // nothing has no winner.
       best:
+        tieBreak?.theme ??
         (nameMatchFailed
           ? byValue[0]?.score > 0
             ? byValue[0].theme
             : null
           : results[0]?.score > 0
             ? results[0].theme
-            : null) ?? null,
+            : null) ??
+        null,
       evidence: nameMatchFailed ? (anyHexes.length ? 'hex values' : 'none') : 'token names',
+      ...(colourTied
+        ? {
+            colourTiedBetween: tiedThemes,
+            scalarTokensInDesign: scalarTokens.length,
+            scalarRankingAmongTied: scalarAmongTied.slice(0, 4),
+            tieBrokenBy: tieBreak
+              ? `scalar tokens: ${tieBreak.theme} ${tieBreak.matched}/${tieBreak.compared}`
+              : 'not broken — scalar tokens do not separate these themes either'
+          }
+        : {}),
       marginOverSecond: (() => {
         const ranked = nameMatchFailed ? byValue : results;
         return ranked[1]
@@ -183,13 +246,15 @@ console.log(
       // and uniqueness — every known-good pairing scores 1.0. A value match never reaches 1.0,
       // because a design always carries a few colours its theme does not define, so it is judged
       // on separation instead: decisive agreement and a runner-up nowhere near it.
-      confident: nameMatchFailed
-        ? byValue[0]?.compared >= 8 &&
-          byValue[0]?.score >= 0.8 &&
-          byValue[0]?.score >= 3 * (byValue[1]?.score ?? 0)
-        : results[0]?.compared >= 5 &&
-          results[0]?.score === 1 &&
-          !results.slice(1).some(other => other.score === 1),
+      confident: tieBreak
+        ? true
+        : nameMatchFailed
+          ? byValue[0]?.compared >= 8 &&
+            byValue[0]?.score >= 0.8 &&
+            byValue[0]?.score >= 3 * (byValue[1]?.score ?? 0)
+          : results[0]?.compared >= 5 &&
+            results[0]?.score === 1 &&
+            !results.slice(1).some(other => other.score === 1),
       // Anything short of 1 means the design and the theme disagree about tokens they both claim
       // to define — worth reporting rather than rounding away.
       absoluteAgreement: (nameMatchFailed ? byValue[0]?.score : results[0]?.score) ?? null,

@@ -1,0 +1,97 @@
+/**
+ * Side nav — 240px column, #F2F3F5 ground, 16px/24px inset, 24px between rows, collapse control
+ * pinned to the bottom.
+ *
+ * Every length here is either a resolved `--sl-size-*` step or a layout dimension written raw with
+ * a comment. `--sl-size-N00` is N x 8px, so `--sl-size-300` is 24px — the token name is not the
+ * value.
+ *
+ * No `font:` shorthand anywhere: the `bingel-int` theme declares ZERO `--sl-text-new-*` shorthands
+ * (only the longhands), so `font: var(--sl-text-new-body-md)` names an undefined property and the
+ * browser drops the whole declaration with nothing logged.
+ */
+:host {
+  /* `display: flex` is intentional, not boilerplate: the host IS the 240px column, and the
+     collapse control is pushed to its bottom edge with `margin-block-start: auto`. */
+  display: flex;
+  flex-direction: column;
+  inline-size: 240px; /* layout dimension — no spacing step is 240 */
+  background: var(--sl-color-background-neutral-bold);
+  padding-block: var(--sl-size-200);
+  padding-inline: var(--sl-size-300);
+}
+
+nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  inline-size: 100%;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  inline-size: 100%;
+}
+
+.item {
+  display: flex;
+  gap: var(--sl-size-150);
+  align-items: center;
+  inline-size: 100%;
+  padding: var(--sl-size-150);
+  border: none;
+  /* Unselected rows are drawn at 12px radius and the selected row at 4px. The asymmetry is what
+     the design shows; it is reproduced rather than normalised. */
+  border-radius: var(--sl-size-borderRadius-xl);
+  background: none;
+  color: var(--sl-color-palette-blue-500);
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  text-align: start;
+  cursor: pointer;
+}
+
+.item.selected {
+  border-radius: var(--sl-size-borderRadius-default);
+  background: var(--sl-color-palette-blue-500);
+  color: var(--sl-color-foreground-primary-onBold);
+}
+
+/* Preserved footprint for an omitted icon. The design's sidebar glyphs are exported SVG assets and
+   this pipeline has no asset-export step, so the box is kept and left empty — never hand-drawn. */
+.icon {
+  flex: none;
+  inline-size: var(--sl-size-new-icon-xl);
+  block-size: var(--sl-size-new-icon-xl);
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.collapse {
+  margin-block-start: auto;
+  font-size: var(--sl-text-new-body-md-fontSize);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

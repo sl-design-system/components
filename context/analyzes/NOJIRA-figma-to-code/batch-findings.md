@@ -585,3 +585,52 @@ A fabricated plausible number in a field nobody can check is the measurement pro
 form, and it was caught only because the run went back to look for the basis. `T-…-09` must
 therefore define **one quantity, counted one way, emitted by the harness rather than reported by
 the agent** — a number an agent writes about its own run is not a measurement.
+
+---
+
+## Colour was never the only evidence for a theme
+
+`theme-match` compared colour tokens and nothing else. A3 bound 44 design-system tokens, of which
+**10 were colours — and those 10 tied two themes exactly**, because `bingel-dc` and `bingel-int`
+are colour-identical. The run broke the tie by hand on the tokens the tool was ignoring:
+
+| Token                       | Design | `bingel-dc` | `bingel-int` |
+| --------------------------- | -----: | ----------: | -----------: |
+| `size/borderRadius/default` |      4 |         2px |      **4px** |
+| `size/borderRadius/child`   |      2 |         1px |      **2px** |
+| `size/borderWidth/action`   |      1 |         2px |      **1px** |
+
+Three for three, reproducible, and corroborated independently: the design's font is `Proxima Nova`
+and only `bingel-int` names it; the frame carries the Bingel wordmark and "Uitgeverij VAN IN", so
+**the product recorded in the corpus as "MyPortal" is Bingel**.
+
+The tool now runs the same comparison over every numeric token and consults it **only when colour
+leaves a genuine tie** — colour remains the stronger signal where it discriminates at all. On A3 it
+resolves `bingel-int` at **17/18** scalar tokens, confident, with the known-good pairings
+unchanged.
+
+**A7 cannot be settled the same way**: it is the same Figma file but binds none of those three
+tokens, so its own data contains no evidence either way. Its recorded `bingel-dc` was a coin flip
+from the same tie. The honest resolution is that the file is `bingel-int` on A3's evidence and A7
+inherits it — which is the per-file hypothesis doing useful work rather than being tested by it.
+
+The general lesson is narrower than "use more signals": **a tie is a statement about the evidence
+examined, not about the world.** The tool reported an unbreakable tie while the deciding evidence
+sat unread in the same file.
+
+---
+
+## A page can be inert while every one of its parts works
+
+A3's root wired **zero** listeners. Every leaf emitted its events correctly, so a leaf-level check
+passed, and the page did nothing. B-Itsl-Course reported the identical shape earlier in the batch.
+
+Two independent instances make it a pattern rather than an accident, and the structural reason is
+visible in both: the pipeline validates **components**, and the wiring between them belongs to no
+component. Stage 3 checks each leaf, Stage 4 photographs the result, and nothing at all examines
+whether the root subscribed to what the leaves emit.
+
+It is also cheap to catch, which is the frustrating part: dispatch each declared event and assert
+the root's state changed. A3 did exactly that after the fix and reported **8/8 events fire and
+mutate state**; B-Sesame reported **13/13**. The check exists in two runs' heads and nowhere in the
+pipeline.

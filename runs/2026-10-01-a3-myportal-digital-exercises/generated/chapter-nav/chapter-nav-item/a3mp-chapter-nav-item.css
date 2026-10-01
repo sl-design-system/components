@@ -1,0 +1,149 @@
+/**
+ * Chapter nav row — a bordered header button, a blue emphasis border plus drop shadow when the row
+ * is the one being worked in, and an inset list of tool leaves with count badges when expanded.
+ *
+ * The badge is a plain styled span rather than `<sl-badge>`: the selected leaf needs its own
+ * ground/text pair (`--sl-color-palette-blue-100` on `--sl-color-palette-blue-600`) which
+ * `sl-badge`'s `color`/`variant` enum does not expose, and mixing a token-driven span with a
+ * component-driven one across the same list would have made the two states inconsistent.
+ *
+ * No `font:` shorthand: `bingel-int` declares zero `--sl-text-new-*` shorthands.
+ */
+:host {
+  display: block;
+}
+
+.row {
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  background: var(--sl-elevation-surface-base-default);
+  overflow: hidden;
+}
+
+.row.highlighted {
+  border-color: var(--sl-color-palette-blue-500);
+  /* The design's own effect is `#0E4F9547 0 4 12 0`; that colour has no token, so the geometry is
+     reproduced exactly (0 4px 12px) with the nearest shadow token and the colour delta recorded.
+     `box-shadow`, not `filter: drop-shadow()` — a filter on a host creates a containing block. */
+  box-shadow: 0 var(--sl-size-050) var(--sl-size-150) var(--sl-color-shadow-overlay2);
+}
+
+.header {
+  display: flex;
+  gap: var(--sl-size-150);
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding: var(--sl-size-150);
+  border: none;
+  background: none;
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  text-align: start;
+  cursor: pointer;
+}
+
+.lead {
+  display: flex;
+  gap: var(--sl-size-150);
+  align-items: center;
+}
+
+/* Preserved footprint for the omitted leading glyph. */
+.icon {
+  flex: none;
+  inline-size: var(--sl-size-new-icon-md);
+  block-size: var(--sl-size-new-icon-md);
+}
+
+.chevron {
+  flex: none;
+  transition: rotate 150ms ease;
+}
+
+.header[aria-expanded='true'] .chevron {
+  rotate: 180deg;
+}
+
+.leaves {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding-block-end: var(--sl-size-150);
+  padding-inline: var(--sl-size-150);
+  list-style: none;
+}
+
+.leaf {
+  display: flex;
+  gap: var(--sl-size-150);
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding: var(--sl-size-150);
+  border: none;
+  border-inline-start: var(--sl-size-borderWidth-bold) solid transparent;
+  background: none;
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  text-align: start;
+  cursor: pointer;
+}
+
+/* Measured off reference-normalised.png rather than taken from the brief, which had the two
+   surfaces inverted. At the selected "Digital Exercises" row: the row interior samples #FFFFFF
+   (x=300..560, y=765), its top border samples #0060B9 (y=744) and its left border #0060B9
+   (x=276); the BADGE is the light-blue pill — #ABD1F5 ground with #004E93 text (x=590..604),
+   which is --sl-color-palette-blue-100 on --sl-color-palette-blue-600 within the reference's
+   +/-1 quantisation. The bottom and right edges fade through #CBD9E7/#DFE7EF, i.e. the border is
+   continuous and the drop shadow washes it out on those two sides. */
+.leaf.selected {
+  border: var(--sl-size-borderWidth-bold) solid var(--sl-color-palette-blue-500);
+  border-radius: var(--sl-size-borderRadius-default);
+  background: var(--sl-elevation-surface-base-default);
+  box-shadow: 0 var(--sl-size-050) var(--sl-size-150) var(--sl-color-shadow-overlay2);
+  font-weight: var(--sl-fontWeight-600);
+}
+
+.badge {
+  flex: none;
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-100);
+  border-radius: var(--sl-size-borderRadius-full);
+  background: var(--sl-color-background-secondary-bold);
+  color: var(--sl-color-foreground-subtle);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+.leaf.selected .badge {
+  background: var(--sl-color-palette-blue-100);
+  color: var(--sl-color-palette-blue-600);
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: var(--sl-size-010);
+  block-size: var(--sl-size-010);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

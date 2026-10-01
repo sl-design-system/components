@@ -1,0 +1,78 @@
+/**
+ * Avatar cluster — a stack of 40px circles overlapping by 12px, then a 14/16 semibold name line
+ * over a 12/16 subtle role line.
+ *
+ * No `font:` shorthand: `bingel-int` declares zero `--sl-text-new-*` shorthands (longhands only),
+ * so a shorthand would silently drop the whole declaration.
+ */
+:host {
+  /* `display: block` is intentional: the host is a column item inside the chapter header's row of
+     three clusters and must take part in that layout. */
+  display: block;
+}
+
+.cluster {
+  display: flex;
+  gap: var(--sl-size-200);
+  align-items: center;
+}
+
+.stack {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The design overlaps each circle 12px over the one before it. There is no negative-space token in
+   the system and inventing one would be worse than a commented literal, so the raw value stands
+   with this note. 40px circle - 12px overlap = 28px of advance per extra member. */
+.stack li + li {
+  margin-inline-start: -12px;
+}
+
+.overflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--sl-size-500); /* 40px — matches sl-avatar size="lg" (size="md" is --sl-size-400 = 32px) */
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-borderRadius-full);
+  background: var(--sl-color-palette-blue-500);
+  color: var(--sl-color-foreground-primary-onBold);
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+}
+
+.summary {
+  color: var(--sl-color-palette-blue-800);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+.role {
+  color: var(--sl-color-foreground-subtlest);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

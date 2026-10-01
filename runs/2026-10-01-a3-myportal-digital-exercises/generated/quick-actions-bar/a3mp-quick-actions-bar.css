@@ -1,0 +1,60 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+nav {
+  align-items: center;
+  background: var(--sl-elevation-surface-base-default);
+  block-size: var(--sl-size-500);
+  border-block: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-blue-500);
+  display: flex;
+  gap: var(--sl-space-150);
+  padding-inline: var(--sl-space-300);
+}
+
+.lead-label {
+  color: var(--sl-color-palette-blue-500);
+  flex-shrink: 0;
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+button {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-xl);
+  color: var(--sl-color-palette-blue-500);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-space-150);
+  padding: var(--sl-space-150);
+}
+
+.icon {
+  /* Icon omitted — see the template comment next to each button. The 16x16 footprint is kept
+     so the label position doesn't shift. */
+  block-size: var(--sl-size-new-icon-md);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-new-icon-md);
+}
+
+.label {
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

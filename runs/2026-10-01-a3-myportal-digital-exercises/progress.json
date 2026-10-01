@@ -1,0 +1,211 @@
+{
+  "case": "A3",
+  "team": "MyPortal",
+  "name": "Chapter / Digital Exercises / Exercises",
+  "figma": {
+    "fileKey": "1yroCKkROktqhRCP2wwlzB",
+    "nodeId": "25124:56828",
+    "url": "https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=25124-56828",
+    "observed": "1440x1024, 2147 nodes, 75 component types"
+  },
+  "caseSlug": "a3-myportal-digital-exercises",
+  "outputLocation": "examples/lit/src/_runs/a3-myportal-digital-exercises/",
+  "pipelineCommit": "c7f6a370357b902315f9a016e2108274cb24bb76",
+  "pipelineTree": "2176d63902204219ed29b22e775e902747248deb",
+  "figmaFileVersion": null,
+  "stage0": {
+    "server": "figma (remote)",
+    "framework": "lit",
+    "i18n": false,
+    "mode": "as-is"
+  },
+  "theme": {
+    "recordedAs": "TIE-BREAK, not a derivation",
+    "chosen": "bingel-int",
+    "tie": ["bingel-dc", "bingel-int"],
+    "toolVerdict": {
+      "tool": "runs/harness/theme-match.mjs",
+      "best": "bingel-dc",
+      "method": "token-name",
+      "absoluteAgreement": 0.8,
+      "marginOverSecond": 1.0,
+      "confident": false,
+      "whyItTies": "The tool compares COLOUR tokens only - 10 of the 44 SLDS-vocabulary tokens this design binds. bingel-dc and bingel-int are colour-identical, so colour cannot separate them and the tool correctly refuses to pick."
+    },
+    "familyIsolation": "Not in doubt. 7 colour tokens the design binds match exactly 2 of 16 themes, and in every case the pair is {bingel-dc, bingel-int}; no other theme matches any of them: color/foreground/bold #1b1c1e, color/foreground/plain #373a3e, color/background/primary/interactive/plain #0074df, color/foreground/disabled #b8c0c8, color/border/plain #d5d9de, color/background/input/interactive #c7cdd3, color/border/input #8d959d. The rendered frame also carries the Bingel wordmark and 'Uitgeverij VAN IN' (Bingel is VAN IN's platform).",
+    "tieBreakBasis": {
+      "axis": "size tokens, NOT fonts",
+      "note": "The two themes differ in 22 properties and most are font families, but THREE of the 22 are size tokens - and those three are exactly the ones this design binds. bingel-dc matches 0 of 3; bingel-int matches 3 of 3. This is reproducible, not a coin flip.",
+      "evidence": [
+        "size/borderRadius/default = 4  -> bingel-dc 2px (MISS), bingel-int 4px (MATCH)",
+        "size/borderRadius/child   = 2  -> bingel-dc calc(2px/2)=1px (MISS), bingel-int calc(4px/2)=2px (MATCH)",
+        "size/borderWidth/action   = 1  -> bingel-dc 2px (MISS), bingel-int 1px (MATCH)"
+      ],
+      "secondaryAxisAgrees": "The font axis points the same way: the design binds text-new/typeset/fontFamily/body = 'Proxima Nova'; bingel-int's brand layer declares 'proxima-nova', bingel-dc's declares 'open-sans'. Both available discriminating axes select bingel-int.",
+      "dissentingEvidence": "The file contains an effect style literally NAMED 'bingel_dc_shadow' (#0E4F9547, 0 4 12 0). It is a local style name, not a bound SLDS variable, and its colour matches no theme token. The design-analyst treated it as decisive and concluded bingel-dc; three of that same manifest's own numeric rows contradict that conclusion."
+    },
+    "siblingDisagreement": "A7, a different frame of the SAME Figma file, picked bingel-dc from the same tie. Recorded as a disagreement rather than reconciled. The per-file theme hypothesis is NOT confirmed by these two runs: both agree the file is Bingel, and they split on dc-vs-int. A7's defs tie 15/15 on colour; if A7's frame binds size/borderRadius/* or size/borderWidth/action, the same 3-token test would settle it the same way, and that is the cheap way to reconcile us.",
+    "pixelRiskIfWrong": "Low. In CSS the two themes differ only in border-radius (4 vs 2px) and action border-width (1 vs 2px); the font-family difference is inert (see fontFamilyDeadToken).",
+    "fontFamilyDeadToken": "DESIGN-SYSTEM DEFECT: --sl-brand-text-new-*-fontFamily is declared in both Bingel themes (open-sans vs proxima-nova) but NOTHING consumes it - the core block hardcodes --sl-text-new-*-fontFamily: 'Open Sans' at theme.css:3655-3690 and no later declaration maps the brand value in. bingel-int therefore RENDERS Open Sans despite its brand being Proxima Nova, and the two themes are font-identical in practice.",
+    "dataUserGroupCheck": "Checked for the gated-token trap: bingel-int declares typography under [data-user-group='early'|'developing'|'advanced'], but 0 tokens are declared ONLY there - each also has a plain body declaration. The trap does not bite this theme.",
+    "checkTokensUnderBothThemes": "check-tokens.mjs is clean under BOTH bingel-dc and bingel-int (0 missing), confirming the two are token-NAME identical; the choice changes resolved values only."
+  },
+  "referenceScreenshot": {
+    "path": "screenshot.png",
+    "pixels": "1440x1024",
+    "canvasBleed": "none - the documented ~8px bleed did NOT occur on this node",
+    "newDefect": "The reference is uniformly 50% darkened: the MAXIMUM channel value anywhere in the 1,474,560-pixel image is 128. Verified by reconstruction - 128 -> #FFFFFF, #00305D -> #0060B9 (= the design's own color/palette/primary/500 #0060B9), #001325 -> #00264A (= foreground #002649), #797A7B -> #F2F4F6 (= color/palette/neutral/50 #F2F3F5). Cause: the frame's last child is <boolean-operation id='25124:57189' name='Subtract' x='664' y='704' width='0' height='0'/>, a degenerate full-canvas dim layer that get_screenshot composites into the raster. Normalised copy written to reference-normalised.png (v*255/128, clamped). Every colour comparison in this run uses the normalised image; the 50% quantisation means recovered values are even-valued and accurate to +/-1.",
+    "normalised": "reference-normalised.png",
+    "correctionToCoordinator": "The coordinator's instruction said to normalise 'the ~8px canvas bleed'. This node has NO canvas bleed - get_screenshot returned exactly 1440x1024. The defect here is different and larger: the whole raster is 50% darkened (max channel 128). Both defects exist in this pipeline; they are not the same one."
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T10:46:00",
+      "agent": "implement-design:design-analyst (sonnet)",
+      "verdict": "manifest returned; did NOT return BLOCKED_ON_CODE_CONNECT",
+      "artifacts": [
+        "screenshot.png (1440x1024)",
+        "reference-normalised.png (orchestrator)",
+        "figma-metadata.txt (46876 B, XML - correctly named .txt)",
+        "figma-variable-defs.json (4052 B, 73 variables)",
+        "figma-design-context.md + parts 2-5 (113 KB total, verbatim, no [omitted])",
+        "figma-code-connect-map.json (probe log)",
+        "manifest.md (21425 B)",
+        "slds-api.md (orchestrator)"
+      ]
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T11:00:00",
+      "agent": "implement-design:component-decomposer (sonnet)",
+      "tokens": 89002,
+      "durationMs": 363233,
+      "componentsProposed": 7,
+      "componentsAfterOrchestratorOverride": 10,
+      "componentList": [
+        "sl-a3mp-digital-exercises-page (root)",
+        "sl-a3mp-app-bar",
+        "sl-a3mp-quick-actions-bar",
+        "sl-a3mp-side-nav",
+        "sl-a3mp-chapter-header",
+        "sl-a3mp-avatar-cluster",
+        "sl-a3mp-chapter-nav",
+        "sl-a3mp-chapter-nav-item",
+        "sl-a3mp-exercises-panel",
+        "sl-a3mp-exercise-list-item"
+      ],
+      "openQuestions": 21,
+      "openQuestionGroups": {
+        "decomposition boundaries": 3,
+        "naming": 2,
+        "model shapes": 3,
+        "interaction": 3,
+        "accessibility": 3,
+        "tokens": 2,
+        "content-fidelity gaps": 2,
+        "net-new primitives": 2,
+        "process": 1
+      },
+      "orchestratorOverrides": [
+        "OQ1: the decomposer scoped the app bar, quick-actions bar and side nav OUT as host-app shell chrome. Overridden - they are roughly a third of the 1440x1024 frame, and Stage 4 compares the whole frame. Component count 7 -> 10.",
+        "OQ15: 'h2 is 20px/34, no token matches, override font-size locally'. Wrong - --sl-text-md-fontSize is 20px in bingel-int. Use the token; line-height 32 vs 34 is a recorded 2px delta.",
+        "OQ16: 'hardcode #ACD2F5 / #004d94 / #E0EAFF / #2351DB with a TODO'. Two of the four have EXACT tokens (--sl-color-palette-blue-100 and -600); the manifest's (unbound) flag swept by name prefix instead of resolved value. Only the MAX badge pair genuinely lacks one; use the nearest token and record the delta. No raw hex.",
+        "OQ9: 'force the select open imperatively'. sl-select has no public open API (listbox is @query and marked @internal). Primary story renders it CLOSED; a secondary story reaches past the @internal member with that fact commented and reported."
+      ],
+      "note": "Every open question came back with a chosen default, as asked. The decomposer volunteered a per-component icon-availability mapping that was not in the schema, and it was correct in substance."
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T11:40:00",
+      "components": 10,
+      "tags": [
+        "sl-a3mp-digital-exercises-page",
+        "sl-a3mp-app-bar",
+        "sl-a3mp-quick-actions-bar",
+        "sl-a3mp-side-nav",
+        "sl-a3mp-chapter-header",
+        "sl-a3mp-avatar-cluster",
+        "sl-a3mp-chapter-nav",
+        "sl-a3mp-chapter-nav-item",
+        "sl-a3mp-exercises-panel",
+        "sl-a3mp-exercise-list-item"
+      ],
+      "howBuilt": "3 of 6 leaf implementers (app-bar, quick-actions-bar, side-nav) completed before the account quota killed the session; the other 3 died mid-flight. On resume the orchestrator wrote the remaining 3 leaves, all 3 mid-level components and the root directly rather than paying ~35k tokens of agent startup each.",
+      "partialFileFound": "side-nav shipped WITHOUT its .css. It imported './a3mp-side-nav.css' which did not exist, and typecheck.mjs still said clean - the `{ type: 'css' }` import is typed by vite-env.d.ts whether or not the file is on disk. Written by the orchestrator on resume.",
+      "gates": {
+        "typecheck": "clean - totalErrors 2, inScope 0, errorsInOtherRuns 0, regressionsOutsideScope 0, both baseline grid.ts errors still present (verified against the FIXED typecheck.mjs)",
+        "checkTokens": "clean - filesScanned 22, referencesSeen 239, unresolvedReferences 0, missing 0, shorthandTrap 0, hostSettable 0, theme bingel-int"
+      },
+      "noStubs": "No .d.ts, no local re-declaration, no stub of any kind was written. Both gates pass on the real tree."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T11:55:00",
+      "storiesCaptured": 5,
+      "verdicts": {
+        "basic": "rendered",
+        "level-menu-open": "rendered",
+        "all-added": "rendered",
+        "none-added": "rendered",
+        "no-chapter-expanded": "rendered"
+      },
+      "firstAttemptBlocked": "The first capture returned nothing-rendered with 404s on two modules that existed on disk. Root cause was NOT the dev server: backticks inside HTML comments within a lit html`` template terminate the template literal, so 4 files were unparseable. esbuild named it; tsc would have too, but the Stage 3 gate was blind (see findings). 7 comment lines across 4 files fixed.",
+      "measuredFixes": [
+        "ONE cause, THREE deltas: a shadow root does not inherit a page-level border-box reset, so every inline-size/block-size was added to its own padding. app bar 56 declared + 12 + 12 = 80 measured; app bar inner 1440 + 24 + 24 = 1488 measured = the exact 48px of document overflow; side nav 240 + 24 + 24 = 288 measured. Fixed at the cause (box-sizing: border-box) rather than by subtracting constants. After: app bar 56, quick bar 40, side nav 240, document scrollWidth 1440 - all exact.",
+        "Avatar circles measured 32px against the drawn 40px. Cause: sl-avatar size='md' resolves to --sl-size-400 (32px); size='lg' resolves to --sl-size-500 (40px). The overflow '+2' circle was already hardcoded at 40, so the stack was visibly inconsistent in the first capture. Changed to size='lg'; now 40 exactly.",
+        "Chapter header card measured 307px tall against the drawn 232. Cause: the divider and the authorship clusters were stacked BELOW the cover; the Figma frame puts them INSIDE the right-hand column beside it (Frame 467 is 1120x208 and holds the 156x208 cover beside Frame 15495 at 948x208, which itself contains the title block, the divider and the clusters). 208 + 16 + 1 + 16 + 66 = 307, the measured value. Restructured; now 234 (232 content + the card's own 1px top and bottom border)."
+      ],
+      "discrepanciesRecorded": [
+        "[ENV] Text renders in a fallback face. bingel-int ships no @font-face and names 'Open Sans'. Recorded, not chased.",
+        "[ENV] The book cover 404s (/assets/a3mp/reken-maar-4-cover.png). No asset-export step exists; explicit width/height keep the layout from reflowing.",
+        "[ICON] 13 of the design's 18 distinct glyphs are not registered in bingel-int and are omitted with their footprints preserved: Book, Books, files, book-open-cover, eye, list, plus, star, comment, note, image, presentation-screen, search. Plus 8 exported SVG assets (7 sidebar glyphs, the bell) and the bingel wordmark. None hand-drawn.",
+        "[ICON] sl-search-field renders <sl-icon name='search'> internally and bingel-int does not register 'search', so the search field's own prefix icon is blank. That is an SLDS/theme gap, not this run's.",
+        "[SUBST] 'slash-forward' -> 'breadcrumb-separator'; 'check' -> 'check-solid' (only the solid weight is registered).",
+        "[STATE] The level select renders CLOSED while the design draws it OPEN. sl-select exposes no public open API. Recorded rather than faked with a positioned element; the LevelMenuOpen story reaches past the @internal listbox deliberately and verifiably opens it (measured 320x196 at y=577).",
+        "[TYPE] h1 line-height 32 vs the drawn 34, and h2 line-height 32 vs the drawn 34 - no 34px token exists in bingel-int. 2px each, recorded.",
+        "[COLOUR] MAX badge: ground #E0EAFF -> --sl-color-palette-blue-050 #E6F1FB (RGB delta 10.0); text #2351DB -> --sl-color-background-accent-blue-bold #0074DF (RGB delta 49.7). The 49.7 is the largest unavoidable colour delta in this design.",
+        "[COLOUR] The highlighted chapter row's shadow colour #0E4F9547 has no token; geometry reproduced exactly (0 4px 12px) with --sl-color-shadow-overlay2."
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T11:58:00",
+      "scope": "An examples/ path, so per the pipeline skill Stage 5 is story enrichment ONLY - no Vitest spec, no website docs, no changeset, no yarn extract-i18n (i18n is off and extract-i18n writes shared files, which this batch forbids).",
+      "stories": ["Basic", "LevelMenuOpen", "NoneAdded", "AllAdded", "NoChapterExpanded"],
+      "note": "All five render (verdict 'rendered'). AllAdded shows 63 custom elements against Basic's 59 - the four check-solid icons of the added state, confirming the variant actually exercises the state rather than re-rendering Basic."
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T12:20:00",
+      "agent": "implement-design:component-reviewer (sonnet)",
+      "tokens": 143759,
+      "durationMs": 400190,
+      "toolUses": 71,
+      "critical": 4,
+      "minor": 4,
+      "criticalFindings": [
+        "C1 The root page wired ZERO event listeners. Every leaf correctly emitted, so a leaf-level 'does it wire a handler' check passed, but nothing listened: clicking a chapter never expanded it, the nav selection never moved, the add toggle never flipped. This is precisely the failure mode pipeline-defects.md describes as invisible to pixels and the DOM. FIXED: the root now holds a @state() working copy and handles nav-select, chapter-toggle, tool-select, exercise-add-toggle and level-change by mutating it, with documented no-op handlers for the four events that have no drawn state.",
+        "C2 Breadcrumbs set no-home and hand-rolled the first crumb, dropping the home glyph. sl-breadcrumbs renders its own <sl-icon name='home-blank'>, and home-blank IS one of the 34 names bingel-int registers - so this run omitted an icon that was available. FIXED: no-home removed, home-url set, only the trailing crumb slotted.",
+        "C3 The selected chapter leaf had its two surfaces INVERTED against the design, and the orchestrator's own IMPL-BRIEF had told the implementer to do it that way. Verified pixel by pixel on reference-normalised.png: row interior #FFFFFF (x=300..560,y=765), top border #0060B9 (y=744), left border #0060B9 (x=276), badge #ABD1F5 ground with #004E93 text (x=590..604). FIXED: white row with a full blue-500 border and the light-blue pill on the badge.",
+        "C4 All four exercise rows carry the same title, so 'Preview <title>' produced eight identically-named buttons. FIXED: position/total threaded onto the model; labels now read 'Preview exercise 1 of 4: ...'."
+      ],
+      "minorFindings": [
+        "M1 Comment in avatar-cluster.css named size='md' where the code correctly uses size='lg'. FIXED (comment only).",
+        "M2 sl-search-field's own clear button emits sl-clear, never sl-change, so clearing the field silently produced no event. FIXED by also listening to sl-clear.",
+        "M3 Two handlers typed as (event: Event & { detail?: unknown }) rather than importing SlSearchEvent / SlChangeEvent<string>. NOT fixed - carried as a PR comment; runtime behaviour is correct.",
+        "M4 ESLint could not run in this environment: 'Cannot find package eslint-plugin-lit' from tools/eslint-plugin-slds. Environment gap, not a code defect; lint is unverified for this run."
+      ],
+      "postFixGates": {
+        "typecheck": "clean - totalErrors 2, inScope 0, regressionsOutsideScope 0",
+        "checkTokens": "clean - filesScanned 22, referencesSeen 244, missing 0, shorthandTrap 0, hostSettable 0",
+        "captures": "all 5 stories re-captured, all verdict 'rendered'",
+        "interactionPass": "8/8 events fire AND now mutate state: side-nav selection Home -> Class, chapter aria-expanded false -> true, add toggle aria-pressed false -> true"
+      },
+      "selfInflicted": "While writing the C2 fix the orchestrator reintroduced the backtick-in-HTML-comment bug in its own new comment. The NEWLY FIXED typecheck.mjs caught it immediately (4 in-scope TS1005 errors) where the broken version would have reported clean. That is an independent confirmation that the gate now works."
+    }
+  },
+  "reachedPastPublicApi": [
+    "examples/.../a3mp-digital-exercises-page.stories.ts, story LevelMenuOpen: reads sl-select's `listbox` member, which is @query('sl-listbox') and documented /** @internal */, to call showPopover(). It is the ONLY place in this run that reaches past a public API, it is commented as such at the call site, and it is deliberately NOT what the primary Stage 4 capture measures. Verified to work: listbox measured 320x196 at y=577. sl-select exposes no public way to open its popover."
+  ]
+}

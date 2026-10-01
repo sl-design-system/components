@@ -1,0 +1,49 @@
+/**
+ * Page shell — app bar and quick-actions strip stacked full width, then a row of the 240px side nav
+ * and the content column.
+ *
+ * No `font:` shorthand: `bingel-int` declares zero `--sl-text-new-*` shorthands.
+ */
+:host {
+  /* `display: flex` is intentional: the host IS the page, stacking its three bands and letting the
+     body row fill the remaining height. */
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  background: var(--sl-elevation-surface-base-default);
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  align-items: stretch;
+  min-block-size: 0;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  min-inline-size: 0;
+  padding-block: var(--sl-size-300);
+  padding-inline: var(--sl-size-300);
+}
+
+.columns {
+  display: flex;
+  gap: var(--sl-size-300);
+  align-items: flex-start;
+}
+
+/* A shadow root does not inherit a page-level border-box reset. Without this, every
+   `inline-size`/`block-size` below is added to its own padding: the app bar measured 80px tall
+   (56 declared + 12 + 12) and 1488px wide (1440 + 24 + 24, the exact 48px of document overflow),
+   and the side nav measured 288px (240 + 24 + 24). One cause, three deltas. */
+*,
+*::before,
+*::after,
+:host {
+  box-sizing: border-box;
+}

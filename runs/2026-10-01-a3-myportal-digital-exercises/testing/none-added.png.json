@@ -1,0 +1,567 @@
+{
+  "story": "runs-a3-myportal-digital-exercises-digital-exercises-page--none-added",
+  "theme": "bingel-int",
+  "url": "http://localhost:6010/iframe.html?id=runs-a3-myportal-digital-exercises-digital-exercises-page--none-added&viewMode=story&globals=theme:bingel-int",
+  "viewport": {
+    "width": 1440,
+    "height": 1024
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a3-myportal-digital-exercises/testing/none-added.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-a3mp-digital-exercises-page",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1440,
+        "height": 1166
+      },
+      {
+        "tag": "sl-a3mp-app-bar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1440,
+        "height": 56
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 32,
+        "height": 32
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-quick-actions-bar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1440,
+        "height": 40
+      },
+      {
+        "tag": "sl-a3mp-side-nav",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 240,
+        "height": 1070
+      },
+      {
+        "tag": "sl-breadcrumbs",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1152,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-tooltip",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-a3mp-chapter-header",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1152,
+        "height": 234
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 144,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 136,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-avatar-cluster",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 134,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-a3mp-avatar-cluster",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 239,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-a3mp-avatar-cluster",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 456,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 580
+      },
+      {
+        "tag": "sl-search-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 46
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 46
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 46
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 238
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 46
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-chapter-nav-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 390,
+        "height": 46
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-a3mp-exercises-panel",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 738,
+        "height": 704
+      },
+      {
+        "tag": "sl-select",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 320,
+        "height": 36
+      },
+      {
+        "tag": "sl-listbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-select-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 320,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-a3mp-exercise-list-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 688,
+        "height": 125
+      },
+      {
+        "tag": "sl-a3mp-exercise-list-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 688,
+        "height": 123
+      },
+      {
+        "tag": "sl-a3mp-exercise-list-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 688,
+        "height": 123
+      },
+      {
+        "tag": "sl-a3mp-exercise-list-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 688,
+        "height": 123
+      }
+    ],
+    "bodyHeight": 1166
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedRequests": ["404 http://localhost:6010/assets/a3mp/reken-maar-4-cover.png"],
+  "notUpgraded": [],
+  "collapsed": [
+    "sl-tooltip",
+    "sl-listbox",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon"
+  ],
+  "verdict": "rendered"
+}

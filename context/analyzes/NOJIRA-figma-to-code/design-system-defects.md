@@ -141,6 +141,21 @@ Where Code Connect resolved, two runs received snippets that were valid and wron
 These are worth taking to whoever maintains the mappings: a wrong mapping is more expensive than a
 missing one, because it is delivered with authority and nothing downstream questions it.
 
+## D11a — A token's value depends on an ancestor attribute nobody sets
+
+In `kampus`, `--sl-label-md-fontSize` resolves through a `-userGroup` indirection declared under
+`[data-user-group='early' | 'developing' | 'advanced']`, with `superuser` on bare `body` — a
+reading-level font-scaling system. A consumer that does not set the attribute gets whichever
+unconditional declaration wins the cascade, ~12px where the design expects 18.
+
+The same file declares **914 of 1,655 properties with more than one distinct value**. Most are
+responsive variants, which is legitimate; the user-group axis is the one that silently depends on
+markup outside the component.
+
+Worth deciding deliberately: either the default is a documented reading level, or the tokens
+should not resolve at all without the attribute. Today a consumer gets a value that looks
+plausible and is not the one any design was drawn against.
+
 ## D11 — The toolchain cannot lint or format what it is supposed to
 
 `eslint-plugin-lit` and `stylelint-config-standard` are **absent from `node_modules`**, so neither

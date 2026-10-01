@@ -40,7 +40,18 @@ export type SlA2GlobalNavSearchEvent = CustomEvent<{ query: string }>;
 export type SlA2GlobalNavNavigateEvent = CustomEvent<{ key: GlobalNavKey }>;
 
 /** Emitted when the profile control is activated; `open` is this component's own toggle state. */
-export type SlA2GlobalNavProfileToggleEvent = CustomEvent<{ open: boolean }>;
+/**
+ * Emitted when the profile control is pressed.
+ *
+ * Deliberately carries NO payload. An earlier revision tracked an `open` boolean here, which was
+ * a contract contradiction: the component rendered no disclosure semantics (no `aria-haspopup`,
+ * no `aria-expanded` — correct, because this design has no menu to point at), yet advertised
+ * toggle state to its consumer. It was also a real desync bug: the host owns the menu, so if the
+ * host closed it by Escape, an outside click or a route change, this component's private flag
+ * stayed `true` and the next press emitted `{ open: false }` — leaving the menu unopenable until
+ * pressed twice, with no way to resynchronise. The button simply notifies; the host owns state.
+ */
+export type SlA2GlobalNavProfileToggleEvent = CustomEvent<void>;
 
 interface GlobalNavLink {
   key: GlobalNavKey;
@@ -75,7 +86,8 @@ const GLOBAL_NAV_LINKS: GlobalNavLink[] = [
  *
  * @fires sl-a2-global-nav-search - Emitted with the current search query as the user searches.
  * @fires sl-a2-global-nav-navigate - Emitted when one of the four nav links is activated.
- * @fires sl-a2-global-nav-profile-toggle - Emitted when the profile control is activated.
+ * @fires sl-a2-global-nav-profile-toggle - Emitted when the profile control is pressed. Carries no
+ *   payload: the host owns any menu this opens, so this component keeps no toggle state.
  */
 export class GlobalNav extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -91,7 +103,6 @@ export class GlobalNav extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal Whether the host-owned profile menu is open; this component renders no menu. */
-  #profileOpen = false;
 
   /** @internal Emits with the current search query as the user searches. */
   @event({ name: 'sl-a2-global-nav-search' }) searchEvent!: EventEmitter<SlA2GlobalNavSearchEvent>;
@@ -116,7 +127,7 @@ export class GlobalNav extends ScopedElementsMixin(LitElement) {
    *
    * @default ''
    */
-  @property({ reflect: true, attribute: 'search-value' }) searchValue = '';
+  @property({ attribute: 'search-value' }) searchValue = '';
 
   override render(): TemplateResult {
     const accountLabel = this.user ? `${this.user.displayName} account` : 'Account';
@@ -178,8 +189,7 @@ export class GlobalNav extends ScopedElementsMixin(LitElement) {
   }
 
   #onProfileClick(): void {
-    this.#profileOpen = !this.#profileOpen;
-    this.profileToggleEvent.emit({ open: this.#profileOpen });
+    this.profileToggleEvent.emit();
   }
 }
 

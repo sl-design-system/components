@@ -351,3 +351,87 @@ resolve custom properties, TypeScript never reads CSS, and the rendered result i
 that looks like a design decision rather than a fault. The bug is visible only to someone
 comparing a component against a specification — which is exactly what a fidelity bench does, and
 exactly what nobody was doing before.
+
+---
+
+## The largest design in the corpus: the pipeline did not break, it succeeded with almost nothing
+
+A2 NSP `class overview`, **10,936 nodes** — six times the next largest — completed all six stages
+in **54 minutes for ~1.24M tokens**. That is roughly three times A9's cost on a screen twelve
+times the size, so cost does not scale with nodes either.
+
+It does not scale because **the nodes never reach the pipeline**. `get_metadata` on the root
+returned **27 nodes in 9 seconds**: it stops at instance boundaries. Around ten thousand of the
+10,936 live inside a single `sl-grid-quick-grid`, and `get_design_context` on that grid returned
+5.7 KB whose entire body is:
+
+```html
+<sl-grid></sl-grid>
+```
+
+**Code Connect collapsed 91% of the design into one empty element.** Three things sharpen it:
+
+- `forceCode: true` produced a **byte-identical** payload — this is Code Connect substitution, not
+  a size guard, and `forceCode` cannot override it. The lever would be `disableCodeConnect`.
+- Expanding is the only alternative and costs ~932 KB ≈ **233k tokens** for that one node, a 163×
+  inflation.
+- Expanding **loses the mapping**: the expanded rows contain zero `<sl-*>` elements.
+
+So the scale question has an answer, and it is not the one the batch was set up to find.
+**Authority or detail, never both** — and at this size the pipeline takes authority and produces a
+page with an empty grid in it, reporting success throughout.
+
+That is the sixth instance of success-shaped output, and the largest in scope: not a dropped
+declaration or an unregistered element, but nine tenths of a design.
+
+A2 also produced a **new `nothing-rendered` variant**: two components whose stories carried the
+correct bare side-effect import still failed, because the module contained no
+`customElements.define` at all. Hint 4 covers the story side; nothing checks that the module
+registers anything, and `tsc` is clean either way.
+
+**32 open questions** — joint highest in the batch, tied with `b-nsp-home`, which is the sibling
+frame of the same file and **24× smaller**. Whatever drives the count, it is not the design.
+
+---
+
+## A token can exist and still resolve to the wrong value
+
+`check-tokens.mjs` asks whether a name is declared. Kampus shows that is not sufficient.
+
+`--sl-label-md-fontSize` resolves through `--sl-label-md-fontSize-userGroup`, which is declared
+four times under `[data-user-group='early' | 'developing' | 'advanced']` and once on bare `body`
+for `superuser`. The theme implements a **reading-level font-scaling system**. Nothing in a
+generated run sets that attribute, so the value lands on whichever unconditional declaration wins
+the cascade — ~12px where the design expects 18.
+
+The same file declares **914 of 1,655 properties with more than one distinct value**, mostly
+mobile/tablet/desktop variants inside media queries.
+
+So a token's resolved value is **not a property of the theme alone**; it depends on ancestor
+attributes and viewport. A bench that resolves tokens statically — as both of this harness's
+tools do — will be right about existence and wrong about value, and it will be wrong silently.
+Worth stating before anyone builds a token-fidelity metric on top of a static resolver.
+
+The same trap on the weight axis: `--sl-text-new-typeset-fontWeight-semiBold` resolves to **600**
+where Figma says **500**. More dangerous than a size error, because the result merely looks
+slightly heavy.
+
+---
+
+## The checker that proved it had not looked
+
+A2 reported that `check-tokens.mjs` returned `tokensReferenced: 0, verdict: clean` for a tree
+using 32 tokens. **The run was right and the tool was mine.**
+
+The cause was a field that had stopped meaning what it said. A later patch made the collection
+hold only _unresolvable_ references, so the count read zero whenever nothing was wrong — and
+"zero referenced, clean" is indistinguishable from "scanned nothing". A nonexistent `--scope` also
+threw rather than failing cleanly.
+
+It now reports `filesScanned` and `referencesSeen` alongside `unresolvedReferences`, and has
+verdicts for `nothing-scanned` and `no-tokens-referenced`. On A2: 19 files, 95 references, 0
+unresolved. The code was always clean; the report could not prove it had looked.
+
+This is the fourth measurement tool in this batch to fail by returning a plausible number, and
+the first one caught by a run rather than by me. **A check must be able to prove it looked** — the
+count of what it examined belongs in its output, not just the count of what it found.

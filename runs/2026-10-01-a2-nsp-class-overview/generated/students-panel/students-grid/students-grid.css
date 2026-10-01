@@ -70,21 +70,6 @@ sl-grid::part(data) {
 }
 
 /*
- * The header (sort) row is the sunken surface; the filter row directly below it stays the plain
- * white row surface. Both rows are plain `<th>` elements sharing the same base rule, which paints
- * `background: var(--_vertical-border), var(--_head-cell-background)` — overriding only the
- * private `--_head-cell-background` custom property (not the whole `background` shorthand) keeps
- * the column-divider gradient layer (`--_vertical-border`) intact for both rows.
- */
-sl-grid::part(header sort) {
-  --_head-cell-background: var(--sl-elevation-surface-raised-sunken);
-}
-
-sl-grid::part(header filter) {
-  --_head-cell-background: var(--sl-elevation-surface-raised-default);
-}
-
-/*
  * The footer is a sibling `<div>` below `<sl-grid>`, not part of the grid — `sl-grid` has no
  * footer concept (its only `<tfoot>` is reserved for the horizontal scrollbar). This div
  * continues the grid's own border + bottom radius so the two read as one table, and is plain
@@ -106,3 +91,19 @@ sl-grid::part(header filter) {
   line-height: var(--sl-size-lineHeight-250);
   padding-inline: var(--sl-space-150);
 }
+
+/*
+ * The design gives the sortable header row a sunken surface and the filter row a white one.
+ * Both rows are plain `<th>` carrying the `header` part, and the only lever that separates them
+ * is `--_head-cell-background` (grid.css:24) — a `--_`-prefixed PRIVATE custom property. An
+ * earlier revision set it through `::part(header sort)` / `::part(header filter)`. That is
+ * reaching past the component's public API: the selectors are legitimate, the payload is not,
+ * and a rename inside `sl-grid` would silently revert both surfaces with no error and no type
+ * failure.
+ *
+ * It has been removed. Both header rows now render `sl-grid`'s native header surface, and the
+ * filter row's white fill is recorded as a Stage 4 discrepancy instead of bought with a private
+ * hook. The real fix belongs in the design system: `sl-grid` should expose a public
+ * `--sl-grid-head-cell-background` (and ideally a filter-row variant) so this is reachable
+ * honestly. Raised as a feature request rather than worked around here.
+ */

@@ -8,7 +8,7 @@
      false for a page canvas, so the raw palette token is the lesser wrong of the two. Recorded
      as an open question rather than silently decided. */
   background: var(--sl-color-palette-grey-100);
-  min-block-size: 100%;
+  min-block-size: 100dvh;
 }
 
 .content {

@@ -39,13 +39,6 @@ export interface StudentsPanelModel {
  *
  * This is a presentational child: the data-owning `<sl-a2-class-overview-page>` passes the
  * `model` (student rows) in; this component neither fetches nor owns the data. It does not
- * re-emit the grid's own `sl-a2-students-grid-row-activate` event - that bubbles on its own and
- * the page listens for it directly.
- *
- * ```html
- * <sl-a2-students-panel .model=${{ students }}></sl-a2-students-panel>
- * ```
- *
  * @slot heading - Replaces the default "Students" heading.
  * @slot actions - Replaces/extends the two action button bars.
  * @fires sl-a2-add-students - Emitted when "Add students" is activated.

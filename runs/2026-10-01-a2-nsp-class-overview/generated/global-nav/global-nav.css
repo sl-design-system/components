@@ -40,7 +40,9 @@ nav {
   color: var(--sl-color-foreground-primary-onBold);
   display: flex;
   flex-shrink: 0;
-  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  /* --sl-text-new-typeset-fontWeight-semiBold resolves to 600; the design's semiBold is 500.
+     Rejected on its resolved value, consistent with every other weight in this run. */
+  font-weight: var(--sl-fontWeight-500);
   inline-size: var(--sl-size-400);
   justify-content: center;
 }

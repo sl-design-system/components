@@ -2,8 +2,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { Grid, GridFilterColumn, type SlActiveRowChangeEvent } from '@sl-design-system/grid';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { Grid, GridFilterColumn } from '@sl-design-system/grid';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './students-grid.css' with { type: 'css' };
@@ -11,10 +10,6 @@ import styles from './students-grid.css' with { type: 'css' };
 declare global {
   interface HTMLElementTagNameMap {
     'sl-a2-students-grid': StudentsGrid;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    'sl-a2-students-grid-row-activate': SlA2StudentsGridRowActivateEvent;
   }
 }
 
@@ -26,9 +21,6 @@ export interface StudentRow {
   column3: string;
   column4: string;
 }
-
-/** Emitted when the user activates (clicks) a row. */
-export type SlA2StudentsGridRowActivateEvent = CustomEvent<{ row: StudentRow }>;
 
 /**
  * The students data grid from the NSP "class overview" design, with a footer row fused below it.
@@ -44,7 +36,6 @@ export type SlA2StudentsGridRowActivateEvent = CustomEvent<{ row: StudentRow }>;
  * ```
  *
  * @slot footer - Replaces the footer row's content; defaults to the design's literal "Footer".
- * @fires sl-a2-students-grid-row-activate - Emitted when a data row is activated (clicked).
  */
 export class StudentsGrid extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -64,16 +55,9 @@ export class StudentsGrid extends ScopedElementsMixin(LitElement) {
   /** Whether the footer row is shown below the grid. */
   @property({ type: Boolean, reflect: true, attribute: 'show-footer' }) showFooter = true;
 
-  /** @internal Emits when a data row is activated (clicked). */
-  @event({ name: 'sl-a2-students-grid-row-activate' })
-  rowActivateEvent!: EventEmitter<SlA2StudentsGridRowActivateEvent>;
-
   override render(): TemplateResult {
     return html`
-      <sl-grid
-        @sl-grid-active-row-change=${this.#onActiveRowChange}
-        .items=${this.rows}
-        row-action="activate">
+      <sl-grid .items=${this.rows}>
         <sl-grid-filter-column grow="0" header="Text" path="column1" width="288">
         </sl-grid-filter-column>
         <sl-grid-filter-column grow="0" header="Text" path="column2" width="288">
@@ -91,14 +75,6 @@ export class StudentsGrid extends ScopedElementsMixin(LitElement) {
           `
         : ''}
     `;
-  }
-
-  #onActiveRowChange(e: SlActiveRowChangeEvent<StudentRow>): void {
-    const row = e.detail;
-
-    if (row) {
-      this.rowActivateEvent.emit({ row });
-    }
   }
 }
 

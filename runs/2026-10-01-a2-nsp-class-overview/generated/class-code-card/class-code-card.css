@@ -1,4 +1,9 @@
 :host {
+  /* Custom elements default to `display: inline`, and inline-size/block-size do not apply to a
+     non-replaced inline box — without this the fixed 350x91 footprint below is silently
+     discarded and the background paints as line-box fragments. The page hides the bug because
+     its `.content` flex container blockifies the card; the standalone story does not. */
+  display: block;
   background: var(--sl-elevation-surface-raised-default);
   border-radius: var(--sl-size-borderRadius-lg);
   box-sizing: border-box;
@@ -59,6 +64,8 @@
 }
 
 .actions sl-button {
-  inline-size: 36px;
-  block-size: 36px;
+  /* 36px == --sl-size-450, declared in every theme (the same token global-nav uses for its
+     36px profile pill). An earlier note claimed no token carried this value; that was wrong. */
+  inline-size: var(--sl-size-450);
+  block-size: var(--sl-size-450);
 }

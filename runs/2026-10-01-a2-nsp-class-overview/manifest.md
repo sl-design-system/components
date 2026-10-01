@@ -371,3 +371,82 @@ than the screen's size.
 | 30  | Grid row heights (48/48/40) may not be settable                                         | Try `::part()` from the wrapper; if no part is exposed, accept native heights and record the delta. **Never reach into the shadow root**                                    |
 | 31  | Should the root render the nav, or the app shell?                                       | Root renders both bars — the 1280×1003 frame includes them                                                                                                                  |
 | 32  | Promote either net-new primitive?                                                       | **Neither.** Both stay local styled elements. A grid footer is a feature request against `sl-grid`, not a new element in an example app                                     |
+
+---
+
+# Validation (Stage 4) — measured, not impressionistic
+
+Captured with `runs/harness/shoot.mjs` under the derived theme `sanoma-learning` at 1280×1003.
+**All 20 stories returned `verdict: rendered`**, `notUpgraded: []`, `consoleErrors: []`,
+`failedRequests: []`. No `<img>` 404s — the run exports no image assets at all.
+
+Whole-page pixel comparison against `screenshot.png`:
+
+| Metric                             | Value      |
+| ---------------------------------- | ---------- |
+| Pixels within 24/255 of the design | **96.46%** |
+| Pixels within 96/255               | 98.77%     |
+
+| Band                  | Rows | % differing | Why                                              |
+| --------------------- | ---: | ----------: | ------------------------------------------------ |
+| class-code card       |  116 |   **0.74%** | —                                                |
+| panel heading+buttons |  187 |       1.04% | —                                                |
+| page foot             |   60 |       1.49% | —                                                |
+| grid rows             |  400 |       3.92% | header-weight bleed, label metrics               |
+| class nav             |   48 |       4.13% | Δ3 surface colour + accumulated label drift      |
+| global nav            |   56 |       5.71% | accumulated label drift, initials vs photo       |
+| footer                |   40 |       7.44% | missing `arrow-up` affordance                    |
+| grid header+filter    |   96 |   **8.28%** | "Filter by text" vs "Placeholder"; header weight |
+
+The two worst bands are both **text the public API cannot change**, not layout error.
+
+## Element geometry — built vs design
+
+| Element                  | Design     | Built      | Δ   |
+| ------------------------ | ---------- | ---------- | --- |
+| global nav               | 1280 × 56  | 1280 × 56  | 0   |
+| class nav                | 1280 × 48  | 1280 × 48  | 0   |
+| class-code card          | 350 × 91   | 350 × 91   | 0   |
+| students panel           | 1184 × 728 | 1184 × 730 | +2  |
+| page body height         | 1003       | 1003       | 0   |
+| grid header / filter row | 48 / 48    | 48 / 48    | 0   |
+| grid data row            | 40         | 40         | 0   |
+
+Nav label start positions after repair, design → built: logo +0, then +1, +3, +8, +12 across the
+global bar and +0, +3, +7, +8, +10 across the class bar. The drift is **monotonic and cumulative**,
+which is the signature of text metrics rather than a spacing bug: each label renders 2–4px wider in
+the fallback face and pushes its successor right. Chasing it would mean hand-tuning gaps to
+compensate for a font the theme fails to load — the fidelity score would improve and the code would
+get worse. Left alone, recorded here.
+
+## Three repairs, one iteration
+
+1. **The class nav sat 56px too far left.** Figma's `Frame 37` starts at x=8, but its text node is
+   offset **56px inside it** — a lead-in slot that renders nothing in this frame. The implementer
+   measured the frame and ignored the inner offset. Every element in the bar inherited the error
+   (−56 to −79px). Fixed with `padding-inline-start: var(--sl-size-800)`.
+   **Generalisable:** a frame's own x is not where its content starts, and `get_metadata` reports
+   both — the inner one is easy to skip.
+2. **Both navs used 32px/24px link gaps** copied from the sibling `b-nsp-home` run. The measured
+   boxes show a uniform **12px gap with ~13px per-link padding**. Residual drift fell from −79px to
+   +12px. **Reusing a sibling run's proven CSS imported its measurements too.**
+3. **"Class code" wrapped onto two lines** because `inline-size: 79px` pinned Figma's _measured_
+   auto-size; the wider fallback face overflowed it. Changed to `min-inline-size`.
+
+## The defect the harness existed to catch
+
+`global-nav` and `class-nav` both returned **`nothing-rendered`** with `inGlobalRegistry: false` —
+even though both story files carried the correct bare side-effect import on its own line.
+
+The stories were not the problem. **Neither component module contained a `customElements.define`
+call at all.** The class was written, the tag added to `HTMLElementTagNameMap`, the styles imported,
+the story import correct — and nothing ever registered the element.
+
+This is a **third** distinct route to `nothing-rendered` in this batch, after the `type`-only import
+and the value import used only in a type position. Hint 4 governs the _story_ side and guarantees the
+module **executes**; nothing checks that the module, having executed, **registers** anything, and
+`tsc` is clean either way. All three variants would be caught by one static check:
+
+```sh
+grep -L 'customElements.define' <each component>.ts
+```

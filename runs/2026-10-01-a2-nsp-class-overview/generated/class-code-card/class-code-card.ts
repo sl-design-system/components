@@ -57,7 +57,7 @@ export class ClassCodeCard extends ScopedElementsMixin(LitElement) {
    *
    * @default ''
    */
-  @property({ reflect: true }) code = '';
+  @property() code = '';
 
   /** @internal Emits when the copy button is activated. */
   @event({ name: 'sl-a2-class-code-copy' }) copyEvent!: EventEmitter<SlA2ClassCodeCopyEvent>;

@@ -65,7 +65,8 @@
         "Both navs used 32px/24px link gaps inherited from the sibling b-nsp-home run. Measured Link-nav boxes show a uniform 12px gap with ~13px per-link padding. Fixed; residual drift fell from -79px to +12px.",
         "class-code-card .text had inline-size:79px (Figma's measured auto-size) which forced 'Class code' to wrap in the fallback font. Changed to min-inline-size.",
         "global-nav and class-nav had NO customElements.define at all - see stage4NewFinding."
-      ]
+      ],
+      "pixelMatchFinal": "96.55% within 24/255 after the Stage 6 fixes (up from 96.46%): removing the private header-surface override left the filter row correctly white and cost only the header row's tone."
     },
     "5-author": {
       "status": "done",
@@ -78,8 +79,31 @@
       "scopeDeviation": "Authors were run for students-grid, global-nav and class-nav. class-overview-page already carried 4 variants written with it; class-code-card (one scalar prop) and students-panel (one model prop) have no meaningful additional states."
     },
     "6-review": {
-      "status": "in-progress",
-      "at": "2026-10-01T06:40:00Z"
+      "status": "done",
+      "at": "2026-10-01T07:05:00Z",
+      "tokens": 142609,
+      "critical": 5,
+      "criticalFixed": 5,
+      "minor": 20,
+      "minorFixed": [
+        "M2 min-block-size:100% resolved to auto -> 100dvh",
+        "M7 stale doc claiming the page listens for a child event",
+        "M8 searchValue no longer reflects user-typed text into an attribute",
+        "M9 code no longer reflects",
+        "M12 logo was the one weight that missed the 600-vs-500 correction"
+      ],
+      "criticalItems": [
+        "C1 class-code-card :host had no `display`. A custom element defaults to display:inline, and inline-size/block-size DO NOT APPLY to a non-replaced inline box - so the fixed 350x91 footprint was silently discarded and the background painted as line-box fragments. Invisible in the page story because `.content` is a flex container which blockifies the card; broken in its own story. Stage 4 measured the card from the PAGE story and reported 350x91 delta 0, so the harness could not see it. FIXED: display:block.",
+        "C2 Raw 36px used for the icon buttons where --sl-size-450 is exactly 36px in all 16 themes - and global-nav already uses that token 14 lines away for the same 36px. My own 'no token has this value' list was wrong on exactly this entry. FIXED.",
+        "C3 global-nav kept a private #profileOpen toggle flag while rendering no disclosure semantics - a contract contradiction AND a desync bug (if the host closed the menu any other way, the next press emitted {open:false} and the menu needed two presses). FIXED by committing to the approved OQ16: payload-free event, no stored state.",
+        "C4 PUBLIC-API VIOLATION, the only one in the run: students-grid set the grid's PRIVATE `--_head-cell-background` (grid.css:24, `--_` is the repo's private marker) through ::part(header sort)/::part(header filter) to split the two header-row surfaces. The ::part selectors were legitimate; the payload was not. FIXED by removing it entirely per OQ30's own instruction, accepting the native header surface and recording the delta. Raised as a feature request: sl-grid exposes NO public hook for the header-cell surface.",
+        "C5 students-grid set row-action='activate' and published a row-activate event. sl-grid has NO keydown handling for rows (zero hits for keydown/tabIndex in grid.ts) - activation is click-only, so a documented public event was unreachable by keyboard, every row was announced aria-selected=false, and clicking fired a live-region 'Row N activated'. Nothing in the design or the decomposition asked for it. FIXED: removed the attribute, the event, its type, its map entry and its handler."
+      ],
+      "minorRemaining": 15,
+      "reviewerCorrectedMe": [
+        "M16: I recorded that the grid's filter placeholder was unreachable 'without entering the shadow root'. WRONG - `filter-label` is a public @property on GridFilterColumn and feeds the computed string. Only the hardcoded 'Filter by ' PREFIX is unreachable. The conclusion (the literal 'Placeholder' is unobtainable) survives; my stated reason did not, and I missed a public a11y lever: all four filters currently share one accessible name.",
+        "C2: my own 'no --sl-* token carries this value' list was wrong for 36px."
+      ]
     }
   },
   "scaleFindings": [
@@ -129,6 +153,27 @@
     "Secondary nav background is --sl-elevation-surface-raised-sunken (#f6f8fa) against the design's #f9fafb - a 3/255 per-channel delta. #f9fafb is unbound in EVERY theme (searched by value). Token chosen over hardcoding.",
     "Class-code title renders #222222 (--sl-color-foreground-bold) where Figma binds the raw `color/black` #000000. Semantic token preferred over the raw hex.",
     "Nav labels drift progressively right, +0 to +12px across the bar. Entirely font metrics: the fallback face renders each label 2-4px wider than the design's Roboto, and the error accumulates. Not chased - see the typography finding.",
-    "The design's grid footer row exists in the Figma library component but NOT in code: sl-grid's only <tfoot> is reserved for the horizontal scrollbar. Rendered as a sibling div fused to the grid's bottom border. A Figma-vs-code capability gap, recorded as a feature request rather than worked around inside the component."
-  ]
+    "The design's grid footer row exists in the Figma library component but NOT in code: sl-grid's only <tfoot> is reserved for the horizontal scrollbar. Rendered as a sibling div fused to the grid's bottom border. A Figma-vs-code capability gap, recorded as a feature request rather than worked around inside the component.",
+    "Grid header row renders sl-grid's native surface #f0f2f5 against the design's #f6f8fa, because the only lever separating the two header rows is a PRIVATE grid custom property. Accepted rather than reached for. The filter row is correctly #ffffff."
+  ],
+  "pipelineCommitAtStart": "eef60224d567784a8dfcbec127fa2d4963cdacb2",
+  "pipelineCommitAtEnd": "3b11a66697944995164209885baa9045dde1b56e",
+  "commitDrift": {
+    "what": "HEAD moved under this run while it was executing: eef6022 -> 3b11a66, four commits, made by concurrent sessions in the same working tree. One of them (5f340f1) CHANGED THE HARNESS this run was using.",
+    "whyItMatters": "The runbook's resume guard records `pipelineCommit` so that a resume across a different commit fails loudly, on the argument that a half-old/half-new run describes neither. That guard assumes the commit is stable WHILE a run executes. In a shared working tree with concurrent sessions it is not: this run's measurements span four commits, and `pipelineCommit` can only name one of them. The guard protects resumes and not the original run.",
+    "effectOnThisRun": "None observed - the drifting commits touched context docs, another run's folder, and added runs/harness/check-tokens.mjs. No file this run depends on changed behaviour mid-flight."
+  },
+  "measurementToolFinding": {
+    "tool": "runs/harness/check-tokens.mjs (added mid-run by commit 5f340f1)",
+    "invocation": "node runs/harness/check-tokens.mjs --scope examples/lit/src/_runs/a2-nsp-class-overview --theme sanoma-learning",
+    "reported": {
+      "scope": "examples/lit/src/_runs/a2-nsp-class-overview",
+      "tokensReferenced": 0,
+      "missing": [],
+      "verdict": "clean"
+    },
+    "reality": "This run references 32 distinct --sl-* tokens. The tool echoes the --scope it was given into its output and then ignores it: line 64 iterates `readdirSync(componentsDir)`, walking packages/components/ instead. So it reported a confident `clean` with `tokensReferenced: 0` for a tree it never read.",
+    "pattern": "The same shape as theme-match.mjs returning a confident 0.48 while resolving no indirection: the failure mode of a measurement tool is a plausible value, not an exception. Caught only by cross-checking its count against a grep.",
+    "groundTruth": "Checked independently: all 32 tokens are declared in every brand theme. Only `core` lacks them, which is correct - core is the base layer and declares no semantic tokens."
+  }
 }

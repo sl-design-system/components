@@ -79,6 +79,11 @@ for (const pkg of readdirSync(componentsDir)) {
   }
 }
 
+if (!existsSync(scope)) {
+  console.error(`scope does not exist: ${scope}`);
+  exit(2);
+}
+
 const files = walk(scope).filter(path => /\.(css|ts)$/.test(path)),
   referenced = new Map();
 
@@ -91,13 +96,21 @@ const resolvableNames = reference => {
   return { names, anyDeclared: names.some(name => declared.has(name)) };
 };
 
+let filesScanned = 0,
+  referencesSeen = 0;
+
 for (const file of files) {
   const css = flatten(stripComments(readFileSync(file, 'utf8')));
+
+  filesScanned++;
 
   // Match a whole `var(...)` including a nested fallback, so the fallback travels with the name.
   for (const [, body] of css.matchAll(/var\((\s*--sl-[\w-]+[^;{}]*?)\)(?=[;\s)}])/g)) {
     const { names, anyDeclared } = resolvableNames(body);
-    if (anyDeclared || !names.length) continue;
+    if (!names.length) continue;
+
+    referencesSeen++;
+    if (anyDeclared) continue;
 
     const token = names[0],
       entry = referenced.get(token) ?? referenced.set(token, []).get(token);
@@ -135,12 +148,27 @@ const report = {
   scope,
   theme,
   themeFile,
-  tokensReferenced: referenced.size,
+  // Counted separately and on purpose. An earlier version reported only the *unresolvable*
+  // references under a name that read like a total, so "0 referenced, clean" was
+  // indistinguishable from "scanned nothing" — and that is exactly what it did on one run while
+  // reporting a confident pass. A check must be able to prove it looked.
+  filesScanned,
+  referencesSeen,
+  unresolvedReferences: referenced.size,
   missing,
   shorthandTrap,
   hostSettable,
-  verdict: missing.length ? 'invented-tokens' : shorthandTrap.length ? 'shorthand-trap' : 'clean'
+  verdict: !filesScanned
+    ? 'nothing-scanned'
+    : !referencesSeen
+      ? 'no-tokens-referenced'
+      : missing.length
+        ? 'invented-tokens'
+        : shorthandTrap.length
+          ? 'shorthand-trap'
+          : 'clean'
 };
 
 console.log(JSON.stringify(report, null, 2));
-exit(missing.length || shorthandTrap.length ? 1 : 0);
+// `nothing-scanned` is a failure of the check, not a pass of the code.
+exit(report.verdict === 'clean' || report.verdict === 'no-tokens-referenced' ? 0 : 1);

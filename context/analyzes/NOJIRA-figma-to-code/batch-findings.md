@@ -749,24 +749,28 @@ That generalises A2's `<sl-grid></sl-grid>` from a scale curiosity into a rule:
 > the design the metadata actually describes. Authority or detail, never both — and it applies to
 > every mapped node, not only to the big ones.
 
-### What the probe measures that nothing else did: capture depth
+### What the probe measures that nothing else did — and one correction
 
-Run across all nineteen, it separates runs by how much they stored, and the spread is enormous:
+A first reading of this said eleven runs reconstructed almost nothing and concluded they had not
+captured enough. **That was wrong, and wrong in the batch's signature way: my tool's limitation
+read as the data's absence.** Separating the two gives a different picture.
 
-| Run                         | regions rendered |         nodes reconstructed |
-| --------------------------- | ---------------: | --------------------------: |
-| A3 Bingel                   |              6/6 |                     **631** |
-| A7 Bingel                   |              6/6 |                     **574** |
-| B-Sesame                    |              7/7 |                         280 |
-| A4 Sesame                   |            14/14 |                         234 |
-| A10 ETSL                    |              1/1 |                         206 |
-| B-Itsl-Collab               |              1/1 |                         101 |
-| … eleven runs               |                  |                  **1 or 0** |
-| A8, B-Itsl-Course, B-Kampus |                — | **no markup stored at all** |
+|                                             |  Runs | Stored node ids                                                                                 |
+| ------------------------------------------- | ----: | ----------------------------------------------------------------------------------------------- |
+| Probe reads what the run stored             | **8** | A3 611, A7 568, B-Sesame 280, A4 221, A10 206, B-Itsl-Collab 101, B-SANNA 32, A1 24             |
+| **Data is there, the probe cannot read it** | **6** | A6 **315**, A2 282, B-Itsl-Bookmk `deleted` **249**, B-Itsl-Bookmk `course` 64, A9 21, B-NSP 15 |
+| Data genuinely missing                      |     4 | A11 1, A8 1, B-Itsl-Course 0, B-Kampus 0                                                        |
 
-**Six of nineteen reconstruct; three stored no design markup whatsoever.** Capture depth has no
-relation to the design's complexity — A3 made six `get_design_context` calls and B-Kampus made one
-and wrote prose about having probed Code Connect instead.
+**3,004 node ids were stored and the probe reads 2,114 of them — 70%.** A6 captured more than
+B-Sesame and renders as one node, because its storage format defeats the reader.
+
+So capture depth varies enormously — six `get_design_context` calls against one — but **only four
+runs are genuinely thin, not eleven**. The rest is a reading problem, which is cheaper to fix than
+a collection problem and would have been mistaken for one.
+
+That is the sixth time in this batch a tool's failure was about to be recorded as a property of the
+thing it measured. The defence that worked here is the one that has worked every time: compare what
+the tool reports against an independent count of the same thing.
 
 ### And the storage has no format
 

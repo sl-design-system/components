@@ -1,0 +1,84 @@
+/*
+ * The design's layout constants, declared once:
+ *   frame      1280px
+ *   gutter      128px = --sl-size-1000 (80) + --sl-size-600 (48), exact
+ *   content    1024px = 1280 - 2 x 128
+ *   inner panel 992px = 1024 - 2 x --sl-size-200 (16)
+ * Only `content-width` is a raw length; no token expresses it.
+ */
+:host {
+  display: block;
+
+  --content-width: 1024px;
+  --gutter: calc(var(--sl-size-1000) + var(--sl-size-600));
+}
+
+.page {
+  background: var(--sl-elevation-surface-raised-default);
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100%;
+}
+
+.content {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: calc(var(--content-width) + 2 * var(--gutter));
+  padding-block: var(--sl-size-400) var(--sl-size-600);
+  padding-inline: var(--gutter);
+}
+
+sl-tab-group {
+  display: block;
+  padding-block-start: var(--sl-size-500);
+}
+
+/*
+ * The active-tab indicator.
+ *
+ * NOT `sl-tab::part(wrapper)` — that was the first attempt and it is DEAD CSS: sl-tab exposes
+ * `badge`, `icon`, `inner`, `outer`, `subtitle` and `title`, and no `wrapper`. The rule matched
+ * nothing, and neither the type check, the token check nor the capture could see that, because
+ * the token it referenced exists. Found by auditing every ::part() against the component source.
+ *
+ * The indicator is `.indicator` inside sl-tab-group's own shadow root and is exposed through no
+ * part at all, so the only public hook is the custom property it paints with. Overriding a
+ * design token locally is the supported surface; it is still worth naming that the design system
+ * offers no part for this element.
+ *
+ * The design's underline is #2e5c64. --sl-color-palette-teal-800 is #0a5757: delta 54 across the
+ * three channels, the largest unavoidable colour delta in this run. Recorded, not hardcoded.
+ */
+sl-tab-group {
+  --sl-color-border-selected: var(--sl-color-palette-teal-800);
+}
+
+.panel {
+  /*
+   * The content panel's own fill was never fetched — Figma node 2142:48170 was not called on its
+   * own (manifest gap 1). Read visually as the same #f6f8f8 the footer and accordion use, which
+   * IS an exact token here. Recorded as a visual read, not captured data.
+   */
+  background: var(--sl-elevation-surface-raised-sunken);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  padding: var(--sl-size-200);
+}
+
+/*
+ * sl-badge's own :host background does not take effect on these two badges: its
+ * `--_background` custom property resolves correctly (measured: #ffae00) but the computed
+ * background-color stays rgba(0,0,0,0) and the foreground stays the inherited --sl-color-
+ * foreground-plain, so the :host block is losing to the outer tree. Set explicitly here, on
+ * elements this component put in its own template — ordinary parent styling, not a reach past
+ * sl-badge's API. The design's tag is #f2a900; --sl-color-background-accent-yellow-bold is
+ * #ffae00, a delta of 18 across the three channels and the nearest token.
+ */
+sl-badge[slot='badge'] {
+  background: var(--sl-color-background-accent-yellow-bold);
+  color: var(--sl-color-foreground-accent-yellow-onBold);
+  font-weight: var(--sl-fontWeight-bold);
+}

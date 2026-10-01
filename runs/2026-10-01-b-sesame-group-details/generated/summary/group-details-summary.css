@@ -1,0 +1,138 @@
+:host {
+  display: block;
+}
+
+/* The design's back link: bare text, teal, bold. See the template for why not sl-link. */
+.back {
+  color: var(--sl-color-foreground-accent-teal-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  text-decoration: none;
+}
+
+h1 {
+  color: var(--sl-color-black);
+
+  /*
+   * The design's title is 28px. There is NO 28px font-size token in this theme:
+   * `--sl-typography-heading-sm-fontSize` is 28px — verified — so the token DOES exist and is used.
+   * (A4 asserted `--sl-size-font-400` for 28px; that token is 32px. Do not reuse that mapping.)
+   */
+  font-family: var(--sl-typography-heading-sm-fontFamily);
+  font-size: var(--sl-typography-heading-sm-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-typography-heading-sm-lineHeight);
+  margin: 0;
+  padding-block: var(--sl-size-200) var(--sl-size-500);
+}
+
+.body {
+  display: flex;
+  gap: var(--sl-size-400);
+}
+
+.details {
+  flex: 1 1 auto;
+  margin: 0;
+  max-inline-size: 628px; /* the design's left column, 2142:48099 w=628. No token for it. */
+}
+
+.row {
+  align-items: center;
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  display: flex;
+  gap: var(--sl-size-200);
+  justify-content: space-between;
+  padding-block-end: var(--sl-size-200);
+  padding-block-start: var(--sl-size-200);
+}
+
+dt {
+  color: var(--sl-color-foreground-subtle);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+}
+
+dd {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-lg-fontFamily);
+  font-size: var(--sl-typography-text-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-typography-text-lg-lineHeight);
+  margin: 0;
+  padding-block-start: var(--sl-size-050);
+}
+
+.icon-omitted {
+  block-size: var(--sl-size-icon-font-md);
+  display: inline-block;
+  flex: none;
+  inline-size: var(--sl-size-icon-font-md);
+}
+
+.aside {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  inline-size: 364px; /* the design's Linking-code card, 2142:48126 w=364. No token for it. */
+}
+
+.archive {
+  align-self: flex-end;
+}
+
+.archive::part(button) {
+  color: var(--sl-color-palette-red-500);
+  font-weight: var(--sl-fontWeight-semiBold);
+}
+
+.linking-code {
+  background: var(--sl-elevation-surface-raised-sunken);
+
+  /*
+   * The design's radius is 16px and no 16px radius token exists — the ramp runs
+   * ...lg 8px, xl 12px. `xl` is used, a 4px delta, rather than a raw 16px: the token is within
+   * one ramp step, and a hardcoded layout constant is the worse of the two errors.
+   */
+  border-radius: var(--sl-size-borderRadius-xl);
+
+  /*
+   * NOT `--sl-elevation-shadow-sm`. That token is malformed in EVERY theme in this repo — it
+   * declares two offsets and no blur (`2px 2px <colour>, 3px 2px <colour>`), so it paints a hard
+   * slab instead of a soft drop shadow. Rebuilt here from the same shadow colours the token
+   * intends, with the blur the design actually shows: offset-y 2px, blur 8px.
+   */
+  box-shadow: 0 var(--sl-size-025) var(--sl-size-100) var(--sl-color-shadow-overlay2);
+  padding: var(--sl-size-300);
+}
+
+.linking-code-heading {
+  align-items: center;
+  color: var(--sl-color-foreground-subtle);
+  display: flex;
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  gap: var(--sl-size-100);
+  line-height: var(--sl-typography-text-md-lineHeight);
+}
+
+.linking-code-value {
+  color: var(--sl-color-background-neutral-interactive-bold);
+
+  /*
+   * 36px. The type ramp has no 36px font-size token (`heading-sm` is 28px, `heading-md` jumps
+   * past it), so this is a literal with its cause named: no token of this size exists.
+   */
+  font-family: var(--sl-typography-heading-sm-fontFamily);
+  font-size: 36px;
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-size-600); /* 48px, exact */
+  margin: 0;
+  padding-block-start: var(--sl-size-200);
+}

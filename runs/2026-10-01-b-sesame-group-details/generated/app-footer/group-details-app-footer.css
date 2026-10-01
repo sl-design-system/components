@@ -1,0 +1,49 @@
+:host {
+  background: var(--sl-elevation-surface-raised-sunken);
+  display: block;
+
+  --content-width: 1024px;
+  --gutter: calc(var(--sl-size-1000) + var(--sl-size-600));
+}
+
+.gutter {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--sl-size-600);
+  inline-size: 100%;
+  justify-content: space-between;
+  margin-inline: auto;
+  max-inline-size: calc(var(--content-width) + 2 * var(--gutter));
+  padding-block: var(--sl-size-400);
+  padding-inline: var(--gutter);
+}
+
+/*
+ * The Sanoma wordmark is an image asset and the pipeline has no export step. It renders as text
+ * sized to the asset's measured 80px box — a recorded Stage 4 discrepancy.
+ */
+.wordmark {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-title-md-fontFamily);
+  font-size: var(--sl-typography-title-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  min-inline-size: var(--sl-size-1000);
+}
+
+nav ul {
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-semiBold);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  text-decoration: none;
+}

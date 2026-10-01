@@ -1,0 +1,149 @@
+:host {
+  /* A custom element defaults to `display: inline`, which would collapse the header. Figma
+     `4200:13797` is `flex flex-col items-start overflow-clip w-full`. */
+  display: flex;
+  flex-direction: column;
+
+  /* Figma `overflow-clip` on the PageHeader frame. */
+  overflow: clip;
+}
+
+.breadcrumbs {
+  /* Figma `Breadcrumb wrapper` I4200:13797;19853:9719: `pt-[var(--size/50,8px)]`
+     = --sl-size-100 (8px). */
+  padding-block-start: var(--sl-size-100);
+}
+
+ol {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  /* Figma `Breadcrumb trail` 5483:11343: `gap-[var(--size/50,8px)]` = --sl-size-100. */
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  align-items: flex-start;
+  display: flex;
+
+  /* Figma `Breadcrumb`: `gap-[var(--size/25,4px)]` = --sl-size-050 (4px). */
+  gap: var(--sl-size-050);
+}
+
+.breadcrumbs a {
+  /* Crumb label is 14px regular, UNDERLINED, in the body colour #333333 — not a link colour.
+     body-md (14/20) is the exact size match. Longhands only: this theme ships zero bare
+     `--sl-text-new-*` families, so a `font:` shorthand against one resolves to nothing and the
+     browser drops the whole declaration. */
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+
+  /* Figma `py-[var(--size/25,4px)]` on each crumb = --sl-size-050. */
+  padding-block: var(--sl-size-050);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+/* The design underlines the current crumb exactly like its peers, contradicting Figma's own
+   Breadcrumb annotation. The pixels win; `aria-current` still carries the semantics. */
+.breadcrumbs a[aria-current='page'] {
+  color: var(--sl-color-foreground-bold);
+  text-decoration: underline;
+}
+
+.separator {
+  align-items: center;
+  display: flex;
+
+  /* Figma `icon wrapper`: a 16px box with `pt-[var(--size/10,2px)]` = --sl-size-025 (2px).
+     The glyph itself is `h-[16px]` = --sl-size-200. */
+  inline-size: var(--sl-size-200);
+  padding-block-start: var(--sl-size-025);
+}
+
+.separator sl-icon {
+  /* `chevron-right` IS registered in this theme, so the separator is a real glyph. The design's
+     16px is --sl-size-200; sl-icon sizes from its own font-size, so it is set here directly. */
+  font-size: var(--sl-size-200);
+}
+
+.title-row {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+
+  /* Figma `Group wrapper` I4200:13797;5419:6693: `gap-[var(--size/100,12px)]` = --sl-size-150. */
+  gap: var(--sl-size-150);
+
+  /* Figma `Title and subtitle` I4200:13797;5889:6338: `py-[var(--size/500,20px)]`
+     = --sl-size-250 (20px). */
+  padding-block: var(--sl-size-250);
+}
+
+.resource-icon {
+  align-items: flex-start;
+
+  /* Figma `file` glyph box is `size-[32px]` = --sl-size-400, inside an `Icon wrapper` with
+     `pt-[var(--size/25,4px)]` = --sl-size-050. The box is kept even when the glyph is omitted so
+     the title's x-offset and the 12px gap survive — see RESOURCE_KIND_ICON. */
+  block-size: var(--sl-size-400);
+  display: flex;
+  flex-shrink: 0;
+  inline-size: var(--sl-size-400);
+  padding-block-start: var(--sl-size-050);
+}
+
+.title {
+  /* Figma `Content` I4200:13797;6438:6285: `flex-[1_0_0] min-w-[200px]
+     pr-[var(--size/500,20px)]`. 200px is a Figma literal with no rung on the size scale (the
+     nearest are 192 and 208), so it stays a commented literal. */
+  flex: 1 0 0;
+  min-inline-size: 200px;
+  padding-inline-end: var(--sl-size-250);
+}
+
+h1 {
+  color: var(--sl-color-foreground-bold);
+
+  /* TYPE DELTA −2px: the design is Title XL, 26px Bold (Figma `Size/800`, a FONT size — it must
+     not be routed through `--sl-size-*`). This scale has no 26px rung; heading-lg (24/32) is the
+     nearest. `heading-*` carries NO `-fontWeight` longhand in this theme, so the bold weight is
+     stated explicitly. Longhands only, as above. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+
+  /* Figma `max-w-[800px]` on the title text. No rung at that magnitude; commented literal. */
+  margin: 0;
+  max-inline-size: 800px;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+
+  /* Figma `Actions slot` I4200:13797;23120:8171: `gap-[12px]` = --sl-size-150. */
+  gap: var(--sl-size-150);
+}
+
+.overflow::part(button) {
+  /* Figma `I4200:13797;5823:6544`: a 2px outline in $brand--400 #a997b5 — and 2px is exactly
+     `--sl-size-borderWidth-default` in this theme, so `-default` is correct HERE (unlike the
+     1px card hairlines, which need `-subtle`). `p-[var(--size/50,8px)]` around a 24px glyph
+     gives 24 + 2 x 8 = 40px square = --sl-size-300 + 2 x --sl-size-100. */
+  block-size: calc(var(--sl-size-300) + 2 * var(--sl-size-100));
+  border-color: var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-md);
+  border-width: var(--sl-size-borderWidth-default);
+  inline-size: calc(var(--sl-size-300) + 2 * var(--sl-size-100));
+  padding: var(--sl-size-100);
+}

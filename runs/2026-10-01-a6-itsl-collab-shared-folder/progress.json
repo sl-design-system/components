@@ -1,0 +1,191 @@
+{
+  "case": "A6-Itsl-Collab-4200-13792",
+  "slug": "a6-itsl-collab-shared-folder",
+  "team": "Itsl-Collab",
+  "designName": "Shared folder - teacher view",
+  "framework": "lit",
+  "i18n": false,
+  "server": "figma (remote)",
+  "figma": {
+    "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+    "nodeId": "4200:13792",
+    "observed": "1280x1335, 859 nodes, 71 component types"
+  },
+  "outputLocation": "examples/lit/src/_runs/a6-itsl-collab-shared-folder/",
+  "pipelineCommit": "c7f6a370357b902315f9a016e2108274cb24bb76",
+  "pipelineTree": "2176d63902204219ed29b22e775e902747248deb",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T08:43:06.400Z",
+      "tokens": 124375,
+      "durationMs": 589124,
+      "toolUses": 75,
+      "codeConnect": {
+        "nodesProbed": 26,
+        "resolved": 0,
+        "hasTemplateFalse": 0,
+        "null": 0,
+        "rejected": 0,
+        "raw": "{}",
+        "mode": "as-is",
+        "blocked": false
+      },
+      "screenshot": {
+        "raw": "1280x1335",
+        "normalised": "1280x1335",
+        "canvasBleed": "none this run"
+      },
+      "observed": {
+        "metadataNodes": 58,
+        "topLevelInstances": 25,
+        "designContextNodeIds": 315,
+        "distinctDataNames": 70,
+        "briefedNodes": 859,
+        "briefedComponentTypes": 71
+      },
+      "caveats": [
+        "get_design_context on root exceeded tool token limit; payload recovered, written in 3 parts, byte-identical rejoin",
+        "859 nodes not reproducible from remote server; 315 is the ceiling",
+        "$pigeongrey--100 #d9e3e8 bound in context but absent from get_variable_defs"
+      ]
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T08:58:15.528Z",
+      "tokens": 152994,
+      "durationMs": 529862,
+      "toolUses": 38,
+      "components": 9,
+      "openQuestions": 31,
+      "rejectedSLDS": [
+        "sl-grid (4 private custom props)",
+        "sl-paginator+status+page-size (6 unreachable mismatches)",
+        "sl-breadcrumbs (COLLAPSE_THRESHOLD=3 structural break + !important colour)",
+        "sl-menu-button (baked angle-down + @internal menu)",
+        "sl-card (media card machinery)",
+        "sl-panel (collapsible machinery)"
+      ],
+      "overlapVerdict": "TopNavModel/CourseBarModel identical field-for-field to sibling; PageHeader partial, reconcilable via slot=actions",
+      "manifestOverrides": [
+        "OQ-7 inline links are plain <a>, not sl-link",
+        "OQ-10 no sl-a6-file-row component"
+      ],
+      "reportableReachCandidates": ["OQ-12 sl-menu.anchorElement treated as public"]
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T09:18:21.697Z",
+      "executedBy": "orchestrator directly (all 7 spawned implementers died on the account weekly quota)",
+      "quotaBlocker": {
+        "spawned": 7,
+        "completed": 1,
+        "partial": 1,
+        "reason": "weekly limit / rate limit, reset Oct 4 20:00 Europe/Warsaw"
+      },
+      "components": 9,
+      "storyId": "runs-a6-itsl-collab-shared-folder-shared-folder-page--basic",
+      "typeCheck": {
+        "inScope": 0,
+        "regressionsOutsideScope": 0,
+        "errorsInOtherRuns": 95,
+        "note": "all 95 belong to a3-myportal-digital-exercises, a CONCURRENT sibling run whose files were being written during this check (mtime within seconds of the run). Not caused by this run.",
+        "verdict": "clean for this scope"
+      },
+      "stubs": "none",
+      "harnessDefect": "typecheck.mjs reported verdict:clean on a tree with 125 real tsc errors, 20+ in its own scope. Its filter is /(d+,d+): error TSd+/ but tsc emits ANSI pretty output even when stdout is a pipe, so the text is \"...:145:18 - \\e[91merror\\e[0m\\e[90m TS1005\". Zero lines match, so totalErrors=0 and the two recorded baseline errors also vanish - which the tool reports as \"shared code changed\" rather than as a parse failure. Fix: pass --pretty false (verified: the same regex then matches 125/125). Stage 3 is one of only two gates blocking Stage 4, so this gate can certify a tree that cannot compile.",
+      "ownBugFound": "Backticks inside an HTML comment placed INSIDE a lit html`` template terminate the template literal. This produced 20+ syntax errors across 5 of my files and is also what currently breaks the concurrent a3 run. Fixed by replacing backticks with single quotes in comment bodies."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T09:25:15.917Z",
+      "executedBy": "orchestrator directly (agent pool unavailable - account quota)",
+      "captureVerdict": "rendered",
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "notUpgraded": 0,
+      "iterations": 3,
+      "measuredVsFigma": {
+        "bodyHeight": "1363 vs 1335 (+28)",
+        "sl-a6-top-nav": "56 vs 56 (0)",
+        "sl-a6-course-bar": "56 vs 56 (0)",
+        "sl-a6-page-header": "116 vs 117 (-1)",
+        "sl-a6-description-card": "194 vs 192 (+2)",
+        "sl-a6-file-browser": "897 vs 870 (+27)",
+        "sl-a6-file-table": "611 vs 608 (+3)",
+        "sl-a6-paginator": "40 vs 40 (0)",
+        "sl-a6-settings-summary": "362 vs 358 (+4)"
+      },
+      "fixesApplied": [
+        "Actions dropdown rendered but INVISIBLE: sl-menu sets the native popover attribute on itself and is display:none until :popover-open. Fixed the way sl-menu-button does it - assign anchorElement, call showPopover(). First capture reported sl-menu + 3 sl-menu-item as collapsed; they are no longer collapsed.",
+        "description-card -12px: Figma Card 4200:13814 declares gap-12 but has a SINGLE child frame so it never applies (real heading gap is the 8 on 4214:18783) = -4; and the paragraph + bulleted links are ONE Figma text node 4200:13815 so there is no gap between them = -8.",
+        "file-table -9px: Figma rows are 72px INCLUDING their 1px rule, but with border-collapse:separate the border is added outside the box, making every row 73. 8 rows x 1 + 1 header = 9. Fixed with box-sizing:border-box on the cells.",
+        "file-table -3px (header): .label and .sort are inline-level, so the th formed a line box whose baseline strut added ~6px under them and the 32px header rendered 38. Zeroed the th line-height, restored it on the label.",
+        "Actions button -16px: Figma Button 4573:9232 is 40px = 24px line box + 2x8 padding. sl-button rendered 56. The HOST carries the height, so pinning ::part(button) alone did nothing.",
+        "file-browser -16px: Figma Frame 97 (4411:11847) groups the count/select-all row with the table at gap 4, not the 20 the content block uses between its other children. Added that group."
+      ],
+      "acceptedDiscrepancies": [
+        "FONT: every --sl-text-new-* family is 'Open Sans', which no loaded Typekit serves, so all text renders in a serif fallback. Figma names Lato. Theme-level, not fixable in this run.",
+        "Dropdown PLACEMENT: sl-menu opens ABOVE the Actions trigger; the design places it below, overlapping the table. position=\"bottom-start\" was set and did not override the PopoverController flip.",
+        "icons omitted (10): bell, comment, graduation-cap, shared-folders, docx/xlsx/pptx, arrow-turn-down-right, download, trash, users, pen-ruler + the itslearning brand mark. Footprints preserved, nothing hand-drawn.",
+        "Course Hat disc #feebbb -> --sl-color-background-highlight #ffedcd (ΔRGB 18.1).",
+        "file badge #d9e3e8 has NO token at any layer and is not even a Figma variable; hardcoded.",
+        "page title 24px vs 26 (-2), settings heading 24 vs 22 (+2), course name 16 vs 18 (-2) - no rungs.",
+        "sl-checkbox md is 32px tall vs the design 22 -> the select-all row is +10.",
+        "sl-search-field md is 36px tall vs the design 40 -> -4 on both search fields.",
+        "sl-select caret is chevron-down; design draws a filled caret-down. No icon property exists.",
+        "closing date renders \"30 May 2025 at 23:00\" (pinned en-GB) vs the design \"May 30, 2025 23:00\".",
+        "Published column no longer wraps to two lines; table-layout:fixed distributes width differently from Figma auto-layout.",
+        "select-all count shows (8) from files.length; the design prints (10), which disagrees with its own 8 drawn rows."
+      ],
+      "reachedPastPublicApi": "sl-menu.anchorElement (OQ-12) - a plain declared property with no @internal tag, assigned exactly as sl-menu-button assigns it. showPopover() is the platform API. ::part(button), ::part(wrapper) and ::part(label) are all documented css parts. No --_private property was touched anywhere."
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T09:25:15.917Z",
+      "result": "example target - story-only enrichment. Added an Events story logging all 11 namespaced events to a visible panel; Basic unchanged. No spec/docs/changeset (correct for an examples/ path).",
+      "storyIds": [
+        "runs-a6-itsl-collab-shared-folder-shared-folder-page--basic",
+        "runs-a6-itsl-collab-shared-folder-shared-folder-page--events"
+      ],
+      "eventsStoryVerdict": "rendered"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T09:25:58.810Z",
+      "executedBy": "orchestrator directly (agent pool unavailable - account quota)",
+      "mechanicalChecks": {
+        "globalRegistrations": "1 (sl-a6-shared-folder-page, guarded) - correct",
+        "fortawesomeImports": 0,
+        "stubDtsFiles": 0,
+        "fontShorthandAgainstTextToken": 0,
+        "privateCustomPropsUsed": 0,
+        "hostDisplaySetOnAll": "9/9"
+      },
+      "critical": 0,
+      "minors": [
+        "M1 file-browser #onSortChange is an empty handler that only documents why it is empty; the sort lives on the page model and the event bubbles past regardless.",
+        "M2 .actions-menu uses display:contents purely as a grouping wrapper now that the menu is in the top layer; it could be removed entirely.",
+        "M3 the Published column no longer wraps to two lines (table-layout:fixed distributes width differently from Figma auto-layout).",
+        "M4 the select-all count renders (8) from files.length while the design prints (10) beside 8 drawn rows - the design contradicts itself; the derived value was kept.",
+        "M5 _runs/ is gitignored, so no eslint/stylelint gate ran over this tree.",
+        "M6 dropdown placement is above the trigger (recorded in Stage 4); a bespoke overlay instead of sl-menu would match the design but was not taken."
+      ]
+    }
+  },
+  "theme": {
+    "best": "itslearning",
+    "method": "hex-value-fallback",
+    "absoluteAgreement": 0.875,
+    "marginOverSecond": 13.9,
+    "confident": true,
+    "hexesInDesign": 16,
+    "matched": 14,
+    "colorTokensInDesign": 0,
+    "note": "design binds no SLDS colour token NAMES; ranked by raw hex agreement"
+  },
+  "promotedTo": "runs/2026-10-01-a6-itsl-collab-shared-folder/",
+  "finalTypeCheck": "0 errors in scope, 0 outside _runs. 98 errors remain in a3-myportal-digital-exercises, a CONCURRENT sibling run being written during this check - not caused by this run. NOTE: the harness gate itself reports these as clean (see stage 3 harnessDefect).",
+  "finalTokenCheck": "clean - filesScanned 19, referencesSeen 278, unresolvedReferences 0, missing 0, shorthandTrap 0",
+  "finalCapture": "rendered; bodyHeight 1363 vs Figma 1335 (+28); 0 console errors, 0 failed requests, 0 un-upgraded elements"
+}

@@ -1,0 +1,91 @@
+:host {
+  /* A custom element defaults to `display: inline`, which would collapse the card entirely.
+     Figma `Card` 4200:13814 is a vertical stack. */
+
+  /* Figma `bg-[var(--$gray--0,white)]` — the white raised-surface ROLE token, not the
+     `--sl-color-white` primitive. */
+  background: var(--sl-elevation-surface-raised-default);
+
+  /* Figma `border` (unqualified) is a 1px hairline. `--sl-size-borderWidth-default` is 2px in
+     this theme, so the 1px rung is `-subtle`; using `-default` here would double every edge. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+
+  /* Figma `rounded-[4px]` = --sl-size-borderRadius-md (verified 4px). */
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  /* Figma Card 4200:13814 declares gap-[12px], but it has a SINGLE child frame (4214:18783), so
+     that gap never applies. The real heading-to-body gap is the 8px declared on 4214:18783
+     = --sl-size-100. Using 12 here added 4px the design does not have. */
+  gap: var(--sl-size-100);
+
+  /* Figma `py-[20px] px-[32px]` = --sl-size-250 (20) / --sl-size-400 (32). The inner content
+     column is therefore 728 − 2 x 32 = 664px wide, which is what the body text wraps against. */
+  padding-block: var(--sl-size-250);
+  padding-inline: var(--sl-size-400);
+}
+
+h2 {
+  color: var(--sl-color-foreground-bold);
+
+  /* "Description" is 16px Bold — body-lg is an exact size match. Longhands only: this theme
+     ships zero bare `--sl-text-new-*` families, so `font: var(--sl-text-new-body-lg)` would
+     resolve to nothing and the browser would drop the whole declaration. The bold weight
+     overrides body-lg's own 400. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* The heading is an <h2> for the document outline; the UA margin is not part of the design,
+     whose spacing comes entirely from the host's `gap`. */
+  margin: 0;
+}
+
+.body {
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+  flex-direction: column;
+
+  /* NO gap: Figma renders the paragraph and the bulleted links as ONE text node (4200:13815),
+     so there is no space between them beyond the 24px line box. An 8px gap here added 8px the
+     design does not have. */
+
+  /* Body copy is 16px regular at line-height 1.5 — body-lg (16/24) is exact, since 16 x 1.5 = 24.
+     Longhands only, as above. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  /* Figma draws `list-disc` markers, so the list keeps its markers and the default inside
+     indent; margin is zeroed because the stack's `gap` owns the vertical rhythm. */
+  list-style: disc;
+  margin: 0;
+
+  /* The marker sits inside the content column; Figma's `ms-[calc(...)]` resolves to roughly one
+     line-height of indent, i.e. 24px = --sl-size-300. */
+  padding-inline-start: var(--sl-size-300);
+}
+
+a {
+  /* Figma `text-[#00458f] underline` — the inline-link colour role. */
+  color: var(--sl-color-link-idle);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--sl-color-link-hover);
+}
+
+a:active {
+  color: var(--sl-color-link-active);
+}

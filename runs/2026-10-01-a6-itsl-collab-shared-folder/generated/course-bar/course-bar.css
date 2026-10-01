@@ -1,0 +1,122 @@
+:host {
+  /* A custom element defaults to `display: inline`, which would collapse this row. The bar lays
+     the course identity, the tab strip and the overflow control out side by side, so `flex` is an
+     intentional change of default rendering, not boilerplate. */
+  align-items: center;
+
+  /* Figma `.Secondary menu` fill #f9f9f9 — the sunken raised-surface role, not a palette grey. */
+  background: var(--sl-elevation-surface-raised-sunken);
+
+  /* Figma `h-[56px]` = --sl-size-700 (56px), so padding-block is 0 and align-items centres. */
+  block-size: var(--sl-size-700);
+
+  /* Figma `border-b` is a 1px hairline. `--sl-size-borderWidth-default` is 2px in this theme, so
+     the 1px rung is `-subtle`. */
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+
+  /* TOKEN GAP: this theme ships no composite box-shadow token. `--sl-elevation-surface-shadow` is
+     a COLOUR (#333333), not a shadow value, and nothing else under `--sl-*` resolves to a
+     box-shadow. Copied verbatim from Figma:
+     `shadow-[inset_0px_4px_8px_0px_rgba(0,0,0,0.05)]`. Recorded as a missing-token gap. */
+  box-shadow: inset 0 4px 8px rgb(0 0 0 / 5%);
+
+  /* The 1px border is part of the pinned 56px row height. */
+  box-sizing: border-box;
+  display: flex;
+
+  /* Figma `px-[var(--size/25,4px)]` = --sl-size-050 (4px). */
+  padding-inline: var(--sl-size-050);
+}
+
+.course {
+  align-items: center;
+  block-size: 100%;
+  display: flex;
+
+  /* Figma `Course`: gap 12 = --sl-size-150, px 8 = --sl-size-100. */
+  gap: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.hat {
+  /* COLOUR DELTA: the design fills this disc with $bronze--100 #feebbb, which has no exact token
+     at any layer of this theme. `--sl-color-background-highlight` (#ffedcd) is the nearest —
+     ΔRGB 18.1, blue channel −18. Recorded. */
+  background: var(--sl-color-background-highlight);
+
+  /* Figma `size-[32px]` = --sl-size-400 (32px). The footprint is preserved even though the
+     graduation-cap glyph is omitted (not registered in this theme). */
+  block-size: var(--sl-size-400);
+  border-radius: var(--sl-size-borderRadius-full);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-400);
+}
+
+.name {
+  color: var(--sl-color-foreground-bold);
+
+  /* TYPE DELTA −2px: the design is 18px Bold (Figma `Size/400`, which is a FONT size, not a
+     spacing rung — so it must not be routed through `--sl-size-*`). This type scale has no 18px
+     rung; body-lg (16/24) is the nearest. Longhands only: this theme ships zero bare
+     `--sl-text-new-*` shorthands, so a `font:` shorthand would drop the whole declaration, and
+     the bold weight has to be stated separately. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  white-space: nowrap;
+}
+
+nav {
+  /* Figma `Main menu`: `flex-[1_0_0]` with `min-w-px` — it takes the slack between the course
+     block and the overflow control, and may shrink below its content width. */
+  block-size: 100%;
+  flex: 1 0 0;
+  min-inline-size: 0;
+}
+
+ul {
+  block-size: 100%;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  /* Figma `.Navigation item`: `h-full items-center`, so each link fills the 56px row and centres
+     its label; the padding below is therefore a minimum, not the height driver. */
+  align-items: center;
+  block-size: 100%;
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+
+  /* Tab label: 16px regular — body-lg is an exact match. Longhands only (see `.name`). */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma `py-[var(--size/100,12px)] px-[var(--size/300,16px)]` = --sl-size-150 / --sl-size-200. */
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-200);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+a[aria-current='page'] {
+  /* INFERRED, not specified: this frame highlights no tab (`activeTabId` is undefined), so the
+     design carries no selected-tab treatment to copy. Bolding the current link is the minimum
+     visible counterpart to `aria-current="page"`; it is inert in this frame. */
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.overflow::part(button) {
+  /* Figma trailing `.Navigation item`: `p-[var(--size/100,12px)]` around a 24px glyph →
+     24 + 2x12 = 48px square, i.e. --sl-size-300 + 2 x --sl-size-150. sl-button's icon-only rule
+     derives its own square from the line box (1lh + 16px), so the design's square is restated on
+     both axes here rather than left to that default. */
+  block-size: calc(var(--sl-size-300) + 2 * var(--sl-size-150));
+  inline-size: calc(var(--sl-size-300) + 2 * var(--sl-size-150));
+}

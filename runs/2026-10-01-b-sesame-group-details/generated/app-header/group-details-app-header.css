@@ -1,0 +1,118 @@
+/*
+ * Tokens only. Every raw length below names its cause in a comment — a raw length without one is
+ * not allowed in this run.
+ *
+ * The 128px gutter is `--sl-size-1000` (80px) + `--sl-size-600` (48px) = 128px exactly, not a
+ * literal. The 1024px content column has no token of its own; it is the design's fixed layout
+ * constant and is declared once, here and in the page root, as `--content-width`.
+ */
+:host {
+  display: block;
+
+  /* The design's content column: 1280 frame - 2 x 128 gutter = 1024. No token exists for it. */
+  --content-width: 1024px;
+  --gutter: calc(var(--sl-size-1000) + var(--sl-size-600));
+}
+
+.gutter {
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: calc(var(--content-width) + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+.nav-bar {
+  background: var(--sl-elevation-surface-raised-default);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+}
+
+.nav-bar .gutter {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-600);
+  justify-content: space-between;
+  min-block-size: var(--sl-size-800);
+}
+
+.wordmark {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-title-md-fontFamily);
+  font-size: var(--sl-typography-title-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-typography-title-md-lineHeight);
+  white-space: nowrap;
+}
+
+nav ul {
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  display: inline-block;
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  padding-block: var(--sl-size-100);
+  text-decoration: none;
+}
+
+nav a.active {
+  border-block-end: var(--sl-size-borderWidth-bold) solid
+    var(--sl-color-foreground-accent-teal-bold);
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.profile {
+  align-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-100);
+  padding: 0;
+}
+
+/*
+ * An icon the theme's registry does not carry is omitted, never substituted and never drawn.
+ * The box keeps the layout footprint so every measurement around it stays honest; the glyph
+ * itself is a recorded Stage 4 discrepancy.
+ */
+.icon-omitted {
+  block-size: var(--sl-size-icon-font-md);
+  display: inline-block;
+  flex: none;
+  inline-size: var(--sl-size-icon-font-md);
+}
+
+.school-bar {
+  background: var(--sl-elevation-surface-raised-default);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+}
+
+.school-bar .gutter {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  justify-content: flex-end;
+  padding-block: var(--sl-size-150);
+}
+
+.school-name {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+}
+
+sl-button[fill='link']::part(button) {
+  color: var(--sl-color-foreground-accent-teal-bold);
+  font-weight: var(--sl-fontWeight-bold);
+}

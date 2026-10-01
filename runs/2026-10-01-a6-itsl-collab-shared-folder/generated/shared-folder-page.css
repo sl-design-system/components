@@ -1,0 +1,73 @@
+:host {
+  /* Figma root 4200:13792: `bg-[var(--$gray--150,#f2f2f2)] flex flex-col items-center size-full`
+     — the page ground is the neutral-bold background ROLE token, which resolves to #f2f2f2. */
+  background: var(--sl-color-background-neutral-bold);
+  display: flex;
+  flex-direction: column;
+
+  /* The frame is 1280 wide and 1335 tall because the page scrolls; `screen-width: 1280` is the
+     only bound breakpoint. */
+  min-block-size: 100%;
+}
+
+.app-shell {
+  /* Figma puts a `drop-shadow-[0px_4px_4px_rgba(0,0,0,0.05)]` on the `Navigation` component as a
+     whole — it belongs to neither of the two 56px rows, so it lives on the wrapper that holds
+     both. TOKEN GAP: this theme ships no composite box-shadow token
+     (`--sl-elevation-surface-shadow` is a COLOUR, #333333), so the value is copied verbatim from
+     Figma and recorded as a gap. */
+  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 5%));
+
+  /* The two rows stack; together they are the 112px app shell. */
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+}
+
+.content-area-wrapper {
+  /* Figma `content-area-wrapper` 4200:13795: `px-[var(--ca-horisontal-margin,48px)]`
+     = --sl-size-600 (48px). */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  inline-size: 100%;
+  padding-inline: var(--sl-size-600);
+}
+
+.content-area {
+  /* Figma `content-area` 4200:13796: `max-w-[1148px] pb-[24px] w-full`.
+     1148 = 1280 − 2 x 48 (the gutter) − 2 x 18? No: it is Figma's own pinned maximum, a literal
+     with no rung on the size scale, so it stays commented rather than derived. */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 1148px;
+  padding-block-end: var(--sl-size-300);
+}
+
+.columns {
+  /* Figma `4200:13798`: `gap-[var(--size/500,20px)] items-start` = --sl-size-250 (20px). */
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sl-size-250);
+  inline-size: 100%;
+}
+
+.list {
+  /* Figma `List` 4200:13799: `flex-[1_0_0] min-w-px gap-[var(--size/500,20px)]`. The design
+     measures this column at 728px: 1148 (content) − 400 (sidebar) − 20 (gap) = 728. */
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--sl-size-250);
+  min-inline-size: 0;
+}
+
+sl-a6-settings-summary {
+  /* Figma `settings summary` 4994:15549 is pinned `w-[400px]` and does not flex. 400px has no
+     rung on the size scale, so it stays a commented literal. */
+  flex-shrink: 0;
+  inline-size: 400px;
+}

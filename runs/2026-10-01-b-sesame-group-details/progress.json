@@ -1,0 +1,274 @@
+{
+  "case": "B-Sesame-2142-48093",
+  "team": "Sesame",
+  "design": "Group details",
+  "caseSlug": "b-sesame-group-details",
+  "figma": {
+    "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+    "nodeId": "2142:48093",
+    "observed": {
+      "width": 1280,
+      "height": 2392,
+      "nodes": 950,
+      "componentTypes": 53
+    }
+  },
+  "framework": "lit",
+  "i18n": false,
+  "figmaServer": "figma (remote)",
+  "outputLocation": "examples/lit/src/_runs/b-sesame-group-details/",
+  "pipelineCommit": "c7f6a370357b902315f9a016e2108274cb24bb76",
+  "pipelineTree": "2176d63902204219ed29b22e775e902747248deb",
+  "pipelineTreeMatchesSiblings": "yes - A4 (28b11db) and A11 (b10862f) both resolve tools/implement-design-plugin to 2176d639; the three runs are comparable",
+  "theme": {
+    "status": "derived",
+    "chosen": "my-digital-book",
+    "toolVerdict": {
+      "best": "my-digital-book",
+      "method": "hex-value-fallback",
+      "absoluteAgreement": 0.714,
+      "marginOverSecond": 2.5,
+      "confident": false,
+      "hexesInDesign": 7,
+      "colorTokensInDesign": 11
+    },
+    "confidentIsFalse": "YES - reported as-is, not adopted quietly. The tool's hex-fallback bar is compared>=8 AND score>=0.8 AND score>=3x runner-up; this sample fails all three (7, 0.714, 2.5).",
+    "perHexDiscrimination": {
+      "#bfbfbf": "my-digital-book ONLY",
+      "#323232": "my-digital-book ONLY",
+      "#9d9f9f": "my-digital-book ONLY",
+      "#5d5d5d": "my-digital-book, magister, tig",
+      "#ffffff": "16 themes - universal, zero discriminative power",
+      "#01766d": "no theme - the MySesame brand teal",
+      "#f5f5f6": "kampus, teas only - but its own name is Neutrals/$kampus-color-gray-1, a Kampus token leaked into the Sesame file"
+    },
+    "restrictedScore": "On the 4 hexes that carry any signal: my-digital-book 4/4 = 1.000; magister 1/4; tig 1/4; itslearning 0/4. Margin 4.0.",
+    "thirdSampleVerdict": "DECISIVE for my-digital-book. A4 had 4 uniquely-my-digital-book hexes (#8d8d8d #323232 #9d9f9f #ed1111); this frame adds #bfbfbf and re-confirms #323232 and #9d9f9f. Union across the two frames = 5 hexes, each matched by my-digital-book and by no other theme. A11 contributed nothing (1 variable, 0 hexes).",
+    "siblingsWereWrong": "A4 and A11 both ran under itslearning, which matches 0/4 of this file's discriminating colours. A11's itslearning was never derived at all - its theme-match returns best=bingel-dc at score 0 on 0 hexes, i.e. alphabetical-first on an all-zero ranking, not a derivation."
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T10:52Z",
+      "notes": "remote figma server; 7 get_design_context calls covering 100% of the visible surface; 13 get_variable_defs probes -> 25 distinct bound variables; 10 get_code_connect_map probes, every one a literal {}",
+      "codeConnect": "EMPTY_OBJECT_EVERYWHERE on 10/10 probes, 0 transport errors. Same file-level condition as A4 and A11. AS-IS case, not BLOCKED_ON_CODE_CONNECT.",
+      "analystAssumedWrongTheme": "the analyst composed its Token Reference against itslearning, inherited from the siblings rather than derived; corrected in manifest.md Stage 1.5",
+      "wallClock": "~22 min (launched 10:30, manifest written 10:52)"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T09:24:24.734Z",
+      "executedBy": "ORCHESTRATOR (component-decomposer subagent died on the account weekly quota)",
+      "components": 6,
+      "openQuestions": 17,
+      "netNewPrimitives": 0,
+      "sharedTypes": "run-root types.ts, importing nothing - acyclic by construction (A11 shape, not A4 shape)"
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T09:24:24.735Z",
+      "executedBy": "ORCHESTRATOR (subagent pool quota-blocked)",
+      "components": 6,
+      "files": 16,
+      "typeCheck": "clean - 0 errors in scope, verified TWICE: scope-isolated tsconfig (0) and the shared examples project (0 attributable to this run)",
+      "noStubs": "no .d.ts, no stub modules, no @fortawesome import anywhere",
+      "gateDefectFound": "runs/harness/typecheck.mjs reports clean for ANY input - see harnessDefects"
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T09:24:24.735Z",
+      "verdict": "rendered",
+      "iterations": 3,
+      "capture": "testing/final-basic.png",
+      "consoleErrors": 0,
+      "failedRequests": 0,
+      "notUpgraded": 0,
+      "pageHeight": 2371,
+      "designHeight": 2392,
+      "delta": -21,
+      "collapsedNote": "collapsed list contains only the closed sl-select listbox/options and the two deliberately-empty sl-tab-panels for tabs the design never drew - expected, not a defect",
+      "fixesApplied": [
+        "sl-avatar subheader is the DEFAULT slot, not slot=\"subheader\" - a named slot is silently dropped",
+        "sl-link is a link-styled BUTTON; replaced with plain anchors for the back link and 5 footer links",
+        "sl-badge host background not applying in this composition; set explicitly from the parent",
+        "avatar size md->lg to make the subheader visible at all"
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T09:24:24.735Z",
+      "executedBy": "ORCHESTRATOR",
+      "scope": "example path -> story enrichment only; no spec/docs/changeset/i18n-extract (correct for examples/)",
+      "stories": ["--basic", "--search-only", "--create-only", "--empty-only"],
+      "allRendered": true,
+      "note": "the three single-state variants are backed by a real reflected property on the root and verified to change the rendered composition - not stub stories"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T09:24:24.735Z",
+      "executedBy": "ORCHESTRATOR",
+      "interactionPass": "all 13 events fire from real clicks with correct detail payloads; 9 interactions triggered 3 renders (A4 root re-rendered 301x per click - not reproduced); first tab stop is the first nav link; 0 page errors",
+      "bugsFound": 1,
+      "bugsFixed": 1,
+      "criticalItem": "create-student emitted createAnother:null on an event typed boolean - an unchecked sl-checkbox reports null and a destructuring default only fires on undefined. Fixed with ?? false and re-verified. Invisible to any still-image or DOM comparison."
+    }
+  },
+  "artifactDefects": [
+    "design-analyst wrote figma-variable-defs.json as a wrapped {_meta,probes,distinctVariables} object, which theme-match cannot read (it reported 0 hexes). Flattened to the documented contract; the probe log kept as figma-variable-defs.PROBES.json."
+  ],
+  "reference": {
+    "raw": "934x1280",
+    "frameTrue": "1280x2392",
+    "defect": "get_screenshot downscaled to 53.5% AND included 249px (27%) of out-of-frame canvas carrying stray annotation vector 2142:48496 (x=328 w=1415, 463px past the frame edge). Not A4 8px bleed - a factor-1.869 scale error.",
+    "arithmetic": "frame occupies x=0..684 measured on the PNG; 685/1280=0.535156 and 1280/2392=0.535117 - the same uniform downscale",
+    "normalised": "reference-normalised.png at 1280x2392, produced by testing/normalise-reference.mjs (crop 0,0,685,1280 then rescale)"
+  },
+  "colour": {
+    "exactUnderDerivedTheme": "8 of 13",
+    "exactUnderItslearning": "2 of 13",
+    "largestUnavoidableDelta": "#2e5c64 active-tab underline, d=54 vs --sl-color-palette-teal-800 #0a5757",
+    "brandTealDelta": "#01766d d=24 vs --sl-color-foreground-accent-teal-bold #066769"
+  },
+  "icons": {
+    "registered": 54,
+    "identicalAcrossBothThemes": true,
+    "missing": ["pencil", "archive", "key", "school-flag", "gear"],
+    "policy": "omit with footprint preserved, record as Stage 4 discrepancy; no hand-drawn SVG (A4 shipped run-icons.ts with 15 - not repeated)"
+  },
+  "harnessDefects": [
+    {
+      "tool": "runs/harness/typecheck.mjs",
+      "severity": "CRITICAL - the gate cannot fail",
+      "observed": "Reported {totalErrors:0, verdict:\"clean\"} for a tree with 66 syntax errors in scope. It also reported both recorded baseline errors as \"no longer present\", printing a false \"shared code changed\" warning.",
+      "cause": "It parses tsc stdout with /\\(\\d+,\\d+\\): error TS\\d+/ - the PLAIN format. tsc in this repo emits PRETTY ANSI output even when not attached to a TTY: \"file:LINE:COL - \\x1b[...error\\x1b[... TS1005\". The regex matches zero lines for any input, so the tool always returns clean. ANSI escapes also split the literal \"error TS\", so even a naive grep misses it.",
+      "fix": "pass --pretty false to tsc (verified: 97 errors surface, correctly attributed by run folder)",
+      "note": "This is the exact failure mode pipeline-defects.md warns about: \"A check that never fires is indistinguishable from a broken one.\" The harness README claims every checker was verified against a deliberately bad input; this one is not, or TS/flags changed since."
+    }
+  ],
+  "harnessVerified": [
+    {
+      "tool": "runs/harness/check-tokens.mjs",
+      "result": "WORKS - negative-controlled in this run: injecting --sl-color-does-not-exist-xyz and font: var(--sl-text-new-body-md) produced one missing and one shorthandTrap, then reverted and re-verified clean."
+    }
+  ],
+  "designSystemDefects": [
+    {
+      "component": "sl-link",
+      "issue": "Only variant=\"primary\" sets --_bg-color: transparent for fill=ghost/outline. Every other variant (default/secondary, success, warning, danger, info, inverted) keeps --sl-color-background-secondary-bold, so a ghost or outline link still paints a solid block. There is no component for a bare inline text link."
+    },
+    {
+      "component": "sl-avatar",
+      "issue": "avatar.css hides the subheader slot outright at size sm AND md, and md is the only size whose picture is 32px (--sl-size-400). A 32px avatar WITH a subheader - what this design draws - is not expressible. lg costs +8px of circle."
+    },
+    {
+      "component": "sl-badge",
+      "issue": "The :host background did not take effect in this composition: --_background resolved to #ffae00 but computed background-color stayed rgba(0,0,0,0) and the colour stayed the inherited --sl-color-foreground-plain. Had to be set from the parent."
+    },
+    {
+      "token": "--sl-elevation-shadow-sm",
+      "issue": "Malformed in EVERY theme, not just itslearning: two offsets and no blur. A4 recorded it as an itslearning fault; the first 3,780 lines of theme.css are byte-identical across themes, so it is a core defect."
+    },
+    {
+      "token": "--sl-*-fontFamily",
+      "severity": "bounds text fidelity for every run under these themes",
+      "issue": "The CORE token hardcodes the literal 'Open Sans' while the BRAND layer of the SAME file declares --sl-brand-text-new-*-fontFamily: 'open-sans' - the Typekit face that actually loads (document.fonts reports open-sans|loaded). The core token does not reference the brand token, so the correctly-named face is defined and never used. Colours indirect through the brand layer correctly; families do not. Result: every text node in every run under itslearning or my-digital-book renders in the browser default fallback, measured here on the h1 (computed family 'Open Sans', no matching loaded face)."
+    }
+  ],
+  "threeFrameComparison": {
+    "frames": "A4 (2847:14994, 1280w), A11 (116:19049, 360w), B (2142:48093, 1280w) - one Figma file",
+    "vocabulary": "AGREE. All three identify the same SLDS component for the same source node (sl-avatar, sl-button, sl-form-field, sl-link). No disagreement about WHAT a node is.",
+    "interfaceShape": "INCOMPATIBLE. No two of the three produced a usable API for a component they drew from the same Figma master.",
+    "evidence": {
+      "schoolSwitcher": "A4 school:{id,name} + event detail void | A11 flat schoolId+schoolName + event detail string | B school:{id,name} + detail void",
+      "footerLanguageSelector": "A4 scalar @property language + detail {language:string} | A11 model property + detail bare string - OPPOSITE on both axes at once | B frame has no selector at all",
+      "avatar": "A4 and B carry initials as data; A11 derives from displayName",
+      "sharedTypeLocation": "A4 exports from each child; A11 and B use a run-root types.ts",
+      "tagNamespace": "A4 sl-my-groups-* (frame) | A11 sl-sesame-* (team) | B sl-b-sesame-group-details-* (case)"
+    },
+    "conclusion": "A4 and B agree more often than either agrees with A11, but the obvious reading - that 1280 vs 360 explains it - is wrong: the disagreements are in the DATA CONTRACT, which the viewport does not touch. The cause is that nothing carries a decision from one frame to the next.",
+    "sharperThanTheA1Pair": "The A1/B-Kampus pair MINTED THE SAME TAG from the same source component, so the collision was at least detectable. Here all three namespaces differ, so nothing collides and nothing is detectable - three incompatible AppHeaders coexist silently, and the first goal of the effort (Figma and code mapping identically) fails with no symptom.",
+    "a4GroupsTableOverlap": "NONE. A4 owns a groups-table; this screen has no table at all - the Students tab holds a form and an empty state. The anticipated overlap does not exist."
+  },
+  "finalGates": {
+    "typeCheckInScope": 0,
+    "typeCheckMethod": "tsc --pretty false, run twice: shared examples project and a scope-isolated tsconfig",
+    "checkTokens": {
+      "filesScanned": 16,
+      "referencesSeen": 203,
+      "missing": 0,
+      "shorthandTrap": 0,
+      "hostSettable": 0,
+      "verdict": "clean"
+    },
+    "captures": {
+      "basic": "rendered h=2371",
+      "searchOnly": "rendered h=1177",
+      "createOnly": "rendered h=1709",
+      "emptyOnly": "rendered h=1059"
+    },
+    "sharedFilesModified": 0
+  },
+  "promotedTo": "runs/2026-10-01-b-sesame-group-details/",
+  "cost": {
+    "basis": "Measured from each subagent transcript: sum of input + output + cache_read + cache_write across every usage record. Cache reads dominate and are included because they are what the run actually processed.",
+    "correction": "An earlier value of 261,092 tokens for Stage 1 was recorded in this file WITHOUT a source and was wrong. It has been replaced by the measured figure. Flagged rather than silently overwritten.",
+    "stage1-ingest": {
+      "agent": "design-analyst",
+      "usageRecords": 117,
+      "output": 129281,
+      "cacheRead": 13134706,
+      "cacheWrite": 635017,
+      "freshInput": 234,
+      "total": 13899238
+    },
+    "stage2-decompose-failed-attempt": {
+      "agent": "component-decomposer",
+      "usageRecords": 24,
+      "output": 1584,
+      "cacheRead": 788684,
+      "cacheWrite": 266322,
+      "freshInput": 44,
+      "total": 1056634,
+      "outcome": "terminated on the account weekly quota before producing anything"
+    },
+    "stages2to6-orchestrator": {
+      "measured": false,
+      "note": "executed in the orchestrator turn, so no separate transcript exists and no per-stage figure can be stated honestly. The orchestrator context consumed ~285k tokens across the whole run (15.0M budget start, 14.71M remaining)."
+    },
+    "total": {
+      "subagents": 14955872,
+      "orchestrator": "~285000",
+      "combined": "~15.24M tokens",
+      "caveat": "dominated by cache reads on a 950-node, 53-component-type frame"
+    }
+  },
+  "reachedPastPublicApi": [
+    {
+      "what": "sl-tab-group active indicator",
+      "detail": "The indicator is .indicator inside sl-tab-group shadow, exposed through NO part. The only public hook is the token it paints with, so --sl-color-border-selected is overridden locally on sl-tab-group. Verified painting rgb(10,87,87).",
+      "verdict": "supported surface, but the design system offers no part for this element"
+    },
+    {
+      "what": "sl-badge background",
+      "detail": "sl-badge host background did not apply in this composition; set from the parent on an element this component placed in its own template.",
+      "verdict": "parent styling its own child - not a private API, but a workaround for a component bug"
+    },
+    {
+      "what": "sl-button[variant=primary]::part(button)",
+      "detail": "Repainted teal because my-digital-book primary is navy #002044 and the design is teal. part=button IS public.",
+      "verdict": "public part, but working against the theme primary role"
+    },
+    {
+      "what": "plain anchors instead of sl-link",
+      "detail": "sl-link is a link-styled button that paints a background for every variant except primary ghost/outline. Declined to use it rather than fight it.",
+      "verdict": "declined a component, reached past nothing"
+    }
+  ],
+  "deadCssFound": {
+    "rule": "sl-tab[selected]::part(wrapper)",
+    "why": "sl-tab exposes badge, icon, inner, outer, subtitle, title - no wrapper. The rule matched nothing.",
+    "invisibleTo": "type check (passes), check-tokens (the token it referenced exists), shoot.mjs (page still renders)",
+    "foundBy": "auditing every ::part() in the generated CSS against the component source",
+    "lesson": "a ::part() naming a non-existent part is the CSS twin of an invented token, and nothing in the pipeline checks it. check-tokens validates token NAMES; nothing validates PART names."
+  }
+}

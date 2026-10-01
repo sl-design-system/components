@@ -509,3 +509,42 @@ converges; interface shape does not.** Names are read off the design, which both
 API shape comes from conventions and from which states the frame happens to show, and a single
 frame does not show enough to get the shape right. That is an argument for deriving component
 contracts from **all** frames that use a component, not from the first one processed.
+
+---
+
+## The gate that passed everything, and the correction I refused
+
+`typecheck.mjs` returned `verdict: clean` **unconditionally for the entire batch**. `tsc`
+colourises its output even when stdout is not a terminal, and the pretty format is
+`file:line:col - error TS…` where the plain one is `file(line,col): error TS…`. The parser read
+the plain form, matched nothing, and reported an empty error list — which is indistinguishable
+from a clean tree.
+
+**No run shipped a type error.** Measured afterwards with `--pretty false`, the whole tree with all
+nineteen run directories present has exactly two errors: the two `grid.ts` baseline ones. The
+implementers ran `tsc` themselves and read its output with their eyes, which is why the blindness
+cost nothing. That is luck, not design.
+
+Two things make this worse than the four earlier tool failures.
+
+**An agent told me, and I dismissed it.** A10 reported _"the two baseline errors **are** still
+there — so the gate is lying."_ I checked by running `tsc` through a shell pipe, saw zero matches
+for my own pattern, concluded the errors had genuinely disappeared, and told the user the agent had
+misread its own output. I then told a third run to ignore the same message if it appeared. **The
+agent was right, I was wrong, and my verification reproduced the bug instead of finding it** —
+because I tested the parse with the same broken assumption that caused it.
+
+**The failure also faked a second finding.** The report that the `grid.ts` errors had "disappeared
+without the file changing" was not a baseline drift caused by a concurrent install. The errors
+never moved. The tool stopped seeing them, and I wrote a plausible environmental explanation for
+an event that did not happen.
+
+The fix is one flag. The lesson is not: **a parser that extracts nothing from non-empty input now
+exits 3 rather than returning an empty list.** Silence and success must not share a
+representation — the same correction `check-tokens` needed, arrived at independently, two days
+running.
+
+And a methodological one, which is the reason this entry is this long: **when a run contradicts a
+tool, the tool is the thing to doubt first.** Every tool in this harness was written in one pass
+by one author under time pressure; every run's report is a second observer. I had the prior
+backwards.

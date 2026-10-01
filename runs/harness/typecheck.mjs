@@ -35,7 +35,12 @@ const typecheck = async () => {
   let stdout = '';
 
   try {
-    ({ stdout } = await run('npx', ['tsc', '-p', PROJECT, '--noEmit'], {
+    // `--pretty false` is load-bearing, not tidiness. tsc colourises its output even when stdout
+    // is not a terminal, and the pretty format is `file:line:col - error TS…` where the plain one
+    // is `file(line,col): error TS…`. The parser below reads the plain form, so without this flag
+    // it matches nothing, every run reports zero errors, and the gate returns `clean`
+    // unconditionally — which is exactly what it did for this entire batch until a run caught it.
+    ({ stdout } = await run('npx', ['tsc', '-p', PROJECT, '--noEmit', '--pretty', 'false'], {
       maxBuffer: 32 * 1024 * 1024
     }));
   } catch (error) {
@@ -46,10 +51,18 @@ const typecheck = async () => {
   // should come back the way it was found.
   rmSync('examples/lit/tsconfig.tsbuildinfo', { force: true });
 
-  return stdout
-    .split('\n')
-    .filter(line => /\(\d+,\d+\): error TS\d+/.test(line))
-    .map(line => line.trim());
+  const lines = stdout.split('\n'),
+    parsed = lines.filter(line => /\(\d+,\d+\): error TS\d+/.test(line)).map(line => line.trim());
+
+  // If tsc clearly reported errors and the parser extracted none, the parser is broken — and a
+  // broken parser must fail loudly rather than return an empty list that reads as a clean tree.
+  if (!parsed.length && /error TS\d+/.test(stdout)) {
+    console.error('typecheck parse failure: tsc reported errors this parser could not read.');
+    console.error(stdout.slice(0, 600));
+    exit(3);
+  }
+
+  return parsed;
 };
 
 const errors = await typecheck();

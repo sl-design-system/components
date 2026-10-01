@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+section {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-md);
+  padding: var(--sl-size-300);
+}
+
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+
+  /* The design sets letter-spacing 3 on this all-caps label (variable `UI/Tiny-bold`).
+     There is no letter-spacing token in the theme; the design's own value is used. */
+  letter-spacing: 3px;
+  line-height: var(--sl-typography-text-md-lineHeight);
+  margin: 0;
+}
+
+h3 {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-title-lg-fontFamily);
+  font-size: var(--sl-typography-title-lg-fontSize);
+  font-weight: var(--sl-fontWeight-semiBold);
+  line-height: var(--sl-typography-title-lg-lineHeight);
+  margin: 0;
+  padding-block-start: var(--sl-size-300);
+}
+
+.intro {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-lg-fontFamily);
+  font-size: var(--sl-typography-text-lg-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-lg-lineHeight);
+  margin: 0;
+  padding-block: var(--sl-size-100) var(--sl-size-300);
+}
+
+.controls {
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+.controls sl-form-field {
+  flex: 1 1 0;
+}
+
+.no-results {
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-foreground-accent-grey-faint);
+  border-radius: var(--sl-size-borderRadius-md);
+  margin-block-start: var(--sl-size-300);
+  padding: var(--sl-size-300);
+}
+
+.no-results-heading {
+  align-items: center;
+  color: var(--sl-color-background-neutral-interactive-bold);
+  display: flex;
+  font-family: var(--sl-typography-text-lg-fontFamily);
+  font-size: var(--sl-typography-text-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  gap: var(--sl-size-100);
+  line-height: var(--sl-typography-text-lg-lineHeight);
+  margin: 0;
+}
+
+.no-results-body {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  margin: 0;
+  padding-block-start: var(--sl-size-100);
+}

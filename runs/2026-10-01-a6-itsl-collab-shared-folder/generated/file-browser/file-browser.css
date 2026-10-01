@@ -1,0 +1,222 @@
+:host {
+  /* Figma `bg-[var(--$gray--0,white)]` — the white raised-surface ROLE token. */
+  background: var(--sl-elevation-surface-raised-default);
+
+  /* Figma `border` (unqualified) is a 1px hairline. `--sl-size-borderWidth-default` is 2px in
+     this theme, so the 1px rung is `-subtle`. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  /* Figma `gap-[var(--size/500,20px)]` = --sl-size-250 (20px). */
+  gap: var(--sl-size-250);
+
+  /* Figma `px-[var(--content-block/content-block-horisontal-padding,32px)]
+     py-[var(--content-block/content-block-vertical-padding,20px)]`
+     = --sl-size-400 (32) / --sl-size-250 (20). The block is 728px wide, so its content column is
+     728 − 2 x 32 = 664px — which is what Figma pins on the inner frame 4411:11841. */
+  padding-block: var(--sl-size-250);
+  padding-inline: var(--sl-size-400);
+}
+
+.visually-hidden {
+  /* The a11y annotation asks for an H2 here; the design draws none. Removed from the visual
+     layer without removing it from the accessibility tree. */
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  /* Figma `Actions` 4411:11844: `gap-[var(--actions/actions-gap,12px)]` = --sl-size-150.
+     Figma's Button annotation calls this out: "The distance between actions is defined in the
+     variable actions-gap". */
+  gap: var(--sl-size-150);
+}
+
+.add {
+  align-items: center;
+
+  /* Figma `Standalone link` 4411:11845: `bg-[var(--$accent--600,#008859)]` — the primary-bold
+     background ROLE token resolves to exactly #008859. */
+  background: var(--sl-color-background-primary-bold);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-primary-onBold);
+  display: inline-flex;
+
+  /* Figma `gap-[var(--size/25,4px)]` = --sl-size-050. */
+  gap: var(--sl-size-050);
+
+  /* Label is 16px Bold — body-lg (16/24) is exact; the weight overrides body-lg's own 400.
+     Longhands only: this theme ships zero bare `--sl-text-new-*` families, so a `font:`
+     shorthand against one resolves to nothing and the browser drops the whole declaration. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma `min-h-[40px] px-[var(--size/700,24px)] py-[var(--size/50,8px)]`
+     = --sl-size-500 / --sl-size-300 / --sl-size-100. */
+  justify-content: center;
+  min-block-size: var(--sl-size-500);
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-300);
+  text-decoration: none;
+}
+
+.actions-menu {
+  /* Groups the trigger with its menu so the menu can be anchored to the button. The menu itself
+     is in the top layer, so this is not a positioning context for it. */
+  display: contents;
+}
+
+.bulk {
+  /* sl-button's HOST carries the height, so pinning it on ::part(button) alone left the element
+     56px tall. Figma Button 4573:9232 is 40px = the 24px line box (--sl-size-300) + 2 x 8px
+     padding (--sl-size-100) = --sl-size-500. */
+  block-size: var(--sl-size-500);
+}
+
+.bulk::part(button) {
+  /* Figma `Button` 4573:9232: `bg-[var(--$brand--800,#42354a)]`. PALETTE PRIMITIVE used
+     deliberately: #42354a does have semantic tokens in this theme, but only `foreground-*` ones
+     (`--sl-color-foreground-brand`), which are the wrong role for a background. The semantic
+     background counterparts `--sl-color-background-secondary-bold` and
+     `--sl-color-background-selected-bold` both resolve to purple-600 #785f86, visibly lighter.
+     purple-800 is the only exact match. */
+  background: var(--sl-color-palette-purple-800);
+  border-color: transparent;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-inverted-plain);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma `px-[var(--size/700,24px)] py-[var(--size/50,8px)]` = --sl-size-300 / --sl-size-100.
+     The row is 40px tall = the 24px line box (--sl-size-300) + 2 x 8px padding (--sl-size-100),
+     which is --sl-size-500. sl-button derives its own height from its line box and came out 56,
+     16px over, so the design's own arithmetic is stated explicitly. */
+  block-size: var(--sl-size-500);
+  box-sizing: border-box;
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-300);
+}
+
+.dropdown {
+  /* Figma `Dropdown` 4099:12638: `w-[250px] py-[var(--dropdown/dropdown-vertical-padding,4px)]
+     rounded-[var(--border-radius,4px)]`, drawn over the table. 250px has no rung on the size
+     scale (nearest 240 and 256), so it stays a commented literal.
+
+     Position is NOT set here: `sl-menu` is a native popover and lives in the top layer, where its
+     own PopoverController places it against the anchor this component assigns. Absolutely
+     positioning it from the outside would fight that. */
+
+  /* sl-menu's own host styles are a 2px border, 8px block padding and the overflow shadow. The
+     design has no border, 4px block padding and a softer drop shadow, so all three are restated.
+     These are plain element styles on the custom element itself, not reaches into its shadow. */
+  border: none;
+  border-radius: var(--sl-size-borderRadius-md);
+
+  /* TOKEN GAP: this theme ships no composite box-shadow token —
+     `--sl-elevation-surface-shadow` is a COLOUR (#333333), not a shadow value. Copied verbatim
+     from Figma's `drop-shadow-[0px_3px_4.5px_rgba(0,0,0,0.2)]`. Recorded as a gap. */
+  box-shadow: 0 3px 4.5px rgb(0 0 0 / 20%);
+  inline-size: 250px;
+  padding-block: var(--sl-size-050);
+}
+
+.dropdown sl-menu-item::part(wrapper) {
+  /* Figma `.Dropdown option`: `pl-[var(--size/500,20px)] pr-[var(--size/100,12px)]
+     py-[var(--size/100,12px)] gap-[var(--size/50,8px)]`
+     = --sl-size-250 / --sl-size-150 / --sl-size-150 / --sl-size-100.
+     `wrapper` is a documented css part of sl-menu-item, so this is a public-API override. */
+  gap: var(--sl-size-100);
+  padding-block: var(--sl-size-150);
+  padding-inline-end: var(--sl-size-150);
+  padding-inline-start: var(--sl-size-250);
+}
+
+.dropdown sl-menu-item {
+  /* Option label is 14px Bold — body-md (14/20) is exact. Longhands only, as above. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.menu-icon {
+  /* The omitted glyph's footprint: Figma `size-[24px]` = --sl-size-300. Kept empty because
+     `arrow-turn-down-right`, `download` and `trash` are all unregistered in this theme. */
+  block-size: var(--sl-size-300);
+  display: inline-block;
+  flex-shrink: 0;
+  inline-size: var(--sl-size-300);
+}
+
+.listing {
+  /* Figma `Frame 97` 4411:11847 groups the count/select-all row with the table at
+     `gap-[4px]` = --sl-size-050 — NOT the 20px the content block uses between its other
+     children. Without this group the summary sat 20px above the table, 16px too far. */
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-050);
+}
+
+.summary {
+  align-items: flex-start;
+  display: flex;
+
+  /* Figma `4495:50569`: `gap-[12px]` = --sl-size-150. */
+  gap: var(--sl-size-150);
+}
+
+.count {
+  color: var(--sl-color-foreground-bold);
+
+  /* 14px regular — body-md is exact. Figma wraps it in `pt-[8px]` = --sl-size-100 so it aligns
+     optically with the checkbox beside it. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-block-start: var(--sl-size-100);
+  white-space: nowrap;
+}
+
+.select-all {
+  align-items: center;
+  display: flex;
+
+  /* Figma `4495:50573`: `gap-[2px]` = --sl-size-025. */
+  gap: var(--sl-size-025);
+
+  /* Figma wraps the checkbox in `py-[var(--size/50,8px)]` = --sl-size-100. */
+  padding-block: var(--sl-size-100);
+}
+
+.select-all sl-checkbox::part(label) {
+  /* "Select all visible" is 14px BOLD in the design. `label` is a documented css part of
+     sl-checkbox, so this is a public-API override. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.visible-count {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

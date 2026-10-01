@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+section {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-md);
+  padding: var(--sl-size-300);
+}
+
+h3 {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-title-lg-fontFamily);
+  font-size: var(--sl-typography-title-lg-fontSize);
+  font-weight: var(--sl-fontWeight-semiBold);
+  line-height: var(--sl-typography-title-lg-lineHeight);
+  margin: 0;
+}
+
+.intro {
+  color: var(--sl-color-background-neutral-interactive-bold);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  margin: 0;
+  padding-block: var(--sl-size-100) var(--sl-size-300);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+
+  /* The design's field column, 2142:48321 w=344. No token for it. */
+  max-inline-size: 344px;
+}
+
+.regenerate::part(button) {
+  color: var(--sl-color-foreground-accent-teal-bold);
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.accordion-body {
+  color: var(--sl-color-foreground-subtle);
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  margin: 0;
+}
+
+sl-accordion-item::part(summary) {
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-disabled);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-200);
+  padding-block: var(--sl-size-400) var(--sl-size-200);
+}
+
+sl-button[variant='primary']::part(button) {
+  background: var(--sl-color-foreground-accent-teal-bold);
+  border-color: var(--sl-color-foreground-accent-teal-bold);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-accent-teal-onBold);
+}
+
+sl-button[fill='link']::part(button) {
+  color: var(--sl-color-foreground-accent-teal-bold);
+  font-weight: var(--sl-fontWeight-bold);
+}

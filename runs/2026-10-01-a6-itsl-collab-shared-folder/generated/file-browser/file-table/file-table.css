@@ -1,0 +1,174 @@
+:host {
+  display: block;
+}
+
+table {
+  /* `collapse` would merge the per-row bottom rules into shared edges; the design draws one
+     1px rule per row, so the rows own their own borders and the table does not collapse them. */
+  border-collapse: separate;
+  border-spacing: 0;
+  inline-size: 100%;
+
+  /* Figma `table` has NO outer border — only the per-row hairlines below. */
+  table-layout: fixed;
+}
+
+/* Figma: every row carries `border-b` (a 1px hairline) and `overflow-clip`.
+   `--sl-size-borderWidth-default` is 2px in this theme, so the 1px rung is `-subtle`; using
+   `-default` would double every rule in the table. */
+th,
+td {
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  overflow: clip;
+  text-align: start;
+  vertical-align: top;
+}
+
+thead th {
+  /* Figma header cells `bg-[var(--$gray--50,#f9f9f9)]` — the sunken raised-surface ROLE token,
+     not a palette primitive. */
+  background: var(--sl-elevation-surface-raised-sunken);
+  color: var(--sl-color-foreground-bold);
+
+  /* Header labels are 14px Bold — body-md (14/20) is the exact size match; the weight overrides
+     body-md's own 400. Longhands only: this theme ships zero bare `--sl-text-new-*` families, so
+     a `font:` shorthand against one resolves to nothing and the browser drops the declaration. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+
+  /* Figma `min-h-[32px] px-[var(--size/50,8px)]` = --sl-size-400 / --sl-size-100. */
+  min-block-size: var(--sl-size-400);
+  padding-inline: var(--sl-size-100);
+}
+
+thead th .label {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  vertical-align: middle;
+
+  /* Figma `label wrapper`: `py-[5px]`. 5px has no rung on the size scale (the nearest are 4 and
+     6), so it stays a commented literal: it is the optical centring of a 20px line box inside
+     the 32px header row — (32 − 20) / 2 = 6, less the 1px border, rounded to 5. */
+  padding-block: 5px;
+}
+
+/* Column widths. Figma gives the Select cell a fixed 60px and `shrink-0`, the three middle
+   columns `flex-[1_0_0] min-w-px`, and the Actions cell `shrink-0`. With `table-layout: fixed`
+   the explicit widths below reproduce that: the middle three share whatever is left. */
+.select {
+  inline-size: 60px;
+}
+
+.actions {
+  /* The action cell holds one 40px icon button inside `px-[var(--size/50,8px)]`:
+     40 + 2 x 8 = 56px = --sl-size-700. */
+  inline-size: var(--sl-size-700);
+}
+
+tbody td {
+  background: var(--sl-elevation-surface-raised-default);
+  color: var(--sl-color-foreground-bold);
+
+  /* Cell text is 16px regular — body-lg (16/24) is exact. Longhands only, as above. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma data rows are `h-[72px]`; the cells carry
+     `px-[var(--size/50,8px)] py-[var(--size/100,12px)]` = --sl-size-100 / --sl-size-150.
+     72 = 24 (badge) + 2 x 12 (padding) + 24 (the second line the Published cell wraps to). */
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+tbody td {
+  /* Figma data rows are pinned to 72px INCLUDING their 1px bottom rule. 72 has no single rung
+     (--sl-size-800 is 64, --sl-size-1000 is 80), so it is expressed as 64 + 8.
+     `box-sizing: border-box` is what keeps the rule inside that 72: with `border-collapse:
+     separate` the border is otherwise added outside the cell box, which made every row 73px —
+     8 rows x 1px = 8px of drift over the table, plus 1px on the header row. */
+  block-size: calc(var(--sl-size-800) + var(--sl-size-100));
+  box-sizing: border-box;
+}
+
+thead th {
+  box-sizing: border-box;
+
+  /* `.label` and `.sort` are inline-level, so without this the th forms a line box whose baseline
+     strut adds ~6px of descender space below them and the 32px header row renders 38. The label
+     restores its own line-height below. */
+  line-height: 0;
+}
+
+td.select {
+  /* Figma select cell: a column, centred, `pt-[var(--size/100,12px)] pb-[14px]`
+     = --sl-size-150 / --sl-size-175. The 14px bottom inset is asymmetric in the design. */
+  padding-block-end: var(--sl-size-175);
+  padding-block-start: var(--sl-size-150);
+  text-align: center;
+}
+
+td.title {
+  /* Figma title cell: `gap-[var(--size/50,8px)]` between the badge and the link. */
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+.badge {
+  /* COLOUR GAP: the design fills this disc with $pigeongrey--100 #d9e3e8, which has NO token at
+     any layer of this theme — and it is not even a Figma variable, so it is absent from
+     figma-variable-defs.json too. Hardcoded, and recorded as a gap.
+     Figma `size-[24px]` = --sl-size-300; kept at full size although the glyph is omitted. */
+  background: #d9e3e8;
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-full);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-300);
+}
+
+td.title a {
+  /* Figma: 16px BOLD, $blue--700 #00458f, underlined. */
+  color: var(--sl-color-link-idle);
+  flex: 1 0 0;
+  font-weight: var(--sl-fontWeight-bold);
+  min-inline-size: 0;
+  text-decoration: underline;
+}
+
+td.title a:hover {
+  color: var(--sl-color-link-hover);
+}
+
+td.actions {
+  /* Figma action cell: `px-[var(--size/50,8px)] py-[var(--size/25,4px)]`
+     = --sl-size-100 / --sl-size-050. */
+  padding-block: var(--sl-size-050);
+}
+
+.sort {
+  align-items: center;
+  vertical-align: middle;
+  background: none;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+
+  /* Figma sort button: `min-h-[32px] min-w-[32px] p-[var(--size/25,4px)]` around a 20px glyph
+     = --sl-size-400 square with --sl-size-050 padding. */
+  min-block-size: var(--sl-size-400);
+  min-inline-size: var(--sl-size-400);
+  padding: var(--sl-size-050);
+}
+
+.sort sl-icon {
+  /* Figma glyph is 20px = --sl-size-250. */
+  font-size: var(--sl-size-250);
+}

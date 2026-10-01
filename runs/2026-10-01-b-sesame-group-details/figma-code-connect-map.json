@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+    "rootNodeId": "2142:48093",
+    "server": "mcp__figma__get_code_connect_map (remote)",
+    "probeCount": 10,
+    "allProbesSucceeded": true,
+    "transportErrors": 0,
+    "outcome": "EMPTY_OBJECT_EVERYWHERE",
+    "interpretation": "Every probe returned a literal `{}` — not `null` entries, not `hasTemplate: false`, not an error. This is the same file-level condition recorded by the sibling runs a4-sesame-my-groups (2847:14994) and a11-sesame-learning-materials (116:19049). Code Connect is not published / not visible for MySesame-Redesign through the remote server. This is the AS-IS case for this file: it is NOT a block, and every component identification in the manifest is an explicit analyst inference rather than a mapping."
+  },
+  "probes": [
+    { "nodeId": "2142:48093", "nodeName": "Group details (root frame)", "response": {} },
+    {
+      "nodeId": "2142:48105",
+      "nodeName": "button secondary (edit pencil, inline detail row)",
+      "response": {}
+    },
+    { "nodeId": "2142:48182", "nodeName": "sl-text_input (First name)", "response": {} },
+    {
+      "nodeId": "2142:48136",
+      "nodeName": "DEMO - Tab-switches (Students tab, active)",
+      "response": {}
+    },
+    { "nodeId": "2142:48455", "nodeName": "sl-radio_group-theme (Login type)", "response": {} },
+    { "nodeId": "2142:48469", "nodeName": "sl-base-checkbox (Create another)", "response": {} },
+    { "nodeId": "2142:48465", "nodeName": "button primary (Create new student)", "response": {} },
+    { "nodeId": "2142:48156", "nodeName": "avatar_SU", "response": {} },
+    {
+      "nodeId": "3659:36698",
+      "nodeName": "Accordion-multiple-view (Login types explained)",
+      "response": {}
+    },
+    { "nodeId": "2142:48491", "nodeName": "menu item footer (Privacy Policy)", "response": {} }
+  ],
+  "notProbed": {
+    "reason": "Nested instance ids of the form `I2142:48182;2711:12444` are rejected by the remote server with `must be in the format \"123:456\"`. Their absence from this file is a tool limitation, not evidence of a missing mapping.",
+    "examples": [
+      "I2142:48105;2846:104553",
+      "I2142:48156;775:12268",
+      "I2142:48469;2711:12456;3146:85266"
+    ]
+  }
+}

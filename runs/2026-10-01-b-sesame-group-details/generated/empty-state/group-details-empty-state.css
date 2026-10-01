@@ -1,0 +1,43 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  padding-block: var(--sl-size-600);
+  text-align: center;
+}
+
+/*
+ * The design's illustration asset, at its measured 100 x 71. There is no asset-export step in the
+ * pipeline, so the image is omitted and only its footprint kept — a recorded Stage 4 discrepancy
+ * rather than a substituted placeholder graphic.
+ */
+.illustration {
+  block-size: 71px;
+  inline-size: 100px;
+}
+
+.heading {
+  color: var(--sl-color-black);
+  font-family: var(--sl-typography-title-lg-fontFamily);
+  font-size: var(--sl-typography-title-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-typography-title-lg-lineHeight);
+  margin: 0;
+}
+
+.body {
+  margin: 0;
+}
+
+.body button {
+  background: none;
+  border: 0;
+  color: var(--sl-color-black);
+  cursor: pointer;
+  font-family: var(--sl-typography-text-md-fontFamily);
+  font-size: var(--sl-typography-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-typography-text-md-lineHeight);
+  padding: 0;
+}

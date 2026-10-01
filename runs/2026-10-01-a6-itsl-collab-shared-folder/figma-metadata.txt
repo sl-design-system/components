@@ -1,0 +1,83 @@
+<frame id="4200:13792" name="Shared folder - teacher view" x="1692" y="749" width="1280" height="1335">
+  <instance id="4200:13793" name="Navigation" x="0" y="0" width="1280" height="112" />
+  <frame id="4200:13794" name="Content area + sidebar" x="0" y="112" width="1280" height="1223">
+    <frame id="4200:13795" name="content-area-wrapper" x="0" y="0" width="1280" height="1223">
+      <frame id="4200:13796" name="content-area" x="66" y="0" width="1148" height="1223">
+        <instance id="4200:13797" name="PageHeader" x="0" y="0" width="1148" height="117" />
+        <frame id="4200:13798" name="Frame 50" x="0" y="117" width="1148" height="1082">
+          <frame id="4200:13799" name="List" x="0" y="0" width="728" height="1082">
+            <frame id="4200:13800" name="Content-block" x="0" y="0" width="724" height="244" hidden="true">
+              <frame id="4200:13801" name="Text field" x="32" y="20" width="660" height="104">
+                <frame id="4200:13802" name="Label + counter" x="0" y="0" width="660" height="32">
+                  <instance id="4200:13803" name="Label" x="0" y="0" width="660" height="32" />
+                  <frame id="4200:13804" name="Counter wrapper" x="148" y="13" width="92" height="44" hidden="true">
+                    <text id="4200:13805" name="characters 0/64" x="0" y="18" width="92" height="18" />
+                  </frame>
+                </frame>
+                <text id="4200:13806" name="When you have set up the task and the students have done the work, you can assess the task based on the settings you made when handing it out. In this scenario the student have marked her task as done." x="0" y="32" width="660" height="72" />
+              </frame>
+              <frame id="4200:13807" name="Frame 60" x="32" y="144" width="660" height="80">
+                <frame id="4200:13808" name="Label + counter" x="0" y="0" width="660" height="32">
+                  <instance id="4200:13809" name="Label" x="0" y="0" width="660" height="32" />
+                  <frame id="4200:13810" name="Counter wrapper" x="148" y="13" width="92" height="44" hidden="true">
+                    <text id="4200:13811" name="characters 0/64" x="0" y="18" width="92" height="18" />
+                  </frame>
+                </frame>
+                <frame id="4200:13812" name="Frame 61" x="0" y="32" width="660" height="48">
+                  <instance id="4200:13813" name="File element" x="0" y="0" width="660" height="48" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="4200:13814" name="Card" x="0" y="0" width="728" height="192">
+              <frame id="4214:18783" name="Frame 115" x="32" y="20" width="664" height="152">
+                <text id="4214:18782" name="Description" x="0" y="0" width="664" height="24" />
+                <frame id="4200:14210" name="Frame 105" x="0" y="32" width="664" height="120">
+                  <text id="4200:13815" name="Description" x="0" y="0" width="664" height="120" />
+                </frame>
+              </frame>
+              <instance id="4210:18675" name="FileUpload" x="32" y="375" width="664" height="105" hidden="true" />
+            </frame>
+            <frame id="4411:11840" name="Content-block" x="0" y="212" width="728" height="870">
+              <frame id="4411:11841" name="Frame 104" x="32" y="20" width="664" height="770">
+                <text id="4411:11842" name="Description" x="0" y="0" width="664" height="27" hidden="true" />
+                <instance id="4411:11843" name="Search" x="0" y="0" width="664" height="40" />
+                <frame id="4411:11844" name="Actions" x="0" y="60" width="664" height="40">
+                  <instance id="4411:11845" name="Standalone link" x="0" y="0" width="106" height="40" />
+                  <instance id="4573:9232" name="Button" x="118" y="0" width="130" height="40" />
+                </frame>
+                <frame id="4411:11847" name="Frame 97" x="0" y="120" width="664" height="650">
+                  <frame id="4495:50569" name="Frame 43" x="0" y="0" width="248" height="38">
+                    <frame id="4495:50570" name="Frame 43" x="0" y="0" width="81" height="29">
+                      <text id="4495:50571" name="1 to 10 of 47" x="0" y="8" width="81" height="21" />
+                    </frame>
+                    <instance id="4495:50572" name="Button" x="74" y="0" width="80" height="32" hidden="true" />
+                    <frame id="4495:50573" name="Frame 72" x="93" y="0" width="155" height="38">
+                      <instance id="4495:50574" name="Checkbox" x="0" y="0" width="129" height="38" />
+                      <text id="4495:50575" name="(10)" x="131" y="8.5" width="24" height="21" />
+                    </frame>
+                  </frame>
+                  <frame id="4411:11853" name="table" x="0" y="42" width="664" height="608">
+                    <instance id="4411:11854" name="🛠️ Row" x="0" y="0" width="664" height="32" />
+                    <instance id="4411:11855" name="🛠️ Row" x="0" y="32" width="664" height="72" />
+                    <instance id="4411:11856" name="🛠️ Row" x="0" y="104" width="664" height="72" />
+                    <instance id="4411:11857" name="🛠️ Row" x="0" y="176" width="664" height="72" />
+                    <instance id="4411:11858" name="🛠️ Row" x="0" y="248" width="664" height="72" />
+                    <instance id="4411:11859" name="🛠️ Row" x="0" y="320" width="664" height="72" />
+                    <instance id="4411:11860" name="🛠️ Row" x="0" y="392" width="664" height="72" />
+                    <instance id="4411:11861" name="🛠️ Row" x="0" y="464" width="664" height="72" />
+                    <instance id="4411:11862" name="🛠️ Row" x="0" y="536" width="664" height="72" />
+                  </frame>
+                </frame>
+                <instance id="4099:12638" name="Dropdown" x="124" y="102" width="250" height="152" />
+              </frame>
+              <instance id="4411:11863" name="Pagination" x="32" y="810" width="664" height="40" />
+            </frame>
+          </frame>
+          <instance id="4994:15549" name="settings summary" x="748" y="0" width="400" height="358" />
+        </frame>
+      </frame>
+      <instance id="4571:8205" name="Heading" x="773" y="134" width="64" height="40" />
+      <instance id="4571:8212" name="Heading" x="28" y="626" width="64" height="40" />
+    </frame>
+  </frame>
+</frame>

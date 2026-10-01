@@ -1,0 +1,138 @@
+:host {
+  /* A custom element defaults to `display: inline`, which would collapse the card. */
+
+  /* Figma `bg-[var(--$gray--0,white)]` — the white raised-surface ROLE token. */
+  background: var(--sl-elevation-surface-raised-default);
+
+  /* Figma `border` (unqualified) is a 1px hairline. `--sl-size-borderWidth-default` is 2px in
+     this theme, so the 1px rung is `-subtle`. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  /* Figma `gap-[var(--size/500,20px)]` = --sl-size-250 (20px). */
+  gap: var(--sl-size-250);
+
+  /* Figma `px-[20px] py-[var(--content-block/content-block-vertical-padding,20px)]`
+     = --sl-size-250 on both axes. The card is 400px wide, so its content column is
+     400 − 2 x 20 = 360px — which is exactly the `w-[360px]` Figma pins on the assign and Tools
+     blocks. */
+  padding: var(--sl-size-250);
+}
+
+h2 {
+  color: var(--sl-color-foreground-bold);
+
+  /* TYPE DELTA +2px: the design is Title L, 22px Bold (Figma `Size/600`, a FONT size — not a
+     spacing rung, so it must not be routed through `--sl-size-*`). This scale has no 22px rung;
+     heading-lg (24/32) is the nearest. `heading-*` carries NO `-fontWeight` longhand in this
+     theme, so the bold weight is stated explicitly. Longhands only: this theme ships zero bare
+     `--sl-text-new-*` families and a `font:` shorthand against one drops the whole declaration. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+
+  /* Spacing comes from the host's `gap`, not from UA margins. */
+  margin: 0;
+}
+
+.row {
+  align-items: flex-start;
+  display: flex;
+
+  /* Figma `wrapper`: `gap-[8px]` = --sl-size-100. */
+  gap: var(--sl-size-100);
+}
+
+.row-icon {
+  /* Figma glyph box is `size-[24px]` = --sl-size-300. Kept at full size even when the glyph is
+     omitted (`users`, `pen-ruler` are not registered in this theme) so the 8px gap and the
+     label's x-offset are identical across all four rows. */
+  block-size: var(--sl-size-300);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-300);
+}
+
+.row-icon sl-icon {
+  font-size: var(--sl-size-300);
+}
+
+.row-label {
+  color: var(--sl-color-foreground-bold);
+
+  /* Row labels are 16px Bold — body-lg (16/24) is an exact size match; the weight overrides
+     body-lg's own 400. Longhands only, as above. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma pins the label text to `w-[328px]`: the 360px content column minus the 24px glyph box
+     minus the 8px gap = 328. Expressed as the arithmetic rather than the literal. */
+  flex: 1 0 0;
+  min-inline-size: 0;
+}
+
+.tools {
+  display: flex;
+  flex-direction: column;
+
+  /* Figma `Tools` 4994:14459: `gap-[8px]` = --sl-size-100. */
+  gap: var(--sl-size-100);
+}
+
+.details {
+  /* Figma `Details` 4994:14452: `pl-[var(--size/100,12px)]` = --sl-size-150. */
+  padding-inline-start: var(--sl-size-150);
+}
+
+ul {
+  /* Figma draws a disc marker. Its `ms-[calc(var(--list-marker-font-size,0)*1.5*1)]` resolves to
+     roughly one line-height of indent; with the 14px/1.5 detail text that is 21px, which has no
+     rung on the size scale (nearest 20 and 24), so --sl-size-250 (20px) is used and the 1px
+     difference recorded. */
+  list-style: disc;
+  margin: 0;
+  padding-inline-start: var(--sl-size-250);
+}
+
+li {
+  color: var(--sl-color-foreground-bold);
+
+  /* Detail text is 14px regular — body-md (14/20) is exact. Longhands only, as above. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  /* Figma `Actions` I4994:15549;4994:12280: `gap-[12px] pt-[var(--size/500,20px)]`
+     = --sl-size-150 / --sl-size-250. */
+  gap: var(--sl-size-150);
+  padding-block-start: var(--sl-size-250);
+}
+
+.edit::part(button) {
+  /* Figma `I4994:15549;4994:12281`: a 2px outline in $brand--400 #a997b5 with a $brand--800
+     #42354a label. 2px is exactly `--sl-size-borderWidth-default` in this theme, so `-default`
+     is correct HERE (unlike the 1px card hairline above, which needs `-subtle`).
+     `px-[var(--size/700,24px)] py-[var(--size/50,8px)]` = --sl-size-300 / --sl-size-100.
+     The label colour is the `foreground-brand` ROLE token, which resolves to #42354a exactly. */
+  border-color: var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-md);
+  border-width: var(--sl-size-borderWidth-default);
+  color: var(--sl-color-foreground-brand);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-300);
+}

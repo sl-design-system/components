@@ -1,0 +1,147 @@
+:host {
+  /* A custom element defaults to `display: inline`, which would collapse this row entirely. */
+  align-items: center;
+
+  /* Figma `bg-[var(--$gray--0,white)]` — the white raised-surface ROLE token. */
+  background: var(--sl-elevation-surface-raised-default);
+
+  /* Figma `h-[56px]` = --sl-size-700 (56px); padding-block is 0 and `align-items` centres. */
+  block-size: var(--sl-size-700);
+
+  /* Figma `border-b` is a 1px hairline. `--sl-size-borderWidth-default` is 2px in this theme,
+     so the 1px rung is `-subtle`. */
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+
+  /* The 1px border is part of the pinned 56px row height. */
+  box-sizing: border-box;
+  display: flex;
+
+  /* Figma `px-[var(--size/25,4px)]` = --sl-size-050 (4px). */
+  padding-inline: var(--sl-size-050);
+}
+
+.brand {
+  align-items: center;
+  block-size: 100%;
+  display: flex;
+  flex-shrink: 0;
+
+  /* Figma `Logo area`: `px-[var(--size/50,8px)] py-[var(--size/100,12px)]`
+     = --sl-size-100 / --sl-size-150. */
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+  text-decoration: none;
+}
+
+.mark {
+  align-items: center;
+
+  /* Stand-in for the brand SVG. The itslearning mark is an orange rounded square carrying a
+     lowercase "its"; `--sl-color-background-accent-orange-bold` is the theme's own orange role.
+     The 32px box is Figma `size-[32px]` = --sl-size-400, preserved so the nav links keep their
+     x-offset whether or not the real asset is ever supplied. */
+  background: var(--sl-color-background-accent-orange-bold);
+  block-size: var(--sl-size-400);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-accent-orange-onBold);
+  display: flex;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+nav {
+  /* Figma `Main menu`: `flex-[1_0_0]` with `min-w-px` — it takes the slack between the brand and
+     the right-hand cluster and may shrink below its content width. */
+  block-size: 100%;
+  flex: 1 0 0;
+  min-inline-size: 0;
+}
+
+ul {
+  block-size: 100%;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  /* Figma `.Navigation item`: `h-full items-center`, so each link fills the 56px row and centres
+     its label; the padding below is a minimum, not the height driver. */
+  align-items: center;
+  block-size: 100%;
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+
+  /* Link label is 16px regular — body-lg (16/24) is exact. Longhands only: this theme ships zero
+     bare `--sl-text-new-*` families, so a `font:` shorthand against one resolves to nothing and
+     the browser drops the whole declaration. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+
+  /* Figma `px-[var(--size/300,16px)] py-[var(--size/100,12px)]`
+     = --sl-size-200 / --sl-size-150. */
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-200);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+nav a[aria-current='page'] {
+  /* INFERRED, not specified: this frame marks no global link as current, so there is no selected
+     treatment in the design to copy. Bold is the minimum visible counterpart to
+     `aria-current="page"`; it is inert in this frame. */
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.actions {
+  align-items: center;
+  block-size: 100%;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.search {
+  /* Figma `I4200:13793;9976:10654;11704:5609` is pinned `w-[264px] max-w-[264px]`. 264 is not on
+     the size scale (the nearest rungs are 256 and 280), so it stays a commented literal. */
+  inline-size: 264px;
+}
+
+.icon-button {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+  /* Figma `.Navigation item` for the bell and comment controls: `p-[var(--size/100,12px)]`
+     around a 24px glyph box, so 24 + 2 x 12 = 48px square
+     = --sl-size-300 + 2 x --sl-size-150. */
+  padding: var(--sl-size-150);
+}
+
+.glyph {
+  /* The omitted icon's footprint: Figma `size-[24px]` = --sl-size-300. Kept empty because
+     neither `bell` nor `comment` is registered in this theme. */
+  block-size: var(--sl-size-300);
+  display: block;
+  inline-size: var(--sl-size-300);
+}
+
+.user {
+  align-items: center;
+  display: flex;
+
+  /* Figma `User menu`: `p-[var(--size/100,12px)]` around the 32px avatar. */
+  padding: var(--sl-size-150);
+}

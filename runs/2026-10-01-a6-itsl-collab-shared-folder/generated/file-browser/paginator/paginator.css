@@ -1,0 +1,94 @@
+:host {
+  align-items: center;
+  display: flex;
+
+  /* Figma `5512:7935`: `gap-[var(--size/300,16px)] justify-end` = --sl-size-200. */
+  gap: var(--sl-size-200);
+  justify-content: flex-end;
+}
+
+nav {
+  /* Figma `Pager`: `flex-[1_0_0] min-w-px` — it takes the slack so the control group is pushed
+     to the trailing edge. */
+  flex: 1 0 0;
+  min-inline-size: 0;
+}
+
+.pager {
+  align-items: center;
+  display: flex;
+
+  /* Figma `Pager`: `gap-[8px]` = --sl-size-100. */
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step::part(button) {
+  /* Figma prev/next `Button`: `p-[var(--size/50,8px)]` around a 24px glyph, so
+     24 + 2 x 8 = 40px square = --sl-size-300 + 2 x --sl-size-100 = --sl-size-500. */
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-borderRadius-md);
+  inline-size: var(--sl-size-500);
+  padding: var(--sl-size-100);
+}
+
+.page {
+  align-items: center;
+  background: none;
+  border: 0;
+
+  /* Figma `.Page link`: `h-[40px] px-[var(--size/300,16px)] py-[var(--size/50,8px)]
+     rounded-[var(--border-radius,4px)]` = --sl-size-500 / --sl-size-200 / --sl-size-100. */
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+
+  /* Page label is 14px regular — body-md (14/20) is exact. Longhands only: this theme ships zero
+     bare `--sl-text-new-*` families, so a `font:` shorthand against one resolves to nothing and
+     the browser drops the whole declaration. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  justify-content: center;
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-200);
+}
+
+.page[aria-current='page'] {
+  /* The active pill is $brand--700 #5d4a68. PALETTE PRIMITIVE used deliberately: no semantic
+     role token in this theme resolves to #5d4a68 — `--sl-color-background-selected-bold` and
+     `--sl-color-background-secondary-bold` both resolve to purple-600 #785f86, visibly lighter.
+     The primitive is the only exact match. */
+  background: var(--sl-color-palette-purple-700);
+  color: var(--sl-color-foreground-inverted-plain);
+}
+
+.control {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+
+  /* Figma `Control`: `gap-[16px]` = --sl-size-200. */
+  gap: var(--sl-size-200);
+}
+
+.range {
+  color: var(--sl-color-foreground-bold);
+
+  /* 14px regular — body-md is exact. Longhands only, as above. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  white-space: nowrap;
+}
+
+.page-size {
+  /* Figma `Select`: `w-[80px]` = --sl-size-1000 (80px). */
+  inline-size: var(--sl-size-1000);
+}

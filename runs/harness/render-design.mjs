@@ -455,6 +455,9 @@ for (const region of regions) {
 
     rendered.push({
       ...region,
+      // Carried on the region, not left as a loop-local: the summary reports it, and a report that
+      // says "none" because it never looked is the batch's most-repeated fault.
+      undefinedComponents,
       html: String(typeof component === 'function' ? component({}) : (component ?? ''))
     });
   } catch (error) {

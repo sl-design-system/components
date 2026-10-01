@@ -1,0 +1,65 @@
+:host {
+  /* Custom elements default to `display: inline`; the bar is a block-level flex row spanning the
+     full page width, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+/* Figma pins this bar to a fixed 56px, which is exactly --sl-size-700. box-sizing keeps the 1px
+   bottom border inside that 56px rather than adding to it. */
+.bar {
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-default);
+  block-size: var(--sl-size-700);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--sl-size-300);
+  padding-block: 0;
+  padding-inline: var(--sl-size-300);
+}
+
+.brand {
+  align-items: center;
+  background: var(--sl-color-background-accent-orange-bold);
+  block-size: var(--sl-size-400);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-foreground-accent-orange-onBold);
+  display: flex;
+  flex-shrink: 0;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  text-decoration: none;
+}
+
+nav {
+  flex: 1 1 auto;
+}
+
+.links {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links a {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  text-decoration: none;
+}
+
+.end {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-300);
+}

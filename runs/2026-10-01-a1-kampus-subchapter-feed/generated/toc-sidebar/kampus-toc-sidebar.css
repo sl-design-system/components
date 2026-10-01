@@ -1,0 +1,115 @@
+:host {
+  /* Custom elements default to `display: inline`; this is a fixed-width side panel, so `block`
+     is an intentional change, not boilerplate. */
+  background: var(--sl-color-white);
+  display: block;
+  inline-size: 360px;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--sl-size-200);
+  padding-inline: var(--sl-size-300);
+}
+
+.title {
+  color: var(--sl-brand-light-color-palette-grey-900);
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-title-lg-fontSize);
+  font-weight: var(--sl-typography-title-lg-fontWeight);
+  letter-spacing: var(--sl-title-lg-letterSpacing);
+  line-height: var(--sl-title-lg-lineHeight);
+  margin: 0;
+}
+
+.header sl-button .glyph {
+  block-size: var(--sl-size-icon-font-md);
+  inline-size: var(--sl-size-icon-font-md);
+}
+
+.actions {
+  display: flex;
+  gap: var(--sl-size-300);
+  padding-block-end: var(--sl-size-200);
+  padding-inline: var(--sl-size-300);
+}
+
+nav {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Only top-level entries (and everything nested under them) get a bottom divider — nested rows
+   inside an expanded group don't each get their own line; see the reference screenshot. */
+li:not(.child) {
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  /* Base inline padding is --sl-size-200; each nested level adds one --sl-size-300 indent step
+     via `--_level`, set inline per row in the template. */
+  padding-inline-start: calc(var(--sl-size-200) + var(--_level, 0) * var(--sl-size-300));
+  padding-inline-end: var(--sl-size-200);
+}
+
+li.child .row {
+  padding-block: var(--sl-size-150);
+}
+
+li:not(.child) > .row {
+  padding-block: var(--sl-size-200);
+}
+
+.expander {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--sl-color-palette-grey-700);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.expander.static {
+  cursor: default;
+}
+
+.expander .glyph {
+  block-size: var(--sl-size-icon-font-sm);
+  inline-size: var(--sl-size-icon-font-sm);
+}
+
+.label {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  flex: 1;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-sm-fontSize);
+  font-weight: var(--sl-typography-text-sm-fontWeight);
+  letter-spacing: var(--sl-text-sm-letterSpacing);
+  line-height: var(--sl-text-sm-lineHeight);
+  padding: 0;
+  text-align: start;
+}
+
+.row.selected {
+  background: var(--sl-color-palette-purple-100);
+}
+
+.row.selected .label {
+  color: var(--sl-brand-light-color-palette-purple-700);
+  font-weight: var(--sl-fontWeight-bold);
+}

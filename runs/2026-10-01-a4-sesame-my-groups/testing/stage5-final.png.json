@@ -1,0 +1,3524 @@
+{
+  "story": "examples-my-groups-page--basic",
+  "theme": "itslearning",
+  "url": "http://localhost:6010/iframe.html?id=examples-my-groups-page--basic&viewMode=story&globals=theme:itslearning",
+  "viewport": {
+    "width": 1280,
+    "height": 1796
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a4-sesame-my-groups/testing/stage5-final.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-my-groups-page",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 1800
+      },
+      {
+        "tag": "sl-my-groups-app-header",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 120
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 32,
+        "height": 32
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 14,
+        "height": 14
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 10,
+        "height": 10
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 85,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 185,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 163,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 144,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 119,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-my-groups-filter-card",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1024,
+        "height": 168
+      },
+      {
+        "tag": "sl-form",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 976,
+        "height": 120
+      },
+      {
+        "tag": "sl-search-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 624,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 20
+      },
+      {
+        "tag": "sl-select",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-listbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-select-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 20
+      },
+      {
+        "tag": "sl-select",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-listbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-select-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 20
+      },
+      {
+        "tag": "sl-select",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-listbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-select-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 197,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-option",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 97,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 96,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-inline-message",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1024,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-my-groups-table",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1024,
+        "height": 1007
+      },
+      {
+        "tag": "sl-grid",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1024,
+        "height": 1007
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-grid-sorter",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 326,
+        "height": 48
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-grid-sorter",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 141,
+        "height": 48
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-grid-sorter",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 137,
+        "height": 48
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 20,
+        "height": 20
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-tool-bar",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 5,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 5,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-tooltip",
+        "depth": 4,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-selection-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-sort-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-sort-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-sort-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-grid-column",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-my-groups-bulk-action-bar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 499,
+        "height": 44
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 87,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 111,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 93,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-my-groups-app-footer",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 121
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 128,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      }
+    ],
+    "bodyHeight": 1800
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [
+    "sl-listbox",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-listbox",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-listbox",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-option",
+    "sl-icon",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-menu-item",
+    "sl-icon",
+    "sl-tool-bar",
+    "sl-menu-button",
+    "sl-button",
+    "sl-menu",
+    "sl-icon",
+    "sl-button",
+    "sl-tooltip",
+    "sl-icon",
+    "sl-grid-selection-column",
+    "sl-grid-sort-column",
+    "sl-grid-sort-column",
+    "sl-grid-sort-column",
+    "sl-grid-column",
+    "sl-grid-column",
+    "sl-grid-column"
+  ],
+  "verdict": "rendered"
+}

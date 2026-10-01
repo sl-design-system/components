@@ -1,0 +1,119 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+nav {
+  /* `stretch` (not the design's own `items-center` on this node) so `.logo-area`, the nav
+     links, the icon slots and the profile control can each be full bar height and center their
+     own content — matches the per-item `h-full items-center` seen on every child in the design
+     context. */
+  align-items: stretch;
+  background: var(--sl-color-white);
+  /* 56px bar height: exact token match. */
+  block-size: var(--sl-size-700);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-300);
+  display: flex;
+  /* Design's own bar inset: 4px (`Size/25`). */
+  padding-inline: var(--sl-size-050);
+}
+
+.start {
+  align-items: stretch;
+  display: flex;
+}
+
+.logo-area {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+}
+
+.logo {
+  align-items: center;
+  /* The design's logo mark is an exported SVG asset with no matching colour token; sampled
+     from the reference screenshot (#f47920) and matched to the nearest palette token —
+     approximation, not a confirmed token binding. See implementation report. */
+  background: var(--sl-color-palette-orange-400);
+  block-size: var(--sl-size-400);
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-white);
+  display: flex;
+  font-family: var(--sl-text-fontFamily);
+  /* No token sizes an un-exported logo wordmark; smallest text step chosen so "its" fits the
+     32px mark without overflow. */
+  font-size: var(--sl-text-sm-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+}
+
+.links {
+  align-items: stretch;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  display: flex;
+}
+
+.links a {
+  align-items: center;
+  color: var(--sl-color-palette-grey-900);
+  display: flex;
+  /* Longhands, not the `font:` shorthand: the shorthand would replace the inherited family
+     with the token's single unquoted family and no generic fallback, which renders serif
+     whenever the webfont has not loaded. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-lg-fontSize);
+  font-weight: var(--sl-typography-text-lg-fontWeight);
+  gap: var(--sl-size-100);
+  line-height: var(--sl-text-lg-lineHeight);
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-200);
+  text-decoration: none;
+}
+
+.end {
+  align-items: stretch;
+  display: flex;
+  /* Flush-right: pushes the whole end group away from the nav links, matching the design's
+     "Personal menu" wrapper. */
+  margin-inline-start: auto;
+  padding-inline-start: var(--sl-size-300);
+}
+
+sl-search-field {
+  align-self: center;
+  /* 264px per the design's Search box; no token corresponds to this component-specific field
+     width, hardcoded per spec. */
+  inline-size: 264px;
+  margin-inline: var(--sl-size-100);
+}
+
+.icon-slot {
+  align-items: center;
+  /* Reserves the footprint the unregistered "bell"/"comment" icons would occupy (24px icon +
+     12px padding on every side) so omitting them doesn't shift the avatar/search leftward. */
+  block-size: 100%;
+  display: flex;
+  flex-shrink: 0;
+  inline-size: calc(var(--sl-size-icon-font-xl) + 2 * var(--sl-size-150));
+  justify-content: center;
+}
+
+.profile {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-full);
+  cursor: pointer;
+  display: flex;
+  padding: var(--sl-size-150);
+}

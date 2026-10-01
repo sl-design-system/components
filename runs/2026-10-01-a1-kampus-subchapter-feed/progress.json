@@ -1,0 +1,77 @@
+{
+  "case": "A1-kampus-subchapter-feed",
+  "pipelineCommit": "28b11db550a11275919f7882f0e77ed6bc5cc9f5",
+  "theme": "kampus",
+  "figmaFileVersion": null,
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:13:05",
+      "tokens": 121665,
+      "toolUses": 48,
+      "durationMs": 430445,
+      "notes": "Code Connect map returned completely empty {} for root and all 10 distinct top-level instances. Treated as manifest gap, not blocker (hint 1)."
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:28:02",
+      "tokens": 28917,
+      "durationMs": 252715,
+      "openQuestions": 30,
+      "notes": "30 open questions (vs 9 on the simplest screen). All defaults recorded in manifest.md. Orchestrator authored models.ts + mock-data.ts because leaves-first ordering leaves the shared contracts module unowned."
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T00:51:29",
+      "typeCheck": "clean (0 errors in run tree; 2 pre-existing in packages/components/grid/src/grid.ts)",
+      "components": 9,
+      "implementerTokens": 829806,
+      "notes": "All 9 stories carry the plain side-effect import (hint 4 held). No stub .d.ts created; gate re-run by the orchestrator."
+    },
+    "4-validate": {
+      "status": "done-with-handoff",
+      "at": "2026-10-01T01:38:05",
+      "verdict": "NEEDS_WORK at the 3-iteration cap; render verdict 'rendered' on all captures",
+      "iterations": 3,
+      "captures": [
+        "testing/page.png",
+        "testing/page-v2.png",
+        "testing/page-v3.png",
+        "testing/page-full.png"
+      ],
+      "residual": [
+        "cumulative vertical drift ~20px at 'Teksti', ~45px at 'Tehtavat'",
+        "3x /assets/*.jpg 404 - no asset-export step in the pipeline (expected)"
+      ],
+      "notes": "12 discrepancies found in iteration 1, all actioned; 2 more in iteration 2, both actioned in iteration 3."
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T02:01:15",
+      "tokens": 109959,
+      "notes": "Example path: stories enriched only (no spec/docs/changeset/i18n, correctly skipped). 7 variant stories added across root + 2 cards. Author found a real bug: activeFilter never reached the feed list."
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T02:01:15",
+      "tokens": 157344,
+      "critical": 13,
+      "criticalFixed": 4,
+      "notes": "4 of 13 CRITICAL fixed (cross-run tag collision, dead view toggle, non-filtering filter pills, last serif fontFamily token). 9 CRITICAL + full MINOR list carried as handoff. Orchestrator caught and reverted a regression the fix pass introduced (auto-fill grid collapsed the 2-up exercise rows)."
+    }
+  },
+  "finalCapture": "testing/page-final.png",
+  "handoff": [
+    "CRITICAL unfixed: ToC cannot be reopened after close, and closing drops keyboard focus to body",
+    "CRITICAL unfixed: ToC expander glyph identical in both states; leaf rows show a visible fake '+' expander",
+    "CRITICAL unfixed: aria-controls on collapsed ToC expanders points at a non-existent id",
+    "CRITICAL unfixed: role=toolbar on a <ul> orphans every <li> (aria-required-parent)",
+    "CRITICAL unfixed: roving tabindex can leave the left rail entirely untabbable when model/activeToolId absent",
+    "CRITICAL unfixed: role=radiogroup on filter pills without radio keyboard semantics",
+    "CRITICAL unfixed: 5 raw px values where an exact --sl-size-* token exists",
+    "CRITICAL unfixed: 23 sites use --sl-brand-light-color-palette-* (raw light ramp) instead of theme-aware --sl-color-palette-*, defeating dark mode",
+    "CRITICAL unfixed: root seeds selectedTocId/activeNavId in field initialisers, so a consumer-supplied `data` gets the mock's selection",
+    "Stage 4 residual: cumulative vertical drift ~20px at 'Teksti', ~45px at 'Tehtavat'",
+    "Reviewer suggests sl-toggle-group be revisited: it would have supplied the RovingTabindexController both a11y gaps needed"
+  ]
+}

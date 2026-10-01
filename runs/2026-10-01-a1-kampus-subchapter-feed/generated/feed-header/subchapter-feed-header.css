@@ -1,0 +1,199 @@
+:host {
+  /* The four strips stack vertically as one contiguous unit - the default inline display
+     wouldn't do that, so this is an intentional change. */
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+}
+
+/* ---- Strip 1: breadcrumb ------------------------------------------------------------- */
+
+.breadcrumb-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  justify-content: space-between;
+}
+
+.breadcrumb {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+.breadcrumb a,
+.breadcrumb span[aria-current] {
+  font-size: var(--sl-label-md-fontSize);
+  font-weight: var(--sl-typography-label-md-fontWeight);
+  letter-spacing: var(--sl-label-md-letterSpacing);
+  line-height: var(--sl-label-md-lineHeight);
+}
+
+.breadcrumb a {
+  color: var(--sl-brand-light-color-palette-purple-700);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus-visible {
+  text-decoration: underline;
+}
+
+.breadcrumb span[aria-current] {
+  color: var(--sl-brand-light-color-palette-grey-900);
+}
+
+.breadcrumb-separator {
+  color: var(--sl-color-palette-grey-400);
+  display: flex;
+}
+
+.breadcrumb-separator svg {
+  block-size: var(--sl-size-150);
+  inline-size: var(--sl-size-150);
+}
+
+.nav-buttons {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-100);
+}
+
+/* The round prev/next buttons are pixel-pinned to the brief's exact purple/white pair and 40px
+   diameter, rather than the generic "primary" semantic (which resolves to a different step -
+   purple-600 - on the background scale in the Kampus theme). Styling the exposed `button` part
+   keeps the markup a plain `<sl-button>`, no wrapper `<div>`. */
+sl-button.nav::part(button) {
+  background: var(--sl-brand-light-color-palette-purple-700);
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--sl-color-white);
+  inline-size: var(--sl-size-500);
+  padding: 0;
+}
+
+sl-button.nav svg {
+  block-size: var(--sl-size-200);
+  display: block;
+  inline-size: var(--sl-size-200);
+}
+
+/* ---- Strip 2: page heading ------------------------------------------------------------ */
+
+.heading-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  justify-content: space-between;
+}
+
+h1 {
+  color: var(--sl-brand-light-color-palette-grey-900);
+  font-size: var(--sl-heading-sm-fontSize);
+  font-weight: var(--sl-typography-heading-lg-fontWeight);
+  letter-spacing: var(--sl-heading-sm-letterSpacing);
+  line-height: var(--sl-heading-sm-lineHeight);
+  margin: 0;
+}
+
+.heading-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-100);
+}
+
+/* The exact purple, rather than the "primary" semantic's foreground step, per the brief's token
+   table (same reasoning as the nav buttons above). */
+sl-button.action::part(button) {
+  color: var(--sl-brand-light-color-palette-purple-700);
+}
+
+sl-button.action svg {
+  block-size: var(--sl-size-200);
+  display: block;
+  inline-size: var(--sl-size-200);
+}
+
+/* ---- Strip 3: filters ------------------------------------------------------------------ */
+
+.filters-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+.filters-label {
+  color: var(--sl-brand-light-color-palette-grey-900);
+  font-size: var(--sl-label-md-fontSize);
+  font-weight: var(--sl-typography-label-md-fontWeight);
+  letter-spacing: var(--sl-label-md-letterSpacing);
+  line-height: var(--sl-label-md-lineHeight);
+}
+
+.filter-pill {
+  align-items: center;
+  background: var(--sl-color-palette-grey-100);
+  border: none;
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--sl-brand-light-color-palette-grey-900);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--sl-label-md-fontSize);
+  font-weight: var(--sl-typography-label-md-fontWeight);
+  gap: var(--sl-size-100);
+  letter-spacing: var(--sl-label-md-letterSpacing);
+  line-height: var(--sl-label-md-lineHeight);
+  padding-block: var(--sl-size-050);
+  padding-inline: var(--sl-size-200);
+}
+
+.filter-pill:hover {
+  opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+.filter-pill:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.filter-pill[aria-checked='true'] {
+  background: var(--sl-brand-light-color-palette-purple-700);
+  color: var(--sl-color-white);
+}
+
+/* `sl-badge` has no `color`/`emphasis` combination that renders visibly here: in this theme
+   "grey bold" resolves to the same grey-100/grey-900 pair as this pill's own background and
+   text, so the badge is perfectly camouflaged against its host rather than filled. `sl-badge`
+   also exposes no `::part()` to override those internal colors, so a bespoke span (as already
+   used by the sibling left-toolbar's count badge) is the sanctioned fallback. */
+.filter-count {
+  align-items: center;
+  background: var(--sl-color-palette-grey-400);
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--sl-color-white);
+  display: inline-flex;
+  font-size: var(--sl-label-sm-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  justify-content: center;
+  letter-spacing: var(--sl-label-sm-letterSpacing);
+  line-height: 1;
+  min-inline-size: var(--sl-size-300);
+  padding-inline: var(--sl-size-050);
+}
+
+/* ---- Strip 4: student view -------------------------------------------------------------- */
+
+.student-view-row {
+  align-items: center;
+  display: flex;
+}

@@ -1,0 +1,115 @@
+{
+  "case": "B-Itsl-Bookmk-4549-8339",
+  "team": "Itsl-Bookmarks",
+  "name": "Deleted course - content",
+  "caseSlug": "b-itsl-bookmk-deleted-course",
+  "figma": {
+    "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+    "nodeId": "4549:8339"
+  },
+  "outputLocation": "examples/lit/src/_runs/b-itsl-bookmk-deleted-course/",
+  "pipelineCommit": "cdae07695a8204b29ae71954c7011fb348ca3ddc",
+  "figmaFileVersion": null,
+  "theme": "itslearning",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-09-30T23:15:00.701Z",
+      "tokens": 82928,
+      "toolUses": 46,
+      "durationMs": 377186,
+      "codeConnect": "{} for the subtree AND for all 11 significant nodes queried individually, incl. a retry with codeConnectLabel=\"SL Design System\". Root cause: the frame is built from the itslearning Figma library, not the SLDS library (get_design_context has zero <sl-*> tags and only itslearning-namespaced variables). NOT the known scoping artifact, and NOT BLOCKED_ON_CODE_CONNECT - the block exists for orphaned SLDS components, and there are none here.",
+      "placeableComponents": 12,
+      "rawNodes": 885,
+      "rawComponentTypes": 58
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-09-30T23:28:11.050Z",
+      "tokens": 135455,
+      "toolUses": 25,
+      "durationMs": 484409,
+      "components": [
+        "sl-course-files-page (root)",
+        "sl-its-app-nav",
+        "sl-course-files-table",
+        "sl-course-files-bulk-actions",
+        "sl-course-files-pager"
+      ],
+      "openQuestions": 20,
+      "slds_components_rejected_after_reading_their_source": [
+        "sl-breadcrumbs (no trailing chevron after a single crumb)",
+        "sl-paginator+status+page-size (wrong status string, unwanted visible label, wrong active-pill treatment)",
+        "sl-grid (virtualized, needs ListDataSource, chrome fights the design)"
+      ],
+      "orchestratorResolvedQ14": "--sl-text-new-typeset-fontWeight-semiBold is 600 and -bold does not exist; --sl-fontWeight-700 exists and is exactly 700. Implementers told to use var(--sl-fontWeight-700)."
+    },
+    "3-implement": {
+      "status": "blocked",
+      "at": "2026-09-30T23:41:21.067Z",
+      "reason": "ACCOUNT-LEVEL WEEKLY USAGE LIMIT. All four leaf component-implementer subagents were launched in parallel and all four terminated early with the same API error: \"You have hit your weekly limit - resets Oct 4 at 8pm (Europe/Warsaw)\". This is not a pipeline defect and not recoverable inside this run.",
+      "blockerKind": "environment/quota",
+      "subagentsLaunched": 4,
+      "subagentsCompleted": 0,
+      "subagentsFailed": 4,
+      "partialOutput": {
+        "course-files-bulk-actions": "course-files-bulk-actions.ts + .css written; UNVALIDATED, and it carries one real type error",
+        "its-app-nav": "its-app-nav.ts written; its-app-nav.css NEVER WRITTEN, so the component is incomplete",
+        "course-files-table": "nothing written",
+        "course-files-pager": "nothing written"
+      },
+      "rootComponent": "course-files-page.ts / .css / .stories.ts never attempted - it is the dependency-order parent and all four of its children had to land first",
+      "typeCheckGate": {
+        "command": "node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/b-itsl-bookmk-deleted-course",
+        "verdict": "failed",
+        "totalErrors": 4,
+        "inScopeErrors": 1,
+        "inScope": [
+          "course-files-bulk-actions.ts(62,14): TS4114: This member must have an 'override' modifier because it overrides a member in the base class 'LitElement & ScopedElementsHost'."
+        ],
+        "baselineErrorsStillPresent": 2,
+        "regressionsOutsideScope": 0,
+        "note": "The harness also reported one error in examples/lit/src/_runs/b-kampus-notes-panel - a DIFFERENT run tree, correctly bucketed as errorsInOtherRuns, not caused by this run."
+      },
+      "noStubsPresent": true,
+      "fontAwesomeImports": 0
+    },
+    "4-validate": {
+      "status": "not-reached",
+      "reason": "Stage 3 gate never passed; there is no root component and no story to render."
+    },
+    "5-author": {
+      "status": "not-reached"
+    },
+    "6-review": {
+      "status": "not-reached"
+    }
+  },
+  "themeDerived": {
+    "tool": "runs/harness/theme-match.mjs",
+    "toolResult": {
+      "colorTokensInDesign": 0,
+      "best": null,
+      "confident": false,
+      "absoluteAgreement": null,
+      "marginOverSecond": null,
+      "ranking": []
+    },
+    "toolFailedBecause": "theme-match.mjs keys on SLDS semantic variable PATHS (color/foreground/...). This design carries itslearning LEGACY Figma variables instead ($gray--900, $brand--800, Size/300, \"Body large\"), so the tool saw colorTokensInDesign: 0 and could score nothing. Not a drift finding - a namespace mismatch the tool does not handle.",
+    "fallbackMethod": "hex-value agreement: every distinct hex in figma-variable-defs.json searched literally in each packages/themes/*/theme.css",
+    "best": "itslearning",
+    "absoluteAgreement": 0.941,
+    "matched": "16/17",
+    "secondBest": "bingel-dc (and 16 others) at 0.059 (1/17, only #ffffff)",
+    "marginOverSecond": 0.882,
+    "onlyUnmatchedHex": "#0b8356 ($green--600)",
+    "corroboratingEvidence": "default-font = \"Lato\"; Lato appears in exactly one theme.css in the repo: itslearning."
+  },
+  "blocker": {
+    "stage": "3-implement",
+    "kind": "environment/quota",
+    "message": "Weekly account usage limit reached; resets Oct 4 at 8pm (Europe/Warsaw). Four parallel implementer subagents all died on it within the same minute.",
+    "resumableFrom": "Stage 3. manifest.md holds both the design manifest and the full decomposition (5 components, verbatim shared types, per-component geometry specs, all 20 open questions with defaults), which is exactly what the runbook lists as the Stage 3 resume input. THEME-FACTS.md holds the run-specific hard constraints. Delete the two partial component folders and re-run Stage 3 from the manifest.",
+    "mustRefuseResumeIf": "pipelineCommit differs from cdae07695a8204b29ae71954c7011fb348ca3ddc"
+  }
+}

@@ -1,0 +1,102 @@
+:host {
+  /* Custom elements default to `display: inline`; the panel is a full-width block in the card. */
+  display: block;
+}
+
+[part='panel'] {
+  align-items: center;
+  background: var(--sl-color-background-input-plain);
+
+  /* `-subtle` is the 1px hairline in itslearning; `-default` resolves to 2px there. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-md);
+
+  /* The border + padding must stay inside the 100% width, otherwise the panel overhangs the card. */
+  box-sizing: border-box;
+  display: flex;
+
+  /* The Figma `panel` node's own 16px gap between the count and the button row. */
+  gap: var(--sl-size-200);
+  inline-size: 100%;
+  overflow: clip;
+  padding-block: var(--sl-size-100);
+  padding-inline-end: var(--sl-size-100);
+  padding-inline-start: var(--sl-size-200);
+}
+
+[part='count'] {
+  align-items: center;
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  gap: var(--sl-size-025);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+
+  /* A `<p>` carries a UA block margin; the design has none. */
+  margin: 0;
+  padding-block-start: var(--sl-size-100);
+  white-space: nowrap;
+}
+
+.count-value {
+  font-weight: var(--sl-fontWeight-700);
+}
+
+.buttons {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+[part='actions'] {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-150);
+
+  /* No size token resolves to 608/712px; these are the design's literal action-row bounds. */
+  inline-size: 608px;
+  max-inline-size: 712px;
+}
+
+[part='clear'] {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+/*
+ * The vertical rule between the actions and "Clear selection". There is no `sl-divider` component,
+ * so this is a native `<hr>` rotated into a column by giving it the hairline as its inline size.
+ */
+hr {
+  background: var(--sl-color-border-plain);
+  block-size: 100%;
+  border: none;
+  inline-size: var(--sl-size-borderWidth-subtle);
+  margin: 0;
+}
+
+/*
+ * `::part(button)` is `sl-button`'s documented public styling hook. `fill="link"` already drops the
+ * background and makes the border transparent, but it also zeroes `padding-inline`, keeps the
+ * 2px transparent border in the box, and forces `font-weight: semiBold` (600) at the inherited
+ * font size — none of which match this design's link button, so all of it is restated here.
+ */
+sl-button::part(button) {
+  background: transparent;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-md);
+  color: var(--sl-color-palette-purple-700);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  gap: var(--sl-size-050);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-block: var(--sl-size-100);
+  padding-inline-end: var(--sl-size-100);
+  padding-inline-start: var(--sl-size-050);
+}

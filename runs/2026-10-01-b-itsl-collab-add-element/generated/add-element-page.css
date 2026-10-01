@@ -1,0 +1,18 @@
+:host {
+  /* Custom elements default to `display: inline`; this page stacks the full-bleed chrome bars
+     and the content region below them, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+.page {
+  background: var(--sl-color-background-neutral-bold);
+  min-block-size: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-250);
+  padding-block-start: var(--sl-size-100);
+  padding-inline: var(--sl-size-600);
+}

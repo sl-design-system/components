@@ -1,0 +1,94 @@
+:host {
+  /* Custom elements default to `display: inline`; this rail lays out as a full-height column,
+     so `flex` is an intentional change, not boilerplate. */
+  display: flex;
+  background: var(--sl-color-white);
+  block-size: 100%;
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+  flex-direction: column;
+  /* The design's fixed rail width; no token exists for this value. */
+  inline-size: 74px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+}
+
+li:last-child {
+  border-block-end: none;
+}
+
+button {
+  align-items: center;
+  background: none;
+  border: none;
+  /*
+   * The manifest's generic token table names `--sl-brand-light-color-palette-grey-900` for this
+   * rail's icon/label colour, but the reference screenshot's rail glyphs and labels sample to
+   * #643695 (not grey-900) at every one of the five entries — an exact match for
+   * `--sl-brand-light-color-palette-purple-700` (the brief's own documented hex for that token).
+   * Following the screenshot as the visual ground truth here; flagged in the implementation report.
+   */
+  color: var(--sl-color-palette-purple-700);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-050);
+  inline-size: 100%;
+  justify-content: center;
+  padding-block: var(--sl-size-200);
+  padding-inline: var(--sl-size-100);
+}
+
+button:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.icon-wrap {
+  position: relative;
+}
+
+.icon-wrap svg {
+  block-size: 24px;
+  inline-size: 24px;
+}
+
+.badge {
+  align-items: center;
+  /* #DB7109 has no design token anywhere (same undocumented orange as the filled-star fill
+     elsewhere in this design) — hardcoded per the five-rules brief. */
+  background: #db7109;
+  border-radius: var(--sl-size-borderRadius-full);
+  block-size: 14px;
+  color: var(--sl-color-white);
+  display: flex;
+  /* No token for this badge-digit size; smaller than --sl-label-sm-fontSize (10px) to fit the
+     14px circle at this glyph size. */
+  font-size: 9px;
+  font-weight: var(--sl-typography-label-sm-fontWeight);
+  inline-size: 14px;
+  inset-block-start: -4px;
+  inset-inline-end: -6px;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+}
+
+.label {
+  font-family: var(--sl-label-fontFamily);
+  font-size: var(--sl-label-sm-fontSize);
+  font-weight: var(--sl-typography-label-sm-fontWeight);
+  letter-spacing: var(--sl-label-sm-letterSpacing);
+  line-height: var(--sl-label-sm-lineHeight);
+  text-align: center;
+  text-wrap: balance;
+}

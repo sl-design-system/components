@@ -1,0 +1,86 @@
+:host {
+  /* The page root lays this out as a full-width bar; without `block` the host stays inline and
+     never reaches `inline-size: 100%`. */
+  display: block;
+  inline-size: 100%;
+  background-color: var(--sl-color-white);
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row-brand {
+  justify-content: space-between;
+  gap: var(--sl-size-100);
+  padding-inline: var(--sl-size-200);
+  /* Figma: row 1 is exactly 56px tall (--sl-size-700); `align-items: center` on `.row` centres
+     the ~32-36px controls within it. */
+  block-size: var(--sl-size-700);
+  border-block-end: 1px solid var(--_sesame-rule);
+}
+
+.wordmark {
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  /* heading-md ships no -fontWeight longhand; set it explicitly (see component-conventions.md). */
+  font-weight: var(--sl-fontWeight-bold);
+  color: var(--_sesame-ink);
+}
+
+.wordmark-logo {
+  block-size: var(--sl-size-300);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+}
+
+.profile {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.row-school {
+  justify-content: flex-end;
+  padding-inline: var(--sl-size-200);
+  /* Figma: row 2 is exactly 56px tall, matching row 1 (--sl-size-700 = 56px). */
+  block-size: var(--sl-size-700);
+}
+
+.school-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.school-name {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  color: var(--_sesame-ink);
+}

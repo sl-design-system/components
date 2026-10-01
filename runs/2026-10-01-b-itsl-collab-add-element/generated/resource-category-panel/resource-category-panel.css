@@ -1,0 +1,87 @@
+:host {
+  /* Custom elements default to `display: inline`; the panel needs to stretch to the page's
+     content width, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+/*
+ * The panel supplies the surface and the border/radius; only the padding and the 3-column grid
+ * are overridden here, via ::part() rather than an extra wrapper <div>.
+ *
+ * The header needs the same 32px inline padding as the content: sl-panel's own stylesheet pins
+ * [part='header'] to --sl-size-200 (16px), which would leave the "Resources" heading inset 16px
+ * while the tiles sit at 32px. Outer-tree ::part() wins on Encapsulation Context, so this
+ * override takes effect.
+ */
+sl-panel::part(header) {
+  padding-inline: var(--sl-size-400);
+}
+
+sl-panel::part(content) {
+  padding-block: var(--sl-size-250);
+  padding-inline: var(--sl-size-400);
+}
+
+/* The grid lives on the <ul> itself rather than on ::part(content), so the <li>s stay real list
+   items. An earlier revision used `display: contents` on both to promote the <a>s to grid items,
+   but that still drops list semantics in some AT/browser pairings — and it buys nothing here. */
+ul {
+  display: grid;
+  gap: var(--sl-size-150);
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  align-items: start;
+  color: inherit;
+  block-size: 100%;
+  column-gap: var(--sl-size-150);
+  display: grid;
+  grid-template-areas: 'icon title' 'icon description';
+  grid-template-columns: auto 1fr;
+  row-gap: var(--sl-size-050);
+  text-decoration: none;
+}
+
+a:hover .title {
+  text-decoration: underline;
+}
+
+.icon {
+  background: var(--sl-color-background-inverted-interactive-plain);
+  block-size: var(--sl-size-600);
+  border-radius: var(--sl-size-borderRadius-md);
+  flex-shrink: 0;
+  grid-area: icon;
+  inline-size: var(--sl-size-600);
+}
+
+.title {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  grid-area: title;
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+}
+
+.description {
+  color: var(--sl-color-foreground-subtle);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  grid-area: description;
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+/* sl-panel styles its heading slot at semibold (--sl-text-new-typeset-fontWeight-semiBold);
+   Figma's "Title L" specifies Bold. The size (18.29px vs the design's 22px) comes from the
+   component's own `font-size: 1.143em` rule and is left alone — 22px is not on the size scale
+   and overriding it would mean fighting a shared component. The weight is not scale-constrained,
+   so it is corrected here. */
+sl-panel > h2[slot='heading'] {
+  font-weight: var(--sl-fontWeight-700);
+}

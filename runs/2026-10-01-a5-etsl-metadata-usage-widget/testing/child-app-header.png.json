@@ -1,0 +1,228 @@
+{
+  "story": "runs-a5-etsl-metadata-usage-widget-app-header--basic",
+  "theme": "editorial-suite",
+  "url": "http://localhost:6010/iframe.html?id=runs-a5-etsl-metadata-usage-widget-app-header--basic&viewMode=story&globals=theme:editorial-suite",
+  "viewport": {
+    "width": 700,
+    "height": 900
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a5-etsl-metadata-usage-widget/testing/child-app-header.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-etsl-app-header",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 700,
+        "height": 195
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 32,
+        "height": 32
+      },
+      {
+        "tag": "sl-tab-group",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 700,
+        "height": 43
+      },
+      {
+        "tag": "sl-menu-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-menu",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-menu-item",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 116,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 125,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 88,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 134,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 159,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 158,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 168,
+        "height": 44
+      }
+    ],
+    "bodyHeight": 900
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [
+    "sl-menu",
+    "sl-menu-item",
+    "sl-menu-item",
+    "sl-menu-item",
+    "sl-menu-item",
+    "sl-menu-item",
+    "sl-menu-item",
+    "sl-menu-item"
+  ],
+  "verdict": "rendered"
+}

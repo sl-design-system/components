@@ -1,0 +1,317 @@
+{
+  "story": "runs-a1-kampus-subchapter-feed-subchapter-feed-page--basic",
+  "theme": "kampus",
+  "url": "http://localhost:6010/iframe.html?id=runs-a1-kampus-subchapter-feed-subchapter-feed-page--basic&viewMode=story&globals=theme:kampus",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a1-kampus-subchapter-feed/testing/page-v2-full.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-subchapter-feed-page",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "tag": "sl-kampus-app-header",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 56
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-kampus-left-toolbar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 75,
+        "height": 664
+      },
+      {
+        "tag": "sl-kampus-toc-sidebar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 360,
+        "height": 664
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 48,
+        "height": 32
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 74,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 81,
+        "height": 36
+      },
+      {
+        "tag": "sl-subchapter-feed-header",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 797,
+        "height": 196
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 40,
+        "height": 40
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 48,
+        "height": 32
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 48,
+        "height": 32
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 21,
+        "height": 13
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 21,
+        "height": 13
+      },
+      {
+        "tag": "sl-switch",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 132,
+        "height": 24
+      },
+      {
+        "tag": "sl-subchapter-feed-list",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 797,
+        "height": 1560
+      },
+      {
+        "tag": "sl-feed-section-heading",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 56
+      },
+      {
+        "tag": "sl-theory-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 176
+      },
+      {
+        "tag": "sl-feed-section-heading",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 56
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-feed-section-heading",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 56
+      },
+      {
+        "tag": "sl-theory-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 176
+      },
+      {
+        "tag": "sl-theory-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 176
+      },
+      {
+        "tag": "sl-feed-section-heading",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 798,
+        "height": 56
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      },
+      {
+        "tag": "sl-exercise-card",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 391,
+        "height": 144
+      }
+    ],
+    "bodyHeight": 720
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedRequests": [
+    "404 http://localhost:6010/assets/theory-1.jpg",
+    "404 http://localhost:6010/assets/theory-2.jpg",
+    "404 http://localhost:6010/assets/theory-3.jpg"
+  ],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

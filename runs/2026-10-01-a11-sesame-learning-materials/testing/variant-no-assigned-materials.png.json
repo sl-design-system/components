@@ -1,0 +1,147 @@
+{
+  "story": "runs-a11-sesame-learning-materials-learning-materials-page--no-assigned-materials",
+  "theme": "itslearning",
+  "url": "http://localhost:6010/iframe.html?id=runs-a11-sesame-learning-materials-learning-materials-page--no-assigned-materials&viewMode=story&globals=theme:itslearning",
+  "viewport": {
+    "width": 360,
+    "height": 1200
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a11-sesame-learning-materials/testing/variant-no-assigned-materials.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-sesame-learning-materials-page",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 360,
+        "height": 1265
+      },
+      {
+        "tag": "sl-sesame-top-bar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 360,
+        "height": 113
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 32,
+        "height": 32
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-sesame-assigned-materials",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 360,
+        "height": 270
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 328,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-search-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 328,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-sesame-digital-platforms",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 328,
+        "height": 404
+      },
+      {
+        "tag": "sl-sesame-footer",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 360,
+        "height": 324
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      }
+    ],
+    "bodyHeight": 1265
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

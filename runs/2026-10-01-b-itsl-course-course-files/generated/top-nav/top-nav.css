@@ -1,0 +1,190 @@
+:host {
+  /* Custom elements default to `display: inline`; this shell must span the full width of its
+     container and stack its two 56px tiers, so `block` is an intentional change. */
+  display: block;
+}
+
+.tier {
+  /* `stretch` (the flex default, made explicit) so every child - the logo, the links, the
+     search field, the icon slots and the tabs - can fill the tier's full 56px height and
+     center or bottom-align its own content. */
+  align-items: stretch;
+  background: var(--sl-elevation-surface-raised-default);
+  block-size: var(--sl-size-700);
+  display: flex;
+}
+
+.main-menu {
+  padding-inline-start: var(--sl-size-100);
+}
+
+.secondary-menu {
+  /* The hairline that runs under the whole (two-tier) nav. */
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  padding-inline-start: var(--sl-size-050);
+}
+
+.start {
+  align-items: stretch;
+  display: flex;
+}
+
+.logo {
+  align-self: center;
+  /* The design's brand mark ("itslearning-logo-symbol") is an exported SVG asset with no theme
+     icon and no asset-export step, so it renders as an empty tile; its fill (#f47920) also has
+     no exact token in this theme - nearest palette step used as an approximation. See report. */
+  background: var(--sl-color-palette-orange-400);
+  block-size: var(--sl-size-350);
+  border-radius: var(--sl-size-borderRadius-md);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-350);
+}
+
+.items {
+  align-items: stretch;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.items li {
+  display: flex;
+}
+
+.items button {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  /* Longhands, not the `font:` shorthand: this theme has no shorthand token, and the shorthand
+     would silently drop the whole declaration if it referenced one that doesn't exist. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-inline: var(--sl-size-200);
+}
+
+.items button.active {
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.end {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-150);
+  margin-inline-start: auto;
+  padding-inline-end: var(--sl-size-200);
+}
+
+.search {
+  align-items: center;
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  /* No token corresponds to this component-specific field width; hardcoded per the design's
+     measured ~200px search box. */
+  inline-size: 200px;
+  overflow: hidden;
+}
+
+.search-input {
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-bold);
+  flex: 1;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  min-inline-size: 0;
+  padding-block: var(--sl-size-100);
+  padding-inline-start: var(--sl-size-150);
+}
+
+.search-input::placeholder {
+  color: var(--sl-color-foreground-subtle);
+}
+
+.search-button {
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-subtle);
+  cursor: pointer;
+  display: flex;
+  padding-inline: var(--sl-size-100);
+}
+
+.icon-slot {
+  /* Reserves the footprint the unregistered "bell"/"comment" icons would occupy (an icon-sized
+     button) so omitting them doesn't shift the search field / avatar leftward. */
+  inline-size: calc(var(--sl-size-icon-font-xl) + 2 * var(--sl-size-100));
+}
+
+.user {
+  align-items: center;
+  display: flex;
+}
+
+.section {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+.section-icon {
+  /* "your-files" is not a registered icon in this theme (brand mark); omitted, the 32px
+     footprint is kept so the label sits where the design places it. See report. */
+  block-size: var(--sl-size-400);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-400);
+}
+
+.section-label {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+.tabs {
+  align-items: stretch;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs li {
+  display: flex;
+}
+
+.tabs button {
+  align-items: center;
+  background: none;
+  /* Reserves the active state's border so selecting a tab doesn't shift its neighbours. The
+     design measures a 3px underline; this theme's border-width scale has no exact 3px step
+     (`-bold` is 2px, `-heavy` is 4px) - `-heavy` used as the nearest match. */
+  border: none;
+  border-block-end: var(--sl-size-borderWidth-heavy) solid transparent;
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-bold);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-inline: var(--sl-size-200);
+}
+
+.tabs button.active {
+  border-block-end-color: var(--sl-color-foreground-subtle);
+  font-weight: var(--sl-fontWeight-bold);
+}

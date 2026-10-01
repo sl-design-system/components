@@ -1,0 +1,113 @@
+{
+  "case": "B-Itsl-Collab-5006-43051",
+  "slug": "b-itsl-collab-add-element",
+  "theme": "itslearning",
+  "framework": "lit",
+  "i18n": false,
+  "figma": {
+    "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+    "nodeId": "5006:43051",
+    "name": "Add element [3rd implementation]"
+  },
+  "outputLocation": "examples/lit/src/_runs/b-itsl-collab-add-element/",
+  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-09-30T22:47:27Z",
+      "tokens": 145554,
+      "durationMs": 698239,
+      "notes": "frame identity verified = 5006:43051; code-connect map EMPTY on remote server (0 resolved / 0 hasTemplate:false / 0 null)"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-09-30T22:55:01Z",
+      "tokens": 44950,
+      "durationMs": 279303,
+      "openQuestions": 22,
+      "overrides": [
+        "OQ1 white surface -> --sl-color-white",
+        "OQ15 slot real <h2>",
+        "OQ19 do not touch examples/lit/package.json"
+      ],
+      "components": 5
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-09-30T23:02:38Z",
+      "typeCheck": "clean (0 errors in this run; 2 pre-existing in packages/components/grid, 2 from a CONCURRENT sibling run a5-etsl)",
+      "stubs": "none",
+      "components": 5,
+      "storyId": "runs-b-itsl-collab-add-element-add-element-page--basic",
+      "tokens": {
+        "its-top-nav": 68751,
+        "its-course-bar": 59444,
+        "add-element-header": 86669,
+        "resource-category-panel": 59675,
+        "add-element-page": 65095
+      }
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-09-30T23:11:57Z",
+      "tokens": 109603,
+      "verdict": "NEEDS_WORK -> 4 actionable items fixed by orchestrator, re-captured, verified by DOM measurement",
+      "captureVerdict": "rendered",
+      "iterations": 1,
+      "fixesApplied": [
+        "chrome bars 69px -> 56px (--sl-size-700) both bars",
+        "page content padding-block-start 32 -> 8 (--sl-size-100); header/panel gap 32 -> 20 (--sl-size-250)",
+        "tile grid column-gap 0 -> 12 and row-gap 20 -> 12 (--sl-size-150 both axes)",
+        "slotted <h2 slot=heading> font-weight 600 -> 700"
+      ],
+      "acceptedDiscrepancies": [
+        "FONT: --sl-text-new-*-fontFamily = Open Sans, never loaded (theme Typekit delivers only lato) -> serif fallback on 10 text nodes",
+        "icons omitted: bell, chat, file-import, folder-plus, graduation-cap (not in theme icons.ts)",
+        "file-type illustrations -> 48x48 placeholder squares (no asset export step)",
+        "brand tile #c64c08 vs design #F47920 (no closer semantic token)",
+        "page title 24px vs 26px (no 26px rung)",
+        "breadcrumbs: no trailing chevron; last crumb is text not link; separator is slash not chevron",
+        "sl-breadcrumbs forces non-current link colour #757575 via !important",
+        "sl-button hardcodes label weight 600 where Figma says 700"
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-09-30T23:28:06Z",
+      "tokens": 56598,
+      "result": "story-only enrichment (example target); added Events story; Basic byte-identical before/after"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-09-30T23:28:06Z",
+      "tokens": 131287,
+      "critical": 5,
+      "criticalAllFixed": true,
+      "criticalItems": [
+        "C1 sl-panel::part(header) 16px vs content 32px -> heading misaligned with tiles",
+        "C2 nav + course tab labels 14px where design is 16px (body-lg exact match existed)",
+        "C3 course name 14px, same size as its own tabs; design 18px Bold -> body-lg 16px + bold",
+        "C4 its-top-nav had no :host display -> block-in-inline",
+        "C5 top-nav sl-avatar missing image-only -> rendered literal \"Anna Nilsson\" text in the bar"
+      ],
+      "minorsFixed": [
+        "M1 misleading registration comment",
+        "M2 display:contents -> real grid on <ul>",
+        "M3 avatar-name gap 8px -> 12px (design DID specify it)",
+        "M5 white surface token DOES exist",
+        "M7 missing why-comment",
+        "M8 dead margin-block",
+        "M9 inert flex-shrink",
+        "M11 avatar binding consistency"
+      ],
+      "minorsDeferred": [
+        "M4 bar padding/link gaps off 8-12px",
+        "M6 optional href -> keyboard-dead tile if absent",
+        "M10 raw values in Events story debug panel inline style",
+        "M12 _runs/ is gitignored so no lint/format gate ran; eslint-plugin-lit + stylelint-config-standard not installed"
+      ]
+    }
+  },
+  "finalTypeCheck": "clean - zero errors in this run; only 2 pre-existing in packages/components/grid",
+  "finalCapture": "rendered; verified h2/tile alignment x=81, nav 16px, course name 16px, li=list-item"
+}

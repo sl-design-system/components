@@ -1,0 +1,132 @@
+:host {
+  /* The widget body is a block inside the root's card shell; a custom element is inline by
+     default, so this is an intentional change of rendering. */
+  display: block;
+}
+
+/* The three stat tiles. Rejected as a net-new primitive (OQ10): three <li> + CSS, not a
+   component. The row is inset 16px so the numbers line up with the table cells' own padding. */
+.stats {
+  display: flex;
+  gap: var(--sl-space-100);
+  list-style: none;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: var(--sl-space-200);
+}
+
+.stats li {
+  align-items: center;
+  border-radius: var(--sl-size-borderRadius-md);
+  border-style: solid;
+  border-width: var(--sl-size-borderWidth-subtle);
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sl-space-100);
+  padding-block: var(--sl-space-100) var(--sl-space-200);
+  padding-inline: var(--sl-space-100);
+}
+
+.stats .total {
+  background: var(--sl-color-palette-grey-000);
+  border-color: var(--sl-color-palette-grey-400);
+}
+
+.stats .total .value {
+  /* The design binds #222222, which is unbound in editorial-suite; grey-900 is #1d1f20. */
+  color: var(--sl-color-palette-grey-900);
+}
+
+.stats .used {
+  /* Figma stacks a 50% white layer over #d3f8de; a flat fill is the honest approximation.
+     Both #d3f8de and #0d8e4c are unbound in editorial-suite - the root declares them as
+     run-local custom properties, which inherit through the shadow boundary. The fallbacks keep
+     this component's own story faithful when it renders outside the root. */
+  background: var(--etsl-color-metric-used-surface, #d3f8de);
+  border-color: var(--sl-color-palette-green-400);
+}
+
+.stats .used .value,
+.stats .used sl-icon {
+  color: var(--etsl-color-metric-used, #0d8e4c);
+}
+
+.stats .unused {
+  background: var(--sl-color-palette-orange-100);
+  border-color: var(--sl-color-palette-orange-500);
+}
+
+.stats .unused .value,
+.stats .unused sl-icon {
+  color: var(--sl-color-palette-orange-600);
+}
+
+.value {
+  /* Design: Raleway Medium 24/34. editorial-suite's heading-lg line-height is 32, not 34. */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-500);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+}
+
+.caption {
+  align-items: center;
+  color: var(--sl-color-palette-grey-900);
+  display: flex;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  gap: var(--sl-space-050);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  margin-block-start: var(--sl-space-200);
+  table-layout: fixed;
+}
+
+/* Named for screen readers only; the widget's visible title lives in the root's card header. */
+caption {
+  block-size: var(--sl-size-010);
+  clip-path: inset(50%);
+  inline-size: var(--sl-size-010);
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+th,
+td {
+  /* The row rule is a raw rgba(0,0,0,0.12) in Figma with no token; the root declares it. */
+  block-size: var(--sl-size-600);
+  box-shadow: inset 0 calc(-1 * var(--sl-size-010)) 0
+    var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
+  padding-inline: var(--sl-space-200);
+  text-align: start;
+}
+
+th {
+  color: var(--sl-color-palette-grey-700);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  padding-block: var(--sl-space-125);
+}
+
+td {
+  color: var(--sl-color-palette-grey-900);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-block: var(--sl-space-175);
+}
+
+td.usage sl-badge {
+  vertical-align: middle;
+}

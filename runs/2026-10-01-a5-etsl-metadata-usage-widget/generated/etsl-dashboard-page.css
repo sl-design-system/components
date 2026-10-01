@@ -1,0 +1,290 @@
+:host {
+  /* ----------------------------------------------------------------------------------------
+     Run-local palette. Every one of these eight values is bound in Figma but has NO token in
+     the editorial-suite theme (re-grepped across packages/themes: zero hits). They are declared
+     exactly once, here on the page root, and inherit through every shadow boundary, so the seven
+     children consume them with `var(--etsl-color-*)` and never redeclare them.
+     Each still needs a real theme token; recorded as eight token discrepancies.
+     ---------------------------------------------------------------------------------------- */
+  --etsl-color-brand: #006666; /* unbound in editorial-suite — primary button/link idle */
+  --etsl-color-brand-active: #003d3d; /* unbound in editorial-suite — primary link active */
+  --etsl-color-chrome: #02242e; /* unbound in editorial-suite — top bar, H1, tab labels */
+  --etsl-color-bar-indicator: #ca6f2a; /* unbound in editorial-suite — content-item bars */
+  --etsl-color-metric-used: #0d8e4c; /* unbound in editorial-suite — "2409 Used" numeral */
+  --etsl-color-metric-used-surface: #d3f8de; /* unbound in editorial-suite — Used tile fill */
+  --etsl-color-row-divider: rgb(0 0 0 / 12%); /* unbound in editorial-suite — table row rule */
+  --etsl-shadow-widget: 0 8px 16px #3232470f, 0 2px 4px #32324714; /* unbound — widget cards */
+
+  /* The page fills the viewport; a custom element is inline by default, so this is an
+     intentional change of rendering. */
+  display: block;
+
+  /* Roboto. `--sl-text-new-typeset-fontFamily-body` resolves to 'Open Sans' in this theme, so
+     the legacy family token is the correct one. The `--sl-text-new-*` namespace ships longhands
+     only — there is no bare token to use with the `font:` shorthand. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.page {
+  background: var(--sl-color-palette-grey-000);
+  min-block-size: 100%;
+}
+
+/* The design is a 1440px frame with a 1200px content column and 120px gutters. Neither the
+   column nor the gutter has a token namespace in the theme; they are raw layout dimensions. */
+.content {
+  box-sizing: border-box;
+  inline-size: 1200px;
+  margin-inline: auto;
+  padding-block: var(--sl-size-300);
+}
+
+/* ---------------------------------------------------------------- top band */
+
+.top-band {
+  /* `start`, not the default stretch: the right rail is shorter than the two widget cards and
+     must not have its Product IDs card pulled down to their height. */
+  align-items: start;
+  display: flex;
+  gap: var(--sl-size-300);
+}
+
+/* D8: `sl-panel` is content-box, so a 282px widget rendered a 284px card and pushed Content
+   items 2px right. Pin the card at 282 border-box and let the widget fill it. */
+.panel-assets {
+  box-sizing: border-box;
+  flex: 0 0 282px;
+}
+
+.panel-content-items {
+  /* Fluid: the Content items widget has no width of its own, so the card sizes it — 1200 minus
+     the 282px Assets card, the 282px rail and the two 24px gaps. */
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.rail {
+  /* 282px is the design's rail width on the 1200px column — a raw layout dimension. */
+  display: flex;
+  flex: 0 0 282px;
+  flex-direction: column;
+  gap: var(--sl-size-500);
+}
+
+.rail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  /* D5: the design insets the three buttons 16px inside the 282px rail (x=16, w=250); they are
+     not flush with the cards below. */
+  padding-inline: var(--sl-size-200);
+}
+
+.rail-action {
+  /* The three rail buttons are full-width 40px pills of the ETSL brand teal. Retargeting the
+     three tokens `sl-button` reads for `variant="primary"` is how the run-local brand colour
+     reaches into its shadow root; the button exposes no part for its background. */
+  --sl-color-background-primary-bold: var(--etsl-color-brand);
+  --sl-color-border-primary-bold: var(--etsl-color-brand);
+  --sl-color-foreground-primary-bold: var(--etsl-color-brand);
+
+  block-size: var(--sl-size-500);
+  /* Figma: drop-shadow(0 2px 2px #32324714) drop-shadow(0 8px 8px #3232470f) — unbound in the
+     theme; `--sl-elevation-shadow-overlay` is the nearest available elevation. */
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  inline-size: 100%;
+}
+
+.rail-action:active {
+  --sl-color-foreground-primary-bold: var(--etsl-color-brand-active);
+}
+
+/* ---------------------------------------------------------------- lower band */
+
+.lower-band {
+  display: grid;
+  /* D6: the design's band gaps are 16, not 24. */
+  gap: var(--sl-size-200);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-block-start: var(--sl-size-200);
+}
+
+/* ---------------------------------------------------------------- the card shell */
+
+.panel {
+  /* The card body is white and the header strip is grey; `sl-panel`'s own surface token is
+     neither, so both are set here. */
+  background: var(--sl-color-palette-grey-000);
+  border-color: var(--sl-color-palette-grey-300);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-shadow: var(--etsl-shadow-widget);
+
+  /* Every widget body brings its own insets (or is a full-bleed table), so the card contributes
+     none by default; the four classes below add back exactly what the design shows. */
+  --sl-panel-content-padding: 0;
+}
+
+.panel::part(header) {
+  background: var(--sl-color-palette-grey-050);
+  /* D1: `sl-panel`'s own panel.css gives `[part=header]` `flex: 1` and its body no grow factor,
+     on a `display: flex; flex-direction: column` host. So a panel that a grid row stretches
+     grows its GREY HEADER instead of its white body — "Recently edited" rendered a 354px header.
+     Move the grow factor to the body. (Worth reporting upstream: a stretched panel should never
+     grow its header.) */
+  flex: 0 0 auto;
+  /* D4: the design's `v-card__title` is 52px; `sl-panel`'s own min is 48. */
+  min-block-size: 52px;
+  /* D9: `sl-panel` only tightens its inline padding under `:host([has-actions])`, which it sets
+     for `slot="actions"` but not for the `slot="aside"` this run uses (OQ12). */
+  padding-inline: var(--sl-size-200) var(--sl-space-100);
+  /* `sl-panel` caps the aside track at 25% of the header, which is narrower than either the
+     "4 asset requests" link or the "Remove widget" button. `auto` lets the action size itself
+     and keeps it flush with the card's inline padding. */
+  grid-template-columns: 1fr auto;
+}
+
+/* Raleway Bold 16. The design's line-height is 24 and the theme's heading-md is 20 — a recorded
+   delta. Never `font: var(--sl-text-new-heading-md)`: editorial-suite ships longhands only and
+   the bare token would make the browser drop the whole declaration. */
+.panel::part(body) {
+  /* D1, the other half: the stretch surplus lands in the white content area. */
+  flex: 1 1 auto;
+}
+
+.panel-title {
+  color: var(--sl-color-palette-grey-900);
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+}
+
+.panel-aside {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-050);
+  justify-content: flex-end;
+}
+
+/* The Assets and Content items cards carry a metric beside the title. */
+.metric-heading {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-100);
+}
+
+.metric {
+  color: var(--sl-color-palette-grey-900);
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  /* Design: Raleway Medium 24/34; the theme's heading-lg line-height is 32 — a recorded delta. */
+  font-weight: var(--sl-fontWeight-500);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+}
+
+/* The vertical rule between "39" and the asset-request link. */
+.rule {
+  background: var(--sl-color-palette-grey-300);
+  block-size: var(--sl-size-300);
+  inline-size: var(--sl-size-010);
+  margin-inline-start: var(--sl-space-050);
+}
+
+.request-count {
+  color: var(--sl-color-palette-red-600);
+  font-weight: var(--sl-fontWeight-bold);
+}
+
+.request-link {
+  /* `variant="danger" fill="link"` reads this token for its label colour. */
+  --sl-color-foreground-negative-bold: var(--sl-color-palette-red-600);
+}
+
+.remove-widget,
+.icon-action {
+  /* The ghost buttons in the card headers are near-black in the design, not the theme's default
+     secondary foreground; retarget the token the button reads. */
+  --sl-color-foreground-secondary-bold: var(--sl-color-palette-grey-900);
+}
+
+.icon-action {
+  --sl-color-foreground-secondary-bold: var(--sl-color-palette-grey-700);
+}
+
+/* ---------------------------------------------------------------- per-card body insets */
+
+/* Assets and Content items: the widgets inset their own content horizontally but deliberately
+   leave the block gaps above and below to the card shell. */
+.panel-assets::part(content),
+.panel-content-items::part(content) {
+  padding-block: var(--sl-size-200);
+}
+
+/* Metadata Usage: 16px above the stat tiles; the table's last row rule ends flush with the card. */
+.panel-inset-block::part(content) {
+  padding-block: var(--sl-size-200) 0;
+}
+
+/* The two sidebar cards render their bodies inline here, so the card supplies all four insets. */
+.panel-sidebar::part(content) {
+  padding: var(--sl-size-200);
+}
+
+/* ---------------------------------------------------------------- Descriptive metadata body */
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-150);
+  margin: 0;
+}
+
+/* Label and value sit on one line; "Outline template last updated:" is wider than the card, so
+   it wraps its value onto a second line exactly as the design shows. */
+.details-row {
+  color: var(--sl-color-palette-grey-800);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-space-050);
+}
+
+.details-row dt {
+  font-weight: var(--sl-fontWeight-600);
+}
+
+.details-row dd {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- Product IDs body */
+
+.product-ids {
+  display: grid;
+  gap: var(--sl-size-150) var(--sl-size-200);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.product-ids a {
+  /* Run-local palette declared above on this :host; unbound in editorial-suite. */
+  color: var(--etsl-color-brand);
+  text-decoration: none;
+}
+
+.product-ids a:hover {
+  text-decoration: underline;
+}
+
+.product-ids a:active {
+  color: var(--etsl-color-brand-active);
+}
+
+.product-ids a:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}

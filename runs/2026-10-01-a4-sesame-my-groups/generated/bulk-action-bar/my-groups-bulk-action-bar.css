@@ -1,0 +1,78 @@
+:host {
+  /* The pill shrink-wraps its content and the page positions the host, so the host must be
+     exactly the pill's size -- and collapse to nothing when there is no selection to act on. */
+  display: inline-flex;
+}
+
+.bar {
+  align-items: center;
+  background: var(--sl-color-background-primary-bold);
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--sl-color-foreground-inverted-plain);
+  display: flex;
+  gap: var(--sl-size-200);
+  /* The design's pill is 46px tall around 24px of content, i.e. ~11px per side; the theme's
+     size ramp steps 10px -> 12px, and 10px is the one that does not overshoot. */
+  padding-block: var(--sl-size-125);
+  /* Design pads 16px at the start and only 8px at the end, where the last ghost button's own
+     inline padding makes up the difference. */
+  padding-inline: var(--sl-size-200) var(--sl-size-100);
+}
+
+.count {
+  align-items: center;
+  display: flex;
+  /* There is no bare --sl-text-new-body-md shorthand in this theme (only the -fontFamily/
+     -fontSize/-fontWeight/-lineHeight longhands exist); a font: shorthand referencing it would
+     resolve to an invalid declaration and silently drop. Use the longhands. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  gap: var(--sl-size-025);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  margin-block: 0;
+  /* The design's count-to-divider gap is 24px; .bar already contributes 16px of it. */
+  margin-inline-end: var(--sl-size-100);
+  white-space: nowrap;
+}
+
+.count-value {
+  /* Only the numeral is bold; the rest of the sentence keeps the body-md regular weight. */
+  font-weight: var(--sl-fontWeight-700);
+}
+
+.actions {
+  align-items: center;
+  /* The design's 1px divider between the count and the actions. */
+  border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-inverted);
+  display: flex;
+  padding-inline-start: var(--sl-size-125);
+}
+
+/* Ghost buttons are styled for light surfaces, so their label and icon need to be inverted on
+   this brand-filled pill. Styling the exposed ::part(button) rather than wrapping them.
+
+   The unavailable action carries `aria-disabled` instead of `disabled`, so it keeps its focus and
+   its description can be announced. `ForwardAriaMixin` moves `aria-disabled` off the host onto the
+   inner button, so neither [disabled] nor [aria-disabled] matches the host any more: the dimmed
+   colour keys off the `data-disabled` marker the bar sets itself. Same two colours as before. */
+sl-button:not([data-disabled])::part(button) {
+  color: var(--sl-color-foreground-inverted-plain);
+}
+
+sl-button[data-disabled]::part(button) {
+  color: var(--sl-color-foreground-disabled);
+}
+
+/* The repo's standard visually-hidden utility (see packages/components/tag/src/tag.css); the
+   description has to be in the accessibility tree but never on screen. Absolutely positioned, so
+   it takes no part in the pill's flex layout. */
+.visually-hidden {
+  block-size: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}

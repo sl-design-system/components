@@ -1,0 +1,192 @@
+{
+  "story": "runs-b-sanna-account-creation-account-creation-form--custom-actions",
+  "theme": "teacher-assistant",
+  "url": "http://localhost:6010/iframe.html?id=runs-b-sanna-account-creation-account-creation-form--custom-actions&viewMode=story&globals=theme:teacher-assistant",
+  "viewport": {
+    "width": 600,
+    "height": 900
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/b-sanna-account-creation/testing/form-custom-actions.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-account-creation-form",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 708
+      },
+      {
+        "tag": "sl-form",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 612
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 20
+      },
+      {
+        "tag": "sl-text-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 36
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 20
+      },
+      {
+        "tag": "sl-text-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 180,
+        "height": 36
+      },
+      {
+        "tag": "sl-form-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 60
+      },
+      {
+        "tag": "sl-label",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 20
+      },
+      {
+        "tag": "sl-text-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 36
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 302,
+        "height": 32
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 66
+      },
+      {
+        "tag": "sl-checkbox",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 376,
+        "height": 86
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 47,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 148,
+        "height": 48
+      }
+    ],
+    "bodyHeight": 900
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": ["sl-button", "sl-button", "sl-icon"],
+  "verdict": "rendered"
+}

@@ -1,0 +1,164 @@
+{
+  "case": "B-Itsl-Course-4007-3161",
+  "slug": "b-itsl-course-course-files",
+  "pipelineCommit": "cdae07695a8204b29ae71954c7011fb348ca3ddc",
+  "figma": {
+    "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
+    "nodeId": "4007:3161",
+    "name": "course files"
+  },
+  "stage0": {
+    "server": "figma",
+    "framework": "lit",
+    "i18n": false,
+    "output": "examples/lit/src/_runs/b-itsl-course-course-files/"
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T01:20",
+      "firstReturn": "BLOCKED_ON_CODE_CONNECT",
+      "coordinatorOverride": true,
+      "tokens": 75692,
+      "note": "Analyst blocked and skipped get_screenshot/get_variable_defs. Coordinator fetched both directly, added 4 get_metadata calls for geometry, and authored manifest.md."
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T01:52",
+      "openQuestions": 31,
+      "tokens": 112819,
+      "durationMs": 434564,
+      "components": 5,
+      "authoredBy": "component-decomposer",
+      "note": "Decomposer DID return with 31 open questions and source-cited verification of 10 SLDS components. Authoritative."
+    },
+    "3-implement": {
+      "status": "blocked",
+      "at": "2026-10-01T01:35",
+      "done": ["sl-itsl-top-nav", "sl-itsl-course-table"],
+      "running": ["sl-itsl-pagination-bar"],
+      "pending": ["sl-itsl-course-files-page"],
+      "tokens": {
+        "top-nav": 126509,
+        "course-table": 117808
+      },
+      "tokenExistenceGate": "scratchpad/tokencheck.mjs itslearning <tree> -> all --sl-* references resolve",
+      "reason": "Account weekly usage limit reached during Stage 3/4 (resets 2026-10-04 20:00 Europe/Warsaw). Two leaves had captured as rendered; pagination-bar unfinished."
+    },
+    "4-validate": {
+      "status": "not-reached"
+    },
+    "5-author": {
+      "status": "not-reached"
+    },
+    "6-review": {
+      "status": "not-reached"
+    }
+  },
+  "findings": {
+    "stage1CodeConnectBlock": {
+      "what": "design-analyst returned BLOCKED_ON_CODE_CONNECT; every instance resolves to {}.",
+      "evidence": "16 get_code_connect_map attempts: subtree 4007:3161, 7 top-level instances, 8 main-component definition ids. All literally {}. get_design_context's reference code emits zero sl-* tags - plain div/p/img only.",
+      "rootCause": "The design is drawn against itslearning's OWN component library (instances named Navigation, PageHeader, Banner, Cell, Pagination, Status Tag, Course Hat), not the SL Design System library. This is NOT the subtree-scoping artifact the runbook warns about - per-node calls were made and were also empty.",
+      "whyTheBlockIsWrong": "The block's stated remedy is 'publish Code Connect mappings in Figma and re-run'. That remedy cannot apply: the components are not SLDS components, so there is nothing to map them to in this file. The pipeline halts permanently on a class of design it can never unblock.",
+      "coordinatorDecision": "Overridden. Stage 1 completed without Code Connect; SLDS equivalents inferred by reasoning and marked advisory."
+    },
+    "stage2DecomposerOverran": {
+      "what": "component-decomposer was spawned with manifest + screenshot + conventions and never returned a tree.",
+      "impact": "Stage 2 was authored by the coordinator instead. The decomposer's own open-question count - the batch's main variance metric - is therefore MISSING for this run and the 18 recorded are the coordinator's, not the agent's. Not comparable with runs where the agent answered.",
+      "note": "A nudge asking for a partial tree was queued but the agent had stopped calling tools, so the message was never picked up. There is no timeout or liveness check anywhere in the pipeline."
+    },
+    "coordinatorRoleUndefined": {
+      "what": "This is the third orchestrator in the batch to end a turn on a status line while stages remained.",
+      "diagnosis": "Not an agent defect - a gap in the skill. SKILL.md specifies how to spawn stage agents and how to route work back, but says nothing about what the coordinator does while a child runs, and defines no liveness check, timeout, or give-up rule. The default behaviour of 'spawn and await' therefore reads as a legitimate stopping point.",
+      "suggestedFix": "The skill should state that a coordinator keeps working while children run (verifying the previous stage's output, pre-resolving tokens, staging the next brief), and should define a per-stage timeout after which the coordinator proceeds without the child and records it."
+    },
+    "stage2CoordinatorRaceCondition": {
+      "what": "The coordinator wrongly concluded the decomposer had stalled, authored a parallel decomposition, and dispatched two implementers before the real answer arrived 434s in.",
+      "consequence": "Two trees existed briefly. The decomposer's is better evidenced (it read paginator/inline-message/badge/tag/avatar/select/search-field/text-field/link/grid sources) and was adopted. One coordinator decision was NOT reverted - the nav stayed as one component instead of the decomposer's two - because its implementer was already running.",
+      "rootCause": "The pipeline has no liveness signal and no expected-duration guidance for a stage agent. 434s of silence is indistinguishable from a hang. My earlier finding 'coordinatorRoleUndefined' said the skill does not say what a coordinator does while a child runs; this is the same gap producing the opposite error - not idling, but acting too early.",
+      "correctionApplied": "The decomposer specified the selected page fill as --sl-color-palette-purple-800 (#42354a), read from a stale pre-measurement section of the manifest. The measured pixel is #5d4a68 = --sl-color-palette-purple-700. Corrected in the manifest and in the pagination-bar implementer's brief before any code was written."
+    },
+    "inventedTokenSurvivedToImplementation": {
+      "token": "--sl-color-background-plain",
+      "what": "The coordinator asserted this token in the manifest Token Reference and in three implementer briefs. IT DOES NOT EXIST in any theme in the repo.",
+      "whyItMatters": "An undefined custom property in a var() with no fallback makes the browser DROP THE WHOLE DECLARATION. tsc cannot see it, the Stage 3 gate cannot see it, and the page renders unstyled while every check passes. A white-on-white surface would have looked plausible in a capture.",
+      "caughtBy": "Both leaf implementers independently, by grepping the theme before using it. Neither accepted the brief at face value.",
+      "pipelineGap": "There is NO stage in the pipeline that verifies a referenced --sl-* token exists. The coordinator wrote one (scratchpad/tokencheck.mjs) and ran it over the generated tree; it should be a real Stage 3 gate alongside the type check.",
+      "inconsistencyItRevealed": "The two implementers chose DIFFERENT replacements for white - top-nav used --sl-color-white, course-table used --sl-elevation-surface-raised-default. Both resolve to #ffffff so both are correct, but the run now uses two token names for one colour. A shared brief that names the right token prevents this; mine named a wrong one."
+    }
+  },
+  "theme": "itslearning",
+  "themeEvidence": {
+    "derived": "itslearning",
+    "method": "VALUE matching, not name matching.",
+    "themeMatchTool": {
+      "command": "node runs/harness/theme-match.mjs .implement-design/b-itsl-course-course-files/figma-variable-defs.json",
+      "best": null,
+      "confident": false,
+      "absoluteAgreement": null,
+      "marginOverSecond": null,
+      "colorTokensInDesign": 0,
+      "why": "TOOL LIMITATION / FINDING: theme-match.mjs matches Figma token NAMES against --sl-* custom property names. This design binds itslearning's OWN variable library ($gray--900, $blue--600, Size/300), so zero names are SLDS-shaped and the tool cannot rank any theme. It returns null, not a wrong answer - it fails safe, but it fails."
+    },
+    "fallbackMeasurement": {
+      "method": "Resolved every theme's full var() chain and counted exact hex matches against the design's 22 bound hex values.",
+      "itslearning": "20/22 all hexes, 5/7 brand-distinctive hexes ($brand--800 #42354a, $brand--700 #5d4a68, $blue--600 #0055b0, $blue--100 #ecf8ff, $blue--700 #00458f)",
+      "everyOtherTheme": "1/22 (only #ffffff), 0/7 brand",
+      "marginOverSecond": 19,
+      "absoluteAgreement": 0.909
+    },
+    "corroboration": "Design binds default-font: Lato. itslearning is the theme whose --sl-text-fontFamily is Lato.",
+    "agreesWithTeamName": true,
+    "note": "Agreement with the team label is coincidental here; it was derived, not assumed."
+  },
+  "coordinatorVerification": {
+    "slds-component-viability": {
+      "allHypothesisedComponentsExist": "avatar badge button grid icon inline-message link paginator search-field select tag - all present in packages/components/",
+      "paginator": "sl-paginator + sl-paginator-status + sl-paginator-page-size map almost exactly onto the design's Pager + visible-range text + 80px select. totalItems=47, pageSize=10 -> 5 pages, matching the design's 1..5.",
+      "paginatorTextMismatch": "sl-paginator-status renders `${start} - ${end} of ${total} ${itemLabel}` i.e. '1 - 10 of 47 items'. The design says '1 to 10 of 47'. The separator ' - ' vs ' to ' is baked into the component's msg() literal and the trailing itemLabel is appended. NOT fixable through the public API; itemLabel can only be emptied, not the separator changed.",
+      "gridViable": "sl-grid + sl-grid-column(width=280, renderer) + sl-grid-sort-column can produce the 4x280 layout with two sortable headers.",
+      "gridPrivateApiRequired": "grid.css sets --_border-width: var(--sl-size-borderWidth-default), which is 2px in itslearning. The design's row rules are 1px hairlines. There is NO public API for border width - matching the design requires setting the PRIVATE --_border-width (or --_border-color) custom property from outside. This is the 'reaching past the public API' case."
+    },
+    "oq4-select-glyph": "RESOLVED FAVOURABLY: sl-select-button.ts:129 renders <sl-icon name='chevron-down'>, and `chevron-down` IS registered in the itslearning theme. The decomposer flagged this as unverified risk; it is not a risk.",
+    "inline-message-glyphs": "inline-message.ts:100 defaults iconName to 'info' and :199 uses 'xmark' for the dismiss button. BOTH are registered in the itslearning theme, so the banner's glyphs are correct.",
+    "inline-message-colour-predicted-mismatch": "PREDICTED Stage 4 discrepancy, measured before implementation: inline-message.css:2 sets --_background: var(--sl-color-background-info-subtlest) = #0055b01a (10% blue), compositing over white to approx #e6eef7 - a blue-grey. The design's banner is #ecf8ff, lighter and cyaner. Line 8 also draws a 2px border in --sl-color-border-info-bold (#0f3b73, dark navy); the design's banner has NO border. Implementer was explicitly told to compose as-is and report, NOT to override the private --_background or null the border."
+  },
+  "apiBoundaryViolations": [
+    {
+      "component": "sl-itsl-course-table",
+      "reachedInto": "sl-badge",
+      "properties": ["--_background", "--_color"],
+      "why": "sl-badge exposes no ::part() and no public property for its fill or text colour; the design's Status Tag is #f4f4f4 with #333333 text. The only route is sl-badge's private custom properties.",
+      "documented": "yes - a comment in course-table.css:87 states it is not part of the public API"
+    }
+  ],
+  "approximations": [
+    {
+      "what": "itslearning logo tile",
+      "design": "#f47920",
+      "used": "--sl-color-palette-orange-400 (#fe8211)",
+      "note": "no exact token; #f47920 falls between orange-400 (#fe8211) and orange-500 (#ef6707)"
+    },
+    {
+      "what": "active tab underline",
+      "design": "3px",
+      "used": "--sl-size-borderWidth-heavy (4px)",
+      "note": "the theme's border-width scale has 2px and 4px, no 3px"
+    },
+    {
+      "what": "nav search field width",
+      "design": "~200px",
+      "used": "hardcoded 200px",
+      "note": "a component-specific arbitrary width; no token applies"
+    }
+  ],
+  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
+  "blocked": {
+    "stage": "3-implement",
+    "reason": "Account weekly usage limit reached during Stage 3/4 (resets 2026-10-04 20:00 Europe/Warsaw). Two leaves had captured as rendered; pagination-bar unfinished.",
+    "kind": "environment-quota",
+    "resumableFrom": "3-implement",
+    "resumeGuard": "A resume must fail loudly if HEAD has moved since pipelineCommitAtPromotion: a run that is half one pipeline and half another describes neither."
+  }
+}

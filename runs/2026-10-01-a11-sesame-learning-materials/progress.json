@@ -1,0 +1,77 @@
+{
+  "case": "A11-sesame-learning-materials",
+  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "theme": "itslearning",
+  "figmaFileKey": "UBr399hnydpNF9P5Jb2vfx",
+  "nodeId": "116:19049",
+  "observedSize": {
+    "width": 360,
+    "height": 1871
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:38Z",
+      "tokens": 132337,
+      "notes": "code-connect map empty ({}) on 7 calls; only 1 bound Figma variable"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:58Z",
+      "tokens": 49327,
+      "openQuestions": 38,
+      "componentCount": 5,
+      "keyDefault": "OQ-1 responsive: FLUID mobile-first (inline-size:100%), NOT fixed 360px; 360 pinned in the story canvas only"
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T01:55Z",
+      "typeCheck": "clean",
+      "note": "zero errors in run files; only pre-existing grid.ts TS2322 x2. No .d.ts stubs present - gate passed honestly.",
+      "components": 5
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T02:40Z",
+      "verdict": "rendered; geometry matches the Figma frame after 2 rework iterations",
+      "harness": {
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "notUpgraded": [],
+        "collapsed": []
+      },
+      "finalGeometry": {
+        "total": "1871 vs 1871 (exact)",
+        "tealBand": "670 vs 670 (exact)",
+        "platformSection": "526 vs 527 (-1)",
+        "header": "329 vs 337 (-8)",
+        "footer": "346 vs 337 (+9)"
+      },
+      "reworkIterations": 2,
+      "note": "visual-validator agent ran iteration 1; iteration 2 re-validation done by the orchestrator via pixel measurement (subagent pool saturated by sibling runs)"
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T03:05Z",
+      "scope": "example path -> story enrichment only; no spec/docs/changeset/i18n-extract (correct for examples/)",
+      "stories": ["--basic", "--no-assigned-materials", "--single-material", "--long-titles"],
+      "allVariantsRendered": true,
+      "note": "executed by the ORCHESTRATOR, not component-author: 20-subagent pool saturated by the other batch runs"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T03:15Z",
+      "critical": 1,
+      "criticalFixed": 1,
+      "minor": 3,
+      "minorFixed": 3,
+      "criticalItem": "top-bar school switcher declared aria-haspopup=menu + hardcoded aria-expanded=\"false\" with no backing state and no menu ever rendered - false disclosure semantics; removed both attributes",
+      "note": "executed by the ORCHESTRATOR, not component-reviewer: 20-subagent pool saturated by the other batch runs"
+    }
+  },
+  "notes": {
+    "themeFallback": "design is 'my vanin' branded; myvanin theme is commented out in .storybook/themes.ts AND the package does not exist in this checkout -> itslearning is a fallback, which explains why 13/14 colours have no token",
+    "codeConnect": "empty {} on 7 calls"
+  },
+  "typeCheckFinal": "clean (only pre-existing packages/components/grid TS2322 x2); no .d.ts stubs present"
+}

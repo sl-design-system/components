@@ -1,0 +1,173 @@
+/*
+ * Fluid, mobile-first: the host never hardcodes the Figma frame's 360px, it just fills whatever
+ * inline-size its containing block gives it. The `--_sesame-*` palette (`--_sesame-ink`,
+ * `--_sesame-brand`, `--_sesame-label`, `--_sesame-tag-name`, `--_sesame-divider`,
+ * `--_sesame-band`) is defined on the page root's `:host` and inherits into this shadow root.
+ */
+:host {
+  display: block;
+  inline-size: 100%;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  /* No exact token for this weight: the heading-lg slot ships no `-fontWeight`, so the bold
+     weight comes from the named weight token, not the (nonexistent) shorthand. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  color: var(--_sesame-ink);
+  /* Gap to the CTA below is 32px per the Figma frame (top-bar ends y=112, heading y=144..177,
+     CTA y=209..249). */
+  margin-block: 0 var(--sl-size-400);
+  padding-inline: var(--sl-size-200);
+}
+
+/* The CTA has no matching SLDS variant or token for its brand-teal fill, so its `::part(button)`
+   is overridden directly; the pill radius still comes from `shape="pill"`, not a hardcoded 24px. */
+sl-button {
+  /* Intentional: `sl-button`'s default `display: inline-flex` sizes to its content, but this CTA
+     must span the full content column. */
+  display: block;
+  margin-inline: var(--sl-size-200);
+  /* Gap to the search field below is 16px per the Figma frame (CTA y=209..249, search y=265..305). */
+  margin-block-end: var(--sl-size-200);
+}
+
+sl-button::part(button) {
+  background-color: var(--_sesame-brand);
+  color: var(--sl-color-white);
+}
+
+sl-search-field {
+  margin-inline: var(--sl-size-200);
+  /* Gap to the teal band below is 32px per the Figma frame (search y=265..305, band y=337..1007). */
+  margin-block-end: var(--sl-size-400);
+}
+
+.band {
+  /* Full-bleed to the host's edges; the gutter the heading/CTA/search carry themselves (above)
+     is reproduced here as inline padding for the list instead. */
+  background: var(--_sesame-band);
+  /* Asymmetric per the Figma frame: band y=337..1007, first card y=373 (373 − 337 = 36px, on the
+     scale as --sl-size-450), last card ends y=957 (1007 − 957 = 50px, off the scale — kept raw). */
+  padding-block-start: var(--sl-size-450);
+  padding-block-end: 50px;
+  padding-inline: var(--sl-size-200);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  /* Card pitch is 84px (cards are 80px tall, y=0, 84, 168, ... in the Figma frame): 4px gap. */
+  gap: var(--sl-size-050);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sl-size-100);
+
+  /* border-box so the 12px block padding is absorbed into the 80px card rather than added to it.
+     Without this the li is content-box, so 80px of content + 24px of padding renders a 104px card
+     and the seven-card list overshoots the Figma frame by 168px. */
+  box-sizing: border-box;
+  min-block-size: var(--sl-size-1000);
+  background: var(--sl-color-white);
+  border-radius: var(--sl-size-borderRadius-lg);
+  border-inline-start: var(--sl-size-050) solid var(--_accent);
+  padding: var(--sl-size-150) var(--sl-size-200);
+}
+
+/* Vendor brand colours — no design token exists for a third party's own brand colour. */
+li[data-platform='bingel'] {
+  --_accent: #79b928;
+}
+
+li[data-platform='kampus'] {
+  --_accent: #643695;
+}
+
+li[data-platform='lexia-provia'] {
+  --_accent: #f1b437;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+  /* 24px, matching the title row's fixed height in the Figma frame (y=12..36 of the 80px card). */
+  min-block-size: var(--sl-size-300);
+  color: var(--_sesame-brand);
+  text-decoration: none;
+  /* No token matches this size/weight/line-height combination; the size/line-height pair is
+     unbound (SemiBold 14px / 24px). */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: 14px;
+  font-weight: var(--sl-fontWeight-semiBold);
+  line-height: 24px;
+}
+
+.title-text {
+  /* Lets the title wrap/ellipsize instead of forcing the flex row wider than the card. */
+  min-inline-size: 0;
+}
+
+.title sl-icon {
+  flex: 0 0 auto;
+}
+
+.platform-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-box so the 1px border-block-end below is absorbed into this row's 24px min-block-size
+     rather than adding to it (which would push the card to 81px instead of the design's 80px). */
+  box-sizing: border-box;
+  min-block-size: var(--sl-size-300);
+  /* No 1px border-width token exists in this theme (`--sl-size-borderWidth-default` resolves to
+     2px); kept raw to match the design's hairline divider. The rule sits BELOW this row (the
+     card's y=68 of 80), not above it. */
+  border-block-end: 1px solid var(--_sesame-divider);
+}
+
+.platform-label {
+  color: var(--_sesame-label);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  /* 1px off the exact `--sl-text-new-body-md-lineHeight` (20px vs. the design's 21px); nearest
+     available token, per the manifest's Token Reference. */
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.platform-tag {
+  display: flex;
+  align-items: center;
+  /* Off the 4/8 scale — kept raw; a `logoUrl` would sit before the name with this gap. */
+  gap: 6px;
+  color: var(--_sesame-tag-name);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.visually-hidden {
+  block-size: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}

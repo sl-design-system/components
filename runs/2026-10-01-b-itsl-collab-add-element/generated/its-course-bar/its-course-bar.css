@@ -1,0 +1,59 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar lays out the course identity, the
+     route-link strip and the overflow control in a row, so `flex` is an intentional change,
+     not boilerplate. */
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-default);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  block-size: var(--sl-size-700);
+  box-sizing: border-box;
+  column-gap: var(--sl-size-400);
+  display: flex;
+  /* Figma pins this bar to a fixed 56px (--sl-size-700); padding-block therefore goes to 0 and
+     align-items centers the content. Inline padding reuses the 16px step. */
+  padding-block: 0;
+  padding-inline: var(--sl-size-200);
+}
+
+.course {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-150);
+}
+
+.name {
+  color: var(--sl-color-foreground-plain);
+  /* Design specifies 18px Bold; 18px is not a rung on the type scale, so this uses the nearest
+     tier (body-lg, 16px) plus an explicit bold. Recorded Δ −2px. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+nav ul {
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  text-decoration: none;
+}
+
+nav a[aria-current='page'] {
+  font-weight: var(--sl-fontWeight-700);
+}
+
+.overflow {
+  /* Pushes the overflow control to the bar's far inline-end edge, independent of the
+     `:host`'s fixed `column-gap`. */
+  margin-inline-start: auto;
+}

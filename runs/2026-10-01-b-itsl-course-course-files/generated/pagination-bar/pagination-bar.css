@@ -1,0 +1,56 @@
+/*
+ * `:host` intentionally sets `display: flex` — this is a horizontal bar (pager left, range +
+ * select right) by design, not a default block element.
+ */
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--sl-text-fontFamily);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+}
+
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--sl-size-500);
+  min-inline-size: var(--sl-size-500);
+  padding-inline: var(--sl-size-150);
+  border: none;
+  border-radius: var(--sl-size-borderRadius-default);
+  background-color: var(--sl-elevation-surface-raised-default);
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  cursor: pointer;
+}
+
+.page-link[aria-current='page'] {
+  background-color: var(--sl-color-palette-purple-700);
+  color: var(--sl-color-foreground-accent-purple-onBold);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-size-200);
+}
+
+.range {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  white-space: nowrap;
+}
+
+sl-select {
+  inline-size: var(--sl-size-1000);
+}

@@ -1,0 +1,139 @@
+{
+  "174:231588": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-form-field label=\"First name\">\n      <sl-text-field\n        \n         placeholder=\"[object Object]\"\n        \n         value=\"[object Object]\"\n      ></sl-text-field>\n    </sl-form-field>\n  "
+  },
+  "174:231589": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-form-field label=\"Last name\">\n      <sl-text-field\n        \n         placeholder=\"[object Object]\"\n        \n         value=\"[object Object]\"\n      ></sl-text-field>\n    </sl-form-field>\n  "
+  },
+  "174:231470": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-form-field label=\"Email address\">\n      <sl-text-field\n        \n         placeholder=\"[object Object]\"\n         required\n         value=\"[object Object]\"\n      ></sl-text-field>\n    </sl-form-field>\n  "
+  },
+  "174:232025": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      size=\"lg\"\n      \n      variant=\"primary\"\n    >\n      \n      Continue\n      \n    </sl-button>\n  "
+  },
+  "174:232026": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"outline\"\n      shape=\"pill\"\n      size=\"lg\"\n      \n      variant=\"primary\"\n    >\n      \n    <sl-icon\n      name=\"far-arrow-left\"\n      \n    ></sl-icon>\n  \n      Go back\n      \n    </sl-button>\n  "
+  },
+  "174:231475": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      \n      \n      variant=\"primary\"\n    >\n      \n      Sign in \n      \n    </sl-button>\n  "
+  },
+  "0:213": {
+    "componentName": null,
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Privacy Notice\n      \n    </sl-button>\n  "
+  },
+  "0:230": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Cookie Notice\n      \n    </sl-button>\n  "
+  },
+  "0:247": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Terms of User\n      \n    </sl-button>\n  "
+  },
+  "0:264": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      AI Transparency Statement\n      \n    </sl-button>\n  "
+  },
+  "174:231967": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-checkbox\n       checked\n      \n      \n      \n    >\n      \n    </sl-checkbox>\n  "
+  },
+  "174:231968": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-checkbox\n       checked\n      \n      \n      \n    >\n      \n    </sl-checkbox>\n  "
+  },
+  "174:231969": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-checkbox\n       checked\n      \n      \n      \n    >\n      \n    </sl-checkbox>\n  "
+  },
+  "0:3": {
+    "componentName": null,
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/form/src/label.ts",
+    "version": "unknown",
+    "hasTemplate": false
+  },
+  "0:34": {
+    "componentName": null,
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/form/src/label.ts",
+    "version": "unknown",
+    "hasTemplate": false
+  },
+  "0:53": {
+    "componentName": null,
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/form/src/label.ts",
+    "version": "unknown",
+    "hasTemplate": false
+  },
+  "_note": "Single get_code_connect_map call over the whole subtree (174:232051) returned a full, non-empty result — no per-node fallback was needed. Nodes 174:231476 (logo-wordmark), 174:231477 (Image login), 174:231461 (hidden sl-button-pill), and the footer wrapper frame 174:231478 did not appear as keys in the response (i.e. unmapped); see manifest for how each was classified."
+}

@@ -1,0 +1,26 @@
+{
+  "story": "examples-my-groups-page--basic",
+  "theme": "itslearning",
+  "url": "http://localhost:6010/iframe.html?id=examples-my-groups-page--basic&viewMode=story&globals=theme:itslearning",
+  "viewport": {
+    "width": 1280,
+    "height": 1796
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a4-sesame-my-groups/testing/stage4-baseline.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-my-groups-page",
+        "defined": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 1630
+      }
+    ],
+    "bodyHeight": 1796
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "verdict": "rendered"
+}

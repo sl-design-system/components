@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-500);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.grid {
+  display: grid;
+
+  /* 798px column: two 390px cards plus one 16px gap, per the design's fixed dimensions. This is
+     deliberately a fixed two-track grid rather than an intrinsic `auto-fill` one: auto-fill
+     collapsed the exercise rows to a single column, which is the layout this grid exists to
+     produce. A theory card toggled into grid mode simply overflows its track, which is the
+     honest outcome rather than silently breaking the 2-up exercise rows. */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+li {
+  margin: 0;
+}

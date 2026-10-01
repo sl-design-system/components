@@ -1,0 +1,110 @@
+:host {
+  /* Custom elements default to `display: inline`; this chrome spans the full width of the
+     viewport, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+/* ---------------------------------------------------------------- dark top bar */
+
+.bar {
+  align-items: center;
+  /* `--etsl-color-chrome` is declared once on the page root's `:host` and inherits through the
+     shadow boundary. The fallback keeps this component's own story readable; the hex is unbound
+     in editorial-suite. */
+  background: var(--etsl-color-chrome, #02242e); /* unbound in editorial-suite */
+  block-size: var(--sl-size-600);
+  color: var(--sl-color-palette-grey-000);
+  display: flex;
+  justify-content: space-between;
+  padding-inline: var(--sl-size-250) var(--sl-size-300);
+}
+
+.wordmark {
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-size-font-250);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-size-lineHeight-300);
+}
+
+.bar-end {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+.projects {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--sl-size-050);
+  padding: var(--sl-size-050);
+}
+
+.projects:focus-visible {
+  border-radius: var(--sl-size-borderRadius-sm);
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+sl-avatar::part(picture) {
+  background: var(--sl-color-background-primary-bold);
+}
+
+sl-avatar::part(initials) {
+  color: var(--sl-color-foreground-primary-onBold);
+}
+
+/* ---------------------------------------------------------------- light title band */
+
+.band {
+  background: var(--sl-color-palette-grey-050);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-450);
+  padding-block-start: var(--sl-size-350);
+}
+
+h1 {
+  color: var(--etsl-color-chrome, #02242e); /* unbound in editorial-suite */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+  margin: 0;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------- tab strip */
+
+sl-tab-group {
+  /* The selected-tab indicator lives in the tab group's shadow root and is not exposed as a
+     `::part()`; retinting it means retargeting the token it reads. */
+  --sl-color-border-selected: var(--sl-color-palette-blue-500);
+}
+
+/* The rule under the tab strip runs the full bleed of the band, while the tabs themselves start
+   at the 1200px content column. The tab group's own bottom border is the full-bleed rule, so the
+   indent goes on the wrapper inside it. */
+sl-tab-group::part(container) {
+  background: transparent;
+  border-block-end-color: var(--sl-color-palette-grey-300);
+  border-block-end-width: var(--sl-size-borderWidth-subtle);
+}
+
+sl-tab-group::part(wrapper) {
+  box-sizing: border-box;
+  /* 120px is the design's content gutter (1440px frame, 1200px column) — a raw layout
+     dimension with no token in the theme. */
+  padding-inline-start: 120px;
+}
+
+sl-tab {
+  color: var(--etsl-color-chrome, #02242e); /* unbound in editorial-suite */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

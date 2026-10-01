@@ -1,0 +1,128 @@
+/*
+ * NOTE on typography: the `itslearning` theme declares the `--sl-text-new-*` families as
+ * LONGHANDS only (`-fontFamily` / `-fontSize` / `-lineHeight`, and `-fontWeight` on the body
+ * scale). It ships no composite `--sl-text-new-heading-xl-font` / `-line` shorthand — the names
+ * the manifest quotes do not exist anywhere in the repo — so the longhands are set explicitly
+ * and the weight is stated wherever the design is not regular.
+ */
+
+:host {
+  /*
+   * Intentional: the page stacks three full-bleed bands (header, content, footer), which needs a
+   * block box rather than the default inline one.
+   */
+  display: block;
+}
+
+.page {
+  /*
+   * The design's 128px page gutter has no single token — the size scale tops out at
+   * --sl-size-1000 (80px) — so it is composed from two tokens rather than hardcoded. With the
+   * 1280px frame this yields the design's 1024px content column, and it matches the gutter the
+   * header and footer apply to their own bands.
+   */
+  padding-block: var(--sl-size-500) var(--sl-size-1000);
+  padding-inline: calc(var(--sl-size-1000) + var(--sl-size-600));
+}
+
+.title-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+  justify-content: space-between;
+  margin-block-end: var(--sl-size-600);
+}
+
+h1 {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-heading-xl-fontFamily);
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+  margin-block: 0;
+}
+
+.page-actions {
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+h2 {
+  color: var(--sl-color-foreground-subtle);
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  margin-block: 0 var(--sl-size-700);
+
+  /*
+   * The design sets this heading in capitals. Doing it in CSS rather than in the content keeps
+   * the accessible name sentence-case, because some screen readers spell all-caps words out.
+   */
+  text-transform: uppercase;
+}
+
+sl-my-groups-filter-card {
+  margin-block-end: var(--sl-size-500);
+}
+
+.count {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  margin-block: 0 var(--sl-size-100);
+}
+
+/*
+ * The design draws the validation strip as a bare red icon + red 12px line, not as the boxed
+ * callout `sl-inline-message` renders by default. There is no "quiet" variant, so the box is
+ * stripped from the outside: the host's own declarations win over the component's `:host` rules,
+ * and the accent bar it paints in `::before` is collapsed the same way. The semantics
+ * (`variant="danger"`, `role="alert"`, the id the bulk bar points at) are kept intact.
+ */
+.error {
+  background: none;
+  border: none;
+  color: var(--sl-color-foreground-negative-bold);
+  font-family: var(--sl-text-new-body-sm-fontFamily);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-text-new-body-sm-fontWeight);
+  gap: var(--sl-size-050);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+  margin-block-end: var(--sl-size-200);
+  padding: 0;
+}
+
+.error::before {
+  inline-size: 0;
+}
+
+.error sl-icon {
+  color: var(--sl-color-foreground-negative-bold);
+
+  /*
+   * `sl-icon` sizes off `--sl-icon-size`, not `font-size` — `icon.css` computes
+   * `max(1cap, var(--sl-icon-size))`, so a `font-size` rule here is inert.
+   */
+  --sl-icon-size: var(--sl-size-icon-font-sm);
+}
+
+.table-area {
+  /* The bulk action bar floats over the lower part of the table, as in the design. */
+  position: relative;
+}
+
+sl-my-groups-bulk-action-bar {
+  inset-block-end: var(--sl-size-600);
+  inset-inline-start: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  /*
+   * `sl-grid`'s inner <table> is `position: relative; z-index: 1`, so an auto/0 sibling would be
+   * painted underneath the rows. Matching its z-index lets DOM order decide, and the bar comes
+   * last. There is no z-index design token — this is a stacking ordinal, not a visual value.
+   */
+  z-index: 1;
+}

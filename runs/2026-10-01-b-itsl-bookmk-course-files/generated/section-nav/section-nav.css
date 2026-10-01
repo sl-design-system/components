@@ -1,0 +1,95 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+nav {
+  align-items: center;
+  background: var(--sl-color-palette-grey-050);
+  /* 56px bar height. Exact token match: --sl-size-700. */
+  block-size: var(--sl-size-700);
+  /* --sl-size-borderWidth-default resolves to 2px in this theme (bold, not default) — the
+     design's hairline is exactly 1px, which is --sl-size-borderWidth-subtle. */
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-300);
+  display: flex;
+  padding-inline: var(--sl-size-050);
+  /* The design also specifies `box-shadow: inset 0 4px 8px 0 rgba(0,0,0,0.05)` on this bar.
+     No --sl-shadow-*/--sl-elevation-* token matches this geometry (checked both families
+     per RUN-HINTS); omitted rather than hardcoded — discrepancy recorded for Stage 4. */
+}
+
+.app {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-100);
+  padding-inline: var(--sl-size-100);
+}
+
+.app-icon {
+  /* Placeholder for the omitted "your-files" app glyph (see section-nav.ts comment): it is a
+     custom raster/SVG asset, not a name registered in icons.ts, and there is no asset-export
+     step in this pipeline. Kept at the design's 32x32 footprint so the "Files" label doesn't
+     shift left — discrepancy recorded for Stage 4. */
+  block-size: var(--sl-size-400);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-400);
+}
+
+.app-name {
+  color: var(--sl-color-palette-grey-900);
+  /* Longhands, not the `font:` shorthand: a shorthand referencing an undefined custom property
+     drops the whole declaration silently. Figma specifies 18px bold; no exact size token
+     exists, nearest is --sl-title-md-fontSize (16px) — recorded −2px delta for Stage 4. Weight
+     700 is an exact match via --sl-fontWeight-bold (the title-role weight token is 600). */
+  font-family: var(--sl-title-fontFamily);
+  font-size: var(--sl-title-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-title-md-lineHeight);
+}
+
+.tabs {
+  align-items: stretch;
+  align-self: stretch;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tab {
+  align-items: center;
+  display: flex;
+  /* Anchor point for the active-tab highlight bar in ::after below. */
+  position: relative;
+}
+
+.tab a {
+  align-items: center;
+  color: var(--sl-color-palette-grey-900);
+  display: flex;
+  /* Longhands, not the `font:` shorthand — see .app-name above. Resolved desktop default
+     (no [data-user-group] ancestor, per RUN-HINTS): 16px / 24px, weight 400. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-lg-fontSize);
+  font-weight: var(--sl-typography-text-lg-fontWeight);
+  gap: var(--sl-size-100);
+  line-height: var(--sl-text-lg-lineHeight);
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-200);
+  text-decoration: none;
+}
+
+/* The active-tab underline is decorative CSS, not a rendered element; `aria-current="page"` on
+   the anchor is what conveys the active route to assistive tech. */
+.tab:has(a[aria-current='page'])::after {
+  background: var(--sl-color-palette-grey-700);
+  block-size: var(--sl-size-050);
+  border-start-end-radius: var(--sl-size-borderRadius-lg);
+  border-start-start-radius: var(--sl-size-borderRadius-lg);
+  content: '';
+  inset-block-end: 0;
+  inset-inline: var(--sl-size-200);
+  position: absolute;
+}

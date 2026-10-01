@@ -1,0 +1,196 @@
+/*
+ * NOTE on typography: the `itslearning` theme declares the `--sl-text-new-*` families as
+ * longhands (`-fontFamily` / `-fontSize` / `-lineHeight` / `-fontWeight`) only — it ships no
+ * composite `--sl-text-new-body-md` shorthand, so `font: var(--sl-text-new-body-md)` would
+ * resolve to nothing there. The longhands are therefore set explicitly below.
+ */
+
+:host {
+  /*
+   * Intentional: the header is a full-width band that stacks the nav bar on top of the school
+   * bar, so the host must be a block rather than the default inline.
+   */
+  background: var(--sl-elevation-surface-raised-default);
+  display: block;
+}
+
+.nav-bar,
+.school-bar {
+  /*
+   * The design's 128px page gutter has no single token (the size scale tops out at
+   * --sl-size-1000 = 80px), so it is composed: 80px + 48px.
+   */
+  padding-inline: calc(var(--sl-size-1000) + var(--sl-size-600));
+}
+
+.nav-bar {
+  align-items: center;
+  /* Equal 1fr side tracks keep the `auto` nav track centred in the bar, as in the design. */
+  display: grid;
+  gap: var(--sl-size-300);
+  grid-template-columns: 1fr auto 1fr;
+  padding-block: var(--sl-size-150);
+}
+
+/* logo asset placeholder — a text wordmark sized to the Figma logo's box. */
+.wordmark {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-400);
+  justify-self: start;
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+}
+
+nav ul {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin-block: 0;
+  padding-inline: 0;
+}
+
+nav a {
+  color: var(--sl-color-foreground-plain);
+  display: inline-block;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-block-end: var(--sl-size-075);
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a:focus-visible {
+  outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+/*
+ * The active-item rule is decorative; `aria-current="page"` on the anchor is what conveys the
+ * active state to assistive technology.
+ */
+nav a[aria-current='page'] {
+  border-block-end: var(--sl-size-025) solid var(--sl-color-border-primary-bold);
+  font-weight: var(--sl-fontWeight-700);
+  padding-block-end: calc(var(--sl-size-075) - var(--sl-size-025));
+}
+
+.user {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-100);
+  justify-self: end;
+  margin: 0;
+  padding: 0;
+}
+
+.user:focus-visible {
+  outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+}
+
+.user-name {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.user-role {
+  color: var(--sl-color-foreground-subtle);
+  font-family: var(--sl-text-new-body-sm-fontFamily);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-text-new-body-sm-fontWeight);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+.user sl-icon {
+  color: var(--sl-color-foreground-plain);
+}
+
+/*
+ * `sl-avatar` unconditionally clips a hole out of the circle sized to the badge's bounding box,
+ * so the badge has to be a square: a non-square badge makes the cutout a wide pill and the icon
+ * drifts off the circle's edge. The badge's own `block-size: 1lh` / `min-inline-size: 1lh` sizes
+ * it from the inherited line-height, which is not 1:1 here, so it is pinned to a square.
+ * 14px is the diameter measured in the design (the 10px gear plus a hairline ring).
+ */
+.user sl-badge {
+  block-size: var(--sl-size-175);
+  inline-size: var(--sl-size-175);
+  min-inline-size: var(--sl-size-175);
+}
+
+/*
+ * `avatar.ts` feeds the host's computed `outline-offset` into the cutout path, so the default
+ * 3px offset inflates the hole to 20px around a 14px badge and it bites into the initials. This
+ * is a geometry input, not a visual token decision — and this avatar is never focused
+ * (`aria-hidden`, `image-only`, no `href`; the focus ring lives on the `.user` button), so
+ * removing the offset only tightens the hole onto the badge, as in the design.
+ */
+.user sl-avatar {
+  outline-offset: 0;
+}
+
+/*
+ * The design's avatar is a solid amber disc with near-black initials. `sl-avatar`'s own
+ * `color`/`emphasis` API cannot produce that in this theme — `subtle` is a 20% wash
+ * (#d1901f33) and `bold` is the dark brown #7e5a22 — so the documented `picture` and
+ * `initials` parts are styled instead. `interactive-plain` is the only solid mid-amber the
+ * itslearning theme exposes; the design's own #f1b437 is `yellow-300`, a step this theme's
+ * yellow ramp does not have (it starts at `yellow-400` = #e4af50).
+ */
+.user sl-avatar::part(picture) {
+  background: var(--sl-color-background-accent-yellow-interactive-plain);
+}
+
+.user sl-avatar::part(initials) {
+  color: var(--sl-color-foreground-accent-grey-bold);
+}
+
+.school-bar {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  justify-content: flex-end;
+  padding-block: var(--sl-size-150);
+}
+
+.school-bar sl-icon {
+  color: var(--sl-color-foreground-plain);
+}
+
+.school-name {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  margin-inline-end: var(--sl-size-100);
+}
+
+.switch-school::part(button) {
+  color: var(--sl-color-foreground-primary-bold);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  min-block-size: auto;
+}

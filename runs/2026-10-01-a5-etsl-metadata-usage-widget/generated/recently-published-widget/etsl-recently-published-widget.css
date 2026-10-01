@@ -1,0 +1,59 @@
+/* The widget body is a block-level region inside the root's card shell; the host would otherwise
+   be inline and collapse against the card padding. */
+:host {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  /* The design's four columns are equal quarters of the 588px card, and it is that width which
+     makes "Publication date" / "Publication status" and the longer name/environment values wrap.
+     A fixed layout is what reproduces it; there is no size token for a percentage. */
+  table-layout: fixed;
+  inline-size: 100%;
+}
+
+/* Named for screen readers only - the visible heading lives in the root's card header. */
+caption {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+th,
+td {
+  /* The table row rule. `--etsl-color-row-divider` is declared once on the root's :host and
+     inherits through the shadow boundary; the fallback is the same value, so this component also
+     renders correctly standalone in its own story. Unbound in editorial-suite - see THEME-NOTES. */
+  box-shadow: inset 0 -1px 0 var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
+  font-family: var(--sl-text-fontFamily);
+  padding-block: var(--sl-size-200) 0;
+  padding-inline: var(--sl-size-200);
+  text-align: start;
+  vertical-align: top;
+}
+
+th {
+  /* 64px header row: no --sl-size-* token reaches 64px. */
+  block-size: 64px;
+  color: var(--sl-color-palette-grey-700);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  /* body-lg's own -fontWeight longhand is 400; the design is SemiBold 600. */
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+td {
+  /* 88px body row: no --sl-size-* token reaches 88px. */
+  block-size: 88px;
+  color: var(--sl-color-palette-grey-900);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+/* No rule for the badge or its icon: `sl-badge[size='lg']` already sets its own
+   `::slotted(sl-icon)` size and its green/red colours, and the spec forbids overriding them. */

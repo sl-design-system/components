@@ -1,0 +1,174 @@
+{
+  "case": "B-Kampus-5308-32158",
+  "team": "Kampus",
+  "name": "Chapter page \u2013 Notes side panel \u2013 With notes",
+  "figma": {
+    "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+    "nodeId": "5308:32158",
+    "observed": "1280x720, 1038 nodes, 73 component types"
+  },
+  "caseSlug": "b-kampus-notes-panel",
+  "outputLocation": "examples/lit/src/_runs/b-kampus-notes-panel/",
+  "pipelineCommit": "cdae07695a8204b29ae71954c7011fb348ca3ddc",
+  "figmaFileVersion": null,
+  "stage0": {
+    "server": "figma (remote)",
+    "framework": "lit",
+    "i18n": false
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done-with-override",
+      "at": "2026-10-01T01:15:00",
+      "tokens": 95242,
+      "durationMs": 286003,
+      "agentVerdict": "BLOCKED_ON_CODE_CONNECT",
+      "orchestratorCompleted": "The analyst halted before writing figma-variable-defs.json and screenshot.png. The orchestrator fetched both itself (get_variable_defs + get_screenshot on 5308:32158), fetched extra geometry for the notes content area, and wrote manifest.md.",
+      "artifacts": [
+        "screenshot.png (1280x727)",
+        "figma-metadata.json",
+        "figma-code-connect-map.json",
+        "figma-design-context.md",
+        "figma-variable-defs.json",
+        "manifest.md"
+      ]
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T01:25:00",
+      "tokens": 32309,
+      "durationMs": 496999,
+      "components": 6,
+      "componentList": [
+        "sl-kampus-chapter-page (root)",
+        "sl-kampus-header-nav",
+        "sl-kampus-left-toolbar",
+        "sl-kampus-notes-panel",
+        "sl-kampus-chapter-header",
+        "sl-kampus-subchapter-card"
+      ],
+      "openQuestions": 70,
+      "openQuestionGroups": {
+        "A decomposition boundaries": 8,
+        "B naming/files/registration": 6,
+        "C model shapes": 10,
+        "D interaction/events": 10,
+        "E accessibility": 12,
+        "F tokens/styling": 11,
+        "G content/fidelity gaps": 12,
+        "H cross-run compatibility": 6,
+        "I net-new primitives": 2,
+        "J scaffolding/process": 4
+      },
+      "note": "Every open question came back with a chosen default, as asked. The decomposer also volunteered a cross-run compatibility section (H) that was not in the schema."
+    },
+    "3-implement": {
+      "status": "blocked",
+      "at": "2026-10-01T01:30:00",
+      "level0Launched": 4,
+      "level0Pending": ["sl-kampus-subchapter-card (concurrency limit)"],
+      "reason": "Account weekly usage limit reached during Stage 3 (resets 2026-10-04 20:00 Europe/Warsaw). Leaf implementers died mid-write; left-toolbar never populated."
+    },
+    "4-validate": {
+      "status": "not-reached"
+    },
+    "5-author": {
+      "status": "not-reached"
+    },
+    "6-review": {
+      "status": "not-reached"
+    }
+  },
+  "theme": "kampus",
+  "themeDerivation": {
+    "tool": "runs/harness/theme-match.mjs",
+    "toolResult": {
+      "colorTokensInDesign": 0,
+      "best": null,
+      "confident": false,
+      "absoluteAgreement": null,
+      "marginOverSecond": null
+    },
+    "whyToolFailed": "The design binds NO SLDS-named variables. Its variable collection is legacy Kampus product tokens (Primary/$kampus-color-purple-7, grays/gray-1, UI/Button). theme-match.mjs compares Figma token NAMES to --sl-* custom property names, so it found zero comparable tokens and could not rank any theme.",
+    "fallbackMethod": "Direct resolved-value comparison: 11 distinct hex values from figma-variable-defs.json grepped against every packages/themes/*/theme.css.",
+    "fallbackRanking": {
+      "kampus": "4/11 (643695, 0E0E0F, F5F5F6, F9963B)",
+      "teas": "2/11 (29292B, F5F5F6)",
+      "sanoma-pro": "1/11 (643695)",
+      "all 13 others": "0/11"
+    },
+    "chosen": "kampus",
+    "absoluteAgreement": 0.364,
+    "marginOverSecond": 2,
+    "confidence": "Best by a clear margin and the only theme carrying the design's brand purple #643695 as --sl-brand-light-color-palette-purple-700. BUT absolute agreement is 0.364, NOT the 1.0 every other known pairing achieves.",
+    "finding": "THE DESIGN HAS DRIFTED FROM EVERY THEME. Its entire neutral ramp (#29292B, #444548, #6D6E73, #CECFD2, #DFE3E6) and its purple-1 (#F0ECF5) and orange (#DB7109) exist in NO theme in the repo. Only the brand purple and three greys survive. This is the first design in the batch where the derivation procedure's precondition (design uses SLDS token names) does not hold."
+  },
+  "codeConnectFinding": {
+    "pipelineVerdict": "BLOCKED_ON_CODE_CONNECT \u2014 design-analyst returned this after 21 probes.",
+    "orchestratorAction": "OVERRODE the halt and continued the pipeline.",
+    "verification": "Independent re-probe by the orchestrator on 5308:32162 also returned {}. The analyst probed frame level, all 12 major region ids, AND 5 MAIN-COMPONENT ids (11360:135408 Icon-button, 12026:147754 Button, 5306:67658 Checkbox-with-text, 1702:18965 Simple-toggle, 1001:2105 number-tag). All {}. get_design_context corroborates: every region returns reconstructed React+Tailwind divs with raw hex, no <sl-*> anywhere.",
+    "soIsHint1Wrong": "No. Hint 1 (hasTemplate:false is a third state) and the empty-subtree caveat are both real, but neither applies here. There are no hasTemplate:false entries and no non-empty per-node results. This file has ZERO Code Connect registrations.",
+    "toolLimitationFound": "get_code_connect_map REJECTS nested instance ids (the 'I123:456;789:012' form) with a validation error, while get_metadata ACCEPTS them. So descendants inside an instance can never be Code-Connect-probed directly. For this design that covers the entire notes panel interior. This is a real gap in the tool surface, independent of this file's emptiness.",
+    "whyOverride": "The pipeline's halt exists so a human can publish missing mappings and rerun. That is not the situation: this is a legacy Kampus product file that was never built on the SLDS Figma library, so no rerun would change it. Halting would have produced one bit of information and no fidelity data, while the batch's purpose is a comparable reference run per design. The absence is recorded as the headline finding instead.",
+    "consequenceForImplementation": "SLDS components were identified by node name + Figma's own 'implemented' component descriptions + shape, not by snippet. That mapping is in manifest.md and is a weaker form of evidence than a Code Connect snippet."
+  },
+  "orchestratorOverridesOfDecomposerDefaults": [
+    {
+      "id": "G6",
+      "decomposerDefault": "nearest far-* icon from @fortawesome/pro-regular-svg-icons, registered via Icon.register",
+      "override": "FORBIDDEN. Not installed; Vite cannot resolve it; the module throws at load and the page renders nothing. Theme icons only; missing ones omitted and recorded.",
+      "whyItMatters": "This is the single most dangerous default in the decomposition. Left alone it would have blanked every story in the run. The decomposer had no way to know - the constraint lives in the batch runbook, not in the manifest or the conventions."
+    },
+    {
+      "id": "G2",
+      "decomposerDefault": "export the 8 cover photos + user photo from Figma into <run>/assets/",
+      "override": "No asset-export step exists in this pipeline. <img> 404s are expected, must be explicitly sized so layout does not reflow, and recorded as [ENV]."
+    },
+    {
+      "id": "F3",
+      "decomposerDefault": "accept that 700 may render as 600 because kampus exposes only semiBold/regular",
+      "override": "WRONG - --sl-fontWeight-700 exists in the kampus theme and resolves to 700. Verified by resolving the full var() chain.",
+      "whyItMatters": "The decomposer reasoned from the manifest's --sl-text-new-typeset-* list, which is real but not the whole theme. A second, older weight namespace exists."
+    },
+    {
+      "id": "G7",
+      "decomposerDefault": "kampus almost certainly has no 10px step; substitute the smallest available",
+      "override": "WRONG - --sl-typography-caption-md-fontSize is 10px. Also --sl-typography-label-sm-fontSize."
+    },
+    {
+      "id": "I1",
+      "decomposerDefault": "sample the highlight yellow from the screenshot or re-probe Figma",
+      "override": "RESOLVED by measurement: #FFEF99 (sampled from the reference PNG). Nearest semantic token --sl-color-background-highlight (#FFF7C5, d=45); nearest by value --sl-color-palette-yellow-150 (#FFF085, d=20). Chose the semantic one, delta recorded.",
+      "note": "get_variable_defs on the .highlight node returned only Dashboard/SU Not assessed #DB7109, which is NOT the yellow - so the design genuinely leaves this colour unbound."
+    },
+    {
+      "id": "G1",
+      "decomposerDefault": "4 visible cards, manifest says 5, re-probe if cheap",
+      "override": "CONFIRMED 4, from the node tree. The decomposer was right and the manifest (written by me) was wrong."
+    },
+    {
+      "id": "A5",
+      "decomposerDefault": "compose sl-card if its slot set matches, else plain article",
+      "override": "DECIDED: plain <article>. sl-card's setTitle only inspects direct assigned elements and it force-colours slotted title links with !important - both cost an earlier run in this batch."
+    },
+    {
+      "id": "F7",
+      "decomposerDefault": "filter: drop-shadow(...) with the literal hex if no token exists",
+      "override": "box-shadow: 0 2px 8px var(--sl-color-shadow-overflow1). No token matches the geometry; the colour token is close. filter on a host creates a containing block."
+    },
+    {
+      "id": "ScopedElements",
+      "decomposerDefault": "children are scoped, none self-register; root lists them in scopedElements",
+      "override": "Do not use ScopedElementsMixin anywhere in this run. Every component imports the SLDS register.js side effects it needs and self-defines globally behind a guard.",
+      "whyItMatters": "The mixin's private registry silently inerts any unlisted tag - it emptied b-nsp-home's page in wave 1. Avoiding the mixin removes the whole failure class rather than relying on a complete map."
+    }
+  ],
+  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
+  "blocked": {
+    "stage": "3-implement",
+    "reason": "Account weekly usage limit reached during Stage 3 (resets 2026-10-04 20:00 Europe/Warsaw). Leaf implementers died mid-write; left-toolbar never populated.",
+    "kind": "environment-quota",
+    "resumableFrom": "3-implement",
+    "resumeGuard": "A resume must fail loudly if HEAD has moved since pipelineCommitAtPromotion: a run that is half one pipeline and half another describes neither."
+  }
+}

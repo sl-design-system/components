@@ -1,0 +1,68 @@
+{
+  "case": "A4-sesame-my-groups",
+  "team": "Sesame",
+  "design": "My Groups",
+  "figma": {
+    "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+    "nodeId": "2847:14994"
+  },
+  "theme": "itslearning",
+  "framework": "lit",
+  "i18n": false,
+  "outputLocation": "examples/lit/src/_runs/a4-sesame-my-groups/",
+  "pipelineCommit": "28b11db550a11275919f7882f0e77ed6bc5cc9f5",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:15:03",
+      "notes": "remote figma server; 14 targeted get_design_context calls; get_code_connect_map returned literal {} (file-level, no mappings at all)"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:23:31",
+      "components": 6,
+      "openQuestions": 15
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T01:00:38",
+      "typeCheck": "clean",
+      "components": 6,
+      "storyId": "examples-my-groups-page--basic"
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T01:41:35",
+      "verdict": "NEEDS_WORK -> 1 fix iteration applied",
+      "capture": "testing/stage4-iter1.png",
+      "pageHeight": 1800,
+      "designHeight": 1796,
+      "consoleErrors": 0,
+      "failedRequests": 0
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T02:11:27",
+      "scope": "story only (example path)",
+      "variantsAdded": 2,
+      "bugsRoutedBack": 2,
+      "bugsFixed": 2,
+      "note": "two play-function variants restored after the render-loop fix"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T02:43:19",
+      "critical": 2,
+      "criticalFixed": 2,
+      "minor": 17,
+      "minorFixed": 5
+    }
+  },
+  "storyIds": [
+    "examples-my-groups-page--basic",
+    "examples-my-groups-page--no-selection",
+    "examples-my-groups-page--filters-cleared"
+  ],
+  "finalCapture": "testing/final-basic.png",
+  "promotedTo": "runs/2026-10-01-a4-sesame-my-groups/"
+}

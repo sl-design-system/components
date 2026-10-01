@@ -1,0 +1,111 @@
+:host {
+  /* Custom elements default to `display: inline`; a table needs block layout to fill its
+     container's inline-size instead of shrinking to its content. */
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  /* Four equal columns (the design's four 280px tracks of 1120px total). `table-layout: fixed`
+     makes this apply evenly instead of content sizing the columns unevenly. */
+  inline-size: 25%;
+  padding-inline: var(--sl-size-150);
+  text-align: start;
+  vertical-align: middle;
+}
+
+th {
+  background: var(--sl-elevation-surface-raised-sunken);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-200);
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  min-block-size: var(--sl-size-400);
+}
+
+/* The sortable header's interactive control is a native `<button>`, styled to be visually
+   indistinguishable from the static `<th>`s at rest (no border, no background, inherits the
+   `<th>`'s own font) while staying keyboard-reachable. */
+th button {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: var(--sl-size-050);
+  padding: 0;
+}
+
+tbody tr {
+  background: var(--sl-elevation-surface-raised-default);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-200);
+}
+
+td {
+  min-block-size: var(--sl-size-600);
+}
+
+.course-cell {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+/* Course Hat: the design's `graduation-cap` glyph is not registered in the itslearning theme and
+   its exact fill (`#d9e3e8`) has no token in this theme either — see course-table.ts's class
+   JSDoc. This is an empty circle using the nearest available token, preserving the row's 24px
+   badge geometry. */
+.course-hat {
+  background: var(--sl-color-palette-grey-200);
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-full);
+  flex-shrink: 0;
+  inline-size: var(--sl-size-300);
+}
+
+.course-link {
+  color: var(--sl-color-link-idle);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  text-decoration: underline;
+}
+
+/*
+ * `sl-badge`'s fill/text colors are read from its own `:host` via the private custom properties
+ * `--_background`/`--_color` (not part of its public API) — there's no `::part()` for them. Setting
+ * those custom properties from outside is the standard way to reach past a component's defaults
+ * when no part covers the property (see `component-conventions.md`); the border is set directly
+ * since `sl-badge` doesn't declare one of its own. `sl-badge`'s own `border-radius:
+ * var(--sl-size-borderRadius-full)` already matches the design's fully-rounded pill, so it needs
+ * no override here.
+ */
+.status-badge {
+  --_background: var(--sl-color-palette-grey-100);
+  --_color: var(--sl-color-foreground-bold);
+
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-disabled);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+}
+
+.teacher-cell,
+.last-updated-cell {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

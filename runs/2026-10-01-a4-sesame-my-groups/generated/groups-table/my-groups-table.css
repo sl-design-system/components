@@ -1,0 +1,148 @@
+/**
+ * Intentional: the host wraps a single `sl-grid`, which is `display: block`. Without this the
+ * host stays inline and the table no longer fills the page's 1024px content column.
+ */
+:host {
+  display: block;
+}
+
+/**
+ * `sl-grid` hard-codes its own floating bulk-action bar: it force-opens `[part=bulk-actions]`
+ * whenever `dataSource.selected > 0`, and offers no property to turn that off. This design has
+ * its own `sl-my-groups-bulk-action-bar`, owned by the page, so the grid's copy is suppressed.
+ */
+sl-grid::part(bulk-actions) {
+  display: none;
+}
+
+/**
+ * The design has no rule on the table's inline edges and none above the header: the header fill
+ * and the row fills run flush to the content column. `sl-grid` draws a full frame on `<thead>`
+ * and `<tbody>`, so both inline borders are zeroed here, together with the whole `<thead>` frame
+ * (its block-end rule is drawn as an inset shadow on the header cells instead, see below).
+ *
+ * `max-inline-size` is re-stated because the grid sizes `<tbody>` as
+ * `calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2)` — it assumes its own
+ * 2px frame is present. With the frame removed, that reserved 4px would make the body columns
+ * 4px narrower than the header columns and push `<tbody>` into horizontal scrolling.
+ */
+sl-grid::part(thead) {
+  border-width: 0;
+  max-inline-size: var(--sl-grid-width);
+}
+
+sl-grid::part(tbody) {
+  border-block-end-width: var(--sl-size-borderWidth-subtle);
+  border-inline-width: 0;
+  max-inline-size: var(--sl-grid-width);
+}
+
+/**
+ * The grey header band (`#dedede` in the design).
+ *
+ * `--_head-cell-background` is one of `sl-grid`'s private custom properties. There is no public
+ * part or token for the header fill: `::part(header)` reaches the `<th>`, but its background is
+ * a layered `var(--_vertical-border), var(--_head-cell-background)`. Writing the private property
+ * from the outside is the mechanism the grid's own `Grid/Styling → Parts` story demonstrates, and
+ * it keeps the rest of the layered background intact. Flagged in the implementation report.
+ *
+ * The design's header labels are bold. The grid renders every label in a `<span>` that sets
+ * `font-weight: var(--sl-text-new-typeset-fontWeight-semiBold)` itself, and for sortable columns
+ * that span is slotted into `sl-grid-sorter`, whose `slot { font-weight: … }` re-applies the same
+ * token one level deeper — neither element is reachable from here, and neither reads a public
+ * custom property. Rebinding the token inside the header part is the only hook that reaches both.
+ * Flagged in the implementation report.
+ *
+ * The rule under the header is an inset shadow rather than a border so it costs no layout height:
+ * the design's header band measures 48px *including* that line. `--sl-color-border-plain` is the
+ * header fill itself, so the nearest visible token to the design's `#d7d7d7` is used instead.
+ *
+ * `white-space: nowrap` keeps "School year" on one line; wrapping it is what inflated the band
+ * to 64px.
+ */
+sl-grid::part(header) {
+  --_head-cell-background: var(--sl-color-border-plain);
+  --sl-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-700);
+
+  box-shadow: inset 0 calc(var(--sl-size-borderWidth-subtle) * -1) 0 0
+    var(--sl-color-palette-grey-400);
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-inline: var(--sl-size-150);
+  white-space: nowrap;
+}
+
+/**
+ * `sl-grid-sorter` brings its own `--sl-size-150` inset, so the header cell adds none: the sort
+ * column labels then start at the same inline offset as every other label and as the cell text
+ * below them, and the sorter gets the full column width for its label + sort button.
+ */
+sl-grid::part(header sort) {
+  padding-inline: 0;
+}
+
+sl-grid::part(header selection) {
+  padding-inline: var(--sl-size-250);
+}
+
+/**
+ * The body rows are a tinted surface (`#f6f8f8` in the design) against the white page, not
+ * transparent. Set through the same private property the grid uses for the selected row, on the
+ * row rather than the cell so the selected row below can still override it.
+ */
+sl-grid::part(row) {
+  --_body-cell-background: var(--sl-elevation-surface-raised-sunken);
+}
+
+/**
+ * The pale selected-row fill (`#f9ecf5` in the design).
+ *
+ * The `selected` part exists on the `<tr>`, but a row background set there is painted over by the
+ * opaque `<td>` backgrounds, and `sl-grid` bakes in a blue `color-mix()` for selected rows via the
+ * private `--_body-cell-background`. Overriding that private property on the row is, again, what
+ * the grid's own styling story does. Flagged in the implementation report.
+ */
+sl-grid::part(row selected) {
+  --_body-cell-background: var(--sl-color-background-selected-subtle);
+}
+
+/**
+ * 48px rows, as in the design.
+ *
+ * The block padding is stated explicitly (rather than through the grid's
+ * `--_body-cell-padding-block`) because the grid drops the block padding to `0` on any cell whose
+ * content is not plain text — which is every cell produced by a renderer, so the Name and Action
+ * cells would otherwise be shorter than the rest.
+ *
+ * The design's 48px row includes its 1px separator, so the block-end padding gives that 1px back
+ * to the border: 14 + 20 (line) + 13 + 1 = 48.
+ */
+sl-grid::part(data) {
+  border-block-end-width: var(--sl-size-borderWidth-subtle);
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-block: var(--sl-size-175) calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+  padding-inline: var(--sl-size-150);
+}
+
+sl-grid::part(data selection) {
+  padding-inline: var(--sl-size-250);
+}
+
+/**
+ * The overflow menu's button is 36px tall — taller than a line of text — so the block padding
+ * above would make the Action cell 64px and every row with it. The cell keeps no block padding
+ * (the grid centers its content anyway), and the text cells keep the row at 48px.
+ *
+ * `action` is a custom part put on the column; the other columns are addressable through the
+ * part `sl-grid` derives from their `path`, but the Action column has no path.
+ */
+sl-grid::part(data action) {
+  padding-block: 0;
+}

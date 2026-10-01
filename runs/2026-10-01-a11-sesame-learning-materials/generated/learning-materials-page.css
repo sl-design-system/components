@@ -1,0 +1,65 @@
+/*
+ * The shared "My Sesame" palette. Every value below was grepped against
+ * `packages/themes/itslearning/` AND `packages/tokens/` — zero exact matches for all nine. The
+ * design's own `myvanin` theme is commented out in `.storybook/themes.ts` and absent from this
+ * checkout, so `itslearning` is used as a fallback theme; these colours are genuinely unbound
+ * (partner-brand values), not tokens this run failed to find. Declared as private custom
+ * properties on the host so they inherit into every child's shadow root — this is how the
+ * children (top-bar, assigned-materials, digital-platforms, footer) pick up this palette without
+ * each redeclaring it.
+ */
+:host {
+  --_sesame-ink: #323232;
+  --_sesame-brand: #2f5c64;
+  --_sesame-label: #5d5d5d;
+  --_sesame-tag-name: #6d6e73;
+  --_sesame-placeholder: #8d8d8d;
+  --_sesame-rule: #bfbfbf;
+  --_sesame-divider: #cecfd2;
+  --_sesame-band: #ccedea;
+  --_sesame-footer-bg: #f6f8f8;
+
+  /* Intentional: the page stacks four full-bleed bands, which needs a block box rather than the
+     default inline one. */
+  display: block;
+  inline-size: 100%;
+
+  /* The one exact colour token in the whole design (see the manifest's Token Reference). */
+  background: var(--sl-color-white);
+}
+
+/*
+ * Fluid, mobile-first — this is the entire point of this case. The page never hardcodes the
+ * Figma frame's 360px: no max-inline-size clamp, no media query, no multi-column grid. Each band
+ * fills the inline axis and the four simply stack; the teal band (painted inside
+ * sl-sesame-assigned-materials) and the footer are full-bleed because those children paint their
+ * own backgrounds edge-to-edge and handle their own inner padding.
+ */
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gap below the top bar, before the "Learning materials" section. Measured from the Figma node
+   metadata: the top bar ends at y=112 and the heading starts at y=144, so this is exactly 32px. */
+sl-sesame-assigned-materials {
+  margin-block-start: var(--sl-size-400);
+}
+
+/*
+ * Unlike its siblings, `sl-sesame-digital-platforms` renders no inline gutter of its own — only
+ * its cards pad their *interior*, so without this wrapper its heading and card list would span
+ * edge-to-edge. A wrapping `<div>` (rather than padding the custom element directly) is
+ * deliberate: the child's `:host` sets an explicit `inline-size: 100%`, and the theme has no
+ * global `box-sizing: border-box` reset, so padding added directly to that host from outside
+ * would add to its 100% width and overflow. This plain `<div>` has no such explicit sizing, so it
+ * safely picks up the gutter via padding.
+ */
+.digital-platforms {
+  padding-inline: var(--sl-size-200);
+
+  /* Both gaps measured from the Figma node metadata rather than eyeballed: the teal band ends at
+     y=1006 and this section starts at y=1039 (33px, snapped to the 32px token); the section ends
+     at y=1444 and the footer band starts at y=1534 (90px, off-scale so kept raw). */
+  margin-block: var(--sl-size-400) 90px;
+}

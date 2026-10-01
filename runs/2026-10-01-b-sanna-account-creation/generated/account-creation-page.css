@@ -1,0 +1,111 @@
+:host {
+  /*
+   * Renders the design's elevated "frame": a fixed 1512x982 surface with the wordmark, form and
+   * photo absolutely positioned inside it, plus the footer strip under the photo. Position is
+   * intentional here — the design places each region at its own exact coordinates rather than a
+   * shared grid/flex rhythm.
+   */
+  background: var(--sl-elevation-surface-base-default);
+  block-size: 982px;
+  border-radius: var(--sl-size-borderRadius-xl);
+  /*
+   * The design's `Large` effect is five stacked `#3E5598` layers at 5/20/45/80/125px offsets, for
+   * which no token exists. `--sl-elevation-shadow-overlay` is the nearest available token — this
+   * is the recorded default, not a reproduction of the five layers.
+   */
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  display: block;
+  inline-size: 1512px;
+  overflow: hidden;
+  position: relative;
+}
+
+/*
+ * The regions below (.logo, .form, .media, footer) are placed at the design's own 1512x982
+ * artboard coordinates. The manifest's Token Reference binds spacing and sizing tokens, but no
+ * token binds an absolute position, so these literals are the design's measurements rather than
+ * unexplained magic numbers. Where a coordinate does happen to match a token exactly, the token
+ * is used.
+ */
+.logo {
+  /* 41px — no exact token (the scale steps 40 -> 48). */
+  inset-block-start: 41px;
+  /* 40px — exact match for --sl-size-500. Verified on the RESOLVED value, not the name:
+     Figma's own `Size/500` is 20, while this theme's --sl-size-500 is 40px. */
+  inset-inline-start: var(--sl-size-500);
+  position: absolute;
+}
+
+.logo img {
+  block-size: 19px;
+  display: block;
+  inline-size: 107px;
+}
+
+.form {
+  inline-size: 462px;
+  inset-inline-start: 147px;
+  position: absolute;
+  inset-block-start: calc(50% + 28px);
+  transform: translateY(-50%);
+}
+
+.media {
+  block-size: 924px;
+  border-radius: var(--sl-size-300);
+  inline-size: 745px;
+  inset-block-start: 29px;
+  inset-inline-start: 732px;
+  overflow: hidden;
+  position: absolute;
+}
+
+.media img {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+footer {
+  block-size: 41px;
+  inline-size: 732px;
+  inset-block-start: 925px;
+  inset-inline-start: 0;
+  padding: var(--sl-space-125);
+  position: absolute;
+}
+
+nav[aria-label='Legal'] ul {
+  align-items: center;
+  block-size: 100%;
+  display: flex;
+  gap: var(--sl-space-new-2xl);
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * The forwarded `heading` slot carries its own default (design) content, since the
+ * `<sl-account-creation-form>`'s own fallback content never shows once something — even an empty
+ * forwarding `<slot>` — is assigned to its named slot. Style that default content to match the
+ * child's own `h1` styling (see account-creation-form.css) so the story renders identically
+ * whether or not a consumer provides their own heading content.
+ */
+h1,
+::slotted(h1) {
+  color: var(--sl-color-foreground-primary-bold);
+  margin-block: 0;
+  text-align: center;
+  /*
+   * --sl-text-new-* tokens have no shorthand custom property in this theme (only the
+   * -fontFamily/-fontSize/-lineHeight longhands exist, and the heading scale has no -fontWeight
+   * longhand) — set every longhand explicitly instead of writing `font: var(--sl-text-new-*)`.
+   */
+  font-family: var(--sl-text-new-heading-xl-fontFamily);
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+}

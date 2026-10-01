@@ -1,0 +1,64 @@
+<frame id="5308:32158" name="Chapter page – Notes side panel – With notes" x="277" y="247" width="1280" height="720">
+  <instance id="5308:32159" name="Fullscreen toggle" x="1192" y="598" width="88" height="122" />
+  <frame id="5308:32160" name="side-by-side" x="0" y="56" width="1280" height="664">
+    <instance id="5308:32161" name="Table of contents - Elements basics" x="74" y="0" width="360" height="664" hidden="true" />
+    <instance id="5308:32162" name="notes-sidepanel" x="74" y="0" width="360" height="664" />
+    <frame id="5308:32163" name="content" x="434" y="0" width="846" height="840">
+      <instance id="5308:32164" name="breadcrumb-2023" x="24" y="0" width="798" height="64" />
+      <instance id="5308:32165" name="Chapter page title" x="24" y="80" width="798" height="40" />
+      <frame id="5308:32166" name="Frame 31100" x="24" y="136" width="798" height="24">
+        <instance id="5308:32167" name="Student view" x="0" y="0" width="198" height="24" />
+      </frame>
+      <frame id="5308:32168" name="subchapter-cards_grid" x="24" y="176" width="798" height="965">
+        <frame id="5308:32169" name="Frame 31095" x="0" y="0" width="798" height="251.5">
+          <instance id="5308:32170" name="subchapter-card" x="0" y="0" width="250" height="251.5" />
+          <instance id="5308:32171" name="subchapter-card" x="274" y="0" width="250" height="251.5" />
+          <instance id="5308:32172" name="subchapter-card" x="548" y="0" width="250" height="251.5" />
+        </frame>
+        <frame id="5308:32173" name="Frame 31096" x="0" y="275.5" width="798" height="251.5">
+          <instance id="5308:32174" name="subchapter-card" x="0" y="0" width="250" height="251.5" />
+          <instance id="5308:32175" name="subchapter-card" x="274" y="0" width="250" height="251.5" />
+          <instance id="5308:32176" name="subchapter-card" x="548" y="0" width="250" height="251.5" />
+        </frame>
+        <frame id="5308:32177" name="Frame 31097" x="0" y="551" width="798" height="262">
+          <instance id="5308:32178" name="subchapter-card" x="0" y="0" width="264" height="262" />
+          <instance id="5308:32179" name="subchapter-card" x="288" y="0" width="264" height="262" />
+        </frame>
+        <frame id="5308:32180" name="placeholder" x="0" y="837" width="218" height="128" />
+      </frame>
+      <instance id="5308:32181" name="Student view" x="16" y="1289.5" width="814" height="24" hidden="true" />
+    </frame>
+  </frame>
+  <instance id="5308:32182" name="Left-toolbar" x="0" y="56" width="74" height="664" />
+  <instance id="5308:32183" name="Header-navigation" x="0" y="0" width="1280" height="56" />
+  <instance id="5308:34107" name="Number annotation" x="347" y="154" width="35" height="36" />
+</frame>
+
+--- notes-sidepanel (5308:32162) ---
+<instance id="5308:32162" name="notes-sidepanel" x="74" y="0" width="360" height="664">
+  <frame id="I5308:32162;5308:29281" name="header" x="0" y="0" width="360" height="72">
+    <line id="I5308:32162;5308:29282" name="Line 39" x="0" y="56" width="400" height="0" hidden="true" />
+    <instance id="I5308:32162;5308:29283" name="Icon-button" x="359" y="24" width="24" height="24" />
+    <instance id="I5308:32162;5308:29284" name="Icon-button" x="359" y="24" width="24" height="24" />
+    <instance id="I5308:32162;5308:29285" name="Button" x="202" y="16" width="94" height="40" />
+    <text id="I5308:32162;5308:29286" name="Notes" x="16" y="24" width="50" height="24" />
+    <instance id="I5308:32162;8034:123724" name="Icon-button" x="304" y="16" width="40" height="40" />
+  </frame>
+  <frame id="I5308:32162;5308:29287" name="Notes" x="0" y="72" width="360" height="552">
+    <frame id="I5308:32162;5308:29288" name="filters" x="16" y="0" width="328" height="20">
+      <instance id="I5308:32162;5308:29289" name="Checkbox-with-text" x="0" y="0" width="103" height="20" />
+      <instance id="I5308:32162;5308:29290" name="Checkbox-with-text" x="119" y="0" width="149" height="20" />
+    </frame>
+    <instance id="I5308:32162;5308:29877" name="notes_side-panel_content-area" x="16" y="44" width="328" height="508" />
+  </frame>
+</instance>
+
+--- notes_side-panel_content-area (I5308:32162;5308:29877) ---
+Contains two "notes" groups ("notes 1", "notes 2"), each with:
+- heading text (e.g. "T104 Dear Mom and Dad")
+- "saved general" card frame (Rectangle 767 background, body text, date text, edit icon-button, ellipsis icon-button [hidden variant]) — represents a saved plain note
+- "saved" card frame (similar, plus a ".highlight" instance + highlighted title text) — represents a saved highlight note
+- "add new general" / "add new to highlight" frames (hidden, editor-with-toolbar variants, not shown in this "With notes" state)
+- "empty state" frame (hidden in this variant)
+- "Spacer" instances between items
+Multiple "saved"/"saved general" card instances repeat per note thread (2 in notes 1, 3 in notes 2 group visible).

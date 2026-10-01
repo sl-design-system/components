@@ -1,0 +1,91 @@
+:host {
+  /* The row + the rule beneath it is a fixed block shape (798x56 in the design), not the
+     custom element's default inline rendering. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--sl-size-700);
+  /* 798px: layout dimension with no matching --sl-size-* token (brief's token table). */
+  inline-size: 798px;
+  box-sizing: border-box;
+  border-block-start: 2px solid var(--sl-brand-light-color-palette-purple-700);
+}
+
+h2 {
+  margin: 0;
+  color: var(--sl-brand-light-color-palette-grey-900);
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-title-lg-fontSize);
+  font-weight: var(--sl-typography-title-lg-fontWeight);
+  line-height: var(--sl-title-lg-lineHeight);
+  letter-spacing: var(--sl-title-lg-letterSpacing);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+}
+
+.icon-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: var(--sl-size-050);
+  color: var(--sl-brand-light-color-palette-purple-700);
+  cursor: pointer;
+}
+
+.icon-action svg {
+  inline-size: var(--sl-size-300);
+  block-size: var(--sl-size-300);
+}
+
+.icon-action:hover {
+  opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+.icon-action:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.view-toggle {
+  display: flex;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+  border-radius: var(--sl-size-borderRadius-lg);
+  overflow: hidden;
+}
+
+.view-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: var(--sl-color-white);
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-150);
+  color: var(--sl-brand-light-color-palette-purple-700);
+  cursor: pointer;
+}
+
+.view-toggle button + button {
+  border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+}
+
+.view-toggle button svg {
+  inline-size: var(--sl-size-300);
+  block-size: var(--sl-size-300);
+}
+
+.view-toggle button[aria-pressed='true'] {
+  background: var(--sl-brand-light-color-palette-grey-050);
+  color: var(--sl-brand-light-color-palette-grey-900);
+}
+
+.view-toggle button:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
+}

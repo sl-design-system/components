@@ -1,0 +1,64 @@
+:host {
+  /* The design's 588px body is two 294px columns of bars. */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  /* 12px pitch: 32px label + 4px + 6px track + 12px == the design's 54px row-to-row distance. */
+  gap: var(--sl-size-150);
+  list-style: none;
+  margin: 0;
+  /* Each 294px column insets its 262px bar by 16px on both sides. */
+  padding-block: 0;
+  padding-inline: var(--sl-size-200);
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-050);
+}
+
+a {
+  align-items: center;
+  block-size: var(--sl-size-400);
+  /* Run-local palette declared on the root's :host; unbound in editorial-suite. */
+  color: var(--etsl-color-brand, #006666);
+  display: flex;
+  /* Roboto: --sl-text-new-body-md-fontFamily resolves to 'Open Sans' in this theme. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  overflow: hidden;
+  overflow-wrap: break-word;
+  text-decoration: none;
+  /* The design's "Match - Multiple  response" contains a double space; keep it rendered. */
+  white-space: pre-wrap;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-space-050);
+}
+
+.track {
+  background-color: var(--sl-color-palette-grey-100);
+  /* No token equals 6px (--sl-size-050 is 4px); hardcoded dimension, recorded as a gap. */
+  block-size: 6px;
+  inline-size: 100%;
+}
+
+.indicator {
+  /* Run-local palette declared on the root's :host; unbound in editorial-suite. */
+  background-color: var(--etsl-color-bar-indicator, #ca6f2a);
+  block-size: 100%;
+  max-inline-size: 100%;
+}

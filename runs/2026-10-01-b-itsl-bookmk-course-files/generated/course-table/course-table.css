@@ -1,0 +1,165 @@
+:host {
+  /* Custom elements default to `display: inline`; a table needs block layout to fill its
+     container's width instead of shrinking to its content. */
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  /* Four equal columns (the design's `flex: 1 0 0` each, 280px of 1120px). `table-layout: fixed`
+     makes this apply evenly instead of content sizing the columns unevenly. */
+  inline-size: 25%;
+}
+
+th {
+  background: var(--sl-color-palette-grey-050);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-300);
+  color: var(--sl-color-palette-grey-900);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-md-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-md-lineHeight);
+  /* Design target: 32px (--sl-size-400). With the sort button capped to 32px square (below), this
+     cell measures ~35px including its 1px bottom border — a ~3px residual from the table-cell's
+     own line-box/baseline math (a Chromium quirk with `vertical-align: middle` on a cell whose
+     only child is a block-level flex wrapper), not this rule. Recorded as a Stage 4 discrepancy;
+     removing it would need suppressing the cell's own inline formatting context, which risks
+     clipping the text baseline in the two plain-label cells. */
+  min-block-size: var(--sl-size-400);
+  padding-inline: var(--sl-size-100);
+  text-align: start;
+  vertical-align: middle;
+}
+
+/*
+ * `display: flex` must NOT go on `th`/`td` directly — that takes the cell out of the table layout
+ * algorithm entirely (cells stop being table cells and stack as block-level flex containers, and
+ * the rows lose their column structure). Flex layout for a cell's content goes on an inner
+ * wrapper element instead; the cell itself stays at its native `display: table-cell`.
+ */
+.th-inner {
+  align-items: center;
+  block-size: var(--sl-size-400);
+  display: flex;
+  justify-content: space-between;
+}
+
+.th-inner sl-button {
+  flex-shrink: 0;
+}
+
+/*
+ * `sl-button`'s icon-only sizing (`block-size: calc(1lh + --sl-size-200)`) comes out to 36px at
+ * the default/`md` size — taller than the design's 32px button, which drove the header row to
+ * ~39px. `::part(button)` is the component's documented public styling hook (unlike the
+ * underscore-prefixed internals used elsewhere in this file), so cap it there to the design's
+ * exact 32px square; `--sl-icon-size` is likewise a public custom property, set to the design's
+ * 20px glyph size.
+ */
+.th-inner sl-button::part(button) {
+  block-size: var(--sl-size-400);
+  inline-size: var(--sl-size-400);
+}
+
+.th-inner sl-icon {
+  --sl-icon-size: var(--sl-size-250);
+}
+
+tbody tr {
+  background: var(--sl-color-white);
+  border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-300);
+}
+
+td {
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-100);
+  vertical-align: top;
+}
+
+.course-cell {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+/*
+ * `sl-avatar` always reserves its internal `picture spacer name` grid's spacer column via
+ * `--_gap-inline` (8px at size="sm"), even with no display name — that reserved-but-invisible
+ * column was stacking on top of this flex `gap`, doubling the space to the course-name link.
+ * `--_gap-inline` is a real inheritable custom property despite the underscore-prefixed naming,
+ * so zeroing it here (keeping this cell's own `gap` as the single source of that spacing) is the
+ * one measured fix; the alternative (zero this `gap`, keep the avatar's spacer) works out to the
+ * same rendered result.
+ */
+.course-cell sl-avatar {
+  --_gap-inline: 0;
+}
+
+.course-link {
+  color: var(--sl-color-palette-blue-700);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-lg-lineHeight);
+  text-decoration: underline;
+}
+
+.status-cell {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--sl-size-050);
+}
+
+/*
+ * `sl-tag`'s fill/border colors and border-radius are set on its own `:host` from inside its
+ * shadow root, using private custom properties (`--_bg-color` / `--_br-color`, not part of its
+ * public API). A class selector here ties the CSS specificity of that internal `:host` rule,
+ * which the Shadow DOM cascade resolves in favor of the *outer* (this component's) rule — the
+ * standard way to reach past a component's defaults when no `::part()` covers the property.
+ * The resulting grey-100/grey-400 match against the design is unverified visually — see the
+ * Stage 4 report.
+ */
+.status-tag {
+  --_bg-color: var(--sl-color-palette-grey-100);
+  --_br-color: var(--sl-color-palette-grey-400);
+
+  border-radius: var(--sl-size-borderRadius-full);
+  /* `sl-tag` draws its own 1px top/bottom border outside its box (`box-sizing: content-box`, and
+     no border-box reset exists in this theme or this run's CSS), so a plain `--sl-size-300` (24px)
+     min-block-size rendered 2px *taller* than 24px (26px) — compensate so the measured box lands
+     at the design's 24px. */
+  min-block-size: calc(var(--sl-size-300) - 2 * var(--sl-size-borderWidth-subtle));
+}
+
+.status-tag::part(label) {
+  align-items: center;
+  color: var(--sl-color-palette-grey-900);
+  display: flex;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-md-fontSize);
+  font-weight: var(--sl-typography-text-md-fontWeight);
+  line-height: var(--sl-text-md-lineHeight);
+}
+
+.status-glyph {
+  block-size: var(--sl-size-250);
+  display: inline-block;
+  flex-shrink: 0;
+  inline-size: var(--sl-size-150);
+  margin-inline-end: var(--sl-size-025);
+}
+
+.teacher-cell,
+.last-updated-cell {
+  color: var(--sl-color-palette-grey-900);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-lg-fontSize);
+  font-weight: var(--sl-typography-text-lg-fontWeight);
+  line-height: var(--sl-text-lg-lineHeight);
+}

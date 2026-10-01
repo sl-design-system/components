@@ -1,0 +1,100 @@
+:host {
+  /* Intentional: the tab strip and the table are the full body of the widget card, so the host
+     has to be a block for them to take the card's width. An inline host would shrink-wrap. */
+  display: block;
+}
+
+sl-tab-group {
+  /* `sl-tab-group` derives BOTH the tab bar's bottom rule and the negative margin that pulls the
+     tabs (and with them the active-tab indicator) down flush with that rule from this one token.
+     The design's rule is 1px, so the token is re-pointed at the subtle width for this element
+     only - narrowing just the rule would leave the 4px indicator hanging 1px below it. */
+  --sl-size-borderWidth-bold: var(--sl-size-borderWidth-subtle);
+
+  /* The active-tab indicator is a plain `.indicator` element inside `sl-tab-group`'s shadow root,
+     not a `::part`, so its colour is only reachable through the token it reads. The theme points
+     `--sl-color-border-selected` at blue-600 (#175d79); the design's indicator is blue-500
+     (#4589be), which is a real palette token, so it is substituted here rather than hardcoded. */
+  --sl-color-border-selected: var(--sl-color-palette-blue-500);
+
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+sl-tab-group::part(container) {
+  /* The theme's `--sl-color-border-plain` is grey-150; the design's tab bar rule is grey-300. */
+  border-block-end-color: var(--sl-color-palette-grey-300);
+}
+
+sl-tab {
+  /* An outer-tree rule beats the `:host` rule in `tab.css`, so this wins over the component's
+     own `--sl-color-foreground-plain`. The design paints the idle and the selected tab label
+     the same colour; only the indicator marks the selection. */
+  color: var(--etsl-color-chrome, #02242e);
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  /* The design pins all three columns at 196px of the 588px widget, so they are proportional
+     rather than content-sized: the project name has to wrap inside its third. */
+  table-layout: fixed;
+}
+
+/* The visible "Reused content" title lives in the card header, which the root renders; the table
+   still needs its own accessible name, so the caption is visually hidden. */
+caption {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+th,
+td {
+  font-family: var(--sl-text-fontFamily);
+  padding-inline: var(--sl-size-200);
+  text-align: start;
+  vertical-align: middle;
+}
+
+th {
+  color: var(--sl-color-palette-grey-700);
+  /* Three equal thirds of the 588px widget, exactly as the design pins them. */
+  inline-size: 33.333%;
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  /* The theme's `--sl-text-new-body-lg-fontWeight` is 400; the design's column headers are 600. */
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  /* 8 + 2 x 24 + 8 = the design's 64px header row: "Linked items in current outline" is the
+     tallest cell and wraps to two lines, the other two centre against it. */
+  padding-block: var(--sl-size-100);
+}
+
+td {
+  /* The row rule. Painted per cell rather than on the `tr`, because a `box-shadow` on a table row
+     is not painted under `border-collapse: collapse`; abutting cells make one continuous line.
+     The design has no rule under the header row, so this is on `td` only. */
+  box-shadow: inset 0 -1px 0 var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
+  color: var(--sl-color-palette-grey-900);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  /* 14 + 20 + 14 = the design's 48px row; the first row's project name wraps to three lines,
+     which makes that row the design's 88px on its own. The heights are not forced. */
+  padding-block: var(--sl-size-175);
+}
+
+a {
+  color: var(--etsl-color-brand, #006666);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}

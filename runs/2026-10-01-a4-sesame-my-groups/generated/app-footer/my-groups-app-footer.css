@@ -1,0 +1,101 @@
+:host {
+  /*
+   * The design's band is `#f6f8f8`. `--sl-color-background-subtle` is a 20%-alpha grey in
+   * itslearning (`#9b9b9b33`) that composites to `#ebebeb` — visibly too dark. The sunken raised
+   * surface resolves to `#f9f9f9`, within 3/255 of the design.
+   */
+  background: var(--sl-elevation-surface-raised-sunken);
+
+  /*
+   * The footer is a full-bleed band: the pale grey fill runs edge to edge while the content
+   * inside it sits within the page gutter. That needs a block box, so the display change is
+   * intentional rather than boilerplate.
+   */
+  display: block;
+}
+
+.footer {
+  align-items: center;
+  column-gap: var(--sl-size-400);
+  display: grid;
+  /* Wordmark on the left, link row and language selector stacked on the right. */
+  grid-template-columns: auto 1fr;
+  /*
+   * The design's 128px page gutter has no single token - the size scale tops out at
+   * --sl-size-1000 (80px) - so it is composed from two tokens rather than hardcoded.
+   */
+  padding-block: var(--sl-size-300);
+  padding-inline: calc(var(--sl-size-1000) + var(--sl-size-600));
+  row-gap: var(--sl-size-200);
+}
+
+.wordmark {
+  /*
+   * This theme declares no combined `--sl-text-new-heading-md` font shorthand, only the
+   * longhands below, and the heading scale has no `-fontWeight` longhand - hence the explicit
+   * --sl-fontWeight-700.
+   */
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  grid-column: 1;
+  grid-row: 1;
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+}
+
+nav {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+ul {
+  display: flex;
+  gap: var(--sl-size-400);
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+}
+
+a {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+.language {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+}
+
+/*
+ * The selector reads as plain footer text in the design, not as a primary-coloured link, so the
+ * link fill's foreground is overridden through the button's exposed part instead of wrapping it.
+ */
+.language::part(button) {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  gap: var(--sl-size-100);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-inline: 0;
+}
+
+.language sl-icon {
+  /*
+   * `sl-icon` sizes off `--sl-icon-size`, not `font-size` — `icon.css` computes
+   * `max(1cap, var(--sl-icon-size))`, so a `font-size` rule here is inert.
+   */
+  --sl-icon-size: var(--sl-size-icon-font-md);
+}

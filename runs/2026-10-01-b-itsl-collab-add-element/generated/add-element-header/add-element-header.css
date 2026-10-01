@@ -1,0 +1,28 @@
+:host {
+  /* Custom elements default to `display: inline`; this header stacks breadcrumbs, title and the
+     action row vertically, so `flex` is an intentional change, not boilerplate. */
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+h1 {
+  color: var(--sl-color-foreground-plain);
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  margin-block-end: var(--sl-size-250);
+  margin-block-start: var(--sl-size-300);
+}
+
+.actions {
+  display: flex;
+  gap: var(--sl-size-150);
+}

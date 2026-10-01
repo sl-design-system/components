@@ -1,0 +1,78 @@
+:host {
+  /* The widget body is a fixed 282px column in the design's 1200px grid; without an explicit
+     display it would lay out inline and the grid below would not get that width. */
+  display: block;
+  inline-size: 282px;
+}
+
+.tiles {
+  box-sizing: border-box;
+  display: grid;
+  /* 117px tiles with a 16px gutter inside a 16px inset: 16 + 117 + 16 + 117 + 16 = 282. The
+     tile box size has no --sl-size-* equivalent; it is a layout dimension, not a token. */
+  gap: var(--sl-space-200);
+  grid-template-columns: repeat(2, 117px);
+  inline-size: 100%;
+  list-style: none;
+  margin: 0;
+  /* Block padding is deliberately absent: the 16px gaps above and below the tile grid belong to
+     the widget card shell, which the root renders. */
+  padding: 0 var(--sl-space-200);
+}
+
+.tile {
+  background: var(--sl-color-palette-grey-000);
+  block-size: 104px;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-400);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-100);
+  padding: var(--sl-space-100);
+}
+
+.logo {
+  align-items: center;
+  block-size: var(--sl-size-400);
+  color: var(--sl-color-palette-grey-800);
+  display: flex;
+  /* The brand wordmarks are bitmaps behind expiring CDN URLs and none of the twelve tile
+     glyphs is registered by the editorial-suite theme, so the seven brand tiles fall back to
+     their name as text and the five glyph tiles render an empty box of the right height. */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-sm-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-sm-lineHeight);
+  overflow: hidden;
+}
+
+.label {
+  color: var(--sl-color-palette-grey-900);
+  /* Roboto: --sl-text-new-body-md-fontFamily resolves to 'Open Sans' in this theme. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+sl-button::part(button) {
+  /* The design's "See all" is a 24px-high control flush with the label's left edge; size="sm"
+     would add block padding on top of the 20px line box. */
+  /* Raleway Bold 14; the design's 16px line-height has no token, heading-sm's 20px is used. */
+  color: var(--etsl-color-brand, #006666);
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-sm-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-sm-lineHeight);
+  padding-block: 0;
+}
+
+sl-button::part(button):active {
+  color: var(--etsl-color-brand-active, #003d3d);
+  text-decoration: underline;
+}
+
+sl-button[disabled]::part(button) {
+  color: var(--sl-color-palette-grey-500);
+}

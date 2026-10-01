@@ -1,0 +1,34 @@
+{
+  "story": "runs-a1-kampus-subchapter-feed-subchapter-feed-page--basic",
+  "theme": "kampus",
+  "url": "http://localhost:6010/iframe.html?id=runs-a1-kampus-subchapter-feed-subchapter-feed-page--basic&viewMode=story&globals=theme:kampus",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/a1-kampus-subchapter-feed/testing/page.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-subchapter-feed-page",
+        "defined": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "bodyHeight": 720
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedRequests": [
+    "404 http://localhost:6010/assets/theory-1.jpg",
+    "404 http://localhost:6010/assets/theory-2.jpg",
+    "404 http://localhost:6010/assets/theory-3.jpg"
+  ],
+  "verdict": "rendered"
+}

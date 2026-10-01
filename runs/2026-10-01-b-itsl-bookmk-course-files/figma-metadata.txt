@@ -1,0 +1,24 @@
+<frame id="4886:12955" name="course files" x="4437" y="246" width="1280" height="768">
+  <instance id="4886:12956" name="Navigation" x="0" y="0" width="1280" height="112" />
+  <frame id="4886:12957" name="main-wrapper" x="0" y="112" width="1280" height="485">
+    <frame id="4886:12958" name="content-area-wrapper" x="0" y="0" width="1280" height="485">
+      <frame id="4886:12959" name="content-area" x="48" y="0" width="1184" height="429">
+        <instance id="4886:12960" name="PageHeader" x="0" y="0" width="1184" height="80" />
+        <frame id="4886:12961" name="cards" x="0" y="80" width="1184" height="329">
+          <frame id="4886:12962" name="Content-block" x="0" y="0" width="1184" height="329">
+            <instance id="4886:12963" name="Banner" x="32" y="20" width="1120" height="45" />
+            <instance id="4886:12964" name="Search" x="32" y="85" width="1120" height="40" hidden="true" />
+            <frame id="4886:12965" name="table" x="32" y="85" width="1120" height="224">
+              <instance id="4886:12966" name="courses " x="0" y="0" width="1120" height="32" />
+              <instance id="4886:12968" name="courses " x="0" y="32" width="1120" height="48" />
+              <instance id="4886:12969" name="courses " x="0" y="80" width="1120" height="48" />
+              <instance id="4886:12971" name="courses " x="0" y="128" width="1120" height="48" />
+              <instance id="4886:12972" name="courses " x="0" y="232" width="1120" height="48" hidden="true" />
+              <instance id="4886:12973" name="courses " x="0" y="176" width="1120" height="48" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+</frame>

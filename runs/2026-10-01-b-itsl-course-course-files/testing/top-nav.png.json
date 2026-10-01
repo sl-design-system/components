@@ -1,0 +1,48 @@
+{
+  "story": "runs-b-itsl-course-course-files-top-nav--basic",
+  "theme": "itslearning",
+  "url": "http://localhost:6010/iframe.html?id=runs-b-itsl-course-course-files-top-nav--basic&viewMode=story&globals=theme:itslearning",
+  "viewport": {
+    "width": 1280,
+    "height": 200
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/b-itsl-course-course-files/testing/top-nav.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-itsl-top-nav",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1248,
+        "height": 113
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      }
+    ],
+    "bodyHeight": 200
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

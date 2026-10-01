@@ -1,0 +1,93 @@
+:host {
+  /* Fluid, mobile-first: the host fills whatever width its container (the page root) gives it —
+     never hardcode the 360px Figma frame. Single column at every width, no breakpoint. */
+  display: block;
+  inline-size: 100%;
+}
+
+h2 {
+  margin: 0 0 var(--sl-size-300) 0;
+
+  /* H1 mobile style (same style as the page heading, at H2 level). This slot ships no
+     -fontWeight token, so the weight is set explicitly below. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  font-weight: var(--sl-fontWeight-bold);
+  color: var(--_sesame-ink);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  /* Gap between the three cards: Frame 26988 places the three 328x100 cards at y=0/124/248 (pitch
+     124 = 100 card + 24 gap), confirmed against the Figma node geometry. */
+  gap: var(--sl-size-300);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Gap between the vendor logo and the name: eyeballed from the screenshot, snapped to scale. */
+  gap: var(--sl-size-100);
+
+  /* 100px card height (Frame 26988: each card is 328 x 100) is raw/unbound — no --sl-size-* token
+     lands on it (the scale has no rung between 80px and the next value used elsewhere). min- (not
+     a fixed size) so a wrapped vendor name can still grow the card. */
+  min-block-size: 100px;
+
+  padding-inline: var(--sl-size-450);
+  /* No block padding: this is a content-box element, so min-block-size already forces the card's
+     content box to 100px and any padding-block here would add on top of that, pushing the
+     rendered card past 100px (this was the +42px bug — the padding was sized as if a vendor logo
+     still occupied the content, which it no longer does since logoUrl is undefined). The single
+     line of vendor-name text is vertically centered by align-items: center below, so no
+     padding-block is needed to look correctly spaced inside the 100px box. */
+  padding-block: 0;
+
+  background: var(--sl-color-white);
+  border-radius: var(--sl-size-borderRadius-lg);
+  border-inline-start: var(--sl-size-050) solid var(--_accent);
+
+  /* The manifest names no elevation/shadow token for this card's drop shadow. Checked
+     packages/themes/itslearning/theme.css: --sl-elevation-shadow-sm is the theme's small/raised-
+     surface shadow, matching this summary card's modest drop shadow by role, so it's used here
+     rather than a raw box-shadow. */
+  box-shadow: var(--sl-elevation-shadow-sm);
+}
+
+/* Vendor brand colours — third-party marks with no design token, kept as raw literals. */
+li[data-platform='bingel'] {
+  --_accent: #79b928;
+}
+
+li[data-platform='kampus'] {
+  /* Deliberately NOT #643695 — that's the Kampus purple used by the material-list row borders in
+     the other component on this page. This card's border is a different, darker Kampus purple
+     confirmed by pixel-sampling the reference screenshot (rgb(96,40,134) = #602886). The two
+     purples are intentionally different per section; do not "correct" this back to #643695. */
+  --_accent: #602886;
+}
+
+li[data-platform='lexia-provia'] {
+  --_accent: #f1b437;
+}
+
+img {
+  /* logoUrl is undefined in this run's mock (no asset-export step; the Figma logo URLs 404), so
+     this never renders today — kept sized for when a data source supplies a real logo. */
+  max-block-size: var(--sl-size-600);
+}
+
+.name {
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  /* Design is 16/20; the nearest token (body-lg) is 16/24 — a 4px lineHeight difference, accepted. */
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  color: var(--_sesame-ink);
+}

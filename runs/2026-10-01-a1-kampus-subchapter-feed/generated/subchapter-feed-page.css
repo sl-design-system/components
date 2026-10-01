@@ -1,0 +1,41 @@
+:host {
+  /* Custom elements default to `display: inline`; the page needs block layout to establish the
+     fixed 1280x720 frame below. */
+  display: block;
+}
+
+.page {
+  background: var(--sl-brand-light-color-palette-grey-050);
+  /* The Figma frame's exact pixel dimensions; no token exists for either value. */
+  block-size: 720px;
+  display: flex;
+  flex-direction: column;
+  inline-size: 1280px;
+  /* The page as a whole never scrolls - only `.content` below does. */
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  /* Fills the remaining height below the (--sl-size-700, 56px) app header row. */
+  flex: 1;
+  min-block-size: 0;
+}
+
+/*
+ * `sl-a1-kampus-left-toolbar` (74px) and, when open, `sl-kampus-toc-sidebar` (360px) each size
+ * themselves via their own `:host` rules; this column just takes whatever width is left
+ * (846px with the ToC open, 1206px once it's closed - see `sl-toc-close` in the component) and is
+ * the run's only scroll container.
+ */
+.content {
+  background: var(--sl-brand-light-color-palette-grey-050);
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  min-inline-size: 0;
+  overflow-y: auto;
+  padding: var(--sl-size-300);
+}

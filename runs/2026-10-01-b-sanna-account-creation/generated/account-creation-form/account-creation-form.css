@@ -1,0 +1,115 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* 56px, heading ↔ "content inputs" — manifest Token Reference. */
+  gap: var(--sl-space-700);
+}
+
+h1,
+::slotted(h1) {
+  color: var(--sl-color-foreground-primary-bold);
+  margin-block: 0;
+  text-align: center;
+  /*
+   * --sl-text-new-* tokens have no shorthand custom property in this theme (only the
+   * -fontFamily/-fontSize/-lineHeight longhands exist, and the heading scale has no -fontWeight
+   * longhand) — set every longhand explicitly instead of writing `font: var(--sl-text-new-*)`.
+   */
+  font-family: var(--sl-text-new-heading-xl-fontFamily);
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+}
+
+sl-form {
+  display: flex;
+  flex-direction: column;
+  /*
+   * <sl-form>'s own default (unexposed) :host style sets `gap: var(--sl-size-300)` (24px)
+   * uniformly between every child. This design mixes 24px and 64px gaps between different
+   * children, so the uniform gap is zeroed here and every child below sets its own explicit
+   * `margin-block-start` instead — there is no public `--sl-form-*` gap custom property to
+   * retarget, so this reaches past the form's documented API.
+   */
+  gap: 0;
+  /*
+   * 376px "content inputs" column (see the component breakdown: "the fields are 374px wide
+   * inside a 376px 'content inputs' block"). No design token binds a literal component width —
+   * unlike color/spacing/typography, column widths aren't part of this design's token set, so
+   * the raw value is used directly instead of a token.
+   */
+  inline-size: 23.5rem;
+}
+
+.name-row {
+  display: grid;
+  gap: var(--sl-space-new-lg); /* 16px */
+  grid-template-columns: 1fr 1fr;
+}
+
+.email-field {
+  margin-block-start: var(--sl-space-new-xl); /* 24px, the "content inputs" stack's base rhythm */
+}
+
+.consents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-new-xl); /* 24px between each consent row */
+  list-style: none;
+  margin-block: 0;
+  /* 64px, field group ↔ checkbox group — manifest Token Reference. */
+  margin-block-start: var(--sl-space-new-3xl);
+  padding-inline-start: 0;
+}
+
+.consents li {
+  align-items: flex-start;
+  display: flex;
+  /*
+   * The consent text used to be the checkbox's own slotted label, spaced by the checkbox's
+   * internal `[part='wrapper']` gap (`--sl-size-100`, 8px — see checkbox.css). Moving the text
+   * to a sibling <span> (to keep its links out of the checkbox's aria-hidden label and keydown
+   * ancestor chain) means this gap must be reproduced here: --sl-space-new-md resolves to the
+   * same --sl-space-100/--sl-size-100 (8px) the checkbox used internally.
+   */
+  gap: var(--sl-space-new-md);
+}
+
+.consents a {
+  color: var(--sl-color-foreground-primary-bold);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-new-lg); /* 16px between "Continue" and "Go back" */
+  /*
+   * 64px, consent group ↔ action pair. Measured from the design (node 174:231966 ends at y=420,
+   * node 174:232024 starts at y=484); the manifest's Token Reference lists the same 64px value
+   * for the sibling field-group ↔ consent-group gap on node 174:231466, and both resolve to the
+   * same token.
+   */
+  margin-block-start: var(--sl-space-new-3xl);
+}
+
+.sign-in {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-new-xs); /* 4px */
+  justify-content: center;
+  /*
+   * 24px, action pair ↔ sign-in row: not called out with its own token in the manifest, so this
+   * reuses the "content inputs" stack's base rhythm (--sl-space-new-xl) rather than inventing a
+   * new value.
+   */
+  margin-block-start: var(--sl-space-new-xl);
+}
+
+.sign-in span {
+  color: var(--sl-color-foreground-secondary-bold);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  font-weight: var(--sl-fontWeight-500);
+}

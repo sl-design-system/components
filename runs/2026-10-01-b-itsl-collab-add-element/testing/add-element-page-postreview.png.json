@@ -1,0 +1,183 @@
+{
+  "story": "runs-b-itsl-collab-add-element-add-element-page--basic",
+  "theme": "itslearning",
+  "url": "http://localhost:6010/iframe.html?id=runs-b-itsl-collab-add-element-add-element-page--basic&viewMode=story&globals=theme:itslearning",
+  "viewport": {
+    "width": 1280,
+    "height": 768
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/b-itsl-collab-add-element/testing/add-element-page-postreview.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-add-element-page",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 768
+      },
+      {
+        "tag": "sl-its-top-nav",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 56
+      },
+      {
+        "tag": "sl-search-field",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 186,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-its-course-bar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 56
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-add-element-header",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1184,
+        "height": 148
+      },
+      {
+        "tag": "sl-breadcrumbs",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1184,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 3,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-tooltip",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-tooltip",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 0,
+        "height": 0
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 99,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 113,
+        "height": 36
+      },
+      {
+        "tag": "sl-resource-category-panel",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1184,
+        "height": 232
+      },
+      {
+        "tag": "sl-panel",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 1184,
+        "height": 232
+      }
+    ],
+    "bodyHeight": 768
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": ["sl-tooltip", "sl-tooltip"],
+  "verdict": "rendered"
+}

@@ -1,0 +1,76 @@
+:host {
+  /* Intentional: the table is the full body of the widget card, so the host has to be a block
+     for it to take the card's width. An inline host would shrink-wrap the table. */
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  inline-size: 100%;
+  /* The design pins the three columns at 257 / 136 / 196 of the 588px widget, so the columns are
+     proportional rather than content-sized. */
+  table-layout: fixed;
+}
+
+/* The visible "Recently edited" title lives in the card header, which the root renders; the table
+   still needs its own accessible name, so the caption is visually hidden. */
+caption {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+th,
+td {
+  /* The row rule. Painted per cell rather than on the `tr`, because a `box-shadow` on a table row
+     is not painted under `border-collapse: collapse`; abutting cells make one continuous line. */
+  box-shadow: inset 0 -1px 0 var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
+  font-family: var(--sl-text-fontFamily);
+  padding-inline: var(--sl-size-200);
+  text-align: start;
+  vertical-align: middle;
+}
+
+th:nth-child(1) {
+  inline-size: 44%;
+}
+
+th:nth-child(2) {
+  inline-size: 23%;
+}
+
+th:nth-child(3) {
+  inline-size: 33%;
+}
+
+th {
+  color: var(--sl-color-palette-grey-700);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  /* The theme's `--sl-text-new-body-lg-fontWeight` is 400; the design's column headers are 600. */
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  /* 12 + 24 + 12 = the design's 48px row. */
+  padding-block: var(--sl-size-150);
+}
+
+td {
+  color: var(--sl-color-palette-grey-900);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  /* 14 + 20 + 14 = the design's 48px row. */
+  padding-block: var(--sl-size-175);
+}
+
+a {
+  color: var(--etsl-color-brand, #006666);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}

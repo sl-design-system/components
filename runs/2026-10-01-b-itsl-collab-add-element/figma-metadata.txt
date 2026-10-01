@@ -1,0 +1,185 @@
+Top-level frame call (nodeId=5006:43051):
+
+<frame id="5006:43051" name="Add element [3rd implementation]" x="3732" y="5204" width="1280" height="768">
+  <instance id="5006:43052" name="Navigation" x="0" y="0" width="1280" height="112" />
+  <frame id="5006:43053" name="main-wrapper" x="0" y="112" width="1280" height="406">
+    <frame id="5006:43054" name="content-area-wrapper" x="0" y="0" width="1280" height="406">
+      <frame id="5006:43055" name="content-area" x="48" y="0" width="1184" height="406">
+        <instance id="5006:43056" name="PageHeader" x="0" y="0" width="1184" height="117" />
+        <frame id="5006:43057" name="Actions" x="0" y="117" width="1184" height="60">
+          <instance id="5006:43058" name="Button" x="0" y="0" width="138" height="40" />
+          <instance id="5006:43059" name="Button" x="150" y="0" width="134" height="40" />
+        </frame>
+        <frame id="5006:43060" name="Frame 13" x="0" y="177" width="1184" height="209">
+          <frame id="5006:43061" name="Content-block" x="0" y="0" width="1184" height="209">
+            <text id="5006:43062" name="Title" x="32" y="20" width="195" height="33" />
+            <frame id="5006:43063" name="Frame 14" x="32" y="65" width="1120" height="124">
+              <frame id="5006:43064" name="CategoryLink" x="0" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43065" name="xlsx" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43066" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43067" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43068" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43069" name="CategoryLink" x="374.66668701171875" y="0" width="362.6666564941406" height="56">
+                <instance id="5006:43070" name="pptx" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43071" name="Description" x="60" y="4" width="302.6666564941406" height="48">
+                  <text id="5006:43072" name="Category" x="0" y="1.5" width="302.6666564941406" height="24" />
+                  <text id="5006:43073" name="Description" x="0" y="25.5" width="302.6666564941406" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43074" name="CategoryLink" x="749.3333740234375" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43075" name="docx" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43076" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43077" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43078" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43079" name="CategoryLink" x="0" y="68" width="363" height="56">
+                <instance id="5006:43080" name="page" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43081" name="Description" x="60" y="4" width="303" height="48">
+                  <text id="5006:43082" name="Category" x="0" y="1.5" width="303" height="24" />
+                  <text id="5006:43083" name="Description" x="0" y="25.5" width="303" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43084" name="CategoryLink" x="365.33203125" y="68" width="349.33331298828125" height="56" hidden="true">
+                <instance id="5006:43085" name="file" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43086" name="Description" x="60" y="4" width="289.33331298828125" height="48">
+                  <text id="5006:43087" name="Category" x="0" y="1.5" width="289.33331298828125" height="24" />
+                  <text id="5006:43088" name="Description" x="0" y="25.5" width="289.33331298828125" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="5006:43089" name="Content-block" x="0" y="184" width="1184" height="141" hidden="true">
+            <text id="5006:43090" name="Title" x="32" y="20" width="1120" height="33" />
+            <frame id="5006:43091" name="Categories" x="32" y="65" width="1120" height="56">
+              <frame id="5006:43092" name="CategoryLink" x="365.3333435058594" y="0" width="349.33331298828125" height="56" hidden="true">
+                <instance id="5006:43093" name="file" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43094" name="Description" x="60" y="4" width="289.33331298828125" height="48">
+                  <text id="5006:43095" name="Category" x="0" y="1.5" width="289.33331298828125" height="24" />
+                  <text id="5006:43096" name="Description" x="0" y="25.5" width="289.33331298828125" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43097" name="CategoryLink" x="-0.000030517578125" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43098" name="google-doc" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43099" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43100" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43101" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43102" name="CategoryLink" x="378.66668701171875" y="0" width="362.6666564941406" height="56">
+                <instance id="5006:43103" name="google-slides" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43104" name="Description" x="60" y="4" width="302.6666564941406" height="48">
+                  <text id="5006:43105" name="Category" x="0" y="1.5" width="302.6666564941406" height="24" />
+                  <text id="5006:43106" name="Description" x="0" y="25.5" width="302.6666564941406" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43107" name="CategoryLink" x="757.3333740234375" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43108" name="google-sheets" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43109" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43110" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43111" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="5006:43112" name="Content-block" x="0" y="345" width="1184" height="141" hidden="true">
+            <text id="5006:43113" name="Title" x="32" y="20" width="1120" height="33" />
+            <frame id="5006:43114" name="Categories" x="32" y="65" width="1120" height="56">
+              <frame id="5006:43115" name="CategoryLink" x="365.3333435058594" y="0" width="349.33331298828125" height="56" hidden="true">
+                <instance id="5006:43116" name="file" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43117" name="Description" x="60" y="4" width="289.33331298828125" height="48">
+                  <text id="5006:43118" name="Category" x="0" y="1.5" width="289.33331298828125" height="24" />
+                  <text id="5006:43119" name="Description" x="0" y="25.5" width="289.33331298828125" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43120" name="CategoryLink" x="0" y="0" width="362.6666564941406" height="56">
+                <instance id="5006:43121" name="google-doc" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43122" name="Description" x="60" y="4" width="302.6666564941406" height="48">
+                  <text id="5006:43123" name="Category" x="0" y="1.5" width="302.6666564941406" height="24" />
+                  <text id="5006:43124" name="Description" x="0" y="25.5" width="302.6666564941406" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43125" name="CategoryLink" x="378.6666564941406" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43126" name="google-slides" x="0" y="0" width="362.66668701171875" height="56" />
+                <frame id="5006:43127" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43128" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43129" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+              <frame id="5006:43130" name="CategoryLink" x="757.3333740234375" y="0" width="362.66668701171875" height="56">
+                <instance id="5006:43131" name="google-sheets" x="0" y="4" width="48" height="48" />
+                <frame id="5006:43132" name="Description" x="60" y="4" width="302.66668701171875" height="48">
+                  <text id="5006:43133" name="Category" x="0" y="1.5" width="302.66668701171875" height="24" />
+                  <text id="5006:43134" name="Description" x="0" y="25.5" width="302.66668701171875" height="21" />
+                </frame>
+              </frame>
+              <rounded-rectangle id="5006:43135" name="Screenshot 2025-03-28 at 11.43.13 1" x="0" y="0" width="52.95927429199219" height="56" />
+              <rounded-rectangle id="5006:43136" name="Screenshot 2025-03-28 at 11.43.13 1" x="741" y="0" width="64" height="59" />
+              <rounded-rectangle id="5006:43137" name="Screenshot 2025-03-28 at 11.43.13 1" x="377" y="0" width="52.77366256713867" height="56" />
+            </frame>
+          </frame>
+          <frame id="5006:43138" name="Content-block" x="0" y="506" width="1184" height="141" hidden="true">
+            <text id="5006:43139" name="Title" x="32" y="20" width="1120" height="33" />
+            <frame id="5006:43140" name="CategoryLink" x="32" y="65" width="1120" height="56">
+              <instance id="5006:43141" name="page" x="0" y="4" width="48" height="48" />
+              <frame id="5006:43142" name="Description" x="60" y="4" width="1060" height="48">
+                <text id="5006:43143" name="Category" x="0" y="1.5" width="1060" height="24" />
+                <text id="5006:43144" name="Description" x="0" y="25.5" width="1060" height="21" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+</frame>
+
+--- Drill-down call: nodeId=5006:43052 (Navigation) ---
+
+<instance id="5006:43052" name="Navigation" x="0" y="0" width="1280" height="112">
+  <instance id="I5006:43052;9976:10654" name=".Main menu" x="0" y="0" width="1280" height="56" />
+  <instance id="I5006:43052;9976:10655" name=".Secondary menu" x="0" y="56" width="1280" height="56" />
+</instance>
+
+--- Drill-down call: nodeId=5006:43056 (PageHeader) ---
+
+<instance id="5006:43056" name="PageHeader" x="0" y="0" width="1184" height="117">
+  <frame id="I5006:43056;6278:6532" name="Back link wrapper" x="0" y="0" width="1160" height="44" hidden="true" />
+  <frame id="I5006:43056;19853:9719" name="Breadcrumb wrapper" x="0" y="0" width="1184" height="37">
+    <instance id="I5006:43056;19853:9045" name="Breadcrumb trail" x="0" y="8" width="1184" height="29" />
+  </frame>
+  <frame id="I5006:43056;5889:6338" name="Title and subtitle" x="0" y="37" width="1184" height="80">
+    <frame id="I5006:43056;5419:6693" name="Group wrapper" x="0" y="20" width="1184" height="40">
+      <frame id="I5006:43056;6487:6427" name="Icon wrapper" x="0" y="0" width="32" height="36" hidden="true" />
+      <frame id="I5006:43056;6438:6285" name="Content" x="0" y="0" width="1132" height="39">
+        <frame id="I5006:43056;11648:5210" name="Title wrapper" x="0" y="0" width="1112" height="39">
+          <text id="I5006:43056;5419:6694" name="Title" x="0" y="0" width="338" height="39" />
+          <instance id="I5006:43056;20314:6654" name="Status Tag" x="65" y="7.5" width="101" height="24" hidden="true" />
+        </frame>
+        <text id="I5006:43056;5421:6493" name="Subtitle" x="0" y="43" width="600" height="24" hidden="true" />
+      </frame>
+      <frame id="I5006:43056;23120:8171" name="Actions slot" x="1144" y="0" width="40" height="40">
+        <frame id="I5006:43056;23115:7433" name="More buttons" x="0" y="0" width="192" height="40" hidden="true" />
+        <instance id="I5006:43056;5823:6544" name="Button" x="0" y="0" width="40" height="40" hidden="true" />
+      </frame>
+    </frame>
+  </frame>
+</instance>
+
+--- Drill-down call: nodeId=5006:43065 (xlsx icon instance) ---
+
+<instance id="5006:43065" name="xlsx" x="0" y="4" width="48" height="48">
+  <vector id="I5006:43065;162:1615" name="Vector" x="13" y="4" width="30" height="40" />
+  <vector id="I5006:43065;162:1616" name="Vector" x="34" y="4.706999778747559" width="8.292999267578125" height="8.293000221252441" />
+  <vector id="I5006:43065;162:1617" name="Vector" x="12" y="3" width="32" height="42" />
+  <vector id="I5006:43065;162:1618" name="Vector" x="35" y="29" width="5" height="2.000001907348633" />
+  <vector id="I5006:43065;162:1619" name="Vector" x="28" y="29" width="5" height="2.000001907348633" />
+  <vector id="I5006:43065;162:1620" name="Vector" x="35" y="25" width="5" height="2" />
+  <vector id="I5006:43065;162:1621" name="Vector" x="28" y="25" width="5" height="2" />
+  <vector id="I5006:43065;162:1622" name="Vector" x="35" y="21" width="5" height="2" />
+  <vector id="I5006:43065;162:1623" name="Vector" x="28" y="21" width="5" height="2" />
+  <vector id="I5006:43065;162:1624" name="Vector" x="4" y="15" width="22" height="22" />
+  <vector id="I5006:43065;162:1625" name="Vector" x="9.517999649047852" y="20" width="10.631999969482422" height="12" />
+</instance>

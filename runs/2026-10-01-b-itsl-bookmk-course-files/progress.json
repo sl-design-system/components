@@ -1,0 +1,79 @@
+{
+  "case": "B-Itsl-Bookmk-4886-12955",
+  "slug": "b-itsl-bookmk-course-files",
+  "theme": "itslearning",
+  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "figmaFileVersion": null,
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:42:45",
+      "tokens": 142518,
+      "durationMs": 550269,
+      "notes": "get_code_connect_map returned {} for the top node and every descendant probed \u2014 zero mappings. Did NOT block (batch instruction); all component identifications are heuristic, from get_design_context component documentation."
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:50:03",
+      "tokens": 63479,
+      "durationMs": 300245,
+      "components": 4,
+      "openQuestions": 22,
+      "notes": "4 components (1 root + 3 children). 22 open questions, all defaulted. Orchestrator overrode Q2 (typography family): use --sl-text-*/--sl-title-* (Lato), not --sl-text-new-* (Open Sans)."
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T01:15:17",
+      "typeCheck": "clean",
+      "tokens": 415325,
+      "components": ["files-page", "top-nav", "section-nav", "course-table"],
+      "notes": "4 implementers (3 leaves parallel + root). tsc: zero errors in this run's folder; only the 2 baseline grid.ts TS2322 errors remain. No stubs, no @fortawesome, no font: shorthand, no --sl-text-new-*, no <img>. course-table shipped the pre-authorised <table> fallback instead of sl-grid; needed one rework iteration (th{display:flex} destroyed the table layout)."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T01:36:42",
+      "verdict": "NEEDS_WORK -> fixed; 7 actionable items all resolved in 1 iteration",
+      "tokens": 129092,
+      "capture": "testing/files-page.png (verdict: rendered, 0 console errors, 0 failed requests, 0 unupgraded elements)",
+      "remainingDiscrepancies": [
+        "5 icons the itslearning theme does not register: bell, comment, your-files, graduation-cap, circle-pen \u2014 omitted, geometry preserved",
+        "#d9e3e8 (Course-hat circle fill) has no token anywhere in the repo",
+        "nav layer-shadow (0 4px 8px #0000000D) and section-nav inset shadow: no matching token",
+        "page title 22px vs design 26px; 'Files' label 16px vs 18px \u2014 no exact size tokens in this theme",
+        "'its' logo is a styled <span>; background --sl-color-palette-orange-400 #fe8211 approximates the design's #f47920",
+        "sl-search-field renders a leading magnifier, not the design's trailing fused search button \u2014 no API for it",
+        "course table ships a semantic <table>, not sl-grid (pre-authorised substitution)",
+        "packages/themes/itslearning/ ships no fonts.css / @font-face: --sl-text-fontFamily is Lato but Lato is never loaded, so every glyph renders in the system fallback sans"
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T01:42:51",
+      "tokens": 89258,
+      "storiesAdded": 13,
+      "notes": "Example path -> story enrichment only; no specs, no docs, no changeset, no i18n extraction (i18n off)."
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T01:59:26",
+      "tokens": 115784,
+      "critical": 2,
+      "criticalResolved": 2,
+      "minor": 14,
+      "notes": "2 CRITICAL, both in course-table.ts, both fixed and re-verified: (1) Intl.DateTimeFormat with no timeZone rendered 04/04/2024 in America/New_York for the ISO date '2024-04-05' (UTC-midnight parse vs local-zone format) -> timeZone:'UTC' added, verified across three zones; (2) aria-sort flipped on rows that were never reordered -> rows are now sorted locally from @state sort before render. 14 MINOR carried to the final report as PR comments.",
+      "lintGate": "NOT RUN \u2014 eslint-plugin-lit and stylelint-config-standard are absent from node_modules, so neither ESLint nor Stylelint can execute in this checkout. tsc is the only automated quality gate that actually runs."
+    }
+  },
+  "tscBaseline": "2 pre-existing errors in packages/components/grid/src/grid.ts (TS2322 Timeout) \u2014 unrelated to this run",
+  "finalGates": {
+    "typeCheck": "clean (0 errors under b-itsl-bookmk-course-files; baseline = 2 TS2322 in packages/components/grid/src/grid.ts)",
+    "stubs": "none",
+    "fortawesome": "none",
+    "tsSuppressions": "none",
+    "fontShorthand": "none",
+    "imgTags": "none",
+    "slTextNew": "none (only a comment)",
+    "renderVerdict": "rendered (files-page, top-nav, section-nav, course-table; 0 console errors, 0 failed requests, 0 unupgraded elements)"
+  },
+  "stories": 16
+}

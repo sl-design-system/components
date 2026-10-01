@@ -1,0 +1,107 @@
+:host {
+  /* Custom elements default to `display: inline`; this root page must stack its full-width
+     children (both nav bars, then the content area) vertically, and the grey page background
+     has to run to the bottom of the viewport, not just to this component's own content height.
+     The background and the min-height both live here, on `:host` itself, rather than on `.page`:
+     `.page`'s `height: auto` (it only ever had `min-block-size: 100%` as a child) has no definite
+     containing-block height to resolve that percentage against per the CSS2 rule that an `auto`-
+     height box is treated as having an indefinite height for percentage-height children, even
+     when a `min-height` gives it an actual rendered box — so `.page` was silently collapsing to
+     607px of content height while `:host` correctly reported 768px, and the 161px gap below it
+     showed default document white, not this component's grey. */
+  background: var(--sl-color-palette-grey-150);
+  display: block;
+  min-block-size: 100vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* 48px inline gutters. */
+  padding-inline: var(--sl-size-600);
+  /* 56px: exact token match (the same bar-height token used by the nav children). */
+  padding-block-end: var(--sl-size-700);
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  max-inline-size: 1280px;
+  /* 20px below the card, inside the centred content column. */
+  padding-block-end: var(--sl-size-250);
+}
+
+h1 {
+  color: var(--sl-color-palette-grey-900);
+  /* 800px per the design's "Title and subtitle" node. */
+  max-inline-size: 800px;
+  margin: 0;
+  /* 20px above and below the title. */
+  padding-block: var(--sl-size-250);
+  /* Longhands, not the `font:` shorthand — a shorthand referencing an undefined custom property
+     (e.g. the Open-Sans `--sl-text-new-*` family) drops the whole declaration silently. Figma
+     specifies Lato bold 26px/1.5; no exact size token exists, nearest is --sl-title-lg-fontSize
+     (22px) — recorded −4px delta. Weight 700 is an exact match via --sl-fontWeight-bold (the
+     title-role weight token, --sl-typography-title-lg-fontWeight, is 600 and would be wrong). */
+  font-family: var(--sl-title-fontFamily);
+  font-size: var(--sl-title-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-title-lg-lineHeight);
+}
+
+.card {
+  background: var(--sl-color-white);
+  /* --sl-size-borderWidth-default resolves to 2px in this theme (bold, not default) — the
+     design's hairline is exactly 1px, which is --sl-size-borderWidth-subtle. Same choice as this
+     run's `top-nav.css` / `section-nav.css`. */
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-300);
+  border-radius: var(--sl-size-borderRadius-md);
+  display: flex;
+  flex-direction: column;
+  /* 20px between the banner and the table. */
+  gap: var(--sl-size-250);
+  padding-block: var(--sl-size-250);
+  padding-inline: var(--sl-size-400);
+}
+
+/*
+ * `sl-inline-message`'s border/border-radius/background/text color are set on its own `:host`
+ * from inside its shadow root. A class selector here ties the CSS specificity of that internal
+ * `:host` rule, which the Shadow DOM cascade resolves in favor of the *outer* (this component's)
+ * rule — same technique as `course-table.css`'s `.status-tag` override, needed here because no
+ * `::part()` covers the host's own border/background/color. The design's banner has square
+ * corners and no border (unlike the component's own rounded, bordered default), and its body text
+ * is `--sl-color-palette-grey-900`, not the component's default info-foreground blue. `color` is
+ * inherited, so setting it here also reaches the icon wrapper (which has no `color` rule of its
+ * own) — that's corrected below via a direct `::part(icon)` rule instead.
+ */
+.banner {
+  background: var(--sl-color-palette-blue-050);
+  border: none;
+  border-radius: 0;
+  color: var(--sl-color-palette-grey-900);
+}
+
+/* The component also paints a 2px accent stripe down its own `:host::before` (filled with its
+   default info-border-bold colour) — not part of `border`, so `border: none` above doesn't touch
+   it. The design's banner has no such stripe: flush background from x=80. */
+.banner::before {
+  content: none;
+}
+
+/* The design's info icon is a solid filled disc at `--sl-color-palette-blue-600`, distinct from
+   the grey-900 body text above. `[part='icon']` has no colour of its own, so without this it
+   would inherit the host's `color` (grey-900) like every other un-styled part does. A plain
+   attribute selector (`.banner [part='icon']`) can't reach across the shadow boundary at all —
+   only `::part()` can — and because this sets the shadow element's colour directly rather than
+   via inheritance, it wins over the inherited grey-900 with no specificity fight needed. */
+.banner::part(icon) {
+  color: var(--sl-color-palette-blue-600);
+}

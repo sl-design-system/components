@@ -1,0 +1,117 @@
+:host {
+  background: var(--sl-color-white);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+  /* "Slightly rounded" per the reference screenshot; no dedicated card-radius token, so the
+     nearest step on the border-radius scale is used (matches the sibling exercise-card). */
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: block;
+  /* 798x176: this exact box size has no --sl-size-* token, per the brief's hardcode list. */
+  inline-size: 798px;
+  block-size: 176px;
+  overflow: clip;
+}
+
+article {
+  block-size: 100%;
+  display: grid;
+  /* 128px body / ~47px footer: no token reaches either figure, per the brief's hardcode list. */
+  grid-template-rows: 128px 1fr;
+}
+
+.body {
+  display: grid;
+  /* 172px thumbnail, flush left with no padding, per the brief. */
+  grid-template-columns: 172px 1fr;
+  position: relative;
+}
+
+.thumbnail {
+  block-size: 128px;
+  inline-size: 172px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100);
+  min-inline-size: 0;
+  padding: var(--sl-size-200);
+}
+
+.content h3 {
+  color: var(--sl-brand-light-color-palette-grey-900);
+  font-size: var(--sl-title-sm-fontSize);
+  font-weight: var(--sl-typography-title-sm-fontWeight);
+  letter-spacing: var(--sl-title-sm-letterSpacing);
+  line-height: var(--sl-title-sm-lineHeight);
+  margin: 0;
+}
+
+.content h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.content h3 a:hover,
+.content h3 a:focus-visible {
+  text-decoration: underline;
+}
+
+.excerpt {
+  color: var(--sl-color-palette-grey-400);
+  font-size: var(--sl-text-sm-fontSize);
+  font-weight: var(--sl-typography-text-sm-fontWeight);
+  letter-spacing: var(--sl-text-sm-letterSpacing);
+  line-height: var(--sl-text-sm-lineHeight);
+  margin: 0;
+  overflow: hidden;
+
+  /* Truncate to 2 lines, keeping the full excerpt in the DOM. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.more {
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-sm);
+  color: var(--sl-color-palette-grey-400);
+  cursor: pointer;
+  inset-block-start: var(--sl-size-100);
+  inset-inline-end: var(--sl-size-100);
+  padding: var(--sl-size-050);
+  position: absolute;
+}
+
+.more svg {
+  block-size: var(--sl-size-200);
+  display: block;
+  inline-size: var(--sl-size-200);
+}
+
+.footer {
+  align-items: center;
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-brand-light-color-palette-purple-700);
+  box-sizing: border-box;
+  display: flex;
+  padding-inline: var(--sl-size-200);
+}
+
+.label {
+  color: var(--sl-color-palette-grey-400);
+  font-size: var(--sl-text-sm-fontSize);
+  font-weight: var(--sl-typography-text-sm-fontWeight);
+  letter-spacing: var(--sl-text-sm-letterSpacing);
+  line-height: var(--sl-text-sm-lineHeight);
+}

@@ -1,0 +1,70 @@
+/*
+ * `display` is set on purpose: the card is an elevated block-level surface with its own padding
+ * and shadow, which an inline host would not lay out correctly.
+ */
+:host {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-md);
+  /*
+   * The manifest mapped the design's `0 2px 2px rgba(0,0,0,.25)` to `--sl-elevation-shadow-sm`,
+   * but in itslearning that token is malformed — `1px 1px <color>, 3px 2px <color>` gives each
+   * layer only an offset pair and no blur radius, so it paints a hard-edged 3px grey slab down
+   * the card's right edge and a 2px one along the bottom, with nothing on the left or top.
+   * `--sl-elevation-shadow-overlay` is the nearest token with a real blur and no horizontal
+   * offset, which is the shape the design actually has.
+   */
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  display: block;
+  padding: var(--sl-size-300);
+}
+
+sl-form {
+  /*
+   * `sl-form` is a flex column by default. The design puts the search field on row 1 and the
+   * three dropdowns plus the actions on row 2, so it is a grid here: three equal filter columns
+   * and a wider trailing column for the action buttons.
+   */
+  align-items: end;
+  column-gap: var(--sl-size-200);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.7fr);
+  row-gap: var(--sl-size-300);
+}
+
+/* The search field spans exactly the three dropdown columns, as in the design. */
+sl-search-field {
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+
+/*
+ * Without an explicit row the first `sl-form-field` auto-flows into row 1's fourth cell, beside
+ * the search field, instead of starting row 2 with the other two dropdowns.
+ */
+sl-form-field {
+  grid-row: 2;
+}
+
+/*
+ * The dropdown labels. There is no `--sl-text-new-body-md` `font:` shorthand in this theme — only
+ * the longhands — so the typography is composed from those, which also sidesteps the
+ * shorthand-resets-font-weight hazard. The weight is still set explicitly; `sl-label` happens to
+ * apply the same 600 to its inner `<label>` (via `--sl-text-new-typeset-fontWeight-semiBold`), so
+ * this only pins the design's semibold in case that default ever changes. The colour is left to
+ * `sl-label` (`--sl-color-foreground-bold`), which is what the design shows.
+ */
+sl-label {
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-fontWeight-600);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-200);
+  grid-column: 4;
+  grid-row: 2;
+  justify-content: flex-end;
+}

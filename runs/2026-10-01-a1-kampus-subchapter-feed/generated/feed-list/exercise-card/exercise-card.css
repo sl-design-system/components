@@ -1,0 +1,113 @@
+article {
+  background: var(--sl-color-white);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-150);
+  /* "Slightly rounded" per the reference screenshot; no dedicated card-radius token, so the
+     nearest step on the border-radius scale is used. */
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100);
+  /* 390x144: this exact box size has no --sl-size-* token, per the brief's hardcode list. */
+  inline-size: 390px;
+  block-size: 144px;
+  padding: var(--sl-size-200);
+}
+
+.header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: var(--sl-color-palette-grey-400);
+  font-size: var(--sl-label-sm-fontSize);
+  font-weight: var(--sl-typography-label-sm-fontWeight);
+  letter-spacing: var(--sl-label-sm-letterSpacing);
+  line-height: var(--sl-label-sm-lineHeight);
+}
+
+.more {
+  background: none;
+  border: none;
+  border-radius: var(--sl-size-borderRadius-sm);
+  color: var(--sl-color-palette-grey-400);
+  cursor: pointer;
+  margin-block-start: calc(-1 * var(--sl-size-050));
+  padding: var(--sl-size-050);
+}
+
+.more svg {
+  block-size: var(--sl-size-200);
+  display: block;
+  inline-size: var(--sl-size-200);
+}
+
+.main {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--sl-size-100);
+}
+
+.tile {
+  align-items: center;
+  background: var(--sl-brand-light-color-palette-purple-700);
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-100);
+  color: var(--sl-color-white);
+  display: flex;
+  flex-shrink: 0;
+  inline-size: var(--sl-size-500);
+  justify-content: center;
+}
+
+.tile svg {
+  block-size: var(--sl-size-250);
+  inline-size: var(--sl-size-250);
+}
+
+.title {
+  font-size: var(--sl-title-sm-fontSize);
+  font-weight: var(--sl-typography-title-sm-fontWeight);
+  letter-spacing: var(--sl-title-sm-letterSpacing);
+  line-height: var(--sl-title-sm-lineHeight);
+  margin: 0;
+}
+
+.title a {
+  color: var(--sl-brand-light-color-palette-grey-900);
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus-visible {
+  text-decoration: underline;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+}
+
+.rating {
+  display: flex;
+  gap: var(--sl-size-050);
+}
+
+.star svg {
+  block-size: var(--sl-size-200);
+  display: block;
+  inline-size: var(--sl-size-200);
+}
+
+.star.filled {
+  /* This exact hex from the design has no token anywhere in the design system (checked
+     packages/themes), so it is hardcoded here per the brief. */
+  color: #db7109;
+}
+
+.star.outline {
+  color: var(--sl-color-palette-grey-150);
+}

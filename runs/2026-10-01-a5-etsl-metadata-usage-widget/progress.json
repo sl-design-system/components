@@ -1,0 +1,90 @@
+{
+  "case": "A5-etsl-metadata-usage-widget",
+  "figmaFileKey": "S5QgDy8X9eqhvECPANSZMM",
+  "figmaNodeId": "17214:103584",
+  "theme": "editorial-suite",
+  "framework": "lit",
+  "i18n": false,
+  "outputLocation": "examples/lit/src/_runs/a5-etsl-metadata-usage-widget/",
+  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-09-30T22:44:04.240437+00:00",
+      "tokens": 139263,
+      "toolUses": 47,
+      "durationMs": 591553,
+      "notes": "get_code_connect_map returned {} on the root node; Code Connect data recovered from get_design_context snippets instead."
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-09-30T22:54:24.317374+00:00",
+      "tokens": 107247,
+      "toolUses": 18,
+      "durationMs": 550002,
+      "components": 8,
+      "openQuestions": 16,
+      "notes": "All 16 defaults accepted as recommended."
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-09-30T23:19:15.948195+00:00",
+      "level0": {
+        "status": "done",
+        "components": 7,
+        "typeCheck": "clean",
+        "tokens": {
+          "app-header": 94102,
+          "assets-widget": 78945,
+          "content-items-widget": 67774,
+          "recently-edited-widget": 74631,
+          "metadata-usage-widget": 97226,
+          "recently-published-widget": 70359,
+          "reused-content-widget": 122083
+        },
+        "earlyCapture": "all 7 child stories verdict=rendered, 0 console errors, 0 failed requests"
+      },
+      "level1": {
+        "status": "done",
+        "tokens": 134572
+      },
+      "typeCheck": "clean",
+      "gate": {
+        "tsc": "clean (only 2 pre-existing packages/components/grid/src/grid.ts TS2322, outside the run)",
+        "dtsStubs": 0,
+        "fortawesomeImports": 0,
+        "iconRegisterCalls": 0,
+        "bareFontShorthand": 0
+      }
+    },
+    "4-validate": {
+      "status": "blocked",
+      "at": "2026-09-30T23:19:15.948195+00:00",
+      "capture": {
+        "story": "runs-a5-etsl-metadata-usage-widget-dashboard-page--basic",
+        "verdict": "rendered",
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "notUpgraded": 0,
+        "collapsed": 0,
+        "bodyHeight": 2227,
+        "designHeight": 2032
+      },
+      "reason": "Account weekly usage limit reached mid Stage 4 fix round (resets 2026-10-04 20:00 Europe/Warsaw). Stages 1-3 complete on disk; the fix round had been identified but not applied."
+    },
+    "5-author": {
+      "status": "not-reached"
+    },
+    "6-review": {
+      "status": "not-reached"
+    }
+  },
+  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
+  "blocked": {
+    "stage": "4-validate",
+    "reason": "Account weekly usage limit reached mid Stage 4 fix round (resets 2026-10-04 20:00 Europe/Warsaw). Stages 1-3 complete on disk; the fix round had been identified but not applied.",
+    "kind": "environment-quota",
+    "resumableFrom": "4-validate",
+    "resumeGuard": "A resume must fail loudly if HEAD has moved since pipelineCommitAtPromotion: a run that is half one pipeline and half another describes neither."
+  }
+}

@@ -1,0 +1,116 @@
+/*
+ * Fluid, mobile-first: the host never hardcodes the Figma frame's 360px, it just fills whatever
+ * inline-size its containing block gives it. The `--_sesame-*` palette (`--_sesame-footer-bg`,
+ * `--_sesame-ink`) is defined on the page root's `:host` and inherits into this shadow root.
+ */
+:host {
+  display: block;
+  inline-size: 100%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--_sesame-footer-bg);
+  padding-inline: var(--sl-size-200);
+  padding-block: var(--sl-size-300);
+}
+
+.brand,
+.brand-logo {
+  margin-block-end: var(--sl-size-200);
+}
+
+.brand {
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  /* heading-md ships no -fontWeight longhand; set it explicitly (see component-conventions.md). */
+  font-weight: var(--sl-fontWeight-bold);
+  color: var(--_sesame-ink);
+}
+
+.brand-logo {
+  block-size: var(--sl-size-300);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  /* The design's ~40px link row; --sl-size-500 is the verified 40px step on the scale. */
+  display: flex;
+  align-items: center;
+  block-size: var(--sl-size-500);
+}
+
+.links a,
+.language-trigger,
+.language-menu button {
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  /* No token matches this SemiBold-14/24 combination (nearest, body-md, is 14/20) — the 24px
+     line-height stays a raw, unbound value per the manifest's Typography table. */
+  line-height: 24px;
+  font-weight: var(--sl-fontWeight-semiBold);
+  text-transform: capitalize;
+  color: var(--_sesame-ink);
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.language {
+  position: relative;
+  margin-block-start: var(--sl-size-200);
+}
+
+.language-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sl-size-100);
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.chevron {
+  /* No `chevron-up`/`angle-up` entry in the itslearning registry (54 icons) — the design's
+     up-pointing glyph is the theme's own `chevron-down`, rotated. */
+  rotate: 180deg;
+}
+
+.language-menu {
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline-start: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  margin-block-end: var(--sl-size-100);
+  padding: var(--sl-size-100);
+  background-color: var(--sl-color-white);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  min-inline-size: 10rem;
+}
+
+.language-menu button {
+  display: block;
+  inline-size: 100%;
+  text-align: start;
+  border: none;
+  background: none;
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-100);
+  cursor: pointer;
+}

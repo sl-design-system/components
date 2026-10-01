@@ -1,0 +1,8 @@
+get_code_connect_map (remote `figma` server) returned an EMPTY OBJECT `{}` for:
+  - 2847:14994 (root, "My Groups")
+  - 2847:14998 ("sl-button")
+  - 2847:15708 ("Frame 1000000839", the table region)
+No mappings, no `null` entries, no `hasTemplate: false` entries -- the response is
+literally `{}` in all three probes. This is a file-level condition (Code Connect is
+not published/visible for MySesame-Redesign via the remote server), not a set of
+individually-unmapped component instances.

@@ -1,0 +1,89 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+.bar {
+  align-items: stretch;
+  background: var(--sl-brand-light-color-palette-purple-700);
+  block-size: var(--sl-size-700);
+  color: var(--sl-color-white);
+  display: flex;
+  justify-content: space-between;
+  padding-inline: var(--sl-size-300);
+}
+
+nav {
+  align-items: stretch;
+  display: flex;
+}
+
+nav ul {
+  align-items: stretch;
+  display: flex;
+  gap: var(--sl-size-200);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: flex;
+}
+
+/* "My page" is its own left segment, visually distinct from the nav group below it. */
+nav li.home {
+  margin-inline-end: var(--sl-size-300);
+}
+
+nav a {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  font-family: var(--sl-label-fontFamily);
+  font-size: var(--sl-label-md-fontSize);
+  font-weight: var(--sl-typography-label-md-fontWeight);
+  gap: var(--sl-size-100);
+  letter-spacing: var(--sl-label-md-letterSpacing);
+  line-height: var(--sl-label-md-lineHeight);
+  padding-inline: 0;
+  text-decoration: none;
+}
+
+/* The active nav item is a filled block spanning the bar's full height, not an underline — `li`
+   stretches to the bar's height (`.bar` + `nav` + `ul` all set `align-items: stretch`), and this
+   flex anchor stretches with it. */
+nav a.active {
+  background: var(--sl-brand-light-color-palette-purple-600);
+  padding-inline: var(--sl-size-300);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+}
+
+.action {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0;
+  position: relative;
+}
+
+.glyph {
+  block-size: var(--sl-size-icon-font-lg);
+  inline-size: var(--sl-size-icon-font-lg);
+}
+
+.action .count {
+  inset-block-start: calc(var(--sl-size-050) * -1);
+  inset-inline-end: calc(var(--sl-size-050) * -1);
+  pointer-events: none;
+  position: absolute;
+}

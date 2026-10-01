@@ -1,0 +1,152 @@
+{
+  "case": "B-SANNA-174-232051 / b-sanna-account-creation",
+  "team": "SANNA",
+  "designName": "Account creation",
+  "figma": {
+    "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+    "nodeId": "174:232051",
+    "url": "https://www.figma.com/design/Mzc8BuOvMxOJGAQtv0h64M/SANNA-Ready-for-Development?node-id=174-232051",
+    "observed": {
+      "width": 1512,
+      "height": 982,
+      "nodes": 506,
+      "componentTypes": 23
+    }
+  },
+  "pipelineCommit": "cdae07695a8204b29ae71954c7011fb348ca3ddc",
+  "stage0": {
+    "server": "figma (remote)",
+    "framework": "lit",
+    "i18n": false,
+    "output": "examples/lit/src/_runs/b-sanna-account-creation/"
+  },
+  "theme": {
+    "derived": "teacher-assistant",
+    "absoluteAgreement": 1,
+    "marginOverSecond": 8,
+    "confident": true,
+    "colorTokensInDesign": 16,
+    "matched": "16/16",
+    "runnerUp": "bingel-dc / bingel-int / clickedu / editorial-suite (three-way tie at 0.125)",
+    "method": "runs/harness/theme-match.mjs"
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-09-30T23:21:40.009Z",
+      "tokens": 64159,
+      "toolUses": 16,
+      "durationMs": 267545,
+      "blockers": "none",
+      "notes": "whole-subtree get_code_connect_map and get_design_context both succeeded on the remote server; no per-node fallback needed"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-09-30T23:34:09.981Z",
+      "tokens": 41070,
+      "durationMs": 261200,
+      "openQuestions": 20,
+      "note": "20 open questions (vs 9 on Login 1); all defaults recorded in manifest.md",
+      "components": ["sl-account-creation-page (root)", "sl-account-creation-form (child)"]
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-09-30T23:53:51.962Z",
+      "tokens": 188372,
+      "components": 2,
+      "typeCheck": "clean",
+      "gate": "node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/b-sanna-account-creation -> verdict clean; 0 in-scope errors; 0 regressions outside scope; 2 tolerated baseline errors. No .d.ts stub present (verified by find).",
+      "note": "2 errors reported in OTHER runs (b-itsl-bookmk-deleted-course, b-kampus-notes-panel) - other agents concurrent work, not mine, classified errorsInOtherRuns not regressions",
+      "orchestratorFix": "story side-effect import: the implementer used a VALUE import per hint 4 and the story still rendered nothing (verdict nothing-rendered, sl-account-creation-page notUpgraded) because the binding is only used in a TYPE position (Pick<AccountCreationPage,...>), so the compiler elided it anyway. Fixed by adding a separate bare import ./account-creation-page.js. Hint 4 as written is insufficient."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T00:04:36.605Z",
+      "tokens": 79404,
+      "verdict": "NEEDS_WORK - 1 defect, root cause in the shared theme, not fixable in scope",
+      "captures": [
+        {
+          "story": "runs-b-sanna-account-creation-account-creation-page--basic",
+          "file": "testing/page-early.png",
+          "verdict": "rendered",
+          "theme": "teacher-assistant",
+          "size": "1512x982"
+        },
+        {
+          "story": "runs-b-sanna-account-creation-account-creation-form--basic",
+          "file": "testing/form-early.png",
+          "verdict": "rendered",
+          "theme": "teacher-assistant"
+        }
+      ],
+      "layoutDefects": 0,
+      "note": "Every position/spacing/colour measured matches exactly: logo 40/41, form 147/462 centred, media 732/29 745x924 r24, footer 0/925 732x41 p10, gaps 56/64/64/24/24/16/16/4/32, headline 32/40/600 #32005a, Continue #32005a.",
+      "openDefect": {
+        "id": "D1",
+        "kind": "theme (shared file, out of scope)",
+        "symptom": "headline and the \"Already have an account?\" run render in the browser default SERIF; design uses New Message (sans)",
+        "rootCause": "packages/themes/teacher-assistant/theme.css declares --sl-text-new-heading-xl-fontFamily (L3675), --sl-text-new-body-md-fontFamily (L3655) and --sl-text-new-typeset-fontFamily-body/-heading (L3688-89) as the LITERAL 'Open Sans', while fonts.css ships only New Message / New Message Text Condensed. Open Sans is never loaded, so both fall back to serif.",
+        "upstreamFix": "make those four tokens var(--sl-brand-text-new-*-fontFamily) - the brand layer already holds the right values (New Message, L4430 / New Message Text Condensed, L4406), and the sibling fontWeight token on L3691 is already written that way",
+        "decision": "NOT patched. theme.css is a shared file this run must not touch, and a component-local fallback chain would make this run look better while hiding a defect affecting every teacher-assistant consumer. Generated CSS is correct by the book.",
+        "affects": "2 elements only; all other text uses each SLDS component internal stack and is unaffected"
+      },
+      "nonDefect": [
+        "both <img> 404 as expected - no asset-export step; boxes sized correctly, not collapsed",
+        "consent label wrap points differ by a word from Figma text engine; line counts (3 and 4) match"
+      ],
+      "postRepairRecapture": "page-basic.png and form-basic.png re-shot after the C1-C3 repair and the two minor fixes; both verdict rendered; consent block visually unchanged (same 8px box-to-text gap, top alignment, 3- and 4-line wraps)."
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T00:15:05.209Z",
+      "tokens": 72581,
+      "scope": "example path -> stories only. No Vitest spec, no website docs, no changeset, no package.json. yarn extract-i18n NOT run (i18n off; shared locales untouched).",
+      "storiesAdded": 10,
+      "stories": [
+        "page--basic",
+        "page--loading",
+        "page--prefilled",
+        "page--with-custom-heading",
+        "page--with-slotted-media",
+        "form--basic",
+        "form--disabled",
+        "form--prefilled",
+        "form--consents-unchecked",
+        "form--custom-actions"
+      ],
+      "allVerdicts": "rendered (10/10, theme teacher-assistant)",
+      "note": "author added import @sl-design-system/button/register.js to the FORM story only - a light-DOM slotted sl-button needs the GLOBAL registry; a scoped registry only governs tags the component renders in its own shadow template. Story-only change, per the conventions.",
+      "observation": "sl-form[disabled] greys the fields and checkboxes but not the slotted Continue/Go back/Sign in buttons. Carried to Stage 6 as a question; the design has no disabled state so it is not a fidelity issue."
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T00:46:14.067Z",
+      "tokens": 170280,
+      "critical": 3,
+      "criticalFixed": 3,
+      "minor": 10,
+      "minorFixed": [
+        "M6 .logo inset-inline-start 40px -> var(--sl-size-500) (exact token; verified on the resolved value - Figma Size/500 is 20, this theme --sl-size-500 is 40px) + a block comment explaining the artboard-coordinate literals",
+        "M8 .actions comment cited the wrong manifest row"
+      ],
+      "minorRemaining": [
+        "M1 page story args are dead controls, no argTypes",
+        "M2 prefillEndpoint is an inert public property",
+        "M3 aria-hidden on the .media wrapper also hides slotted media",
+        "M4 <footer>/<nav> emit page-level landmarks from inside a component",
+        "M5 footer links are buttons not anchors (settled Code Connect tradeoff, accepted risk)",
+        "M7 the h1 rule is duplicated in both stylesheets and will drift",
+        "M9 no story exercises the logo/footer slots or the legal-link event",
+        "M10 wordmark alt=\"sanna\" vs brand casing"
+      ],
+      "criticalDetail": [
+        "C1 WCAG 2.1.1 - Enter/Space on a consent link toggled the consent instead of following the link. sl-checkbox has a host-level keydown listener (checkbox.ts:481) that preventDefault()s Enter/Space and toggles; the synthesized click never fired so the @click stopPropagation guard never ran. Measured, not inferred.",
+        "C2 WCAG 4.1.2 / axe aria-hidden-focus - sl-checkbox #onLabelSlotChange (checkbox.ts:535-556) moves default-slot children into a generated light-DOM <label> and sets aria-hidden=true on it (:554), so the three <a> were focusable inside an aria-hidden subtree.",
+        "C3 - <sl-form disabled> does not disable slotted buttons. Form.updated (form.ts:186-189) propagates disabled only to registered FormControls and sl-button is not one. Measured: <sl-account-creation-page loading> still emitted submit, cancel AND sign-in with a valid value."
+      ],
+      "criticalFix": "C1+C2 fixed together by moving the rich consent text out of the checkbox default slot into a sibling <span>, with the full sentence as aria-label on the checkbox (ForwardAriaMixin forwards it) and a span click handler that calls checkbox.click() unless e.target.closest(\"a\"). The checkbox internal [part=wrapper] gap was reproduced with --sl-space-new-md (8px, same resolved value). C3 fixed with ?disabled on all three buttons plus an early return in each emitter. Re-captured: visually unchanged.",
+      "lintNote": "eslint and stylelint could not run in this checkout (missing eslint-plugin-lit and stylelint-config-standard). Reviewer verified findings at runtime with throwaway Vitest browser probes instead, then deleted them."
+    }
+  },
+  "finalTypeCheck": "clean (inScope empty) after all repairs"
+}

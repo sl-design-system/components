@@ -1,0 +1,44 @@
+:host {
+  /* Colours the design binds that NO theme declares. Verified by resolved value across all 21
+     themes, not by name prefix. Each carries its Figma variable name so the gap is auditable;
+     none is an invented --sl-* name, and none is a bare hex inside a rule.
+     The nearest theme token to #02242e is --sl-color-background-primary-interactive-bold
+     (#062b2d, a pressed state) - semantically wrong for app chrome, so not used. */
+  --a10-color-chrome: #02242e; /* color/palette/black/base, color/tab/default/foreground */
+  --a10-color-title: #021d25; /* the "Functional management" H1; no bound variable at all */
+  --a10-color-divider: #d9d9d9; /* the 1x24 select divider rule */
+  --a10-color-row-rule: rgb(0 0 0 / 12%); /* inset 0 -1px 0 on every th and td */
+  --a10-color-pagesize-rule: rgb(0 0 0 / 42%); /* mat-divider under the paginator value */
+
+  /* The three --a10-color-select-* the manifest listed are deliberately NOT declared: #25292f,
+     #c8d1da and #818b98 all come from the single drifted sl-select node and match
+     sanoma-learning, not this frame's theme. See OQ-7. */
+
+  display: block;
+  background: var(--sl-color-white);
+}
+
+.page {
+  /* A plain div, never <main> / role="main" - the host application owns that landmark. */
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  /* Figma: body frame 17264:29106 is y=231, h=606, white ground, full bleed. */
+  background: var(--sl-color-white);
+  min-block-size: 606px;
+}
+
+.column {
+  /* Content column 1200 centred in 1440: gutters = (1440 - 1200) / 2 = 120 each side.
+     min() is the only degradation the single 1440 breakpoint authorises. */
+  display: flex;
+  flex-direction: column;
+  /* Filter row sits at y=40 inside the body. */
+  padding-block-start: 40px;
+  /* Filter row is 60 tall and the table starts at y=124: 124 - (40 + 60) = 24. */
+  gap: 24px;
+  inline-size: min(100%, 1200px);
+  margin-inline: auto;
+}

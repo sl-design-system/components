@@ -1,0 +1,77 @@
+:host {
+  /* The band is full-bleed chrome that stacks a title above a tab strip; custom elements default
+     to `display: inline`, so this is an intentional change, not boilerplate. */
+  display: block;
+}
+
+.band {
+  background: var(--sl-color-palette-grey-100);
+
+  /* 181px is the design's band (y=50..231) and no `--sl-size-*` token equals 181. It decomposes
+     as 137px of title region + the 44px tab strip, and 137 is exactly what puts the single 38px
+     line box where Figma puts it: (137 - 38) / 2 = 49.5, the title's band-relative y. */
+  block-size: 181px;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  /* Flex so the single line box centres in the 137px the strip leaves above it. */
+  align-items: center;
+  color: var(--a10-color-title);
+  display: flex;
+  flex: 1 1 auto;
+  font-family: var(--sl-heading-fontFamily); /* Raleway */
+
+  /* Raw lengths: the design is Raleway Bold 28/38 with -1 tracking and this theme has no token
+     at that size. The nearest, `--sl-text-new-heading-lg`, is 24/32 — a 14% miss on the largest
+     element on the page, so the raw value is the honest one. The weight IS tokenised:
+     `--sl-fontWeight-700` is 700, an exact match for the design's Bold. */
+  font-size: 28px;
+  font-weight: var(--sl-fontWeight-700);
+  justify-content: center;
+  letter-spacing: -1px;
+  line-height: 38px;
+  margin: 0;
+}
+
+sl-tab-group {
+  /* The selected-tab indicator lives in `sl-tab-group`'s shadow root and is NOT exposed as a
+     `::part()`, so the only way to retint it to the design's `color/tab/default/indicator` is to
+     retarget the token it reads. Reaching past the component's public API — reported. */
+  --sl-color-border-selected: var(--sl-color-palette-blue-500);
+}
+
+sl-tab-group::part(container) {
+  /* The band's grey shows outside the content column; only the column itself is white. */
+  background: transparent;
+  border-block-end-color: var(--sl-color-palette-grey-300);
+  border-block-end-width: var(--sl-size-borderWidth-default);
+}
+
+sl-tab-group::part(scroller) {
+  /* `sl-tab-group` pulls the scroller up by the width of its own rule so the tabs sit on top of
+     it, and hard-codes that pull to `--sl-size-borderWidth-bold` (2px). This strip's rule is
+     `--sl-size-borderWidth-default` (1px), so the pull has to match or the strip measures
+     44 - 2 + 1 = 43px instead of the design's 44px. */
+  margin-block-end: calc(var(--sl-size-borderWidth-default) * -1);
+}
+
+sl-tab-group::part(wrapper) {
+  background: var(--sl-color-white);
+  box-sizing: border-box;
+
+  /* The design's 1200px content column, centred in the 1440px frame (gutters (1440 - 1200) / 2 =
+     120px each). `min()` keeps it from overflowing a narrower viewport; the design has a single
+     1440 breakpoint, so there is nothing narrower to specify. */
+  inline-size: min(100%, 1200px);
+  margin-inline: auto;
+}
+
+sl-tab {
+  color: var(--a10-color-chrome);
+  font-family: var(--sl-text-fontFamily); /* Roboto */
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

@@ -1,0 +1,282 @@
+{
+  "case": "A7-myportal-materials-overviews",
+  "team": "MyPortal",
+  "designName": "Materials / Overviews",
+  "pipelineCommit": "c7f6a370357b902315f9a016e2108274cb24bb76",
+  "pipelineTree": "2176d63902204219ed29b22e775e902747248deb",
+  "figmaFileKey": "1yroCKkROktqhRCP2wwlzB",
+  "nodeId": "15878:180439",
+  "observedSize": {
+    "width": 1440,
+    "height": 1890
+  },
+  "observed": {
+    "nodes": 974,
+    "componentTypes": 55,
+    "overrideRate": 0.64,
+    "detachedCandidates": true
+  },
+  "stage0": {
+    "server": "figma (remote)",
+    "framework": "lit",
+    "i18n": false,
+    "output": "examples/lit/src/_runs/a7-myportal-materials-overviews/"
+  },
+  "theme": "bingel-int",
+  "themeEvidence": {
+    "basisOfRecord": "inherited from A3, same Figma file, decided on size tokens",
+    "ownToolResult": {
+      "tool": "runs/harness/theme-match.mjs",
+      "best": "bingel-dc",
+      "method": "hex-value-fallback",
+      "absoluteAgreement": 1,
+      "marginOverSecond": 1,
+      "confident": false,
+      "colorTokensInDesign": 11,
+      "hexesInDesign": 15,
+      "note": "bingel-int also 15/15; the two themes are colour-identical so best: bingel-dc is a coin flip, not a finding"
+    },
+    "a3Tiebreak": [
+      "size/borderRadius/default 4 -> bingel-dc 2px, bingel-int 4px",
+      "size/borderRadius/child 2 -> bingel-dc 1px, bingel-int 2px",
+      "size/borderWidth/action 1 -> bingel-dc 2px, bingel-int 1px"
+    ],
+    "a3TiebreakNote": "this frame binds none of those three, so it carries no evidence either way",
+    "ownWeakCorroboration": "this frame DRAWS rounded-[4px] throughout; --sl-size-borderRadius-default is 4px under bingel-int and 2px under bingel-dc (a drawn value, not a bound token, so weaker than A3s)",
+    "retracted": [
+      "the design binds a variable literally named bingel_dc_shadow - a layer label, contradicted by the size tokens; the most convincing-looking WRONG signal in this run",
+      "the open-sans vs proxima-nova family split is in the --sl-brand-text-new-* layer, which the public --sl-text-new-* tokens do not consume: --sl-text-new-body-md-fontFamily resolves to Open Sans in BOTH themes"
+    ],
+    "perFileHypothesis": "HOLDS: A7 and A3 are two frames of fileKey 1yroCKkROktqhRCP2wwlzB and resolve to the same theme",
+    "colourCoverage": "15/15 design hexes have an exact public --sl-color-*/--sl-elevation-* token (identical in both bingel themes)",
+    "iconRegistry": "bingel-dc and bingel-int icons.ts are byte-identical: 34 icons"
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T08:48:33.699Z",
+      "tokens": 226656,
+      "toolUses": 78,
+      "durationMs": 1069581,
+      "codeConnect": "subtree {} (1 call) + per-node {} (20 calls) = 0/21 mappings; no subtree-vs-per-node discrepancy",
+      "screenshot": "1440x1890 exact - NO canvas bleed, no reference-normalised.png needed",
+      "rawInstances": 62,
+      "hiddenInstances": 5,
+      "liveInstances": 57,
+      "distinctInstanceNames": 13,
+      "placeableComponents": 10,
+      "detachedOccurrences": 7,
+      "notes": "as-is mode; analyst correctly did not emit BLOCKED_ON_CODE_CONNECT"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T09:02:10.431Z",
+      "tokens": 128003,
+      "toolUses": 21,
+      "durationMs": 627166,
+      "componentCount": 6,
+      "sharedHelpers": 1,
+      "openQuestions": 40,
+      "defaultsOverridden": 1,
+      "keyDefault": "OQ-23 Miniaturize row NOT rendered: 96+504+1274=1874, content starts 1898 > 1890 artboard, so it is clipped out of the reference",
+      "notComponents": "20 tree rows, 8 file rows, 8 nav rows, 4 quick actions, 3 avatar stacks, breadcrumb, cover thumbnail",
+      "themeNote": "Stages 1-2 ran under bingel-dc; nothing they produced changes except borderRadius-default 2px -> 4px"
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T11:07:20.513Z",
+      "executedBy": "ORCHESTRATOR directly, not component-implementer subagents: a first dispatch of five parallel implementers died mid-call and left five empty directories; implementing directly removed that failure mode and guaranteed one consistent contract",
+      "components": 6,
+      "sharedHelpers": 1,
+      "files": 15,
+      "typeCheck": {
+        "tool": "runs/harness/typecheck.mjs (post-fix)",
+        "verdict": "clean",
+        "inScope": 0,
+        "regressionsOutsideScope": 0,
+        "baselineErrorsStillPresent": 2,
+        "note": "the FIXED checker caught 4 real TS4114 errors on first run (static get scopedElements needs override under noImplicitOverride); fixed by adding the modifier, not by relaxing config"
+      },
+      "tokenCheck": {
+        "tool": "runs/harness/check-tokens.mjs",
+        "theme": "bingel-int",
+        "verdict": "clean",
+        "filesScanned": 15,
+        "referencesSeen": 157,
+        "unresolvedReferences": 0,
+        "missing": 0,
+        "shorthandTrap": 0,
+        "note": "FIRST run returned shorthand-trap on 13 declarations across all 5 CSS files: --sl-text-new-{body-md,body-sm,heading-md,heading-lg} have NO shorthand declaration, only longhands, so every font: var() was dropping silently. Expanded to longhands; heading-md and heading-lg declare no -fontWeight longhand so none is referenced."
+      },
+      "noStubs": "0 .d.ts files in scope; the single fortawesome string in scope is a doc comment in icon-gap.ts explaining why it is NOT imported"
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T11:12:34.145Z",
+      "executedBy": "ORCHESTRATOR (shared playwright browser was held by sibling runs; captures via runs/harness/shoot.mjs, which launches its own Chromium)",
+      "verdict": "rendered on all 5 stories",
+      "harness": {
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "notUpgraded": 0,
+        "collapsed": "sl-listbox/sl-option/sl-tooltip only - the select dropdowns are closed, which is correct"
+      },
+      "pageSize": {
+        "reference": "1440x1890",
+        "builtV1": "1440x1931",
+        "builtV2": "1440x1890 EXACT"
+      },
+      "referenceIntegrity": "screenshot.png is 1440x1890 exactly, per-channel max 255, dominant colour pure white - NO canvas bleed, NO downscale, NO channel halving. No reference-normalised.png needed.",
+      "reworkIterations": 1,
+      "fixes": [
+        {
+          "cause": "the divider and contributor row sit INSIDE the right column in the reference (the rule begins where the cover ends); rendering them as a sibling of .top stacked them below the 208px cover",
+          "arithmetic": "card 316px built vs 233px reference = +83px",
+          "fix": "moved .contributors into .detail; .top uses align-items:stretch so the cover drives the column height instead of a fixed 208px"
+        },
+        {
+          "cause": "the design draws the quick-action labels with leading-[0], so the line box equals the 16px font size; --sl-text-new-heading-md-lineHeight is 20px",
+          "arithmetic": "12+20+12=44 built vs 12+16+12=40 drawn = +4px",
+          "fix": "line-height: 1 on the quick-action label"
+        }
+      ],
+      "residualDeltas": [
+        {
+          "region": "brand bar",
+          "delta": "+4px",
+          "cause": "sl-select sizes its control calc(1lh + (--sl-size-100 - --sl-size-borderWidth-default)*2) = 20+14 = 34px against the drawn 30px. NOT padded."
+        },
+        {
+          "region": "quick bar",
+          "delta": "+2px",
+          "cause": "the two 1px border-block rules. NOT padded."
+        },
+        {
+          "region": "whole page below the app bar",
+          "delta": "constant +6px offset",
+          "cause": "entirely the sum of the two above; every band below is correctly positioned relative to its own container"
+        },
+        {
+          "region": "material card internal divider",
+          "delta": "+26px after removing the global offset",
+          "cause": "justify-content:space-between against a cover-driven column height; the reference contributor row is taller than token-sized sl-avatar lg (40px) produces. A mechanism, not a constant - deliberately NOT padded."
+        }
+      ],
+      "pixelExact": [
+        "nav rail active pill 48px (ref 112-159, built 118-165)",
+        "file row rhythm 62px row + 4px gap in both",
+        "card outer height 238 vs 233, i.e. within the global +6",
+        "page total 1440x1890 exact"
+      ],
+      "interactionCheck": {
+        "tool": "testing/interaction-check.mjs (own Chromium)",
+        "wired": "13/13",
+        "note": "every one of the 12 declared events dispatched plus one REAL click on a nav-rail button; each asserted to change observable root state. The page is not inert."
+      }
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T11:12:34.145Z",
+      "scope": "examples/ path -> story enrichment only; no Vitest spec, no website docs, no changeset, no yarn extract-i18n (correct for an example, and i18n is off)",
+      "stories": [
+        "--basic",
+        "--all-sections-collapsed",
+        "--no-files",
+        "--different-section-selected",
+        "--long-material-title"
+      ],
+      "allVariantsRendered": true,
+      "executedBy": "ORCHESTRATOR (stories were authored with the components in Stage 3; Stage 5 verified all five render clean)"
+    },
+    "6-review": {
+      "status": "in-progress",
+      "at": "2026-10-01T11:12:34.145Z"
+    }
+  },
+  "overrideAnalysis": {
+    "question": "this run carries the corpus highest override rate (64% + detached candidates). What did that do to a pipeline built on component mappings?",
+    "headline": "NOTHING - because the override rate never reached the mapping layer. 0 of 21 Code Connect probes resolved, so the mapping layer expressed nothing about ANY of the 57 live instances. The binding constraint is upstream of overrides.",
+    "codeConnect": {
+      "subtreeProbes": 1,
+      "perNodeProbes": 20,
+      "resolved": 0,
+      "note": "subtree {} AND per-node {} agree here - unlike earlier runs where the subtree lied and per-node calls returned real mappings. This design is genuinely unconnected everywhere."
+    },
+    "instancesCarryingOverridesAMappingCouldNotExpress": {
+      "count": 57,
+      "of": 57,
+      "pct": 100,
+      "caveat": "trivially 100%, and that is the finding: with a zero denominator of mappings, override rate is not a property the pipeline can even observe. A 64% override rate and a 0% override rate would have produced the identical run."
+    },
+    "verifiedIndependentlyFromMetadata": {
+      "instanceTags": 62,
+      "distinctInstanceNames": 13,
+      "hiddenInstances": 5,
+      "liveInstances": 57,
+      "placeableComponents": 10
+    },
+    "structuralOverrideEvidenceThatSurvived": [
+      {
+        "finding": "the entire sl-select sidebar tree container (~90 descendants) is a plain <frame>, not an <instance>",
+        "measure": "1 detached container"
+      },
+      {
+        "finding": "main nav icon is 7 <instance> + 4 <frame> = 11 occurrences",
+        "measure": "4 of 11 (36%) hand-built; the 4 detached are exactly the quick-actions row, the 7 real instances exactly the sidebar rail"
+      },
+      {
+        "finding": "21 badge-base-theme [DRAFT] frame wrappers for 20 badge instances, plus 2 sl-badge [DRAFT] frames",
+        "measure": "1 of 20 badges (5%) carries a doubled wrapper cycle - and it is the single ACTIVE row, i.e. the active state was produced by copy-paste rather than a component variant"
+      },
+      {
+        "finding": "one visual icon concept implemented 3 ways",
+        "measure": "12 sl-icon instances + 7 <img> SVG assets + 37 bare Font Awesome glyph text nodes (16 distinct glyph names)"
+      }
+    ],
+    "whatThePipelineDidWithThem": [
+      "the copy-pasted active state became a [data-active] boolean on one component, not a second component or a variant",
+      "the 3 icon paths collapsed to ONE predicate: is the glyph in the theme 34-icon registry? yes -> <sl-icon>, no -> iconGap() reserved footprint",
+      "the detached sl-select container became a plain controlled <ul> whose expansion and selection are owned by the root",
+      "every visual difference was modelled as a property on our own component, because nothing in the file carries authoritative variant information"
+    ],
+    "mappingValidButWrong": "NOT APPLICABLE and recorded as such rather than guessed: with 0 resolved mappings there is nothing whose output could be compared against the design. This is the honest answer to the batch question for this case."
+  },
+  "colourAndIconFloor": {
+    "coloursWithExactToken": "15 of 15",
+    "largestUnavoidableColourDelta": "none - every bound hex resolves exactly",
+    "colourTrap": "--sl-color-foreground-plain resolves to #373a3e; the design body foreground is #002649, which has NO semantic foreground token at all (only --sl-color-palette-blue-800). Using the semantic token would be valid, type-check, pass the token check, and be visibly wrong.",
+    "iconsTheThemeLacks": {
+      "needed": 18,
+      "present": 3,
+      "missing": 15,
+      "present_list": [
+        "home-blank",
+        "chevron-down",
+        "breadcrumb-separator (supplied by sl-breadcrumbs)"
+      ],
+      "missing_list": [
+        "slash-forward",
+        "presentation-screen",
+        "pencil",
+        "plus",
+        "comment",
+        "note",
+        "image",
+        "books",
+        "files",
+        "book",
+        "file-text",
+        "file-ppt",
+        "file-mp4",
+        "file-pdf",
+        "file-invoice-dollar",
+        "file-doc",
+        "file-word",
+        "search"
+      ],
+      "note": "search is unfixable from our side - it is rendered inside sl-search-field own shadow DOM. All others render as iconGap() with the drawn footprint preserved."
+    },
+    "largestUnavoidableTypographyDelta": "tree section headers: drawn 16/24 with letter-spacing 1 vs --sl-text-new-heading-md 16/20 and no letter-spacing token = -4px line-height per line; panel heading drawn 20/34 vs heading-lg 24/32; card title drawn 24/34 vs 24/32 = -2px",
+    "fontFloor": "Proxima Nova is registered nowhere in this repo, and the Typekit kit qya8xxo does not load in the harness, so ALL text renders in a fallback face. Every text measurement in this run inherits that."
+  }
+}

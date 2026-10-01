@@ -1,0 +1,125 @@
+/*
+ * The footer is a full-bleed band pinned to the bottom edge of the table card, so the host has
+ * to generate a block box: a custom element defaults to `display: inline`, which would leave a
+ * baseline gap under the 58px bar. This is an intentional override, not reflexive boilerplate.
+ */
+:host {
+  display: block;
+}
+
+.footer {
+  align-items: center;
+  /* Figma node 17264:29167 is `bg-white`; the manifest maps #ffffff to --sl-color-white. */
+  background: var(--sl-color-white);
+  /*
+   * 58px is layout with no backing token, and it is derived, not fitted: the table block
+   * 17264:29112 is 310px tall = 48 (header row) + 3 x 68 (data rows) + footer.
+   * 310 - 48 - 204 = 58. The nearest size token is --sl-size-700 (56px), which would shorten
+   * the table by 2px and break that sum, so the raw value is kept.
+   */
+  block-size: 58px;
+  display: flex;
+  /*
+   * The design's `gap-[34px]` has no token. --sl-space-400 (32px) is the nearest in this theme
+   * (-2px per gap); --sl-space-200 (16px) would compress the bar by 18px per gap, 72px overall.
+   */
+  gap: var(--sl-space-400);
+  justify-content: flex-end;
+  /* Design: `px-[8px]` - exact match. */
+  padding-inline: var(--sl-space-100);
+}
+
+/*
+ * Design: Roboto Regular 12/20. --sl-text-new-body-sm is the only 12px step in this theme
+ * (12/16); the 4px line-height difference is invisible inside a centred flex row, whereas
+ * body-md (14px) would render the label ~17% too wide.
+ * Family comes from the LEGACY token: every --sl-text-new-*-fontFamily resolves to 'Open Sans',
+ * which this theme's Typekit does not ship and the design does not ask for.
+ * No `font:` shorthand - editorial-suite declares zero bare --sl-text-new-* tokens.
+ */
+.rows-label {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-text-new-body-sm-fontWeight);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}
+
+/* Design: Roboto Regular 14/20 - an exact match for --sl-text-new-body-md. */
+.status {
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.page-size {
+  align-items: center;
+  /*
+   * The `mat-divider` under the value: a 1px rgba(0, 0, 0, 0.42) rule. That colour exists in no
+   * theme, so it is a run-local property declared once on the ROOT's :host - referenced here,
+   * never declared here, and never given a var() fallback.
+   */
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--a10-color-pagesize-rule);
+  display: flex;
+  /* Design: `gap-[10px]` - --sl-space-125 is an exact match. */
+  gap: var(--sl-space-125);
+}
+
+/*
+ * A borderless native <select>: the design shows a bare value plus a caret over a 1px rule, not
+ * the bordered, grounded, rounded chrome `sl-select` renders. `appearance: none` strips the UA
+ * chrome; the caret is drawn as a separate <sl-icon> next to it.
+ */
+.page-size select {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding: 0;
+}
+
+.page-size sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-md);
+
+  color: var(--sl-color-palette-grey-700);
+}
+
+nav {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-400);
+}
+
+/*
+ * The design's `mat-btn` is a 32px round hit area. --sl-size-400 resolves to exactly 32px in
+ * this theme, so no raw length is needed. sl-button's own icon-only box is
+ * `calc(1lh + --sl-size-200)` = 20 + 16 = 36px, which is why both axes are set explicitly
+ * rather than left to its `aspect-ratio: 1`.
+ */
+nav sl-button::part(button) {
+  block-size: var(--sl-size-400);
+  color: var(--sl-color-palette-grey-700);
+  inline-size: var(--sl-size-400);
+  padding: 0;
+}
+
+/*
+ * Both arrows are disabled on the design's single page, and the design draws them #c8c8cf -
+ * which is exactly what --sl-color-foreground-disabled resolves to here (grey-300). The rule is
+ * restated because an outer-tree ::part() declaration wins over button.css's own
+ * `button:is(:disabled)` rule, so the enabled colour above would otherwise leak into the
+ * disabled state.
+ */
+nav sl-button[disabled]::part(button) {
+  color: var(--sl-color-foreground-disabled);
+}
+
+nav sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-md);
+}

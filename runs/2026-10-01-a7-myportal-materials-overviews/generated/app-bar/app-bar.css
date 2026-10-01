@@ -1,0 +1,99 @@
+:host {
+  display: block;
+}
+
+.brand-bar {
+  align-items: center;
+  background: var(--sl-color-palette-blue-500);
+  display: flex;
+  justify-content: space-between;
+  padding-block: var(--sl-size-150);
+  padding-inline: var(--sl-size-300);
+}
+
+.brand-bar-start {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-500);
+}
+
+.brand-bar-end {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+}
+
+.selectbox {
+  inline-size: 160px;
+}
+
+.user {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--sl-color-foreground-inverted-plain);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-150);
+  padding: 0;
+}
+
+/* sl-avatar paints its display name from `color`, which it inherits; it reads no custom property. */
+.user sl-avatar {
+  color: var(--sl-color-foreground-inverted-plain);
+}
+
+.user-chevron {
+  block-size: var(--sl-size-300);
+  color: var(--sl-color-foreground-inverted-plain);
+  inline-size: var(--sl-size-300);
+}
+
+.quick-bar {
+  align-items: center;
+  background: var(--sl-elevation-surface-base-default);
+  border-block: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-blue-500);
+  display: flex;
+  gap: var(--sl-size-150);
+  padding-inline: var(--sl-size-300);
+}
+
+.quick-bar-label {
+  color: var(--sl-color-palette-blue-500);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.quick-actions {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quick-actions button {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-xl);
+  color: var(--sl-color-palette-blue-500);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  font-weight: var(--sl-fontWeight-600);
+  gap: var(--sl-size-150);
+  /*
+    The design draws these labels with `leading-[0]`, i.e. no leading at all, so the line box
+    equals the font size (16px) and the row is 12 + 16 + 12 = 40. The token's own line-height is
+    20px, which would make the row 44 -- a 4px overshoot caused by leading the design does not use.
+  */
+  line-height: 1;
+  padding: var(--sl-size-150);
+}

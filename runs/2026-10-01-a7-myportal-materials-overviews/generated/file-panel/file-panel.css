@@ -1,0 +1,79 @@
+:host {
+  display: block;
+}
+
+section {
+  background: var(--sl-elevation-surface-base-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-050);
+  border-radius: var(--sl-size-borderRadius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  padding: var(--sl-size-200);
+}
+
+h2 {
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  font-weight: var(--sl-fontWeight-700);
+  margin: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-050);
+}
+
+.available {
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  margin: 0;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-050);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  background: var(--sl-elevation-surface-base-default);
+  block-size: 64px;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-lg);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-100);
+  inline-size: 100%;
+  overflow: clip;
+  padding: var(--sl-size-150);
+  text-align: start;
+}
+
+.name {
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  font-weight: var(--sl-fontWeight-600);
+}
+
+.size {
+  color: var(--sl-color-foreground-subtlest);
+  font-family: var(--sl-text-new-body-sm-fontFamily);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-text-new-body-sm-fontWeight);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}

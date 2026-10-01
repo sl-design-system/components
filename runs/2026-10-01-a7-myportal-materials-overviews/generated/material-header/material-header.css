@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+section {
+  /*
+    The design draws a 6px radius here. The theme declares sm=2, md=4, lg=8 and no xs, so 6px has
+    no token -- md at 4px is the nearest, a recorded -2px delta rather than a hardcoded 6px.
+  */
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-050);
+  border-radius: var(--sl-size-borderRadius-md);
+  overflow: clip;
+  padding: var(--sl-size-200);
+}
+
+.top {
+  /*
+    `stretch`, not a fixed height on the right column: the cover is the tallest item and therefore
+    the height driver, so the detail column should follow it rather than be pinned to a number that
+    happens to equal it today.
+  */
+  align-items: stretch;
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+/*
+  The cover photograph is a Figma-hosted asset this pipeline cannot export, so only the image is
+  missing: the box, its border and its radius are the design's own.
+*/
+.cover {
+  background: var(--sl-elevation-surface-base-default);
+  block-size: 207.649px;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-200);
+  border-radius: var(--sl-size-borderRadius-default);
+  flex: 0 0 auto;
+  inline-size: 156px;
+}
+
+.detail {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-inline-size: 0;
+}
+
+.headline {
+  display: flex;
+  gap: var(--sl-size-150);
+  justify-content: space-between;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-150);
+}
+
+h1 {
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  font-weight: var(--sl-fontWeight-700);
+  margin: 0;
+}
+
+.imprint {
+  color: var(--sl-color-foreground-subtle);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  gap: var(--sl-size-050);
+}
+
+.actions {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--sl-size-200);
+}
+
+/*
+  The contributor row and its rule sit INSIDE the right column, starting at the column's left edge
+  rather than the card's -- in the reference the rule begins where the cover ends. Rendering it as
+  a sibling of `.top` instead stacked it below the 208px cover and made the card 83px too tall.
+*/
+.contributors {
+  align-items: center;
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-050);
+  display: flex;
+  gap: var(--sl-size-300);
+  padding-block-start: var(--sl-size-200);
+}
+
+.group {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+}
+
+.stack {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Every circle but the last in a stack is overlapped by the next, as the design draws them. */
+.stack li:not(:last-child) {
+  margin-inline-end: calc(var(--sl-size-150) * -1);
+}
+
+.group-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.names {
+  color: var(--sl-color-palette-blue-800);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.role {
+  color: var(--sl-color-foreground-subtlest);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

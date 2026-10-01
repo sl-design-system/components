@@ -104,7 +104,14 @@ const baseline = existsSync(BASELINE)
   otherRuns = errors.filter(line => line.startsWith(RUNS) && !line.startsWith(scope)),
   outOfScope = errors.filter(line => !line.startsWith(scope) && !line.startsWith(RUNS)),
   regressions = outOfScope.filter(line => !baseline.has(line)),
-  vanished = [...baseline].filter(line => !errors.includes(line));
+  // While any file in the program has a *syntax* error, tsc stops emitting semantic diagnostics
+  // program-wide — so the baseline errors disappear and `vanished` fills up with them. Its README
+  // reads that as "somebody edited shared code", and in a parallel batch one sibling's half-written
+  // file is enough to trigger it. A run nearly acted on that. The signal is only meaningful once
+  // the program parses.
+  syntaxErrors = errors.filter(line => /error TS1\d{3}:/.test(line)),
+  diagnosticsSuppressed = syntaxErrors.length > 0,
+  vanished = diagnosticsSuppressed ? [] : [...baseline].filter(line => !errors.includes(line));
 
 const report = {
   scope,
@@ -116,12 +123,25 @@ const report = {
   regressionsOutsideScope: regressions,
   baselineErrorsStillPresent: outOfScope.length - regressions.length,
   baselineErrorsNoLongerReported: vanished,
+  // Stated rather than implied: with the program unparseable, "no baseline errors" means nothing
+  // was checked, not that nothing is wrong.
+  ...(diagnosticsSuppressed
+    ? {
+        semanticDiagnosticsSuppressed: true,
+        syntaxErrorsBlockingThem: syntaxErrors.slice(0, 5)
+      }
+    : {}),
   verdict: inScope.length === 0 && regressions.length === 0 ? 'clean' : 'failed'
 };
 
 console.log(JSON.stringify(report, null, 2));
 
-if (vanished.length)
+if (diagnosticsSuppressed)
+  console.error(
+    `\nNote: ${syntaxErrors.length} syntax error(s) suppress every semantic diagnostic in the program. ` +
+      'Baseline comparison is meaningless until the program parses.'
+  );
+else if (vanished.length)
   console.error(
     `\nNote: ${vanished.length} baseline error(s) no longer appear. Shared code changed — confirm that was intended and re-record.`
   );

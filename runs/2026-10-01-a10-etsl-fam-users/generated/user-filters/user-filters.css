@@ -1,0 +1,123 @@
+/*
+ * `display` is set on purpose: the filter row is a 1200x60 block inside the page's content
+ * column, and the default `inline` box of an unstyled custom element would not lay its three
+ * controls out on one baseline.
+ *
+ * The typography is set once here and inherited by everything below: `sl-label` renders its
+ * `<label>` into this tree, `sl-search-field`'s `<input>` and `sl-button`'s `<button>` both
+ * declare `font: inherit`, and `sl-select-button` inherits as well. Family comes from the LEGACY
+ * token: every `--sl-text-new-*-fontFamily` in this theme resolves to 'Open Sans', which the
+ * theme's Typekit does not ship and the design does not ask for -- the design asks for Roboto,
+ * which is what `--sl-text-fontFamily` is. Size and leading still come from the `--sl-text-new-*`
+ * longhands; this theme declares no bare `--sl-text-new-*` token, so a shorthand would be
+ * dropped whole.
+ */
+:host {
+  display: block;
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.filters {
+  /*
+   * The design puts the button at y=24 in the 60px row and makes it 36px tall: 24 + 36 = 60, so
+   * it is bottom-aligned with the two 60px field blocks, whose controls are also 36px tall
+   * (20px line box + 2 x (--sl-size-100 - --sl-size-borderWidth-default) + 2 x border). End
+   * alignment produces that offset from the geometry instead of asserting it as a length.
+   */
+  align-items: end;
+  display: flex;
+  /*
+   * Figma has a 10px gap between the two field blocks (search ends at x=280, select starts at
+   * x=290). No token resolves to 10px: the theme's adjacent steps are --sl-space-100 (8px) and
+   * --sl-space-150 (12px), so either is 2px out. --sl-space-100 is chosen because it is the same
+   * step the input internals already use (`sl-text-field`'s block padding and `sl-select-button`'s
+   * chevron gap are both --sl-size-100), which keeps the whole row on one rhythm. Consequence:
+   * the select sits at x=288 rather than x=290.
+   */
+  gap: var(--sl-space-100);
+}
+
+/*
+ * Both blocks are 280px wide, at x=0 and x=290 of the 1200px content column. Nothing in the
+ * design's variables backs a layout width (the manifest records gutter 120, column 1200, row 60
+ * and the rest as unbound), so this is the design's own measurement, stated once and not derived
+ * from anything that could drift.
+ */
+.field {
+  flex: 0 0 280px;
+}
+
+/*
+ * `sl-form-field label="..."` creates an `<sl-label>`, and `sl-label` renders its `<label>` into
+ * its own LIGHT DOM -- i.e. into this component's shadow tree. So this rule reaches the label
+ * text without piercing any shadow boundary, and because it is the outer tree's rule it beats
+ * `sl-label`'s own `::slotted([slot='label'])` colour regardless of specificity. Only the colour
+ * is overridden; the weight stays the theme's semibold, which is what the design shows.
+ *
+ * `--a10-color-chrome` is the run-local property for the design's `#02242e`, which no theme
+ * declares. It is declared once by the page root on its `:host` and inherits down to here; this
+ * component only reads it, and it is deliberately given no fallback.
+ */
+sl-label label {
+  color: var(--a10-color-chrome);
+}
+
+/*
+ * The design's placeholder is #7a818e. The theme's own placeholder colour is
+ * --sl-color-foreground-subtlest (#1d1f209c), a translucent near-black, so this is a real
+ * override rather than a restatement of a default. The `<input>` lives in `sl-search-field`'s
+ * light DOM -- this tree -- so it is reachable directly, and as an outer-tree rule it wins over
+ * `sl-text-field`'s `slot[name='input']::slotted(input)::placeholder`.
+ */
+sl-search-field input::placeholder {
+  color: var(--sl-color-palette-grey-600);
+}
+
+/*
+ * The search glyph. Slotted into the documented `prefix` slot so its colour can differ from the
+ * input text's, which is what the design does.
+ */
+sl-icon[slot='prefix'] {
+  color: var(--a10-color-chrome);
+}
+
+/*
+ * The design's 1x24 rule between the select's value and its chevron. `sl-select` creates its
+ * `sl-select-button` in its own light DOM -- this tree -- and `SelectButton` documents
+ * `selected-option` and `placeholder` as css parts, so the rule is drawn on the public part that
+ * ends exactly where the chevron column begins. This is the same place and the same border token
+ * that `select-button.css` itself uses for its clearable divider; nothing is positioned by hand.
+ *
+ * Two consequences, both recorded rather than fought: the rule is as tall as the value box
+ * (20px line box + 2 x 7px padding = 34px) instead of the design's 24px, and it sits
+ * 11 + 16 + 4 = 31px from the field's inline edge (the button's padding, the 16px chevron and
+ * its --sl-size-050 gap) instead of the design's 40px. Both follow from editorial-suite's own
+ * select metrics, which is the correct outcome here: the design's select node is themed off
+ * `sanoma-learning` and is not a target.
+ */
+sl-select-button::part(placeholder),
+sl-select-button::part(selected-option) {
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--a10-color-divider);
+}
+
+/*
+ * Figma puts a meaningless 760x60 spacer vector (`Rectangle 1192`) between the select and the
+ * button. It is dropped, and the space it occupied is produced by the layout: an auto inline
+ * start margin eats all the free space in the row, pinning the button to the inline end of the
+ * 1200px column exactly as a `flex: 1` filler element would, without adding an empty node to the
+ * DOM.
+ *
+ * The button's width is left to its content (16px icon + --sl-size-075 gap + "Add new user" +
+ * 2 x (--sl-size-200 - border) padding). The design measures 140px; no webfont loads in the
+ * harness, so the fallback face will measure a few pixels narrower -- that is the cause, and
+ * pinning a width to hide it would be right at 1440 and wrong everywhere else.
+ *
+ * Ground and label need no rule at all: `variant="primary"` with the default solid fill already
+ * resolves to --sl-color-background-primary-bold and --sl-color-foreground-primary-onBold, which
+ * are exactly the two tokens the design binds.
+ */
+.add-user {
+  margin-inline-start: auto;
+}

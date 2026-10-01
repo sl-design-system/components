@@ -1,0 +1,51 @@
+:host {
+  background: var(--sl-color-background-neutral-bold);
+  display: block;
+  inline-size: 240px;
+  flex: 0 0 auto;
+}
+
+nav {
+  padding-block: var(--sl-size-200);
+  padding-inline: var(--sl-size-300);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-xl);
+  color: var(--sl-color-palette-blue-500);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  font-weight: var(--sl-fontWeight-600);
+  gap: var(--sl-size-150);
+  inline-size: 100%;
+  line-height: 1;
+  padding: var(--sl-size-150);
+  text-align: start;
+}
+
+/*
+  The active and inactive rows carry different radii in the design -- 4px active, 12px inactive.
+  Reproduced verbatim rather than normalised: the design is the ground truth for a pixel
+  comparison, and guessing which one was intended would be inventing.
+*/
+button[data-active] {
+  background: var(--sl-color-palette-blue-500);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-inverted-plain);
+}

@@ -121,12 +121,33 @@ For the variance budget this is worse than a clean scaling law would have been. 
 screen regardless of size, with no predictor**, cannot — which makes recording each question with
 its chosen default a requirement of the method rather than a nicety.
 
-## Themes cannot be mapped per team
+## Themes cannot be mapped per team — nor per file (corrected)
 
 Two NSP designs in this corpus resolve to two different themes — `max` (17/17 tokens) and
 `sanoma-learning` (21/21). Both exact, both unambiguous, and a per-team mapping would have got one
-of them wrong whichever way it was written. The theme belongs to the file, and it is derivable:
-see [`runs/harness/README.md`](../../../runs/harness/README.md).
+of them wrong whichever way it was written.
+
+**The replacement claim — that the theme belongs to the file — is also wrong, and was falsified
+later in the batch.** Two frames of one ETSL file derive different themes, both at 100% agreement:
+A5 `Metadata usage widget` → `sanoma-learning` (14/14), A10 `FAM - Users` → `editorial-suite`
+(6/6), with each scoring at most 1 against the other's answer.
+
+A10 probed the mechanism rather than reporting a contradiction. **Figma variable modes.** The same
+file defines several modes for the same variable names, and `get_variable_defs` resolves under the
+mode of the node being queried. The controlled observation: node `17264:29099` — the **top nav bar
+instance, the same component present in both frames** — resolves `color/background/primary/bold`
+to `#137271` and `fontFamily/heading` to `Raleway` inside A10's frame, where A5's frame resolves
+the same names to `#3366ff` and `Roboto`. Ten of the twelve shared colour tokens are byte-identical
+and only the two discriminating ones differ, which is exactly the signature of mode-variant values
+sitting among mode-invariant ones.
+
+So neither run is wrong and **theme derivation is per frame**. The granularity went team → file →
+frame, each step forced by evidence, and the first two were assumptions nobody had tested.
+
+One limitation worth carrying: A10 could read the mode's _effect_ but never its _name_ —
+`get_metadata` listed only a `Cover` page and `get_variable_defs` on a page id returned "nothing
+selected". The bench will want the mode recorded alongside the theme, and today there is no call
+that returns it.
 
 Two runs were captured before this was known, under themes guessed from the team label, and both
 guesses were wrong:

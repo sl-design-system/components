@@ -1,0 +1,117 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100);
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  background: var(--sl-color-background-input-plain);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-default);
+  overflow: clip;
+  padding: var(--sl-size-150);
+}
+
+/* The expanded section is drawn as a blue-bordered box wrapping its own rows. */
+.section[data-expanded] {
+  border-color: var(--sl-color-palette-blue-500);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-150);
+}
+
+.section-header {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--sl-color-foreground-subtle);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  font-weight: var(--sl-fontWeight-700);
+  gap: var(--sl-size-050);
+  inline-size: 100%;
+  padding: 0;
+  text-align: start;
+}
+
+.section[data-expanded] .section-header {
+  color: var(--sl-color-background-primary-interactive-bold);
+}
+
+.section-label {
+  flex: 1;
+}
+
+/* Expanded, the chevron points up. Rotating the registered glyph beats shipping a second one. */
+.section[data-expanded] .section-chevron {
+  rotate: 180deg;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.items button {
+  align-items: center;
+  appearance: none;
+  background: var(--sl-color-background-input-plain);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-background-primary-interactive-bold);
+  cursor: pointer;
+  display: flex;
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  font-weight: var(--sl-fontWeight-600);
+  gap: var(--sl-size-125);
+  inline-size: 100%;
+  overflow: clip;
+  padding: var(--sl-size-150);
+  position: relative;
+  text-align: start;
+}
+
+.item-label {
+  flex: 1;
+}
+
+/*
+  The active row. The design also carries a drop shadow bound as `bingel_dc_shadow`
+  (#0E4F9547, offset 0/4, radius 12). No --sl-elevation-* token resolves to those stops, and a raw
+  value is not allowed, so the shadow is omitted and recorded as a discrepancy rather than
+  approximated with --sl-elevation-shadow-sm, whose stops are different.
+*/
+.items button[data-active] {
+  block-size: 44px;
+  border-color: var(--sl-color-palette-blue-500);
+}
+
+.items button[data-active]::before {
+  background: var(--sl-color-palette-blue-500);
+  block-size: 100%;
+  content: '';
+  inline-size: var(--sl-size-050);
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  position: absolute;
+}

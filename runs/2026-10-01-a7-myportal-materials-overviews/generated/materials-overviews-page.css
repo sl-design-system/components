@@ -1,0 +1,32 @@
+:host {
+  background: var(--sl-elevation-surface-base-default);
+  display: block;
+}
+
+.body {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  min-inline-size: 0;
+  padding-block: var(--sl-size-200);
+  padding-inline: var(--sl-size-300);
+}
+
+.columns {
+  display: flex;
+  gap: var(--sl-size-200);
+}
+
+.columns sl-a7-myportal-material-tree {
+  flex: 0 0 369px;
+}
+
+.columns sl-a7-myportal-file-panel {
+  flex: 1;
+  min-inline-size: 0;
+}

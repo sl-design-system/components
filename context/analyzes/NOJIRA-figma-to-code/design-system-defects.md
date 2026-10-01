@@ -70,6 +70,16 @@ while the older `--sl-*` namespace beside it works.
 `itslearning` has the same shape: 29 × `'Open Sans'` against 18 × `Lato`, where the kit serves
 Lato and the design's own font is Lato.
 
+**Refinement from A10, which is the most precise statement of the fault.** It is not that a theme
+loads no font. `editorial-suite`'s Typekit serves **Raleway and Roboto**, and the theme's _legacy_
+family tokens name exactly those — both resolve, both load, `document.fonts.check` returns true for
+each. Only `--sl-text-new-*-fontFamily` is broken, naming the unshipped `'Open Sans'`.
+
+So each theme examined has **a working font path and a broken one, side by side**, and the broken
+one is the newer namespace that current guidance tells implementers to use. A10 could not use the
+missing-webfont excuse for a 0.86px text-overflow it found, because its fonts were genuinely
+loaded — which is how the distinction surfaced at all.
+
 **The fix is a spelling change in the theme**, not a new asset. That is a much cheaper repair than
 the one the earlier diagnosis implied, and it is worth checking every theme for the same pair —
 the broken spelling sits in the newer namespace in both files examined, which suggests it entered

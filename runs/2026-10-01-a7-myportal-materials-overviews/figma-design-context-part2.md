@@ -1,0 +1,225 @@
+# figma-design-context.md — Part 2: Left sidebar menu (node 15878:180698)
+
+Source node: `15878:180698` ("menu" — main left navigation)
+
+```jsx
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/b9d8819b-21bb-42eb-bc45-fc5e4f838414';
+const imgIconHome = `${assetPathPrefix}/7c96e.svg`;
+const imgIconPlanner = `${assetPathPrefix}/3cbe3.svg`;
+const imgIconGroup = `${assetPathPrefix}/ba7c3.svg`;
+const imgIconPractice = `${assetPathPrefix}/f7211.svg`;
+const imgIconEvaluate = `${assetPathPrefix}/c52a1.svg`;
+const imgIconAnalytics = `${assetPathPrefix}/39fd7.svg`;
+const imgIconAdmin = `${assetPathPrefix}/43ef7.svg`;
+const imgFrame15280 = `${assetPathPrefix}/0d4a6.svg`;
+
+export default function Menu() {
+  return (
+    <div
+      className="bg-[#f2f3f5] content-stretch flex flex-col items-start justify-center px-[24px] py-[16px] relative size-full"
+      data-node-id="15878:180698"
+      data-name="menu">
+      <div
+        className="content-stretch flex flex-[1_0_0] flex-col gap-[24px] items-start min-h-px relative w-full"
+        data-node-id="15878:180699">
+        <div
+          className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full"
+          data-node-id="15878:180700">
+          <div
+            className="bg-[#0060b9] content-stretch flex items-center p-[12px] relative rounded-[4px] shrink-0 w-full"
+            data-node-id="15878:180701"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180701;8431:3606">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180701;8431:15504"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconHome}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[16px] text-white whitespace-nowrap"
+                data-node-id="I15878:180701;8431:3608">
+                Home
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180702"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180702;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180702;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconPlanner}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180702;8431:3617">
+                Planner
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180703"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180703;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180703;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconGroup}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180703;8431:3617">
+                Class
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180704"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180704;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180704;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconPractice}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180704;8431:3617">
+                Tasks
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180705"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180705;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180705;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconEvaluate}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180705;8431:3617">
+                Evaluation
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180706"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180706;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180706;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconAnalytics}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180706;8431:3617">
+                Analytics
+              </p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-center p-[12px] relative rounded-[12px] shrink-0 w-full"
+            data-node-id="15878:180707"
+            data-name="main nav icon">
+            <div
+              className="content-stretch flex gap-[12px] items-center relative shrink-0"
+              data-node-id="I15878:180707;8431:3615">
+              <div
+                className="relative shrink-0 size-[24px]"
+                data-node-id="I15878:180707;8431:3616"
+                data-name="icon-home">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgIconAdmin}
+                />
+              </div>
+              <p
+                className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+                data-node-id="I15878:180707;8431:3617">
+                Administration
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex flex-[1_0_0] flex-col items-start justify-end min-h-px relative w-full"
+          data-node-id="15878:180708">
+          <div
+            className="content-stretch flex gap-[12px] items-center py-[24px] relative shrink-0"
+            data-node-id="15878:180709">
+            <div className="relative shrink-0 size-[24px]" data-node-id="15878:180710">
+              <img
+                alt=""
+                className="absolute block inset-0 max-w-none size-full"
+                src={imgFrame15280}
+              />
+            </div>
+            <p
+              className="[word-break:break-word] font-['Proxima_Nova:Semibold'] leading-none not-italic relative shrink-0 text-[#0060b9] text-[16px] whitespace-nowrap"
+              data-node-id="15878:180713">
+              Miniaturize
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+**Bound styles (verbatim):** color/palette/white/base: #FFFFFF, color/palette/primary/500: #0060B9, color/palette/neutral/50: #F2F3F5.
+
+Note: the 7 "main nav icon" instances each use a raw `<img>` SVG for their icon (icon-home, icon-planner, icon-group, icon-practice, icon-evaluate, icon-analytics, icon-admin) rather than an `sl-icon` font-glyph instance — these are image assets, not font icons, and are exported as separate SVG URLs (see asset omission note in manifest).

@@ -1,0 +1,565 @@
+<frame id="15878:180439" name="Materials /Overviews" x="49" y="72" width="1440" height="1890">
+  <frame id="15878:180440" name="Frame 15282" x="240" y="0" width="1200" height="1007" />
+  <frame id="15878:180441" name="Frame 15316" x="239" y="96" width="1200" height="1882">
+    <instance id="15878:180442" name="sl-breadcrumb" x="0" y="24" width="236" height="32" />
+    <frame id="15878:180443" name="Frame 15429" x="0" y="72" width="1200" height="1786">
+      <frame id="16752:171373" name="Frame 15555" x="24" y="0" width="1152" height="232">
+        <frame id="16752:171374" name="Frame 467" x="16" y="12" width="1120" height="208">
+          <frame id="16752:171375" name="Frame 87" x="0" y="0" width="156" height="207.64865112304688">
+            <instance id="16752:171376" name="SL-card" x="0" y="0" width="156" height="208" />
+          </frame>
+          <frame id="16752:171377" name="Frame 15495" x="172" y="0" width="948" height="208">
+            <frame id="16752:171378" name="Frame 15482" x="0" y="0" width="948" height="90">
+              <frame id="16752:171379" name="Frame 15590" x="0" y="0" width="948" height="90">
+                <frame id="16752:171380" name="Frame 15481" x="0" y="0" width="658" height="90">
+                  <frame id="16752:171381" name="Frame 15510" x="0" y="0" width="171" height="34">
+                    <text id="16752:171382" name="Reken Maar! 4" x="0" y="0" width="171" height="34" />
+                  </frame>
+                  <frame id="16752:171383" name="Frame 15589" x="0" y="46" width="658" height="44">
+                    <text id="16752:171384" name="header" x="0" y="0" width="658" height="20" />
+                    <text id="16752:171385" name="header" x="0" y="24" width="658" height="20" />
+                  </frame>
+                </frame>
+                <frame id="16752:171386" name="Frame 15589" x="670" y="0" width="278" height="40">
+                  <instance id="16752:171387" name="sl-button" x="0" y="0" width="165" height="40" />
+                  <instance id="16752:171388" name="sl-button" x="181" y="0" width="97" height="40" />
+                </frame>
+              </frame>
+            </frame>
+            <line id="16752:171389" name="Line 13" x="0" y="129" width="948" height="0" />
+            <frame id="16752:171390" name="Frame 15511" x="0" y="168" width="948" height="40">
+              <frame id="16752:171391" name="Frame 15492" x="0" y="0" width="130" height="40">
+                <instance id="16752:171392" name="sl-avatar" x="0" y="0" width="130" height="40" />
+              </frame>
+              <frame id="16752:171393" name="Frame 15493" x="142" y="0" width="234" height="40">
+                <frame id="16752:171394" name="Frame 15489" x="0" y="0" width="68" height="40">
+                  <instance id="16752:171395" name="sl-avatar" x="0" y="0" width="40" height="40" />
+                  <instance id="16752:171396" name="sl-avatar" x="28" y="0" width="40" height="40" />
+                </frame>
+                <instance id="16752:171397" name="sl-avatar" x="76" y="2" width="158" height="36" />
+              </frame>
+              <frame id="16752:171398" name="Frame 15494" x="388" y="0" width="450" height="40">
+                <frame id="16752:171399" name="Frame 15488" x="0" y="0" width="124" height="40">
+                  <instance id="16752:171400" name="sl-avatar" x="0" y="0" width="40" height="40" />
+                  <instance id="16752:171401" name="sl-avatar" x="28" y="0" width="40" height="40" />
+                  <instance id="16752:171402" name="sl-avatar" x="56" y="0" width="40" height="40" />
+                  <instance id="16752:171403" name="sl-avatar" x="84" y="0" width="40" height="40" />
+                </frame>
+                <instance id="16752:171404" name="sl-avatar" x="132" y="2" width="318" height="36" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="15878:180465" name="Frame 15515" x="24" y="256" width="1152" height="1530">
+        <frame id="15878:180466" name="Frame 15514" x="0" y="0" width="1152" height="1586">
+          <frame id="15878:180467" name="Frame 15318" x="0" y="0" width="1152" height="1586">
+            <frame id="16737:82185" name="Frame 15487" x="0" y="0" width="369" height="1586">
+              <frame id="16737:82186" name="Frame 15460" x="0" y="0" width="369" height="48">
+                <instance id="16737:82187" name="sl-searchfield" x="0" y="4" width="369" height="40" />
+              </frame>
+              <frame id="16737:82188" name="Tests" x="0" y="56" width="369" height="1530">
+                <frame id="16737:82189" name="Frame 15551" x="0" y="0" width="369" height="1530">
+                  <frame id="16737:82190" name="sl-select" x="0" y="0" width="369" height="1364">
+                    <frame id="16737:82191" name="Frame 15457" x="0" y="0" width="369" height="1364">
+                      <frame id="16737:82192" name="Frame 15487" x="0" y="0" width="369" height="1364">
+                        <frame id="16737:82488" name="Frame 15483" x="0" y="0" width="369" height="748">
+                          <frame id="16737:82489" name="Frame 15485" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82490" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82491" name="Frame 15485" x="16" y="0" width="309" height="24">
+                              <text id="16737:82492" name="Materials" x="0" y="0" width="78" height="24" />
+                            </frame>
+                            <text id="16780:17788" name="icon" x="345" y="20" width="16.000001398764425" height="16.000001398764653" />
+                          </frame>
+                          <frame id="16737:82495" name="Frame 15549" x="12" y="48" width="345" height="688">
+                            <frame id="16804:573385" name="Frame 15552" x="0" y="0" width="345" height="44">
+                              <frame id="16804:573386" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16804:573387" name="Frame 15485" x="0" y="0" width="283" height="20">
+                                  <frame id="16804:573388" name="Frame 15484" x="0" y="0" width="283" height="20">
+                                    <text id="16804:573389" name="Manuals" x="0" y="0" width="283" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16804:573390" name="badge-base-theme [DRAFT]" x="293" y="2" width="28" height="16">
+                                  <instance id="16804:573391" name="badge" x="0" y="0" width="28" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82496" name="Frame 15550" x="0" y="52" width="345" height="44">
+                              <frame id="16737:82497" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82498" name="Frame 15485" x="0" y="0" width="287" height="20">
+                                  <frame id="16737:82499" name="Frame 15484" x="0" y="0" width="287" height="20">
+                                    <text id="16737:82500" name="Overviews" x="0" y="0" width="287" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82501" name="Frame 102" x="297" y="2" width="24" height="16">
+                                  <frame id="16737:82502" name="sl-badge [DRAFT]" x="0" y="0" width="24" height="16">
+                                    <frame id="16737:82503" name="badge-base-theme [DRAFT]" x="0" y="0" width="24" height="16">
+                                      <frame id="16737:82504" name="Frame 101" x="0" y="0" width="24" height="16">
+                                        <frame id="16737:82505" name="sl-badge [DRAFT]" x="0" y="0" width="24" height="16">
+                                          <frame id="16737:82506" name="badge-base-theme [DRAFT]" x="0" y="0" width="24" height="16">
+                                            <instance id="16737:82507" name="badge" x="0" y="0" width="24" height="16" />
+                                          </frame>
+                                        </frame>
+                                      </frame>
+                                    </frame>
+                                  </frame>
+                                </frame>
+                              </frame>
+                              <rounded-rectangle id="16737:82508" name="Rectangle 4435" x="0" y="0" width="4" height="44" />
+                            </frame>
+                            <frame id="16737:82509" name="Frame 15495" x="0" y="104" width="345" height="44">
+                              <frame id="16737:82510" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82511" name="Frame 15485" x="0" y="0" width="283" height="20">
+                                  <frame id="16737:82512" name="Frame 15484" x="0" y="0" width="283" height="20">
+                                    <text id="16737:82513" name="Goals" x="0" y="0" width="283" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82514" name="badge-base-theme [DRAFT]" x="293" y="2" width="28" height="16">
+                                  <instance id="16737:82515" name="badge" x="0" y="0" width="28" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82516" name="Frame 15496" x="0" y="156" width="345" height="44">
+                              <frame id="16737:82517" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82518" name="Frame 15485" x="0" y="0" width="283" height="20">
+                                  <frame id="16737:82519" name="Frame 15484" x="0" y="0" width="283" height="20">
+                                    <text id="16737:82520" name="Correction Keys" x="0" y="0" width="283" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82521" name="badge-base-theme [DRAFT]" x="293" y="2" width="28" height="16">
+                                  <instance id="16737:82522" name="badge" x="0" y="0" width="28" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82523" name="Frame 15497" x="0" y="208" width="345" height="44">
+                              <frame id="16737:82524" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82525" name="Frame 15485" x="0" y="0" width="283" height="20">
+                                  <frame id="16737:82526" name="Frame 15484" x="0" y="0" width="283" height="20">
+                                    <text id="16737:82527" name="Parent Presentations" x="0" y="0" width="283" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82528" name="badge-base-theme [DRAFT]" x="293" y="2" width="28" height="16">
+                                  <instance id="16737:82529" name="badge" x="0" y="0" width="28" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82530" name="Frame 15498" x="0" y="260" width="345" height="44">
+                              <frame id="16737:82531" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82532" name="Frame 15485" x="0" y="0" width="288" height="20">
+                                  <frame id="16737:82533" name="Frame 15484" x="0" y="0" width="288" height="20">
+                                    <text id="16737:82534" name="End of School Year Diploma" x="0" y="0" width="288" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82535" name="badge-base-theme [DRAFT]" x="298" y="2" width="23" height="16">
+                                  <instance id="16737:82536" name="badge" x="0" y="0" width="23" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82537" name="Frame 15499" x="0" y="312" width="345" height="44">
+                              <frame id="16737:82538" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82539" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16737:82540" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16737:82541" name="Extra Materials" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82542" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16737:82543" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82544" name="Frame 15500" x="0" y="364" width="345" height="44">
+                              <frame id="16737:82545" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82546" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16737:82547" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16737:82548" name="Clock Reading for GO!" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82549" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16737:82550" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82551" name="Frame 15501" x="0" y="416" width="345" height="44">
+                              <frame id="16737:82552" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82553" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16737:82554" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16737:82555" name="Clock Reading for ZILL" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82556" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16737:82557" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82558" name="Frame 15502" x="0" y="468" width="345" height="64">
+                              <frame id="16737:82559" name="Frame 15547" x="12" y="12" width="321" height="40">
+                                <frame id="16737:82560" name="Frame 15485" x="0" y="0" width="290" height="40">
+                                  <frame id="16737:82561" name="Frame 15484" x="0" y="0" width="290" height="40">
+                                    <text id="16737:82562" name="For ZILL Schools Without Differentiation Module" x="0" y="0" width="290" height="40" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82563" name="badge-base-theme [DRAFT]" x="300" y="12" width="21" height="16">
+                                  <instance id="16737:82564" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82565" name="Frame 15503" x="0" y="540" width="345" height="44">
+                              <frame id="16737:82566" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82567" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16737:82568" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16737:82569" name="Continue with &quot;Reken Maar!&quot;" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82570" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16737:82571" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16737:82572" name="Frame 15504" x="0" y="592" width="345" height="44">
+                              <frame id="16737:82573" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16737:82574" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16737:82575" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16737:82576" name="Technology Guide" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16737:82577" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16737:82578" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="16804:573376" name="Frame 15551" x="0" y="644" width="345" height="44">
+                              <frame id="16804:573377" name="Frame 15547" x="12" y="12" width="321" height="20">
+                                <frame id="16804:573378" name="Frame 15485" x="0" y="0" width="290" height="20">
+                                  <frame id="16804:573379" name="Frame 15484" x="0" y="0" width="290" height="20">
+                                    <text id="16804:573380" name="My Materials" x="0" y="0" width="290" height="20" />
+                                  </frame>
+                                </frame>
+                                <frame id="16804:573381" name="badge-base-theme [DRAFT]" x="300" y="2" width="21" height="16">
+                                  <instance id="16804:573382" name="badge" x="0" y="0" width="21" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82474" name="Frame 15563" x="0" y="756" width="369" height="48">
+                          <frame id="16737:82475" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82476" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82477" name="Frame 15486" x="16" y="0" width="309" height="24">
+                              <frame id="16737:82478" name="Frame 15484" x="0" y="0" width="309" height="24">
+                                <text id="16737:82479" name="Tests" x="0" y="0" width="309" height="24" />
+                              </frame>
+                            </frame>
+                            <text id="16780:17790" name="icon" x="329" y="4.000000476837158" width="16" height="16" />
+                          </frame>
+                        </frame>
+                        <frame id="16737:82299" name="Frame 15498" x="0" y="812" width="369" height="48">
+                          <frame id="16737:82300" name="Frame 15548" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82301" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82302" name="Frame 15486" x="16" y="0" width="309" height="24">
+                              <frame id="16737:82303" name="Frame 15484" x="0" y="0" width="309" height="24">
+                                <text id="16737:82304" name="Chapter 1" x="0" y="0" width="309" height="24" />
+                              </frame>
+                            </frame>
+                            <text id="16780:17792" name="icon" x="329" y="4.000000476837158" width="16" height="16" />
+                          </frame>
+                        </frame>
+                        <frame id="16737:82307" name="Frame 15562" x="0" y="868" width="369" height="48">
+                          <frame id="16737:82308" name="Frame 15548" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82309" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82310" name="Frame 15486" x="16" y="0" width="309" height="24">
+                              <frame id="16737:82311" name="Frame 15484" x="0" y="0" width="309" height="24">
+                                <text id="16737:82312" name="Chapter 2" x="0" y="0" width="309" height="24" />
+                              </frame>
+                            </frame>
+                            <text id="16780:17794" name="icon" x="329" y="4.000000476837158" width="16" height="16" />
+                          </frame>
+                        </frame>
+                        <frame id="16737:82315" name="Frame 15554" x="0" y="924" width="369" height="48">
+                          <frame id="16737:82316" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82317" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82318" name="Frame 15486" x="16" y="0" width="309" height="24">
+                              <frame id="16737:82319" name="Frame 15484" x="0" y="0" width="309" height="24">
+                                <text id="16737:82320" name="Chapter 3" x="0" y="0" width="309" height="24" />
+                              </frame>
+                            </frame>
+                            <text id="16780:17796" name="icon" x="329" y="4.000000476837158" width="16" height="16" />
+                          </frame>
+                        </frame>
+                        <frame id="16737:82323" name="Frame 15555" x="0" y="980" width="369" height="48">
+                          <frame id="16737:82324" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82325" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82326" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82327" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82328" name="Chapter 4" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82329" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82330" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82331" name="Frame 15556" x="0" y="1036" width="369" height="48">
+                          <frame id="16737:82332" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82333" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82334" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82335" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82336" name="Chapter 5" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82337" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82338" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82339" name="Frame 15557" x="0" y="1092" width="369" height="48">
+                          <frame id="16737:82340" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82341" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82342" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82343" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82344" name="Chapter 6" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82345" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82346" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82347" name="Frame 15558" x="0" y="1148" width="369" height="48">
+                          <frame id="16737:82348" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82349" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82350" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82351" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82352" name="Chapter 7" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82353" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82354" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82355" name="Frame 15559" x="0" y="1204" width="369" height="48">
+                          <frame id="16737:82356" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82357" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82358" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82359" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82360" name="Chapter 8" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82361" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82362" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82363" name="Frame 15560" x="0" y="1260" width="369" height="48">
+                          <frame id="16737:82364" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82365" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82366" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82367" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82368" name="Chapter 9" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82369" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82370" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="16737:82371" name="Frame 15561" x="0" y="1316" width="369" height="48">
+                          <frame id="16737:82372" name="Frame 15547" x="12" y="12" width="345" height="24">
+                            <instance id="16737:82373" name="sl-icon" x="0" y="6" width="12" height="12" />
+                            <frame id="16737:82374" name="Frame 15486" x="16" y="0" width="302" height="24">
+                              <frame id="16737:82375" name="Frame 15484" x="0" y="0" width="302" height="24">
+                                <text id="16737:82376" name="Chapter 10" x="0" y="0" width="302" height="24" />
+                              </frame>
+                            </frame>
+                            <frame id="16737:82377" name="badge-base-theme [DRAFT]" x="322" y="4" width="23" height="16">
+                              <instance id="16737:82378" name="badge" x="0" y="0" width="23" height="16" />
+                            </frame>
+                          </frame>
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="24382:668407" name="Summative test" x="385" y="0" width="767" height="654">
+              <frame id="24382:668408" name="Frame 15315" x="16" y="16" width="735" height="622">
+                <frame id="24382:668409" name="Frame 15550" x="0" y="0" width="735" height="34">
+                  <frame id="24382:668410" name="Frame 15496" x="0" y="0" width="105" height="34">
+                    <frame id="24382:668411" name="Frame 15461" x="0" y="0" width="105" height="34">
+                      <frame id="24382:668412" name="Frame 15492" x="0" y="0" width="105" height="34">
+                        <text id="24382:668413" name="Overviews" x="0" y="0" width="105" height="34" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="24382:668414" name="Frame 15551" x="0" y="58" width="735" height="564">
+                  <frame id="24382:668415" name="Frame 15445" x="0" y="0" width="735" height="20">
+                    <text id="24382:668416" name="8 files available" x="0" y="0" width="95" height="20" />
+                  </frame>
+                  <frame id="24382:668417" name="Frame 15446" x="0" y="24" width="735" height="540">
+                    <frame id="24382:668418" name="list of lessons" x="0" y="0" width="735" height="540">
+                      <frame id="24382:668419" name="Exercise block" x="0" y="0" width="735" height="64">
+                        <text id="24382:668420" name="icon" x="12" y="17.5" width="18" height="29" />
+                        <frame id="24382:668421" name="exercise title and details" x="38" y="22" width="685" height="20">
+                          <frame id="24382:668422" name="Frame 15474" x="0" y="0" width="685" height="20">
+                            <frame id="24382:668423" name="Frame 15464" x="0" y="0" width="685" height="20">
+                              <frame id="24382:668424" name="name and chapter" x="0" y="0" width="685" height="20">
+                                <frame id="24382:668425" name="Frame 15870" x="0" y="0" width="229" height="20">
+                                  <text id="24382:668426" name="Annual-Report-2024.format" x="0" y="0" width="186" height="20" />
+                                  <text id="24382:668427" name="1.2 MB" x="190" y="2" width="39" height="16" />
+                                </frame>
+                              </frame>
+                            </frame>
+                            <frame id="24382:668428" name="Frame 475" x="304" y="0" width="56" height="24" hidden="true">
+                              <instance id="24382:668429" name="sl-button-theme" x="0" y="0" width="24" height="24" />
+                              <instance id="24382:668430" name="Component 32" x="32" y="0" width="24" height="24" />
+                            </frame>
+                          </frame>
+                          <line id="24382:668431" name="Line 14" x="0" y="114" width="360" height="0" hidden="true" />
+                          <frame id="24382:668432" name="Frame 15439" x="0" y="122" width="360" height="18" hidden="true">
+                            <instance id="24382:668433" name="Component 31" x="0" y="0" width="106" height="18" />
+                          </frame>
+                        </frame>
+                      </frame>
+                      <frame id="24382:668434" name="Exercise block" x="0" y="68" width="735" height="64">
+                        <text id="24382:668435" name="icon" x="12" y="17.5" width="24" height="29" />
+                        <frame id="24382:668436" name="Frame 15870" x="44" y="22" width="197" height="20">
+                          <text id="24382:668437" name="Presenation_2025.ppt" x="0" y="0" width="147" height="20" />
+                          <text id="24382:668438" name="20.1 MB" x="151" y="2" width="46" height="16" />
+                        </frame>
+                      </frame>
+                      <frame id="24382:668439" name="Exercise block" x="0" y="136" width="735" height="64">
+                        <text id="24382:668440" name="icon" x="12" y="17.5" width="24" height="29" />
+                        <frame id="24382:668441" name="Frame 15870" x="44" y="22" width="235" height="20">
+                          <text id="24382:668442" name="Introduction-Video2025.mp4" x="0" y="0" width="194" height="20" />
+                          <text id="24382:668443" name="1.1 GB" x="198" y="2" width="37" height="16" />
+                        </frame>
+                      </frame>
+                      <frame id="24382:668444" name="Exercise block" x="0" y="204" width="735" height="64">
+                        <text id="24382:668445" name="icon" x="12" y="17.5" width="24" height="29" />
+                        <frame id="24382:668446" name="Frame 15870" x="44" y="22" width="212" height="20">
+                          <text id="24382:668447" name="Annual-Report-2024.pdf" x="0" y="0" width="162" height="20" />
+                          <text id="24382:668448" name="20.1 MB" x="166" y="2" width="46" height="16" />
+                        </frame>
+                      </frame>
+                      <frame id="24382:668449" name="Exercise block" x="0" y="272" width="735" height="64">
+                        <text id="24382:668450" name="icon" x="12" y="17.5" width="18" height="29" />
+                        <frame id="24382:668451" name="Frame 15870" x="38" y="22" width="181" height="20">
+                          <text id="24382:668452" name="file-invoice-dollar.rtf" x="0" y="0" width="138" height="20" />
+                          <text id="24382:668453" name="2.9 MB" x="142" y="2" width="39" height="16" />
+                        </frame>
+                      </frame>
+                      <frame id="24382:668454" name="Exercise block" x="0" y="340" width="735" height="64">
+                        <text id="24382:668455" name="icon" x="12" y="17.5" width="24" height="29" />
+                        <frame id="24382:668456" name="Frame 15870" x="44" y="22" width="135" height="20">
+                          <text id="24382:668457" name="file-name.doc" x="0" y="0" width="92" height="20" />
+                          <text id="24382:668458" name="181 KB" x="96" y="2" width="39" height="16" />
+                        </frame>
+                      </frame>
+                      <frame id="24382:668459" name="Exercise block" x="0" y="408" width="735" height="64">
+                        <text id="24382:668460" name="icon" x="12" y="17.5" width="18" height="29" />
+                        <frame id="24382:668461" name="exercise title and details" x="38" y="22" width="685" height="20">
+                          <frame id="24382:668462" name="Frame 15870" x="0" y="0" width="146" height="20">
+                            <text id="24382:668463" name="file-name.word" x="0" y="0" width="103" height="20" />
+                            <text id="24382:668464" name="800 KB" x="107" y="2" width="39" height="16" />
+                          </frame>
+                          <line id="24382:668465" name="Line 14" x="0" y="114" width="360" height="0" hidden="true" />
+                          <frame id="24382:668466" name="Frame 15439" x="0" y="122" width="360" height="18" hidden="true">
+                            <instance id="24382:668467" name="Component 31" x="0" y="0" width="106" height="18" />
+                          </frame>
+                        </frame>
+                      </frame>
+                      <frame id="24382:668468" name="Exercise block" x="0" y="476" width="735" height="64">
+                        <text id="24382:668469" name="icon" x="12" y="17.5" width="18" height="29" />
+                        <frame id="24382:668470" name="exercise title and details" x="38" y="22" width="685" height="20">
+                          <frame id="24382:668471" name="Frame 15870" x="0" y="0" width="146" height="20">
+                            <text id="24382:668472" name="file-name.word" x="0" y="0" width="103" height="20" />
+                            <text id="24382:668473" name="800 KB" x="107" y="2" width="39" height="16" />
+                          </frame>
+                          <line id="24382:668474" name="Line 14" x="0" y="114" width="360" height="0" hidden="true" />
+                          <frame id="24382:668475" name="Frame 15439" x="0" y="122" width="360" height="18" hidden="true">
+                            <instance id="24382:668476" name="Component 31" x="0" y="0" width="106" height="18" />
+                          </frame>
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="15878:180663" name="Frame 15309" x="0" y="0" width="1440" height="96">
+    <frame id="15878:180664" name="Frame 15294" x="0" y="0" width="1440" height="56">
+      <frame id="15878:180665" name="Frame 15369" x="24" y="13" width="640.5" height="30">
+        <frame id="15878:180666" name="Frame" x="0" y="0" width="71.25" height="30" />
+        <instance id="15878:180671" name="sl-selectbox-theme" x="111.25" y="0" width="160" height="30" />
+      </frame>
+      <frame id="15878:180672" name="Frame 15292" x="1031" y="12" width="385" height="32">
+        <instance id="15878:180673" name="sl-selectbox-theme" x="0" y="1" width="160" height="30" />
+        <vector id="15878:180674" name="Vector" x="184" y="4" width="21" height="24" />
+        <frame id="15878:180675" name="avatar + chevron" x="229" y="0" width="156" height="32">
+          <instance id="15878:180676" name="sl-avatar" x="0" y="0" width="120" height="32" />
+          <instance id="15878:180677" name="chevron-down" x="132" y="4" width="24" height="24" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="15878:180678" name="Frame 84" x="0" y="56" width="1440" height="40">
+      <frame id="15878:180679" name="Frame 15283" x="24" y="0" width="703" height="40">
+        <frame id="15878:180680" name="Frame 15273" x="0" y="13" width="87" height="14">
+          <text id="15878:180681" name="Quick actions:" x="0" y="0" width="87" height="14" />
+        </frame>
+        <frame id="15878:180682" name="main nav icon" x="99" y="0" width="119" height="40">
+          <frame id="15878:180683" name="Frame 15273" x="12" y="12" width="95" height="16">
+            <text id="15878:180684" name="plus" x="0" y="0" width="16" height="16" />
+            <text id="15878:180685" name="New task" x="28" y="0" width="67" height="16" />
+          </frame>
+        </frame>
+        <frame id="15878:180686" name="main nav icon" x="230" y="0" width="159" height="40">
+          <frame id="15878:180687" name="Frame 15273" x="12" y="12" width="135" height="16">
+            <text id="15878:180688" name="comment" x="0" y="0" width="16" height="16" />
+            <text id="15878:180689" name="Give Feedback" x="28" y="0" width="107" height="16" />
+          </frame>
+        </frame>
+        <frame id="15878:180690" name="main nav icon" x="401" y="0" width="156" height="40">
+          <frame id="15878:180691" name="Frame 15273" x="12" y="12" width="132" height="16">
+            <text id="15878:180692" name="note" x="0" y="0" width="16" height="16" />
+            <text id="15878:180693" name="New care note" x="28" y="0" width="104" height="16" />
+          </frame>
+        </frame>
+        <frame id="15878:180694" name="main nav icon" x="569" y="0" width="134" height="40">
+          <frame id="15878:180695" name="Frame 15273" x="12" y="12" width="110" height="16">
+            <text id="15878:180696" name="image" x="0" y="0" width="16" height="16" />
+            <text id="15878:180697" name="View island" x="28" y="0" width="82" height="16" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="15878:180698" name="menu" x="-1" y="96" width="240" height="1882">
+    <frame id="15878:180699" name="Frame 15275" x="24" y="16" width="192" height="1850">
+      <frame id="15878:180700" name="Frame 83" x="0" y="0" width="192" height="480">
+        <instance id="15878:180701" name="main nav icon" x="0" y="0" width="192" height="48" />
+        <instance id="15878:180702" name="main nav icon" x="0" y="72" width="192" height="48" />
+        <instance id="15878:180703" name="main nav icon" x="0" y="144" width="192" height="48" />
+        <instance id="15878:180704" name="main nav icon" x="0" y="216" width="192" height="48" />
+        <instance id="15878:180705" name="main nav icon" x="0" y="288" width="192" height="48" />
+        <instance id="15878:180706" name="main nav icon" x="0" y="360" width="192" height="48" />
+        <instance id="15878:180707" name="main nav icon" x="0" y="432" width="192" height="48" />
+      </frame>
+      <frame id="15878:180708" name="Frame 15278" x="0" y="504" width="192" height="1346">
+        <frame id="15878:180709" name="Frame 15273" x="0" y="1274" width="115" height="72">
+          <frame id="15878:180710" name="Frame 15280" x="0" y="24" width="24" height="24">
+            <vector id="15878:180711" name="sidebar" x="0" y="0" width="24" height="24" />
+            <vector id="15878:180712" name="Arrow 1" x="19" y="12.000000953674316" width="6" height="8.392580639338121e-7" />
+          </frame>
+          <text id="15878:180713" name="Miniaturize" x="36" y="28" width="79" height="16" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+</frame>

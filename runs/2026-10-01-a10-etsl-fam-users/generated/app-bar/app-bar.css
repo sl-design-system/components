@@ -1,0 +1,136 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar is a full-bleed 1440px band, so
+     `block` is an intentional change to the default rendering, not boilerplate. */
+  display: block;
+}
+
+.bar {
+  align-items: center;
+  /* `--a10-color-chrome` (Figma `#02242e`, unbound in every theme) is declared once on the page
+     root's `:host`; custom properties inherit across shadow boundaries, so it is only read here.
+     No fallback: a fallback would hide the root forgetting to declare it. */
+  background: var(--a10-color-chrome);
+  /* Figma `17264:29099`: y=0, h=50, full 1440 width. No `--sl-size-*` in editorial-suite equals
+     50px (the ladder goes 48 → 56), so this is a raw layout dimension. */
+  block-size: 50px;
+  color: var(--sl-color-foreground-primary-onBold);
+  display: flex;
+  /* Figma: `pl-[16px] pr-[20px]`. 16px = --sl-space-200, 20px = --sl-space-250 exactly. */
+  padding-inline: var(--sl-space-200) var(--sl-space-250);
+}
+
+.brand {
+  align-items: center;
+  display: flex;
+  /* Figma `I17264:29099;1481:4133`: a fixed 181px block holding the 155px logo box after a 6px
+     leading pad. 6 + 155 = 161; the remaining 20px of the 181px track is slack the design spends
+     as a 10px trailing pad plus 10px of unused width, and is not expressible as a token — it is
+     left as slack rather than written out as an untokenised 10px. */
+  flex: 0 0 auto;
+  inline-size: 181px;
+  padding-inline-start: var(--sl-space-075);
+}
+
+.wordmark {
+  /* Pinned to the omitted raster's exact footprint (see the comment in `render`): 155 × 20.
+     20px is exactly --sl-size-250; 155px has no token and is a raw layout dimension.
+     `overflow: hidden` keeps the text substitute inside that footprint whatever face the
+     browser falls back to — no webfont loads in the harness, so the letterforms (and therefore
+     the measured text width) differ from the design by construction. */
+  align-items: center;
+  block-size: var(--sl-size-250);
+  display: flex;
+  /* Longhands only. editorial-suite declares no bare `--sl-text-new-*` token, so a `font:`
+     shorthand against one would drop this whole declaration silently. The family comes from the
+     legacy token because every `--sl-text-new-*-fontFamily` resolves to 'Open Sans', which this
+     theme's Typekit does not ship and the design does not ask for. 16/20 fills the 20px box. */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  inline-size: 155px;
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.bar-end {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  /* Figma puts a literal 545px gap between the brand block and this cluster and gives the
+     cluster `flex: 1 0 0` with `justify-content: flex-end`. With the cluster growing into all
+     remaining space, its contents land against the inline end regardless of that gap
+     (1440 - 16 - 181 - 20 = 1223px of track either way), so the 545px is absorbed by the layout
+     mechanism instead of being hardcoded. */
+  flex: 1 1 auto;
+  gap: var(--sl-space-050);
+  justify-content: flex-end;
+}
+
+.switcher {
+  align-items: center;
+  /* Fills the bar's 50px so the control's hit area matches the design's `h-full`. */
+  align-self: stretch;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--sl-space-050);
+  /* Figma `px-[16px] py-[13px]`. 16px = --sl-space-200. The 13px block pad has no token:
+     13 + 20 (glyph box) + 13 = 46, which is the control's intrinsic height; `align-self: stretch`
+     then spends the remaining 50 - 46 = 4px, so the padding sets the minimum, not the height. */
+  padding-block: 13px;
+  padding-inline: var(--sl-space-200);
+}
+
+.switcher:focus-visible {
+  border-radius: var(--sl-size-borderRadius-sm);
+  outline: var(--sl-size-borderWidth-focusRing) solid
+    var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.switcher-glyph {
+  /* The empty 20 × 20 footprint of the omitted `book-circle-arrow-up` glyph (see `render`).
+     20px is exactly --sl-size-250. Nothing is drawn here on purpose. */
+  block-size: var(--sl-size-250);
+  flex: 0 0 auto;
+  inline-size: var(--sl-size-250);
+}
+
+.switcher sl-icon {
+  /* `sl-icon` sizes off `--sl-icon-size` (a documented custom property of the component), not
+     `font-size` — `icon.css` computes `max(1cap, var(--sl-icon-size))`, so a `font-size` rule
+     here would be inert. */
+  --sl-icon-size: var(--sl-size-icon-font-md);
+}
+
+.account {
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0;
+}
+
+.account:focus-visible {
+  border-radius: var(--sl-size-borderRadius-full);
+  outline: var(--sl-size-borderWidth-focusRing) solid
+    var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+/* `size="md"` already gives the design's 32px picture (--sl-size-400), so only the colour is
+   retargeted: the avatar defaults to the grey accent pair, while the design binds
+   `color/background/primary/bold` + `color/foreground/primary/onBold` here. The avatar's own
+   parts are styled rather than wrapping it in anything. */
+sl-avatar::part(picture) {
+  background: var(--sl-color-background-primary-bold);
+}
+
+sl-avatar::part(initials) {
+  color: var(--sl-color-foreground-primary-onBold);
+}

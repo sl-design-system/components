@@ -1,0 +1,334 @@
+{
+  "case": "A10-etsl-fam-users",
+  "team": "ETSL (Editorial Suite)",
+  "designName": "FAM - Users",
+  "figmaFileKey": "S5QgDy8X9eqhvECPANSZMM",
+  "figmaNodeId": "17264:29098",
+  "framework": "lit",
+  "i18n": false,
+  "figmaServer": "figma (remote)",
+  "outputLocation": "examples/lit/src/_runs/a10-etsl-fam-users/",
+  "pipelineCommit": "c7f6a370357b902315f9a016e2108274cb24bb76",
+  "pipelineTree": {
+    "path": "tools/implement-design-plugin",
+    "hash": "2176d63902204219ed29b22e775e902747248deb"
+  },
+  "themeDerived": {
+    "theme": "editorial-suite",
+    "method": "token-name",
+    "tool": "runs/harness/theme-match.mjs",
+    "colorTokensInDesign": 24,
+    "matched": "6/6",
+    "absoluteAgreement": 1.0,
+    "marginOverSecond": 6,
+    "confident": true,
+    "runnerUp": "14-way tie at 1/6 (bingel-dc, bingel-int, clickedu, itslearning, ...)",
+    "agreesWithA5Derivation": false,
+    "note": "A5 (17214:103584) and A10 (17264:29098) are two frames of ONE file and derive to DIFFERENT themes. 12 colour tokens appear in both; 10 identical, 2 differ and those 2 decide it: color/background/primary/bold A5=#3366ff (sanoma-learning) vs A10=#137271 (editorial-suite); color/palette/grey/900 A5=#222222 (sanoma-learning) vs A10=#1d1f20 (editorial-suite). The per-FILE theme hypothesis is FALSIFIED. Theme is a property of the frame's bound variable mode. A10's typography corroborates: design binds heading=Raleway/body=Roboto, which are editorial-suite's --sl-brand-text-new-typeset-fontFamily-* and the faces its Typekit bws3iof ships.",
+    "variableModeInvestigation": {
+      "question": "Do A5 and A10 differ because the Figma file defines several variable modes?",
+      "answer": "YES - confirmed by probe, not inferred.",
+      "evidence": [
+        "Re-queried A5's frame (17214:103584) in the same session: still color/background/primary/bold=#3366ff, color/palette/grey/900=#222222. Stable, not transient.",
+        "A10's frame (17264:29098): #137271 / #1d1f20.",
+        "DECISIVE: queried node 17264:29099, the 'top nav bar' INSTANCE inside A10's frame. It returns color/background/primary/bold=#137271 and text-new/typeset/fontFamily/heading=Raleway. The equivalent instance in A5's frame resolves the same names to #3366ff and Roboto. Same component, same file, two frames, different resolved values - which is what a variable mode is.",
+        "10 of the 12 colour tokens common to both frames are byte-identical; only the 2 that discriminate differ, consistent with mode-variant vs mode-invariant values."
+      ],
+      "conclusion": "Theme is a property of the FRAME's bound variable mode, not of the file, the page or the team. Both runs are right about their own frame. Derivation must be per frame.",
+      "limitation": "get_metadata with no nodeId listed only one top-level page ('Cover'), and get_variable_defs on a page id returned 'You currently have nothing selected'. So the mode could not be read as a named property - only its effect, which is unambiguous."
+    }
+  },
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T09:05:00Z",
+      "tokens": 89301,
+      "toolUses": 52,
+      "durationMs": 514371,
+      "codeConnect": {
+        "rootProbe": "{} while Code Connect was demonstrably live - the empty-map trap, third confirmation",
+        "perNodeProbes": 8,
+        "resolvedBySnippet": 2,
+        "hasTemplateFalse": 1,
+        "resolvedByDesignContextDataName": "3 td nodes carrying 6 sl-button instances - invisible to the CC map entirely",
+        "resolvedByNodeNameOrStructure": 5,
+        "genuinelyUnmapped": 1,
+        "blockedOnCodeConnect": false,
+        "validButWrong": "snippet for 17266:31419 emits <sl-icon name=\"far-plus\">; editorial-suite registers 'plus', not 'far-plus'. The mapping resolves and would still render nothing."
+      },
+      "counts": {
+        "instancesInMetadata": 50,
+        "hidden": 7,
+        "addressableNodes": 205,
+        "instanceRoots": 32,
+        "placeableTypes": 9,
+        "placeableElements": 22,
+        "headlineFigure": "1,512 nodes / 61 component types - overstates the work by ~70x"
+      },
+      "screenshot": {
+        "raw": "1440x837",
+        "normalised": "1440x837",
+        "bleed": "none - rule 7 did not apply this run"
+      },
+      "artifactsRenamed": [
+        "figma-metadata.txt (holds XML, not JSON)",
+        "figma-code-connect-map.NOTE.md (prose kept out of the .json)"
+      ],
+      "deviations": [
+        "get_design_context exceeded the token cap (76,478 chars); written verbatim in two parts with an explicit ENTRY BOUNDARY marker, nothing elided"
+      ]
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T09:20:00Z",
+      "tokens": 80772,
+      "toolUses": 14,
+      "durationMs": 438333,
+      "components": 5,
+      "componentList": [
+        "sl-a10-fam-users-page (root)",
+        "sl-a10-app-bar",
+        "sl-a10-page-header",
+        "sl-a10-user-filters",
+        "sl-a10-user-table",
+        "sl-a10-user-table-footer"
+      ],
+      "note": "5 NEW components + the root = 6 elements. Rows are <tr>s mapped from FamUser[], not a component; the row action pair is two <sl-button>s in a <td>, not a component.",
+      "openQuestions": 14,
+      "openQuestionsAllDefaulted": true,
+      "orchestratorOverrides": 1,
+      "overrideDetail": "OQ-11(a): the decomposer could not cheaply resolve the heading weight and fell back to --sl-text-new-typeset-fontWeight-semiBold, flagging a probable one-step miss. Verified --sl-fontWeight-700: 700 EXISTS in editorial-suite; the design is Raleway Bold 700, so the H1 uses var(--sl-fontWeight-700) - exact, no weight miss.",
+      "keyDefaults": {
+        "OQ-1 table": "plain semantic <table> (as-is Vuetify port; no sl-table exists; sl-grid would be fought)",
+        "OQ-2 paginator": "hand-port (sl-paginator always renders numbered buttons + a select the design lacks; sl-paginator-status cannot reach '1-3 of 3')",
+        "OQ-3 wordmark": "rendered as text in a pinned 155x20 box - no asset export step, /assets is empty and shared",
+        "OQ-5 sort glyph": "sort-up substitutes the absent arrow-up",
+        "OQ-6 interactivity": "every control wired; Delete actually removes the row",
+        "OQ-7 select colours": "the three --a10-color-select-* NOT declared - designer drift matching sanoma-learning, not targets",
+        "OQ-8 status text": "computed '1-3 of 3', not the design's self-contradictory '1-1 of 1'"
+      },
+      "tagPrefix": "sl-a10-* on every element and every event, to avoid the silent mis-render A5 (same Figma file) would otherwise cause"
+    },
+    "3-implement": {
+      "status": "done",
+      "level0": {
+        "status": "done",
+        "components": 4,
+        "tokens": {
+          "app-bar": 104893,
+          "page-header": 95117,
+          "table-footer": 103672,
+          "user-filters": "UNMEASURED - its completion notification never arrived (quota interruption); files on disk are complete and intact"
+        },
+        "toolUses": {
+          "app-bar": 45,
+          "page-header": 36,
+          "table-footer": 44
+        },
+        "durationMs": {
+          "app-bar": 411301,
+          "page-header": 350623,
+          "table-footer": 471152
+        }
+      },
+      "level1": {
+        "status": "done",
+        "by": "orchestrator (directly, not delegated - a fresh agent costs ~35k before it reads a line)",
+        "component": "sl-a10-user-table"
+      },
+      "level2": {
+        "status": "done",
+        "by": "orchestrator",
+        "component": "sl-a10-fam-users-page + story"
+      },
+      "gate": {
+        "typecheck": "clean (inScope 0, regressionsOutsideScope 0, baselineErrorsStillPresent 2)",
+        "checkTokens": "clean (filesScanned 13, referencesSeen 93, unresolvedReferences 0, missing 0, shorthandTrap 0)",
+        "dtsStubs": 0,
+        "fortawesomeImports": 0,
+        "iconRegisterCalls": 0,
+        "bareFontShorthand": 0,
+        "varFallbackOnSlToken": 0,
+        "backticksInHtmlComments": 0,
+        "selfCaughtBug": "I wrote backticks inside an HTML comment in a lit html`` template in user-table.ts - the exact failure that broke five files in one run and four in another. Caught and removed before it ever compiled."
+      }
+    },
+    "4-validate": {
+      "status": "done",
+      "verdict": "MATCH on structural geometry after one cause-named fix round",
+      "captures": {
+        "count": 7,
+        "allRendered": true,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "notUpgraded": 0
+      },
+      "referenceIntegrity": {
+        "declared": "1440x837",
+        "actual": "1440x837",
+        "canvasBleed": "none",
+        "downscaled": false,
+        "channelHalved": false,
+        "perChannelMinMax": [2, 255],
+        "dominantColour": "(255,255,255)",
+        "chromeColourLiteral": "(2,36,46) = #02242E - present undoubled, so no channel halving",
+        "note": "All four known get_screenshot distortions checked and ruled out. reference-normalised.png is byte-identical to screenshot.png (md5 baa3ffb322c98298511529e98fa8341a), which is the correct outcome of normalisation here, not a skipped step."
+      },
+      "measuredGeometry": {
+        "appBar": "ref y=0..49 / built y=0..49 - 50px, match",
+        "headerBand": "ref y=50..229 rgb(236,236,241) / built y=50..229 rgb(236,236,241) - 180px, EXACT match",
+        "bodyTop": "y=231 both",
+        "tableHeaderRow": "ref y=355..401 / built y=355..401 - 48px incl. rule, EXACT after fix",
+        "tableRows": "ref 403..469, 471..537, 539..605 / built identical - 68px each, EXACT after fix",
+        "columnWidths": "155.83 x5, 117, 155.83, 148 - measured in the DOM at 155.83 and 117, EXACT"
+      },
+      "fixRound": {
+        "count": 1,
+        "defect": "every table row rendered 70px against the reference's 68, and the header 50 against 48",
+        "cause": "the UA stylesheet sets `td, th { padding: 1px }`. The CSS overrode only padding-inline, leaving padding-block: 1px top and bottom.",
+        "arithmetic": "68 + 1 + 1 = 70 and 48 + 1 + 1 = 50 - exactly the +2 measured on both",
+        "fix": "padding-block: 0 on th/td",
+        "notDone": "did NOT subtract 2 from the declared heights, which would have fitted a constant to the measurement"
+      }
+    },
+    "5-author": {
+      "status": "done",
+      "by": "orchestrator",
+      "scope": "examples/ path -> story enrichment only; no Vitest spec, no website docs, no changeset, no extract-i18n",
+      "storiesBefore": 1,
+      "storiesAfter": 6,
+      "variants": [
+        "Basic",
+        "SortedDescending",
+        "Filtered",
+        "NoResults",
+        "PagedTwoPerPage",
+        "EmptyTab"
+      ],
+      "allVerified": "every story captured, verdict=rendered, 0 console errors, 0 failed requests, 0 notUpgraded",
+      "variantsProvenDistinct": "pixel-diffed against Basic: 1236 / 2146 / 2149 / 1120 / 9451 differing sampled pixels - no variant silently no-ops"
+    },
+    "6-review": {
+      "status": "done",
+      "by": "orchestrator",
+      "critical": [],
+      "mechanicalChecks": {
+        "customElementsDefine": "1 real call, in the root only (3 further hits are comments)",
+        "rawCustomEventOrDispatchEventInComponents": 0,
+        "mainLandmark": "0 (both grep hits are comments stating it is deliberately not used)",
+        "iconRegister": 0,
+        "fortawesome": 0,
+        "scssFiles": 0,
+        "dtsStubs": 0,
+        "fontShorthandOnTextNew": 0,
+        "varFallbackOnSlToken": 0,
+        "hexInCssDeclarations": 0,
+        "backticksInHtmlComments": 0,
+        "tableCaptions": "1 of 1 tables",
+        "runLocalProperties": "5, all declared on the root only"
+      }
+    }
+  },
+  "themeUsedForCaptures": "editorial-suite",
+  "referenceScreenshot": {
+    "raw": "1440x837",
+    "normalised": "1440x837",
+    "canvasBleed": "none this time (md5 identical, baa3ffb322c98298511529e98fa8341a) - the ~8px bleed other runs saw is intermittent, not constant"
+  },
+  "interactivityVerified": {
+    "method": "dispatched every declared event at the real elements in the live page and asserted the root's derived state changed",
+    "results": {
+      "sortDesc": "first row AkashPM -> AnnedePauwCA",
+      "search 'vanin'": "3 rows -> 2",
+      "searchCleared": "2 -> 3",
+      "pageSize 2": "2 rows, status '1-2 of 3'",
+      "page 2": "1 row, first = AnnedePauwCA",
+      "tab 'services'": "table removed from the body",
+      "tab 'users'": "table restored",
+      "delete akashpm": "3 rows -> 2, status recomputed to '1-2 of 2'"
+    },
+    "conclusion": "the page is genuinely live. Not the inert-page failure two runs shipped."
+  },
+  "fontEvidence": {
+    "robotoLoaded": true,
+    "ralewayLoaded": true,
+    "method": "document.fonts.check() in the harness under globals=theme:editorial-suite",
+    "correctsBatchAssumption": "The brief and A5 both say to expect a fallback face for this theme. MEASURED FALSE. The Typekit bws3iof serves Raleway and Roboto, and the LEGACY family tokens (--sl-heading-fontFamily, --sl-text-fontFamily) name exactly those. Only the --sl-text-new-*-fontFamily tokens are broken (they resolve to 'Open Sans', which this Typekit does not ship). The theme has a working font path and a broken one.",
+    "consequence": "No text-width gap in this run may be excused as a missing webfont."
+  },
+  "stage4Discrepancies": [
+    {
+      "id": "D1",
+      "what": "'Editorial Suite' wordmark renders as text, not the Figma raster",
+      "cause": "no asset-export step in the pipeline; the harness serves /assets from an empty, SHARED directory, so an <img> is a guaranteed 404",
+      "mitigation": "text in --sl-heading-fontFamily inside a box pinned to the raster's exact 155x20, so the footprint is faithful even though the letterforms are not (the design sets a custom E and mixes bold/light)",
+      "notDone": "not hand-drawn; not padded"
+    },
+    {
+      "id": "D2",
+      "what": "'book-circle-arrow-up' (top-bar Projects glyph, 20px) is absent",
+      "cause": "not among editorial-suite's 54 registered icons; @fortawesome is not installed and importing it is a RENDER blocker",
+      "mitigation": "omitted with an empty 20x20 box holding the footprint; only the registered chevron-down renders beside it"
+    },
+    {
+      "id": "D3",
+      "what": "sort indicator is sort-up, not the design's arrow-up",
+      "cause": "the theme registers arrow-left, arrow-right and arrow-up-right-from-square but NO plain arrow-up. sort, sort-up and sort-down all exist as custom SVGs (verified by delimiting the icons.ts entries properly - an earlier 900-char window spilled into the next entry and briefly looked like a theme defect; it was my measurement error, not a defect).",
+      "mitigation": "sort-up carries the right semantics; silhouette differs (filled triangle vs line arrow)"
+    },
+    {
+      "id": "D4",
+      "what": "the three paginator glyphs are 16px, the design's are 24px",
+      "cause": "--sl-size-icon-font-md resolves to 16px; the design's v-icon/medium is Material Icons 24px, and this theme's icon-font scale has no 24px step bound in the design",
+      "mitigation": "family also changes Material -> Font Awesome: arrow_drop_down -> caret-down-solid, chevron_left -> chevron-left, navigate_next -> chevron-right"
+    },
+    {
+      "id": "D5",
+      "what": "footer status reads '1-3 of 3'; the design reads '1-1 of 1'",
+      "cause": "INTENTIONAL (OQ-8). The design's own numbers contradict its table - it draws three rows and claims one. Hardcoding the literal would ship a footer that lies about its own content and breaks the moment paging works.",
+      "notDone": "not transcribed verbatim"
+    },
+    {
+      "id": "D6",
+      "what": "'23-10-2024 at 14:30' wraps to two lines; the reference keeps it on one",
+      "cause": "MEASURED, and it is NOT the webfont (Roboto loads). The string measures 124.69px in real Roboto at 14px; the cell content box is 155.8333 - 2x16 = 123.83px. Deficit 0.86px, i.e. 0.7%. Figma's text engine fits what the browser's does not.",
+      "notDone": "did NOT reduce padding-inline-end to close it. A ~1px padding change fitted to one string is exactly the constant-fitting trap - right at 1440 and wrong at every other width and locale."
+    },
+    {
+      "id": "D7",
+      "what": "tab indicator renders 4px thick, the design's is 3px, and it overlaps the bottom rule by 1px",
+      "cause": "sl-tab-group's .indicator is block-size: var(--sl-size-050) = 4px and is a PRIVATE internal - not a ::part(), not a cssprop",
+      "notDone": "left wrong rather than reaching into a private selector"
+    },
+    {
+      "id": "D8",
+      "what": "the 'Login' header text+glyph run is 41px wide against the reference's 57px",
+      "cause": "different glyph (D3) plus Figma-vs-browser text metrics; columns themselves measured EXACT (155.83 / 117)",
+      "notDone": "not padded"
+    }
+  ],
+  "reachedPastPublicApi": [
+    "sl-tab-group's selected indicator is not exposed as a ::part(), so its colour is set by retargeting --sl-color-border-selected on the element (the same reach-through A5 reported on this component).",
+    "sl-form-field's label colour comes from the theme and needed a scoped override to reach --a10-color-chrome.",
+    "sl-button exposes no part for its link-fill label colour, so Edit/Delete bind --sl-color-foreground-plain on the element.",
+    "table-footer restates the disabled arrow colour explicitly because an outer-tree ::part() declaration WINS over button.css's own `button:is(:disabled)` rule - see cssPartSpecificityHazard."
+  ],
+  "cssPartSpecificityHazard": {
+    "finding": "A ::part() declaration written in the OUTER tree beats the component's own internal rule for the same property, regardless of the inner rule's specificity. Shadow-part styles from the host win over the shadow tree's own declarations.",
+    "concrete": "table-footer styles the paginator arrows via sl-button fill=ghost. Setting the enabled colour to --sl-color-palette-grey-700 through the part ALSO overrode button.css's `button:is(:disabled)` rule, so the disabled arrows would have painted grey-700 instead of the disabled colour.",
+    "whyItMatters": "Both arrows ARE disabled in the design (3 rows at pageSize 25). No still image would have flagged this - the arrows would simply have been the wrong grey.",
+    "fix": "restate the disabled colour explicitly: --sl-color-foreground-disabled, which resolves to grey-300 #c8c8cf - byte-identical to the design's arrow colour."
+  },
+  "environmentDefectsFound": [
+    "npx eslint cannot run in this checkout at all: tools/eslint-plugin-slds imports eslint-plugin-lit, which is not installed. Lint is therefore NOT a gate any run in this batch has been passing.",
+    "npx prettier cannot parse any .ts using import attributes (`with { type: 'css' }`) - repo-wide, affecting every existing component, not just generated code.",
+    "typecheck.mjs parsed tsc output with a pattern that never matched, because tsc colourises even when piped: the pretty `file:line:col` form never matched a parser written for `file(line,col)`. It returned `clean` for every run in the batch until fixed. I reported the two grid.ts baseline errors as still present while the tool claimed they had vanished; the tool was wrong.",
+    "A SECOND, independent tsc artifact: while ANY file in the program has a syntax error, tsc skips semantic diagnostics program-wide, so the baseline errors disappear from the output and typecheck.mjs reports baselineErrorsNoLongerReported - which its own README defines as 'somebody edited shared code'. Nobody had. A sibling's in-progress file is enough to produce it."
+  ],
+  "cost": {
+    "measured": 473755,
+    "basis": "sum of the subagent_tokens figures the five subagents that returned a completion notification reported for themselves: design-analyst 89,301 + decomposer 80,772 + app-bar 104,893 + page-header 95,117 + table-footer 103,672.",
+    "notIncluded": "the user-filters implementer's cost is UNKNOWN - it wrote its files but its completion notification never arrived (quota interruption), so no figure was reported. The orchestrator's own context consumption is not measurable from inside the run.",
+    "statedAs": ">= 473,755 tokens. I am not estimating the two unmeasured components."
+  }
+}

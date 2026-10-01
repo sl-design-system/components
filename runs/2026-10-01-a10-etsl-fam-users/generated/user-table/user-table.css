@@ -1,0 +1,114 @@
+:host {
+  display: block;
+}
+
+table {
+  /* The design's columns are fractional (155.8333px), so the widths in <colgroup> must be
+     authoritative rather than content-derived. `fixed` is what makes them so. */
+  border-collapse: collapse;
+  inline-size: 100%;
+  table-layout: fixed;
+}
+
+caption {
+  /* Required by the conventions, and absent from the design. Clipped rather than
+     `display: none`, which would remove it from the accessibility tree too. */
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.sr-only {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+thead tr {
+  background: var(--sl-color-palette-grey-050);
+}
+
+th,
+td {
+  /* Figma: `shadow-[inset_0px_-1px_0px_0px]` at rgba(0,0,0,.12) on every th and td. A border
+     would be collapsed away by `border-collapse: collapse`; an inset shadow is not. */
+  box-shadow: inset 0 -1px 0 var(--a10-color-row-rule);
+  /* The UA stylesheet sets `td, th { padding: 1px }`. Overriding only padding-inline left
+     1px top and bottom in place, which made every row 68 + 1 + 1 = 70 and the header
+     48 + 1 + 1 = 50 - exactly the +2 measured against the reference. Zero the block padding
+     rather than subtract 2 from the heights. */
+  padding-block: 0;
+  padding-inline: var(--sl-space-200);
+  text-align: start;
+  vertical-align: middle;
+}
+
+th {
+  /* Figma th-text-start is 48px tall. No --sl-size-* equals 48 in the spacing ladder used here,
+     so the height is raw; it is the design's own measurement, not a fitted constant. */
+  block-size: 48px;
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  /* Longhands only: editorial-suite declares NO bare --sl-text-new-* token, so a `font:`
+     shorthand against one would drop this whole block silently. */
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+  /* Design: Roboto SemiBold 16/20, letter-spacing 0.4. No token backs the tracking. */
+  letter-spacing: 0.4px;
+}
+
+th button {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: var(--sl-space-100);
+  letter-spacing: inherit;
+  padding: 0;
+}
+
+th button:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+th sl-icon {
+  color: var(--sl-color-palette-grey-700);
+}
+
+td {
+  /* Figma td-text-start is 68px tall. */
+  block-size: 68px;
+  color: var(--sl-color-foreground-bold);
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  /* Design: v-text/body-2, a Vuetify leftover carrying 0.25 tracking. No token backs it. */
+  letter-spacing: 0.25px;
+}
+
+td.actions {
+  display: flex;
+  align-items: center;
+  block-size: 68px;
+  gap: var(--sl-space-200);
+}
+
+td.actions sl-button {
+  /* The design's Edit/Delete are plain text links in the primary foreground. `fill="link"`
+     already removes the chrome; only the colour has to be bound. */
+  --sl-color-foreground-plain: var(--sl-color-foreground-primary-bold);
+
+  color: var(--sl-color-foreground-primary-bold);
+}

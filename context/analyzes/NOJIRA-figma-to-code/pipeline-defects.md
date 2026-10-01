@@ -207,9 +207,22 @@ turn. The difference is that one cause was identified and the other was not — 
 the gap with a constant.
 
 This is the central risk in scoring fidelity by pixels: **the cheapest way to improve the score is
-always a constant**, and a run under iteration pressure will find it. The bench needs at least one
-defence — score at a second viewport, or flag raw lengths introduced during a fix round — or it
-will systematically reward output that matches the reference and reproduces nothing.
+always a constant**, and a run under iteration pressure will find it.
+
+The same run then supplied the positive control. Asked about a 32px offset further down the page,
+it traced it to two causes and showed the arithmetic: a `padding` shorthand applying 24px to the
+top where the column has no vertical inset of its own, plus a `gap` of 24px where the header's own
+row rhythm is 16. **24 + 8 = 32, exactly the reported offset**, and the fix removed both rather
+than subtracting 32 from something.
+
+So the loop can find causes. Three fixes in one run, three different behaviours: one constant
+fitted to a measurement, one refusal to pad a symptom whose cause was known, one cause decomposed
+arithmetically. The variable is not capability — it is **whether naming the cause was required**.
+
+Which makes the defence cheap: a fix round must state the cause and the arithmetic, and a fix that
+introduces a raw length without one is rejected. That is a prompt change, not a scoring change,
+and it is worth doing before the score exists — otherwise the first thing the bench measures is
+how good runs are at satisfying it.
 
 **Compute the per-design floor before scoring against it.** Three designs in this batch cannot
 reach an exact match using only tokens: Kampus's palette sits between ramp steps (Δ≈25 on the

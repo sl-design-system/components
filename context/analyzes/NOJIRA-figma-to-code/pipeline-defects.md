@@ -211,6 +211,13 @@ always a constant**, and a run under iteration pressure will find it. The bench 
 defence — score at a second viewport, or flag raw lengths introduced during a fix round — or it
 will systematically reward output that matches the reference and reproduces nothing.
 
+**Compute the per-design floor before scoring against it.** Three designs in this batch cannot
+reach an exact match using only tokens: Kampus's palette sits between ramp steps (Δ≈25 on the
+pill colour alone), and no theme loads the font it names, so every text comparison scores a
+fallback face. A score that does not separate "the run got it wrong" from "the theme cannot
+express it" will reward raw hex values and punish correct implementations. `theme-match`'s
+agreement figure predicts the floor and should feed the score, not just the setup.
+
 **The theme is a measurement parameter, and getting it wrong inverts conclusions.** Two runs were
 captured under a theme guessed from the team label; both guesses were wrong. On A5 the same four
 "unbound" colours read as design drift under the assigned theme and as correct tokenisation under

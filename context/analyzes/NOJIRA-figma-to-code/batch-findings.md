@@ -435,3 +435,38 @@ unresolved. The code was always clean; the report could not prove it had looked.
 This is the fourth measurement tool in this batch to fail by returning a plausible number, and
 the first one caught by a run rather than by me. **A check must be able to prove it looked** — the
 count of what it examined belongs in its output, not just the count of what it found.
+
+---
+
+## A design can sit between the ramp steps, which bounds what any score can mean
+
+B-Kampus's active nav pill is `#7C51A9`. The nearest token, `purple-600`, is `#743CB4` (Δ≈25);
+the next step up, `purple-500`, is `#8a4fce`, further away. **The design's colour lies between two
+steps of the ramp, so no token hits it.** The highlight yellow does the same — `#FFEF99` in the
+design against a `#FFF7C5` token — and so do several greys.
+
+The run took the nearest token and recorded the delta rather than reaching for a raw hex. That is
+the right call, and it has a consequence the bench has to absorb:
+
+> For this design, **exact colour fidelity is unreachable by construction**. A correct
+> implementation and a high-scoring one are different things, and a pixel score prefers the
+> second.
+
+It is also the measured consequence of something already flagged: `theme-match` gave Kampus
+**0.42** agreement, the lowest in the corpus, and declined to call it confident. That number was
+not noise about a weak tool — it was the design and the theme genuinely disagreeing, and the
+pixel deltas later put a size on the disagreement.
+
+This is the same structural problem as the font fault and the hardcoding incentive, arriving a
+third time from a third direction: **the score and the correct behaviour can point in opposite
+directions, and only the score is automatic.** Three independent instances is enough to treat it
+as a property of pixel-based fidelity rather than as three bugs.
+
+What follows for the bench:
+
+- a delta attributable to an absent token must be **separable** from a delta caused by the run,
+  or the score punishes implementations for the theme's gaps;
+- the per-design floor is worth computing up front — the best score achievable using only tokens
+  — so a run can be measured against what was possible rather than against zero;
+- `theme-match`'s agreement number predicts that floor, which makes it a useful input to the
+  score rather than only a setup step.

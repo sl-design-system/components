@@ -1,0 +1,2123 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-b-sesame-group-details</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid transparent;
+    font: inherit;
+  }
+  body {
+    width: 1280px;
+    height: 2392px;
+    position: relative;
+    background: #fff;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    color: #111;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  .probe-error {
+    background: #fdecea;
+    color: #8b1a10;
+    padding: 8px;
+    font:
+      12px/1.4 ui-monospace,
+      monospace;
+    white-space: pre-wrap;
+  }
+  .probe-codeconnect {
+    outline: 2px dashed #b7791f;
+    background: #fffaf0;
+    color: #975a16;
+    font:
+      11px/1.3 ui-monospace,
+      monospace;
+    padding: 4px;
+    min-height: 16px;
+  }
+  .relative {
+    position: relative;
+  }
+  .size-full {
+    width: 100%;
+    height: 100%;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .h-\[40px\] {
+    height: 40px;
+  }
+  .left-\[128px\] {
+    left: 128px;
+  }
+  .top-\[160px\] {
+    top: 160px;
+  }
+  .w-\[934px\] {
+    width: 934px;
+  }
+  .\[word-break\:break-word\] {
+    word-break: break-word;
+  }
+  .font-\[\'Open_Sans\:Bold\'\] {
+    font-family: 'Open Sans:Bold';
+  }
+  .font-bold {
+    font-weight: 700;
+  }
+  .leading-\[40px\] {
+    line-height: 40px;
+  }
+  .left-0 {
+    left: 0;
+  }
+  .text-\[28px\] {
+    font-size: 28px;
+  }
+  .top-0 {
+    top: 0;
+  }
+  .tracking-\[-0\.56px\] {
+    letter-spacing: -0.56px;
+  }
+  .w-\[352px\] {
+    width: 352px;
+  }
+  .leading-\[24px\] {
+    line-height: 24px;
+  }
+  .text-\[\#01766d\] {
+    color: #01766d;
+  }
+  .text-\[14px\] {
+    font-size: 14px;
+  }
+  .top-\[120px\] {
+    top: 120px;
+  }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+  .content-stretch {
+    align-content: stretch;
+  }
+  .flex {
+    display: flex;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .left-\[127px\] {
+    left: 127px;
+  }
+  .top-\[240px\] {
+    top: 240px;
+  }
+  .gap-\[16px\] {
+    gap: 16px;
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+  .w-\[628px\] {
+    width: 628px;
+  }
+  .border-\[\#cecfd2\] {
+    border-color: #cecfd2;
+  }
+  .border-b {
+    border-bottom-width: 1px;
+  }
+  .border-solid {
+    border-style: solid;
+  }
+  .h-\[72px\] {
+    height: 72px;
+  }
+  .w-full {
+    width: 100%;
+  }
+  .flex-\[1_0_0\] {
+    flex: 1 0 0;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .min-w-px {
+    min-width: 1px;
+  }
+  .leading-\[0\] {
+    line-height: 0;
+  }
+  .text-\[\#323232\] {
+    color: #323232;
+  }
+  .text-\[16px\] {
+    font-size: 16px;
+  }
+  .font-\[\'Open_Sans\:Regular\'\] {
+    font-family: 'Open Sans:Regular';
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+  .tracking-\[-0\.32px\] {
+    letter-spacing: -0.32px;
+  }
+  .w-\[322px\] {
+    width: 322px;
+  }
+  .leading-\[28px\] {
+    line-height: 28px;
+  }
+  .mt-\[28px\] {
+    margin-top: 28px;
+  }
+  .bg-white {
+    background: #fff;
+  }
+  .border {
+    border-width: 1px;
+  }
+  .border-\[\#01766d\] {
+    border-color: #01766d;
+  }
+  .gap-\[8px\] {
+    gap: 8px;
+  }
+  .px-\[24px\] {
+    padding-inline: 24px;
+  }
+  .py-\[8px\] {
+    padding-block: 8px;
+  }
+  .rounded-\[4px\] {
+    border-radius: 4px;
+  }
+  .size-\[16px\] {
+    width: 16px;
+    height: 16px;
+  }
+  .block {
+    display: block;
+  }
+  .inset-0 {
+    inset: 0;
+  }
+  .max-w-none {
+    max-width: none;
+  }
+  .justify-end {
+    justify-content: flex-end;
+  }
+  .left-\[calc\(81\.25\%-79px\)\] {
+    left: calc(81.25%-79px);
+  }
+  .rounded-\[6px\] {
+    border-radius: 6px;
+  }
+  .w-\[189px\] {
+    width: 189px;
+  }
+  .font-\[\'Open_Sans\:SemiBold\'\] {
+    font-family: 'Open Sans:SemiBold';
+  }
+  .font-semibold {
+    font-weight: 600;
+  }
+  .text-\[\#ed1111\] {
+    color: #ed1111;
+  }
+  .tracking-\[0\.42px\] {
+    letter-spacing: 0.42px;
+  }
+  .bg-\[\#f5f5f6\] {
+    background: #f5f5f6;
+  }
+  .drop-shadow-\[0px_2px_4px_rgba\(109\,110\,115\,0\.35\)\] {
+    filter: drop-shadow(0px 2px 4px rgba(109, 110, 115, 0.35));
+  }
+  .left-\[calc\(62\.5\%-12px\)\] {
+    left: calc(62.5%-12px);
+  }
+  .py-\[16px\] {
+    padding-block: 16px;
+  }
+  .rounded-\[16px\] {
+    border-radius: 16px;
+  }
+  .top-\[304px\] {
+    top: 304px;
+  }
+  .w-\[364px\] {
+    width: 364px;
+  }
+  .p-\[8px\] {
+    padding: 8px;
+  }
+  .w-\[249px\] {
+    width: 249px;
+  }
+  .text-\[\#5d5d5d\] {
+    color: #5d5d5d;
+  }
+  .w-\[217px\] {
+    width: 217px;
+  }
+  .pl-\[8px\] {
+    padding-left: 8px;
+  }
+  .text-\[36px\] {
+    font-size: 36px;
+  }
+  .tracking-\[-0\.72px\] {
+    letter-spacing: -0.72px;
+  }
+  .h-\[56px\] {
+    height: 56px;
+  }
+  .overflow-clip {
+    overflow: clip;
+  }
+  .h-\[24px\] {
+    height: 24px;
+  }
+  .top-\[16px\] {
+    top: 16px;
+  }
+  .w-\[123\.467px\] {
+    width: 123.467px;
+  }
+  .-translate-x-1\/2 {
+    translate: -50% 0;
+  }
+  .gap-\[24px\] {
+    gap: 24px;
+  }
+  .left-\[calc\(50\%\+0\.5px\)\] {
+    left: calc(50%+0.5px);
+  }
+  .py-\[10px\] {
+    padding-block: 10px;
+  }
+  .px-\[2px\] {
+    padding-inline: 2px;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .leading-\[20px\] {
+    line-height: 20px;
+  }
+  .gap-\[2px\] {
+    gap: 2px;
+  }
+  .h-0 {
+    height: 0;
+  }
+  .inset-\[-2px_0_0_0\] {
+    inset: -2px 0 0 0;
+  }
+  .left-\[calc\(68\.75\%-5\.06px\)\] {
+    left: calc(68.75%-5.06px);
+  }
+  .w-\[277px\] {
+    width: 277px;
+  }
+  .isolate {
+    isolation: isolate;
+  }
+  .items-end {
+    align-items: flex-end;
+  }
+  .z-\[3\] {
+    z-index: 3;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .text-\[12px\] {
+    font-size: 12px;
+  }
+  .leading-\[12px\] {
+    line-height: 12px;
+  }
+  .z-\[2\] {
+    z-index: 2;
+  }
+  .size-\[32px\] {
+    width: 32px;
+    height: 32px;
+  }
+  .z-\[1\] {
+    z-index: 1;
+  }
+  .h-\[12px\] {
+    height: 12px;
+  }
+  .min-w-\[12px\] {
+    min-width: 12px;
+  }
+  .py-\[2px\] {
+    padding-block: 2px;
+  }
+  .right-\[-2px\] {
+    right: -2px;
+  }
+  .rounded-\[999px\] {
+    border-radius: 999px;
+  }
+  .top-\[-2px\] {
+    top: -2px;
+  }
+  .font-\[\'Font_Awesome_6_Pro\:Regular\'\] {
+    font-family: 'Font Awesome 6 Pro:Regular';
+  }
+  .not-italic {
+    font-style: normal;
+  }
+  .text-\[9px\] {
+    font-size: 9px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .leading-\[9px\] {
+    line-height: 9px;
+  }
+  .rounded-\[800px\] {
+    border-radius: 800px;
+  }
+  .-translate-y-1\/2 {
+    translate: 0 -50%;
+  }
+  .left-1\/2 {
+    left: 50%;
+  }
+  .top-\[calc\(50\%\+0\.5px\)\] {
+    top: calc(50%+0.5px);
+  }
+  .w-\[32px\] {
+    width: 32px;
+  }
+  .leading-\[16px\] {
+    line-height: 16px;
+  }
+  .px-\[128px\] {
+    padding-inline: 128px;
+  }
+  .py-\[12px\] {
+    padding-block: 12px;
+  }
+  .w-\[353px\] {
+    width: 353px;
+  }
+  .bg-\[rgba\(0\,0\,0\,0\)\] {
+    background: rgba(0, 0, 0, 0);
+  }
+  .border-\[rgba\(0\,0\,0\,0\)\] {
+    border-color: rgba(0, 0, 0, 0);
+  }
+  .gap-\[4px\] {
+    gap: 4px;
+  }
+  .px-\[16px\] {
+    padding-inline: 16px;
+  }
+  .py-\[4px\] {
+    padding-block: 4px;
+  }
+  .inset-\[-2px\] {
+    inset: -2px;
+  }
+  .bg-clip-padding {
+    background-clip: padding-box;
+  }
+  .border-0 {
+    border-width: 0;
+  }
+  .border-\[transparent\] {
+    border-width: transparent;
+  }
+  .bg-\[rgba\(255\,255\,255\,0\.01\)\] {
+    background: rgba(255, 255, 255, 0.01);
+  }
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  .bg-\[\#f2a900\] {
+    background: #f2a900;
+  }
+  .px-\[3px\] {
+    padding-inline: 3px;
+  }
+  .rounded-\[12px\] {
+    border-radius: 12px;
+  }
+  .size-\[24px\] {
+    width: 24px;
+    height: 24px;
+  }
+  .tracking-\[0\.36px\] {
+    letter-spacing: 0.36px;
+  }
+  .rounded-\[inherit\] {
+    border-radius: inherit;
+  }
+  .shadow-\[inset_0px_-2px_0px_0px_\#2e5c64\] {
+    box-shadow: inset 0px -2px 0px 0px #2e5c64;
+  }
+  .bg-\[\#f6f8f8\] {
+    background: #f6f8f8;
+  }
+  .gap-\[12px\] {
+    gap: 12px;
+  }
+  .w-\[1024px\] {
+    width: 1024px;
+  }
+  .h-\[126px\] {
+    height: 126px;
+  }
+  .w-\[201\.6px\] {
+    width: 201.6px;
+  }
+  .w-\[810px\] {
+    width: 810px;
+  }
+  .w-\[520px\] {
+    width: 520px;
+  }
+  .px-\[8px\] {
+    padding-inline: 8px;
+  }
+  .py-\[24px\] {
+    padding-block: 24px;
+  }
+  .h-\[71\.357px\] {
+    height: 71.357px;
+  }
+  .w-\[100px\] {
+    width: 100px;
+  }
+  .w-\[556px\] {
+    width: 556px;
+  }
+  .leading-\[normal\] {
+    line-height: normal;
+  }
+  .text-\[24px\] {
+    font-size: 24px;
+  }
+  .w-\[390px\] {
+    width: 390px;
+  }
+  .w-\[220px\] {
+    width: 220px;
+  }
+  .text-\[\#323\] {
+    color: #323;
+  }
+  .text-\[18px\] {
+    font-size: 18px;
+  }
+  .w-\[991px\] {
+    width: 991px;
+  }
+  .drop-shadow-\[0px_0px_0px_rgba\(0\,0\,0\,0\)\] {
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+  }
+  .rounded-\[2px\] {
+    border-radius: 2px;
+  }
+  .pb-\[8px\] {
+    padding-bottom: 8px;
+  }
+  .border-\[\#9d9f9f\] {
+    border-color: #9d9f9f;
+  }
+  .inset-\[-1px\] {
+    inset: -1px;
+  }
+  .z-\[4\] {
+    z-index: 4;
+  }
+  .w-\[34px\] {
+    width: 34px;
+  }
+  .w-\[242px\] {
+    width: 242px;
+  }
+  .h-full {
+    height: 100%;
+  }
+  .text-\[\#222\] {
+    color: #222;
+  }
+  .left-\[12px\] {
+    left: 12px;
+  }
+  .top-1\/2 {
+    top: 50%;
+  }
+  .leading-\[21px\] {
+    line-height: 21px;
+  }
+  .p-\[32px\] {
+    padding: 32px;
+  }
+  .w-\[992px\] {
+    width: 992px;
+  }
+  .font-\[\'Font_Awesome_6_Pro\:Solid\'\] {
+    font-family: 'Font Awesome 6 Pro:Solid';
+  }
+  .h-\[41\.248px\] {
+    height: 41.248px;
+  }
+  .left-\[952px\] {
+    left: 952px;
+  }
+  .w-\[40px\] {
+    width: 40px;
+  }
+  .inset-\[21\.82\%_35\%_20\%_37\.5\%\] {
+    inset: 21.82% 35% 20% 37.5%;
+  }
+  .gap-\[40px\] {
+    gap: 40px;
+  }
+  .w-\[562px\] {
+    width: 562px;
+  }
+  .w-\[320px\] {
+    width: 320px;
+  }
+  .h-\[64px\] {
+    height: 64px;
+  }
+  .min-h-px {
+    min-height: 1px;
+  }
+  .z-\[5\] {
+    z-index: 5;
+  }
+  .w-\[68px\] {
+    width: 68px;
+  }
+  .border-\[\#5d5d5d\] {
+    border-color: #5d5d5d;
+  }
+  .size-\[12px\] {
+    width: 12px;
+    height: 12px;
+  }
+  .border-\[\#bfbfbf\] {
+    border-color: #bfbfbf;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .gap-\[13px\] {
+    gap: 13px;
+  }
+  .w-\[255px\] {
+    width: 255px;
+  }
+  .h-\[28px\] {
+    height: 28px;
+  }
+  .w-\[24px\] {
+    width: 24px;
+  }
+  .bg-\[\#323232\] {
+    background: #323232;
+  }
+  .h-\[16px\] {
+    height: 16px;
+  }
+  .rounded-\[0\.825px\] {
+    border-radius: 0.825px;
+  }
+  .w-\[1\.979px\] {
+    width: 1.979px;
+  }
+  .h-\[1\.979px\] {
+    height: 1.979px;
+  }
+  .w-\[16px\] {
+    width: 16px;
+  }
+  .flex-none {
+    flex: none;
+  }
+  .rotate-90 {
+    rotate: 90deg;
+  }
+  .pr-\[16px\] {
+    padding-right: 16px;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .left-\[336px\] {
+    left: 336px;
+  }
+  .top-\[621px\] {
+    top: 621px;
+  }
+  .tracking-\[0\.4px\] {
+    letter-spacing: 0.4px;
+  }
+  .bg-\[\#01766d\] {
+    background: #01766d;
+  }
+  .text-white {
+    color: #fff;
+  }
+  .w-\[64px\] {
+    width: 64px;
+  }
+  .size-\[20px\] {
+    width: 20px;
+    height: 20px;
+  }
+</style>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2142:48094"
+  style="position: absolute; left: 127px; top: 120px; width: 1025px; height: 368px">
+  <div class="contents relative size-full" data-node-id="2142:48094">
+    <div class="absolute h-[40px] left-[128px] top-[160px] w-[934px]" data-node-id="2142:48095">
+      <p
+        class="[word-break:break-word] absolute font-['Open_Sans:Bold'] font-bold leading-[40px] left-0 text-[28px] text-black top-0 tracking-[-0.56px] w-[352px]"
+        data-node-id="2142:48096">
+        Group details
+      </p>
+    </div>
+    <p
+      class="[word-break:break-word] absolute font-['Open_Sans:Bold'] font-bold leading-[24px] left-[128px] text-[#01766d] text-[14px] top-[120px] whitespace-nowrap"
+      data-node-id="2142:48097">
+      &lt; Back to Groups
+    </p>
+    <div
+      class="absolute content-stretch flex flex-col items-start left-[127px] top-[240px]"
+      data-node-id="2142:48098">
+      <div
+        class="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[628px]"
+        data-node-id="2142:48099"
+        data-name="left colum">
+        <div
+          class="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+          data-node-id="2142:48100"
+          data-name="group name">
+          <div
+            class="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+            data-node-id="2142:48101">
+            <div
+              class="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+              data-node-id="2142:48102">
+              <p
+                class="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                data-node-id="2142:48103">
+                Group name
+              </p>
+              <p
+                class="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                data-node-id="2142:48104">
+                French 1D
+              </p>
+            </div>
+            <div
+              class="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+              data-node-id="2142:48105"
+              data-name="button secondary">
+              <div
+                class="relative shrink-0 size-[16px]"
+                data-node-id="I2142:48105;2846:104553"
+                data-name="Icons/plus">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec/6f425.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+          data-node-id="2142:48106"
+          data-name="school year">
+          <div
+            class="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+            data-node-id="2142:48107">
+            <div
+              class="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+              data-node-id="2142:48108">
+              <p
+                class="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                data-node-id="2142:48109">
+                School year
+              </p>
+              <p
+                class="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                data-node-id="2142:48110">
+                22/23
+              </p>
+            </div>
+            <div
+              class="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+              data-node-id="2142:48111"
+              data-name="button secondary">
+              <div
+                class="relative shrink-0 size-[16px]"
+                data-node-id="I2142:48111;2846:104553"
+                data-name="Icons/plus">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec/6f425.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+          data-node-id="2142:48112"
+          data-name="school year">
+          <div
+            class="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+            data-node-id="2142:48113">
+            <div
+              class="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+              data-node-id="2142:48114">
+              <p
+                class="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                data-node-id="2142:48115">
+                Group type
+              </p>
+              <p
+                class="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                data-node-id="2142:48116">
+                Study group
+              </p>
+            </div>
+            <div
+              class="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+              data-node-id="2142:48118"
+              data-name="button secondary">
+              <div
+                class="relative shrink-0 size-[16px]"
+                data-node-id="I2142:48118;2846:104553"
+                data-name="Icons/plus">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec/6f425.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="absolute bg-white content-stretch flex gap-[8px] items-center justify-end left-[calc(81.25%-79px)] py-[8px] rounded-[6px] top-[240px] w-[189px]"
+      data-node-id="2142:48119"
+      data-name="Button-sesame">
+      <div class="relative shrink-0 size-[16px]" data-node-id="2142:48120" data-name="archive 1">
+        <img
+          alt=""
+          class="absolute block inset-0 max-w-none size-full"
+          src="https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec/31566.svg" />
+      </div>
+      <p
+        class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#ed1111] text-[14px] tracking-[0.42px] whitespace-nowrap"
+        data-node-id="2142:48124">
+        Archive group
+      </p>
+    </div>
+    <div
+      class="absolute bg-[#f5f5f6] content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col gap-[16px] items-start left-[calc(62.5%-12px)] px-[24px] py-[16px] rounded-[16px] top-[304px] w-[364px]"
+      data-node-id="2142:48126"
+      data-name="Linking code">
+      <div
+        class="content-stretch flex gap-[8px] items-center p-[8px] relative shrink-0 w-[249px]"
+        data-node-id="2142:48127">
+        <div class="relative shrink-0 size-[16px]" data-node-id="2142:48128" data-name="key (5) 1">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec/06e41.svg" />
+        </div>
+        <p
+          class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#5d5d5d] text-[16px] w-[217px]"
+          data-node-id="2142:48130">
+          Linking code
+        </p>
+      </div>
+      <div
+        class="content-stretch flex items-center pl-[8px] relative shrink-0 w-full"
+        data-node-id="2142:48131"
+        data-name="Group key">
+        <p
+          class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[40px] relative shrink-0 text-[#323232] text-[36px] tracking-[-0.72px] whitespace-nowrap"
+          data-node-id="2142:48132">
+          AB3FRR
+        </p>
+      </div>
+      <div class="h-[40px] relative shrink-0 w-[249px]" data-node-id="2142:48133"></div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="772:26895"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 1 has no box in the metadata */
+  ">
+  <div
+    class="content-stretch flex flex-col items-center relative size-full"
+    data-node-id="2142:48139">
+    <div
+      class="bg-white h-[56px] overflow-clip relative shrink-0 w-full"
+      data-node-id="2142:48140"
+      data-name="top navi bar">
+      <div
+        class="absolute h-[24px] left-[128px] overflow-clip top-[16px] w-[123.467px]"
+        data-node-id="2142:48141"
+        data-name="MittSanoma 3">
+        <div
+          class="absolute contents inset-0"
+          data-node-id="2142:48142"
+          data-name="Clip path group">
+          <div
+            class="absolute inset-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[123.467px_24px]"
+            data-node-id="2142:48145"
+            data-name="Group">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/53e3a5be-a7fb-4f2b-968d-a67122295d4b/e056f.svg" />
+          </div>
+        </div>
+      </div>
+      <div
+        class="-translate-x-1/2 absolute content-stretch flex gap-[24px] items-start justify-end left-[calc(50%+0.5px)] py-[10px] top-0"
+        data-node-id="2142:48150">
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="772:26895">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="772:26891">
+            <p class="leading-[20px]">Learning materials</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[2px] items-center px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2142:48152"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center w-full"
+            data-node-id="I2142:48152;772:26885">
+            <p class="leading-[20px]">Groups</p>
+          </div>
+          <div class="h-0 relative shrink-0 w-full" data-node-id="I2142:48152;772:26886">
+            <div class="absolute inset-[-2px_0_0_0]">
+              <img
+                alt=""
+                class="block max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/53e3a5be-a7fb-4f2b-968d-a67122295d4b/a20fe.svg" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2142:48153"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="I2142:48153;772:26891">
+            <p class="leading-[20px]">Users</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2142:48154"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="I2142:48154;772:26891">
+            <p class="leading-[20px]">Licenses</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute content-stretch flex h-[56px] items-center justify-end left-[calc(68.75%-5.06px)] top-0 w-[277px]"
+        data-node-id="2142:48155">
+        <div
+          class="content-stretch flex items-start p-[8px] relative rounded-[4px] shrink-0"
+          data-node-id="2142:48156"
+          data-name="avatar_SU">
+          <div
+            class="content-stretch flex gap-[8px] isolate items-center relative shrink-0"
+            data-node-id="I2142:48156;775:12268"
+            data-name="sl-avatar-circle-text">
+            <div
+              class="[word-break:break-word] content-stretch flex flex-col font-['Open_Sans:Regular'] font-normal items-end leading-[0] relative shrink-0 text-[#323232] whitespace-nowrap z-[3]"
+              data-node-id="I2142:48156;775:12269"
+              data-name="avatar-header">
+              <div
+                class="flex flex-col justify-center relative shrink-0 text-[14px]"
+                data-node-id="I2142:48156;775:12270">
+                <p class="leading-[20px]">Anna Magiera</p>
+              </div>
+              <div
+                class="flex flex-col justify-center relative shrink-0 text-[12px]"
+                data-node-id="I2142:48156;775:12271">
+                <p class="leading-[12px]">Teacher</p>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex isolate items-center relative shrink-0 z-[2]"
+              data-node-id="I2142:48156;775:12272"
+              data-name="sl-avatar-circle-text">
+              <div
+                class="relative shrink-0 size-[32px] z-[1]"
+                data-node-id="I2142:48156;775:12273"
+                data-name="sl-avatar-circle">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/53e3a5be-a7fb-4f2b-968d-a67122295d4b/d6912.svg" />
+                <div
+                  class="absolute content-stretch flex gap-[8px] h-[12px] isolate items-center justify-center min-w-[12px] px-px py-[2px] right-[-2px] rounded-[999px] top-[-2px]"
+                  data-node-id="I2142:48156;775:12281"
+                  data-name="icon">
+                  <div
+                    class="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[#323232] text-[9px] text-center uppercase whitespace-nowrap z-[2]"
+                    data-node-id="I2142:48156;775:12282">
+                    <p class="leading-[9px]">gear</p>
+                  </div>
+                  <div
+                    class="absolute inset-0 z-[1]"
+                    data-node-id="I2142:48156;775:12283"
+                    data-name="icon-bg">
+                    <div
+                      class="absolute bg-white inset-0 rounded-[800px]"
+                      data-node-id="I2142:48156;775:12283;2801:8913"
+                      data-name="badge-bg"></div>
+                  </div>
+                </div>
+                <div
+                  class="-translate-x-1/2 -translate-y-1/2 [text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] absolute flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] left-1/2 text-[#323232] text-[12px] text-center top-[calc(50%+0.5px)] uppercase w-[32px]"
+                  data-node-id="I2142:48156;775:12284">
+                  <p class="leading-[16px]">EM</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-end leading-[0] not-italic relative shrink-0 text-[14px] text-black text-center whitespace-nowrap z-[1]"
+              data-node-id="I2142:48156;775:12286">
+              <p class="leading-[20px]">chevron-down</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bg-white content-stretch flex items-center justify-end overflow-clip px-[128px] py-[12px] relative shrink-0 w-full"
+      data-node-id="2142:48157"
+      data-name="secondary bar">
+      <div class="content-stretch flex items-start relative shrink-0" data-node-id="2142:48158">
+        <div
+          class="content-stretch flex gap-[16px] h-[40px] items-center relative shrink-0"
+          data-node-id="2142:48159"
+          data-name="School selection">
+          <div
+            class="content-stretch flex items-center relative shrink-0"
+            data-node-id="2142:48160"
+            data-name="Dropdown">
+            <div
+              class="content-stretch flex gap-[8px] items-center relative shrink-0 w-[353px]"
+              data-node-id="2142:48161">
+              <div
+                class="content-stretch flex items-center relative shrink-0"
+                data-node-id="2142:48162">
+                <p
+                  class="[word-break:break-word] font-['Font_Awesome_6_Pro:Regular'] leading-[24px] not-italic relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="2142:48163">
+                  school-flag
+                </p>
+                <div
+                  class="content-stretch flex gap-[8px] items-start pl-[8px] relative shrink-0"
+                  data-node-id="2142:48164"
+                  data-name="School label">
+                  <p
+                    class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="2142:48167">
+                    Bogaerts International School
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                data-node-id="2142:48168"
+                data-name="button">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#01766d] text-[14px] text-center whitespace-nowrap"
+                  data-node-id="I2142:48168;915:4408">
+                  <p class="leading-[16px]">Switch school</p>
+                </div>
+                <div
+                  class="absolute inset-[-2px]"
+                  data-node-id="I2142:48168;2123:33965"
+                  data-name="Focus ring">
+                  <div
+                    class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2142:48135"
+  style="position: absolute; left: 260px; top: 1136px; width: 1024px; height: 56px">
+  <div
+    class="border-[#cecfd2] border-b border-solid content-stretch flex items-start relative size-full"
+    data-node-id="2142:48135"
+    data-name="tabs">
+    <div
+      class="content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+      data-node-id="2142:48136"
+      data-name="DEMO - Tab-switches">
+      <div
+        aria-hidden
+        class="absolute bg-[rgba(255,255,255,0.01)] inset-0 pointer-events-none"></div>
+      <div
+        class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#5d5d5d] text-[16px] text-center whitespace-nowrap"
+        data-node-id="I2142:48136;11109:145010">
+        <p class="leading-[24px]">Students</p>
+      </div>
+      <div
+        class="bg-[#f2a900] content-stretch flex flex-col items-center justify-center px-[3px] py-px relative rounded-[12px] shrink-0 size-[24px]"
+        data-node-id="I2142:48136;11109:145011"
+        data-name="number-tag">
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[12px] tracking-[0.36px] whitespace-nowrap"
+          data-node-id="I2142:48136;11109:145011;10169:35199">
+          <p class="leading-[16px]">10</p>
+        </div>
+      </div>
+      <div
+        class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-2px_0px_0px_#2e5c64]"></div>
+    </div>
+    <div
+      class="bg-[rgba(255,255,255,0.01)] border-[#cecfd2] border-b border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+      data-node-id="2142:48137"
+      data-name="DEMO - Tab-switches">
+      <div
+        class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[16px] text-center whitespace-nowrap"
+        data-node-id="I2142:48137;11109:145013">
+        <p class="leading-[24px]">Teachers</p>
+      </div>
+      <div
+        class="bg-[#f2a900] content-stretch flex flex-col items-center justify-center px-[3px] py-px relative rounded-[12px] shrink-0 size-[24px]"
+        data-node-id="I2142:48137;11109:145014"
+        data-name="number-tag">
+        <div
+          class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[12px] tracking-[0.36px] whitespace-nowrap"
+          data-node-id="I2142:48137;11109:145014;10169:35199">
+          <p class="leading-[16px]">1</p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bg-[rgba(255,255,255,0.01)] border-[#cecfd2] border-b border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+      data-node-id="2142:48138"
+      data-name="DEMO - Tab-switches">
+      <div
+        class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[16px] text-center whitespace-nowrap"
+        data-node-id="I2142:48138;11109:145013">
+        <p class="leading-[24px]">Manage student licenses</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2:69240"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 3 has no box in the metadata */
+  ">
+  <div
+    class="bg-[#f6f8f8] content-stretch flex flex-col items-start px-[128px] relative size-full"
+    data-node-id="2142:48477"
+    data-name="Footer">
+    <div
+      class="content-stretch flex gap-[12px] items-center relative shrink-0 w-[1024px]"
+      data-node-id="2142:48478">
+      <div
+        class="h-[126px] relative shrink-0 w-[201.6px]"
+        data-node-id="2142:48479"
+        data-name="SANOMA+Payoff FUNKY 01 DARK GREEN RGB 2">
+        <img
+          alt=""
+          class="absolute block inset-0 max-w-none size-full"
+          src="https://www.figma.com/api/mcp/asset/a301de63-897a-416d-b82b-d72d0c6a97c8/46163.svg" />
+      </div>
+      <div
+        class="content-stretch flex items-center justify-end relative shrink-0 w-[810px]"
+        data-node-id="2142:48488">
+        <div
+          class="content-stretch flex flex-col items-end relative shrink-0 w-[520px]"
+          data-node-id="2142:48489">
+          <div
+            class="content-stretch flex gap-[16px] items-start px-[8px] relative shrink-0"
+            data-node-id="2142:48490">
+            <div
+              class="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2:69240">
+              <p
+                class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="2:69241">
+                Privacy Policy
+              </p>
+            </div>
+            <div
+              class="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2142:48492"
+              data-name="menu item footer">
+              <p
+                class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2142:48492;2678:143004">
+                Terms &amp; conditions
+              </p>
+            </div>
+            <div
+              class="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2142:48493"
+              data-name="menu item footer">
+              <p
+                class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2142:48493;2678:143004">
+                Cookies
+              </p>
+            </div>
+            <div
+              class="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2142:48494"
+              data-name="menu item footer">
+              <p
+                class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2142:48494;2678:143004">
+                Support
+              </p>
+            </div>
+            <div
+              class="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2142:48495"
+              data-name="menu item footer">
+              <p
+                class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2142:48495;2678:143004">
+                About our digital services
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2:69251"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 4 has no box in the metadata */
+  ">
+  <div
+    class="content-stretch flex flex-col gap-[24px] items-center justify-center py-[24px] relative size-full"
+    data-node-id="2142:48470">
+    <div class="h-[71.357px] relative shrink-0 w-[100px]" data-node-id="2:69251">
+      <img
+        alt=""
+        class="absolute block inset-0 max-w-none size-full"
+        src="https://www.figma.com/api/mcp/asset/a4316b41-b3c1-48f7-83ad-28aae389237e/94b18.svg" />
+    </div>
+    <div
+      class="content-stretch flex flex-col items-center relative shrink-0"
+      data-node-id="2142:48472">
+      <div
+        class="content-stretch flex flex-col items-center relative shrink-0"
+        data-node-id="2142:48473">
+        <div
+          class="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-center relative shrink-0 text-black w-[556px]"
+          data-node-id="2142:48474">
+          <p
+            class="font-['Open_Sans:Bold'] font-bold leading-[normal] relative shrink-0 text-[24px] text-center w-[390px]"
+            data-node-id="2142:48475">
+            You don't have any students yet
+          </p>
+          <ul
+            class="block font-['Open_Sans:Regular'] font-normal leading-[0] relative shrink-0 text-[16px] w-[220px]"
+            data-node-id="2142:48476">
+            <li class="list-disc ms-[24px]">
+              <span class="leading-[24px]">Start by adding a student </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2:8679"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 5 has no box in the metadata */
+  ">
+  <div
+    class="content-stretch flex flex-col items-start relative size-full"
+    data-node-id="2142:48171">
+    <div
+      class="content-stretch flex flex-col items-start relative shrink-0 w-full"
+      data-node-id="2142:48172">
+      <div
+        class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full"
+        data-node-id="2142:48173">
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="2142:48174">
+          <p
+            class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#323] text-[18px] uppercase whitespace-nowrap"
+            data-node-id="2142:48175">
+            Add student TO GROUP
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full"
+          data-node-id="2142:48176">
+          <div
+            class="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-start relative shrink-0 whitespace-nowrap"
+            data-node-id="2142:48177">
+            <p
+              class="font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#323] text-[18px]"
+              data-node-id="2142:48178">
+              Search for a student
+            </p>
+            <p
+              class="font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px]"
+              data-node-id="2142:48179">
+              Start by searching school records to add an existing student.
+            </p>
+          </div>
+          <div
+            class="content-stretch flex flex-col items-start justify-end relative shrink-0 w-full"
+            data-node-id="2142:48180">
+            <div
+              class="content-stretch flex gap-[8px] items-center relative shrink-0 w-[991px]"
+              data-node-id="2142:48181">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative"
+                data-node-id="2142:48182"
+                data-name="sl-text_input">
+                <div
+                  class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-full"
+                  data-node-id="I2142:48182;2711:12444"
+                  data-name="sl-text_input-theme">
+                  <div
+                    class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+                    data-node-id="I2142:48182;2711:12444;2711:11125"
+                    data-name="sl-label-theme">
+                    <div
+                      class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                      data-node-id="I2142:48182;2711:12444;2711:11125;2711:11259"
+                      data-name="sl-base-label-sm">
+                      <div
+                        class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                        data-node-id="I2142:48182;2711:12444;2711:11125;2711:11259;1222:5054"
+                        data-name="label-container">
+                        <div
+                          class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                          data-node-id="I2142:48182;2711:12444;2711:11125;2711:11259;1215:5039">
+                          <p class="leading-[16px]">First name</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+                    data-node-id="I2142:48182;2711:12444;2711:11126"
+                    data-name="sl_base-text_input-lg2">
+                    <div
+                      class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+                      data-node-id="I2142:48182;2711:12444;2711:11126;2911:2320">
+                      <p class="leading-[24px]">Type here</p>
+                    </div>
+                    <div
+                      class="absolute inset-[-1px] z-[1]"
+                      data-node-id="I2142:48182;2711:12444;2711:11126;2911:2322"
+                      data-name="Focus ring">
+                      <div
+                        class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-[1_0_0] flex-col isolate items-start min-w-px relative rounded-[2px]"
+                data-node-id="2142:48183"
+                data-name="sl-text_input-theme [DEPRECATED]">
+                <div
+                  class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+                  data-node-id="2142:48184"
+                  data-name="sl-label-theme [DEPRECATED]">
+                  <div
+                    class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                    data-node-id="I2142:48184;2711:11259"
+                    data-name="sl-base-label-sm">
+                    <div
+                      class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                      data-node-id="I2142:48184;2711:11259;1222:5054"
+                      data-name="label-container">
+                      <div
+                        class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                        data-node-id="I2142:48184;2711:11259;1215:5039">
+                        <p class="leading-[16px]">Last name</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+                  data-node-id="2142:48185"
+                  data-name="sl_base-text_input">
+                  <div
+                    class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+                    data-node-id="I2142:48185;2241:22370">
+                    <p class="leading-[24px]">Woźniak</p>
+                  </div>
+                  <div
+                    class="absolute inset-[-1px] z-[1]"
+                    data-node-id="I2142:48185;2444:23862"
+                    data-name="Focus ring">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-[1_0_0] flex-col isolate items-start min-w-px relative rounded-[2px]"
+                data-node-id="2142:48187"
+                data-name="sl-text_input-theme [DEPRECATED]">
+                <div
+                  class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+                  data-node-id="I2142:48187;2711:11125"
+                  data-name="sl-label-theme [DEPRECATED]">
+                  <div
+                    class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                    data-node-id="I2142:48187;2711:11125;2711:11263"
+                    data-name="sl-base-label-sm">
+                    <div
+                      class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                      data-node-id="I2142:48187;2711:11125;2711:11263;1222:5054"
+                      data-name="label-container">
+                      <div
+                        class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                        data-node-id="I2142:48187;2711:11125;2711:11263;1215:5039">
+                        <p class="leading-[16px]">Email</p>
+                      </div>
+                    </div>
+                    <div
+                      class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                      data-node-id="I2142:48187;2711:11125;2711:11263;1215:5074">
+                      <p class="leading-[16px]">(optional)</p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+                  data-node-id="I2142:48187;2711:11126"
+                  data-name="sl_base-text_input-lg2">
+                  <div
+                    class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+                    data-node-id="I2142:48187;2711:11126;2911:2320">
+                    <p class="leading-[24px]">Type here</p>
+                  </div>
+                  <div
+                    class="absolute inset-[-1px] z-[1]"
+                    data-node-id="I2142:48187;2711:11126;2911:2322"
+                    data-name="Focus ring">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col isolate items-start min-w-px relative"
+                data-node-id="2142:48188"
+                data-name="sl-select">
+                <div
+                  class="content-stretch flex items-start relative shrink-0 w-[34px] z-[2]"
+                  data-node-id="2142:48189"
+                  data-name="sl-label-theme">
+                  <div
+                    class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+                    data-node-id="I2142:48189;2711:11259"
+                    data-name="label">
+                    <div
+                      class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                      data-node-id="I2142:48189;2711:11259;1222:5054"
+                      data-name="label-container">
+                      <div
+                        class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                        data-node-id="I2142:48189;2711:11259;1215:5039">
+                        <p class="leading-[16px]">Grade level</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="content-stretch flex flex-col items-start relative shrink-0 w-[242px] z-[1]"
+                  data-node-id="2142:48190"
+                  data-name="dropdown+helper">
+                  <div
+                    class="content-stretch flex flex-col gap-[4px] h-[40px] isolate items-start relative shrink-0 w-full"
+                    data-node-id="2142:48191"
+                    data-name="✏️ dropdown">
+                    <div
+                      class="relative shrink-0 w-full z-[2]"
+                      data-node-id="2142:48192"
+                      data-name="01">
+                      <div
+                        class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-start relative size-full">
+                        <div
+                          class="content-stretch flex items-start relative shrink-0 w-full"
+                          data-node-id="2142:48193"
+                          data-name="sl_base-selecetbox-bg">
+                          <div
+                            class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-[1_0_0] isolate items-center justify-center min-w-px relative rounded-[2px]"
+                            data-node-id="2142:48194"
+                            data-name="sl-selectbox-theme">
+                            <div
+                              class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-[1_0_0] gap-[8px] isolate items-center min-w-px px-[16px] py-[8px] relative rounded-[4px] z-[1]"
+                              data-node-id="2142:48195"
+                              data-name="sl-base-selectbox">
+                              <div
+                                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+                                data-node-id="2142:48198">
+                                <p class="leading-[24px]"></p>
+                              </div>
+                              <div
+                                class="relative shrink-0 size-[16px] z-[2]"
+                                data-node-id="2142:48199"
+                                data-name="select-box-down">
+                                <div
+                                  class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                                  <div
+                                    class="flex-[1_0_0] h-full min-w-px relative"
+                                    data-node-id="2:8679"
+                                    data-name="chevron-down">
+                                    <div
+                                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#222] text-[16px] text-center"
+                                      data-node-id="2:8680">
+                                      <p class="leading-[16px]">chevron-down</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] left-[12px] text-[#5d5d5d] text-[16px] top-1/2 whitespace-nowrap"
+                          data-node-id="2142:48201">
+                          <p class="leading-[24px]">Please select</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="[word-break:break-word] bg-white content-stretch flex flex-col gap-[16px] items-start leading-[21px] p-[32px] relative rounded-[4px] shrink-0 text-[#323232] text-center w-[992px] whitespace-nowrap"
+            data-node-id="2142:48309">
+            <div
+              class="content-stretch flex gap-[8px] items-center relative shrink-0 text-[18px]"
+              data-node-id="2142:48310">
+              <p
+                class="font-['Font_Awesome_6_Pro:Solid'] not-italic relative shrink-0"
+                data-node-id="2142:48311">
+                magnifying-glass
+              </p>
+              <p
+                class="font-['Open_Sans:SemiBold'] font-semibold relative shrink-0"
+                data-node-id="2142:48312">
+                No matching results
+              </p>
+            </div>
+            <p
+              class="font-['Open_Sans:Regular'] font-normal relative shrink-0 text-[16px]"
+              data-node-id="2142:48313">
+              Can’t find the student? Please, add a new student by clicking Create new student
+              below.
+            </p>
+          </div>
+        </div>
+        <div
+          class="absolute h-[41.248px] left-[952px] top-0 w-[40px]"
+          data-node-id="2142:48314"
+          data-name="close">
+          <p
+            class="[word-break:break-word] absolute font-['Font_Awesome_6_Pro:Solid'] inset-[21.82%_35%_20%_37.5%] leading-[24px] not-italic text-[14px] text-black whitespace-nowrap"
+            data-node-id="2142:48315">
+            close
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — b-sesame-group-details"
+  data-node-id="2:8679"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 6 has no box in the metadata */
+  ">
+  <div
+    class="content-stretch flex flex-col gap-[40px] items-start relative size-full"
+    data-node-id="2142:48316">
+    <div
+      class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0"
+      data-node-id="2142:48317">
+      <div
+        class="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-start relative shrink-0"
+        data-node-id="2142:48318">
+        <p
+          class="font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#323] text-[18px] whitespace-nowrap"
+          data-node-id="2142:48319">
+          Can’t find the student?
+        </p>
+        <p
+          class="font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] w-[562px]"
+          data-node-id="2142:48320">
+          If you can’t find the student in the search suggestions or you add the student to school
+          records for the first time, hit Create new student button.
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-col gap-[24px] items-start relative shrink-0"
+        data-node-id="2142:48321">
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+          data-node-id="2142:48322"
+          data-name="sl-text_input-theme [DEPRECATED]">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+            data-node-id="2142:48323"
+            data-name="sl-label-theme [DEPRECATED]">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I2142:48323;2711:11259"
+              data-name="sl-base-label-sm">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I2142:48323;2711:11259;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48323;2711:11259;1215:5039">
+                  <p class="leading-[16px]">First name</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+            data-node-id="2142:48324"
+            data-name="sl_base-text_input">
+            <div
+              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+              data-node-id="I2142:48324;2241:22370">
+              <p class="leading-[24px]">Karol</p>
+            </div>
+            <div
+              class="absolute inset-[-1px] z-[1]"
+              data-node-id="I2142:48324;2444:23862"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+          data-node-id="2142:48326"
+          data-name="sl-text_input-theme [DEPRECATED]">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+            data-node-id="2142:48327"
+            data-name="sl-label-theme [DEPRECATED]">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I2142:48327;2711:11259"
+              data-name="sl-base-label-sm">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I2142:48327;2711:11259;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48327;2711:11259;1215:5039">
+                  <p class="leading-[16px]">Last name</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+            data-node-id="2142:48328"
+            data-name="sl_base-text_input">
+            <div
+              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+              data-node-id="2142:48329">
+              <p class="leading-[24px]">Woźniak</p>
+            </div>
+            <div
+              class="absolute inset-[-1px] z-[1]"
+              data-node-id="2142:48332"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col h-[64px] isolate items-start relative shrink-0"
+          data-node-id="2142:48334"
+          data-name="sl-select">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-[34px] z-[2]"
+            data-node-id="2142:48335"
+            data-name="sl-label-theme">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I2142:48335;2711:11259"
+              data-name="label">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I2142:48335;2711:11259;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48335;2711:11259;1215:5039">
+                  <p class="leading-[16px]">Grade level</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px relative z-[1]"
+            data-node-id="2142:48336"
+            data-name="dropdown+helper">
+            <div
+              class="content-stretch flex flex-col gap-[4px] h-[40px] isolate items-start relative shrink-0 w-[320px]"
+              data-node-id="2142:48337"
+              data-name="✏️ dropdown">
+              <div
+                class="flex-[1_0_0] min-h-px relative w-full z-[2]"
+                data-node-id="2142:48338"
+                data-name="01">
+                <div
+                  class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[4px] items-start relative size-full">
+                  <div
+                    class="content-stretch flex flex-[1_0_0] items-start min-h-px relative w-full"
+                    data-node-id="2142:48339"
+                    data-name="sl_base-selecetbox-bg">
+                    <div
+                      class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex h-full isolate items-center justify-center relative rounded-[2px] shrink-0 w-[320px]"
+                      data-node-id="2142:48340"
+                      data-name="sl-selectbox-theme">
+                      <div
+                        class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] h-full isolate items-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-[320px] z-[1]"
+                        data-node-id="2142:48341"
+                        data-name="sl-base-selectbox">
+                        <div
+                          class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[14px] z-[5]"
+                          data-node-id="2142:48342">
+                          <p class="leading-[20px]">3</p>
+                        </div>
+                        <div
+                          class="relative shrink-0 size-[16px] z-[2]"
+                          data-node-id="2142:48345"
+                          data-name="select-box-down">
+                          <div
+                            class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                            <div
+                              class="flex-[1_0_0] h-full min-w-px relative"
+                              data-node-id="2:8679"
+                              data-name="chevron-down">
+                              <div
+                                class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#222] text-[16px] text-center"
+                                data-node-id="2:8680">
+                                <p class="leading-[16px]">chevron-down</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] left-[12px] text-[#5d5d5d] text-[16px] top-1/2 whitespace-nowrap"
+                    data-node-id="2142:48347">
+                    <p class="leading-[24px]">​</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[68px]"
+          data-node-id="2142:48455"
+          data-name="sl-radio_group-theme">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-full"
+            data-node-id="I2142:48455;2711:10634"
+            data-name="sl-label-theme">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I2142:48455;2711:10634;2711:11259"
+              data-name="sl-base-label-sm">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I2142:48455;2711:10634;2711:11259;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48455;2711:10634;2711:11259;1215:5039">
+                  <p class="leading-[16px]">Login type</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full"
+            data-node-id="I2142:48455;2711:10635"
+            data-name="container">
+            <div
+              class="content-stretch flex items-start relative shrink-0 w-full"
+              data-node-id="I2142:48455;2711:10636"
+              data-name="sl-radio-1">
+              <div
+                class="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                data-node-id="I2142:48455;2711:10636;2711:12440"
+                data-name="sl-radio-theme">
+                <div
+                  class="content-stretch flex gap-[8px] items-center py-[4px] relative shrink-0"
+                  data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537"
+                  data-name="sl-base-radio">
+                  <div
+                    class="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[800px] shrink-0 size-[24px]"
+                    data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;240:40"
+                    data-name="radio-box">
+                    <div
+                      class="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                      data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;324:80"
+                      data-name="core-icon">
+                      <div
+                        class="flex-[1_0_0] h-full min-w-px relative"
+                        data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;324:80;399:65"
+                        data-name="svg-circle"></div>
+                    </div>
+                  </div>
+                  <p
+                    class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48455;2711:10636;2711:12440;2711:12537;240:42">
+                    Easy login (simple username, password and QR code)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex items-start relative shrink-0 w-full"
+              data-node-id="I2142:48455;2711:10637"
+              data-name="sl-radio-2">
+              <div
+                class="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                data-node-id="I2142:48455;2711:10637;2711:12440"
+                data-name="sl-radio-theme">
+                <div
+                  class="content-stretch flex gap-[8px] items-center py-[4px] relative shrink-0"
+                  data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507"
+                  data-name="sl-base-radio">
+                  <div
+                    class="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[800px] shrink-0 size-[24px]"
+                    data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507;240:40"
+                    data-name="radio-box"></div>
+                  <p
+                    class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48455;2711:10637;2711:12440;2711:12507;240:42">
+                    Regular
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bg-[#f6f8f8] border-[#bfbfbf] border-b border-solid content-stretch cursor-pointer flex flex-col gap-[13px] items-start overflow-clip relative shrink-0 w-full"
+          data-node-id="3659:36698"
+          data-name="Accordion-multiple-view">
+          <div
+            class="content-stretch flex flex-col items-start relative shrink-0 w-full"
+            data-node-id="I3659:36698;3616:44042"
+            data-name="accordion-header">
+            <div
+              class="content-stretch flex flex-col items-start relative shrink-0 w-[255px]"
+              data-node-id="I3659:36698;3616:44042;4169:240"
+              data-name="accordion-header-base">
+              <div
+                class="bg-[#f6f8f8] content-stretch flex flex-col items-start py-[16px] relative shrink-0 w-full"
+                data-node-id="I3659:36698;3616:44042;4169:240;6223:9478"
+                data-name="header">
+                <div
+                  class="content-stretch flex gap-[8px] items-start px-[8px] relative shrink-0 w-full"
+                  data-node-id="I3659:36698;3616:44042;4169:240;6223:9479"
+                  data-name="title">
+                  <div
+                    class="h-[28px] overflow-clip relative shrink-0 w-[24px]"
+                    data-node-id="I3659:36698;3616:44042;4169:240;6223:9480"
+                    data-name="icon">
+                    <div
+                      class="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[16px] top-1/2"
+                      data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46106">
+                      <div
+                        class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#323232] h-[16px] left-1/2 rounded-[0.825px] top-1/2 w-[1.979px]"
+                        data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46107"></div>
+                      <div
+                        class="-translate-x-1/2 -translate-y-1/2 absolute flex h-[1.979px] items-center justify-center left-1/2 top-1/2 w-[16px]"
+                        data-node-id="I3659:36698;3616:44042;4169:240;6223:9480;5273:46108">
+                        <div class="flex-none rotate-90">
+                          <div
+                            class="bg-[#323232] h-[16px] relative rounded-[0.825px] w-[1.979px]"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="content-stretch flex flex-[1_0_0] items-center min-w-px pr-[16px] relative"
+                    data-node-id="I3659:36698;3616:44042;4169:240;6223:9481"
+                    data-name="Icon-animation/accordion-title">
+                    <div
+                      class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[18px] text-left"
+                      data-node-id="I3659:36698;3616:44042;4169:240;6223:9481;5267:45993">
+                      <p class="leading-[28px]">Login types explained</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+          data-node-id="3659:36670"
+          data-name="sl-text_input-theme [DEPRECATED]">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+            data-node-id="I3659:36670;2711:11125"
+            data-name="sl-label-theme [DEPRECATED]">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I3659:36670;2711:11125;2711:11263"
+              data-name="sl-base-label-sm">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I3659:36670;2711:11125;2711:11263;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I3659:36670;2711:11125;2711:11263;1215:5039">
+                  <p class="leading-[16px]">Email</p>
+                </div>
+              </div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I3659:36670;2711:11125;2711:11263;1215:5074">
+                <p class="leading-[16px]">(optional)</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+            data-node-id="I3659:36670;2711:11126"
+            data-name="sl_base-text_input-lg2">
+            <div
+              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+              data-node-id="I3659:36670;2711:11126;2911:2320">
+              <p class="leading-[24px]">Type here</p>
+            </div>
+            <div
+              class="absolute inset-[-1px] z-[1]"
+              data-node-id="I3659:36670;2711:11126;2911:2322"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-[320px]"
+          data-node-id="2142:48457"
+          data-name="sl-text_input-theme [DEPRECATED]">
+          <div
+            class="content-stretch flex items-start relative shrink-0 w-full z-[3]"
+            data-node-id="I2142:48457;2711:11125"
+            data-name="sl-label-theme [DEPRECATED]">
+            <div
+              class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pb-[8px] relative"
+              data-node-id="I2142:48457;2711:11125;2711:11259"
+              data-name="sl-base-label-sm">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I2142:48457;2711:11125;2711:11259;1222:5054"
+                data-name="label-container">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48457;2711:11125;2711:11259;1215:5039">
+                  <p class="leading-[16px]">Username</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[2]"
+            data-node-id="I2142:48457;2711:11126"
+            data-name="sl_base-text_input-lg2">
+            <div
+              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[3]"
+              data-node-id="I2142:48457;2711:11126;2911:2320">
+              <p class="leading-[24px]">karol123</p>
+            </div>
+            <div
+              class="absolute inset-[-1px] z-[1]"
+              data-node-id="I2142:48457;2711:11126;2911:2322"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] left-[336px] text-[#01766d] text-[16px] top-[621px] tracking-[0.4px] whitespace-nowrap"
+        data-node-id="2142:48458">
+        <p class="leading-[20px]">Regenerate</p>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex items-center justify-end px-[8px] relative shrink-0 w-[992px]"
+      data-node-id="2142:48459">
+      <div
+        class="content-stretch flex flex-[1_0_0] flex-col gap-[16px] items-start min-w-px relative"
+        data-node-id="2142:48460">
+        <div class="content-stretch flex items-center relative shrink-0" data-node-id="2142:48461">
+          <div
+            class="content-stretch flex gap-[16px] items-center relative shrink-0"
+            data-node-id="2142:48462">
+            <div
+              class="content-stretch flex items-center relative shrink-0"
+              data-node-id="2142:48463">
+              <div
+                class="content-stretch flex items-start relative shrink-0"
+                data-node-id="2142:48464">
+                <div
+                  class="bg-[#01766d] content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                  data-node-id="2142:48465"
+                  data-name="button primary">
+                  <p
+                    class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px] text-white whitespace-nowrap"
+                    data-node-id="I2142:48465;2846:104533">
+                    Create new student
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p
+              class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#01766d] text-[14px] whitespace-nowrap"
+              data-node-id="2142:48466">
+              Cancel
+            </p>
+          </div>
+        </div>
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex items-start relative shrink-0"
+          data-node-id="2142:48467"
+          data-name="sl-checkbox">
+          <div
+            class="content-stretch flex items-start relative shrink-0"
+            data-node-id="2142:48468"
+            data-name="sl-checkbox-theme">
+            <div
+              class="content-stretch flex items-start relative shrink-0 w-[64px]"
+              data-node-id="2142:48469"
+              data-name="sl-base-checkbox">
+              <div
+                class="content-stretch flex flex-[1_0_0] items-start min-w-px relative"
+                data-node-id="I2142:48469;2711:12456"
+                data-name="sl-checkbox-theme [DEPRECATED]">
+                <div
+                  class="content-stretch flex gap-[8px] items-center justify-center relative shrink-0"
+                  data-node-id="I2142:48469;2711:12456;3146:85266"
+                  data-name="sl-base-checkbox">
+                  <div
+                    class="bg-white border-2 border-[#5d5d5d] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[2px] shrink-0 size-[20px]"
+                    data-node-id="I2142:48469;2711:12456;3146:85266;5293:3690"
+                    data-name="checkbox-box"></div>
+                  <p
+                    class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="I2142:48469;2711:12456;3146:85266;5293:3692">
+                    Create another
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

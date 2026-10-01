@@ -1,0 +1,1343 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-a10-etsl-fam-users</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
+  body{width:1440px;height:837px;position:relative;background:#fff;
+       font-family:system-ui,sans-serif;font-size:14px;color:#111}
+  img{max-width:100%;display:block}
+  .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+  .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
+                     font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .bg-white{background:#fff}
+  .border-\[var\(--color\\\/palette\\\/grey\\\/900\,\#222\)\]{border-color:var(--color/palette/grey/900,#222)}
+  .border-solid{border-style:solid}
+  .content-stretch{align-content:stretch}
+  .flex{display:flex}
+  .flex-col{flex-direction:column}
+  .items-start{align-items:flex-start}
+  .overflow-clip{overflow:clip}
+  .relative{position:relative}
+  .rounded-\[4px\]{border-radius:4px}
+  .size-full{width:100%;height:100%}
+  .bg-\[\#02242e\]{background:#02242e}
+  .gap-\[545px\]{gap:545px}
+  .h-\[50px\]{height:50px}
+  .items-center{align-items:center}
+  .pl-\[16px\]{padding-left:16px}
+  .pr-\[20px\]{padding-right:20px}
+  .shrink-0{flex-shrink:0}
+  .w-full{width:100%}
+  .h-\[40px\]{height:40px}
+  .pl-\[6px\]{padding-left:6px}
+  .pr-\[10px\]{padding-right:10px}
+  .py-\[10px\]{padding-block:10px}
+  .w-\[181px\]{width:181px}
+  .h-\[20px\]{height:20px}
+  .w-\[155px\]{width:155px}
+  .absolute{position:absolute}
+  .inset-0{inset:0}
+  .max-w-none{max-width:none}
+  .object-cover{object-fit:cover}
+  .pointer-events-none{pointer-events:none}
+  .flex-\[1_0_0\]{flex:1 0 0}
+  .gap-\[4px\]{gap:4px}
+  .justify-end{justify-content:flex-end}
+  .min-w-px{min-width:1px}
+  .flex-row{flex-direction:row}
+  .self-stretch{align-self:stretch}
+  .h-full{height:100%}
+  .px-\[16px\]{padding-inline:16px}
+  .py-\[13px\]{padding-block:13px}
+  .size-\[20px\]{width:20px;height:20px}
+  .justify-center{justify-content:center}
+  .\[word-break\:break-word\]{word-break:break-word}
+  .font-\[\'Font_Awesome_6_Pro\:Solid\'\]{font-family:'Font Awesome 6 Pro:Solid'}
+  .leading-\[0\]{line-height:0}
+  .not-italic{font-style:normal}
+  .text-\[20px\]{font-size:20px}
+  .text-\[color\:var\(--surface\,white\)\]{font-size:color:var(--surface,white)}
+  .text-center{text-align:center}
+  .leading-\[16px\]{line-height:16px}
+  .font-\[\'Font_Awesome_7_Pro\:Regular\'\]{font-family:'Font Awesome 7 Pro:Regular'}
+  .leading-\[normal\]{line-height:normal}
+  .text-\[14px\]{font-size:14px}
+  .text-white{color:#fff}
+  .whitespace-nowrap{white-space:nowrap}
+  .gap-\[var\(--space-new\\\/md\,8px\)\]{gap:var(--space-new/md,8px)}
+  .isolate{isolation:isolate}
+  .z-\[2\]{z-index:2}
+  .size-\[32px\]{width:32px;height:32px}
+  .bg-\[var\(--color\\\/background\\\/primary\\\/bold\,\#36f\)\]{background:var(--color/background/primary/bold,#36f)}
+  .z-\[1\]{z-index:1}
+  .-translate-y-1\/2{translate:0 -50%}
+  .aspect-\[80\/80\]{aspect-ratio:80/80}
+  .left-0{left:0}
+  .right-0{right:0}
+  .top-1\/2{top:50%}
+  .bg-\[var\(--color\\\/foreground\\\/primary\\\/onbold\,white\)\]{background:var(--color/foreground/primary/onbold,white)}
+  .bg-\[var\(--color\\\/palette\\\/grey\\\/100\,\#f0f2f5\)\]{background:var(--color/palette/grey/100,#f0f2f5)}
+  .border-\[\#c8c8cf\]{border-color:#c8c8cf}
+  .border-b{border-bottom-width:1px}
+  .h-\[181px\]{height:181px}
+  .px-\[120px\]{padding-inline:120px}
+  .min-h-px{min-height:1px}
+  .h-\[70px\]{height:70px}
+  .pr-\[5px\]{padding-right:5px}
+  .font-\[\'Raleway\:Bold\'\]{font-family:'Raleway:Bold'}
+  .font-bold{font-weight:700}
+  .leading-\[38px\]{line-height:38px}
+  .text-\[\#021d25\]{color:#021d25}
+  .text-\[28px\]{font-size:28px}
+  .tracking-\[-0\.28px\]{letter-spacing:-0.28px}
+  .items-end{align-items:flex-end}
+  .w-\[1200px\]{width:1200px}
+  .gap-\[8px\]{gap:8px}
+  .px-\[24px\]{padding-inline:24px}
+  .py-\[12px\]{padding-block:12px}
+  .font-\[\'Roboto\:Regular\'\]{font-family:'Roboto:Regular'}
+  .font-normal{font-weight:400}
+  .leading-\[20px\]{line-height:20px}
+  .text-\[\#02242e\]{color:#02242e}
+  .bottom-\[-1px\]{bottom:-1px}
+  .h-\[4px\]{height:4px}
+  .bg-\[\#4589be\]{background:#4589be}
+  .gap-\[24px\]{gap:24px}
+  .py-\[40px\]{padding-block:40px}
+  .gap-\[10px\]{gap:10px}
+  .h-\[60px\]{height:60px}
+  .w-\[280px\]{width:280px}
+  .drop-shadow-\[0px_0px_0px_rgba\(0\,0\,0\,0\)\]{filter:drop-shadow(0px 0px 0px rgba(0,0,0,0))}
+  .h-\[32px\]{height:32px}
+  .rounded-\[2px\]{border-radius:2px}
+  .pb-\[4px\]{padding-bottom:4px}
+  .gap-\[2px\]{gap:2px}
+  .font-\[\'Roboto\:Medium\'\]{font-family:'Roboto:Medium'}
+  .font-medium{font-weight:500}
+  .border{border-width:1px}
+  .border-\[\#7a818e\]{border-color:#7a818e}
+  .px-\[13px\]{padding-inline:13px}
+  .py-\[8px\]{padding-block:8px}
+  .z-\[5\]{z-index:5}
+  .bg-clip-padding{background-clip:padding-box}
+  .border-0{border-width:0}
+  .border-\[transparent\]{border-width:transparent}
+  .font-\[\'Font_Awesome_6_Pro\:Regular\'\]{font-family:'Font Awesome 6 Pro:Regular'}
+  .text-\[16px\]{font-size:16px}
+  .text-\[\#7a818e\]{color:#7a818e}
+  .z-\[3\]{z-index:3}
+  .gap-\[var\(--space-new\\\/xs\,4px\)\]{gap:var(--space-new/xs,4px)}
+  .left-\[290px\]{left:290px}
+  .top-0{top:0}
+  .gap-\[var\(--space-new\\\/none\,0px\)\]{gap:var(--space-new/none,0px)}
+  .gap-\[var\(--space-new\\\/2xs\,2px\)\]{gap:var(--space-new/2xs,2px)}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/body\,\'Roboto\:Medium\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/body,'Roboto:Medium')}
+  .font-\[var\(--text-new\\\/typeset\\\/fontweight\\\/semibold\,500\)\]{font-family:var(--text-new/typeset/fontweight/semibold,500)}
+  .text-\[color\:var\(--color\\\/foreground\\\/bold\,\#222\)\]{font-size:color:var(--color/foreground/bold,#222)}
+  .cursor-pointer{cursor:pointer}
+  .gap-\[var\(--space\\\/100\,8px\)\]{gap:var(--space/100,8px)}
+  .px-\[var\(--space\\\/150\,12px\)\]{padding-inline:var(--space/150,12px)}
+  .py-\[var\(--space\\\/100\,8px\)\]{padding-block:var(--space/100,8px)}
+  .rounded-\[var\(--size\\\/borderradius\\\/default\,4px\)\]{border-radius:var(--size/borderradius/default,4px)}
+  .text-\[\#25292f\]{color:#25292f}
+  .text-left{text-align:left}
+  .px-\[var\(--space-new\\\/xs\,4px\)\]{padding-inline:var(--space-new/xs,4px)}
+  .bg-\[\#d9d9d9\]{background:#d9d9d9}
+  .h-\[24px\]{height:24px}
+  .w-px{width:1px}
+  .size-\[16px\]{width:16px;height:16px}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/icon\,\'Font_Awesome_7_Pro\:Regular\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/icon,'Font Awesome 7 Pro:Regular')}
+  .font-\[var\(--icon\\\/typeset\\\/fontweight\\\/icon-regular\,normal\)\]{font-family:var(--icon/typeset/fontweight/icon-regular,normal)}
+  .text-\[length\:var\(--size\\\/icon\\\/font\\\/md\,16px\)\]{font-size:length:var(--size/icon/font/md,16px)}
+  .border-\[\#818b98\]{border-color:#818b98}
+  .border-\[length\:var\(--size\\\/borderwidth\\\/default\,1px\)\]{border-width:length:var(--size/borderwidth/default,1px)}
+  .py-\[var\(--space\\\/075\,6px\)\]{padding-block:var(--space/075,6px)}
+  .bg-\[\#c8d1da\]{background:#c8d1da}
+  .inset-\[-1px\]{inset:-1px}
+  .opacity-\[calc\(var\(--opacity\\\/interactive\\\/plain\\\/idle\,0\)\/100\)\]{opacity:calc(var(--opacity/interactive/plain/idle,0)/100)}
+  .block{display:block}
+  .border-\[length\:var\(--size\\\/borderwidth\\\/none\,0px\)\]{border-width:length:var(--size/borderwidth/none,0px)}
+  .border-\[var\(--color\\\/transparant\,rgba\(0\,0\,0\,0\)\)\]{border-color:var(--color/transparant,rgba(0,0,0,0))}
+  .gap-\[var\(--space-new\\\/sm\,6px\)\]{gap:var(--space-new/sm,6px)}
+  .px-\[var\(--space\\\/200\,16px\)\]{padding-inline:var(--space/200,16px)}
+  .z-\[4\]{z-index:4}
+  .inset-\[-2px\]{inset:-2px}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/body\,\'Roboto\:SemiBold\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/body,'Roboto:SemiBold')}
+  .font-semibold{font-weight:600}
+  .min-w-\[20px\]{min-width:20px}
+  .text-\[color\:var\(--color\\\/foreground\\\/primary\\\/onbold\,white\)\]{font-size:color:var(--color/foreground/primary/onbold,white)}
+  .opacity-\[calc\(var\(--opacity\\\/interactive\\\/bold\\\/idle\,0\)\/100\)\]{opacity:calc(var(--opacity/interactive/bold/idle,0)/100)}
+  .inset-\[0_1px_0_0\]{inset:0 1px 0 0}
+  .bg-\[\#f4f5fa\]{background:#f4f5fa}
+  .h-\[48px\]{height:48px}
+  .font-\[\'Roboto\:SemiBold\'\]{font-family:'Roboto:SemiBold'}
+  .text-\[\#585c61\]{color:#585c61}
+  .text-\[0px\]{font-size:0px}
+  .tracking-\[0\.4px\]{letter-spacing:0.4px}
+  .rounded-\[inherit\]{border-radius:inherit}
+  .shadow-\[inset_0px_-1px_0px_0px_rgba\(0\,0\,0\,0\.12\)\]{box-shadow:inset 0px -1px 0px 0px rgba(0,0,0,0.12)}
+  .h-\[68px\]{height:68px}
+  .py-\[14px\]{padding-block:14px}
+  .text-\[\#1d1f20\]{color:#1d1f20}
+  .tracking-\[0\.25px\]{letter-spacing:0.25px}
+  .w-\[117px\]{width:117px}
+  .w-\[133px\]{width:133px}
+  .px-\[8px\]{padding-inline:8px}
+  .px-\[var\(--space\\\/175\,14px\)\]{padding-inline:var(--space/175,14px)}
+  .py-\[var\(--space\\\/025\,2px\)\]{padding-block:var(--space/025,2px)}
+  .text-\[color\:var\(--color\\\/foreground\\\/primary\\\/bold\,\#1727b6\)\]{font-size:color:var(--color/foreground/primary/bold,#1727b6)}
+  .gap-\[34px\]{gap:34px}
+  .h-\[58px\]{height:58px}
+  .text-\[12px\]{font-size:12px}
+  .text-right{text-align:right}
+  .w-\[33px\]{width:33px}
+  .h-\[26px\]{height:26px}
+  .size-\[24px\]{width:24px;height:24px}
+  .font-\[\'Material_Icons\:Regular\'\]{font-family:'Material Icons:Regular'}
+  .text-\[24px\]{font-size:24px}
+  .leading-none{line-height:1}
+  .bg-\[rgba\(0\,0\,0\,0\.42\)\]{background:rgba(0,0,0,0.42)}
+  .h-px{height:1px}
+  .rounded-\[32px\]{border-radius:32px}
+  .text-\[\#c8c8cf\]{color:#c8c8cf}
+</style>
+<div
+  data-region="figma-design-context.md"
+  data-node-id="33130:92562"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 0 has no box in the metadata */
+  ">
+  <div
+    class="bg-white border-2 border-[var(--color\/palette\/grey\/900,#222)] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[4px] size-full"
+    data-node-id="17264:29098"
+    data-name="FAM - Users">
+    <div
+      class="bg-[#02242e] content-stretch flex gap-[545px] h-[50px] items-center pl-[16px] pr-[20px] relative shrink-0 w-full"
+      data-node-id="17264:29099"
+      data-name="top nav bar">
+      <div
+        class="content-stretch flex flex-col h-[40px] items-start pl-[6px] pr-[10px] py-[10px] relative shrink-0 w-[181px]"
+        data-node-id="I17264:29099;1481:4133">
+        <div
+          class="h-[20px] relative shrink-0 w-[155px]"
+          data-node-id="I17264:29099;1481:4109"
+          data-name="logo">
+          <img
+            alt=""
+            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+            src="https://www.figma.com/api/mcp/asset/fc65805b-91c9-492c-8b1d-e69fbb520373/32664.png" />
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[4px] items-center justify-end min-w-px relative"
+        data-node-id="I17264:29099;1481:4132">
+        <div
+          class="flex flex-row items-center self-stretch"
+          data-node-id="I17264:29099;23066:86145">
+          <div
+            class="content-stretch flex gap-[4px] h-full items-center px-[16px] py-[13px] relative shrink-0"
+            data-name="Projects">
+            <div
+              class="content-stretch flex items-start relative shrink-0 size-[20px]"
+              data-node-id="I17264:29099;23066:86145;6539:37591"
+              data-name="sl-icon">
+              <div
+                class="content-stretch flex items-center justify-center relative shrink-0 size-[20px]"
+                data-node-id="I17264:29099;23066:86145;6539:37591;8025:2875"
+                data-name="sl-icon">
+                <div
+                  class="flex-[1_0_0] h-full min-w-px relative"
+                  data-node-id="I17264:29099;23066:86145;6539:37591;8025:2875;1419:9264"
+                  data-name="icon-container">
+                  <div
+                    class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Solid'] inset-0 justify-center leading-[0] not-italic text-[20px] text-[color:var(--surface,white)] text-center"
+                    data-node-id="I17264:29099;23066:86145;6539:37591;8025:2875;1419:9264;802:2162">
+                    <p class="leading-[16px]">book-circle-arrow-up</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p
+              class="[word-break:break-word] font-['Font_Awesome_7_Pro:Regular'] leading-[normal] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap"
+              data-node-id="I17264:29099;23066:86145;1481:4038">
+              chevron-down
+            </p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--space-new\/md,8px)] isolate items-center relative shrink-0"
+          data-node-id="I17264:29099;25806:56903"
+          data-name="sl-avatar">
+          <div
+            class="content-stretch flex flex-col items-start relative shrink-0 z-[2]"
+            data-node-id="I17264:29099;25806:56903;7403:217898">
+            <div
+              class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+              data-node-id="I17264:29099;25806:56903;7401:1034"
+              data-name="Avatar">
+              <div
+                class="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]"
+                data-node-id="I17264:29099;25806:56903;7401:1041"
+                data-name="avatar-content">
+                <div
+                  class="absolute content-stretch flex inset-0 isolate items-center justify-center"
+                  data-node-id="I17264:29099;25806:56903;7401:1042"
+                  data-name="Mask">
+                  <div
+                    class="absolute bg-[var(--color\/background\/primary\/bold,#36f)] inset-0 z-[1]"
+                    data-node-id="I17264:29099;25806:56903;7401:1042;7355:28686"
+                    data-name="BG"></div>
+                </div>
+                <div
+                  class="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2"
+                  data-node-id="I17264:29099;25806:56903;7401:1043"
+                  data-name="avatar-content-variant">
+                  <div
+                    class="absolute content-stretch flex inset-0 isolate items-center justify-center mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-19.5px_0px] mask-size-[71px_32px]"
+                    data-node-id="I17264:29099;25806:56903;7401:1048"
+                    data-name="Mask">
+                    <div
+                      class="absolute bg-[var(--color\/foreground\/primary\/onbold,white)] inset-0 z-[2]"
+                      data-node-id="I17264:29099;25806:56903;7401:1048;7355:28738"
+                      data-name="FG"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bg-[var(--color\/palette\/grey\/100,#f0f2f5)] border-[#c8c8cf] border-b border-solid content-stretch flex flex-col h-[181px] items-start overflow-clip px-[120px] relative shrink-0 w-full"
+      data-node-id="17264:29100"
+      data-name="top navigation">
+      <div
+        class="content-stretch flex flex-[1_0_0] flex-col items-center justify-center min-h-px relative w-full"
+        data-node-id="17264:29101">
+        <div
+          class="content-stretch flex flex-col h-[70px] items-start relative shrink-0 w-full"
+          data-node-id="17264:29102">
+          <div
+            class="content-stretch flex flex-[1_0_0] items-center justify-center min-h-px pr-[5px] relative w-full"
+            data-node-id="17264:29103">
+            <p
+              class="[word-break:break-word] flex-[1_0_0] font-['Raleway:Bold'] font-bold leading-[38px] min-w-px relative text-[#021d25] text-[28px] text-center tracking-[-0.28px]"
+              data-node-id="17264:29104">
+              Functional management
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white border-[#c8c8cf] border-b border-solid content-stretch flex items-end relative shrink-0 w-[1200px]"
+        data-node-id="17264:29105"
+        data-name="tabbar-horizontal">
+        <div
+          class="content-stretch flex flex-[1_0_0] items-end min-w-px overflow-x-auto overflow-y-clip relative"
+          data-node-id="I17264:29105;4163:2717"
+          data-name="tabs">
+          <div
+            class="content-stretch flex items-start relative shrink-0"
+            data-node-id="I17264:29105;4163:2718"
+            data-name="1-4">
+            <div
+              class="bg-white border-[#c8c8cf] border-b border-solid content-stretch flex items-start justify-center relative shrink-0"
+              data-node-id="I17264:29105;4163:2719"
+              data-name="tab horizontal-theme">
+              <div
+                class="content-stretch flex items-start justify-center relative shrink-0"
+                data-node-id="I17264:29105;4163:2719;4163:2691"
+                data-name="tab-config">
+                <div
+                  class="content-stretch flex items-start relative shrink-0"
+                  data-node-id="I17264:29105;4163:2719;4163:2691;4379:32424"
+                  data-name="tab-base">
+                  <div
+                    class="content-stretch flex gap-[8px] items-start px-[24px] py-[12px] relative shrink-0"
+                    data-node-id="I17264:29105;4163:2719;4163:2691;4379:32424;4360:2873"
+                    data-name="tab-content">
+                    <div
+                      class="content-stretch flex flex-col items-start overflow-clip relative shrink-0"
+                      data-node-id="I17264:29105;4163:2719;4163:2691;4379:32424;4360:2876"
+                      data-name="main">
+                      <p
+                        class="[word-break:break-word] font-['Roboto:Regular'] font-normal leading-[20px] relative shrink-0 text-[#02242e] text-[14px] whitespace-nowrap"
+                        data-node-id="I17264:29105;4163:2719;4163:2691;4379:32424;4360:2877">
+                        Users
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute bottom-[-1px] h-[4px] left-0 overflow-clip right-0"
+                data-node-id="I17264:29105;4163:2719;4163:2692"
+                data-name="tab-indicator">
+                <div
+                  class="absolute bg-[#4589be] inset-0"
+                  data-node-id="I17264:29105;4163:2719;4163:2692;4163:2934"
+                  data-name="indicator"></div>
+              </div>
+            </div>
+            <div
+              class="bg-white border-[#c8c8cf] border-b border-solid content-stretch flex items-start justify-center relative shrink-0"
+              data-node-id="I17264:29105;4163:2720"
+              data-name="tab horizontal-theme">
+              <div
+                class="content-stretch flex items-start justify-center relative shrink-0"
+                data-node-id="I17264:29105;4163:2720;4163:2691"
+                data-name="tab-config">
+                <div
+                  class="content-stretch flex items-start relative shrink-0"
+                  data-node-id="I17264:29105;4163:2720;4163:2691;4379:32424"
+                  data-name="tab-base">
+                  <div
+                    class="content-stretch flex gap-[8px] items-start px-[24px] py-[12px] relative shrink-0"
+                    data-node-id="I17264:29105;4163:2720;4163:2691;4379:32424;4360:2873"
+                    data-name="tab-content">
+                    <div
+                      class="content-stretch flex flex-col items-start overflow-clip relative shrink-0"
+                      data-node-id="I17264:29105;4163:2720;4163:2691;4379:32424;4360:2876"
+                      data-name="main">
+                      <p
+                        class="[word-break:break-word] font-['Roboto:Regular'] font-normal leading-[20px] relative shrink-0 text-[#02242e] text-[14px] whitespace-nowrap"
+                        data-node-id="I17264:29105;4163:2720;4163:2691;4379:32424;4360:2877">
+                        Downtime events
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-white border-[#c8c8cf] border-b border-solid content-stretch flex items-start justify-center relative shrink-0"
+              data-node-id="I17264:29105;4163:2721"
+              data-name="tab horizontal-theme">
+              <div
+                class="content-stretch flex items-start justify-center relative shrink-0"
+                data-node-id="I17264:29105;4163:2721;4163:2691"
+                data-name="tab-config">
+                <div
+                  class="content-stretch flex items-start relative shrink-0"
+                  data-node-id="I17264:29105;4163:2721;4163:2691;4379:32424"
+                  data-name="tab-base">
+                  <div
+                    class="content-stretch flex gap-[8px] items-start px-[24px] py-[12px] relative shrink-0"
+                    data-node-id="I17264:29105;4163:2721;4163:2691;4379:32424;4360:2873"
+                    data-name="tab-content">
+                    <div
+                      class="content-stretch flex flex-col items-start overflow-clip relative shrink-0"
+                      data-node-id="I17264:29105;4163:2721;4163:2691;4379:32424;4360:2876"
+                      data-name="main">
+                      <p
+                        class="[word-break:break-word] font-['Roboto:Regular'] font-normal leading-[20px] relative shrink-0 text-[#02242e] text-[14px] whitespace-nowrap"
+                        data-node-id="I17264:29105;4163:2721;4163:2691;4379:32424;4360:2877">
+                        Services
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-white border-[#c8c8cf] border-b border-solid content-stretch flex items-start justify-center relative shrink-0"
+              data-node-id="I17264:29105;4163:2722"
+              data-name="tab horizontal-theme">
+              <div
+                class="content-stretch flex items-start justify-center relative shrink-0"
+                data-node-id="I17264:29105;4163:2722;4163:2691"
+                data-name="tab-config">
+                <div
+                  class="content-stretch flex items-start relative shrink-0"
+                  data-node-id="I17264:29105;4163:2722;4163:2691;4379:32424"
+                  data-name="tab-base">
+                  <div
+                    class="content-stretch flex gap-[8px] items-start px-[24px] py-[12px] relative shrink-0"
+                    data-node-id="I17264:29105;4163:2722;4163:2691;4379:32424;4360:2873"
+                    data-name="tab-content">
+                    <div
+                      class="content-stretch flex flex-col items-start overflow-clip relative shrink-0"
+                      data-node-id="I17264:29105;4163:2722;4163:2691;4379:32424;4360:2876"
+                      data-name="main">
+                      <p
+                        class="[word-break:break-word] font-['Roboto:Regular'] font-normal leading-[20px] relative shrink-0 text-[#02242e] text-[14px] whitespace-nowrap"
+                        data-node-id="I17264:29105;4163:2722;4163:2691;4379:32424;4360:2877">
+                        Metadata usage
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-[1_0_0] flex-col gap-[24px] items-start min-h-px px-[120px] py-[40px] relative w-full"
+      data-node-id="17264:29106">
+      <div
+        class="content-stretch flex gap-[10px] items-end justify-end relative shrink-0 w-full"
+        data-node-id="17266:31413">
+        <div
+          class="content-stretch flex flex-col h-[60px] items-end relative shrink-0 w-[280px]"
+          data-node-id="17266:31414"
+          data-name="sl-searchfield">
+          <div
+            class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col h-[32px] isolate items-start relative rounded-[2px] shrink-0 w-full"
+            data-node-id="I17266:31414;5871:2228"
+            data-name="sl-searchfield-theme">
+            <div
+              class="content-stretch flex items-start relative shrink-0 w-full z-[2]"
+              data-node-id="I17266:31414;5871:2228;5871:2204"
+              data-name="sl-label-theme">
+              <div
+                class="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px pb-[4px] relative"
+                data-node-id="I17266:31414;5871:2228;5871:2204;4777:19095"
+                data-name="sl-base-label">
+                <div
+                  class="content-stretch flex gap-[8px] items-start relative shrink-0 w-full"
+                  data-node-id="I17266:31414;5871:2228;5871:2204;4777:19095;6390:2908">
+                  <div
+                    class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                    data-node-id="I17266:31414;5871:2228;5871:2204;4777:19095;1222:5143"
+                    data-name="label-container">
+                    <div
+                      class="[word-break:break-word] flex flex-col font-['Roboto:Medium'] font-medium justify-center leading-[0] relative shrink-0 text-[#02242e] text-[14px] whitespace-nowrap"
+                      data-node-id="I17266:31414;5871:2228;5871:2204;4777:19095;1215:5045">
+                      <p class="leading-[20px]">Search user</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-white border border-[#7a818e] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[13px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[1]"
+              data-node-id="I17266:31414;5871:2228;5871:2205"
+              data-name="sl_base-search_field">
+              <div
+                class="relative shrink-0 size-[20px] z-[5]"
+                data-node-id="I17266:31414;5871:2228;5871:2205;6670:1939"
+                data-name="core-icon-start">
+                <div
+                  class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    class="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I17266:31414;5871:2228;5871:2205;6670:1939;399:65"
+                    data-name="search">
+                    <div
+                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#02242e] text-[16px] text-center"
+                      data-node-id="I17266:31414;5871:2228;5871:2205;6670:1939;399:65;5555:15890">
+                      <p class="leading-[16px]">search</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#7a818e] text-[14px] z-[3]"
+                data-node-id="I17266:31414;5871:2228;5871:2205;6670:1938">
+                <p class="leading-[20px]">Enter search text</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="absolute content-stretch flex flex-col gap-[var(--space-new\/xs,4px)] items-start left-[290px] top-0 w-[280px]"
+          data-node-id="17557:100187"
+          data-name="sl-select (simple-prototype)">
+          <div
+            class="content-stretch flex flex-col gap-[var(--space-new\/none,0px)] items-start relative shrink-0"
+            data-node-id="I17557:100187;1514:155951"
+            data-name="sl-base-label">
+            <div
+              class="content-stretch flex gap-[var(--space-new\/2xs,2px)] items-center relative shrink-0"
+              data-node-id="I17557:100187;1514:155951;961:65930"
+              data-name="label-container">
+              <div
+                class="content-stretch flex gap-[2px] items-center relative shrink-0"
+                data-node-id="I17557:100187;1514:155951;961:65947">
+                <div
+                  class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/bold,#222)] whitespace-nowrap"
+                  data-node-id="I17557:100187;1514:155951;961:65931">
+                  <p class="leading-[20px]">Last login date</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex flex-col gap-[var(--space-new\/xs,4px)] isolate items-start relative shrink-0 w-full"
+            data-node-id="I17557:100187;1550:6733"
+            data-name="input and validation">
+            <button
+              class="content-stretch cursor-pointer flex flex-col gap-[var(--space-new\/xs,4px)] isolate items-start relative shrink-0 w-full z-[2]"
+              data-node-id="I17557:100187;1514:155394"
+              data-name="Select variations">
+              <div
+                class="content-stretch flex gap-[var(--space\/100,8px)] items-center px-[var(--space\/150,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full z-[3]"
+                data-node-id="I17557:100187;1514:155394;1526:11217">
+                <div
+                  class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#25292f] text-[14px] text-left"
+                  data-node-id="I17557:100187;1514:155394;1526:11218">
+                  <p class="leading-[20px]">Last 30 days</p>
+                </div>
+                <div
+                  class="content-stretch flex h-[20px] items-center px-[var(--space-new\/xs,4px)] relative shrink-0"
+                  data-node-id="33130:92562">
+                  <div
+                    class="bg-[#d9d9d9] h-[24px] relative shrink-0 w-px"
+                    data-node-id="33130:92564"></div>
+                </div>
+                <div
+                  class="content-stretch flex items-center relative shrink-0"
+                  data-node-id="I17557:100187;1514:155394;1526:11220"
+                  data-name="sl-icon">
+                  <div
+                    class="content-stretch flex items-center justify-center relative shrink-0"
+                    data-node-id="I17557:100187;1514:155394;1526:11220;301:41086"
+                    data-name="SL-icon/md">
+                    <div
+                      class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                      data-node-id="I17557:100187;1514:155394;1526:11220;301:41086;62:7102"
+                      data-name="Base/Icon">
+                      <div
+                        class="flex-[1_0_0] h-full min-w-px relative"
+                        data-node-id="I17557:100187;1514:155394;1526:11220;301:41086;62:7102;49:7112"
+                        data-name="icon-container">
+                        <div
+                          class="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Regular')] font-[var(--icon\/typeset\/fontweight\/icon-regular,normal)] inset-0 justify-center leading-[0] text-[#25292f] text-[length:var(--size\/icon\/font\/md,16px)] text-center"
+                          data-node-id="I17557:100187;1514:155394;1526:11220;301:41086;62:7102;49:7100">
+                          <p class="leading-[16px]">chevron-down</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute bg-white border-[#818b98] border-[length:var(--size\/borderwidth\/default,1px)] border-solid content-stretch flex gap-[var(--space\/100,8px)] inset-0 items-center px-[var(--space\/150,12px)] py-[var(--space\/075,6px)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                data-node-id="I17557:100187;1514:155394;1526:17888"
+                data-name="select-bg">
+                <div
+                  class="absolute bg-[#c8d1da] inset-[-1px] opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)]"
+                  data-node-id="I17557:100187;1514:155394;1526:17888;1526:10636"
+                  data-name="interactive"></div>
+                <div
+                  class="absolute inset-[-1px]"
+                  data-node-id="I17557:100187;1514:155394;1526:17888;1526:10637"
+                  data-name="Focus ring outside"></div>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-[1_0_0] flex-row items-end self-stretch" data-node-id="17266:31418">
+          <div class="flex-[1_0_0] h-full min-w-px relative">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/fc65805b-91c9-492c-8b1d-e69fbb520373/a4db3.svg" />
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+          data-node-id="17266:31419"
+          data-name="sl-button-rectangular">
+          <div
+            class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+            data-node-id="I17266:31419;109:59550"
+            data-name="Button-Variants">
+            <div
+              class="bg-[var(--color\/background\/primary\/bold,#36f)] border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/200,16px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+              data-node-id="I17266:31419;109:59550;730:95929"
+              data-name="Button-Base">
+              <div
+                class="relative shrink-0 size-[16px] z-[4]"
+                data-node-id="I17266:31419;109:59550;730:95929;730:95779"
+                data-name="start icon">
+                <div
+                  class="absolute bg-[var(--color\/foreground\/primary\/onbold,white)] inset-[-2px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[2px_1.656px] mask-size-[16px_16.719px]"
+                  data-node-id="I17266:31419;109:59550;730:95929;730:95781"
+                  data-name="icon color mask"></div>
+              </div>
+              <div
+                class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/onbold,white)] text-center whitespace-nowrap z-[3]"
+                data-node-id="I17266:31419;109:59550;730:95929;730:95782">
+                <p class="leading-[20px]">Add new user</p>
+              </div>
+              <div
+                class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/bold\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                data-node-id="I17266:31419;109:59550;730:95929;730:95787"
+                data-name="interactive"></div>
+            </div>
+          </div>
+          <div
+            class="absolute inset-[0_1px_0_0]"
+            data-node-id="I17266:31419;2101:99172"
+            data-name="Focus ring outside"></div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col items-start relative shrink-0 w-full"
+        data-node-id="17264:29112">
+        <div
+          class="bg-white content-stretch flex items-start overflow-clip relative rounded-[4px] shrink-0 w-full"
+          data-node-id="17264:29113"
+          data-name="mat-body">
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29114"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29115"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[0px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29115;5922:160170">
+                <p class="whitespace-pre-wrap">
+                  <span class="leading-[20px] text-[16px]">Login </span
+                  ><span
+                    class="[word-break:break-word] font-['Font_Awesome_6_Pro:Solid'] leading-[20px] not-italic text-[14px]"
+                    >arrow-up</span
+                  >
+                </p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29116"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29116;5922:160167">
+                <p class="leading-[20px]">AkashPM</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29117"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29117;5922:160167">
+                <p class="leading-[20px]">AlisamertensOM</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29118"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29118;5922:160167">
+                <p class="leading-[20px]">AnnedePauwCA</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29121"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29122"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[16px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29122;5922:160170">
+                <p class="leading-[20px]">Name</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29123"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29123;5922:160167">
+                <p class="leading-[20px]">AkashPM</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29124"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">Van IN: Alisa Mertens</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29125"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">Van In: Ann de Pauw CA</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29128"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29129"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[16px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29129;5922:160170">
+                <p class="leading-[20px]">Email</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29130"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">akashpm@kampus.fi</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29131"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">a.mertens@vanin.be</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29132"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">anndepauw@vanin.nl</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29135"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29136"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[16px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29136;5922:160170">
+                <p class="leading-[20px]">Role</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29137"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]">
+                <p class="leading-[20px]">Publication Manager</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29138"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29138;5922:160167">
+                <p class="leading-[20px]">Outline Manager</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29139"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29139;5922:160167">
+                <p class="leading-[20px]">Content Analyst</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29140"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29141"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[16px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29141;5922:160170">
+                <p class="leading-[20px]">Employee type</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29142"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29142;5922:160167">
+                <p class="leading-[20px]">Developer</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29143"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29143;5922:160167">
+                <p class="leading-[20px]">Manager</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29144"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#1d1f20] text-[14px] tracking-[0.25px]"
+                data-node-id="I17264:29144;5922:160167">
+                <p class="leading-[20px]">Manager</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-col items-center overflow-clip relative shrink-0"
+            data-node-id="17264:29145"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-[117px]"
+              data-node-id="17264:29146"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[#585c61] text-[16px] text-left tracking-[0.4px] whitespace-nowrap"
+                data-node-id="I17264:29146;5922:160170">
+                <p class="leading-[20px]">CFA</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-[117px]"
+              data-node-id="17264:29147"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29147;5922:160167">
+                <p class="leading-[20px]">Sanoma pro</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-[117px]"
+              data-node-id="17264:29148"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29148;5922:160167">
+                <p class="leading-[20px]">Kampus</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-[117px]"
+              data-node-id="17264:29149"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29149;5922:160167">
+                <p class="leading-[20px]">iDiddit</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-[1_0_0] flex-col items-center min-w-px overflow-clip relative"
+            data-node-id="17264:29150"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29151"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[#585c61] text-[16px] text-left tracking-[0.4px] w-[133px]"
+                data-node-id="I17264:29151;5922:160170">
+                <p class="leading-[20px]">Last login date</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29152"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29152;5922:160167">
+                <p class="leading-[20px]">23-10-2024 at 14:30</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29153"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29153;5922:160167">
+                <p class="leading-[20px]">23-10-2024 at 14:30</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex h-[68px] items-center overflow-clip px-[16px] py-[14px] relative shrink-0 w-full"
+              data-node-id="17264:29154"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.25px] whitespace-nowrap"
+                data-node-id="I17264:29154;5922:160167">
+                <p class="leading-[20px]">23-10-2024 at 14:30</p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+          <div
+            class="bg-[#f4f5fa] content-stretch flex flex-col items-center overflow-clip relative shrink-0"
+            data-node-id="17264:29155"
+            data-name="Frame">
+            <button
+              class="content-stretch cursor-pointer flex gap-[10px] h-[48px] items-center overflow-clip px-[16px] py-[10px] relative shrink-0 w-full"
+              data-node-id="17264:29156"
+              data-name="th-text-start">
+              <div aria-hidden class="absolute bg-[#f4f5fa] inset-0 pointer-events-none"></div>
+              <div
+                class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Roboto:SemiBold'] font-semibold justify-center leading-[0] min-w-px relative text-[#585c61] text-[16px] text-left tracking-[0.4px]"
+                data-node-id="I17264:29156;5922:160170">
+                <p class="leading-[20px]"></p>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </button>
+            <div
+              class="content-stretch flex gap-[10px] h-[68px] items-center overflow-clip px-[8px] py-[12px] relative shrink-0 w-full"
+              data-node-id="17264:29157"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29157;17257:103082"
+                data-name="sl-button-rectangular">
+                <div
+                  class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29157;17257:103082;109:59550"
+                  data-name="Button-Variants">
+                  <div
+                    class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                    data-node-id="I17264:29157;17257:103082;109:59550;730:95867"
+                    data-name="Button-Base">
+                    <div
+                      class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                      data-node-id="I17264:29157;17257:103082;109:59550;730:95867;730:95373">
+                      <p class="leading-[20px]">Edit</p>
+                    </div>
+                    <div
+                      class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                      data-node-id="I17264:29157;17257:103082;109:59550;730:95867;730:95378"
+                      data-name="interactive"></div>
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-[0_1px_0_0]"
+                  data-node-id="I17264:29157;17257:103082;2101:99172"
+                  data-name="Focus ring outside"></div>
+              </div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29157;17257:103188"
+                data-name="Button-Variants">
+                <div
+                  class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29157;17257:103188;730:95867"
+                  data-name="Button-Base">
+                  <div
+                    class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                    data-node-id="I17264:29157;17257:103188;730:95867;730:95373">
+                    <p class="leading-[20px]">Delete</p>
+                  </div>
+                  <div
+                    class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                    data-node-id="I17264:29157;17257:103188;730:95867;730:95378"
+                    data-name="interactive"></div>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex gap-[10px] h-[68px] items-center overflow-clip px-[8px] py-[12px] relative shrink-0 w-full"
+              data-node-id="17264:29158"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29158;17257:103082"
+                data-name="sl-button-rectangular">
+                <div
+                  class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29158;17257:103082;109:59550"
+                  data-name="Button-Variants">
+                  <div
+                    class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                    data-node-id="I17264:29158;17257:103082;109:59550;730:95867"
+                    data-name="Button-Base">
+                    <div
+                      class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                      data-node-id="I17264:29158;17257:103082;109:59550;730:95867;730:95373">
+                      <p class="leading-[20px]">Edit</p>
+                    </div>
+                    <div
+                      class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                      data-node-id="I17264:29158;17257:103082;109:59550;730:95867;730:95378"
+                      data-name="interactive"></div>
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-[0_1px_0_0]"
+                  data-node-id="I17264:29158;17257:103082;2101:99172"
+                  data-name="Focus ring outside"></div>
+              </div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29158;17257:103188"
+                data-name="Button-Variants">
+                <div
+                  class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29158;17257:103188;730:95867"
+                  data-name="Button-Base">
+                  <div
+                    class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                    data-node-id="I17264:29158;17257:103188;730:95867;730:95373">
+                    <p class="leading-[20px]">Delete</p>
+                  </div>
+                  <div
+                    class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                    data-node-id="I17264:29158;17257:103188;730:95867;730:95378"
+                    data-name="interactive"></div>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+            <div
+              class="content-stretch flex gap-[10px] h-[68px] items-center overflow-clip px-[8px] py-[12px] relative shrink-0 w-full"
+              data-node-id="17264:29159"
+              data-name="td-text-start">
+              <div aria-hidden class="absolute bg-white inset-0 pointer-events-none"></div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29159;17257:103082"
+                data-name="sl-button-rectangular">
+                <div
+                  class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29159;17257:103082;109:59550"
+                  data-name="Button-Variants">
+                  <div
+                    class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                    data-node-id="I17264:29159;17257:103082;109:59550;730:95867"
+                    data-name="Button-Base">
+                    <div
+                      class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                      data-node-id="I17264:29159;17257:103082;109:59550;730:95867;730:95373">
+                      <p class="leading-[20px]">Edit</p>
+                    </div>
+                    <div
+                      class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                      data-node-id="I17264:29159;17257:103082;109:59550;730:95867;730:95378"
+                      data-name="interactive"></div>
+                  </div>
+                </div>
+                <div
+                  class="absolute inset-[0_1px_0_0]"
+                  data-node-id="I17264:29159;17257:103082;2101:99172"
+                  data-name="Focus ring outside"></div>
+              </div>
+              <div
+                class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                data-node-id="I17264:29159;17257:103188"
+                data-name="Button-Variants">
+                <div
+                  class="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparant,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip px-[var(--space\/175,14px)] py-[var(--space\/025,2px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0"
+                  data-node-id="I17264:29159;17257:103188;730:95867"
+                  data-name="Button-Base">
+                  <div
+                    class="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:SemiBold')] font-semibold justify-center leading-[0] min-w-[20px] relative shrink-0 text-[14px] text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-center whitespace-nowrap z-[3]"
+                    data-node-id="I17264:29159;17257:103188;730:95867;730:95373">
+                    <p class="leading-[20px]">Delete</p>
+                  </div>
+                  <div
+                    class="absolute inset-0 opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/default,4px)] z-[1]"
+                    data-node-id="I17264:29159;17257:103188;730:95867;730:95378"
+                    data-name="interactive"></div>
+                </div>
+              </div>
+              <div
+                class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-white content-stretch flex gap-[34px] h-[58px] items-center justify-end overflow-clip px-[8px] relative shrink-0 w-full"
+          data-node-id="17264:29167"
+          data-name="mat-data-footer">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[12px] text-right tracking-[0.4px] whitespace-nowrap"
+            data-node-id="I17264:29167;6034:38145">
+            <p class="leading-[20px]">Rows per page:</p>
+          </div>
+          <div
+            class="content-stretch flex flex-col items-start relative shrink-0 w-[33px]"
+            data-node-id="I17264:29167;6034:38146"
+            data-name="mat-select__slot">
+            <div
+              class="content-stretch flex gap-[10px] h-[26px] items-center overflow-clip py-[8px] relative shrink-0 w-full"
+              data-node-id="I17264:29167;6034:38146;69:1064"
+              data-name="Frame">
+              <div
+                class="content-stretch flex flex-[1_0_0] items-center min-w-px relative"
+                data-node-id="I17264:29167;6034:38146;69:1065"
+                data-name="mat-input__slot">
+                <div
+                  class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] tracking-[0.4px] whitespace-nowrap"
+                  data-node-id="I17264:29167;6034:38146;69:1065;63:896">
+                  <p class="leading-[20px]">25</p>
+                </div>
+              </div>
+              <div
+                class="relative shrink-0 size-[24px]"
+                data-node-id="I17264:29167;6034:38146;69:1066"
+                data-name="mat-icon">
+                <div
+                  class="[word-break:break-word] absolute flex flex-col font-['Material_Icons:Regular'] font-normal inset-0 justify-center leading-[0] text-[#7a818e] text-[24px] text-center whitespace-nowrap"
+                  data-node-id="I17264:29167;6034:38146;69:1066;50:48">
+                  <p class="leading-none">arrow_drop_down</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-[rgba(0,0,0,0.42)] h-px relative shrink-0 w-full"
+              data-node-id="I17264:29167;6034:38146;69:1067"
+              data-name="mat-divider"></div>
+          </div>
+          <div
+            class="[word-break:break-word] flex flex-col font-['Roboto:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#1d1f20] text-[14px] text-right tracking-[0.4px] whitespace-nowrap"
+            data-node-id="I17264:29167;5922:160227">
+            <p class="leading-[20px]">1-1 of 1</p>
+          </div>
+          <div
+            class="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+            data-node-id="I17264:29167;5922:160228"
+            data-name="mat-btn">
+            <div
+              class="[word-break:break-word] flex flex-col font-['Material_Icons:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#c8c8cf] text-[24px] text-center whitespace-nowrap"
+              data-node-id="I17264:29167;5922:160228;49:330">
+              <p class="leading-none">chevron_left</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+            data-node-id="I17264:29167;5922:160229"
+            data-name="mat-btn">
+            <div
+              class="[word-break:break-word] flex flex-col font-['Material_Icons:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#c8c8cf] text-[24px] text-center whitespace-nowrap"
+              data-node-id="I17264:29167;5922:160229;49:330">
+              <p class="leading-none">navigate_next</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

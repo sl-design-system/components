@@ -705,3 +705,75 @@ A7's analyst also treated the run's own `progress.json` and `token-reference.md`
 they appeared mid-run, and re-derived every claim rather than reading them. That instinct was
 right, and it is the reason the error was caught at all — but it was caught by a reviewer reading
 carefully, not by a check.
+
+---
+
+## The completeness probe: the metadata is sufficient, when a run bothered to capture it
+
+Built as `runs/harness/render-design.mjs` — it reconstructs a design as standalone HTML from what
+a run already stored, and nothing else. **A completeness probe, never a fidelity target**: text
+layout, font metrics and effects are not reproducible this way, so it must not be scored against
+the reference.
+
+It answers a question nothing else in the pipeline asks: **was what we extracted from Figma enough
+to rebuild the screen?**
+
+### On A3 the answer is yes, and visibly so
+
+**631 nodes reconstructed, 566 visible in the viewport, all 28 images loading, six of six regions
+rendering.** Placed beside the reference, the result is unmistakably the same screen: the Bingel
+header, the seven-item left rail, the breadcrumb, the book card with its cover and four avatar
+clusters, the chapter tree with Chapter 2 expanded showing Lessons 10, Digital Exercises 6, Print
+Exercises 5, Tests 5, and the exercise list.
+
+Vertical positions land within about ten pixels of the reference. That is a reconstruction from
+`figma-design-context` plus `figma-metadata` alone — no Figma access, no original file.
+
+**So the ingestion captures enough.** That was not previously known, and it is the first evidence
+that the manifest-and-context approach is sound rather than merely plausible.
+
+### Two systematic holes, now visible rather than argued
+
+**Icons come back as their names, as text.** Where the reference shows a chevron, a plus, a
+magnifier, the reconstruction shows `ro n-do`, `pl us`, `se arc h`. `get_design_context` does not
+emit the glyph — it emits a node whose text content is the icon's name. That is why runs kept
+fighting icon inventories: the metadata genuinely does not contain the icon.
+
+**Code Connect substitutes a reference where a mapping resolves.** The open "Exercises level"
+dropdown in the reference is, in the metadata, a `CodeConnectSnippet` element with no markup
+inside it. The probe renders a labelled placeholder so the hole is on screen.
+
+That generalises A2's `<sl-grid></sl-grid>` from a scale curiosity into a rule:
+
+> **Code Connect gives authority and removes detail.** The better the mapping coverage, the less of
+> the design the metadata actually describes. Authority or detail, never both — and it applies to
+> every mapped node, not only to the big ones.
+
+### What the probe measures that nothing else did: capture depth
+
+Run across all nineteen, it separates runs by how much they stored, and the spread is enormous:
+
+| Run                         | regions rendered |         nodes reconstructed |
+| --------------------------- | ---------------: | --------------------------: |
+| A3 Bingel                   |              6/6 |                     **631** |
+| A7 Bingel                   |              6/6 |                     **574** |
+| B-Sesame                    |              7/7 |                         280 |
+| A4 Sesame                   |            14/14 |                         234 |
+| A10 ETSL                    |              1/1 |                         206 |
+| B-Itsl-Collab               |              1/1 |                         101 |
+| … eleven runs               |                  |                  **1 or 0** |
+| A8, B-Itsl-Course, B-Kampus |                — | **no markup stored at all** |
+
+**Six of nineteen reconstruct; three stored no design markup whatsoever.** Capture depth has no
+relation to the design's complexity — A3 made six `get_design_context` calls and B-Kampus made one
+and wrote prose about having probed Code Connect instead.
+
+### And the storage has no format
+
+Four runs, four conventions: `jsx` fences, `tsx` fences, no fences with the code pasted into
+markdown, and one file containing only prose. The reader has to be tolerant of all four, which is
+the wrong way round — **the protocol should fix the format, and then nothing downstream needs to
+guess.**
+
+That is the concrete, cheap thing this probe recommends: say how deep to walk, and say what the
+file looks like.

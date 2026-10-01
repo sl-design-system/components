@@ -1,0 +1,686 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-b-itsl-collab-add-element</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
+  body{width:1440px;height:1024px;position:relative;background:#fff;
+       font-family:system-ui,sans-serif;font-size:14px;color:#111}
+  img{max-width:100%;display:block}
+  .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+  .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
+                     font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .bg-\[var\(--\$gray--150\,\#f2f2f2\)\]{background:var(--$gray--150,#f2f2f2)}
+  .content-stretch{align-content:stretch}
+  .flex{display:flex}
+  .flex-col{flex-direction:column}
+  .items-center{align-items:center}
+  .relative{position:relative}
+  .size-full{width:100%;height:100%}
+  .drop-shadow-\[0px_4px_4px_rgba\(0\,0\,0\,0\.05\)\]{filter:drop-shadow(0px 4px 4px rgba(0,0,0,0.05))}
+  .items-start{align-items:flex-start}
+  .shrink-0{flex-shrink:0}
+  .w-full{width:100%}
+  .bg-\[var\(--\$gray--0\,white\)\]{background:var(--$gray--0,white)}
+  .border-\[var\(--\$gray--300\,\#e1e1e1\)\]{border-color:var(--$gray--300,#e1e1e1)}
+  .border-b{border-bottom-width:1px}
+  .border-solid{border-style:solid}
+  .h-\[56px\]{height:56px}
+  .px-\[var\(--size\\\/25\,4px\)\]{padding-inline:var(--size/25,4px)}
+  .h-full{height:100%}
+  .px-\[var\(--size\\\/50\,8px\)\]{padding-inline:var(--size/50,8px)}
+  .py-\[var\(--size\\\/100\,12px\)\]{padding-block:var(--size/100,12px)}
+  .size-\[32px\]{width:32px;height:32px}
+  .absolute{position:absolute}
+  .block{display:block}
+  .inset-0{inset:0}
+  .max-w-none{max-width:none}
+  .flex-\[1_0_0\]{flex:1 0 0}
+  .min-w-px{min-width:1px}
+  .gap-\[var\(--size\\\/50\,8px\)\]{gap:var(--size/50,8px)}
+  .px-\[var\(--size\\\/300\,16px\)\]{padding-inline:var(--size/300,16px)}
+  .\[word-break\:break-word\]{word-break:break-word}
+  .font-\[family-name\:var\(--default-font\,\'Lato\:Regular\'\)\]{font-family:family-name:var(--default-font,'Lato:Regular')}
+  .font-\[var\(--regular\,normal\)\]{font-family:var(--regular,normal)}
+  .justify-center{justify-content:center}
+  .leading-\[0\]{line-height:0}
+  .text-\[color\:var\(--\$gray--900\,\#333\)\]{font-size:color:var(--$gray--900,#333)}
+  .text-\[length\:var\(--size\\\/300\,16px\)\]{font-size:length:var(--size/300,16px)}
+  .whitespace-nowrap{white-space:nowrap}
+  .leading-\[1\.5\]{line-height:1.5}
+  .justify-end{justify-content:flex-end}
+  .pl-\[var\(--size\\\/700\,24px\)\]{padding-left:var(--size/700,24px)}
+  .border-\[var\(--\$gray--600\,\#757575\)\]{border-color:var(--$gray--600,#757575)}
+  .max-w-\[264px\]{max-width:264px}
+  .pl-\[var\(--size\\\/100\,12px\)\]{padding-left:var(--size/100,12px)}
+  .rounded-\[var\(--border-radius\,4px\)\]{border-radius:var(--border-radius,4px)}
+  .w-\[264px\]{width:264px}
+  .h-\[16px\]{height:16px}
+  .px-\[4px\]{padding-inline:4px}
+  .py-\[var\(--size\\\/50\,8px\)\]{padding-block:var(--size/50,8px)}
+  .pr-\[var\(--size\\\/25\,4px\)\]{padding-right:var(--size/25,4px)}
+  .text-\[color\:var\(--\$gray--600\,\#757575\)\]{font-size:color:var(--$gray--600,#757575)}
+  .gap-\[var\(--size\\\/25\,4px\)\]{gap:var(--size/25,4px)}
+  .p-\[var\(--size\\\/50\,8px\)\]{padding:var(--size/50,8px)}
+  .size-\[24px\]{width:24px;height:24px}
+  .p-\[var\(--size\\\/100\,12px\)\]{padding:var(--size/100,12px)}
+  .overflow-clip{overflow:clip}
+  .rounded-\[120px\]{border-radius:120px}
+  .object-cover{object-fit:cover}
+  .pointer-events-none{pointer-events:none}
+  .bg-\[var\(--\$gray--50\,\#f9f9f9\)\]{background:var(--$gray--50,#f9f9f9)}
+  .gap-\[var\(--size\\\/100\,12px\)\]{gap:var(--size/100,12px)}
+  .bg-\[var\(--\$bronze--100\,\#feebbb\)\]{background:var(--$bronze--100,#feebbb)}
+  .inset-\[18\.75\%\]{inset:18.75%}
+  .font-\[family-name\:var\(--default-font\,\'Lato\:Bold\'\)\]{font-family:family-name:var(--default-font,'Lato:Bold')}
+  .font-\[var\(--bold\,normal\)\]{font-family:var(--bold,normal)}
+  .text-\[length\:var\(--size\\\/400\,18px\)\]{font-size:length:var(--size/400,18px)}
+  .rounded-\[inherit\]{border-radius:inherit}
+  .shadow-\[inset_0px_4px_8px_0px_rgba\(0\,0\,0\,0\.05\)\]{box-shadow:inset 0px 4px 8px 0px rgba(0,0,0,0.05)}
+  .px-\[var\(--ca-horisontal-margin\,48px\)\]{padding-inline:var(--ca-horisontal-margin,48px)}
+  .max-w-\[1280px\]{max-width:1280px}
+  .pb-\[var\(--size\\\/500\,20px\)\]{padding-bottom:var(--size/500,20px)}
+  .pt-\[var\(--size\\\/50\,8px\)\]{padding-top:var(--size/50,8px)}
+  .flex-wrap{flex-wrap:wrap}
+  .py-\[var\(--size\\\/25\,4px\)\]{padding-block:var(--size/25,4px)}
+  .\[text-decoration-skip-ink\:none\]{text-decoration-skip-ink:none}
+  .\[text-underline-position\:from-font\]{text-underline-position:from-font}
+  .decoration-from-font{text-decoration-thickness:from-font}
+  .decoration-solid{text-decoration-style:solid}
+  .text-\[color\:var\(--\$text\,\#333\)\]{font-size:color:var(--$text,#333)}
+  .text-\[length\:var\(--size\\\/200\,14px\)\]{font-size:length:var(--size/200,14px)}
+  .underline{text-decoration-line:underline}
+  .pt-\[var\(--size\\\/10\,2px\)\]{padding-top:var(--size/10,2px)}
+  .w-\[16px\]{width:16px}
+  .py-\[var\(--size\\\/500\,20px\)\]{padding-block:var(--size/500,20px)}
+  .min-w-\[200px\]{min-width:200px}
+  .pr-\[var\(--size\\\/500\,20px\)\]{padding-right:var(--size/500,20px)}
+  .max-w-\[800px\]{max-width:800px}
+  .text-\[length\:var\(--size\\\/800\,26px\)\]{font-size:length:var(--size/800,26px)}
+  .gap-\[12px\]{gap:12px}
+  .size-\[40px\]{width:40px;height:40px}
+  .gap-\[var\(--actions\\\/actions-gap\,12px\)\]{gap:var(--actions/actions-gap,12px)}
+  .bg-\[var\(--\$accent--600\,\#008859\)\]{background:var(--$accent--600,#008859)}
+  .text-\[color\:var\(--\$gray--0\,white\)\]{font-size:color:var(--$gray--0,white)}
+  .text-center{text-align:center}
+  .border-\[var\(--\$brand--400\,\#a997b5\)\]{border-color:var(--$brand--400,#a997b5)}
+  .px-\[var\(--size\\\/500\,20px\)\]{padding-inline:var(--size/500,20px)}
+  .text-\[color\:var\(--\$brand--800\,\#42354a\)\]{font-size:color:var(--$brand--800,#42354a)}
+  .gap-\[20px\]{gap:20px}
+  .border{border-width:1px}
+  .px-\[var\(--content-block\\\/content-block-horisontal-padding\,32px\)\]{padding-inline:var(--content-block/content-block-horisontal-padding,32px)}
+  .py-\[var\(--content-block\\\/content-block-vertical-padding\,20px\)\]{padding-block:var(--content-block/content-block-vertical-padding,20px)}
+  .rounded-\[4px\]{border-radius:4px}
+  .text-\[length\:var\(--size\\\/600\,22px\)\]{font-size:length:var(--size/600,22px)}
+  .w-\[195px\]{width:195px}
+  .min-w-\[276px\]{min-width:276px}
+  .w-\[362\.667px\]{width:362.667px}
+  .size-\[48px\]{width:48px;height:48px}
+  .min-h-\[48px\]{min-height:48px}
+  .w-\[363px\]{width:363px}
+</style>
+<div
+  data-region="get_design_context raw output — nodeId 5006:43051 (Q3gzx1pCseyKnFNDUOOjCw)"
+  data-node-id="2275:4904"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 0 has no box in the metadata */
+  ">
+  <div
+    class="bg-[var(--$gray--150,#f2f2f2)] content-stretch flex flex-col items-center relative size-full"
+    data-node-id="5006:43051"
+    data-name="Add element [3rd implementation]">
+    <div
+      class="content-stretch drop-shadow-[0px_4px_4px_rgba(0,0,0,0.05)] flex flex-col items-start relative shrink-0 w-full"
+      data-node-id="5006:43052"
+      data-name="Navigation">
+      <div
+        class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full"
+        data-node-id="I5006:43052;9976:10654"
+        data-name=".Main menu">
+        <div
+          class="content-stretch flex h-full items-center px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I5006:43052;9976:10654;9976:10621"
+          data-name="Logo area">
+          <div
+            class="relative shrink-0 size-[32px]"
+            data-node-id="I5006:43052;9976:10654;9976:10622"
+            data-name="itslearning-logo-symbol">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/efe3e.svg" />
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative"
+          data-node-id="I5006:43052;9976:10654;9976:10623"
+          data-name="Main menu">
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10624"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10654;9976:10624;9976:10576">
+              <p class="leading-[1.5]">Courses</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;13432:5117"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10654;13432:5117;9976:10576">
+              <p class="leading-[1.5]">Updates</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;15220:17430"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10654;15220:17430;9976:10576">
+              <p class="leading-[1.5]">Groups</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10626"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10654;9976:10626;9976:10576">
+              <p class="leading-[1.5]">Calendar</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10627"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10654;9976:10627;9976:10576">
+              <p class="leading-[1.5]">Library</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex h-full items-start justify-end pl-[var(--size\/700,24px)] relative shrink-0"
+          data-node-id="I5006:43052;9976:10654;9976:10630"
+          data-name="Personal menu">
+          <div
+            class="content-stretch flex h-full items-center px-[var(--size\/50,8px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;11704:5608"
+            data-name="Search wrapper">
+            <div
+              class="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex items-start max-w-[264px] pl-[var(--size\/100,12px)] relative rounded-[var(--border-radius,4px)] shrink-0 w-[264px]"
+              data-node-id="I5006:43052;9976:10654;11704:5609"
+              data-name="Search">
+              <div
+                class="content-stretch flex flex-col h-[16px] items-start px-[4px] py-[var(--size\/50,8px)] relative shrink-0 w-0"
+                data-node-id="I5006:43052;9976:10654;11704:5609;17089:13616"
+                data-name="Icon wrapper"></div>
+              <div
+                class="content-stretch flex flex-[1_0_0] items-center min-w-px pr-[var(--size\/25,4px)] py-[var(--size\/50,8px)] relative"
+                data-node-id="I5006:43052;9976:10654;11704:5609;13211:9102"
+                data-name="Text wrapper">
+                <p
+                  class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--600,#757575)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+                  data-node-id="I5006:43052;9976:10654;11704:5609;13157:8017">
+                  Search
+                </p>
+              </div>
+              <div
+                class="content-stretch flex items-start relative shrink-0"
+                data-node-id="I5006:43052;9976:10654;11704:5609;13157:8020"
+                data-name="Actions">
+                <div
+                  class="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-br-[var(--border-radius,4px)] rounded-tr-[var(--border-radius,4px)] shrink-0"
+                  data-node-id="I5006:43052;9976:10654;11704:5609;13157:8022"
+                  data-name="search">
+                  <div
+                    class="relative shrink-0 size-[24px]"
+                    data-node-id="I5006:43052;9976:10654;11704:5609;13157:8022;1902:2742"
+                    data-name="Icon placeholder">
+                    <img
+                      alt=""
+                      class="absolute block inset-0 max-w-none size-full"
+                      src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/908b0.svg" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10631"
+            data-name=".Navigation item">
+            <div
+              class="relative shrink-0 size-[24px]"
+              data-node-id="I5006:43052;9976:10654;9976:10631;9976:10604"
+              data-name="circle-dot">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/15a55.svg" />
+            </div>
+          </div>
+          <div
+            class="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10635"
+            data-name="IM">
+            <div
+              class="relative shrink-0 size-[24px]"
+              data-node-id="I5006:43052;9976:10654;9976:10635;9976:10604"
+              data-name="circle-dot">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/181c8.svg" />
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10654;9976:10636"
+            data-name="User menu">
+            <div
+              class="overflow-clip relative rounded-[120px] shrink-0 size-[32px]"
+              data-node-id="2275:4904">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/70bc9.svg" />
+              <div class="absolute inset-0" data-node-id="2275:4908" data-name="Photo">
+                <img
+                  alt=""
+                  class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/19894.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full"
+        data-node-id="I5006:43052;9976:10655"
+        data-name=".Secondary menu">
+        <div
+          aria-hidden
+          class="absolute bg-[var(--$gray--50,#f9f9f9)] inset-0 pointer-events-none"></div>
+        <div
+          class="content-stretch flex gap-[var(--size\/100,12px)] h-full items-center px-[var(--size\/50,8px)] relative shrink-0"
+          data-node-id="I5006:43052;9976:10655;9976:10658"
+          data-name="Course">
+          <div
+            class="bg-[var(--$bronze--100,#feebbb)] relative rounded-[120px] shrink-0 size-[32px]"
+            data-node-id="I5006:43052;9976:10655;9976:10659"
+            data-name="Course Hat">
+            <div
+              class="absolute inset-[18.75%]"
+              data-node-id="I5006:43052;9976:10655;9976:10659;663:3906"
+              data-name="graduation-cap">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/30415.svg" />
+            </div>
+          </div>
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/400,18px)] whitespace-nowrap"
+            data-node-id="I5006:43052;9976:10655;9976:10660">
+            Natural Science 7A
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative"
+          data-node-id="I5006:43052;9976:10655;9976:10661"
+          data-name="Main menu">
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10655;9976:10662"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10655;9976:10662;9976:10576">
+              <p class="leading-[1.5]">Overview</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10655;9976:10663"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10655;9976:10664;9976:10576">
+              <p class="leading-[1.5]">Plans</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10655;9976:10664"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10655;9976:10664;9976:10576">
+              <p class="leading-[1.5]">Resources</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10655;9976:10665"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10655;9976:10665;9976:10576">
+              <p class="leading-[1.5]">Reports</p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+            data-node-id="I5006:43052;9976:10655;9976:10666"
+            data-name=".Navigation item">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+              data-node-id="I5006:43052;9976:10655;9976:10666;9976:10576">
+              <p class="leading-[1.5]">Participants</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I5006:43052;9976:10655;9976:10670"
+          data-name=".Navigation item">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I5006:43052;9976:10655;9976:10670;9976:10604"
+            data-name="circle-dot">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/71cde.svg" />
+          </div>
+        </div>
+        <div
+          class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_4px_8px_0px_rgba(0,0,0,0.05)]"></div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-col items-start relative shrink-0 w-full"
+      data-node-id="5006:43053"
+      data-name="main-wrapper">
+      <div
+        class="content-stretch flex flex-col items-center px-[var(--ca-horisontal-margin,48px)] relative shrink-0 w-full"
+        data-node-id="5006:43054"
+        data-name="content-area-wrapper">
+        <div
+          class="content-stretch flex flex-col items-center max-w-[1280px] pb-[var(--size\/500,20px)] relative shrink-0 w-full"
+          data-node-id="5006:43055"
+          data-name="content-area">
+          <div
+            class="content-stretch flex flex-col items-start overflow-clip relative shrink-0 w-full"
+            data-node-id="5006:43056"
+            data-name="PageHeader">
+            <div
+              class="content-stretch flex flex-col items-start justify-end pt-[var(--size\/50,8px)] relative shrink-0 w-full"
+              data-node-id="I5006:43056;19853:9719"
+              data-name="Breadcrumb wrapper">
+              <div
+                class="content-center flex flex-wrap gap-[var(--size\/50,8px)] items-center relative shrink-0 w-full"
+                data-node-id="I5006:43056;19853:9045"
+                data-name="Breadcrumb trail">
+                <div
+                  class="content-stretch flex gap-[var(--size\/25,4px)] items-start py-[var(--size\/25,4px)] relative shrink-0"
+                  data-node-id="I5006:43056;19853:9045;19853:6322"
+                  data-name="Breadcrumb">
+                  <p
+                    class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] underline whitespace-nowrap"
+                    data-node-id="I5006:43056;19853:9045;19853:6322;19853:6315">
+                    Resources
+                  </p>
+                </div>
+                <div
+                  class="content-stretch flex gap-[var(--size\/25,4px)] items-start py-[var(--size\/25,4px)] relative shrink-0"
+                  data-node-id="I5006:43056;19853:9045;19853:6324"
+                  data-name="Breadcrumb">
+                  <div
+                    class="content-stretch flex items-center pt-[var(--size\/10,2px)] relative shrink-0 w-[16px]"
+                    data-node-id="I5006:43056;19853:9045;19853:6324;19853:6317"
+                    data-name="icon wrapper">
+                    <div
+                      class="flex-[1_0_0] h-[16px] min-w-px relative"
+                      data-node-id="I5006:43056;19853:9045;19853:6324;19853:6318"
+                      data-name="chevron-right">
+                      <img
+                        alt=""
+                        class="absolute block inset-0 max-w-none size-full"
+                        src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/e0a99.svg" />
+                    </div>
+                  </div>
+                  <p
+                    class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] underline whitespace-nowrap"
+                    data-node-id="I5006:43056;19853:9045;19853:6324;19853:6319">
+                    [folder name]
+                  </p>
+                  <div
+                    class="content-stretch flex items-center pt-[var(--size\/10,2px)] relative shrink-0 w-[16px]"
+                    data-node-id="I5006:43056;19853:9045;19853:6324;22038:9460"
+                    data-name="icon wrapper">
+                    <div
+                      class="flex-[1_0_0] h-[16px] min-w-px relative"
+                      data-node-id="I5006:43056;19853:9045;19853:6324;22038:9461"
+                      data-name="chevron-right">
+                      <img
+                        alt=""
+                        class="absolute block inset-0 max-w-none size-full"
+                        src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/e0a99.svg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex flex-col gap-[var(--size\/25,4px)] items-start py-[var(--size\/500,20px)] relative shrink-0 w-full"
+              data-node-id="I5006:43056;5889:6338"
+              data-name="Title and subtitle">
+              <div
+                class="content-start flex flex-wrap gap-[var(--size\/100,12px)] items-start relative shrink-0 w-full"
+                data-node-id="I5006:43056;5419:6693"
+                data-name="Group wrapper">
+                <div
+                  class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/25,4px)] items-start min-w-[200px] pr-[var(--size\/500,20px)] relative"
+                  data-node-id="I5006:43056;6438:6285"
+                  data-name="Content">
+                  <div
+                    class="content-center flex flex-wrap gap-[var(--size\/100,12px)] items-center relative shrink-0 w-full"
+                    data-node-id="I5006:43056;11648:5210"
+                    data-name="Title wrapper">
+                    <p
+                      class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] max-w-[800px] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/800,26px)] whitespace-nowrap"
+                      data-node-id="I5006:43056;5419:6694">
+                      Add element to [folder name]
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="content-center flex flex-wrap gap-[12px] items-center relative shrink-0 size-[40px]"
+                  data-node-id="I5006:43056;23120:8171"
+                  data-name="Actions slot"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="content-start flex flex-wrap gap-[var(--actions\/actions-gap,12px)] items-start pb-[var(--size\/500,20px)] relative shrink-0 w-full"
+            data-node-id="5006:43057"
+            data-name="Actions">
+            <div
+              class="bg-[var(--$accent--600,#008859)] content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center pl-[var(--size\/100,12px)] pr-[var(--size\/500,20px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+              data-node-id="5006:43058"
+              data-name="Button">
+              <div
+                class="relative shrink-0 size-[24px]"
+                data-node-id="I5006:43058;1915:3157"
+                data-name="Icon placeholder">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/fc10c.svg" />
+              </div>
+              <p
+                class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--0,white)] text-[length:var(--size\/300,16px)] text-center whitespace-nowrap"
+                data-node-id="I5006:43058;1915:3158">
+                Upload file
+              </p>
+            </div>
+            <div
+              class="bg-[var(--$gray--0,white)] border-2 border-[var(--$brand--400,#a997b5)] border-solid content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center px-[var(--size\/500,20px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+              data-node-id="5006:43059"
+              data-name="Button">
+              <p
+                class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$brand--800,#42354a)] text-[length:var(--size\/300,16px)] text-center whitespace-nowrap"
+                data-node-id="I5006:43059;1915:4326">
+                Create folder
+              </p>
+            </div>
+          </div>
+          <div
+            class="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full"
+            data-node-id="5006:43060">
+            <div
+              class="bg-[var(--$gray--0,white)] border border-[var(--$gray--300,#e1e1e1)] border-solid content-stretch flex flex-col gap-[var(--size\/100,12px)] items-start px-[var(--content-block\/content-block-horisontal-padding,32px)] py-[var(--content-block\/content-block-vertical-padding,20px)] relative rounded-[4px] shrink-0 w-full"
+              data-node-id="5006:43061"
+              data-name="Content-block">
+              <p
+                class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/600,22px)] w-[195px]"
+                data-node-id="5006:43062">
+                Resources
+              </p>
+              <div
+                class="content-start flex flex-wrap gap-[12px] items-start relative shrink-0 w-full"
+                data-node-id="5006:43063">
+                <div
+                  class="content-stretch flex gap-[var(--size\/100,12px)] h-[56px] items-start min-w-[276px] py-[var(--size\/25,4px)] relative rounded-[4px] shrink-0 w-[362.667px]"
+                  data-node-id="5006:43064"
+                  data-name="CategoryLink">
+                  <div
+                    class="relative shrink-0 size-[48px]"
+                    data-node-id="5006:43065"
+                    data-name="xlsx">
+                    <img
+                      alt=""
+                      class="absolute block inset-0 max-w-none size-full"
+                      src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/179fc.svg" />
+                  </div>
+                  <div
+                    class="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[1.5] min-h-[48px] min-w-px relative text-[color:var(--$gray--900,#333)]"
+                    data-node-id="5006:43066"
+                    data-name="Description">
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] relative shrink-0 text-[length:var(--size\/300,16px)] w-full"
+                      data-node-id="5006:43067">
+                      Excel
+                    </p>
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] relative shrink-0 text-[length:var(--size\/200,14px)] w-full"
+                      data-node-id="5006:43068">
+                      Description
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="content-stretch flex gap-[var(--size\/100,12px)] h-[56px] items-start min-w-[276px] py-[var(--size\/25,4px)] relative rounded-[4px] shrink-0 w-[362.667px]"
+                  data-node-id="5006:43069"
+                  data-name="CategoryLink">
+                  <div
+                    class="relative shrink-0 size-[48px]"
+                    data-node-id="5006:43070"
+                    data-name="pptx">
+                    <img
+                      alt=""
+                      class="absolute block inset-0 max-w-none size-full"
+                      src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/ed7d5.svg" />
+                  </div>
+                  <div
+                    class="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[1.5] min-h-[48px] min-w-px relative text-[color:var(--$gray--900,#333)]"
+                    data-node-id="5006:43071"
+                    data-name="Description">
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] relative shrink-0 text-[length:var(--size\/300,16px)] w-full"
+                      data-node-id="5006:43072">
+                      PowerPoint
+                    </p>
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] relative shrink-0 text-[length:var(--size\/200,14px)] w-full"
+                      data-node-id="5006:43073">
+                      Description
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="content-stretch flex gap-[var(--size\/100,12px)] h-[56px] items-start min-w-[276px] py-[var(--size\/25,4px)] relative rounded-[4px] shrink-0 w-[362.667px]"
+                  data-node-id="5006:43074"
+                  data-name="CategoryLink">
+                  <div
+                    class="relative shrink-0 size-[48px]"
+                    data-node-id="5006:43075"
+                    data-name="docx">
+                    <img
+                      alt=""
+                      class="absolute block inset-0 max-w-none size-full"
+                      src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/2df2d.svg" />
+                  </div>
+                  <div
+                    class="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[1.5] min-h-[48px] min-w-px relative text-[color:var(--$gray--900,#333)]"
+                    data-node-id="5006:43076"
+                    data-name="Description">
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] relative shrink-0 text-[length:var(--size\/300,16px)] w-full"
+                      data-node-id="5006:43077">
+                      Word
+                    </p>
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] relative shrink-0 text-[length:var(--size\/200,14px)] w-full"
+                      data-node-id="5006:43078">
+                      Description
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="content-stretch flex gap-[var(--size\/100,12px)] items-start min-w-[276px] py-[var(--size\/25,4px)] relative rounded-[4px] shrink-0 w-[363px]"
+                  data-node-id="5006:43079"
+                  data-name="CategoryLink">
+                  <div
+                    class="relative shrink-0 size-[48px]"
+                    data-node-id="5006:43080"
+                    data-name="page">
+                    <img
+                      alt=""
+                      class="absolute block inset-0 max-w-none size-full"
+                      src="https://www.figma.com/api/mcp/asset/b502a72f-754f-4ca5-8624-9ea2fd85691a/ca170.svg" />
+                  </div>
+                  <div
+                    class="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col items-start justify-center leading-[1.5] min-h-[48px] min-w-px relative text-[color:var(--$gray--900,#333)]"
+                    data-node-id="5006:43081"
+                    data-name="Description">
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] relative shrink-0 text-[length:var(--size\/300,16px)] w-full"
+                      data-node-id="5006:43082">
+                      Page
+                    </p>
+                    <p
+                      class="font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] relative shrink-0 text-[length:var(--size\/200,14px)] w-full"
+                      data-node-id="5006:43083">
+                      Description
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

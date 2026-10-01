@@ -1,0 +1,1455 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-a4-sesame-my-groups</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
+  body{width:1440px;height:1024px;position:relative;background:#fff;
+       font-family:system-ui,sans-serif;font-size:14px;color:#111}
+  img{max-width:100%;display:block}
+  .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+  .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
+                     font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .content-stretch{align-content:stretch}
+  .flex{display:flex}
+  .items-center{align-items:center}
+  .justify-between{justify-content:space-between}
+  .relative{position:relative}
+  .size-full{width:100%;height:100%}
+  .\[word-break\:break-word\]{word-break:break-word}
+  .font-\[\'Open_Sans\:Bold\'\]{font-family:'Open Sans:Bold'}
+  .font-bold{font-weight:700}
+  .leading-\[40px\]{line-height:40px}
+  .shrink-0{flex-shrink:0}
+  .text-\[\#323232\]{color:#323232}
+  .text-\[28px\]{font-size:28px}
+  .tracking-\[-0\.56px\]{letter-spacing:-0.56px}
+  .w-\[352px\]{width:352px}
+  .gap-\[16px\]{gap:16px}
+  .justify-end{justify-content:flex-end}
+  .w-\[459px\]{width:459px}
+  .flex-col{flex-direction:column}
+  .items-start{align-items:flex-start}
+  .bg-\[rgba\(0\,0\,0\,0\)\]{background:rgba(0,0,0,0)}
+  .border-\[\#af1685\]{border-color:#af1685}
+  .border-solid{border-style:solid}
+  .gap-\[8px\]{gap:8px}
+  .justify-center{justify-content:center}
+  .px-\[24px\]{padding-inline:24px}
+  .py-\[8px\]{padding-block:8px}
+  .rounded-\[800px\]{border-radius:800px}
+  .size-\[16px\]{width:16px;height:16px}
+  .bg-clip-padding{background-clip:padding-box}
+  .border-0{border-width:0}
+  .border-\[transparent\]{border-width:transparent}
+  .flex-\[1_0_0\]{flex:1 0 0}
+  .h-full{height:100%}
+  .min-w-px{min-width:1px}
+  .absolute{position:absolute}
+  .font-\[\'Font_Awesome_6_Pro\:Regular\'\]{font-family:'Font Awesome 6 Pro:Regular'}
+  .inset-0{inset:0}
+  .leading-\[0\]{line-height:0}
+  .not-italic{font-style:normal}
+  .text-\[\#af1685\]{color:#af1685}
+  .text-\[16px\]{font-size:16px}
+  .text-center{text-align:center}
+  .leading-\[14px\]{line-height:14px}
+  .text-\[14px\]{font-size:14px}
+  .whitespace-nowrap{white-space:nowrap}
+  .leading-\[24px\]{line-height:24px}
+  .inset-\[-2px\]{inset:-2px}
+  .bg-\[\#af1685\]{background:#af1685}
+  .gap-\[10px\]{gap:10px}
+  .overflow-clip{overflow:clip}
+  .pl-\[16px\]{padding-left:16px}
+  .pr-\[24px\]{padding-right:24px}
+  .rounded-\[24px\]{border-radius:24px}
+  .size-\[24px\]{width:24px;height:24px}
+  .block{display:block}
+  .max-w-none{max-width:none}
+  .text-white{color:#fff}
+  .tracking-\[0\.42px\]{letter-spacing:0.42px}
+  .bg-white{background:#fff}
+  .drop-shadow-\[0px_2px_2px_rgba\(0\,0\,0\,0\.25\)\]{filter:drop-shadow(0px 2px 2px rgba(0,0,0,0.25))}
+  .gap-\[24px\]{gap:24px}
+  .p-\[24px\]{padding:24px}
+  .rounded-\[4px\]{border-radius:4px}
+  .w-full{width:100%}
+  .w-\[629px\]{width:629px}
+  .drop-shadow-\[0px_0px_0px_rgba\(0\,0\,0\,0\)\]{filter:drop-shadow(0px 0px 0px rgba(0,0,0,0))}
+  .isolate{isolation:isolate}
+  .rounded-\[2px\]{border-radius:2px}
+  .border{border-width:1px}
+  .border-\[\#9d9f9f\]{border-color:#9d9f9f}
+  .px-\[16px\]{padding-inline:16px}
+  .z-\[1\]{z-index:1}
+  .size-\[20px\]{width:20px;height:20px}
+  .z-\[5\]{z-index:5}
+  .text-\[\#8d8d8d\]{color:#8d8d8d}
+  .leading-\[16px\]{line-height:16px}
+  .font-\[\'Open_Sans\:Regular\'\]{font-family:'Open Sans:Regular'}
+  .font-normal{font-weight:400}
+  .z-\[4\]{z-index:4}
+  .-translate-y-1\/2{translate:0 -50%}
+  .cursor-pointer{cursor:pointer}
+  .right-\[3px\]{right:3px}
+  .size-\[32px\]{width:32px;height:32px}
+  .top-1\/2{top:50%}
+  .h-\[68px\]{height:68px}
+  .items-end{align-items:flex-end}
+  .flex-wrap{flex-wrap:wrap}
+  .w-\[632px\]{width:632px}
+  .gap-\[4px\]{gap:4px}
+  .w-\[200px\]{width:200px}
+  .font-\[\'Open_Sans\:SemiBold\'\]{font-family:'Open Sans:SemiBold'}
+  .font-semibold{font-weight:600}
+  .border-\[\#bfbfbf\]{border-color:#bfbfbf}
+  .h-\[40px\]{height:40px}
+  .p-\[16px\]{padding:16px}
+  .rounded-\[6px\]{border-radius:6px}
+  .size-\[12px\]{width:12px;height:12px}
+  .w-\[78px\]{width:78px}
+  .leading-\[normal\]{line-height:normal}
+  .pr-\[8px\]{padding-right:8px}
+  .py-\[16px\]{padding-block:16px}
+  .gap-\[var\(--size\\\/10\,2px\)\]{gap:var(--size/10,2px)}
+  .leading-\[1\.5\]{line-height:1.5}
+  .text-\[length\:var\(--size\\\/200\,14px\)\]{font-size:length:var(--size/200,14px)}
+  .font-\[family-name\:var\(--default-font\,\'Lato\:Bold\'\)\]{font-family:family-name:var(--default-font,'Lato:Bold')}
+  .border-\[\#e1e1e1\]{border-color:#e1e1e1}
+  .border-l{border-left-width:1px}
+  .pl-\[10px\]{padding-left:10px}
+  .border-\[rgba\(0\,0\,0\,0\)\]{border-color:rgba(0,0,0,0)}
+  .py-\[4px\]{padding-block:4px}
+  .text-\[12px\]{font-size:12px}
+  .text-\[\#bfbfbf\]{color:#bfbfbf}
+  .h-\[56px\]{height:56px}
+  .h-\[24px\]{height:24px}
+  .left-\[128px\]{left:128px}
+  .top-\[16px\]{top:16px}
+  .w-\[123\.467px\]{width:123.467px}
+  .inset-\[-8\.33\%_-16\.63\%_-8\.33\%_0\]{inset:-8.33% -16.63% -8.33% 0}
+  .inset-\[-8\.33\%_-16\.63\%_-8\.33\%_2\.43\%\]{inset:-8.33% -16.63% -8.33% 2.43%}
+  .inset-\[21\.77\%_0\.24\%_0_24\.06\%\]{inset:21.77% 0.24% 0 24.06%}
+  .bottom-\[89\.29\%\]{bottom:89.29%}
+  .left-0{left:0}
+  .top-\[10\.71\%\]{top:10.71%}
+  .h-\[18\.822px\]{height:18.822px}
+  .top-\[3px\]{top:3px}
+  .w-\[26\.985px\]{width:26.985px}
+  .-translate-x-1\/2{translate:-50% 0}
+  .left-\[calc\(50\%\+0\.5px\)\]{left:calc(50%+0.5px)}
+  .py-\[10px\]{padding-block:10px}
+  .top-0{top:0}
+  .px-\[2px\]{padding-inline:2px}
+  .leading-\[20px\]{line-height:20px}
+  .gap-\[2px\]{gap:2px}
+  .h-0{height:0}
+  .inset-\[-2px_0_0_0\]{inset:-2px 0 0 0}
+  .left-\[calc\(68\.75\%-5\.06px\)\]{left:calc(68.75%-5.06px)}
+  .w-\[277px\]{width:277px}
+  .p-\[8px\]{padding:8px}
+  .z-\[3\]{z-index:3}
+  .leading-\[12px\]{line-height:12px}
+  .z-\[2\]{z-index:2}
+  .h-\[12px\]{height:12px}
+  .min-w-\[12px\]{min-width:12px}
+  .py-\[2px\]{padding-block:2px}
+  .right-\[-2px\]{right:-2px}
+  .rounded-\[999px\]{border-radius:999px}
+  .top-\[-2px\]{top:-2px}
+  .text-\[9px\]{font-size:9px}
+  .uppercase{text-transform:uppercase}
+  .leading-\[9px\]{line-height:9px}
+  .left-1\/2{left:50%}
+  .top-\[calc\(50\%\+0\.5px\)\]{top:calc(50%+0.5px)}
+  .w-\[32px\]{width:32px}
+  .px-\[128px\]{padding-inline:128px}
+  .py-\[12px\]{padding-block:12px}
+  .pl-\[8px\]{padding-left:8px}
+  .bg-\[\#f6f8f8\]{background:#f6f8f8}
+  .py-\[24px\]{padding-block:24px}
+  .w-\[1024px\]{width:1024px}
+  .w-\[198px\]{width:198px}
+  .h-\[25px\]{height:25px}
+  .w-\[112\.868px\]{width:112.868px}
+  .object-cover{object-fit:cover}
+  .pointer-events-none{pointer-events:none}
+  .px-\[8px\]{padding-inline:8px}
+  .p-\[12px\]{padding:12px}
+  .shadow-\[0px_2px_8px_0px_rgba\(109\,110\,115\,0\.35\)\]{box-shadow:0px 2px 8px 0px rgba(109,110,115,0.35)}
+  .pl-\[6px\]{padding-left:6px}
+  .pr-\[5px\]{padding-right:5px}
+  .w-\[29px\]{width:29px}
+  .left-\[32px\]{left:32px}
+  .right-\[-131px\]{right:-131px}
+  .top-\[6px\]{top:6px}
+  .tracking-\[0\.4px\]{letter-spacing:0.4px}
+  .w-\[141px\]{width:141px}
+  .tracking-\[0\.25px\]{letter-spacing:0.25px}
+  .bg-\[\#dedede\]{background:#dedede}
+  .rounded-\[32px\]{border-radius:32px}
+  .shadow-\[0px_0px_0px_0px_rgba\(0\,0\,0\,0\)\]{box-shadow:0px 0px 0px 0px rgba(0,0,0,0)}
+  .size-\[18px\]{width:18px;height:18px}
+  .font-\[\'Font_Awesome_6_Pro\:Solid\'\]{font-family:'Font Awesome 6 Pro:Solid'}
+  .rounded-\[inherit\]{border-radius:inherit}
+  .shadow-\[inset_0px_-1px_0px_0px_rgba\(0\,0\,0\,0\.12\)\]{box-shadow:inset 0px -1px 0px 0px rgba(0,0,0,0.12)}
+  .bg-\[\#f9ecf5\]{background:#f9ecf5}
+  .border-\[\#dedede\]{border-color:#dedede}
+  .border-b{border-bottom-width:1px}
+  .font-\[\'Material_Icons\:Regular\'\]{font-family:'Material Icons:Regular'}
+  .text-\[24px\]{font-size:24px}
+  .leading-none{line-height:1}
+  .\[text-decoration-skip-ink\:none\]{text-decoration-skip-ink:none}
+  .\[text-underline-position\:from-font\]{text-underline-position:from-font}
+  .decoration-from-font{text-decoration-thickness:from-font}
+  .decoration-solid{text-decoration-style:solid}
+  .underline{text-decoration-line:underline}
+  .rounded-\[56px\]{border-radius:56px}
+  .size-\[40px\]{width:40px;height:40px}
+  .inset-\[0_-1\.25\%_0_1\.25\%\]{inset:0 -1.25% 0 1.25%}
+  .inset-\[20\%\]{inset:20%}
+  .gap-\[12px\]{gap:12px}
+  .flex-none{flex:none}
+  .rotate-90{rotate:90deg}
+  .w-\[24px\]{width:24px}
+  .pt-\[4px\]{padding-top:4px}
+  .text-\[\#ed1111\]{color:#ed1111}
+  .text-\[15px\]{font-size:15px}
+  .text-\[18px\]{font-size:18px}
+  .w-\[150px\]{width:150px}
+</style>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:14995"
+  style="position: absolute; left: 3327px; top: 617px; width: 1013px; height: 40px">
+  <div
+    class="content-stretch flex items-center justify-between relative size-full"
+    data-node-id="2847:14995">
+    <p
+      class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[40px] relative shrink-0 text-[#323232] text-[28px] tracking-[-0.56px] w-[352px]"
+      data-node-id="2847:14996">
+      Groups
+    </p>
+    <div
+      class="content-stretch flex gap-[16px] items-center justify-end relative shrink-0 w-[459px]"
+      data-node-id="2847:14997">
+      <div
+        class="content-stretch flex flex-col items-start relative shrink-0"
+        data-node-id="2847:14998"
+        data-name="sl-button">
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="I2847:14998;2798:30776"
+          data-name="sl-button-theme">
+          <div
+            class="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+            data-node-id="I2847:14998;2798:30776;2798:29666"
+            data-name="button">
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="I2847:14998;2798:30776;2798:29666;915:4542"
+              data-name="icon-core-start">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                <div
+                  class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                  data-node-id="I2847:14998;2798:30776;2798:29666;915:4543"
+                  data-name="icon-core-start">
+                  <div
+                    class="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I2847:14998;2798:30776;2798:29666;915:4543;404:33"
+                    data-name="icon-container">
+                    <div
+                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                      data-node-id="I2847:14998;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                      <p class="leading-[14px]">archive</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+              data-node-id="I2847:14998;2798:30776;2798:29666;915:4544">
+              <p class="leading-[24px]">Archive a school year</p>
+            </div>
+            <div
+              class="absolute inset-[-2px]"
+              data-node-id="I2847:14998;2798:30776;2798:29666;2123:30628"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col items-start relative shrink-0"
+        data-node-id="2847:14999"
+        data-name="sl-button">
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="I2847:14999;2798:30776"
+          data-name="sl-button-theme">
+          <div
+            class="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+            data-node-id="I2847:14999;2798:30776;2798:29666"
+            data-name="button">
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="I2847:14999;2798:30776;2798:29666;915:4542"
+              data-name="icon-core-start">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                <div
+                  class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                  data-node-id="I2847:14999;2798:30776;2798:29666;915:4543"
+                  data-name="icon-core-start">
+                  <div
+                    class="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I2847:14999;2798:30776;2798:29666;915:4543;404:33"
+                    data-name="icon-container">
+                    <div
+                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                      data-node-id="I2847:14999;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                      <p class="leading-[14px]">download</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+              data-node-id="I2847:14999;2798:30776;2798:29666;915:4544">
+              <p class="leading-[24px]">Download groups</p>
+            </div>
+            <div
+              class="absolute inset-[-2px]"
+              data-node-id="I2847:14999;2798:30776;2798:29666;2123:30628"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col items-start relative shrink-0"
+        data-node-id="2847:15000"
+        data-name="sl-button">
+        <div
+          class="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="I2847:15000;2798:30776"
+          data-name="sl-button-theme">
+          <div
+            class="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+            data-node-id="I2847:15000;2798:30776;2798:29666"
+            data-name="button">
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="I2847:15000;2798:30776;2798:29666;915:4542"
+              data-name="icon-core-start">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                <div
+                  class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                  data-node-id="I2847:15000;2798:30776;2798:29666;915:4543"
+                  data-name="icon-core-start">
+                  <div
+                    class="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I2847:15000;2798:30776;2798:29666;915:4543;404:33"
+                    data-name="icon-container">
+                    <div
+                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                      data-node-id="I2847:15000;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                      <p class="leading-[14px]">upload</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+              data-node-id="I2847:15000;2798:30776;2798:29666;915:4544">
+              <p class="leading-[24px]">Upload groups</p>
+            </div>
+            <div
+              class="absolute inset-[-2px]"
+              data-node-id="I2847:15000;2798:30776;2798:29666;2123:30628"
+              data-name="Focus ring">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex items-center justify-end relative shrink-0"
+        data-node-id="2847:15001">
+        <div
+          class="bg-[#af1685] content-stretch flex gap-[10px] items-center justify-center overflow-clip pl-[16px] pr-[24px] py-[8px] relative rounded-[24px] shrink-0"
+          data-node-id="2847:15002"
+          data-name="Button">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I2847:15002;3:1423"
+            data-name="Icons/plus">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/f50f828a-8cc8-446b-982f-e41802e48448/d9725.svg" />
+          </div>
+          <p
+            class="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+            data-node-id="I2847:15002;3:1424">
+            Add group
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15395"
+  style="position: absolute; left: 3327px; top: 762.453125px; width: 1023px; height: 180px">
+  <div
+    class="bg-white content-stretch drop-shadow-[0px_2px_2px_rgba(0,0,0,0.25)] flex flex-col gap-[24px] items-start p-[24px] relative rounded-[4px] size-full"
+    data-node-id="2847:15395">
+    <div
+      class="content-stretch flex items-center relative shrink-0 w-full"
+      data-node-id="2847:15396">
+      <div
+        class="content-stretch flex flex-col items-start relative shrink-0 w-[629px]"
+        data-node-id="2847:15397"
+        data-name="sl-searchfield">
+        <div
+          class="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-full"
+          data-node-id="I2847:15397;6128:2229"
+          data-name="sl-searchfield-theme">
+          <div
+            class="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[1]"
+            data-node-id="I2847:15397;6128:2229;6128:2182"
+            data-name="sl_base-search_field">
+            <div
+              class="relative shrink-0 size-[20px] z-[5]"
+              data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939"
+              data-name="core-icon-start">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                <div
+                  class="flex-[1_0_0] h-full min-w-px relative"
+                  data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939;399:65"
+                  data-name="search">
+                  <div
+                    class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#8d8d8d] text-[16px] text-center"
+                    data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939;399:65;5555:15890">
+                    <p class="leading-[16px]">search</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+              data-node-id="I2847:15397;6128:2229;6128:2182;6670:1937">
+              <p class="leading-[24px]">Input Value</p>
+            </div>
+            <button
+              class="-translate-y-1/2 absolute bg-[rgba(0,0,0,0)] cursor-pointer right-[3px] size-[32px] top-1/2 z-[1]"
+              data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614"
+              data-name="field-button">
+              <div
+                class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                <div
+                  class="content-stretch flex items-center justify-center relative shrink-0 size-[20px]"
+                  data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575"
+                  data-name="core-icon">
+                  <div
+                    class="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65"
+                    data-name="xmark">
+                    <div
+                      class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#323232] text-[16px] text-center"
+                      data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65;1765:11246">
+                      <p class="leading-[16px]">xmark</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex h-[68px] items-end justify-between relative shrink-0 w-full"
+      data-node-id="2847:15398">
+      <div
+        class="content-end flex flex-wrap gap-[16px] items-end relative shrink-0 w-[632px]"
+        data-node-id="2847:15399">
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+          data-node-id="2847:15400"
+          data-name="Dropdown">
+          <p
+            class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+            data-node-id="2847:15401">
+            Group status
+          </p>
+          <div
+            class="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+            data-node-id="2847:15402"
+            data-name="dropdown">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+              data-node-id="2847:15403">
+              Active
+            </p>
+            <div
+              class="relative shrink-0 size-[12px]"
+              data-node-id="2847:15404"
+              data-name="btn icons">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/70c6421b-1acb-4e4c-896f-7af0cac9a9f7/22f82.svg" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+          data-node-id="2847:15406"
+          data-name="Dropdown">
+          <p
+            class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+            data-node-id="2847:15407">
+            Group type
+          </p>
+          <div
+            class="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+            data-node-id="2847:15408"
+            data-name="dropdown">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+              data-node-id="2847:15409">
+              Any
+            </p>
+            <div
+              class="relative shrink-0 size-[12px]"
+              data-node-id="2847:15410"
+              data-name="btn icons">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/70c6421b-1acb-4e4c-896f-7af0cac9a9f7/22f82.svg" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+          data-node-id="2847:15412"
+          data-name="Dropdown">
+          <p
+            class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+            data-node-id="2847:15413">
+            School year
+          </p>
+          <div
+            class="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+            data-node-id="2847:15414"
+            data-name="dropdown">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+              data-node-id="2847:15415">
+              Any
+            </p>
+            <div
+              class="relative shrink-0 size-[12px]"
+              data-node-id="2847:15416"
+              data-name="btn icons">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/70c6421b-1acb-4e4c-896f-7af0cac9a9f7/22f82.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex gap-[24px] items-center justify-end relative shrink-0"
+        data-node-id="2847:15418">
+        <div
+          class="content-stretch flex gap-[8px] items-center relative shrink-0"
+          data-node-id="2847:15419">
+          <p
+            class="[word-break:break-word] font-['Font_Awesome_6_Pro:Regular'] leading-[24px] not-italic relative shrink-0 text-[#af1685] text-[14px] whitespace-nowrap"
+            data-node-id="2847:15420">
+            xmark
+          </p>
+          <div
+            class="content-stretch flex items-center relative shrink-0 w-[78px]"
+            data-node-id="2847:15421">
+            <p
+              class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#af1685] text-[14px] whitespace-nowrap"
+              data-node-id="2847:15422">
+              Clear filters
+            </p>
+          </div>
+        </div>
+        <div
+          class="[word-break:break-word] bg-[#af1685] content-center flex flex-wrap gap-[8px] items-center px-[24px] py-[8px] relative rounded-[24px] shrink-0 text-white whitespace-nowrap"
+          data-node-id="2847:15423"
+          data-name="button primary">
+          <p
+            class="font-['Font_Awesome_6_Pro:Regular'] leading-[normal] not-italic relative shrink-0 text-[16px]"
+            data-node-id="2847:15424">
+            magnifying-glass
+          </p>
+          <p
+            class="font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px]"
+            data-node-id="2847:15425">
+            Search
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15379"
+  style="position: absolute; left: 3569px; top: 1931px; width: 540px; height: 56px">
+  <div
+    class="bg-[#af1685] content-stretch flex items-center overflow-clip pl-[16px] pr-[8px] py-[16px] relative rounded-[24px] size-full"
+    data-node-id="2847:15379"
+    data-name="bulk panel">
+    <div
+      class="content-stretch flex gap-[16px] items-center relative shrink-0"
+      data-node-id="2847:15380">
+      <div class="relative shrink-0 size-[20px]" data-node-id="2847:15381" data-name="xmark">
+        <img
+          alt=""
+          class="absolute block inset-0 max-w-none size-full"
+          src="https://www.figma.com/api/mcp/asset/03a4cac7-36c7-4cd8-8f24-ab710551c376/1b071.svg" />
+      </div>
+      <div
+        class="content-stretch flex gap-[24px] items-center relative shrink-0"
+        data-node-id="2847:15382"
+        data-name="panel">
+        <div
+          class="[word-break:break-word] content-stretch flex gap-[var(--size\/10,2px)] items-center leading-[1.5] relative shrink-0 text-[length:var(--size\/200,14px)] text-white whitespace-nowrap"
+          data-node-id="2847:15383"
+          data-name="items selected">
+          <p
+            class="font-[family-name:var(--default-font,'Lato:Bold')] not-italic relative shrink-0"
+            data-node-id="2847:15384">
+            3
+          </p>
+          <p
+            class="font-['Open_Sans:Regular'] font-normal relative shrink-0"
+            data-node-id="2847:15385">
+            selected out of 40
+          </p>
+        </div>
+        <div
+          class="border-[#e1e1e1] border-l border-solid content-stretch flex gap-[16px] items-center pl-[10px] relative shrink-0"
+          data-node-id="2847:15386"
+          data-name="buttons">
+          <div
+            class="content-stretch flex items-center relative shrink-0"
+            data-node-id="2847:15388">
+            <div
+              class="content-stretch flex flex-col items-start relative shrink-0"
+              data-node-id="2847:15389"
+              data-name="sl-button">
+              <div
+                class="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="I2847:15389;2798:30776"
+                data-name="sl-button-theme">
+                <div
+                  class="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                  data-node-id="I2847:15389;2798:30776;2798:29038"
+                  data-name="button">
+                  <div
+                    class="relative shrink-0 size-[12px]"
+                    data-node-id="I2847:15389;2798:30776;2798:29038;915:4406"
+                    data-name="icon-core-start">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                      <div
+                        class="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                        data-node-id="I2847:15389;2798:30776;2798:29038;915:4407"
+                        data-name="icon-core-start">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I2847:15389;2798:30776;2798:29038;915:4407;404:33"
+                          data-name="icon-container">
+                          <div
+                            class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[12px] text-center text-white"
+                            data-node-id="I2847:15389;2798:30776;2798:29038;915:4407;404:33;802:2162">
+                            <p class="leading-[14px]">trash</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+                    data-node-id="I2847:15389;2798:30776;2798:29038;915:4408">
+                    <p class="leading-[16px]">Delete</p>
+                  </div>
+                  <div
+                    class="absolute inset-[-2px]"
+                    data-node-id="I2847:15389;2798:30776;2798:29038;2123:33965"
+                    data-name="Focus ring">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex flex-col items-start relative shrink-0"
+              data-node-id="2847:15390"
+              data-name="sl-button">
+              <div
+                class="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="I2847:15390;2798:30776"
+                data-name="sl-button-theme">
+                <div
+                  class="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                  data-node-id="I2847:15390;2798:30776;2798:29158"
+                  data-name="button">
+                  <div
+                    class="relative shrink-0 size-[12px]"
+                    data-node-id="I2847:15390;2798:30776;2798:29158;915:4406"
+                    data-name="icon-core-start">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                      <div
+                        class="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                        data-node-id="I2847:15390;2798:30776;2798:29158;915:4407"
+                        data-name="icon-core-start">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I2847:15390;2798:30776;2798:29158;915:4407;404:33"
+                          data-name="icon-container">
+                          <div
+                            class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#bfbfbf] text-[12px] text-center"
+                            data-node-id="I2847:15390;2798:30776;2798:29158;915:4407;404:33;802:2162">
+                            <p class="leading-[14px]">boxes-packing</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#bfbfbf] text-[14px] text-center whitespace-nowrap"
+                    data-node-id="I2847:15390;2798:30776;2798:29158;915:4408">
+                    <p class="leading-[16px]">Reactivate</p>
+                  </div>
+                  <div
+                    class="absolute inset-[-2px]"
+                    data-node-id="I2847:15390;2798:30776;2798:29158;2123:33965"
+                    data-name="Focus ring">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex flex-col items-start relative shrink-0"
+              data-node-id="2847:15391"
+              data-name="sl-button">
+              <div
+                class="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="I2847:15391;2798:30776"
+                data-name="sl-button-theme">
+                <div
+                  class="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                  data-node-id="I2847:15391;2798:30776;2798:29038"
+                  data-name="button">
+                  <div
+                    class="relative shrink-0 size-[12px]"
+                    data-node-id="I2847:15391;2798:30776;2798:29038;915:4406"
+                    data-name="icon-core-start">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                      <div
+                        class="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                        data-node-id="I2847:15391;2798:30776;2798:29038;915:4407"
+                        data-name="icon-core-start">
+                        <div
+                          class="flex-[1_0_0] h-full min-w-px relative"
+                          data-node-id="I2847:15391;2798:30776;2798:29038;915:4407;404:33"
+                          data-name="icon-container">
+                          <div
+                            class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[12px] text-center text-white"
+                            data-node-id="I2847:15391;2798:30776;2798:29038;915:4407;404:33;802:2162">
+                            <p class="leading-[14px]">box-archive</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+                    data-node-id="I2847:15391;2798:30776;2798:29038;915:4408">
+                    <p class="leading-[16px]">Archive</p>
+                  </div>
+                  <div
+                    class="absolute inset-[-2px]"
+                    data-node-id="I2847:15391;2798:30776;2798:29038;2123:33965"
+                    data-name="Focus ring">
+                    <div
+                      class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="772:26895"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 3 has no box in the metadata */
+  ">
+  <div
+    class="content-stretch flex flex-col items-center relative size-full"
+    data-node-id="2847:15003">
+    <div
+      class="bg-white h-[56px] overflow-clip relative shrink-0 w-full"
+      data-node-id="2847:15005"
+      data-name="top navi bar">
+      <div
+        class="absolute h-[24px] left-[128px] overflow-clip top-[16px] w-[123.467px]"
+        data-node-id="2847:15006"
+        data-name="MittSanoma 3">
+        <div
+          class="absolute contents inset-[-8.33%_-16.63%_-8.33%_0]"
+          data-node-id="2847:15007"
+          data-name="Clip path group">
+          <div
+            class="absolute inset-[-8.33%_-16.63%_-8.33%_2.43%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-3px_2px] mask-size-[123.467px_24px] overflow-clip"
+            data-node-id="2847:15010"
+            data-name="Logo_MyVanIn 1">
+            <div
+              class="absolute inset-[21.77%_0.24%_0_24.06%]"
+              data-node-id="2847:15011"
+              data-name="Group">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/7cda6203-d5f7-4c58-baf6-801b93ddce1c/bcc1f.svg" />
+            </div>
+            <div
+              class="absolute bottom-[89.29%] contents left-0 right-full top-[10.71%]"
+              data-node-id="2847:15019"
+              data-name="Group"></div>
+            <div
+              class="absolute h-[18.822px] left-0 top-[3px] w-[26.985px]"
+              data-node-id="2847:15055">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/7cda6203-d5f7-4c58-baf6-801b93ddce1c/757aa.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="-translate-x-1/2 absolute content-stretch flex gap-[24px] items-start justify-end left-[calc(50%+0.5px)] py-[10px] top-0"
+        data-node-id="2847:15059">
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="772:26895">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="772:26891">
+            <p class="leading-[20px]">Learning materials</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[2px] items-center px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2847:15061"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center w-full"
+            data-node-id="I2847:15061;772:26885">
+            <p class="leading-[20px]">Groups</p>
+          </div>
+          <div class="h-0 relative shrink-0 w-full" data-node-id="I2847:15061;772:26886">
+            <div class="absolute inset-[-2px_0_0_0]">
+              <img
+                alt=""
+                class="block max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/7cda6203-d5f7-4c58-baf6-801b93ddce1c/696c9.svg" />
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2847:15062"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="I2847:15062;772:26891">
+            <p class="leading-[20px]">Users</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+          data-node-id="2847:15063"
+          data-name="menu item SU">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+            data-node-id="I2847:15063;772:26891">
+            <p class="leading-[20px]">Licenses</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute content-stretch flex h-[56px] items-center justify-end left-[calc(68.75%-5.06px)] top-0 w-[277px]"
+        data-node-id="2847:15064">
+        <div
+          class="content-stretch flex items-start p-[8px] relative rounded-[4px] shrink-0"
+          data-node-id="2847:15065"
+          data-name="avatar_SU">
+          <div
+            class="content-stretch flex gap-[8px] isolate items-center relative shrink-0"
+            data-node-id="I2847:15065;775:12268"
+            data-name="sl-avatar-circle-text">
+            <div
+              class="[word-break:break-word] content-stretch flex flex-col font-['Open_Sans:Regular'] font-normal items-end leading-[0] relative shrink-0 text-[#323232] whitespace-nowrap z-[3]"
+              data-node-id="I2847:15065;775:12269"
+              data-name="avatar-header">
+              <div
+                class="flex flex-col justify-center relative shrink-0 text-[14px]"
+                data-node-id="I2847:15065;775:12270">
+                <p class="leading-[20px]">Anna Magiera</p>
+              </div>
+              <div
+                class="flex flex-col justify-center relative shrink-0 text-[12px]"
+                data-node-id="I2847:15065;775:12271">
+                <p class="leading-[12px]">Administrator</p>
+              </div>
+            </div>
+            <div
+              class="content-stretch flex isolate items-center relative shrink-0 z-[2]"
+              data-node-id="I2847:15065;775:12272"
+              data-name="sl-avatar-circle-text">
+              <div
+                class="relative shrink-0 size-[32px] z-[1]"
+                data-node-id="I2847:15065;775:12273"
+                data-name="sl-avatar-circle">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/7cda6203-d5f7-4c58-baf6-801b93ddce1c/d6912.svg" />
+                <div
+                  class="absolute content-stretch flex gap-[8px] h-[12px] isolate items-center justify-center min-w-[12px] px-px py-[2px] right-[-2px] rounded-[999px] top-[-2px]"
+                  data-node-id="I2847:15065;775:12281"
+                  data-name="icon">
+                  <div
+                    class="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[#323232] text-[9px] text-center uppercase whitespace-nowrap z-[2]"
+                    data-node-id="I2847:15065;775:12282">
+                    <p class="leading-[9px]">gear</p>
+                  </div>
+                  <div
+                    class="absolute inset-0 z-[1]"
+                    data-node-id="I2847:15065;775:12283"
+                    data-name="icon-bg">
+                    <div
+                      class="absolute bg-white inset-0 rounded-[800px]"
+                      data-node-id="I2847:15065;775:12283;2801:8913"
+                      data-name="badge-bg"></div>
+                  </div>
+                </div>
+                <div
+                  class="-translate-x-1/2 -translate-y-1/2 [text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] absolute flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] left-1/2 text-[#323232] text-[12px] text-center top-[calc(50%+0.5px)] uppercase w-[32px]"
+                  data-node-id="I2847:15065;775:12284">
+                  <p class="leading-[16px]">AM</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-end leading-[0] not-italic relative shrink-0 text-[14px] text-black text-center whitespace-nowrap z-[1]"
+              data-node-id="I2847:15065;775:12286">
+              <p class="leading-[20px]">chevron-up</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bg-white content-stretch flex items-center justify-end overflow-clip px-[128px] py-[12px] relative shrink-0 w-full"
+      data-node-id="2847:15066"
+      data-name="secondary bar">
+      <div class="content-stretch flex items-start relative shrink-0" data-node-id="2847:15067">
+        <div
+          class="content-stretch flex gap-[16px] h-[40px] items-center relative shrink-0"
+          data-node-id="2847:15068"
+          data-name="School selection">
+          <div
+            class="content-stretch flex items-center relative shrink-0"
+            data-node-id="2847:15069"
+            data-name="Dropdown">
+            <p
+              class="[word-break:break-word] font-['Font_Awesome_6_Pro:Regular'] leading-[24px] not-italic relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="2847:15070">
+              school-flag
+            </p>
+            <div
+              class="content-stretch flex gap-[8px] items-start pl-[8px] relative shrink-0"
+              data-node-id="2847:15071"
+              data-name="School label">
+              <p
+                class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="2847:15074">
+                Bogaerts International School
+              </p>
+            </div>
+            <div
+              class="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+              data-node-id="2847:15075"
+              data-name="button">
+              <div
+                class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+                data-node-id="I2847:15075;915:4408">
+                <p class="leading-[16px]">Switch school</p>
+              </div>
+              <div
+                class="absolute inset-[-2px]"
+                data-node-id="I2847:15075;2123:33965"
+                data-name="Focus ring">
+                <div
+                  class="bg-clip-padding border-0 border-[transparent] border-solid relative size-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2:70426"
+  style="
+    position: relative;
+    outline: 2px dashed #c0392b;
+    margin: 8px 0; /* region 4 has no box in the metadata */
+  ">
+  <div
+    class="bg-[#f6f8f8] content-stretch flex flex-col items-start px-[128px] py-[24px] relative size-full"
+    data-node-id="2:70476">
+    <div
+      class="content-stretch flex items-start justify-between relative shrink-0 w-[1024px]"
+      data-node-id="2:70477">
+      <div class="h-[40px] relative shrink-0 w-[198px]" data-node-id="2:70478">
+        <div
+          class="absolute h-[25px] left-0 top-0 w-[112.868px]"
+          data-node-id="2:70479"
+          data-name="image 1">
+          <img
+            alt=""
+            class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+            src="https://www.figma.com/api/mcp/asset/e407f82a-ee5f-415b-a230-1274aaa50c25/a908e.png" />
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-col gap-[8px] items-end relative shrink-0"
+        data-node-id="2:70480">
+        <div
+          class="content-stretch flex gap-[16px] items-start px-[8px] relative shrink-0"
+          data-node-id="2:70481">
+          <div
+            class="content-stretch flex items-start p-[8px] relative shrink-0"
+            data-node-id="2:70415">
+            <p
+              class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="2:70416">
+              Privacy Policy
+            </p>
+          </div>
+          <div
+            class="content-stretch flex items-start p-[8px] relative shrink-0"
+            data-node-id="2:70483"
+            data-name="menu item footer">
+            <p
+              class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="I2:70483;2678:143004">
+              Terms &amp; Conditions
+            </p>
+          </div>
+          <div
+            class="content-stretch flex items-start p-[8px] relative shrink-0"
+            data-node-id="2:70484"
+            data-name="menu item footer">
+            <p
+              class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="I2:70484;2678:143004">
+              Contact
+            </p>
+          </div>
+          <div
+            class="content-stretch flex items-start p-[8px] relative shrink-0"
+            data-node-id="2:70485"
+            data-name="menu item footer">
+            <p
+              class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="I2:70485;2678:143004">
+              Cookies
+            </p>
+          </div>
+          <div
+            class="content-stretch flex items-start p-[8px] relative shrink-0"
+            data-node-id="2:70486"
+            data-name="menu item footer">
+            <p
+              class="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="I2:70486;2678:143004">
+              Disclaimer
+            </p>
+          </div>
+        </div>
+        <div class="content-stretch flex items-center relative shrink-0" data-node-id="2:70426">
+          <div
+            class="content-stretch flex gap-[8px] items-center pl-[8px] relative shrink-0"
+            data-node-id="2:70427"
+            data-name="School label">
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="2:70428"
+              data-name="language_black_24dp (1) 2">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/e407f82a-ee5f-415b-a230-1274aaa50c25/b98f1.svg" />
+            </div>
+            <p
+              class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+              data-node-id="2:70431">
+              English - EN
+            </p>
+          </div>
+          <div
+            class="content-stretch flex gap-[8px] items-center justify-center p-[8px] relative rounded-[4px] shrink-0"
+            data-node-id="2:70432"
+            data-name="Button">
+            <div
+              class="relative shrink-0 size-[16px]"
+              data-node-id="2:70434"
+              data-name="Icon-right">
+              <img
+                alt=""
+                class="absolute block inset-0 max-w-none size-full"
+                src="https://www.figma.com/api/mcp/asset/e407f82a-ee5f-415b-a230-1274aaa50c25/ef41b.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15358"
+  style="position: absolute; left: 4074px; top: 1567.453125px; width: 237px; height: 184px">
+  <div
+    class="bg-white border border-solid border-white content-stretch flex flex-col items-center overflow-clip p-[12px] relative rounded-[4px] shadow-[0px_2px_8px_0px_rgba(109,110,115,0.35)] size-full"
+    data-node-id="2847:15358"
+    data-name="group-card-dropdown">
+    <div
+      class="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+      data-node-id="2847:15362"
+      data-name="Dropdown Panels">
+      <div
+        class="[word-break:break-word] content-stretch flex gap-[8px] h-full items-center justify-center leading-[24px] py-[10px] relative shrink-0 text-[14px] w-[29px]"
+        data-node-id="2847:15363">
+        <p
+          class="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] left-[32px] right-[-131px] text-[#323232] top-[6px]"
+          data-node-id="2847:15364">
+          View details
+        </p>
+        <p
+          class="font-['Font_Awesome_6_Pro:Regular'] not-italic relative shrink-0 text-black whitespace-nowrap"
+          data-node-id="2847:15365">
+          eye
+        </p>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+      data-node-id="2847:15366"
+      data-name="Dropdown Panels">
+      <div
+        class="content-stretch flex gap-[8px] items-center justify-center p-[8px] relative rounded-[4px] shrink-0"
+        data-node-id="2847:15367"
+        data-name="Button">
+        <div
+          class="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+          data-node-id="2847:15369">
+          <p class="leading-[20px]">trash</p>
+        </div>
+      </div>
+      <p
+        class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[141px]"
+        data-node-id="2847:15370">
+        Delete group
+      </p>
+    </div>
+    <div
+      class="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+      data-node-id="2847:15371"
+      data-name="Dropdown Panels">
+      <div
+        class="[word-break:break-word] content-stretch flex gap-[8px] items-center justify-center py-[10px] relative shrink-0 text-[#323232] w-[29px]"
+        data-node-id="2847:15372">
+        <div
+          class="flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[16px] tracking-[0.25px] whitespace-nowrap"
+          data-node-id="2847:15373">
+          <p class="leading-[20px]">box-archive</p>
+        </div>
+        <p
+          class="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] leading-[24px] left-[32px] right-[-131px] text-[14px] top-[6px]"
+          data-node-id="2847:15374">
+          Archive group
+        </p>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+      data-node-id="2847:15375"
+      data-name="Dropdown Panels">
+      <div
+        class="[word-break:break-word] content-stretch flex gap-[8px] h-full items-center justify-center leading-[24px] py-[10px] relative shrink-0 text-[#323232] text-[14px] w-[29px]"
+        data-node-id="2847:15376">
+        <p
+          class="font-['Font_Awesome_6_Pro:Regular'] not-italic relative shrink-0 whitespace-nowrap"
+          data-node-id="2847:15377">
+          boxes-packing
+        </p>
+        <p
+          class="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] left-[32px] right-[-131px] top-[6px]"
+          data-node-id="2847:15378">
+          Reactivate group
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15083"
+  style="position: absolute; left: 3327px; top: 1043px; width: 369px; height: 48px">
+  <div
+    class="content-stretch flex gap-[10px] items-center px-[16px] py-[10px] relative size-full"
+    data-node-id="2847:15083"
+    data-name="th-text-start">
+    <div aria-hidden class="absolute bg-[#dedede] inset-0 pointer-events-none"></div>
+    <div
+      class="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+      data-node-id="2847:15084"
+      data-name="v-input--selection-controls">
+      <div
+        class="bg-[#af1685] border border-[#af1685] border-solid content-stretch flex flex-col items-center justify-center overflow-clip p-[8px] relative rounded-[2px] shadow-[0px_0px_0px_0px_rgba(0,0,0,0)] shrink-0 size-[18px]"
+        data-node-id="2847:15085"
+        data-name="checkbox-box">
+        <div
+          class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+          data-node-id="2847:15086"
+          data-name="core-icon">
+          <div
+            class="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Solid'] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+            data-node-id="2847:15087">
+            <p class="leading-[16px]">minus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+      data-node-id="2847:15088">
+      <p class="leading-[20px]">Name</p>
+    </div>
+    <div
+      class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15089"
+  style="position: absolute; left: 3327px; top: 1091px; width: 369px; height: 48px">
+  <div
+    class="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex gap-[10px] items-center px-[16px] py-[10px] relative size-full"
+    data-node-id="2847:15089"
+    data-name="td-text-start">
+    <div
+      class="content-stretch flex items-center justify-center px-[16px] relative rounded-[32px] shrink-0 size-[32px]"
+      data-node-id="2847:15090"
+      data-name="v-input--selection-controls">
+      <div
+        class="[word-break:break-word] flex flex-col font-['Material_Icons:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#af1685] text-[24px] text-center whitespace-nowrap"
+        data-node-id="I2847:15090;58:540">
+        <p class="leading-none">check_box</p>
+      </div>
+    </div>
+    <div
+      class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:SemiBold'] font-semibold h-full justify-center leading-[0] min-w-px relative text-[#af1685] text-[14px]"
+      data-node-id="2847:15091">
+      <p
+        class="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">
+        Class 1
+      </p>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15245"
+  style="position: absolute; left: 4235px; top: 1091px; width: 116px; height: 48px">
+  <div
+    class="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex gap-[10px] items-start justify-center px-[24px] py-[4px] relative size-full"
+    data-node-id="2847:15245"
+    data-name="td-text-start">
+    <div class="content-stretch flex items-center relative shrink-0" data-node-id="2847:15246">
+      <div
+        class="relative rounded-[56px] shrink-0 size-[40px]"
+        data-node-id="2847:15247"
+        data-name="Icon-button">
+        <div
+          class="absolute inset-[0_-1.25%_0_1.25%] rounded-[56px]"
+          data-node-id="2847:15248"
+          data-name="Icon-button">
+          <div class="absolute inset-[20%]" data-node-id="I2847:15248;192:2740" data-name="icon">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/65a43c1f-2568-469a-bf63-e2274a89e5dd/5f7e7.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15427"
+  style="position: absolute; left: 3327px; top: 983px; width: 84px; height: 24px">
+  <div
+    class="content-stretch flex gap-[12px] items-center justify-end relative size-full"
+    data-node-id="2847:15427">
+    <div
+      class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+      data-node-id="2847:15428">
+      <p class="leading-[20px]">40 Groups</p>
+    </div>
+    <div
+      class="flex h-[24px] items-center justify-center relative shrink-0 w-0"
+      data-node-id="2847:15429">
+      <div class="flex-none rotate-90">
+        <div class="h-0 relative w-[24px]">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/a690b8e5-e900-4c47-bb8e-58600c8f6331/6018c.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15709"
+  style="position: absolute; left: 3327px; top: 1015px; width: 83px; height: 20px">
+  <div
+    class="content-stretch flex items-start relative size-full"
+    data-node-id="2847:15709"
+    data-name="sl-helper-theme">
+    <div
+      class="content-stretch flex flex-[1_0_0] gap-[4px] items-start min-w-px pt-[4px] relative"
+      data-node-id="I2847:15709;2711:11206"
+      data-name="sl-base-helper">
+      <div
+        class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+        data-node-id="I2847:15709;2711:11206;1165:4968"
+        data-name="core-icon">
+        <div
+          class="flex-[1_0_0] h-full min-w-px relative"
+          data-node-id="I2847:15709;2711:11206;1165:4968;399:65"
+          data-name="error-solid">
+          <div
+            class="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Solid'] inset-0 justify-center leading-[0] not-italic text-[#ed1111] text-[15px] text-center"
+            data-node-id="I2847:15709;2711:11206;1165:4968;399:65;668:2526">
+            <p class="leading-[16px]">triangle-exclamation</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#ed1111] text-[12px] whitespace-nowrap"
+        data-node-id="I2847:15709;2711:11206;1165:4969">
+        <p class="leading-[16px]">
+          You cannot reactivate an active group. Please, disselect all active groups to be able to
+          continue.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15077"
+  style="position: absolute; left: 3324px; top: 697px; width: 1028px; height: 25px">
+  <div
+    class="content-stretch flex items-start justify-between relative size-full"
+    data-node-id="2847:15077">
+    <p
+      class="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[normal] relative shrink-0 text-[#8d8d8d] text-[18px] whitespace-nowrap"
+      data-node-id="2847:15078">
+      ALL SCHOOL GROUPS
+    </p>
+    <div class="h-[40px] relative shrink-0 w-[150px]" data-node-id="2847:15079"></div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15152"
+  style="position: absolute; left: 3696px; top: 1091px; width: 141px; height: 48px">
+  <div
+    class="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex items-center px-[16px] py-[10px] relative size-full"
+    data-node-id="2847:15152"
+    data-name="td-text-start">
+    <div
+      class="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#323232] text-[14px] tracking-[0.25px]"
+      data-node-id="I2847:15152;72:383">
+      <p class="leading-[20px]">class</p>
+    </div>
+  </div>
+</div>
+<div
+  data-region="Raw `get_design_context` responses — a4-sesame-my-groups"
+  data-node-id="2847:15242"
+  style="position: absolute; left: 4235px; top: 1043px; width: 116px; height: 48px">
+  <div
+    class="content-stretch flex gap-[10px] items-center justify-center px-[16px] py-[10px] relative size-full"
+    data-node-id="2847:15242"
+    data-name="th-text-start">
+    <div aria-hidden class="absolute bg-[#dedede] inset-0 pointer-events-none"></div>
+    <div
+      class="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+      data-node-id="2847:15243">
+      <p class="leading-[20px]">Action</p>
+    </div>
+    <div
+      class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-1px_0px_0px_rgba(0,0,0,0.12)]"></div>
+  </div>
+</div>

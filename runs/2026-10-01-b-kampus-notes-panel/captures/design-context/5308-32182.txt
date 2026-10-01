@@ -1,0 +1,72 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/9a0de718-a9ed-47ea-a5a1-4ac16bedc941";
+const imgImage14 = `${assetPathPrefix}/f95c4.png`;
+const imgToc = `${assetPathPrefix}/9421f.svg`;
+const imgEditFeed = `${assetPathPrefix}/b55c6.svg`;
+const imgNumberTag = `${assetPathPrefix}/9666b.svg`;
+const imgAssignments = `${assetPathPrefix}/abd70.svg`;
+const imgNotes = `${assetPathPrefix}/5f924.svg`;
+const imgAccessKeySec = `${assetPathPrefix}/0b8fc.svg`;
+
+export default function LeftToolbar() {
+  return (
+    <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-start relative size-full" data-node-id="5308:32182" data-name="Left-toolbar">
+      <div className="h-[93.24px] relative shrink-0 w-[74px]" data-node-id="I5308:32182;9353:30179" data-name="image 14">
+        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage14} />
+      </div>
+      <div className="content-stretch flex flex-col items-start justify-center relative shrink-0" data-node-id="I5308:32182;9353:30181" data-name="Feed Tools">
+        <div className="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]" data-node-id="I5308:32182;9353:30182" data-name="Filter">
+          <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32182;9353:30182;10019:35045" data-name="toc">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgToc} />
+          </div>
+          <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]" data-node-id="I5308:32182;9353:30182;10019:35046" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[12px]">Contents</p>
+          </div>
+        </div>
+        <div className="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]" data-node-id="I5308:32182;9353:30183" data-name="Filter">
+          <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32182;9353:30183;10019:35121" data-name="edit-feed">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEditFeed} />
+          </div>
+          <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]" data-node-id="I5308:32182;9353:30183;10019:35122" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[12px]">Edit content</p>
+          </div>
+          <div className="absolute left-[46px] size-[16px] top-[9px]" data-node-id="I5308:32182;9353:30183;10020:35204" data-name="number-tag">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgNumberTag} />
+          </div>
+        </div>
+        <div className="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]" data-node-id="I5308:32182;9353:30184" data-name="Filter">
+          <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32182;9353:30184;10019:35062" data-name="assignments">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgAssignments} />
+          </div>
+          <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]" data-node-id="I5308:32182;9353:30184;10019:35063" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[12px]">Assignments</p>
+          </div>
+          <div className="absolute bg-[#db7109] content-stretch flex flex-col items-center justify-center left-[46px] pb-px px-[3px] rounded-[12px] size-[16px] top-[9px]" data-node-id="I5308:32182;9353:30184;10020:35109" data-name="number-tag">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[12px] text-white tracking-[0.36px] whitespace-nowrap" data-node-id="I5308:32182;9353:30184;10020:35109;2178:8937" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[16px]">1</p>
+            </div>
+          </div>
+        </div>
+        <div className="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[74px]" data-node-id="I5308:32182;9353:30185" data-name="left-toolbar-item">
+          <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-center justify-center min-h-px px-[4px] py-[8px] relative w-full" data-node-id="I5308:32182;9353:30185;10019:35137" data-name="left-toolbar-item">
+            <div aria-hidden className="absolute bg-[#f0ecf5] inset-0 pointer-events-none" />
+            <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32182;9353:30185;10019:35137;10019:35059" data-name="access-key-sec">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgNotes} />
+            </div>
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]" data-node-id="I5308:32182;9353:30185;10019:35137;10019:35060" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[12px]">Notes</p>
+            </div>
+            <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-4px_0px_0px_#643695]" />
+          </div>
+        </div>
+        <div className="border-[#cecfd2] border-b border-solid content-stretch flex flex-col gap-[4px] items-center justify-center px-[4px] py-[8px] relative shrink-0 size-[74px]" data-node-id="I5308:32182;10105:35650" data-name="Filter">
+          <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32182;10105:35650;10019:35059" data-name="access-key-sec">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgAccessKeySec} />
+          </div>
+          <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] min-w-full relative shrink-0 text-[#643695] text-[10px] text-center tracking-[0.3px] w-[min-content]" data-node-id="I5308:32182;10105:35650;10019:35060" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[12px]">Access key</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

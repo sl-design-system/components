@@ -2,51 +2,290 @@
 <meta charset="utf-8" />
 <title>Design reconstruction — runs/2026-10-01-a8-nsp-group-list</title>
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 0 solid transparent;
-    font: inherit;
-  }
-  body {
-    width: 1280px;
-    height: 1024px;
-    position: relative;
-    background: #fff;
-    font-family: system-ui, sans-serif;
-    font-size: 14px;
-    color: #111;
-  }
-  img {
-    max-width: 100%;
-    display: block;
-  }
-  .probe-error {
-    background: #fdecea;
-    color: #8b1a10;
-    padding: 8px;
-    font:
-      12px/1.4 ui-monospace,
-      monospace;
-    white-space: pre-wrap;
-  }
-  .probe-codeconnect {
-    outline: 2px dashed #b7791f;
-    background: #fffaf0;
-    color: #975a16;
-    font:
-      11px/1.3 ui-monospace,
-      monospace;
-    padding: 4px;
-    min-height: 16px;
-  }
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
+  body{width:1280px;height:1024px;position:relative;background:#fff;
+       font-family:system-ui,sans-serif;font-size:14px;color:#111}
+  img{max-width:100%;display:block}
+  .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+  .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
+                     font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .bg-\[rgba\(51\,102\,255\,0\)\]{background:rgba(51,102,255,0)}
+  .content-stretch{align-content:stretch}
+  .flex{display:flex}
+  .flex-col{flex-direction:column}
+  .gap-\[var\(--space-new\\\/2xl\,32px\)\]{gap:var(--space-new/2xl,32px)}
+  .isolate{isolation:isolate}
+  .items-start{align-items:flex-start}
+  .overflow-clip{overflow:clip}
+  .p-\[var\(--space-new\\\/2xl\,32px\)\]{padding:var(--space-new/2xl,32px)}
+  .relative{position:relative}
+  .rounded-\[var\(--size\\\/borderradius\\\/xl\,12px\)\]{border-radius:var(--size/borderradius/xl,12px)}
+  .size-full{width:100%;height:100%}
+  .\[word-break\:break-word\]{word-break:break-word}
+  .gap-\[var\(--space-new\\\/md\,8px\)\]{gap:var(--space-new/md,8px)}
+  .leading-\[0\]{line-height:0}
+  .shrink-0{flex-shrink:0}
+  .whitespace-nowrap{white-space:nowrap}
+  .z-\[1\]{z-index:1}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/heading\,\'Roboto\:Medium\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/heading,'Roboto:Medium')}
+  .font-\[var\(--text-new\\\/typeset\\\/fontweight\\\/semibold\,500\)\]{font-family:var(--text-new/typeset/fontweight/semibold,500)}
+  .justify-center{justify-content:center}
+  .text-\[color\:var\(--color\\\/foreground\\\/primary\\\/bold\,\#1727b6\)\]{font-size:color:var(--color/foreground/primary/bold,#1727b6)}
+  .text-\[length\:var\(--size\\\/text-new\\\/heading\\\/xl\,32px\)\]{font-size:length:var(--size/text-new/heading/xl,32px)}
+  .leading-\[var\(--size\\\/lineheight\\\/500\,40px\)\]{line-height:var(--size/lineheight/500,40px)}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/body\,\'Roboto\:Regular\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/body,'Roboto:Regular')}
+  .font-\[var\(--text-new\\\/typeset\\\/fontweight\\\/regular\,400\)\]{font-family:var(--text-new/typeset/fontweight/regular,400)}
+  .text-\[color\:var\(--color\\\/foreground\\\/accent\\\/grey\\\/subtlest\,\#59636e\)\]{font-size:color:var(--color/foreground/accent/grey/subtlest,#59636e)}
+  .text-\[length\:var\(--size\\\/text-new\\\/body\\\/lg\,16px\)\]{font-size:length:var(--size/text-new/body/lg,16px)}
+  .leading-\[var\(--size\\\/lineheight\\\/300\,24px\)\]{line-height:var(--size/lineheight/300,24px)}
+  .gap-\[var\(--space-new\\\/lg\,16px\)\]{gap:var(--space-new/lg,16px)}
+  .items-center{align-items:center}
+  .w-full{width:100%}
+  .flex-\[1_0_0\]{flex:1 0 0}
+  .min-w-px{min-width:1px}
+  .size-\[40px\]{width:40px;height:40px}
+  .absolute{position:absolute}
+  .block{display:block}
+  .inset-0{inset:0}
+  .max-w-none{max-width:none}
+  .rounded-\[var\(--size\\\/borderradius\\\/full\,800px\)\]{border-radius:var(--size/borderradius/full,800px)}
+  .border-\[length\:var\(--size\\\/borderwidth\\\/action\,1px\)\]{border-width:length:var(--size/borderwidth/action,1px)}
+  .border-\[var\(--color\\\/border\\\/primary\\\/bold\,\#1727b6\)\]{border-color:var(--color/border/primary/bold,#1727b6)}
+  .border-solid{border-style:solid}
+  .gap-\[var\(--space-new\\\/sm\,6px\)\]{gap:var(--space-new/sm,6px)}
+  .p-\[var\(--space\\\/125\,10px\)\]{padding:var(--space/125,10px)}
+  .size-\[16px\]{width:16px;height:16px}
+  .z-\[4\]{z-index:4}
+  .bg-\[var\(--color\\\/foreground\\\/primary\\\/bold\,\#1727b6\)\]{background:var(--color/foreground/primary/bold,#1727b6)}
+  .inset-\[-2px\]{inset:-2px}
+  .inset-\[-1px\]{inset:-1px}
+  .opacity-\[calc\(var\(--opacity\\\/interactive\\\/plain\\\/idle\,0\)\/100\)\]{opacity:calc(var(--opacity/interactive/plain/idle,0)/100)}
+  .bg-\[var\(--color\\\/background\\\/neutral\\\/bold\,\#e0e6ea\)\]{background:var(--color/background/neutral/bold,#e0e6ea)}
+  .p-\[var\(--space-new\\\/2xs\,2px\)\]{padding:var(--space-new/2xs,2px)}
+  .z-\[2\]{z-index:2}
+  .size-\[32px\]{width:32px;height:32px}
+  .bg-\[var\(--color\\\/background\\\/primary\\\/bold\,\#36f\)\]{background:var(--color/background/primary/bold,#36f)}
+  .-translate-y-1\/2{translate:0 -50%}
+  .aspect-\[80\/80\]{aspect-ratio:80/80}
+  .left-0{left:0}
+  .right-0{right:0}
+  .top-1\/2{top:50%}
+  .bg-\[var\(--color\\\/foreground\\\/primary\\\/onbold\,white\)\]{background:var(--color/foreground/primary/onbold,white)}
+  .-translate-x-1\/2{translate:-50% 0}
+  .aspect-\[200\/200\]{aspect-ratio:200/200}
+  .bottom-0{bottom:0}
+  .left-1\/2{left:50%}
+  .top-0{top:0}
+  .object-cover{object-fit:cover}
+  .pointer-events-none{pointer-events:none}
+  .h-\[16px\]{height:16px}
+  .w-\[24px\]{width:24px}
+  .h-full{height:100%}
+  .font-\[family-name\:var\(--text-new\\\/typeset\\\/fontfamily\\\/icon\,\'Font_Awesome_7_Pro\:Regular\'\)\]{font-family:family-name:var(--text-new/typeset/fontfamily/icon,'Font Awesome 7 Pro:Regular')}
+  .font-\[var\(--icon\\\/typeset\\\/fontweight\\\/icon-regular\,normal\)\]{font-family:var(--icon/typeset/fontweight/icon-regular,normal)}
+  .text-\[color\:var\(--color\\\/foreground\\\/secondary\\\/bold\,\#222\)\]{font-size:color:var(--color/foreground/secondary/bold,#222)}
+  .text-\[length\:var\(--size\\\/icon\\\/font\\\/md\,16px\)\]{font-size:length:var(--size/icon/font/md,16px)}
+  .text-center{text-align:center}
+  .leading-\[16px\]{line-height:16px}
+  .border-\[var\(--elevation\\\/surface\\\/base\\\/default\,white\)\]{border-color:var(--elevation/surface/base/default,white)}
+  .left-\[27px\]{left:27px}
+  .top-\[2px\]{top:2px}
+  .gap-\[var\(--space-new\\\/xs\,4px\)\]{gap:var(--space-new/xs,4px)}
+  .size-\[8px\]{width:8px;height:8px}
 </style>
 <div
-  data-region="get_design_context raw response — node 334:20573 (Group list), fileKey 4TdMrcnIVOn3Hrfj2OpVZU"
-  data-node-id="334:20573"
-  style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 1024px">
-  <pre class="probe-error">
-Transform failed with 1 error:
-&lt;stdin&gt;:1:1: ERROR: Syntax error &quot; &quot;</pre>
+  data-region="welcome header"
+  data-node-id="334:20574"
+  style="position: absolute; left: 24px; top: 88px; width: 1200px; height: 136px">
+  <div
+    class="bg-[rgba(51,102,255,0)] content-stretch flex flex-col gap-[var(--space-new\/2xl,32px)] isolate items-start overflow-clip p-[var(--space-new\/2xl,32px)] relative rounded-[var(--size\/borderradius\/xl,12px)] size-full"
+    data-node-id="334:20574">
+    <div
+      class="[word-break:break-word] content-stretch flex flex-col gap-[var(--space-new\/md,8px)] items-start leading-[0] relative shrink-0 whitespace-nowrap z-[1]"
+      data-node-id="334:20575">
+      <div
+        class="flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center relative shrink-0 text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-[length:var(--size\/text-new\/heading\/xl,32px)]"
+        data-node-id="334:20576">
+        <p class="leading-[var(--size\/lineheight\/500,40px)]">Welcome back, Sarah</p>
+      </div>
+      <div
+        class="flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center relative shrink-0 text-[color:var(--color\/foreground\/accent\/grey\/subtlest,#59636e)] text-[length:var(--size\/text-new\/body\/lg,16px)]"
+        data-node-id="334:20577">
+        <p class="leading-[var(--size\/lineheight\/300,24px)]">
+          Select a group to view materials, follow your progress, and join today's lessons
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="main content — Live now section and My groups grid"
+  data-node-id="334:20578"
+  style="position: absolute; left: 56px; top: 232px; width: 1168px; height: 752px">
+  <pre class="probe-error">Mask is not defined</pre>
+</div>
+<div
+  data-region="top nav"
+  data-node-id="334:20684"
+  style="position: absolute; left: 12906px; top: -8296px; width: 1200px; height: 40px">
+  <div
+    class="content-stretch flex flex-col gap-[var(--space-new\/2xl,32px)] items-start relative rounded-[var(--size\/borderradius\/xl,12px)] size-full"
+    data-node-id="334:20684">
+    <div
+      class="content-stretch flex gap-[var(--space-new\/lg,16px)] items-center relative shrink-0 w-full"
+      data-node-id="334:20685">
+      <div
+        class="content-stretch flex flex-[1_0_0] items-center min-w-px relative"
+        data-node-id="I334:20685;10:637">
+        <div
+          class="relative shrink-0 size-[40px]"
+          data-node-id="I334:20685;111:12383"
+          data-name="Logo">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/775e9b88-6da4-4cc8-b4d6-cb3434df9c3e/d61f5.svg" />
+        </div>
+      </div>
+      <div
+        class="content-stretch flex gap-[var(--space-new\/lg,16px)] items-center relative shrink-0"
+        data-node-id="I334:20685;10:4111">
+        <div
+          class="content-stretch flex gap-[var(--space-new\/md,8px)] items-center relative shrink-0"
+          data-node-id="I334:20685;10:5107">
+          <div
+            class="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0"
+            data-node-id="I334:20685;10:557"
+            data-name="sl-button-pill">
+            <div
+              class="content-stretch flex items-start overflow-clip relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0"
+              data-node-id="I334:20685;10:557;283:40506"
+              data-name="Button-Variants">
+              <div
+                class="border-[length:var(--size\/borderwidth\/action,1px)] border-[var(--color\/border\/primary\/bold,#1727b6)] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip p-[var(--space\/125,10px)] relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0"
+                data-node-id="I334:20685;10:557;283:40506;730:95853"
+                data-name="Button-Base">
+                <div
+                  class="relative shrink-0 size-[16px] z-[4]"
+                  data-node-id="I334:20685;10:557;283:40506;730:95853;730:95790"
+                  data-name="start icon">
+                  <div
+                    class="absolute bg-[var(--color\/foreground\/primary\/bold,#1727b6)] inset-[-2px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[2px_2px] mask-size-[16px_16px]"
+                    data-node-id="I334:20685;10:557;283:40506;730:95853;730:95792"
+                    data-name="icon color mask"></div>
+                </div>
+                <div
+                  class="absolute inset-[-1px] opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/full,800px)] z-[1]"
+                  data-node-id="I334:20685;10:557;283:40506;730:95853;730:95798"
+                  data-name="interactive"></div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-[var(--color\/background\/neutral\/bold,#e0e6ea)] content-stretch flex gap-[var(--space-new\/md,8px)] items-center p-[var(--space-new\/2xs,2px)] relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0"
+            data-node-id="I334:20685;10:4007">
+            <div
+              class="content-stretch flex gap-[var(--space-new\/md,8px)] isolate items-center relative shrink-0"
+              data-node-id="I334:20685;10:4007;10:2841"
+              data-name="sl-avatar">
+              <div
+                class="content-stretch flex flex-col items-start relative shrink-0 z-[2]"
+                data-node-id="I334:20685;10:4007;10:2841;7403:217918">
+                <div
+                  class="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0"
+                  data-node-id="I334:20685;10:4007;10:2841;7401:1011"
+                  data-name="Avatar">
+                  <div
+                    class="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]"
+                    data-node-id="I334:20685;10:4007;10:2841;7401:1018"
+                    data-name="avatar-content">
+                    <div
+                      class="absolute content-stretch flex inset-0 isolate items-center justify-center"
+                      data-node-id="I334:20685;10:4007;10:2841;7401:1019"
+                      data-name="Mask">
+                      <div
+                        class="absolute bg-[var(--color\/background\/primary\/bold,#36f)] inset-0 z-[1]"
+                        data-node-id="I334:20685;10:4007;10:2841;7401:1019;7355:28686"
+                        data-name="BG"></div>
+                    </div>
+                    <div
+                      class="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2"
+                      data-node-id="I334:20685;10:4007;10:2841;7401:1020"
+                      data-name="avatar-content-variant">
+                      <div
+                        class="absolute content-stretch flex inset-0 isolate items-center justify-center mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-19.5px_0px] mask-size-[71px_32px]"
+                        data-node-id="I334:20685;10:4007;10:2841;7401:1025"
+                        data-name="Mask">
+                        <div
+                          class="absolute bg-[var(--color\/foreground\/primary\/onbold,white)] inset-0 z-[2]"
+                          data-node-id="I334:20685;10:4007;10:2841;7401:1025;7355:28738"
+                          data-name="FG"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0"
+                      data-node-id="I334:20685;10:4007;10:2841;7401:1026"
+                      data-name="image">
+                      <img
+                        alt=""
+                        class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                        src="https://www.figma.com/api/mcp/asset/775e9b88-6da4-4cc8-b4d6-cb3434df9c3e/d2f0d.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="h-[16px] relative shrink-0 w-[24px]"
+              data-node-id="I334:20685;10:4007;10:4239">
+              <div
+                class="absolute content-stretch flex items-start left-0 top-0"
+                data-node-id="I334:20685;10:4007;10:3939"
+                data-name="sl-icon">
+                <div
+                  class="content-stretch flex items-center justify-center relative shrink-0"
+                  data-node-id="I334:20685;10:4007;10:3939;301:41086"
+                  data-name="SL-icon/md">
+                  <div
+                    class="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                    data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102"
+                    data-name="Base/Icon">
+                    <div
+                      class="flex-[1_0_0] h-full min-w-px relative"
+                      data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102;49:7112"
+                      data-name="icon-container">
+                      <div
+                        class="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Regular')] font-[var(--icon\/typeset\/fontweight\/icon-regular,normal)] inset-0 justify-center leading-[0] text-[color:var(--color\/foreground\/secondary\/bold,#222)] text-[length:var(--size\/icon\/font\/md,16px)] text-center"
+                        data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102;49:7100">
+                        <p class="leading-[16px]">chevron-down</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute border-2 border-[var(--elevation\/surface\/base\/default,white)] border-solid content-stretch flex items-start left-[27px] rounded-[var(--size\/borderradius\/full,800px)] top-[2px]"
+            data-node-id="I334:20685;67:2159"
+            data-name="sl-badge">
+            <div
+              class="content-stretch flex gap-[var(--space-new\/xs,4px)] items-center relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0"
+              data-node-id="I334:20685;67:2159;1870:152150"
+              data-name="badge-base-sm">
+              <div
+                class="relative shrink-0 size-[8px]"
+                data-node-id="I334:20685;67:2159;1870:152150;10646:700136"
+                data-name="dot">
+                <img
+                  alt=""
+                  class="absolute block inset-0 max-w-none size-full"
+                  src="https://www.figma.com/api/mcp/asset/775e9b88-6da4-4cc8-b4d6-cb3434df9c3e/4ccd2.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,77 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/e76c4a80-afbb-4aea-b052-42780cda4d1f";
+const imgChevronLeft = `${assetPathPrefix}/69dc0.svg`;
+const imgChevronRight = `${assetPathPrefix}/88d50.svg`;
+const imgCaretDown = `${assetPathPrefix}/d14d6.svg`;
+
+type PaginationProps = {
+  className?: string;
+  collapsed?: "False";
+  itemsPerPage?: boolean;
+};
+
+function Pagination({ className, collapsed = "False", itemsPerPage = true }: PaginationProps) {
+  return (
+    <div className={className || "content-stretch flex gap-[var(--size\\/300,16px)] items-center justify-end relative rounded-[40px] w-[1160px]"} data-node-id="6145:12462">
+      <div className="flex flex-[1_0_0] flex-row items-center self-stretch" data-node-id="6145:12464">
+        <div className="content-stretch flex flex-[1_0_0] gap-[8px] h-full items-center min-w-px relative" data-name="Pager">
+          <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12465" data-name="Button">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I6145:12465;1902:2859" data-name="Icon placeholder">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChevronLeft} />
+            </div>
+          </div>
+          <div className="bg-[var(--$brand--700,#5d4a68)] content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12466" data-name=".Page link">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--0,white)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="I6145:12466;4997:6344">
+              1
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12467" data-name=".Page link">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="I6145:12467;4997:6338">
+              2
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12468" data-name=".Page link">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="I6145:12468;4997:6338">
+              3
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12469" data-name=".Page link">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="I6145:12469;4997:6338">
+              4
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12470" data-name=".Page link">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="I6145:12470;4997:6338">
+              5
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="6145:12471" data-name="Button">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I6145:12471;1902:2850" data-name="Icon placeholder">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChevronRight} />
+            </div>
+          </div>
+        </div>
+      </div>
+      {itemsPerPage && (
+        <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="6145:12472" data-name="Control">
+          <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap" data-node-id="6145:12473">
+            1 to 10 of 47
+          </p>
+          <div className="content-stretch flex flex-col items-center justify-center relative shrink-0 w-[80px]" data-node-id="6145:12474" data-name="Select">
+            <div className="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex gap-[var(--size\/50,8px)] h-[40px] items-center overflow-clip pl-[var(--size\/100,12px)] pr-[40px] py-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0 w-full" data-node-id="I6145:12474;29:7275" data-name="Input">
+              <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px overflow-hidden relative text-[16px] text-[color:var(--$gray--900,#333)] text-ellipsis whitespace-nowrap" data-node-id="I6145:12474;29:7276">
+                10
+              </p>
+              <div className="absolute right-[6px] size-[24px] top-[6px]" data-node-id="I6145:12474;1429:2756" data-name="caret-down">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgCaretDown} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function Pagination1() {
+  return <Pagination className="content-stretch flex gap-[var(--size\/300,16px)] items-center justify-end relative rounded-[40px] size-full" />;
+}

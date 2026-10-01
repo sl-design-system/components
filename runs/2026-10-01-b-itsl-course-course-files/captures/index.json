@@ -2,7 +2,8 @@
   "schemaVersion": 1,
   "run": "b-itsl-course-course-files",
   "figma": {
-    "rootNodeId": "4007:3161"
+    "rootNodeId": "4007:3161",
+    "fileKey": "mONnHPTYNNaBwV3cFUHIYv"
   },
   "normalisedFrom": "the run's own files; nothing was fetched",
   "captures": [
@@ -42,6 +43,61 @@
       "capturedAt": "2026-10-01T16:18:26.154Z",
       "truncated": false,
       "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4461:5869",
+      "label": "top navigation (main menu + secondary tab strip)",
+      "file": "captures/design-context/4461-5869.txt",
+      "bytes": 12474,
+      "capturedAt": "2026-10-01T16:35:20Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw. Stores the response's code block verbatim; the response's non-code advisory blocks (stack-conversion notice, node-id notice, style list, component descriptions, asset-URL notice) are not stored."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4007:3166",
+      "label": "page header",
+      "file": "captures/design-context/4007-3166.txt",
+      "bytes": 1691,
+      "capturedAt": "2026-10-01T16:35:20Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw. Stores the response's code block verbatim; the response's non-code advisory blocks (stack-conversion notice, node-id notice, style list, component descriptions, asset-URL notice) are not stored."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4007:3169",
+      "label": "info banner",
+      "file": "captures/design-context/4007-3169.txt",
+      "bytes": 2222,
+      "capturedAt": "2026-10-01T16:35:20Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw. Stores the response's code block verbatim; the response's non-code advisory blocks (stack-conversion notice, node-id notice, style list, component descriptions, asset-URL notice) are not stored."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4008:9031",
+      "label": "course files table (header row + 4 visible data rows, per-cell)",
+      "file": "captures/design-context/4008-9031.txt",
+      "bytes": 20231,
+      "capturedAt": "2026-10-01T16:35:20Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw. Stores the response's code block verbatim; the response's non-code advisory blocks (stack-conversion notice, node-id notice, style list, component descriptions, asset-URL notice) are not stored."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "4007:3183",
+      "label": "pagination control (pager + range text + page-size select)",
+      "file": "captures/design-context/4007-3183.txt",
+      "bytes": 6958,
+      "capturedAt": "2026-10-01T16:35:20Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw. Stores the response's code block verbatim; the response's non-code advisory blocks (stack-conversion notice, node-id notice, style list, component descriptions, asset-URL notice) are not stored."
     }
   ]
 }

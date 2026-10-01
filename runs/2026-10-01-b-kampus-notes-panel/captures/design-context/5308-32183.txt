@@ -1,0 +1,69 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/c5c692cf-d896-4002-b7bc-a390ef76e59d";
+const imgIcon = `${assetPathPrefix}/816ae.svg`;
+const imgSearch = `${assetPathPrefix}/7e0b2.svg`;
+const imgIcon1 = `${assetPathPrefix}/203b3.svg`;
+const imgHelp = `${assetPathPrefix}/0804d.svg`;
+const imgIcon2 = `${assetPathPrefix}/44357.svg`;
+
+export default function HeaderNavigation() {
+  return (
+    <div className="bg-[#643695] content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-center relative size-full" data-node-id="5308:32183" data-name="Header-navigation">
+      <div className="bg-[#643695] content-stretch flex items-start px-[24px] relative shrink-0 w-[1280px]" data-node-id="I5308:32183;9353:30102" data-name="top navigation">
+        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px relative self-stretch" data-node-id="I5308:32183;9353:30103">
+          <div className="bg-[#643695] content-stretch flex gap-[8px] items-center p-[16px] relative shrink-0" data-node-id="I5308:32183;9353:30104" data-name="top-navi-item-light">
+            <div className="relative shrink-0 size-[16px]" data-node-id="I5308:32183;9353:30104;9353:30321" data-name="Icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
+            </div>
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32183;9353:30104;9353:30322" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[24px]">My page</p>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex items-start relative shrink-0" data-node-id="I5308:32183;9353:30105" data-name="main navigation">
+          <div className="bg-[#7a4fa7] content-stretch flex items-center justify-center px-[24px] py-[16px] relative shrink-0" data-node-id="I5308:32183;9353:30106" data-name="top-navi-item-light">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32183;9353:30106;9353:30319" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[24px]">Learning materials</p>
+            </div>
+          </div>
+          <div className="bg-[#643695] content-stretch flex items-center px-[24px] py-[16px] relative shrink-0" data-node-id="I5308:32183;9353:30107" data-name="top-navi-item-light">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32183;9353:30107;9353:30317" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[24px]">Tests</p>
+            </div>
+          </div>
+          <div className="content-stretch flex items-center justify-center px-[24px] py-[16px] relative shrink-0" data-node-id="I5308:32183;9353:30108" data-name="top-navi-item-light">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32183;9353:30108;9353:30317" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[24px]">Dashboard</p>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] items-center justify-end min-w-px relative" data-node-id="I5308:32183;9353:30113" data-name="settings and search">
+          <button className="content-stretch cursor-pointer flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]" data-node-id="I5308:32183;9353:30114" data-name="top-navi-item-icon">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32183;9353:30114;9353:30296" data-name="Icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgSearch} />
+            </div>
+          </button>
+          <div className="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]" data-node-id="I5308:32183;9353:30115" data-name="top-navi-item-icon">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32183;9353:30115;9353:30296" data-name="Icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon1} />
+            </div>
+            <div className="absolute bg-[#db7109] content-stretch flex flex-col items-center justify-center left-[33.75px] px-[3px] py-px rounded-[12px] size-[16px] top-[7px]" data-node-id="I5308:32183;9353:30115;9353:30299" data-name="number-tag">
+              <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] relative shrink-0 text-[10px] text-white tracking-[0.3px] whitespace-nowrap" data-node-id="I5308:32183;9353:30115;9353:30299;2178:8937" style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[12px]">3</p>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]" data-node-id="I5308:32183;9353:30116" data-name="top-navi-item-icon">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32183;9353:30116;9353:30296" data-name="Icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgHelp} />
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col gap-[4px] items-center justify-center py-[16px] relative shrink-0 size-[56px]" data-node-id="I5308:32183;9353:30117" data-name="top-navi-item-icon">
+            <div className="relative shrink-0 size-[24px]" data-node-id="I5308:32183;9353:30117;9353:30296" data-name="Icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon2} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

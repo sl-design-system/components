@@ -1,0 +1,337 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/b5cc8212-1679-4ba4-b2a1-2ac7f7501e00";
+const imgOnOffOffStateDefault = `${assetPathPrefix}/06853.svg`;
+const imgChevronRight = `${assetPathPrefix}/17190.svg`;
+const imgIcon = `${assetPathPrefix}/07d88.svg`;
+const imgImage = `${assetPathPrefix}/40677.png`;
+const imgImage1 = `${assetPathPrefix}/69c6a.png`;
+const imgImage2 = `${assetPathPrefix}/cee6c.png`;
+const imgImage3 = `${assetPathPrefix}/a69f7.png`;
+const imgImage4 = `${assetPathPrefix}/be03a.png`;
+const imgImage5 = `${assetPathPrefix}/87a03.png`;
+const imgImage6 = `${assetPathPrefix}/02e2a.png`;
+const imgImage7 = `${assetPathPrefix}/afe59.png`;
+const imgImage8 = `${assetPathPrefix}/36169.png`;
+const imgImage9 = `${assetPathPrefix}/e8104.png`;
+const imgImage10 = `${assetPathPrefix}/90f2e.png`;
+const imgIconRight = `${assetPathPrefix}/6d126.svg`;
+const imgChevronLeft = `${assetPathPrefix}/2b5e3.svg`;
+const imgIcon1 = `${assetPathPrefix}/dfe71.svg`;
+const imgIcon2 = `${assetPathPrefix}/f3a5c.svg`;
+const imgEllipsis = `${assetPathPrefix}/08a5b.svg`;
+
+type SimpleToggleProps = {
+  className?: string;
+  onOff?: "Off";
+  state?: "Default";
+};
+
+function SimpleToggle({ className, onOff = "Off", state = "Default" }: SimpleToggleProps) {
+  return (
+    <div className={className || "h-[20px] relative w-[40px]"} data-node-id="1702:18966">
+      <div className="absolute inset-[-20%_0_-40%_-15%]">
+        <img alt="" className="block max-w-none size-full" src={imgOnOffOffStateDefault} />
+      </div>
+    </div>
+  );
+}
+
+function StudentView({ className }: { className?: string }) {
+  return (
+    <div className={className || "content-stretch flex gap-[16px] items-center relative"} data-node-id="4701:55280" data-name="Student view">
+      <SimpleToggle className="h-[20px] relative shrink-0 w-[40px]" />
+      <p className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#0e0e0f] text-[16px] w-[142px]" data-node-id="4701:55282" style={{ fontVariationSettings: '"wdth" 100' }}>
+        Student view
+      </p>
+    </div>
+  );
+}
+
+function ChevronRight({ className }: { className?: string }) {
+  return (
+    <div className={className || "relative size-[24px]"} data-node-id="107:1162" data-name="chevron-right">
+      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChevronRight} />
+    </div>
+  );
+}
+
+type IconButtonProps = {
+  className?: string;
+  size?: "Default";
+  state?: "Default";
+  type?: "Primary";
+};
+
+function IconButton({ className, size = "Default", state = "Default", type = "Primary" }: IconButtonProps) {
+  return (
+    <div className={className || "bg-[#643695] relative rounded-[56px] size-[40px]"} data-node-id="11360:135454">
+      <div className="absolute inset-[20%]" data-node-id="11360:135593" data-name="icon">
+        <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
+      </div>
+    </div>
+  );
+}
+
+export default function Content() {
+  return (
+    <div className="bg-[#f5f5f6] content-stretch flex flex-col gap-[16px] items-center pb-[48px] px-[24px] relative size-full" data-node-id="5308:32163" data-name="content">
+      <div className="bg-gradient-to-b content-stretch flex from-[#f5f5f6] from-[64.637%] items-center justify-between max-w-[840px] pb-[8px] pt-[16px] shrink-0 sticky to-[rgba(255,255,255,0)] top-0 w-full" data-node-id="5308:32164" data-name="breadcrumb-2023">
+        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px relative" data-node-id="I5308:32164;9353:30338" data-name="breadcrump">
+          <div className="content-stretch flex items-start relative shrink-0" data-node-id="I5308:32164;9353:30339" data-name="row 1">
+            <div className="content-stretch flex gap-[8px] items-center justify-center px-[8px] relative rounded-[4px] shrink-0" data-node-id="I5308:32164;9361:23223" data-name="Startpage">
+              <p className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#643695] text-[14px] tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32164;9361:23223;3632:244" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Start page
+              </p>
+              <div className="relative shrink-0 size-[16px]" data-node-id="I5308:32164;9361:23223;3632:245" data-name="Icon-right">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIconRight} />
+              </div>
+            </div>
+            <div className="content-stretch flex items-center px-[8px] relative rounded-[4px] self-stretch shrink-0" data-node-id="I5308:32164;9361:23227" data-name="Current page">
+              <p className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[20px] relative shrink-0 text-[#0e0e0f] text-[14px] whitespace-nowrap" data-node-id="I5308:32164;9361:23228" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Chapter 1
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[8px] items-center justify-end min-w-px relative" data-node-id="I5308:32164;9353:30349" data-name="navigation">
+          <div className="bg-[#643695] relative rounded-[56px] shrink-0 size-[40px]" data-node-id="I5308:32164;9353:30350" data-name="Icon-button">
+            <div className="absolute inset-[20%]" data-node-id="I5308:32164;9353:30350;192:2460" data-name="icon">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChevronLeft} />
+            </div>
+          </div>
+          <IconButton className="bg-[#643695] relative rounded-[56px] shrink-0 size-[40px]" />
+        </div>
+      </div>
+      <div className="content-stretch flex flex-col gap-[8px] h-[40px] items-start max-w-[840px] relative shrink-0 w-full" data-node-id="5308:32165" data-name="Chapter page title">
+        <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="I5308:32165;5039:54922">
+          <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#0e0e0f] text-[30px] tracking-[-0.9px] whitespace-nowrap" data-node-id="I5308:32165;5039:48980" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[38px]">Chapter 1</p>
+          </div>
+          <div className="content-stretch flex items-start relative shrink-0" data-node-id="I5308:32165;5039:48981">
+            <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="I5308:32165;5039:48982" data-name="Actions">
+              <div className="relative rounded-[56px] shrink-0 size-[40px]" data-node-id="I5308:32165;5039:48984" data-name="Icon-button">
+                <div className="absolute inset-[20%]" data-node-id="I5308:32165;5039:48984;192:2740" data-name="icon">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon1} />
+                </div>
+              </div>
+              <div className="relative rounded-[56px] shrink-0 size-[40px]" data-node-id="I5308:32165;5039:48985" data-name="Icon-button">
+                <div className="absolute inset-[20%]" data-node-id="I5308:32165;5039:48985;192:2740" data-name="icon">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon2} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="content-stretch flex items-start max-w-[840px] relative shrink-0 w-full" data-node-id="5308:32166">
+        <StudentView className="content-stretch flex gap-[16px] items-center relative shrink-0" />
+      </div>
+      <div className="content-stretch flex flex-col gap-[24px] items-start max-w-[840px] relative shrink-0 w-full" data-node-id="5308:32168" data-name="subchapter-cards_grid">
+        <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-full" data-node-id="5308:32169">
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch" data-node-id="5308:32170" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32170;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32170;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage3} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32170;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32170;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32170;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.0
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32170;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32170;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="5308:32171" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32171;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32171;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage4} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32171;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32171;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32171;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.1
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32171;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32171;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch" data-node-id="5308:32172" data-name="subchapter-card">
+            <div className="bg-white border-2 border-[#cecfd2] border-dashed content-stretch flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32172;4882:40364" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start opacity-50 overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32172;4882:40364;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage5} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32172;4882:40364;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32172;4882:40364;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#6d6e73] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32172;4882:40364;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.2
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32172;4882:40364;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32172;4882:40364;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-full" data-node-id="5308:32173">
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch" data-node-id="5308:32174" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32174;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32174;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage6} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32174;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32174;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32174;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.3
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32174;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32174;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative self-stretch" data-node-id="5308:32175" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32175;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32175;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage7} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage8} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32175;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32175;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32175;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.4
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32175;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32175;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="5308:32176" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32176;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32176;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage7} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32176;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32176;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32176;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.5
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32176;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32176;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-full" data-node-id="5308:32177">
+          <div className="content-stretch flex flex-col items-start relative shrink-0 w-[264px]" data-node-id="5308:32178" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32178;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32178;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage1} />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage2} />
+                  <div className="absolute bg-[rgba(100,54,149,0.2)] inset-0 rounded-tl-[4px] rounded-tr-[4px]" />
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage9} />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32178;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32178;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32178;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Subchapter 1.6
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32178;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32178;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col items-start relative shrink-0 w-[264px]" data-node-id="5308:32179" data-name="subchapter-card">
+            <div className="bg-white content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col items-end relative rounded-[4px] shrink-0 w-full" data-node-id="I5308:32179;4882:40334" data-name="🏗️ subchapter-link-card_base">
+              <div className="aspect-[240/180] content-stretch flex flex-col items-start overflow-clip relative rounded-tl-[4px] rounded-tr-[4px] shrink-0 w-full" data-node-id="I5308:32179;4882:40334;4882:40289" data-name="image">
+                <div aria-hidden className="absolute inset-0 pointer-events-none rounded-tl-[4px] rounded-tr-[4px]">
+                  <img alt="" className="absolute max-w-none object-cover rounded-tl-[4px] rounded-tr-[4px] size-full" src={imgImage10} />
+                  <div className="absolute bg-[#643695] inset-0 mix-blend-overlay rounded-tl-[4px] rounded-tr-[4px]" />
+                </div>
+              </div>
+              <div className="content-stretch flex items-start min-h-[64px] overflow-clip relative rounded-bl-[4px] rounded-br-[4px] shrink-0 w-full" data-node-id="I5308:32179;4882:40334;4882:40291" data-name="content">
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-w-px overflow-clip px-[16px] py-[8px] relative rounded-[4px] self-stretch" data-node-id="I5308:32179;4882:40334;4882:40293" data-name="text">
+                  <p className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[#0e0e0f] text-[18px] tracking-[-0.36px] w-full" data-node-id="I5308:32179;4882:40334;4882:40294" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    Teacher-created subchapter
+                  </p>
+                </div>
+                <div className="absolute right-0 rounded-[56px] size-[40px] top-[-0.25px]" data-node-id="I5308:32179;4882:40334;4882:40323" data-name="Icon-button">
+                  <div className="absolute inset-[20%]" data-node-id="I5308:32179;4882:40334;4882:40323;192:2740" data-name="icon">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="h-[128px] relative shrink-0 w-[218px]" data-node-id="5308:32180" data-name="placeholder" />
+      </div>
+    </div>
+  );
+}

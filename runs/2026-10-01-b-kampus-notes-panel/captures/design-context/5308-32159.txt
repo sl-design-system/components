@@ -1,0 +1,27 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/1f36e259-9dea-46b7-b7bb-4dca44a2142d";
+const imgIcon = `${assetPathPrefix}/d756c.svg`;
+
+type FullscreenToggleProps = {
+  className?: string;
+  state?: "Default";
+};
+
+function FullscreenToggle({ className, state = "Default" }: FullscreenToggleProps) {
+  return (
+    <div className={className || "content-stretch flex flex-col gap-[10px] items-center justify-center py-[24px] relative w-[88px]"} data-node-id="12545:192801">
+      <div className="bg-white drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] relative rounded-[56px] shrink-0 size-[40px]" data-node-id="12545:192803" data-name="Icon-button">
+        <div className="absolute inset-[20%]" data-node-id="I12545:192803;192:2472" data-name="icon">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
+        </div>
+      </div>
+      <div className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-end leading-[0] relative shrink-0 text-[10px] text-black text-center tracking-[0.3px] whitespace-nowrap" data-node-id="12545:192804" style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[12px] mb-0 whitespace-pre">{`View `}</p>
+        <p className="leading-[12px] whitespace-pre">fullscreen</p>
+      </div>
+    </div>
+  );
+}
+
+export default function FullscreenToggle1() {
+  return <FullscreenToggle className="content-stretch flex flex-col gap-[10px] items-center justify-center py-[24px] relative size-full" />;
+}

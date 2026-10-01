@@ -141,3 +141,63 @@ invisible to a measurement.
 
 **Record the distortion; never correct it.** Undoing a transformation inferred from its output is
 reconstruction, not measurement.
+
+---
+
+## What the first deliberate use of this protocol found
+
+Written from nineteen runs' mistakes, then followed on purpose for the first time during a
+backfill. Four gaps, none of which were visible from the outside.
+
+### A response is not one blob
+
+`get_design_context` returns the code **and five advisory blocks**: a stack-conversion notice, a
+node-id notice, a style list, **component descriptions**, and an asset-expiry notice. "Raw bytes
+only" does not say what to do with them, and the renderer settles it by accident — it feeds the
+file to a TSX parser, so prose makes the region fail.
+
+So: **store the code block verbatim, and store the advisory blocks separately** rather than
+discarding them. The component descriptions are real content and dropping them is a real loss —
+for one design they carried itslearning's own usage rules for Banner, Pagination, Cell and the
+table template, each with a styleguide URL. Every run so far discarded them silently.
+
+### The response's root node can differ from the one you asked for
+
+A pagination control queried at `4007:3183` — the instance — returned markup rooted at
+`6145:12462`, the main component, and its inner `Pager` element carried no `data-node-id` at all.
+
+So **`index.json`'s `nodeId` is the node that was queried**, never whatever the markup happens to
+root at. Placement works only because of this; keying on the markup's root would put regions in the
+wrong place.
+
+### Hidden nodes vanish without trace
+
+`hidden="true"` nodes appear in `get_metadata` and are simply absent from `get_design_context`. A
+reader comparing the two sees an unexplained gap, and nothing in the capture says a node was hidden
+rather than missed. **The index should record which nodes were skipped because they are hidden** —
+otherwise a future completeness check will keep reporting them as holes.
+
+### Asset URLs are not fetchable at all — corrected
+
+The backfill reported that asset URLs expire after seven days, which is what Figma's own response
+says. **Tested, and the truth is worse**: `https://www.figma.com/api/mcp/asset/<uuid>/<file>`
+returns `404` immediately — for an asset captured a day earlier _and_ for one captured five minutes
+earlier. They are not public URLs that age out; they are not retrievable by plain HTTP at all.
+
+Every capture in the corpus therefore references **194 asset files across 53 prefixes that nothing
+outside the MCP session can resolve.** A reconstruction renders their boxes and no content, and the
+files give no hint why.
+
+The retrievable path is `download_assets`, which returns the node's export, the original raster
+fills, and SVGs for its vector layers — capped at 20 each, so a design with many icons needs
+several calls.
+
+So the protocol gains a step it did not have:
+
+**Download the assets while capturing, into `captures/assets/`, and record the mapping in
+`index.json`.** Do not rewrite the capture to point at them — raw stays raw — and let the consumer
+resolve `assetPathPrefix` through the index instead.
+
+This is the one gap that cannot be closed later. Metadata, context and mappings can all be
+re-fetched from the file at any time; **an asset URL embedded in a capture is dead on arrival**, and
+every reconstruction the corpus can produce is already missing its images.

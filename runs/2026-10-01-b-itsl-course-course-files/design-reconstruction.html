@@ -1,0 +1,977 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Design reconstruction — runs/2026-10-01-b-itsl-course-course-files</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
+  body{width:1280px;height:768px;position:relative;background:#fff;
+       font-family:system-ui,sans-serif;font-size:14px;color:#111}
+  img{max-width:100%;display:block}
+  .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
+  .probe-codeconnect{outline:2px dashed #b7791f;background:#fffaf0;color:#975a16;
+                     font:11px/1.3 ui-monospace,monospace;padding:4px;min-height:16px}
+  .content-stretch{align-content:stretch}
+  .drop-shadow-\[0px_4px_4px_rgba\(0\,0\,0\,0\.05\)\]{filter:drop-shadow(0px 4px 4px rgba(0,0,0,0.05))}
+  .flex{display:flex}
+  .flex-col{flex-direction:column}
+  .items-start{align-items:flex-start}
+  .relative{position:relative}
+  .size-full{width:100%;height:100%}
+  .bg-\[var\(--\$gray--0\,white\)\]{background:var(--$gray--0,white)}
+  .border-\[var\(--\$gray--300\,\#e1e1e1\)\]{border-color:var(--$gray--300,#e1e1e1)}
+  .border-b{border-bottom-width:1px}
+  .border-solid{border-style:solid}
+  .h-\[56px\]{height:56px}
+  .items-center{align-items:center}
+  .px-\[var\(--size\\\/25\,4px\)\]{padding-inline:var(--size/25,4px)}
+  .shrink-0{flex-shrink:0}
+  .w-full{width:100%}
+  .h-full{height:100%}
+  .px-\[var\(--size\\\/50\,8px\)\]{padding-inline:var(--size/50,8px)}
+  .py-\[var\(--size\\\/100\,12px\)\]{padding-block:var(--size/100,12px)}
+  .size-\[32px\]{width:32px;height:32px}
+  .absolute{position:absolute}
+  .block{display:block}
+  .inset-0{inset:0}
+  .max-w-none{max-width:none}
+  .flex-\[1_0_0\]{flex:1 0 0}
+  .min-w-px{min-width:1px}
+  .gap-\[var\(--size\\\/50\,8px\)\]{gap:var(--size/50,8px)}
+  .px-\[var\(--size\\\/300\,16px\)\]{padding-inline:var(--size/300,16px)}
+  .\[word-break\:break-word\]{word-break:break-word}
+  .font-\[family-name\:var\(--default-font\,\'Lato\:Regular\'\)\]{font-family:family-name:var(--default-font,'Lato:Regular')}
+  .justify-center{justify-content:center}
+  .leading-\[0\]{line-height:0}
+  .not-italic{font-style:normal}
+  .text-\[color\:var\(--\$gray--900\,\#333\)\]{font-size:color:var(--$gray--900,#333)}
+  .text-\[length\:var\(--size\\\/300\,16px\)\]{font-size:length:var(--size/300,16px)}
+  .whitespace-nowrap{white-space:nowrap}
+  .leading-\[1\.5\]{line-height:1.5}
+  .justify-end{justify-content:flex-end}
+  .pl-\[var\(--size\\\/700\,24px\)\]{padding-left:var(--size/700,24px)}
+  .border-\[var\(--\$gray--600\,\#757575\)\]{border-color:var(--$gray--600,#757575)}
+  .max-w-\[264px\]{max-width:264px}
+  .pl-\[var\(--size\\\/100\,12px\)\]{padding-left:var(--size/100,12px)}
+  .rounded-\[var\(--border-radius\,4px\)\]{border-radius:var(--border-radius,4px)}
+  .w-\[264px\]{width:264px}
+  .h-\[16px\]{height:16px}
+  .px-\[4px\]{padding-inline:4px}
+  .py-\[var\(--size\\\/50\,8px\)\]{padding-block:var(--size/50,8px)}
+  .pr-\[var\(--size\\\/25\,4px\)\]{padding-right:var(--size/25,4px)}
+  .font-\[var\(--regular\,normal\)\]{font-family:var(--regular,normal)}
+  .text-\[color\:var\(--\$gray--600\,\#757575\)\]{font-size:color:var(--$gray--600,#757575)}
+  .gap-\[var\(--size\\\/25\,4px\)\]{gap:var(--size/25,4px)}
+  .p-\[var\(--size\\\/50\,8px\)\]{padding:var(--size/50,8px)}
+  .size-\[24px\]{width:24px;height:24px}
+  .p-\[var\(--size\\\/100\,12px\)\]{padding:var(--size/100,12px)}
+  .overflow-clip{overflow:clip}
+  .rounded-\[120px\]{border-radius:120px}
+  .object-cover{object-fit:cover}
+  .pointer-events-none{pointer-events:none}
+  .border-\[var\(--gray\\\/300\,\#e1e1e1\)\]{border-color:var(--gray/300,#e1e1e1)}
+  .bg-\[var\(--\$gray--50\,\#f9f9f9\)\]{background:var(--$gray--50,#f9f9f9)}
+  .font-\[family-name\:var\(--default-font\,\'Lato\:Bold\'\)\]{font-family:family-name:var(--default-font,'Lato:Bold')}
+  .font-\[var\(--bold\,normal\)\]{font-family:var(--bold,normal)}
+  .text-\[length\:var\(--size\\\/400\,18px\)\]{font-size:length:var(--size/400,18px)}
+  .gap-\[var\(--size\\\/size--50\,8px\)\]{gap:var(--size/size--50,8px)}
+  .px-\[var\(--size\\\/size--300\,16px\)\]{padding-inline:var(--size/size--300,16px)}
+  .py-\[var\(--size\\\/size--100\,12px\)\]{padding-block:var(--size/size--100,12px)}
+  .text-\[color\:var\(--gray\\\/900\,\#333\)\]{font-size:color:var(--gray/900,#333)}
+  .bg-\[var\(--gray\\\/700\,\#565656\)\]{background:var(--gray/700,#565656)}
+  .bottom-0{bottom:0}
+  .h-\[4px\]{height:4px}
+  .left-\[16px\]{left:16px}
+  .right-\[16px\]{right:16px}
+  .rounded-\[inherit\]{border-radius:inherit}
+  .shadow-\[inset_0px_4px_8px_0px_rgba\(0\,0\,0\,0\.05\)\]{box-shadow:inset 0px 4px 8px 0px rgba(0,0,0,0.05)}
+  .py-\[var\(--size\\\/500\,20px\)\]{padding-block:var(--size/500,20px)}
+  .flex-wrap{flex-wrap:wrap}
+  .gap-\[var\(--size\\\/100\,12px\)\]{gap:var(--size/100,12px)}
+  .min-w-\[200px\]{min-width:200px}
+  .pr-\[var\(--size\\\/500\,20px\)\]{padding-right:var(--size/500,20px)}
+  .max-w-\[800px\]{max-width:800px}
+  .text-\[color\:var\(--\$text\,\#333\)\]{font-size:color:var(--$text,#333)}
+  .text-\[length\:var\(--size\\\/800\,26px\)\]{font-size:length:var(--size/800,26px)}
+  .gap-\[12px\]{gap:12px}
+  .size-\[40px\]{width:40px;height:40px}
+  .bg-\[var\(--\$blue--100\,\#ecf8ff\)\]{background:var(--$blue--100,#ecf8ff)}
+  .pt-\[10px\]{padding-top:10px}
+  .pl-\[var\(--size\\\/50\,8px\)\]{padding-left:var(--size/50,8px)}
+  .pr-\[var\(--size\\\/100\,12px\)\]{padding-right:var(--size/100,12px)}
+  .text-\[length\:var\(--size\\\/200\,14px\)\]{font-size:length:var(--size/200,14px)}
+  .pr-\[var\(--size\\\/10\,2px\)\]{padding-right:var(--size/10,2px)}
+  .py-\[var\(--size\\\/10\,2px\)\]{padding-block:var(--size/10,2px)}
+  .min-h-\[32px\]{min-height:32px}
+  .self-stretch{align-self:stretch}
+  .py-\[5px\]{padding-block:5px}
+  .min-w-\[32px\]{min-width:32px}
+  .p-\[var\(--size\\\/25\,4px\)\]{padding:var(--size/25,4px)}
+  .size-\[20px\]{width:20px;height:20px}
+  .bg-\[var\(--\$pigeongrey--100\,\#d9e3e8\)\]{background:var(--$pigeongrey--100,#d9e3e8)}
+  .inset-\[18\.75\%\]{inset:18.75%}
+  .\[text-decoration-skip-ink\:none\]{text-decoration-skip-ink:none}
+  .\[text-underline-position\:from-font\]{text-underline-position:from-font}
+  .decoration-from-font{text-decoration-thickness:from-font}
+  .decoration-solid{text-decoration-style:solid}
+  .text-\[color\:var\(--\$blue--700\,\#00458f\)\]{font-size:color:var(--$blue--700,#00458f)}
+  .underline{text-decoration-line:underline}
+  .bg-\[var\(--\$gray--100\,\#f4f4f4\)\]{background:var(--$gray--100,#f4f4f4)}
+  .border{border-width:1px}
+  .border-\[var\(--\$gray--400\,\#cfcfcf\)\]{border-color:var(--$gray--400,#cfcfcf)}
+  .gap-\[var\(--size\\\/10\,2px\)\]{gap:var(--size/10,2px)}
+  .min-h-\[24px\]{min-height:24px}
+  .rounded-\[12px\]{border-radius:12px}
+  .pb-\[var\(--size\\\/10\,2px\)\]{padding-bottom:var(--size/10,2px)}
+  .pt-\[var\(--size\\\/5\,1px\)\]{padding-top:var(--size/5,1px)}
+  .gap-\[var\(--size\\\/300\,16px\)\]{gap:var(--size/300,16px)}
+  .rounded-\[40px\]{border-radius:40px}
+  .flex-row{flex-direction:row}
+  .gap-\[8px\]{gap:8px}
+  .bg-\[var\(--\$brand--700\,\#5d4a68\)\]{background:var(--$brand--700,#5d4a68)}
+  .h-\[40px\]{height:40px}
+  .text-\[color\:var\(--\$gray--0\,white\)\]{font-size:color:var(--$gray--0,white)}
+  .text-center{text-align:center}
+  .gap-\[16px\]{gap:16px}
+  .w-\[80px\]{width:80px}
+  .pr-\[40px\]{padding-right:40px}
+  .py-\[var\(--size\\\/25\,4px\)\]{padding-block:var(--size/25,4px)}
+  .overflow-hidden{overflow:hidden}
+  .text-\[16px\]{font-size:16px}
+  .text-ellipsis{text-overflow:ellipsis}
+  .right-\[6px\]{right:6px}
+  .top-\[6px\]{top:6px}
+</style>
+<div
+  data-region="top navigation (main menu + secondary tab strip)"
+  data-node-id="4461:5869"
+  style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 112px">
+  <div
+    class="content-stretch drop-shadow-[0px_4px_4px_rgba(0,0,0,0.05)] flex flex-col items-start relative size-full"
+    data-node-id="4461:5869"
+    data-name="Navigation">
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full"
+      data-node-id="I4461:5869;4461:5603"
+      data-name=".Main menu">
+      <div
+        class="content-stretch flex h-full items-center px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative shrink-0"
+        data-node-id="I4461:5869;4461:5603;9976:10621"
+        data-name="Logo area">
+        <div
+          class="relative shrink-0 size-[32px]"
+          data-node-id="I4461:5869;4461:5603;9976:10622"
+          data-name="itslearning-logo-symbol">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/347f2.svg" />
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative"
+        data-node-id="I4461:5869;4461:5603;9976:10623"
+        data-name="Main menu">
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10624"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5603;9976:10624;9976:10576">
+            <p class="leading-[1.5]">Courses</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;13432:5117"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5603;13432:5117;9976:10576">
+            <p class="leading-[1.5]">Updates</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;15220:17430"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5603;15220:17430;9976:10576">
+            <p class="leading-[1.5]">Groups</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10626"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5603;9976:10626;9976:10576">
+            <p class="leading-[1.5]">Calendar</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/300,16px)] py-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10627"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] justify-center leading-[0] not-italic relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5603;9976:10627;9976:10576">
+            <p class="leading-[1.5]">Library</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex h-full items-start justify-end pl-[var(--size\/700,24px)] relative shrink-0"
+        data-node-id="I4461:5869;4461:5603;9976:10630"
+        data-name="Personal menu">
+        <div
+          class="content-stretch flex h-full items-center px-[var(--size\/50,8px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;11704:5608"
+          data-name="Search wrapper">
+          <div
+            class="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex items-start max-w-[264px] pl-[var(--size\/100,12px)] relative rounded-[var(--border-radius,4px)] shrink-0 w-[264px]"
+            data-node-id="I4461:5869;4461:5603;11704:5609"
+            data-name="Search">
+            <div
+              class="content-stretch flex flex-col h-[16px] items-start px-[4px] py-[var(--size\/50,8px)] relative shrink-0 w-0"
+              data-node-id="I4461:5869;4461:5603;11704:5609;17089:13616"
+              data-name="Icon wrapper"></div>
+            <div
+              class="content-stretch flex flex-[1_0_0] items-center min-w-px pr-[var(--size\/25,4px)] py-[var(--size\/50,8px)] relative"
+              data-node-id="I4461:5869;4461:5603;11704:5609;13211:9102"
+              data-name="Text wrapper">
+              <p
+                class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--600,#757575)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+                data-node-id="I4461:5869;4461:5603;11704:5609;13157:8017">
+                Search
+              </p>
+            </div>
+            <div
+              class="content-stretch flex items-start relative shrink-0"
+              data-node-id="I4461:5869;4461:5603;11704:5609;13157:8020"
+              data-name="Actions">
+              <div
+                class="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-br-[var(--border-radius,4px)] rounded-tr-[var(--border-radius,4px)] shrink-0"
+                data-node-id="I4461:5869;4461:5603;11704:5609;13157:8022"
+                data-name="search">
+                <div
+                  class="relative shrink-0 size-[24px]"
+                  data-node-id="I4461:5869;4461:5603;11704:5609;13157:8022;1902:2742"
+                  data-name="Icon placeholder">
+                  <img
+                    alt=""
+                    class="absolute block inset-0 max-w-none size-full"
+                    src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/48abb.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10631"
+          data-name=".Navigation item">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I4461:5869;4461:5603;9976:10631;9976:10604"
+            data-name="circle-dot">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/57756.svg" />
+          </div>
+        </div>
+        <div
+          class="content-stretch flex h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10635"
+          data-name="IM">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I4461:5869;4461:5603;9976:10635;9976:10604"
+            data-name="circle-dot">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/2b72d.svg" />
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center p-[var(--size\/100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5603;9976:10636"
+          data-name="User menu">
+          <div
+            class="overflow-clip relative rounded-[120px] shrink-0 size-[32px]"
+            data-node-id="2254:1411">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/70bc9.svg" />
+            <div class="absolute inset-0" data-node-id="2254:1415" data-name="Photo">
+              <img
+                alt=""
+                class="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/19894.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-[var(--gray\/300,#e1e1e1)] border-b border-solid content-stretch flex h-[56px] items-center px-[var(--size\/25,4px)] relative shrink-0 w-full"
+      data-node-id="I4461:5869;4461:5604"
+      data-name=".Secondary menu">
+      <div
+        aria-hidden
+        class="absolute bg-[var(--$gray--50,#f9f9f9)] inset-0 pointer-events-none"></div>
+      <div
+        class="content-stretch flex gap-[var(--size\/50,8px)] h-full items-center px-[var(--size\/50,8px)] relative shrink-0"
+        data-node-id="I4461:5869;4461:5605"
+        data-name="Course">
+        <div class="relative shrink-0 size-[32px]" data-node-id="5067:20739" data-name="your-files">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/d1837ca4-5b36-4aa3-ace8-4653ac7e3a8c/9106c.svg" />
+        </div>
+        <p
+          class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/400,18px)] whitespace-nowrap"
+          data-node-id="I4461:5869;4461:5607">
+          Files
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] h-full items-start min-w-px relative"
+        data-node-id="I4461:5869;4461:5608"
+        data-name="Main menu">
+        <div
+          class="content-stretch flex gap-[var(--size\/size--50,8px)] h-full items-center px-[var(--size\/size--300,16px)] py-[var(--size\/size--100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5609"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--gray\/900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5609;9976:10576">
+            <p class="leading-[1.5]">Your files</p>
+          </div>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/size--50,8px)] h-full items-center px-[var(--size\/size--300,16px)] py-[var(--size\/size--100,12px)] relative shrink-0"
+          data-node-id="I4461:5869;4461:5610"
+          data-name=".Navigation item">
+          <div
+            class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--gray\/900,#333)] text-[length:var(--size\/300,16px)] whitespace-nowrap"
+            data-node-id="I4461:5869;4461:5610;9976:10576">
+            <p class="leading-[1.5]">Save course materials</p>
+          </div>
+          <div
+            class="absolute bg-[var(--gray\/700,#565656)] bottom-0 h-[4px] left-[16px] right-[16px] rounded-tl-[8px] rounded-tr-[8px]"
+            data-node-id="I4461:5869;4461:5610;9976:10581"
+            data-name="Highlight"></div>
+        </div>
+      </div>
+      <div
+        class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_4px_8px_0px_rgba(0,0,0,0.05)]"></div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="page header"
+  data-node-id="4007:3166"
+  style="position: absolute; left: 48px; top: 112px; width: 1184px; height: 80px">
+  <div
+    class="content-stretch flex flex-col items-start relative size-full"
+    data-node-id="4007:3166"
+    data-name="PageHeader">
+    <div
+      class="content-stretch flex flex-col gap-[var(--size\/25,4px)] items-start py-[var(--size\/500,20px)] relative shrink-0 w-full"
+      data-node-id="I4007:3166;5889:6338"
+      data-name="Title and subtitle">
+      <div
+        class="content-start flex flex-wrap gap-[var(--size\/100,12px)] items-start relative shrink-0 w-full"
+        data-node-id="I4007:3166;5419:6693"
+        data-name="Group wrapper">
+        <div
+          class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/25,4px)] items-start min-w-[200px] pr-[var(--size\/500,20px)] relative"
+          data-node-id="I4007:3166;6438:6285"
+          data-name="Content">
+          <div
+            class="content-center flex flex-wrap gap-[var(--size\/100,12px)] items-center relative shrink-0 w-full"
+            data-node-id="I4007:3166;11648:5210"
+            data-name="Title wrapper">
+            <p
+              class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] max-w-[800px] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/800,26px)] whitespace-nowrap"
+              data-node-id="I4007:3166;5419:6694">
+              Save course materials
+            </p>
+          </div>
+        </div>
+        <div
+          class="content-center flex flex-wrap gap-[12px] items-center relative shrink-0 size-[40px]"
+          data-node-id="I4007:3166;23120:8171"
+          data-name="Actions slot"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="info banner"
+  data-node-id="4007:3169"
+  style="position: absolute; left: 80px; top: 212px; width: 1120px; height: 45px">
+  <div
+    class="bg-[var(--$blue--100,#ecf8ff)] content-stretch flex items-start pl-[var(--size\/100,12px)] relative size-full"
+    data-node-id="4007:3169"
+    data-name="Banner">
+    <div
+      class="content-stretch flex items-start pt-[10px] relative shrink-0"
+      data-node-id="I4007:3169;3841:6676"
+      data-name="Icon wrapper">
+      <div
+        class="relative shrink-0 size-[24px]"
+        data-node-id="I4007:3169;23112:4891"
+        data-name="circle-info">
+        <img
+          alt=""
+          class="absolute block inset-0 max-w-none size-full"
+          src="https://www.figma.com/api/mcp/asset/69dfbfac-e60a-46eb-b6ee-d7bc2a13593d/f357e.svg" />
+      </div>
+    </div>
+    <div
+      class="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/100,12px)] items-start min-w-px pl-[var(--size\/50,8px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative"
+      data-node-id="I4007:3169;2504:3039"
+      data-name="Text wrapper">
+      <p
+        class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full"
+        data-node-id="I4007:3169;0:26488">
+        This section contains all the course files you’ve created or uploaded. Select a course to
+        access its files
+      </p>
+    </div>
+    <div
+      class="content-stretch flex items-center pr-[var(--size\/10,2px)] py-[var(--size\/10,2px)] relative shrink-0"
+      data-node-id="I4007:3169;3841:6883"
+      data-name="Button wrapper">
+      <div
+        class="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+        data-node-id="I4007:3169;17344:7058"
+        data-name="Button">
+        <div
+          class="relative shrink-0 size-[24px]"
+          data-node-id="I4007:3169;17344:7058;1902:2850"
+          data-name="Icon placeholder">
+          <img
+            alt=""
+            class="absolute block inset-0 max-w-none size-full"
+            src="https://www.figma.com/api/mcp/asset/69dfbfac-e60a-46eb-b6ee-d7bc2a13593d/e8986.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="course files table (header row + 4 visible data rows, per-cell)"
+  data-node-id="4008:9031"
+  style="position: absolute; left: 80px; top: 277px; width: 1120px; height: 224px">
+  <div
+    class="content-stretch flex flex-col items-start relative size-full"
+    data-node-id="4008:9031"
+    data-name="table">
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full"
+      data-node-id="4008:8839"
+      data-name="courses">
+      <div
+        class="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch"
+        data-node-id="I4008:8839;4008:8764"
+        data-name="Cell">
+        <div
+          class="content-stretch flex items-center justify-center py-[5px] relative shrink-0"
+          data-node-id="I4008:8839;4008:8764;18129:8317"
+          data-name="label wrapper">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+            data-node-id="I4008:8839;4008:8764;1606:2453"
+            data-annotations="Change to 'courses'">
+            Course
+          </p>
+        </div>
+      </div>
+      <div
+        class="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch"
+        data-node-id="I4008:8839;4008:8765"
+        data-name="Cell">
+        <div
+          class="content-stretch flex items-center justify-center py-[5px] relative shrink-0"
+          data-node-id="I4008:8839;4008:8765;18131:6541"
+          data-name="label wrapper">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+            data-node-id="I4008:8839;4008:8765;15381:6902">
+            Status
+          </p>
+        </div>
+      </div>
+      <div
+        class="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch"
+        data-node-id="I4008:8839;4008:8766"
+        data-name="Cell">
+        <div
+          class="content-stretch flex items-center justify-center py-[5px] relative shrink-0"
+          data-node-id="I4008:8839;4008:8766;18129:8317"
+          data-name="label wrapper">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+            data-node-id="I4008:8839;4008:8766;1606:2453"
+            data-annotations="Change to 'Teachers'">
+            Teacher
+          </p>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center min-h-[32px] min-w-[32px] p-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="I4008:8839;4008:8766;18129:7840"
+          data-name="Button">
+          <div
+            class="relative shrink-0 size-[20px]"
+            data-node-id="I4008:8839;4008:8766;18129:7840;1902:2838"
+            data-name="Icon placeholder">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/9cf7f.svg" />
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch"
+        data-node-id="I4008:8839;4008:8767"
+        data-name="Cell">
+        <div
+          class="content-stretch flex items-center justify-center py-[5px] relative shrink-0"
+          data-node-id="I4008:8839;4008:8767;18129:8317"
+          data-name="label wrapper">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+            data-node-id="I4008:8839;4008:8767;1606:2453">
+            Last updated
+          </p>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center min-h-[32px] min-w-[32px] p-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="I4008:8839;4008:8767;18129:7840"
+          data-name="Button">
+          <div
+            class="relative shrink-0 size-[20px]"
+            data-node-id="I4008:8839;4008:8767;18129:7840;1902:2838"
+            data-name="Icon placeholder">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/9cf7f.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full"
+      data-node-id="4008:9032"
+      data-name="courses">
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9032;4008:8789"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]"
+          data-node-id="I4008:9032;4008:8789;19393:6514"
+          data-name="Course Hat">
+          <div
+            class="absolute inset-[18.75%]"
+            data-node-id="I4008:9032;4008:8789;19393:6514;663:3904"
+            data-name="graduation-cap">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/4a634.svg" />
+          </div>
+        </div>
+        <p
+          class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline"
+          data-node-id="I4008:9032;4008:8789;18129:8605">
+          Math 2c
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9032;4008:8790"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0"
+          data-node-id="I4008:9032;4008:8790;15381:6900"
+          data-name="Status Tag">
+          <div
+            class="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0"
+            data-node-id="I4008:9032;4008:8790;15381:6900;15355:7085"
+            data-name="Label wrapper">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+              data-node-id="I4008:9032;4008:8790;15381:6900;15355:7086">
+              <p class="leading-[1.5]">Archived</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9032;4008:8791"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9032;4008:8791;1606:2451">
+          Floyd Miles and 2 more
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9032;4008:8792"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9032;4008:8792;1606:2451">
+          05/04/2024
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full"
+      data-node-id="4008:9078"
+      data-name="courses">
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9078;4008:8789"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]"
+          data-node-id="I4008:9078;4008:8789;19393:6514"
+          data-name="Course Hat">
+          <div
+            class="absolute inset-[18.75%]"
+            data-node-id="I4008:9078;4008:8789;19393:6514;663:3904"
+            data-name="graduation-cap">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/4a634.svg" />
+          </div>
+        </div>
+        <p
+          class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline"
+          data-node-id="I4008:9078;4008:8789;18129:8605">
+          Math 2c
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9078;4008:8790"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0"
+          data-node-id="I4008:9078;4008:8790;15381:6900"
+          data-name="Status Tag">
+          <div
+            class="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0"
+            data-node-id="I4008:9078;4008:8790;15381:6900;15355:7085"
+            data-name="Label wrapper">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+              data-node-id="I4008:9078;4008:8790;15381:6900;15355:7086">
+              <p class="leading-[1.5]">Deleted</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9078;4008:8791"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9078;4008:8791;1606:2451">
+          Floyd Miles and 2 more
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9078;4008:8792"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9078;4008:8792;1606:2451">
+          05/04/2024
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full"
+      data-node-id="4008:9126"
+      data-name="courses">
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9126;4008:8789"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]"
+          data-node-id="I4008:9126;4008:8789;19393:6514"
+          data-name="Course Hat">
+          <div
+            class="absolute inset-[18.75%]"
+            data-node-id="I4008:9126;4008:8789;19393:6514;663:3904"
+            data-name="graduation-cap">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/4a634.svg" />
+          </div>
+        </div>
+        <p
+          class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline"
+          data-node-id="I4008:9126;4008:8789;18129:8605">
+          Math 2c
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9126;4008:8790"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0"
+          data-node-id="I4008:9126;4008:8790;15381:6900"
+          data-name="Status Tag">
+          <div
+            class="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0"
+            data-node-id="I4008:9126;4008:8790;15381:6900;15355:7085"
+            data-name="Label wrapper">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+              data-node-id="I4008:9126;4008:8790;15381:6900;15355:7086">
+              <p class="leading-[1.5]">Deleted</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9126;4008:8791"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9126;4008:8791;1606:2451">
+          Floyd Miles and 2 more
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9126;4008:8792"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9126;4008:8792;1606:2451">
+          05/04/2024
+        </p>
+      </div>
+    </div>
+    <div
+      class="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full"
+      data-node-id="4008:9174"
+      data-name="courses">
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9174;4008:8789"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]"
+          data-node-id="I4008:9174;4008:8789;19393:6514"
+          data-name="Course Hat">
+          <div
+            class="absolute inset-[18.75%]"
+            data-node-id="I4008:9174;4008:8789;19393:6514;663:3904"
+            data-name="graduation-cap">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059/4a634.svg" />
+          </div>
+        </div>
+        <p
+          class="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline"
+          data-node-id="I4008:9174;4008:8789;18129:8605">
+          Math 2c
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9174;4008:8790"
+        data-name="Cell">
+        <div
+          class="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0"
+          data-node-id="I4008:9174;4008:8790;15381:6900"
+          data-name="Status Tag">
+          <div
+            class="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0"
+            data-node-id="I4008:9174;4008:8790;15381:6900;15355:7085"
+            data-name="Label wrapper">
+            <div
+              class="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap"
+              data-node-id="I4008:9174;4008:8790;15381:6900;15355:7086">
+              <p class="leading-[1.5]">Archived</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9174;4008:8791"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9174;4008:8791;1606:2451">
+          Floyd Miles and 2 more
+        </p>
+      </div>
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch"
+        data-node-id="I4008:9174;4008:8792"
+        data-name="Cell">
+        <p
+          class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]"
+          data-node-id="I4008:9174;4008:8792;1606:2451">
+          05/04/2024
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  data-region="pagination control (pager + range text + page-size select)"
+  data-node-id="4007:3183"
+  style="position: absolute; left: 80px; top: 521px; width: 1120px; height: 40px">
+  <div
+    class="content-stretch flex gap-[var(--size\/300,16px)] items-center justify-end relative rounded-[40px] size-full"
+    data-node-id="6145:12462">
+    <div class="flex flex-[1_0_0] flex-row items-center self-stretch" data-node-id="6145:12464">
+      <div
+        class="content-stretch flex flex-[1_0_0] gap-[8px] h-full items-center min-w-px relative"
+        data-name="Pager">
+        <div
+          class="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12465"
+          data-name="Button">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I6145:12465;1902:2859"
+            data-name="Icon placeholder">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/e76c4a80-afbb-4aea-b052-42780cda4d1f/69dc0.svg" />
+          </div>
+        </div>
+        <div
+          class="bg-[var(--$brand--700,#5d4a68)] content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12466"
+          data-name=".Page link">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--0,white)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+            data-node-id="I6145:12466;4997:6344">
+            1
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12467"
+          data-name=".Page link">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+            data-node-id="I6145:12467;4997:6338">
+            2
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12468"
+          data-name=".Page link">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+            data-node-id="I6145:12468;4997:6338">
+            3
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12469"
+          data-name=".Page link">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+            data-node-id="I6145:12469;4997:6338">
+            4
+          </p>
+        </div>
+        <div
+          class="content-stretch flex flex-col gap-[var(--size\/25,4px)] h-[40px] items-center justify-center px-[var(--size\/300,16px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12470"
+          data-name=".Page link">
+          <p
+            class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+            data-node-id="I6145:12470;4997:6338">
+            5
+          </p>
+        </div>
+        <div
+          class="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0"
+          data-node-id="6145:12471"
+          data-name="Button">
+          <div
+            class="relative shrink-0 size-[24px]"
+            data-node-id="I6145:12471;1902:2850"
+            data-name="Icon placeholder">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/e76c4a80-afbb-4aea-b052-42780cda4d1f/88d50.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-stretch flex gap-[16px] items-center relative shrink-0"
+      data-node-id="6145:12472"
+      data-name="Control">
+      <p
+        class="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] text-center whitespace-nowrap"
+        data-node-id="6145:12473">
+        1 to 10 of 47
+      </p>
+      <div
+        class="content-stretch flex flex-col items-center justify-center relative shrink-0 w-[80px]"
+        data-node-id="6145:12474"
+        data-name="Select">
+        <div
+          class="bg-[var(--$gray--0,white)] border-2 border-[var(--$gray--600,#757575)] border-solid content-stretch flex gap-[var(--size\/50,8px)] h-[40px] items-center overflow-clip pl-[var(--size\/100,12px)] pr-[40px] py-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0 w-full"
+          data-node-id="I6145:12474;29:7275"
+          data-name="Input">
+          <p
+            class="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px overflow-hidden relative text-[16px] text-[color:var(--$gray--900,#333)] text-ellipsis whitespace-nowrap"
+            data-node-id="I6145:12474;29:7276">
+            10
+          </p>
+          <div
+            class="absolute right-[6px] size-[24px] top-[6px]"
+            data-node-id="I6145:12474;1429:2756"
+            data-name="caret-down">
+            <img
+              alt=""
+              class="absolute block inset-0 max-w-none size-full"
+              src="https://www.figma.com/api/mcp/asset/e76c4a80-afbb-4aea-b052-42780cda4d1f/d14d6.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

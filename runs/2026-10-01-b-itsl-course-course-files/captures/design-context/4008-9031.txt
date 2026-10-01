@@ -1,0 +1,174 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/db3b4f98-edb3-4c27-995c-22bebe788059";
+const imgArrowUpArrowDown = `${assetPathPrefix}/9cf7f.svg`;
+const imgGraduationCap = `${assetPathPrefix}/4a634.svg`;
+
+export default function Table() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative size-full" data-node-id="4008:9031" data-name="table">
+      <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full" data-node-id="4008:8839" data-name="courses">
+        <div className="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch" data-node-id="I4008:8839;4008:8764" data-name="Cell">
+          <div className="content-stretch flex items-center justify-center py-[5px] relative shrink-0" data-node-id="I4008:8839;4008:8764;18129:8317" data-name="label wrapper">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:8839;4008:8764;1606:2453" data-annotations="Change to 'courses'">
+              Course
+            </p>
+          </div>
+        </div>
+        <div className="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch" data-node-id="I4008:8839;4008:8765" data-name="Cell">
+          <div className="content-stretch flex items-center justify-center py-[5px] relative shrink-0" data-node-id="I4008:8839;4008:8765;18131:6541" data-name="label wrapper">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:8839;4008:8765;15381:6902">
+              Status
+            </p>
+          </div>
+        </div>
+        <div className="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch" data-node-id="I4008:8839;4008:8766" data-name="Cell">
+          <div className="content-stretch flex items-center justify-center py-[5px] relative shrink-0" data-node-id="I4008:8839;4008:8766;18129:8317" data-name="label wrapper">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:8839;4008:8766;1606:2453" data-annotations="Change to 'Teachers'">
+              Teacher
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center min-h-[32px] min-w-[32px] p-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4008:8839;4008:8766;18129:7840" data-name="Button">
+            <div className="relative shrink-0 size-[20px]" data-node-id="I4008:8839;4008:8766;18129:7840;1902:2838" data-name="Icon placeholder">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgArrowUpArrowDown} />
+            </div>
+          </div>
+        </div>
+        <div className="bg-[var(--$gray--50,#f9f9f9)] content-stretch flex flex-[1_0_0] items-start min-h-[32px] min-w-px px-[var(--size\/50,8px)] relative self-stretch" data-node-id="I4008:8839;4008:8767" data-name="Cell">
+          <div className="content-stretch flex items-center justify-center py-[5px] relative shrink-0" data-node-id="I4008:8839;4008:8767;18129:8317" data-name="label wrapper">
+            <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:8839;4008:8767;1606:2453">
+              Last updated
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center min-h-[32px] min-w-[32px] p-[var(--size\/25,4px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4008:8839;4008:8767;18129:7840" data-name="Button">
+            <div className="relative shrink-0 size-[20px]" data-node-id="I4008:8839;4008:8767;18129:7840;1902:2838" data-name="Icon placeholder">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgArrowUpArrowDown} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full" data-node-id="4008:9032" data-name="courses">
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9032;4008:8789" data-name="Cell">
+          <div className="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]" data-node-id="I4008:9032;4008:8789;19393:6514" data-name="Course Hat">
+            <div className="absolute inset-[18.75%]" data-node-id="I4008:9032;4008:8789;19393:6514;663:3904" data-name="graduation-cap">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGraduationCap} />
+            </div>
+          </div>
+          <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline" data-node-id="I4008:9032;4008:8789;18129:8605">
+            Math 2c
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9032;4008:8790" data-name="Cell">
+          <div className="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0" data-node-id="I4008:9032;4008:8790;15381:6900" data-name="Status Tag">
+            <div className="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0" data-node-id="I4008:9032;4008:8790;15381:6900;15355:7085" data-name="Label wrapper">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:9032;4008:8790;15381:6900;15355:7086">
+                <p className="leading-[1.5]">Archived</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9032;4008:8791" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9032;4008:8791;1606:2451">
+            Floyd Miles and 2 more
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9032;4008:8792" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9032;4008:8792;1606:2451">
+            05/04/2024
+          </p>
+        </div>
+      </div>
+      <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full" data-node-id="4008:9078" data-name="courses">
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9078;4008:8789" data-name="Cell">
+          <div className="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]" data-node-id="I4008:9078;4008:8789;19393:6514" data-name="Course Hat">
+            <div className="absolute inset-[18.75%]" data-node-id="I4008:9078;4008:8789;19393:6514;663:3904" data-name="graduation-cap">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGraduationCap} />
+            </div>
+          </div>
+          <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline" data-node-id="I4008:9078;4008:8789;18129:8605">
+            Math 2c
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9078;4008:8790" data-name="Cell">
+          <div className="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0" data-node-id="I4008:9078;4008:8790;15381:6900" data-name="Status Tag">
+            <div className="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0" data-node-id="I4008:9078;4008:8790;15381:6900;15355:7085" data-name="Label wrapper">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:9078;4008:8790;15381:6900;15355:7086">
+                <p className="leading-[1.5]">Deleted</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9078;4008:8791" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9078;4008:8791;1606:2451">
+            Floyd Miles and 2 more
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9078;4008:8792" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9078;4008:8792;1606:2451">
+            05/04/2024
+          </p>
+        </div>
+      </div>
+      <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full" data-node-id="4008:9126" data-name="courses">
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9126;4008:8789" data-name="Cell">
+          <div className="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]" data-node-id="I4008:9126;4008:8789;19393:6514" data-name="Course Hat">
+            <div className="absolute inset-[18.75%]" data-node-id="I4008:9126;4008:8789;19393:6514;663:3904" data-name="graduation-cap">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGraduationCap} />
+            </div>
+          </div>
+          <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline" data-node-id="I4008:9126;4008:8789;18129:8605">
+            Math 2c
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9126;4008:8790" data-name="Cell">
+          <div className="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0" data-node-id="I4008:9126;4008:8790;15381:6900" data-name="Status Tag">
+            <div className="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0" data-node-id="I4008:9126;4008:8790;15381:6900;15355:7085" data-name="Label wrapper">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:9126;4008:8790;15381:6900;15355:7086">
+                <p className="leading-[1.5]">Deleted</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9126;4008:8791" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9126;4008:8791;1606:2451">
+            Floyd Miles and 2 more
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9126;4008:8792" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9126;4008:8792;1606:2451">
+            05/04/2024
+          </p>
+        </div>
+      </div>
+      <div className="bg-[var(--$gray--0,white)] border-[var(--$gray--300,#e1e1e1)] border-b border-solid content-stretch flex items-start overflow-clip relative shrink-0 w-full" data-node-id="4008:9174" data-name="courses">
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9174;4008:8789" data-name="Cell">
+          <div className="bg-[var(--$pigeongrey--100,#d9e3e8)] relative rounded-[120px] shrink-0 size-[24px]" data-node-id="I4008:9174;4008:8789;19393:6514" data-name="Course Hat">
+            <div className="absolute inset-[18.75%]" data-node-id="I4008:9174;4008:8789;19393:6514;663:3904" data-name="graduation-cap">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGraduationCap} />
+            </div>
+          </div>
+          <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] [word-break:break-word] decoration-from-font decoration-solid flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$blue--700,#00458f)] text-[length:var(--size\/300,16px)] underline" data-node-id="I4008:9174;4008:8789;18129:8605">
+            Math 2c
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/25,4px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9174;4008:8790" data-name="Cell">
+          <div className="bg-[var(--$gray--100,#f4f4f4)] border border-[var(--$gray--400,#cfcfcf)] border-solid content-stretch flex gap-[var(--size\/10,2px)] items-start min-h-[24px] px-[var(--size\/50,8px)] relative rounded-[12px] shrink-0" data-node-id="I4008:9174;4008:8790;15381:6900" data-name="Status Tag">
+            <div className="content-stretch flex items-center justify-center pb-[var(--size\/10,2px)] pt-[var(--size\/5,1px)] relative shrink-0" data-node-id="I4008:9174;4008:8790;15381:6900;15355:7085" data-name="Label wrapper">
+              <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] whitespace-nowrap" data-node-id="I4008:9174;4008:8790;15381:6900;15355:7086">
+                <p className="leading-[1.5]">Archived</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9174;4008:8791" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9174;4008:8791;1606:2451">
+            Floyd Miles and 2 more
+          </p>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] gap-[var(--size\/50,8px)] items-start min-w-px px-[var(--size\/50,8px)] py-[var(--size\/100,12px)] relative self-stretch" data-node-id="I4008:9174;4008:8792" data-name="Cell">
+          <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4008:9174;4008:8792;1606:2451">
+            05/04/2024
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

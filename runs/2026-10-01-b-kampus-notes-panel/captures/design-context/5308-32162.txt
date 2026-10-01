@@ -1,0 +1,165 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/28cca54f-ad3d-4ad9-8eee-f2316f787ab7";
+const imgChoiceCheckedStateDefault = `${assetPathPrefix}/5db8d.svg`;
+const imgIcon = `${assetPathPrefix}/b8eb7.svg`;
+const imgCross = `${assetPathPrefix}/d5ab9.svg`;
+const imgEdit = `${assetPathPrefix}/0d15c.svg`;
+
+type SpacerProps = {
+  className?: string;
+  height?: "72";
+  width?: "72";
+};
+
+function Spacer({ className, height = "72", width = "72" }: SpacerProps) {
+  return <div className={className || "overflow-clip relative size-[72px]"} data-node-id="5306:67706" />;
+}
+
+type HighlightProps = {
+  className?: string;
+  color?: "yellow";
+};
+
+function Highlight({ className, color = "yellow" }: HighlightProps) {
+  return (
+    <div className={className || "relative size-[24px]"} data-node-id="5306:67778">
+      <div className="absolute bg-[#ffef99] inset-0" data-node-id="5306:67779" data-name="selected with mouse" />
+      <div className="absolute bg-[#db7109] inset-[91.67%_0_0_0]" data-node-id="5306:67780" data-name="underline" />
+    </div>
+  );
+}
+
+type CheckboxProps = {
+  className?: string;
+  choice?: "Checked";
+  state?: "Default";
+};
+
+function Checkbox({ className, choice = "Checked", state = "Default" }: CheckboxProps) {
+  return (
+    <div className={className || "relative size-[20px]"} data-node-id="4214:11777">
+      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChoiceCheckedStateDefault} />
+    </div>
+  );
+}
+
+export default function NotesSidepanel() {
+  return (
+    <div className="bg-white border border-[#dfe3e6] border-solid content-stretch flex flex-col items-center relative size-full" data-node-id="5308:32162" data-name="notes-sidepanel">
+      <div className="bg-white h-[72px] overflow-clip relative shrink-0 w-[360px]" data-node-id="I5308:32162;5308:29281" data-name="header">
+        <div className="absolute left-[359px] rounded-[56px] size-[24px] top-[24px]" data-node-id="I5308:32162;5308:29283" data-name="Icon-button">
+          <div className="absolute inset-[16.67%]" data-node-id="I5308:32162;5308:29283;4233:143" data-name="icon">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
+          </div>
+        </div>
+        <div className="absolute left-[359px] rounded-[56px] size-[24px] top-[24px]" data-node-id="I5308:32162;5308:29284" data-name="Icon-button">
+          <div className="absolute inset-[16.67%]" data-node-id="I5308:32162;5308:29284;4233:143" data-name="icon">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
+          </div>
+        </div>
+        <div className="absolute bg-white border border-[#643695] border-solid content-stretch flex gap-[8px] items-center justify-center left-[202px] px-[24px] py-[8px] rounded-[4px] top-[16px]" data-node-id="I5308:32162;5308:29285" data-name="Button">
+          <p className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#643695] text-[14px] tracking-[0.42px] whitespace-nowrap" data-node-id="I5308:32162;5308:29285;4:607" style={{ fontVariationSettings: '"wdth" 100' }}>
+            See all
+          </p>
+        </div>
+        <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] left-[16px] text-[#0e0e0f] text-[18px] top-[36px] tracking-[-0.36px] whitespace-nowrap" data-node-id="I5308:32162;5308:29286" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[24px]">Notes</p>
+        </div>
+        <div className="absolute right-[16px] rounded-[56px] size-[40px] top-[16px]" data-node-id="I5308:32162;8034:123724" data-name="Icon-button">
+          <div className="absolute inset-[20%]" data-node-id="I5308:32162;8034:123724;192:2740" data-name="icon">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgCross} />
+          </div>
+        </div>
+      </div>
+      <div className="content-stretch flex flex-col gap-[24px] items-start px-[16px] relative shrink-0 w-full" data-node-id="I5308:32162;5308:29287" data-name="Notes">
+        <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29288" data-name="filters">
+          <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="I5308:32162;5308:29289" data-name="Checkbox-with-text">
+            <Checkbox className="relative shrink-0 size-[20px]" />
+            <p className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#0e0e0f] text-[16px] whitespace-nowrap" data-node-id="I5308:32162;5308:29289;1385:75" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Highlights
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[149px]" data-node-id="I5308:32162;5308:29290" data-name="Checkbox-with-text">
+            <Checkbox className="relative shrink-0 size-[20px]" />
+            <p className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[20px] relative shrink-0 text-[#0e0e0f] text-[16px] whitespace-nowrap" data-node-id="I5308:32162;5308:29290;1385:75" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Notes
+            </p>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877" data-name="notes_side-panel_content-area">
+          <div className="content-stretch flex flex-col h-[270px] items-end relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29499" data-name="notes 1">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] min-w-full relative shrink-0 text-[#643695] text-[18px] tracking-[-0.36px] w-[min-content]" data-node-id="I5308:32162;5308:29877;5308:29504" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">1.7 Vastaa kysymyksiin</p>
+            </div>
+            <Spacer className="h-[16px] relative shrink-0 w-[72px]" />
+            <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29506" data-name="saved general">
+              <div className="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[132px] ml-0 mt-0 relative rounded-[4px] row-1 w-full" data-node-id="I5308:32162;5308:29877;5308:29508" />
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]" data-node-id="I5308:32162;5308:29877;5308:29510" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in convallis mauris, quis interdum mi. Sed vulputate nec justo et tincidunt. !!
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.61%] mt-[108px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[22.23%]" data-node-id="I5308:32162;5308:29877;5308:29511" style={{ fontVariationSettings: '"wdth" 100' }}>
+                14.10.2020
+              </p>
+              <div className="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]" data-node-id="I5308:32162;5308:29877;5308:29512" data-name="edit">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEdit} />
+              </div>
+            </div>
+            <Spacer className="h-[8px] relative shrink-0 w-[72px]" />
+            <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29555" data-name="saved">
+              <div className="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[90px] ml-0 mt-0 relative rounded-[4px] row-1 w-full" data-node-id="I5308:32162;5308:29877;5308:29557" />
+              <Highlight className="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[65.23%]" />
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[92.33%]" data-node-id="I5308:32162;5308:29877;5308:29560" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Dave is reading comic books
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal h-[26px] leading-[24px] ml-[4.32%] mt-[40px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]" data-node-id="I5308:32162;5308:29877;5308:29561" style={{ fontVariationSettings: '"wdth" 100' }}>
+                This is important.
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.91%] mt-[66px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.93%]" data-node-id="I5308:32162;5308:29877;5308:29562" style={{ fontVariationSettings: '"wdth" 100' }}>
+                14.10.2020
+              </p>
+              <div className="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]" data-node-id="I5308:32162;5308:29877;5308:29563" data-name="edit">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEdit} />
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col h-[214px] items-end relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29568" data-name="notes 2">
+            <div className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-center leading-[0] min-w-full relative shrink-0 text-[#643695] text-[18px] tracking-[-0.36px] w-[min-content]" data-node-id="I5308:32162;5308:29877;5308:29573" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-from-font decoration-solid leading-[24px] underline">2.11 Joku toinen tehtävä</p>
+            </div>
+            <Spacer className="h-[16px] relative shrink-0 w-[72px]" />
+            <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29623" data-name="saved">
+              <div className="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[90px] ml-0 mt-0 relative rounded-[4px] row-1 w-full" data-node-id="I5308:32162;5308:29877;5308:29625" />
+              <Highlight className="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[55.91%]" />
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[91.72%]" data-node-id="I5308:32162;5308:29877;5308:29628" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Lorem ipsum lalaaa laa
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal h-[26px] leading-[24px] ml-[4.32%] mt-[40px] relative row-1 text-[#29292b] text-[16px] w-[91.36%]" data-node-id="I5308:32162;5308:29877;5308:29629" style={{ fontVariationSettings: '"wdth" 100' }}>
+                This will come to the exam.
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[76.22%] mt-[66px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.62%]" data-node-id="I5308:32162;5308:29877;5308:29630" style={{ fontVariationSettings: '"wdth" 100' }}>
+                19.10.2020
+              </p>
+              <div className="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]" data-node-id="I5308:32162;5308:29877;5308:29631" data-name="edit">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEdit} />
+              </div>
+            </div>
+            <Spacer className="h-[8px] relative shrink-0 w-[72px]" />
+            <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full" data-node-id="I5308:32162;5308:29877;5308:29634" data-name="saved">
+              <div className="bg-[#f5f5f6] border border-[#cecfd2] border-solid col-1 h-[60px] ml-0 mt-0 relative rounded-[4px] row-1 w-full" data-node-id="I5308:32162;5308:29877;5308:29636" />
+              <Highlight className="col-1 h-[24px] ml-[4.32%] mt-[13px] relative row-1 w-[26.47%]" />
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-[4.32%] mt-[12px] relative row-1 text-[16px] text-black w-[92.02%]" data-node-id="I5308:32162;5308:29877;5308:29639" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Something
+              </p>
+              <p className="[word-break:break-word] col-1 font-['Open_Sans:Regular'] font-normal leading-[16px] ml-[75.91%] mt-[36px] relative row-1 text-[#444548] text-[12px] text-right tracking-[0.36px] w-[21.93%]" data-node-id="I5308:32162;5308:29877;5308:29640" style={{ fontVariationSettings: '"wdth" 100' }}>
+                19.10.2020
+              </p>
+              <div className="col-1 h-[24px] ml-[91.35%] mt-[8px] relative row-1 w-[6.49%]" data-node-id="I5308:32162;5308:29877;5308:29641" data-name="edit">
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEdit} />
+              </div>
+            </div>
+            <Spacer className="h-[16px] relative shrink-0 w-[72px]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

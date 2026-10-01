@@ -1,0 +1,14 @@
+export default function Frame1() {
+  return (
+    <div className="bg-[rgba(51,102,255,0)] content-stretch flex flex-col gap-[var(--space-new\/2xl,32px)] isolate items-start overflow-clip p-[var(--space-new\/2xl,32px)] relative rounded-[var(--size\/borderradius\/xl,12px)] size-full" data-node-id="334:20574">
+      <div className="[word-break:break-word] content-stretch flex flex-col gap-[var(--space-new\/md,8px)] items-start leading-[0] relative shrink-0 whitespace-nowrap z-[1]" data-node-id="334:20575">
+        <div className="flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/heading,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center relative shrink-0 text-[color:var(--color\/foreground\/primary\/bold,#1727b6)] text-[length:var(--size\/text-new\/heading\/xl,32px)]" data-node-id="334:20576" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[var(--size\/lineheight\/500,40px)]">Welcome back, Sarah</p>
+        </div>
+        <div className="flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center relative shrink-0 text-[color:var(--color\/foreground\/accent\/grey\/subtlest,#59636e)] text-[length:var(--size\/text-new\/body\/lg,16px)]" data-node-id="334:20577" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[var(--size\/lineheight\/300,24px)]">{`Select a group to view materials, follow your progress, and join today's lessons `}</p>
+        </div>
+      </div>
+    </div>
+  );
+}

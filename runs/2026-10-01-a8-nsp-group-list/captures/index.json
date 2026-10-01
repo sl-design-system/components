@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "run": "a8-nsp-group-list",
   "figma": {
+    "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
     "rootNodeId": "334:20573"
   },
   "normalisedFrom": "the run's own files; nothing was fetched",
@@ -42,6 +43,42 @@
       "capturedAt": "2026-10-01T16:18:26.138Z",
       "truncated": false,
       "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "334:20574",
+      "label": "welcome header",
+      "file": "captures/design-context/334-20574.txt",
+      "bytes": 1624,
+      "capturedAt": "2026-10-01T16:35:55Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "note": "called with excludeScreenshot:true so the existing reference raster was not overwritten. The file holds the response's code block verbatim; the response's four non-code blocks (Tailwind-conversion instruction, data-node-id note, text-style list, asset-URL note) were not stored — they are server boilerplate, carry no node geometry, and are not parseable alongside the code."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "334:20578",
+      "label": "main content — Live now section and My groups grid",
+      "file": "captures/design-context/334-20578.txt",
+      "bytes": 41258,
+      "capturedAt": "2026-10-01T16:35:55Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "note": "one call covered the whole region — no split needed; the response reaches 334:24372 / 334:20583 / 334:20584 and 426:19696 with all five visible sl-card instances inline. 334:20683 is hidden=true in the metadata and is absent from the response, as expected. Code Connect references (no markup below them): 334:22670 sl-badge, 334:20593 sl-avatar, 334:20605 / 334:20610 / 334:20629 / 334:20634 / 334:20653 / 334:20658 Mask, 334:20668 / 334:20669 / 364:19522 sl-button. Called with excludeScreenshot:true. The file holds the response's code block verbatim; the response's five non-code blocks (Tailwind-conversion instruction, data-node-id note, text-style list, CodeConnectSnippet explainer, component descriptions, asset-URL note) were not stored."
+    },
+    {
+      "call": "get_design_context",
+      "nodeId": "334:20684",
+      "label": "top nav",
+      "file": "captures/design-context/334-20684.txt",
+      "bytes": 8279,
+      "capturedAt": "2026-10-01T16:35:55Z",
+      "truncated": false,
+      "backfilled": true,
+      "backfillNote": "captured 2026-10-01, after the run; not what the run itself saw",
+      "note": "no Code Connect reference anywhere in this region — the nav's sl-button-pill, sl-avatar, sl-icon and sl-badge come back as raw markup under instance-path ids (I334:20685;…). Called with excludeScreenshot:true. The file holds the response's code block verbatim; the response's four non-code blocks were not stored."
     }
   ]
 }

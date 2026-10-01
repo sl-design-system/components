@@ -1,0 +1,27 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/69dfbfac-e60a-46eb-b6ee-d7bc2a13593d";
+const imgCircleInfo = `${assetPathPrefix}/f357e.svg`;
+const imgXmark = `${assetPathPrefix}/e8986.svg`;
+
+export default function Banner() {
+  return (
+    <div className="bg-[var(--$blue--100,#ecf8ff)] content-stretch flex items-start pl-[var(--size\/100,12px)] relative size-full" data-node-id="4007:3169" data-name="Banner">
+      <div className="content-stretch flex items-start pt-[10px] relative shrink-0" data-node-id="I4007:3169;3841:6676" data-name="Icon wrapper">
+        <div className="relative shrink-0 size-[24px]" data-node-id="I4007:3169;23112:4891" data-name="circle-info">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgCircleInfo} />
+        </div>
+      </div>
+      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/100,12px)] items-start min-w-px pl-[var(--size\/50,8px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative" data-node-id="I4007:3169;2504:3039" data-name="Text wrapper">
+        <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--regular,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full" data-node-id="I4007:3169;0:26488">
+          This section contains all the course files you’ve created or uploaded. Select a course to access its files
+        </p>
+      </div>
+      <div className="content-stretch flex items-center pr-[var(--size\/10,2px)] py-[var(--size\/10,2px)] relative shrink-0" data-node-id="I4007:3169;3841:6883" data-name="Button wrapper">
+        <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4007:3169;17344:7058" data-name="Button">
+          <div className="relative shrink-0 size-[24px]" data-node-id="I4007:3169;17344:7058;1902:2850" data-name="Icon placeholder">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgXmark} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,19 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/ede2a207-170c-40a1-8f45-b7edb63fcc21";
+export default function PageHeader() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative size-full" data-node-id="4007:3166" data-name="PageHeader">
+      <div className="content-stretch flex flex-col gap-[var(--size\/25,4px)] items-start py-[var(--size\/500,20px)] relative shrink-0 w-full" data-node-id="I4007:3166;5889:6338" data-name="Title and subtitle">
+        <div className="content-start flex flex-wrap gap-[var(--size\/100,12px)] items-start relative shrink-0 w-full" data-node-id="I4007:3166;5419:6693" data-name="Group wrapper">
+          <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--size\/25,4px)] items-start min-w-[200px] pr-[var(--size\/500,20px)] relative" data-node-id="I4007:3166;6438:6285" data-name="Content">
+            <div className="content-center flex flex-wrap gap-[var(--size\/100,12px)] items-center relative shrink-0 w-full" data-node-id="I4007:3166;11648:5210" data-name="Title wrapper">
+              <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] max-w-[800px] relative shrink-0 text-[color:var(--$text,#333)] text-[length:var(--size\/800,26px)] whitespace-nowrap" data-node-id="I4007:3166;5419:6694">
+                Save course materials
+              </p>
+            </div>
+          </div>
+          <div className="content-center flex flex-wrap gap-[12px] items-center relative shrink-0 size-[40px]" data-node-id="I4007:3166;23120:8171" data-name="Actions slot" />
+        </div>
+      </div>
+    </div>
+  );
+}

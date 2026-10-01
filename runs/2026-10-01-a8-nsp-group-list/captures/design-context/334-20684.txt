@@ -1,0 +1,76 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/775e9b88-6da4-4cc8-b4d6-cb3434df9c3e";
+const imgImage = `${assetPathPrefix}/d2f0d.png`;
+const imgLogo = `${assetPathPrefix}/d61f5.svg`;
+const imgIconColorMask = `${assetPathPrefix}/b63b7.svg`;
+const imgAvatarContent = `${assetPathPrefix}/265ce.svg`;
+const imgMask = `${assetPathPrefix}/053b1.svg`;
+const imgDot = `${assetPathPrefix}/4ccd2.svg`;
+
+export default function Frame27() {
+  return (
+    <div className="content-stretch flex flex-col gap-[var(--space-new\/2xl,32px)] items-start relative rounded-[var(--size\/borderradius\/xl,12px)] size-full" data-node-id="334:20684">
+      <div className="content-stretch flex gap-[var(--space-new\/lg,16px)] items-center relative shrink-0 w-full" data-node-id="334:20685">
+        <div className="content-stretch flex flex-[1_0_0] items-center min-w-px relative" data-node-id="I334:20685;10:637">
+          <div className="relative shrink-0 size-[40px]" data-node-id="I334:20685;111:12383" data-name="Logo">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLogo} />
+          </div>
+        </div>
+        <div className="content-stretch flex gap-[var(--space-new\/lg,16px)] items-center relative shrink-0" data-node-id="I334:20685;10:4111">
+          <div className="content-stretch flex gap-[var(--space-new\/md,8px)] items-center relative shrink-0" data-node-id="I334:20685;10:5107">
+            <div className="content-stretch flex items-start relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I334:20685;10:557" data-name="sl-button-pill">
+              <div className="content-stretch flex items-start overflow-clip relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I334:20685;10:557;283:40506" data-name="Button-Variants">
+                <div className="border-[length:var(--size\/borderwidth\/action,1px)] border-[var(--color\/border\/primary\/bold,#1727b6)] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] isolate items-center justify-center overflow-clip p-[var(--space\/125,10px)] relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I334:20685;10:557;283:40506;730:95853" data-name="Button-Base">
+                  <div className="relative shrink-0 size-[16px] z-[4]" data-node-id="I334:20685;10:557;283:40506;730:95853;730:95790" data-name="start icon">
+                    <div className="absolute bg-[var(--color\/foreground\/primary\/bold,#1727b6)] inset-[-2px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[2px_2px] mask-size-[16px_16px]" data-node-id="I334:20685;10:557;283:40506;730:95853;730:95792" style={{ maskImage: `url("${imgIconColorMask}")` }} data-name="icon color mask" />
+                  </div>
+                  <div className="absolute inset-[-1px] opacity-[calc(var(--opacity\/interactive\/plain\/idle,0)/100)] rounded-[var(--size\/borderradius\/full,800px)] z-[1]" data-node-id="I334:20685;10:557;283:40506;730:95853;730:95798" data-name="interactive" />
+                </div>
+              </div>
+            </div>
+            <div className="bg-[var(--color\/background\/neutral\/bold,#e0e6ea)] content-stretch flex gap-[var(--space-new\/md,8px)] items-center p-[var(--space-new\/2xs,2px)] relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I334:20685;10:4007">
+              <div className="content-stretch flex gap-[var(--space-new\/md,8px)] isolate items-center relative shrink-0" data-node-id="I334:20685;10:4007;10:2841" data-name="sl-avatar">
+                <div className="content-stretch flex flex-col items-start relative shrink-0 z-[2]" data-node-id="I334:20685;10:4007;10:2841;7403:217918">
+                  <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-node-id="I334:20685;10:4007;10:2841;7401:1011" data-name="Avatar">
+                    <div className="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]" data-node-id="I334:20685;10:4007;10:2841;7401:1018" style={{ maskImage: `url("${imgAvatarContent}")` }} data-name="avatar-content">
+                      <div className="absolute content-stretch flex inset-0 isolate items-center justify-center" data-node-id="I334:20685;10:4007;10:2841;7401:1019" data-name="Mask">
+                        <div className="absolute bg-[var(--color\/background\/primary\/bold,#36f)] inset-0 z-[1]" data-node-id="I334:20685;10:4007;10:2841;7401:1019;7355:28686" data-name="BG" />
+                      </div>
+                      <div className="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2" data-node-id="I334:20685;10:4007;10:2841;7401:1020" data-name="avatar-content-variant">
+                        <div className="absolute content-stretch flex inset-0 isolate items-center justify-center mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-19.5px_0px] mask-size-[71px_32px]" data-node-id="I334:20685;10:4007;10:2841;7401:1025" style={{ maskImage: `url("${imgMask}")` }} data-name="Mask">
+                          <div className="absolute bg-[var(--color\/foreground\/primary\/onbold,white)] inset-0 z-[2]" data-node-id="I334:20685;10:4007;10:2841;7401:1025;7355:28738" data-name="FG" />
+                        </div>
+                      </div>
+                      <div className="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0" data-node-id="I334:20685;10:4007;10:2841;7401:1026" data-name="image">
+                        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="h-[16px] relative shrink-0 w-[24px]" data-node-id="I334:20685;10:4007;10:4239">
+                <div className="absolute content-stretch flex items-start left-0 top-0" data-node-id="I334:20685;10:4007;10:3939" data-name="sl-icon">
+                  <div className="content-stretch flex items-center justify-center relative shrink-0" data-node-id="I334:20685;10:4007;10:3939;301:41086" data-name="SL-icon/md">
+                    <div className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]" data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102" data-name="Base/Icon">
+                      <div className="flex-[1_0_0] h-full min-w-px relative" data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102;49:7112" data-name="icon-container">
+                        <div className="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Regular')] font-[var(--icon\/typeset\/fontweight\/icon-regular,normal)] inset-0 justify-center leading-[0] text-[color:var(--color\/foreground\/secondary\/bold,#222)] text-[length:var(--size\/icon\/font\/md,16px)] text-center" data-node-id="I334:20685;10:4007;10:3939;301:41086;62:7102;49:7100">
+                          <p className="leading-[16px]">chevron-down</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute border-2 border-[var(--elevation\/surface\/base\/default,white)] border-solid content-stretch flex items-start left-[27px] rounded-[var(--size\/borderradius\/full,800px)] top-[2px]" data-node-id="I334:20685;67:2159" data-name="sl-badge">
+              <div className="content-stretch flex gap-[var(--space-new\/xs,4px)] items-center relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I334:20685;67:2159;1870:152150" data-name="badge-base-sm">
+                <div className="relative shrink-0 size-[8px]" data-node-id="I334:20685;67:2159;1870:152150;10646:700136" data-name="dot">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgDot} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

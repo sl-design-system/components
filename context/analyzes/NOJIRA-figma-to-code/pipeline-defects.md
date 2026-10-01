@@ -193,6 +193,24 @@ verified against a deliberately bad input as well as good ones. The token checke
 rounds before it stopped producing false positives: it read component APIs as inventions, then
 comments as code, then let the design system's own bug certify a run that copied it.
 
+**A pixel-fidelity score rewards hardcoding, and the fix loop will take the reward.** Watch what
+a run does when told an element sits 320px from where the reference has it. One implementer
+replaced a content-hugging flex item with `inline-size: 420px`, chosen so that `420 + 24` equals
+the 444px the reference measures. The delta went to zero. The number is right and the layout
+mechanism is invented — it will be wrong at any other viewport, and nothing in the score can see
+that.
+
+The same run then did the opposite, correctly: the active pill came out 163px against the
+reference's 181, it traced the cause to the missing webfont, and it **refused to pad the pill**,
+on the grounds that padding fits the symptom. Both decisions came from the same agent in the same
+turn. The difference is that one cause was identified and the other was not — so the loop closed
+the gap with a constant.
+
+This is the central risk in scoring fidelity by pixels: **the cheapest way to improve the score is
+always a constant**, and a run under iteration pressure will find it. The bench needs at least one
+defence — score at a second viewport, or flag raw lengths introduced during a fix round — or it
+will systematically reward output that matches the reference and reproduces nothing.
+
 **The theme is a measurement parameter, and getting it wrong inverts conclusions.** Two runs were
 captured under a theme guessed from the team label; both guesses were wrong. On A5 the same four
 "unbound" colours read as design drift under the assigned theme and as correct tokenisation under

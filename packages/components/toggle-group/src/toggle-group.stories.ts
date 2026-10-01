@@ -430,15 +430,11 @@ export const All: Story = {
         .filter(Boolean)
         .join(' + ');
 
-      const cellWrapper = (content: TemplateResult) => html`
-        <div class="cell-stack">${content}</div>
-      `;
-
       return html`
         <tr>
           <th>${rowLabel}</th>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group
                 ?chips=${options.chips}
                 multiple
@@ -454,10 +450,10 @@ export const All: Story = {
                 size="sm">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group
                 ?chips=${options.chips}
                 multiple
@@ -475,10 +471,10 @@ export const All: Story = {
                 size="sm">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group ?chips=${options.chips} multiple fill=${ifDefined(options.fill)}>
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
@@ -489,10 +485,10 @@ export const All: Story = {
                 shape="pill">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group
                 ?chips=${options.chips}
                 multiple
@@ -508,10 +504,10 @@ export const All: Story = {
                 shape="pill">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group
                 ?chips=${options.chips}
                 multiple
@@ -527,10 +523,10 @@ export const All: Story = {
                 size="lg">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
           <td>
-            ${cellWrapper(html`
+            <div class="cell-stack">
               <sl-toggle-group
                 ?chips=${options.chips}
                 multiple
@@ -548,7 +544,7 @@ export const All: Story = {
                 size="lg">
                 ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
               </sl-toggle-group>
-            `)}
+            </div>
           </td>
         </tr>
       `;

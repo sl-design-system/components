@@ -100,6 +100,26 @@ With this enabled, each field is validated when the user leaves it. For required
 
 Fields that were never interacted with are still validated when `reportValidity()` is called, for example on submit.
 
+### Validation triggers per field type
+
+| Control | Mouse | Keyboard |
+| - | - | - |
+| ``Checkbox`` | When the user checks the checkbox, then unchecks it and moves focus away. | When the user changes the value to checked, then unchecked, and moves focus away. |
+| ``Checkbox Group`` | When the user selects one or more options, then removes all selections and moves focus away. | When the user selects one or more options, then removes all selections and moves focus away. | 
+| ``Radio`` | Not applicable — a radio button can't be unselected once checked, so the field can only be empty if never interacted with; it's validated on submit via `reportValidity()`. | Not applicable — a radio button can't be unselected once checked, so the field can only be empty if never interacted with; it's validated on submit via `reportValidity()`. |
+| ``Switch`` | When the user toggles the switch off. | When the user moves focus away and the field is toggled off. | 
+| ``Select`` | When the user selects an item, then removes the selection or uses the ‘Clear’ button.<br aria-hidden="true">If, after removing the selection, the field becomes empty and the focus moves away by clicking outside the field. | When the user selects a value, then uses the ‘Clear’ button and moves focus away, or when the user selects a value, moves focus away, returns, removes the value, and moves focus away again. |
+| ``Single Combobox`` | When the user selects an item, then removes the selection by clicking the option again or by removing the selection's text.<br aria-hidden="true">If, after removing the selection, the field becomes empty and the focus moves away by clicking outside the field. | When the user selects a value, then deselects, then moves focus away or when the user selects a value, then moves focus away, returns, and removes the value. |
+| ``Multiple Combobox`` | When the user selects an item, then removes the selection by clicking the option again or by removing the selection's text.<br aria-hidden="true">If, after removing the selection, the field becomes empty and the focus moves away by clicking outside the field. | When the user selects a value, then deselects, then moves focus away or when the user selects a value, then moves focus away, returns, and removes the value.<br aria-hidden="true">If, after removing the selections, the field becomes empty and the user moves the focus away. | 
+| ``Search Field`` | Not applicable | Not applicable |
+| ``Text Field`` | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away.| When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away. |
+| ``Text Area`` | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away.| When the user fills the field, then removes the value and moves focus away or when the user enters invalid data and moves focus away. |
+| ``Number Field`` | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away. | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away. |
+| ``Date Field`` | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away. | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away.<br aria-hidden="true">Focus on the field button is still considered inside the field. |
+| ``Time Field`` | When the user fills the field, then removes the value and moves focus away  (for required field) or when the user enters invalid data and moves focus away. | When the user fills the field, then removes the value and moves focus away (for required field) or when the user enters invalid data and moves focus away.<br aria-hidden="true">Focus on the field button is considered to still be inside the field. |
+
+{.ds-table}
+
 </section>
 
 {% include "../component-table.njk" %}

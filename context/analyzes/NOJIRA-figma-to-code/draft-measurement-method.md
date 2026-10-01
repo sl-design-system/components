@@ -95,11 +95,43 @@ The composite becomes mostly numeric and mostly exact:
 Six of seven need no image. And the per-design floor becomes computable from the same data: a
 colour with no token in the theme cannot be scored against the run.
 
+## Correspondence is half-solved already, and the other half is one attribute
+
+Measured on the artifacts rather than assumed.
+
+**The design side is solved.** `get_design_context` does not return prose — it returns renderable
+markup with **`data-node-id` on every element**, plus resolved values inline. Across the batch it
+captured **3,004 node ids**. So a renderer built on it is a _converter_, not a reimplementation of
+Figma, and the node for any design element is already attached to that element.
+
+**The build side is empty.** No generated file in any of the nineteen runs carries a Figma node id
+in any form — `data-figma-node`, `data-node-id`, nothing. There is **no link at all** between a
+rendered element and the design node it came from.
+
+That makes one small change the highest-leverage item in this whole design: **the implementer emits
+`data-figma-node` on every element it derives from a design node.** It costs one attribute and it
+delivers, at once, the per-element comparison, the overlay viewer's anchors, and the registry's
+`codeTarget` — three things otherwise requiring structural matching heuristics.
+
+**Coverage is uneven and that is a protocol gap, not a tool limit.** Capture depth was improvised
+per run: A3 made six `get_design_context` calls and captured 611 node ids; two runs made one call
+and captured **none**.
+
+| Run                     | calls | node ids |
+| ----------------------- | ----: | -------: |
+| A3 Bingel               |     6 |      611 |
+| A7 Bingel               |     6 |      568 |
+| A6 Itsl-Collab          |     3 |      315 |
+| …                       |       |          |
+| A11 Sesame, A8 NSP      |     1 |        1 |
+| B-Itsl-Course, B-Kampus |     1 |    **0** |
+
+So the metadata we hold supports a faithful reconstruction for some runs and nothing for others,
+and which is which has no relation to the design's complexity. Whatever the ingestion protocol
+becomes, **how deep to walk is a decision it must make explicitly** rather than leave to each run.
+
 ## Open questions this draft does not settle
 
-- **Node-to-element correspondence.** Comparing boxes requires knowing which rendered element is
-  which design node. Code Connect gives it where mappings exist — a minority of this corpus. Where
-  it does not, matching is by structure and name, and that is a research question, not a detail.
 - **What counts as one element.** A design node and a rendered element are not one-to-one: one node
   can become a component with five internal elements, and a component can absorb three nodes.
 - **Tolerance.** 1px off is not a defect; 8px is. The threshold belongs to the design system, not

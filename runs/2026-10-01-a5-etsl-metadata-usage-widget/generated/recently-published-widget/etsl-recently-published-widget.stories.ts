@@ -22,3 +22,35 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/** Every run failed — three red badges with `triangle-exclamation-solid`. */
+export const AllFailure: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-recently-published-widget
+        .model=${{
+          publications: recentlyPublishedWidgetMock.publications.map(p => ({
+            ...p,
+            status: 'failure' as const
+          }))
+        }}
+      ></sl-etsl-recently-published-widget>
+    </div>
+  `
+};
+
+/** Every run succeeded — three green badges with `circle-check-solid`. */
+export const AllSuccess: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-recently-published-widget
+        .model=${{
+          publications: recentlyPublishedWidgetMock.publications.map(p => ({
+            ...p,
+            status: 'success' as const
+          }))
+        }}
+      ></sl-etsl-recently-published-widget>
+    </div>
+  `
+};

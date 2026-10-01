@@ -2,7 +2,9 @@
   /* The widget body is a fixed 282px column in the design's 1200px grid; without an explicit
      display it would lay out inline and the grid below would not get that width. */
   display: block;
-  inline-size: 282px;
+  /* D8: the root pins the card at 282px border-box; fill it. A fixed 282 here plus
+     `sl-panel`'s content-box border rendered a 284px card. */
+  inline-size: 100%;
 }
 
 .tiles {

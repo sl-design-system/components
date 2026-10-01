@@ -17,3 +17,17 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/**
+ * Every count zero, so all twelve "See all" controls render disabled. In the design only five
+ * of the twelve are in this state; this is the boundary case.
+ */
+export const AllEmpty: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 282px">
+      <sl-etsl-assets-widget
+        .model=${{ types: assetsWidgetMock.types.map(t => ({ ...t, count: 0 })) }}
+      ></sl-etsl-assets-widget>
+    </div>
+  `
+};

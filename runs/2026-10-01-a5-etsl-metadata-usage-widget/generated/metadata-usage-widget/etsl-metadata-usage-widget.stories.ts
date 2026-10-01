@@ -25,3 +25,34 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/**
+ * Every field in use: no `usage: null`, so no "Unused" badge renders and the Unused tile is 0.
+ * This is the variant that proves the badge is driven by `usage === null`, not by a flag.
+ */
+export const AllUsed: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-metadata-usage-widget
+        .model=${{
+          totals: { total: 2916, used: 2916, unused: 0 },
+          entries: metadataUsageWidgetMock.entries.map(e => ({ ...e, usage: e.usage ?? 1 }))
+        }}
+      ></sl-etsl-metadata-usage-widget>
+    </div>
+  `
+};
+
+/** The mirror case: every field unused, so all six rows carry the orange badge. */
+export const AllUnused: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-metadata-usage-widget
+        .model=${{
+          totals: { total: 2916, used: 0, unused: 2916 },
+          entries: metadataUsageWidgetMock.entries.map(e => ({ ...e, usage: null }))
+        }}
+      ></sl-etsl-metadata-usage-widget>
+    </div>
+  `
+};

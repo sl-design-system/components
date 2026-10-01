@@ -21,3 +21,17 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/**
+ * Fewer metrics than fill two columns of 13 — the 13/13 split is a component constant, so a
+ * short list leaves the second column empty rather than rebalancing.
+ */
+export const ShortList: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-content-items-widget
+        .model=${{ metrics: contentItemsWidgetMock.metrics.slice(0, 5) }}
+      ></sl-etsl-content-items-widget>
+    </div>
+  `
+};

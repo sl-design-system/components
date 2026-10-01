@@ -25,3 +25,19 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/**
+ * The second tab. The Figma frame has no content for it (OQ6), so the widget renders its
+ * empty-state row. This is the variant that shows the chosen default rather than leaving it
+ * undocumented.
+ */
+export const LinkedItemsTab: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-reused-content-widget
+        .model=${reusedContentWidgetMock}
+        active-tab="linked-items"
+      ></sl-etsl-reused-content-widget>
+    </div>
+  `
+};

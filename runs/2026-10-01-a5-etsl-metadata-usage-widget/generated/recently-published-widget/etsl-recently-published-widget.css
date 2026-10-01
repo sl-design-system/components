@@ -29,6 +29,10 @@ td {
      inherits through the shadow boundary; the fallback is the same value, so this component also
      renders correctly standalone in its own story. Unbound in editorial-suite - see THEME-NOTES. */
   box-shadow: inset 0 -1px 0 var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
+  /* D3: `block-size` on a table cell is a minimum on the CONTENT box, so the 16px padding below
+     stacked on top and rendered 80/104px rows instead of 64/88. Border-box makes the declared
+     heights total heights. The padding stays — `vertical-align: top` needs that 16px inset. */
+  box-sizing: border-box;
   font-family: var(--sl-text-fontFamily);
   padding-block: var(--sl-size-200) 0;
   padding-inline: var(--sl-size-200);

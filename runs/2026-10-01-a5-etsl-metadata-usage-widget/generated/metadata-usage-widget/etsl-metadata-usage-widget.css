@@ -101,8 +101,11 @@ caption {
 
 th,
 td {
-  /* The row rule is a raw rgba(0,0,0,0.12) in Figma with no token; the root declares it. */
-  block-size: var(--sl-size-600);
+  /* D2: no `block-size` here. On a table cell, height is a MINIMUM on the content box, so a
+     48px block-size plus padding-block stacked to 68/76px rows and alone accounted for +188px
+     of the page's height overshoot. Padding alone lands the rows on 48, as the sibling
+     recently-edited-widget already does.
+     The row rule is a raw rgba(0,0,0,0.12) in Figma with no token; the root declares it. */
   box-shadow: inset 0 calc(-1 * var(--sl-size-010)) 0
     var(--etsl-color-row-divider, rgb(0 0 0 / 12%));
   padding-inline: var(--sl-space-200);
@@ -115,7 +118,8 @@ th {
   font-size: var(--sl-text-new-body-lg-fontSize);
   font-weight: var(--sl-fontWeight-600);
   line-height: var(--sl-text-new-body-lg-lineHeight);
-  padding-block: var(--sl-space-125);
+  /* D2: 12 + 24 + 12 = 48, the design's header row. */
+  padding-block: var(--sl-space-150);
 }
 
 td {

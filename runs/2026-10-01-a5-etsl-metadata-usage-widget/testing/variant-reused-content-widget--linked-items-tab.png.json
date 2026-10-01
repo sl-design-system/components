@@ -1,0 +1,57 @@
+{
+  "story": "runs-a5-etsl-metadata-usage-widget-reused-content-widget--linked-items-tab",
+  "theme": "editorial-suite",
+  "url": "http://localhost:6010/iframe.html?id=runs-a5-etsl-metadata-usage-widget-reused-content-widget--linked-items-tab&viewMode=story&globals=theme:editorial-suite",
+  "viewport": {
+    "width": 700,
+    "height": 900
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a5-etsl-metadata-usage-widget/testing/variant-reused-content-widget--linked-items-tab.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-etsl-reused-content-widget",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 588,
+        "height": 156
+      },
+      {
+        "tag": "sl-tab-group",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 588,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 213,
+        "height": 44
+      },
+      {
+        "tag": "sl-tab",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 207,
+        "height": 44
+      }
+    ],
+    "bodyHeight": 900
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

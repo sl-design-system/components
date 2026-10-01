@@ -24,3 +24,14 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/** No entries — the header row stays, the body is empty. */
+export const Empty: StoryObj = {
+  render: () => html`
+    <div style="inline-size: 588px">
+      <sl-etsl-recently-edited-widget
+        .model=${{ entries: [] }}
+      ></sl-etsl-recently-edited-widget>
+    </div>
+  `
+};

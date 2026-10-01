@@ -106,8 +106,9 @@
 
 .lower-band {
   display: grid;
-  /* D6: the design's band gaps are 16, not 24. */
-  gap: var(--sl-size-200);
+  /* D6: the two axes differ. The design's vertical band gap is 16, but its column gap stays 24
+     — 588 + 24 + 588 = 1200. A single `gap: 16` widened both cards to 592. */
+  gap: var(--sl-size-200) var(--sl-size-300);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   padding-block-start: var(--sl-size-200);
 }
@@ -174,6 +175,11 @@
   align-items: center;
   display: flex;
   gap: var(--sl-space-100);
+  /* D4: `sl-panel` pays `padding-block: 8px` twice — on `slot[name='heading']` and again via
+     `::slotted(*)`. That is inert for the plain inline `.panel-title`, but this heading is a
+     flex box so it took both, rendering a 64px strip against the other cards' 48. Outer-tree
+     styles beat `::slotted`, so zeroing it here leaves only the slot's own 8+8. */
+  padding-block: 0;
 }
 
 .metric {
@@ -238,7 +244,8 @@
 .details {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-size-150);
+  /* D7: the design's row pitch is 36 (20 + 16), not 32. */
+  gap: var(--sl-size-200);
   margin: 0;
 }
 
@@ -263,7 +270,8 @@
 
 .product-ids {
   display: grid;
-  gap: var(--sl-size-150) var(--sl-size-200);
+  /* D7: design row pitch 16, not 12. */
+  gap: var(--sl-size-200);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin: 0;

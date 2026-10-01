@@ -6,7 +6,7 @@
   "framework": "lit",
   "i18n": false,
   "outputLocation": "examples/lit/src/_runs/a5-etsl-metadata-usage-widget/",
-  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "pipelineCommit": "5f340f144bd548129b494ebf7e5d762f09c3733c",
   "stages": {
     "1-ingest": {
       "status": "done",
@@ -58,38 +58,95 @@
       }
     },
     "4-validate": {
-      "status": "blocked",
-      "at": "2026-09-30T23:19:15.948195+00:00",
+      "status": "done",
+      "at": "2026-10-01T06:31:01.390355+00:00",
+      "verdict": "MATCH (after 1 rework round)",
+      "validatorTokens": 130619,
+      "reworkRound": {
+        "by": "orchestrator (subagent pool saturated)",
+        "fixes": 10,
+        "ids": "D1-D10",
+        "selfCaughtRegression": "D6 as specified set a single `gap`, which shrank the lower-band COLUMN gap 24->16 and widened both cards to 592; split into `gap: 16 24`."
+      },
       "capture": {
-        "story": "runs-a5-etsl-metadata-usage-widget-dashboard-page--basic",
+        "file": "testing/dashboard-page-1440-fixed.png",
         "verdict": "rendered",
         "consoleErrors": 0,
         "failedRequests": 0,
         "notUpgraded": 0,
         "collapsed": 0,
-        "bodyHeight": 2227,
+        "bodyHeightBefore": 2227,
+        "bodyHeightAfter": 2032,
         "designHeight": 2032
       },
-      "reason": "Account weekly usage limit reached mid Stage 4 fix round (resets 2026-10-04 20:00 Europe/Warsaw). Stages 1-3 complete on disk; the fix round had been identified but not applied."
+      "gates": {
+        "typecheck": "clean (inScope 0, regressionsOutsideScope 0, 2 upstream grid.ts baseline)",
+        "checkTokens": "clean (62 referenced, 0 missing, 0 shorthandTrap)"
+      }
     },
     "5-author": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T06:32:56.587591+00:00",
+      "by": "orchestrator (subagent pool saturated)",
+      "scope": "examples/ path -> story enrichment only; no Vitest spec, no website docs, no changeset, no extract-i18n",
+      "storiesBefore": 8,
+      "storiesAfter": 19,
+      "variantsAdded": 11,
+      "allVariantsVerified": "every one captured, verdict=rendered, 0 console errors, 0 failed requests"
     },
     "6-review": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T06:34:06.522273+00:00",
+      "by": "orchestrator (subagent pool saturated)",
+      "critical": [],
+      "mechanicalChecks": {
+        "customElementsDefine": "1, in the root only - correct",
+        "rawCustomEventOrDispatchEvent": 0,
+        "mainLandmark": 0,
+        "registerJsInsideComponents": 0,
+        "scssFiles": 0,
+        "varFallbackOnSlToken": 0,
+        "hardcodedHexInDeclarations": 0,
+        "tableCaptions": "4 of 4 tables",
+        "typecheck": "clean",
+        "checkTokens": "clean (62 referenced, 0 missing)"
+      },
+      "minor": [
+        "All 7 children use `var(--etsl-color-*, <hex>)` fallbacks. component-conventions.md bans var() fallbacks; the deviation is deliberate so each child's standalone story renders without the root's :host palette in scope. Zero fallbacks on any --sl-* token.",
+        "sl-panel UPSTREAM DEFECT: panel.css gives [part=header] `flex: 1` and the body no grow factor on a column-flex host, so a stretched panel grows its grey HEADER, not its body. Rendered a 354px header here. Worked around with .panel::part(header){flex:0 0 auto} + ::part(body){flex:1 1 auto}.",
+        "sl-progress-bar UPSTREAM BUG: progress-bar.css:66 uses `font: var(--sl-text-new-heading-sm)`, a BARE token editorial-suite does not define (longhands only), so its label typography is dropped silently for every consumer of this theme.",
+        "editorial-suite THEME DEFECT: public --sl-text-new-typeset-fontFamily-{body,heading} resolve to 'Open Sans', which the theme's own Typekit (bws3iof) does not ship - it ships raleway + roboto. The brand tokens and the legacy --sl-heading-fontFamily/--sl-text-fontFamily are correct. Using the public tokens would render a fallback face; this run used the legacy ones.",
+        "sl-button exposes no part for its background/label, so brand colour is applied by retargeting the tokens it reads (--sl-color-background-primary-bold etc.) on individual elements - a reach-through, not a supported API.",
+        "sl-panel tightens its header inline padding only under :host([has-actions]), which it sets for slot='actions' but not the slot='aside' this run uses (OQ12); compensated in the run CSS.",
+        "sl-tab-group's selected indicator is not exposed as a ::part(), so its colour can only be changed by retargeting --sl-color-border-selected on the element."
+      ]
     }
   },
-  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
-  "blocked": {
-    "stage": "4-validate",
-    "reason": "Account weekly usage limit reached mid Stage 4 fix round (resets 2026-10-04 20:00 Europe/Warsaw). Stages 1-3 complete on disk; the fix round had been identified but not applied.",
-    "kind": "environment-quota",
-    "resumableFrom": "4-validate",
-    "resumeGuard": "Refuse the resume if `git rev-parse HEAD:tools/implement-design-plugin` differs from pipelineTree.hash. A run half one pipeline and half another describes neither. HEAD itself is not the test."
-  },
   "pipelineTree": {
-    "hash": "2176d63902204219ed29b22e775e902747248deb",
     "path": "tools/implement-design-plugin",
-    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
+    "hash": "2176d63902204219ed29b22e775e902747248deb"
+  },
+  "themeMatch": {
+    "best": "sanoma-learning",
+    "method": "token-name",
+    "absoluteAgreement": 1,
+    "marginOverSecond": 2,
+    "confident": true,
+    "assignedTheme": "editorial-suite",
+    "assignedThemeScore": 0.357,
+    "assignedThemeRank": "joint 4th",
+    "note": "The batch assigned editorial-suite by product name (ETSL = Editorial Suite), but the design file's colour variables agree 14/14 with sanoma-learning and only 5/14 with editorial-suite. Theme NOT switched - the runbook fixes it per run and switching would make this run incomparable. This explains why #006666/#02242E/#CA6F2A were unbound, and why #0d8e4c/#d3f8de were found only in sanoma-learning."
+  },
+  "themeUsedForCaptures": "editorial-suite",
+  "themeDerived": {
+    "theme": "sanoma-learning",
+    "method": "token-name",
+    "absoluteAgreement": 1.0,
+    "matched": "14/14",
+    "marginOverSecond": 2.0,
+    "confident": true,
+    "tool": "runs/harness/theme-match.mjs",
+    "runnerUp": "sanoma-utbildning 7/14; editorial-suite ranks joint 4th at 5/14",
+    "note": "Captured under 'editorial-suite', assigned from the team label before themes were derived. The ETSL design file speaks sanoma-learning's vocabulary and matches it on every colour token. Colour measurements in this run therefore describe the wrong theme; geometry, DOM structure and token-name findings are unaffected. The run did not switch themes mid-flight, which was the right call \u2014 the theme is a recorded run parameter, not something to change once captures exist."
   }
 }

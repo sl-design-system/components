@@ -18,3 +18,15 @@ export default {
 } satisfies Meta;
 
 export const Basic: StoryObj = {};
+
+/** A different route selected — the tab strip is navigation (OQ4), so only the indicator moves. */
+export const PublicationsTab: StoryObj = {
+  render: () => html`
+    <sl-etsl-app-header .model=${appHeaderMock} active-tab="publications"></sl-etsl-app-header>
+  `
+};
+
+/** No model: every text slot falls back, which is what a slow dashboard fetch looks like. */
+export const NoModel: StoryObj = {
+  render: () => html`<sl-etsl-app-header></sl-etsl-app-header>`
+};

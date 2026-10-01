@@ -1,0 +1,102 @@
+{
+  "story": "runs-a5-etsl-metadata-usage-widget-metadata-usage-widget--all-unused",
+  "theme": "editorial-suite",
+  "url": "http://localhost:6010/iframe.html?id=runs-a5-etsl-metadata-usage-widget-metadata-usage-widget--all-unused&viewMode=story&globals=theme:editorial-suite",
+  "viewport": {
+    "width": 700,
+    "height": 900
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a5-etsl-metadata-usage-widget/testing/variant-metadata-usage-widget--all-unused.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-etsl-metadata-usage-widget",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 588,
+        "height": 462
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 63,
+        "height": 24
+      }
+    ],
+    "bodyHeight": 900
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

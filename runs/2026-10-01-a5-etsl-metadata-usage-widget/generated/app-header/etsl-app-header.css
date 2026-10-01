@@ -12,7 +12,9 @@
      shadow boundary. The fallback keeps this component's own story readable; the hex is unbound
      in editorial-suite. */
   background: var(--etsl-color-chrome, #02242e); /* unbound in editorial-suite */
-  block-size: var(--sl-size-600);
+  /* D10: the design's bar is 50px and no `--sl-size-*` token equals 50 — a raw layout
+     dimension, like the run's 1200/120/282. */
+  block-size: 50px;
   color: var(--sl-color-palette-grey-000);
   display: flex;
   justify-content: space-between;

@@ -119,9 +119,24 @@ Two NSP designs in this corpus resolve to two different themes — `max` (17/17 
 of them wrong whichever way it was written. The theme belongs to the file, and it is derivable:
 see [`runs/harness/README.md`](../../../runs/harness/README.md).
 
-A8 was captured before this was known, under a theme guessed from the team label, so its colour
-measurements describe the wrong theme. Its `progress.json` records that rather than letting the
-numbers stand.
+Two runs were captured before this was known, under themes guessed from the team label, and both
+guesses were wrong:
+
+| Run                             | Captured under    | Derived               | Evidence                                         |
+| ------------------------------- | ----------------- | --------------------- | ------------------------------------------------ |
+| A8 NSP `Group list`             | `sanoma-pro`      | **`max`**             | 17/17 colour tokens                              |
+| A5 ETSL `Metadata usage widget` | `editorial-suite` | **`sanoma-learning`** | 14/14; `editorial-suite` ranks joint 4th at 5/14 |
+
+Both `progress.json` files record it rather than letting the numbers stand. Neither run switched
+theme mid-flight, which was right: the theme is a recorded parameter of a run, not something to
+change once captures exist.
+
+The A5 case also explains something the run had already reported independently. Four colours it
+flagged as genuinely unbound — `#006666`, `#02242E`, `#CA6F2A`, `#003D3D` — have no token in any
+theme, and two more exist **only** in `sanoma-learning`. Under the assigned theme that reads as a
+design drifting from the system; under the derived one it reads as a correctly-tokenised design
+measured against the wrong theme. **The same evidence supports opposite conclusions depending on
+a parameter nobody had checked**, which is the strongest argument in the batch for deriving it.
 
 ---
 
@@ -287,3 +302,43 @@ position (`Pick<Page, …>`), so the compiler elided it anyway.
 Only a separate bare `import './x.js';` is reliable. Worth stating because it is the second time
 the same defect survived its own fix — the hint was written from one instance and generalised one
 step short of the rule that actually holds.
+
+---
+
+## Six shipped components have dead typography, in every theme
+
+Found by building the token checker, not by any run — and verified by hand before being believed,
+because the first version of the checker was wrong three times over.
+
+`sl-checkbox`, `sl-emoji`, `sl-popover`, `sl-progress-bar`, `sl-radio-group` and `sl-tag` each
+write a `font:` shorthand against a bare `--sl-text-new-*` family that **no theme declares**. Only
+the longhands exist. An undefined `var()` in a shorthand makes the browser drop the whole
+declaration, so each of these renders with no font family, size or line height of its own.
+
+Identical in all five themes checked — `editorial-suite`, `itslearning`, `kampus`,
+`sanoma-learning`, `teacher-assistant`. It is not a theme gap; it is six components written
+against a token that was never there.
+
+Two of them, `sl-checkbox` and `sl-radio-group`, guard the reference with an older namespace:
+
+```css
+font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
+```
+
+The guard does not help. `--sl-text-body-md-normal` is declared zero times in any theme, so both
+names are undefined and the declaration drops anyway. **Defensive code written against a second
+token that also does not exist** reads as more careful than the unguarded version and behaves
+identically.
+
+This is why the checker had to learn about fallbacks before the finding could be stated. A
+checker that ignored them would have convicted these two for the wrong reason, and a checker that
+trusted them would have acquitted them for the wrong reason. Neither error is visible in the
+output; both produce a confident-looking verdict.
+
+### Why the batch found it and the design system did not
+
+Nothing in the repository checks that a referenced custom property exists. Stylelint does not
+resolve custom properties, TypeScript never reads CSS, and the rendered result is wrong in a way
+that looks like a design decision rather than a fault. The bug is visible only to someone
+comparing a component against a specification — which is exactly what a fidelity bench does, and
+exactly what nobody was doing before.

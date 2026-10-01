@@ -82,13 +82,31 @@ for (const pkg of readdirSync(componentsDir)) {
 const files = walk(scope).filter(path => /\.(css|ts)$/.test(path)),
   referenced = new Map();
 
-for (const file of files)
-  for (const [, token] of flatten(stripComments(readFileSync(file, 'utf8'))).matchAll(
-    /var\(\s*(--sl-[\w-]+)/g
-  ))
-    (referenced.get(token) ?? referenced.set(token, []).get(token)).push(file);
+// `var(--a, var(--b))` is only a problem if **neither** resolves. Reading just the first name
+// would convict `sl-checkbox`, which guards its new-namespace token with an older one — and
+// absolve nothing, since here the guard is undefined too. Either way the distinction has to be
+// made by looking, not assumed.
+const resolvableNames = reference => {
+  const names = [...reference.matchAll(/(--sl-[\w-]+)/g)].map(m => m[1]);
+  return { names, anyDeclared: names.some(name => declared.has(name)) };
+};
 
-const undeclared = [...referenced].filter(([token]) => !declared.has(token));
+for (const file of files) {
+  const css = flatten(stripComments(readFileSync(file, 'utf8')));
+
+  // Match a whole `var(...)` including a nested fallback, so the fallback travels with the name.
+  for (const [, body] of css.matchAll(/var\((\s*--sl-[\w-]+[^;{}]*?)\)(?=[;\s)}])/g)) {
+    const { names, anyDeclared } = resolvableNames(body);
+    if (anyDeclared || !names.length) continue;
+
+    const token = names[0],
+      entry = referenced.get(token) ?? referenced.set(token, []).get(token);
+
+    entry.push(file);
+  }
+}
+
+const undeclared = [...referenced];
 
 // The most repeated defect in the batch, and the one worth naming rather than lumping in: the
 // theme declares `--sl-text-new-body-md-fontSize` and friends but no bare `--sl-text-new-body-md`,

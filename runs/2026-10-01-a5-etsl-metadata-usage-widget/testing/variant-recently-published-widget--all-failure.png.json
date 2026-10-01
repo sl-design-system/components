@@ -1,0 +1,84 @@
+{
+  "story": "runs-a5-etsl-metadata-usage-widget-recently-published-widget--all-failure",
+  "theme": "editorial-suite",
+  "url": "http://localhost:6010/iframe.html?id=runs-a5-etsl-metadata-usage-widget-recently-published-widget--all-failure&viewMode=story&globals=theme:editorial-suite",
+  "viewport": {
+    "width": 700,
+    "height": 900
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a5-etsl-metadata-usage-widget/testing/variant-recently-published-widget--all-failure.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-etsl-recently-published-widget",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 588,
+        "height": 328
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 74,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 74,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      },
+      {
+        "tag": "sl-badge",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 74,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 12,
+        "height": 12
+      }
+    ],
+    "bodyHeight": 900
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

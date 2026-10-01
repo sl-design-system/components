@@ -53,7 +53,7 @@ Four themes examined, four wrong.
 
 | Theme               | Fault                                                               |
 | ------------------- | ------------------------------------------------------------------- |
-| `kampus`            | names `'Open Sans'`; ships **no `fonts.css` at all`**               |
+| `kampus`            | names `'Open Sans'`; ships **no `fonts.css` at all**                |
 | `itslearning`       | names `'Open Sans'`; its Typekit delivers only Lato; no `fonts.css` |
 | `teacher-assistant` | three tokens hardcode `'Open Sans'`; `fonts.css` never loads it     |
 | `sanoma-pro`        | names `'Open Sans'`, which is not shipped                           |

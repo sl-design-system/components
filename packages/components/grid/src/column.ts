@@ -246,10 +246,8 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    const label = [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean).join(' ');
-
-    if (label) {
-      return label;
+    if (this.hideHeaderText) {
+      return this.headerLabelText || undefined;
     }
 
     return undefined;
@@ -279,10 +277,12 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <th
+        aria-colindex=${String(this.columnIndex)}
         aria-label=${ifDefined(this.headerAriaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
+        role="columnheader"
         scope="col">
         ${this.renderHeaderLabel()}
       </th>
@@ -330,7 +330,8 @@ export class GridColumn<T = any> extends LitElement {
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           id=${ifDefined(cellId)}
-          part=${parts.join(' ')}>
+          part=${parts.join(' ')}
+          role="cell">
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
@@ -342,7 +343,8 @@ export class GridColumn<T = any> extends LitElement {
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           id=${ifDefined(cellId)}
-          part=${parts.join(' ')}>
+          part=${parts.join(' ')}
+          role="cell">
           ${data}
         </td>
       `;

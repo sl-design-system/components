@@ -47,10 +47,8 @@ describe('sl-column', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
       headers.forEach((header, index) => {
-        expect(header).to.have.attribute(
-          'aria-label',
-          ['First name', 'Last name', 'Current age'][index]
-        );
+        expect(header).not.to.have.attribute('aria-label');
+        expect(header).not.to.have.attribute('aria-labelledby');
         expect(header.querySelector('span')).not.to.exist;
         expect(header.textContent?.trim()).to.equal(
           ['First name', 'Last name', 'Current age'][index]

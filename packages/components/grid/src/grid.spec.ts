@@ -67,6 +67,7 @@ describe('sl-grid', () => {
       const table = el.renderRoot.querySelector('table');
 
       expect(table).to.exist;
+      expect(table).to.have.attribute('role', 'table');
       expect(table).to.contain('thead');
       expect(table).to.contain('tbody');
     });
@@ -137,16 +138,19 @@ describe('sl-grid', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
+      expect(headers[0]).to.have.attribute('aria-colindex', '1');
       expect(headers[0]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[0]).to.have.attribute('role', 'columnheader');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
+      expect(headers[1]).to.have.attribute('aria-colindex', '3');
       expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[1]).to.have.attribute('role', 'columnheader');
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
+        expect(header).to.have.attribute('role', 'columnheader');
       });
 
-      const nameGroupHeaderId = headers[0].id,
-        schoolGroupHeaderId = headers[1].id,
-        firstNameHeaderId = headers[2].id,
+      const firstNameHeaderId = headers[2].id,
         lastNameHeaderId = headers[3].id,
         schoolNameHeaderId = headers[4].id,
         cityHeaderId = headers[5].id,
@@ -156,33 +160,32 @@ describe('sl-grid', () => {
       expect(headers[0]).to.have.attribute('aria-hidden', 'true');
       expect(headers[1]).to.have.attribute('aria-hidden', 'true');
 
-      // aria-labelledby is now on the span inside the th, pointing only to the group header label
-      const firstNameSpan = headers[2].querySelector('span');
-      expect(firstNameSpan).to.have.attribute('aria-labelledby', `${nameGroupHeaderId}-label`);
+      expect(headers[2]).to.have.attribute('aria-colindex', '1');
+      expect(headers[2]).not.to.have.attribute('aria-description');
       expect(headers[2]).not.to.have.attribute('headers');
       expect(headers[2]).not.to.have.attribute('abbr');
       expect(headers[2]).not.to.have.attribute('aria-label');
 
-      const lastNameSpan = headers[3].querySelector('span');
-      expect(lastNameSpan).to.have.attribute('aria-labelledby', `${nameGroupHeaderId}-label`);
+      expect(headers[3]).to.have.attribute('aria-colindex', '2');
+      expect(headers[3]).not.to.have.attribute('aria-description');
       expect(headers[3]).not.to.have.attribute('headers');
       expect(headers[3]).not.to.have.attribute('abbr');
       expect(headers[3]).not.to.have.attribute('aria-label');
 
-      const schoolNameSpan = headers[4].querySelector('span');
-      expect(schoolNameSpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
+      expect(headers[4]).to.have.attribute('aria-colindex', '3');
+      expect(headers[4]).not.to.have.attribute('aria-description');
       expect(headers[4]).not.to.have.attribute('headers');
       expect(headers[4]).not.to.have.attribute('abbr');
       expect(headers[4]).not.to.have.attribute('aria-label');
 
-      const citySpan = headers[5].querySelector('span');
-      expect(citySpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
+      expect(headers[5]).to.have.attribute('aria-colindex', '4');
+      expect(headers[5]).not.to.have.attribute('aria-description');
       expect(headers[5]).not.to.have.attribute('headers');
       expect(headers[5]).not.to.have.attribute('abbr');
       expect(headers[5]).not.to.have.attribute('aria-label');
 
-      const countrySpan = headers[6].querySelector('span');
-      expect(countrySpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
+      expect(headers[6]).to.have.attribute('aria-colindex', '5');
+      expect(headers[6]).not.to.have.attribute('aria-description');
       expect(headers[6]).not.to.have.attribute('headers');
       expect(headers[6]).not.to.have.attribute('abbr');
       expect(headers[6]).not.to.have.attribute('aria-label');

@@ -485,7 +485,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <table
         part="table"
         aria-colcount=${this.#headerRows.at(-1)?.filter(col => !col.hidden).length || 0}
-        aria-rowcount=${this.dataSource?.items.length || 0}>
+        aria-rowcount=${this.dataSource?.items.length || 0}
+        role="table">
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -599,7 +600,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
-          <tr>
+          <tr aria-rowindex=${rowIndex + 1} role="row">
             ${columns.map(col => col.renderHeaderRow(rowIndex))}
           </tr>
         `
@@ -649,6 +650,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         aria-rowindex=${index + 1}
         aria-selected=${ariaSelected}
         index=${index}
+        role="row"
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -680,9 +682,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
         aria-rowindex=${index + 1}
         .draggable=${groupDraggable}
+        role="row"
         part="group"
         index=${index}>
-        <td part="group-header">
+        <td part="group-header" role="cell">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}

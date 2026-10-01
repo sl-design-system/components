@@ -57,9 +57,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
       return html`
         <th
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           id=${this.headerCellId}
           part="header selection"
+          role="columnheader"
           scope="col">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
@@ -75,8 +77,10 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
       return html`
         <th
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           part="header selection-placeholder"
+          role="columnheader"
           scope="col"></th>
       `;
     }
@@ -90,7 +94,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         @click=${this.#onClick}
         class=${ifDefined(classes.join(' ') || undefined)}
         headers=${this.headerIds}
-        part="data selection">
+        part="data selection"
+        role="cell">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

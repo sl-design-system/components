@@ -46,6 +46,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
         aria-colspan=${String(Math.max(this.columnSpan, 1))}
         colspan=${Math.max(this.columnSpan, 1)}
         id=${this.headerCellId}
+        role="columnheader"
         scope="colgroup">
         ${this.renderHeaderLabel()}
       </th>

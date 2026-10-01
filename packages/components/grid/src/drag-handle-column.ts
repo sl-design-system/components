@@ -41,7 +41,12 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
 
   override renderHeaderRow(): TemplateResult {
     return html`
-      <th id=${this.headerCellId} part="header drag-handle" scope="col">
+      <th
+        aria-colindex=${String(this.columnIndex)}
+        id=${this.headerCellId}
+        part="header drag-handle"
+        role="columnheader"
+        scope="col">
         <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
       </th>
     `;
@@ -63,7 +68,8 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
         @touchstart=${(event: Event & { target: HTMLElement }) =>
           this.#onStartDrag(event, item.data)}
         headers=${this.headerIds}
-        part="data drag-handle ${draggable ? '' : 'fixed'}">
+        part="data drag-handle ${draggable ? '' : 'fixed'}"
+        role="cell">
         ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}
       </td>
     `;

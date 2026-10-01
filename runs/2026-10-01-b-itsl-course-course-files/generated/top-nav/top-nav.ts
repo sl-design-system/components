@@ -13,11 +13,11 @@ import styles from './top-nav.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-itsl-top-nav': TopNav;
+    'sl-itsl-course-top-nav': TopNav;
   }
 
   interface GlobalEventHandlersEventMap {
-    'sl-itsl-nav-select': SlItslNavSelectEvent;
+    'sl-itsl-course-nav-select': SlItslNavSelectEvent;
   }
 }
 
@@ -62,10 +62,10 @@ export type SlItslNavSelectEvent = CustomEvent<string>;
  * passes in its `model` and handles the emitted selection event.
  *
  * ```html
- * <sl-itsl-top-nav .model=${model}></sl-itsl-top-nav>
+ * <sl-itsl-course-top-nav .model=${model}></sl-itsl-course-top-nav>
  * ```
  *
- * @fires sl-itsl-nav-select - Emitted with the id of the main-menu item or tab that was activated.
+ * @fires sl-itsl-course-nav-select - Emitted with the id of the main-menu item or tab that was activated.
  */
 export class TopNav extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -80,7 +80,7 @@ export class TopNav extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits with the id of the main-menu item or tab that was activated. */
-  @event({ name: 'sl-itsl-nav-select' }) navSelectEvent!: EventEmitter<SlItslNavSelectEvent>;
+  @event({ name: 'sl-itsl-course-nav-select' }) navSelectEvent!: EventEmitter<SlItslNavSelectEvent>;
 
   /** The data this component renders. */
   @property({ attribute: false }) model?: TopNavModel;
@@ -183,6 +183,6 @@ export class TopNav extends ScopedElementsMixin(LitElement) {
   }
 }
 
-if (!customElements.get('sl-itsl-top-nav')) {
-  customElements.define('sl-itsl-top-nav', TopNav);
+if (!customElements.get('sl-itsl-course-top-nav')) {
+  customElements.define('sl-itsl-course-top-nav', TopNav);
 }

@@ -54,3 +54,10 @@
 sl-select {
   inline-size: var(--sl-size-1000);
 }
+
+/* The page links get the design system's own focus ring. The UA default is low-contrast against
+   the selected link's dark purple fill. */
+.page-link:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}

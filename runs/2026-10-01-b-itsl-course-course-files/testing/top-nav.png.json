@@ -11,7 +11,7 @@
   "rendered": {
     "elements": [
       {
-        "tag": "sl-itsl-top-nav",
+        "tag": "sl-itsl-course-top-nav",
         "depth": 0,
         "upgraded": true,
         "inGlobalRegistry": true,

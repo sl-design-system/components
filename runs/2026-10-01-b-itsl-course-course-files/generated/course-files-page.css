@@ -1,0 +1,64 @@
+:host {
+  background: var(--sl-color-background-neutral-bold);
+  display: block;
+  /* The design frame is 1280x768; the page fills at least that. */
+  min-block-size: 768px;
+  /*
+   * Lato, via the LEGACY token. `--sl-text-new-*-fontFamily` resolves to 'Open Sans' in the
+   * itslearning theme (theme.css:3651) even though the brand layer says Lato (theme.css:4390) —
+   * the consumer token never references the brand layer. Using the -new- family here would
+   * render the wrong face.
+   */
+  font-family: var(--sl-text-fontFamily);
+}
+
+/* 48px gutters either side of a 1184px content column, centred in the 1280px frame. */
+.content-area {
+  box-sizing: border-box;
+  margin-inline: auto;
+  /* The design binds `ca-max-width: 1280`; no theme token carries this value. */
+  max-inline-size: 1280px;
+  padding-inline: var(--sl-size-600);
+}
+
+/* The title block occupies 80px in the design: 24px type on a 32px line, centred in 80px. */
+h1 {
+  align-items: center;
+  block-size: var(--sl-size-1000);
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+  /*
+   * The design's title is 26px; this theme's heading scale has 24px and 32px and nothing
+   * between, so 24px is used and the 2px delta accepted (decomposer OQ-16).
+   * Longhands only — this theme declares NO `font:` shorthand token, and `font: var(--undefined)`
+   * would silently drop the whole declaration.
+   */
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-fontWeight-bold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  margin: 0;
+}
+
+/*
+ * The itslearning "Content block": a white elevated surface. Padding and gap come from the
+ * design's own bound variables — content-block-horisontal-padding: 32 and -vertical-padding: 20,
+ * which are --sl-size-400 and --sl-size-250 BY VALUE. (The Figma `Size/N` scale is half the
+ * theme's: Figma Size/500 is 20 while --sl-size-500 is 40px.)
+ */
+.content-block {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-default);
+  /* The design's `layer-shadow` (0 4px 8px #0000000D) has no exact token; this is the closest. */
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-250);
+  padding: var(--sl-size-250) var(--sl-size-400);
+}
+
+/*
+ * No rule for `sl-inline-message`. The design's banner is 45px and flat `#ecf8ff` with no
+ * border; the component renders ~60px, `#0055b01a` over white, and a 2px navy border. Closing
+ * that gap means overriding its private `--_background` and nulling its border from outside,
+ * which this run deliberately does not do — the delta is recorded as a Stage 4 discrepancy.
+ */

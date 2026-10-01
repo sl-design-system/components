@@ -2,7 +2,6 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { Badge } from '@sl-design-system/badge';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -12,7 +11,7 @@ import styles from './course-table.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-itsl-sort': SlItslSortEvent;
+    'sl-itsl-course-sort': SlItslSortEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -71,7 +70,7 @@ const COLUMNS: ColumnDef[] = [
  *
  * This is a presentational component — the data-owning `sl-itsl-course-files-page` passes it a
  * `model`; it never fetches anything itself. The current sort is part of the `model` (owned by the
- * parent); this component only emits `sl-itsl-sort` when a sortable header is activated, it does
+ * parent); this component only emits `sl-itsl-course-sort` when a sortable header is activated, it does
  * not mutate its own state.
  *
  * **Implementation note (Stage 4 discrepancy):** the decomposition's default was `sl-grid`. That
@@ -89,13 +88,12 @@ const COLUMNS: ColumnDef[] = [
  * <sl-itsl-course-table .model=${model}></sl-itsl-course-table>
  * ```
  *
- * @fires sl-itsl-sort - Emitted when the user activates a sortable column header.
+ * @fires sl-itsl-course-sort - Emitted when the user activates a sortable column header.
  */
 export class CourseTable extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-badge': Badge,
       'sl-icon': Icon
     };
   }
@@ -107,13 +105,14 @@ export class CourseTable extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) model?: CourseTableModel;
 
   /** @internal Emitted when the user activates a sortable column header. */
-  @event({ name: 'sl-itsl-sort' }) sortEvent!: EventEmitter<SlItslSortEvent>;
+  @event({ name: 'sl-itsl-course-sort' }) sortEvent!: EventEmitter<SlItslSortEvent>;
 
   override render(): TemplateResult {
     const rows = this.model?.rows ?? [];
 
     return html`
       <table>
+        <caption>Course files</caption>
         <thead>
           <tr>
             ${COLUMNS.map(column => this.#renderHeaderCell(column))}
@@ -158,7 +157,7 @@ export class CourseTable extends ScopedElementsMixin(LitElement) {
           </div>
         </td>
         <td>
-          <sl-badge class="status-badge">${this.#statusLabel(row.status)}</sl-badge>
+          <span class="status">${this.#statusLabel(row.status)}</span>
         </td>
         <td class="teacher-cell">${row.teacher}</td>
         <td class="last-updated-cell">${row.lastUpdated}</td>

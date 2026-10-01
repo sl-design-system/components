@@ -1,0 +1,30 @@
+{
+  "story": "runs-a2-nsp-class-overview-class-nav--with-trailing",
+  "theme": "sanoma-learning",
+  "url": "http://localhost:6010/iframe.html?id=runs-a2-nsp-class-overview-class-nav--with-trailing&viewMode=story&globals=theme:sanoma-learning",
+  "viewport": {
+    "width": 1280,
+    "height": 400
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/a2-nsp-class-overview/testing/class-nav-with-trailing.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-a2-class-nav",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1248,
+        "height": 48
+      }
+    ],
+    "bodyHeight": 400
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

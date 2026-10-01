@@ -1,0 +1,39 @@
+{
+  "_note": "Per-node outcome of mcp__figma__get_code_connect_map, one call per node, never on a subtree. Raw tool output for a resolved node was {\"<nodeId>\": <payload>}; figma-code-connect-map.json stores <payload> under <nodeId>. For TIMEOUT and EMPTY nodes the raw output was literally {} and the map stores {}. An EMPTY result is NOT evidence of 'unconnected'.",
+  "2422:87039": {
+    "status": "TIMEOUT",
+    "rawOutput": "{}",
+    "serverNote": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data."
+  },
+  "2422:87040": {
+    "status": "EMPTY",
+    "rawOutput": "{}",
+    "serverNote": null
+  },
+  "2422:87226": {
+    "status": "RESOLVED",
+    "hasTemplate": true,
+    "serverNote": null
+  },
+  "2422:87227": {
+    "status": "RESOLVED",
+    "hasTemplate": true,
+    "serverNote": null
+  },
+  "2422:87052": {
+    "status": "RESOLVED",
+    "hasTemplate": true,
+    "serverNote": null
+  },
+  "2422:91204": {
+    "status": "RESOLVED",
+    "hasTemplate": true,
+    "serverNote": null
+  },
+  "2422:87812": {
+    "status": "TIMEOUT",
+    "rawOutput": "{}",
+    "serverNote": "Note: the Code Connect lookup timed out, so this response may be missing Code Connect data.",
+    "contradiction": "get_design_context on this same node DID return a Code Connect snippet (<sl-grid></sl-grid>), so the node is connected even though get_code_connect_map timed out."
+  }
+}

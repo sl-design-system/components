@@ -1,0 +1,30 @@
+:host {
+  /* Custom elements default to `display: inline`; this page is a full-bleed layout surface, so
+     `block` is an intentional change rather than boilerplate. */
+  display: block;
+
+  /* The page canvas behind both panels, measured #f0f2f5. Two tokens carry that exact value:
+     --sl-color-background-disabled and --sl-color-palette-grey-100. "Disabled" is semantically
+     false for a page canvas, so the raw palette token is the lesser wrong of the two. Recorded
+     as an open question rather than silently decided. */
+  background: var(--sl-color-palette-grey-100);
+  min-block-size: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  /* Measured: the class-code card ends at y215 and the students panel starts at y235. */
+  gap: var(--sl-size-250);
+
+  /* The 48px page gutter, left and right, measured from the reference. */
+  padding-inline: var(--sl-size-600);
+
+  /* The nav ends at y104 and the card starts at y124. */
+  padding-block-start: var(--sl-size-250);
+
+  /* The panel ends at y962 in a 1003px frame — the same 20px rhythm, plus the frame's own
+     bottom edge. */
+  padding-block-end: var(--sl-size-250);
+}

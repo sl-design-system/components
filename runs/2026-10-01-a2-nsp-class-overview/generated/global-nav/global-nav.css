@@ -1,0 +1,104 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+nav {
+  align-items: stretch;
+  background: var(--sl-elevation-surface-raised-default);
+  /* 56px bar height. */
+  block-size: var(--sl-size-700);
+  display: flex;
+  justify-content: space-between;
+  /* Measured inset: the logo tile starts 8px from the frame's leading edge, the profile
+     cluster ends 16px from its trailing edge. */
+  padding-inline-start: var(--sl-space-100);
+  padding-inline-end: var(--sl-size-200);
+}
+
+.start {
+  align-items: center;
+  display: flex;
+  /* Logo right edge is x=40 and the first Link-nav box starts at x=52 -> a 12px gap.
+     (The previous 32px came from the sibling b-nsp-home run, whose nav has different spacing.) */
+  gap: var(--sl-space-150);
+}
+
+.end {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-150);
+}
+
+.logo {
+  align-items: center;
+  background: var(--sl-color-background-primary-bold);
+  block-size: var(--sl-size-400);
+  /* Measured from the PNG corner profile, not guessed. */
+  border-radius: var(--sl-size-borderRadius-lg);
+  color: var(--sl-color-foreground-primary-onBold);
+  display: flex;
+  flex-shrink: 0;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+}
+
+.links {
+  align-items: stretch;
+  align-self: stretch;
+  display: flex;
+  /* Measured Link-nav boxes: x=52/126/218/367 with widths 62/80/137/143 -> a uniform 12px gap
+     between boxes, each box carrying ~13px of its own horizontal padding (see `.links a`). */
+  gap: var(--sl-space-150);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  align-items: center;
+  display: flex;
+}
+
+.links a {
+  color: var(--sl-color-foreground-plain);
+  /* Each Link-nav box is ~27px wider than its label (e.g. the 62px "Home" box around a 35px
+     label), i.e. ~13px either side. No --sl-space-* token lands on 13px, so this is a measured
+     literal rather than an approximated token. */
+  padding-inline: 13px;
+  /* Longhands, not the `font:` shorthand — a `--sl-text-new-*` token is a shorthand that resets
+     `font-weight` to regular. */
+  font-size: var(--sl-size-text-new-body-md);
+  line-height: var(--sl-size-lineHeight-250);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  text-decoration: none;
+}
+
+sl-search-field {
+  /* No token corresponds to this component-specific field width (measured 222px). */
+  inline-size: 222px;
+}
+
+.profile {
+  /* #e0e6ea, matching the measured profile-cluster pill background, is unbound as a dedicated
+     token; nearest semantic match by value is --sl-color-background-accent-grey-bold
+     (--sl-brand-light-color-palette-grey-150). */
+  align-items: center;
+  background: var(--sl-color-background-accent-grey-bold);
+  block-size: var(--sl-size-450);
+  border: none;
+  border-radius: var(--sl-size-borderRadius-full);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-space-100);
+  justify-content: center;
+  padding-inline: var(--sl-space-100);
+}
+
+.profile sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-md);
+
+  color: var(--sl-color-foreground-plain);
+}

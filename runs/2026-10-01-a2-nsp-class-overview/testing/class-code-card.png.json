@@ -1,0 +1,48 @@
+{
+  "story": "runs-a2-nsp-class-overview-class-code-card--basic",
+  "theme": "sanoma-learning",
+  "url": "http://localhost:6010/iframe.html?id=runs-a2-nsp-class-overview-class-code-card--basic&viewMode=story&globals=theme:sanoma-learning",
+  "viewport": {
+    "width": 400,
+    "height": 140
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/a2-nsp-class-overview/testing/class-code-card.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-a2-class-code-card",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 368,
+        "height": 91
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "sl-button",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 36,
+        "height": 36
+      }
+    ],
+    "bodyHeight": 140
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

@@ -99,6 +99,32 @@ node runs/harness/typecheck.mjs --record-baseline
 It refuses to record an error that lives under `examples/lit/src/_runs/`, since baking a generated
 error into the baseline would blind the gate to that error for good.
 
+## Token existence — `check-tokens.mjs`
+
+```sh
+node runs/harness/check-tokens.mjs --scope examples/lit/src/_runs/<slug> --theme <theme>
+```
+
+Nothing else in the pipeline checks that a `--sl-*` property a run references actually exists. An
+undefined `var()` is not an error: the browser drops the whole declaration and paints the
+fallback, so the type check passes, the capture succeeds, and the element is simply wrong. Two
+runs invented tokens this way — one analyst asserted four, another asserted
+`--sl-color-background-plain` and carried it into three implementer briefs.
+
+Three outcomes, deliberately separated:
+
+- **`missing`** — declared nowhere. A real invention; fails.
+- **`shorthandTrap`** — no declaration of its own but longhand siblings that do exist, so
+  `font: var(--sl-text-new-body-md)` drops silently. Fails. **`sl-progress-bar` ships this bug**,
+  which is why a run that imitates neighbouring code reproduces it.
+- **`hostSettable`** — read by a component but declared nowhere, like `--sl-grid-width`. Reported,
+  not failed: it is probably a documented API, and a false failure gets a check switched off.
+
+All nine completed runs are clean. Getting there took three rounds of fixing the checker — it
+first reported component APIs as inventions, then comments as code, then let the design system's
+own bug certify a run that copied it. **Verified against a deliberately bad input**, because a
+checker that never fires is indistinguishable from a broken one.
+
 ## Theme per run — derived, not guessed
 
 The theme is a **run parameter** recorded in `progress.json`, because it changes every measured
@@ -113,7 +139,14 @@ The design carries the answer already. Figma reports token _names_ with the valu
 them to, and every theme declares the same names as custom properties, so the comparison is name
 for name — far stronger than matching stray hex values, which coincide across themes by accident.
 
-Three known pairings now resolve at **100% agreement**: SANNA → `teacher-assistant` (10/10),
+When a design binds no design-system token names at all — several are drawn against other
+libraries and bind `$gray--900`, `Size/300` — the tool falls back to matching **raw hex values**
+and says so in `method`. That is weaker evidence per token, so the bar is separation rather than
+exactness: the four itslearning designs land at 0.85–0.94 against a runner-up fifteen times
+lower. Where the evidence is genuinely thin it reports `confident: false` rather than guessing,
+which happens for Kampus (0.36) and Sesame.
+
+Three known pairings resolve at **100% agreement**: SANNA → `teacher-assistant` (10/10),
 NSP `Group list` → `max` (17/17), NSP `home` → `sanoma-learning` (21/21).
 
 **A per-team mapping cannot be right in principle.** Those last two are both NSP, and they are

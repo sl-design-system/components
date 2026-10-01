@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-// Plain side-effect import - registers `sl-itsl-top-nav` globally (guarded). A `type`-only
+// Plain side-effect import - registers `sl-itsl-course-top-nav` globally (guarded). A `type`-only
 // import here would be erased at transform time and the element would never be defined.
 import './top-nav.js';
 import { type TopNav, type TopNavModel } from './top-nav.js';
@@ -28,7 +28,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Runs/B Itsl Course Course Files/Top nav',
-  render: () => html`<sl-itsl-top-nav .model=${MODEL}></sl-itsl-top-nav>`
+  render: () => html`<sl-itsl-course-top-nav .model=${MODEL}></sl-itsl-course-top-nav>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

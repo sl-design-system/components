@@ -4,6 +4,16 @@
   display: block;
 }
 
+/* The table needs an accessible name; the design shows none, so the caption is visually hidden. */
+caption {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
 table {
   border-collapse: collapse;
   inline-size: 100%;
@@ -12,9 +22,15 @@ table {
 
 th,
 td {
+  /* Table cells are content-box by default, so `border-block-end` ADDS to `block-size` and put
+     every row 1px out (49px pitch, not 48). box-sizing does apply to display: table-cell. */
+  box-sizing: border-box;
   /* Four equal columns (the design's four 280px tracks of 1120px total). `table-layout: fixed`
      makes this apply evenly instead of content sizing the columns unevenly. */
   inline-size: 25%;
+  /* The UA stylesheet gives table cells `padding: 1px`, which added 2px to every row and put
+     the 48px rows 3px out (48 + 2 UA padding + 1 rule = 51). Zero it explicitly. */
+  padding-block: 0;
   padding-inline: var(--sl-size-150);
   text-align: start;
   vertical-align: middle;
@@ -28,7 +44,9 @@ th {
   font-size: var(--sl-text-new-body-md-fontSize);
   font-weight: var(--sl-fontWeight-bold);
   line-height: var(--sl-text-new-body-md-lineHeight);
-  min-block-size: var(--sl-size-400);
+  /* `min-block-size` is IGNORED on a table cell - `block-size` is what acts as the minimum
+     height for `display: table-cell`. The design's header row is 32px. */
+  block-size: var(--sl-size-400);
 }
 
 /* The sortable header's interactive control is a native `<button>`, styled to be visually
@@ -48,11 +66,18 @@ th button {
 
 tbody tr {
   background: var(--sl-elevation-surface-raised-default);
+}
+
+/* The 1px rule lives on the cells, not the row, so it is inside each cell's 48px box and the
+   rule sits inside each cell's 48px box, given the box-sizing: border-box above. */
+tbody td {
   border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-palette-grey-200);
 }
 
 td {
-  min-block-size: var(--sl-size-600);
+  /* Same as the header: on a table cell `block-size` behaves as a minimum, `min-block-size`
+     does nothing. The design's data rows are 48px. */
+  block-size: var(--sl-size-600);
 }
 
 .course-cell {
@@ -83,22 +108,23 @@ td {
 }
 
 /*
- * `sl-badge`'s fill/text colors are read from its own `:host` via the private custom properties
- * `--_background`/`--_color` (not part of its public API) — there's no `::part()` for them. Setting
- * those custom properties from outside is the standard way to reach past a component's defaults
- * when no part covers the property (see `component-conventions.md`); the border is set directly
- * since `sl-badge` doesn't declare one of its own. `sl-badge`'s own `border-radius:
- * var(--sl-size-borderRadius-full)` already matches the design's fully-rounded pill, so it needs
- * no override here.
+ * The Status Tag: a fully-rounded pill. A bespoke `<span>` rather than `sl-badge`, per the
+ * approved decomposition: `sl-badge` is borderless and this pill has a hairline, and the only
+ * way to repaint a badge is to set its PRIVATE `--_background`/`--_color` from outside. The
+ * itslearning spec also says the tag is "not interactive", which rules out `sl-tag`.
  */
-.status-badge {
-  --_background: var(--sl-color-palette-grey-100);
-  --_color: var(--sl-color-foreground-bold);
-
+.status {
+  background: var(--sl-color-palette-grey-100);
   border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-disabled);
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--sl-color-foreground-bold);
+  display: inline-block;
   font-family: var(--sl-text-fontFamily);
   font-size: var(--sl-text-new-body-md-fontSize);
   font-weight: var(--sl-fontWeight-regular);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-100);
 }
 
 .teacher-cell,
@@ -108,4 +134,10 @@ td {
   font-size: var(--sl-text-new-body-md-fontSize);
   font-weight: var(--sl-fontWeight-regular);
   line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+/* The sortable header button gets the design system's own focus ring, not the UA default. */
+th button:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }

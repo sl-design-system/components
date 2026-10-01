@@ -1,0 +1,134 @@
+{
+  "case": "A2 / a2-nsp-class-overview",
+  "team": "NSP",
+  "figma": {
+    "fileKey": "sSrpLCZm302ces3khoBGls",
+    "nodeId": "2422:87039",
+    "url": "https://www.figma.com/design/sSrpLCZm302ces3khoBGls/NS-fundaments?node-id=2422-87039",
+    "surveyedNodes": 10936,
+    "surveyedComponentTypes": 42,
+    "frame": "1280x1003"
+  },
+  "pipelineCommit": "eef60224d567784a8dfcbec127fa2d4963cdacb2",
+  "figmaFileVersion": null,
+  "theme": {
+    "derived": "sanoma-learning",
+    "tool": "node runs/harness/theme-match.mjs .implement-design/a2-nsp-class-overview/figma-variable-defs.json",
+    "absoluteAgreement": 1.0,
+    "matched": "21/21",
+    "marginOverSecond": 1.1,
+    "confident": true,
+    "runnerUp": "sanoma-pro 20/21 (0.952), differing only on color/background/primary/bold",
+    "corroboration": "sibling frame b-nsp-home in the SAME file independently resolved to sanoma-learning at 21/21 by full var() chain resolution"
+  },
+  "t0": "2026-10-01T05:55:12Z",
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T06:05:00Z",
+      "note": "orchestrator-driven + 2 worker subagents; design-analyst NOT spawned on the root (scale guard). Code Connect RESOLVED."
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T06:12:00Z",
+      "openQuestions": 32,
+      "components": 6,
+      "note": "32 open questions - joint-highest in the batch, tied with b-nsp-home which is the SIBLING FRAME OF THE SAME FILE despite being 24x smaller.",
+      "overrides": [
+        "OQ16 aria-haspopup with no popup -> removed (lie to AT)",
+        "OQ26 logo radius 4 -> 8, measured from the PNG corner profile rather than guessed"
+      ]
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T06:26:00Z",
+      "components": 6,
+      "gate": "node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/a2-nsp-class-overview -> verdict clean, 0 inScope, 0 regressionsOutsideScope, 2 baseline errors tolerated. No .d.ts stub.",
+      "typeCheck": "clean",
+      "gateArtifact": "While students-panel.ts was half-written, its TS1005 syntax errors made tsc bail before reaching the two grid.ts baseline errors, so the gate reported 'baselineErrorsNoLongerReported' and warned 'Shared code changed'. A syntax error in scope produces a FALSE shared-code-changed warning."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T06:34:00Z",
+      "verdict": "rendered (all 6 stories)",
+      "iterations": 1,
+      "pixelMatch": "96.46% of pixels within 24/255; 98.77% within 96/255",
+      "worstBands": {
+        "grid header+filter": "8.28%",
+        "footer": "7.44%",
+        "global nav": "5.71%",
+        "class nav": "4.13%",
+        "class-code card": "0.74%"
+      },
+      "repaired": [
+        "class-nav was missing a 56px lead-in: Figma's `Frame 37` starts at x=8 but its text node is offset 56px INSIDE it. The implementer measured the frame and ignored the inner offset, putting the whole secondary nav 56px too far left. Fixed to padding-inline-start: --sl-size-800 (64px); dx went from -56 to 0.",
+        "Both navs used 32px/24px link gaps inherited from the sibling b-nsp-home run. Measured Link-nav boxes show a uniform 12px gap with ~13px per-link padding. Fixed; residual drift fell from -79px to +12px.",
+        "class-code-card .text had inline-size:79px (Figma's measured auto-size) which forced 'Class code' to wrap in the fallback font. Changed to min-inline-size.",
+        "global-nav and class-nav had NO customElements.define at all - see stage4NewFinding."
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T06:40:00Z",
+      "tokens": 63456,
+      "note": "Example scope: stories only - no Vitest spec, no website docs, no changeset, no yarn extract-i18n (i18n off AND the command touches shared state the batch forbids).",
+      "stories": 20,
+      "newVariants": 11,
+      "verdicts": "all 20 A2 stories shoot verdict=rendered, notUpgraded=[], consoleErrors=[]",
+      "scopeDeviation": "Authors were run for students-grid, global-nav and class-nav. class-overview-page already carried 4 variants written with it; class-code-card (one scalar prop) and students-panel (one model prop) have no meaningful additional states."
+    },
+    "6-review": {
+      "status": "in-progress",
+      "at": "2026-10-01T06:40:00Z"
+    }
+  },
+  "scaleFindings": [
+    {
+      "id": "S1",
+      "where": "Stage 1 / get_metadata on root 2422:87039",
+      "finding": "Returned 27 nodes in ~9s, NOT 10,936. get_metadata renders nested instances as self-closing opaque leaves, so it never descends past an instance boundary. The surveyed 10,936 (full document tree) is invisible to the pipeline's own structural call.",
+      "impact": "The scale the run was selected for does not reach Stage 1's structure call at all."
+    },
+    {
+      "id": "S2",
+      "where": "Stage 1 / get_metadata on an instance id",
+      "finding": "Querying an instance directly DOES expand it one level (Navigation -> 23 nodes; sl-grid-quick-grid -> 23 row instances). So depth is reachable only by walking instance-by-instance; there is no single call that returns the real tree.",
+      "impact": "Full structure at this size would need hundreds of calls against a 600/day budget."
+    },
+    {
+      "id": "S3",
+      "where": "Stage 1 / get_design_context on 2422:87812 (sl-grid-quick-grid, ~10,000 of the design's 10,936 nodes)",
+      "finding": "HEADLINE. Returned in ~90s a 5.7KB payload whose entire code body is one line: `<sl-grid></sl-grid>`, wrapped in a CodeConnectSnippet. Code Connect collapsed the whole subtree. No columns, no rows, no cell text, no geometry, no tokens.",
+      "impact": "At this scale the pipeline does NOT break - it silently succeeds with ~nothing. A resolved Code Connect mapping is also a context-compression mechanism, and here it compressed away 91% of the design. This is 'success-shaped output that is not success' at maximum scale, and it is the mapping's CORRECTNESS that causes it.",
+      "consequence": "The grid had to be reconstructed from get_metadata geometry + the reference screenshot instead."
+    }
+  ],
+  "orchestratorFixes": [
+    "fontWeight token trap: --sl-text-new-typeset-fontWeight-semiBold resolves to 600 but Figma's semiBold is 500. Caught by resolving the chain to its terminal value; corrected to --sl-fontWeight-500 and pushed mid-flight to the running implementers.",
+    "class-code-card: .text had inline-size:79px copied from Figma's MEASURED auto-size, which forced 'Class code' to wrap in the fallback font. Changed to min-inline-size. Direct consequence of the theme shipping none of the fonts it names.",
+    "Implementers PREDICT story ids rather than verify them: class-code-card reported 'examples-runs-a2-...' when the registered id is 'runs-a2-...'. Later briefs required verification against index.json."
+  ],
+  "verifiedGood": [
+    "sl-grid native row rhythm MATCHES the design exactly with no intervention: body cell padding-block --sl-size-125 (10px) + 1lh (20px) x2 = 40px (design 40); head cell --sl-size-175 (14px) x2 + 20 = 48px (design 48). OQ30's feared geometry delta did not materialise - the Figma sl-grid-quick-grid and the code sl-grid agree on vertical rhythm.",
+    "sl-grid-filter-column renders BOTH header rows the design shows (sortable header + search-field filter row) with no hand-rolling, via headerRowCount=2.",
+    "Harness validated end-to-end before any code was written: an existing sl-grid story shot under sanoma-learning returned verdict=rendered, exit 0."
+  ],
+  "stage4NewFinding": {
+    "title": "A new variant of the 'nothing-rendered' family that hint 4 does not cover",
+    "what": "global-nav and class-nav both returned verdict=nothing-rendered with inGlobalRegistry:false, DESPITE their stories carrying the correct bare side-effect import on its own line. The cause was not the story at all: neither COMPONENT module contained a `customElements.define` call. The implementer wrote the class, the tag type map, the styles and the story import, and never registered the element.",
+    "whyItMatters": "Hint 4 ('the story must import the component for its side effect') addresses the STORY side. It guarantees the module executes. Nothing in the pipeline checks that the module, having executed, actually registers anything - and `tsc` is clean either way. This is the third distinct route to a plausible-looking nothing-rendered in this batch, after the type-only import and the value-import-used-in-type-position.",
+    "detection": "Only the render harness caught it. A one-line static check (`grep -c customElements.define` per component) would have caught all three variants at once."
+  },
+  "stage4Discrepancies": [
+    "Filter placeholders read 'Filter by text' x4 instead of the design's literal 'Placeholder'. sl-grid-filter-column computes the string internally as `Filter by <filter-label ?? lowercased header>`; it is unreachable without entering the grid's shadow root. NOT reached past the public API - accepted and recorded.",
+    "Grid header labels render semibold; the design's are lighter. The weight is set on a <span> deep inside the grid's shadow tree and ::part(header) selects only the <th>, so it cannot be overridden from outside. A genuine sl-grid styling gap.",
+    "Profile avatar renders the initials 'LS' instead of the design's photograph. The pipeline has no asset-export step, so pictureUrl is left undefined rather than pointing at a URL that would 404.",
+    "Class-code card's copy and share buttons render with NO glyph: the theme registers neither `copy` nor `share` (54 unprefixed icons; the CC snippet's `far-` prefix is wrong regardless, and @fortawesome is not installed). Buttons keep their 36x36 footprint and real aria-labels ('Copy class code' / 'Share class code'), so they are keyboard-reachable and named - but visually empty. Deliberate: omitted and recorded, never hand-drawn.",
+    "'Add students' renders text-only; `presentation-screen` is not in the theme.",
+    "Grid footer has no scroll-to-top arrow; `arrow-up` is not registered (only arrow-left/arrow-right). Affordance omitted entirely rather than shipping a labelled invisible control.",
+    "Secondary nav background is --sl-elevation-surface-raised-sunken (#f6f8fa) against the design's #f9fafb - a 3/255 per-channel delta. #f9fafb is unbound in EVERY theme (searched by value). Token chosen over hardcoding.",
+    "Class-code title renders #222222 (--sl-color-foreground-bold) where Figma binds the raw `color/black` #000000. Semantic token preferred over the raw hex.",
+    "Nav labels drift progressively right, +0 to +12px across the bar. Entirely font metrics: the fallback face renders each label 2-4px wider than the design's Roboto, and the error accumulates. Not chased - see the typography finding.",
+    "The design's grid footer row exists in the Figma library component but NOT in code: sl-grid's only <tfoot> is reserved for the horizontal scrollbar. Rendered as a sibling div fused to the grid's bottom border. A Figma-vs-code capability gap, recorded as a feature request rather than worked around inside the component."
+  ]
+}

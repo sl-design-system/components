@@ -1,0 +1,47 @@
+/*
+ * Custom elements default to `display: inline`; this component is a titled content section
+ * (heading + actions + grid stacked in a column), so the host needs block layout to size like
+ * its content instead of shrinking to it.
+ */
+:host {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-lg);
+  box-sizing: border-box;
+  display: block;
+  /* The measured design width (48,235 to 1231,963 -> 1184 wide). Height is not pinned: it falls
+     out of the fixed-height children (heading, two button bars, the grid) plus the padding/gap
+     rhythm below, landing on the design's 728 naturally rather than by a hardcoded block-size. */
+  inline-size: 1184px;
+}
+
+section {
+  /* Horizontal inset (x 48 -> 64) is 16px; vertical inset (y 235 -> heading at 255, and grid
+     bottom 943 -> panel bottom 963) is 20px - the two axes use different tokens in this design. */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-250);
+  inline-size: 100%;
+  padding-block: var(--sl-size-250);
+  padding-inline: var(--sl-space-200);
+}
+
+h2 {
+  color: var(--sl-color-foreground-bold);
+  margin-block: 0;
+  /* Longhands only: a `--sl-text-new-*` token is a `font` shorthand that resets font-weight to
+     regular. `--sl-text-new-typeset-fontWeight-semiBold` resolves to 600, but the design's
+     body-md/weight-500 is 500 - using --sl-fontWeight-500 (verified = 500) instead of the
+     name-matched-but-wrong-value token. */
+  font-size: var(--sl-size-text-new-body-md);
+  font-weight: var(--sl-fontWeight-500);
+  line-height: var(--sl-size-lineHeight-250);
+}
+
+/*
+ * Two stacked single-button bars (`Add students` solid-primary, `Create groups` outline) is odd
+ * construction for a component whose purpose is grouping buttons side by side, but it matches
+ * both the screenshot and the Code Connect snippet - reproduced as-is rather than merged into
+ * one bar with two buttons. Each bar supplies its own spacing; no extra margin needed here since
+ * the `section`'s `gap` already provides the design's 20px rhythm between them.
+ */

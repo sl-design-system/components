@@ -1,0 +1,83 @@
+:host {
+  /* Must span the full width of the bar below the global nav, so `block` is intentional, not
+     boilerplate. */
+  display: block;
+}
+
+nav {
+  align-items: center;
+  /* #f9fafb is unbound as a token in every theme (verified by value-grep); nearest semantic
+     match is --sl-elevation-surface-raised-sunken (#f6f8fa, Δ3/255). */
+  background: var(--sl-elevation-surface-raised-sunken);
+  /* 48px bar height. */
+  block-size: var(--sl-size-600);
+  display: flex;
+  /* Class-name text sits at x=64 in the design, not at the bar's own 8px inset: Figma's
+     `Frame 37` starts at x=8 but its text node is offset 56px inside it (a lead-in slot that
+     renders nothing in this frame). Measuring only the frame and ignoring the inner offset put
+     the class name 56px too far left. 64px = --sl-size-800. */
+  padding-inline-start: var(--sl-size-800);
+  /* Class-name text ends at x=138 and the first section-link box starts at x=152. */
+  gap: var(--sl-space-150);
+}
+
+.class-name {
+  color: var(--sl-color-foreground-bold);
+  flex-shrink: 0;
+  /* Longhands, not the `font:` shorthand — a `--sl-text-new-*` token is a shorthand that resets
+     `font-weight` to regular. */
+  font-size: var(--sl-size-text-new-body-lg);
+  line-height: var(--sl-size-lineHeight-300);
+  /* --sl-text-new-typeset-fontWeight-semiBold resolves to 600; Figma specifies 500. Rejected on
+     its resolved value in favour of the literal-500 token. */
+  font-weight: var(--sl-fontWeight-500);
+}
+
+.sections {
+  align-items: stretch;
+  align-self: stretch;
+  display: flex;
+  /* Measured Link-nav boxes: x=152/245/329/418 with widths 81/72/77/100 -> a uniform 12px gap. */
+  gap: var(--sl-space-150);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sections li {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.sections a {
+  color: var(--sl-color-foreground-plain);
+  /* ~13px either side: each box is ~27px wider than its label. No --sl-space-* token is 13px. */
+  padding-inline: 13px;
+  font-size: var(--sl-size-text-new-body-md);
+  line-height: var(--sl-size-lineHeight-250);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  text-decoration: none;
+}
+
+.sections li:has(a[aria-current='page']) a {
+  color: var(--sl-color-foreground-bold);
+  /* --sl-text-new-typeset-fontWeight-semiBold resolves to 600; Figma specifies 500. Rejected on
+     its resolved value in favour of the literal-500 token. */
+  font-weight: var(--sl-fontWeight-500);
+}
+
+/* The underline is decorative CSS, not a rendered element — `aria-current="page"` on the
+   anchor is what conveys the active state to assistive tech. */
+.sections li:has(a[aria-current='page'])::after {
+  background: var(--sl-color-foreground-bold);
+  block-size: var(--sl-size-borderWidth-default);
+  content: '';
+  inset-block-end: 0;
+  inset-inline: 0;
+  position: absolute;
+}
+
+::slotted([slot='trailing']) {
+  margin-inline-start: auto;
+}

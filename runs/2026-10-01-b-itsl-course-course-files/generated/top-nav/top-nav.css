@@ -5,6 +5,9 @@
 }
 
 .tier {
+  /* content-box would add the secondary tier's 1px rule to the 56px height and make the shell
+     113px instead of the design's 112px. */
+  box-sizing: border-box;
   /* `stretch` (the flex default, made explicit) so every child - the logo, the links, the
      search field, the icon slots and the tabs - can fill the tier's full 56px height and
      center or bottom-align its own content. */
@@ -88,8 +91,8 @@
   box-sizing: border-box;
   display: flex;
   /* No token corresponds to this component-specific field width; hardcoded per the design's
-     measured ~200px search box. */
-  inline-size: 200px;
+     search box, measured from the reference: its border runs x=854..1115 at 1280 scale. */
+  inline-size: 260px;
   overflow: hidden;
 }
 
@@ -187,4 +190,12 @@
 .tabs button.active {
   border-block-end-color: var(--sl-color-foreground-subtle);
   font-weight: var(--sl-fontWeight-bold);
+}
+
+/* The bespoke nav controls get the design system's own focus ring rather than the UA default. */
+.items button:focus-visible,
+.tabs button:focus-visible,
+.search-button:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }

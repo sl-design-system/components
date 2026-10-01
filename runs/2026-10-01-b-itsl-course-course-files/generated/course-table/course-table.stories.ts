@@ -55,3 +55,13 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+/** The sorted state: the "Last updated" header shows its active direction. */
+export const SortedByLastUpdated: Story = {
+  args: { model: { ...model, sort: { column: 'lastUpdated', direction: 'desc' } } }
+};
+
+/** No matching courses — the header stays, the body is empty. */
+export const Empty: Story = {
+  args: { model: { rows: [] } }
+};

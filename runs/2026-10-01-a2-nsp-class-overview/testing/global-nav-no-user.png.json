@@ -1,0 +1,66 @@
+{
+  "story": "runs-a2-nsp-class-overview-global-nav--no-user",
+  "theme": "sanoma-learning",
+  "url": "http://localhost:6010/iframe.html?id=runs-a2-nsp-class-overview-global-nav--no-user&viewMode=story&globals=theme:sanoma-learning",
+  "viewport": {
+    "width": 1280,
+    "height": 400
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/a2-nsp-class-overview/testing/global-nav-no-user.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-a2-global-nav",
+        "depth": 0,
+        "upgraded": true,
+        "inGlobalRegistry": true,
+        "hasShadowRoot": true,
+        "width": 1248,
+        "height": 56
+      },
+      {
+        "tag": "sl-search-field",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 222,
+        "height": 36
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 2,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      },
+      {
+        "tag": "sl-avatar",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "tag": "sl-icon",
+        "depth": 1,
+        "upgraded": true,
+        "inGlobalRegistry": false,
+        "hasShadowRoot": true,
+        "width": 16,
+        "height": 16
+      }
+    ],
+    "bodyHeight": 400
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "notUpgraded": [],
+  "collapsed": [],
+  "verdict": "rendered"
+}

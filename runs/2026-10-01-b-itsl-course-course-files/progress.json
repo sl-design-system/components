@@ -1,7 +1,7 @@
 {
   "case": "B-Itsl-Course-4007-3161",
   "slug": "b-itsl-course-course-files",
-  "pipelineCommit": "cdae07695a8204b29ae71954c7011fb348ca3ddc",
+  "pipelineCommit": "d182cb8e0d8f0429e858a7a260b6b44c75e3bd60 (HEAD moved during a quota outage; pipeline tree unchanged, so the resume is same-pipeline)",
   "figma": {
     "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
     "nodeId": "4007:3161",
@@ -33,26 +33,128 @@
       "note": "Decomposer DID return with 31 open questions and source-cited verification of 10 SLDS components. Authoritative."
     },
     "3-implement": {
-      "status": "blocked",
-      "at": "2026-10-01T01:35",
-      "done": ["sl-itsl-top-nav", "sl-itsl-course-table"],
-      "running": ["sl-itsl-pagination-bar"],
-      "pending": ["sl-itsl-course-files-page"],
-      "tokens": {
-        "top-nav": 126509,
-        "course-table": 117808
-      },
-      "tokenExistenceGate": "scratchpad/tokencheck.mjs itslearning <tree> -> all --sl-* references resolve",
-      "reason": "Account weekly usage limit reached during Stage 3/4 (resets 2026-10-04 20:00 Europe/Warsaw). Two leaves had captured as rendered; pagination-bar unfinished."
+      "status": "done",
+      "at": "2026-10-01T08:05",
+      "components": 4,
+      "typeCheck": "clean",
+      "gate": "runs/harness/typecheck.mjs --scope examples/lit/src/_runs/b-itsl-course-course-files -> verdict clean, 0 inScope, 0 regressions, 2 tolerated baseline errors. No .d.ts stub.",
+      "extraGate": "token-existence check (coordinator-written): all --sl-* references resolve",
+      "built": [
+        "sl-itsl-course-top-nav",
+        "sl-itsl-course-table",
+        "sl-itsl-course-pagination-bar",
+        "sl-itsl-course-files-page (coordinator, direct)"
+      ],
+      "coordinatorFixes": [
+        "TS4114: `static get scopedElements()` needed an `override` modifier",
+        "--sl-size-1280 does not exist; replaced with a literal 1280px and a comment"
+      ],
+      "tagRename": "All tags re-prefixed from sl-itsl-* to sl-itsl-course-* mid-run, per a batch rule added during the outage. No live collision existed (the sibling b-itsl-bookmk run uses sl-itsl-files-*), but sl-itsl-* was not case-distinct."
     },
     "4-validate": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T08:25",
+      "verdict": "rendered (all 4 stories)",
+      "method": "coordinator ran shoot.mjs directly + pixel-sampled the reference with PIL; no visual-validator subagent (shared pool reserved for the A2 run)",
+      "captures": {
+        "course-files-page": "rendered, 0 consoleErrors, 0 failedRequests, notUpgraded=[]",
+        "top-nav": "rendered, 0 consoleErrors, 0 failedRequests, notUpgraded=[]",
+        "course-table": "rendered, 0 consoleErrors, 0 failedRequests, notUpgraded=[]",
+        "pagination-bar": "rendered, 0 consoleErrors, 0 failedRequests, notUpgraded=[]"
+      },
+      "collapsed": "sl-listbox + 4x sl-option (and their sl-icons) report collapsed in the two stories containing sl-select. Expected: a closed select does not render its options. NOT a missing asset.",
+      "noImage404s": "0 failed requests across all 4 captures - every design image was deliberately omitted rather than referenced, so the usual <img> 404 discrepancy does not arise here.",
+      "repairs": [
+        {
+          "defect": "Storybook's default 16px canvas padding shrank the 1184px content column to 1152px and inset the card to x=64 instead of x=48.",
+          "fix": "parameters: { layout: 'fullscreen' } on the page story",
+          "measured": "card span now x=48..1232, width 1184 - exact"
+        },
+        {
+          "defect": "Table rows were ~27px instead of 48px. The implementer used `min-block-size` on th/td, which is IGNORED on display:table-cell.",
+          "fix": "`block-size`, which acts as the minimum for table cells",
+          "note": "a real CSS correctness bug that tsc and the token gate both pass"
+        },
+        {
+          "defect": "After that fix rows were 51px, not 48. The UA stylesheet's default `td { padding: 1px }` added 2px and the row rule added 1px.",
+          "fix": "padding-block: 0 on th/td, and moved the rule from `tr` to `tbody td` so it sits inside the 48px box",
+          "measured": "row pitch now exactly 48px; design 48px"
+        }
+      ],
+      "measuredComparison": {
+        "page background": "design #f2f2f2 / built #f2f2f2 - MATCH",
+        "table header row": "design #f9f9f9 / built #f9f9f9 - MATCH",
+        "data row background": "design #ffffff / built #ffffff - MATCH",
+        "content column width": "design 1184 / built 1184 - MATCH",
+        "card inset": "design x=48 / built x=48 - MATCH",
+        "nav height": "design 112 / built 113 - 1px over",
+        "table row pitch": "design 48 / built 48 - MATCH",
+        "table header height": "design 32 / built 33 - 1px over",
+        "banner height": "design 45 / built 60 - 15px OVER (sl-inline-message's own padding + 2px border)",
+        "card height": "design 389 / built 404 - +15, entirely the banner delta cascading",
+        "pagination bar": "design 40 / built 40 - MATCH"
+      }
     },
     "5-author": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T08:35",
+      "scope": "example path -> stories only. No Vitest spec, no website docs, no changeset, no i18n extraction (i18n off, and `yarn extract-i18n` is forbidden - it writes shared locale files).",
+      "storiesAdded": 7,
+      "storiesTotal": 11,
+      "variants": {
+        "course-files-page": ["Basic", "NoCourses", "MiddlePage"],
+        "course-table": ["Basic", "SortedByLastUpdated", "Empty"],
+        "pagination-bar": ["Basic", "MiddlePage", "LastPage", "SinglePage"],
+        "top-nav": ["Basic"]
+      },
+      "allRendered": true,
+      "note": "No component-author subagent spawned - the shared pool was reserved for the A2 run and the work was three small story files. Written directly.",
+      "topNavNoVariants": "top-nav has one story: its model has no state the design exercises differently (no active main-menu item is marked in the design, and the only other axis is which tab is active, which is not a meaningful second story)."
     },
     "6-review": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01T08:45",
+      "tokens": 116408,
+      "durationMs": 588244,
+      "critical": 2,
+      "criticalFixed": 2,
+      "minor": 25,
+      "minorFixed": 12,
+      "minorRemaining": 13,
+      "criticalItems": [
+        "C1 The page wired NO event handlers - every control in the composed page was inert. Clicking a page number or a sort header emitted into the void, and the table kept announcing aria-sort='none' on a control that could never change. Compounding it, CourseFilesPageData had no `sort` field, so the table's model structurally could not carry one and the table's own JSDoc was false as wired. FIXED: added `sort` to the page's data type and three handlers that REPLACE this.data rather than mutate it.",
+        "C2 sl-badge private-API reach-past (--_background/--_color), which also silently re-opened a decision the decomposition had closed: the approved tree specified a bespoke <span> precisely BECAUSE sl-badge is borderless, and the code used sl-badge anyway and painted a border on from outside. FIXED: replaced with a bespoke <span>; the run now has ZERO private reach-pasts."
+      ],
+      "minorsFixed": [
+        "M1 table cells are content-box so the row rule added 1px per row - 49px pitch, and the comment claimed the opposite. box-sizing: border-box; pitch now measures exactly 48px",
+        "M2 same content-box bug on the nav tiers - shell was 113px, design 112",
+        "M3 search field was 200px; I re-measured the reference and the reviewer was right - it is 261px at 1280 scale. My brief's '~200px' was wrong. Set to 260px",
+        "M6 shared module-level objects as property defaults - latent until C1 landed, live after. Now defaulted to fresh copies and never mutated",
+        "M7 `model?: T = DEFAULT` was optional AND defaulted AND defended with ??",
+        "M8 fresh object literal per render defeated Lit's dirty check",
+        "M11 demo hrefs were '#' (jump to top)",
+        "M17 no :focus-visible ring on any of the five bespoke controls; the UA default is low-contrast on the selected page's purple fill",
+        "M18 the <table> had no accessible name - added a visually hidden caption",
+        "M19 dead no-op `sl-inline-message { margin: 0 }` whose comment documented a height it never set",
+        "M20 the import comment gave the wrong reason for the value imports",
+        "M21 redundant no-title attribute"
+      ],
+      "minorsCarried": [
+        "M4 icon-slot 40px vs the spec's 32px",
+        "M5 Course Hat 24px vs the spec's 20px",
+        "M9 host role set imperatively rather than via ElementInternals",
+        "M10 CourseRow bakes a pre-composed teacher summary and a locale-formatted date into the domain model instead of teachers[] + ISO date",
+        "M12 nav search uses a raw input+button rather than sl-text-field+sl-button, and the button is unwired and shares its accessible name with the input",
+        "M13 type-name drift from the approved contract",
+        "M14 event-name drift (sl-itsl-course-sort vs the manifest's sl-itsl-sort)",
+        "M15 unchecked cast on column.id",
+        "M16 second nav labelled 'Section' not 'Files'",
+        "M22 two stories declare a Props type but expose no controls",
+        "M23 activeItemId branch never exercised",
+        "M24 NEITHER LINTER RUNS in this checkout",
+        "M25 banner visual delta - by design"
+      ],
+      "reviewerCorrectedMe": "I told the reviewer the logo tile had role='img' + aria-label. It does not - that is on the avatar; the logo is aria-hidden, which is the right call for a decorative empty tile. My spot-check conflated two elements."
     }
   },
   "findings": {
@@ -86,6 +188,20 @@
       "caughtBy": "Both leaf implementers independently, by grepping the theme before using it. Neither accepted the brief at face value.",
       "pipelineGap": "There is NO stage in the pipeline that verifies a referenced --sl-* token exists. The coordinator wrote one (scratchpad/tokencheck.mjs) and ran it over the generated tree; it should be a real Stage 3 gate alongside the type check.",
       "inconsistencyItRevealed": "The two implementers chose DIFFERENT replacements for white - top-nav used --sl-color-white, course-table used --sl-elevation-surface-raised-default. Both resolve to #ffffff so both are correct, but the run now uses two token names for one colour. A shared brief that names the right token prevents this; mine named a wrong one."
+    },
+    "recurringTS4114": {
+      "what": "`static get scopedElements()` on a ScopedElementsMixin host requires an `override` modifier under this tsconfig. The generated root hit TS4114.",
+      "generalises": "YES - the sibling run b-itsl-bookmk-deleted-course has the IDENTICAL error on the identical member, surfaced by typecheck.mjs's new errorsInOtherRuns bucket. Two independent runs produced the same defect, so it is a gap in the framework skill's ScopedElementsMixin example, not a one-off slip.",
+      "suggestedFix": "The Lit framework skill's ScopedElementsMixin snippet should show `static override get scopedElements()`."
+    },
+    "lintersCannotRun": {
+      "what": "Neither linter runs in this checkout. `npx eslint` fails with Cannot find package 'eslint-plugin-lit' (imported by tools/eslint-plugin-slds); `npx stylelint` fails with Could not find 'stylelint-config-standard'.",
+      "impact": "The pipeline has no lint gate in practice. The repo's own slds/button-has-label rule never ran over any generated file - and the reviewer's M12 (a focusable search button sharing its accessible name with the input) is exactly what that rule exists to catch. Pre-existing dependency gap, not caused by this run, but it means a stated quality control is absent batch-wide."
+    },
+    "criticalFoundOnlyByReview": {
+      "what": "C1 - the entire page was non-interactive - passed every automated gate.",
+      "why": "tsc is clean (handlers are optional), the token check is clean, and the Stage 4 capture is a STILL IMAGE, so a dead button is indistinguishable from a live one. Only a human-style code review caught it.",
+      "implication": "Stage 4 as defined measures appearance only. A design implemented as a photograph of itself scores identically to a working one. If the pipeline is to certify more than looks, Stage 4 needs at least one interaction assertion per emitted event."
     }
   },
   "theme": "itslearning",
@@ -153,17 +269,37 @@
       "note": "a component-specific arbitrary width; no token applies"
     }
   ],
-  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
-  "blocked": {
-    "stage": "3-implement",
-    "reason": "Account weekly usage limit reached during Stage 3/4 (resets 2026-10-04 20:00 Europe/Warsaw). Two leaves had captured as rendered; pagination-bar unfinished.",
-    "kind": "environment-quota",
-    "resumableFrom": "3-implement",
-    "resumeGuard": "Refuse the resume if `git rev-parse HEAD:tools/implement-design-plugin` differs from pipelineTree.hash. A run half one pipeline and half another describes neither. HEAD itself is not the test."
-  },
   "pipelineTree": {
-    "hash": "2176d63902204219ed29b22e775e902747248deb",
     "path": "tools/implement-design-plugin",
-    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
-  }
+    "hash": "2176d63902204219ed29b22e775e902747248deb",
+    "verifiedAtResume": true
+  },
+  "stage4Discrepancies": [
+    "BANNER, three ways, all from composing the real `sl-inline-message` and all left unfixed deliberately: (1) background is --sl-color-background-info-subtlest = #0055b01a, compositing over white to ~#e5edf7, where the design is #ecf8ff; (2) it draws a 2px border in --sl-color-border-info-bold (#0f3b73) and the design has NO border; (3) it is 60px tall against the design's 45px, which pushes everything below it down 15px. Fixing any of these means overriding the component's private --_background or nulling its border from outside. Not done: the measurement is the point.",
+    "BANNER TEXT COLOUR: sl-inline-message renders its body in --sl-color-foreground-info-bold (navy); the design's banner text is #333333.",
+    "ICONS ABSENT FROM THE THEME, omitted and not substituted or drawn: `graduation-cap` (the Course Hat glyph - the badge renders as an empty circle), `bell` and `comment` (the two nav icon buttons - omitted entirely), `your-files` (the green section mark beside 'Files'), and the itslearning logo symbol (the tile renders as a plain orange square).",
+    "ICON NEAR-MISSES, accepted: the design's `circle-info` is not registered; sl-inline-message's default `info` is used. The design's `arrow-up-arrow-down` sort glyph is not registered; the theme's `sort` is used. The design's `magnifying-glass` is not registered; the theme's `search` is used. All three are the same idea in a slightly different drawing.",
+    "COURSE HAT COLOURS UNBOUND: the design's #d9e3e8 fill and #72838d glyph have NO token in the itslearning theme. The badge uses --sl-color-palette-grey-200 instead, so it reads grey where the design reads blue-grey.",
+    "LOGO TILE: design #f47920; nearest token is --sl-color-palette-orange-400 (#fe8211). No exact match; #f47920 falls between orange-400 and orange-500.",
+    "ACTIVE TAB UNDERLINE: design 3px; the theme's border-width scale has 2px and 4px and nothing between. 4px used.",
+    "AVATAR: renders initials 'AL' rather than the design's photo. The pipeline has no asset-export step, so no pictureUrl was set and no <img> was emitted (hence zero 404s).",
+    "FONT FACE: no theme in this repo loads the font it names (confirmed batch-wide). The design is Lato and --sl-text-fontFamily is Lato, but no @font-face is served, so all text renders in a fallback face. Recorded, not chased.",
+    "TITLE SIZE: design 26px; the theme's heading scale offers 24px and 32px. 24px used, 2px under.",
+    "DESIGN DEFECT REPRODUCED, not corrected: the screen shows four rows while the pagination reads '1 to 10 of 47'. Reproduced verbatim per decomposer OQ-12."
+  ],
+  "pixelFidelity": {
+    "method": "Reference (1024x615) upscaled to 1280x768 with LANCZOS, differenced against the built full-page capture. The upscale adds softness, so the >8 threshold is inflated; the >32 figure is the meaningful one.",
+    "pixelsDifferingBy>8": "20.32%",
+    "pixelsDifferingBy>16": "10.04%",
+    "pixelsDifferingBy>32": "5.09%",
+    "pixelsDifferingBy>64": "3.99%",
+    "worstBands": {
+      "y240-360": "8.0% - the banner and table header: the banner is 15px taller than the design, which vertically offsets everything below it",
+      "y360-480": "6.7% - table rows, carrying the same 15px offset",
+      "y0-120": "6.5% - the nav, where bell/comment/section/logo glyphs are absent"
+    },
+    "interpretation": "~5% of pixels differ materially. Almost all of it traces to three recorded causes: the 15px banner height delta from sl-inline-message cascading down the page, the five absent icons, and the fallback font face. No unexplained divergence.",
+    "afterStage6Fixes": "5.03% of pixels differ by >32/255 (was 5.09%). Barely moved, correctly: the dominant residual is the 15px banner cascade and the five absent icons, both deliberately unfixed. The Stage 6 fixes bought geometric correctness (48px row pitch, 112px nav, 1184px column) rather than pixels."
+  },
+  "status": "complete"
 }

@@ -66,6 +66,19 @@ const defs = JSON.parse(readFileSync(defsPath, 'utf8')),
     ([token, value]) =>
       token.startsWith('color/') && typeof value === 'string' && value.startsWith('#')
   ),
+  // Name matching needs the design to speak the design system's vocabulary. Several designs in
+  // this corpus do not — drawn against another library, they bind `$gray--900`, `Size/300`,
+  // `$brand--700`. For those this tool reported `colorTokensInDesign: 0` and ranked nothing, and
+  // a run had to identify its theme by hand. The raw values are weaker evidence per token, since
+  // a hex can coincide, but across twenty of them it is decisive — and it is the only evidence a
+  // non-SLDS design offers.
+  anyHexes = [
+    ...new Set(
+      Object.values(defs)
+        .filter(value => typeof value === 'string' && /^#[0-9a-fA-F]{6,8}$/.test(value))
+        .map(value => value.toLowerCase().slice(0, 7))
+    )
+  ],
   themesDir = 'packages/themes',
   results = [];
 
@@ -97,27 +110,77 @@ for (const name of readdirSync(themesDir)) {
 
 results.sort((a, b) => b.score - a.score || b.compared - a.compared);
 
+// A name match is better evidence than a value match — a name carries intent, a hex does not — so
+// this runs only when name matching produced nothing usable. "Nothing usable" has to include the
+// case where the design *has* colour tokens but under another library's paths
+// (`button/primary/outline/idle/background`), which no theme declares: that ranked zero themes
+// and reported no theme at all, which is worse than weaker evidence.
+const nameMatchFailed = !colorTokens.length || !results.length || results[0].score === 0,
+  byValue = [];
+
+if (nameMatchFailed)
+  for (const name of readdirSync(themesDir)) {
+    const file = join(themesDir, name, 'theme.css');
+    if (!existsSync(file)) continue;
+
+    const values = new Set(
+        [...loadTheme(file).values()].map(value => normalise(value).slice(0, 7))
+      ),
+      matched = anyHexes.filter(hex => values.has(hex));
+
+    byValue.push({
+      theme: name,
+      matched: matched.length,
+      compared: anyHexes.length,
+      score: anyHexes.length ? Number((matched.length / anyHexes.length).toFixed(3)) : 0
+    });
+  }
+
+byValue.sort((a, b) => b.score - a.score);
+
 console.log(
   JSON.stringify(
     {
       defs: defsPath,
       colorTokensInDesign: colorTokens.length,
-      best: results[0]?.theme ?? null,
-      marginOverSecond: results[1]
-        ? Number((results[0].score / Math.max(results[1].score, 0.001)).toFixed(1))
-        : null,
+      // Named so nobody reads a value match as if it were a name match.
+      method: nameMatchFailed ? 'hex-value-fallback' : 'token-name',
+      ...(!nameMatchFailed
+        ? {}
+        : {
+            note:
+              'Name matching found nothing: this design binds no design-system colour token names, ' +
+              "or binds them under another library's paths. Ranked by raw hex agreement instead, " +
+              'which is weaker evidence per token.',
+            hexesInDesign: anyHexes.length,
+            valueRanking: byValue.slice(0, 5)
+          }),
+      best: (nameMatchFailed ? byValue[0]?.theme : results[0]?.theme) ?? null,
+      marginOverSecond: (() => {
+        const ranked = nameMatchFailed ? byValue : results;
+        return ranked[1]
+          ? Number((ranked[0].score / Math.max(ranked[1].score, 0.001)).toFixed(1))
+          : null;
+      })(),
       // A correct pairing matches *every* colour token — all three known-good pairings do. So the
       // test is exactness and uniqueness, not distance from the runner-up: a theme that agrees on
       // all of them, and is alone in doing so, has been identified even when another theme agrees
       // on most. An earlier margin-based rule was tuned against a broken resolver and would now
       // reject a perfect match that happens to have a close second.
-      confident:
-        results[0]?.compared >= 5 &&
-        results[0]?.score === 1 &&
-        !results.slice(1).some(other => other.score === 1),
+      // Whichever method ran has to carry its own bar. A name match is identified by exactness
+      // and uniqueness — every known-good pairing scores 1.0. A value match never reaches 1.0,
+      // because a design always carries a few colours its theme does not define, so it is judged
+      // on separation instead: decisive agreement and a runner-up nowhere near it.
+      confident: nameMatchFailed
+        ? byValue[0]?.compared >= 8 &&
+          byValue[0]?.score >= 0.8 &&
+          byValue[0]?.score >= 3 * (byValue[1]?.score ?? 0)
+        : results[0]?.compared >= 5 &&
+          results[0]?.score === 1 &&
+          !results.slice(1).some(other => other.score === 1),
       // Anything short of 1 means the design and the theme disagree about tokens they both claim
       // to define — worth reporting rather than rounding away.
-      absoluteAgreement: results[0]?.score ?? null,
+      absoluteAgreement: (nameMatchFailed ? byValue[0]?.score : results[0]?.score) ?? null,
       ranking: results.slice(0, 5)
     },
     null,

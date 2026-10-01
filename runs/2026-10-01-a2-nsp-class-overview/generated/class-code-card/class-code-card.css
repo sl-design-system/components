@@ -1,0 +1,64 @@
+:host {
+  background: var(--sl-elevation-surface-raised-default);
+  border-radius: var(--sl-size-borderRadius-lg);
+  box-sizing: border-box;
+  /* Fixed card footprint from the design (350 x 91), not reflow-driven content. */
+  inline-size: 350px;
+  block-size: 91px;
+}
+
+[role='group'] {
+  align-items: flex-start;
+  display: flex;
+  block-size: 100%;
+  justify-content: space-between;
+  padding-block: var(--sl-space-200);
+  padding-inline: var(--sl-space-150);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Figma reports this column as 79px wide, but that is the *measured* width of auto-sized text,
+     not a designed constraint. Pinning it caused "Class code" to wrap onto two lines: the design's
+     Roboto fits the string in 79px, and this theme ships no Roboto (nor the 'Open Sans' its
+     semantic tokens name), so the wider fallback face overflows. `min-inline-size` keeps the
+     design's measurement as a floor while letting the title stay on one line. */
+  min-inline-size: 79px;
+}
+
+.title {
+  /* Figma binds this run's fill to "color/black" (#000000), not a semantic foreground token.
+     Using the semantic --sl-color-foreground-bold (#222222) instead of hardcoding the raw
+     black - recorded deviation: renders #222222, design literal is #000000. */
+  color: var(--sl-color-foreground-bold);
+  font-size: var(--sl-size-text-new-body-lg);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  line-height: var(--sl-size-lineHeight-300);
+  margin: 0;
+}
+
+.value {
+  color: var(--sl-color-foreground-subtlest);
+  font-size: var(--sl-size-text-new-body-md);
+  /* --sl-text-new-typeset-fontWeight-semiBold resolves to 600 (via
+     --sl-brand-text-new-typeset-fontWeight-semiBold -> --sl-fontWeight-600), but the design's
+     text-new/typeset/fontWeight/semiBold value for this run is 500 - a name/value mismatch.
+     --sl-fontWeight-500 resolves to the literal 500 the design specifies, so it is used here
+     instead of the semantically-matching-by-name-but-wrong-by-value token. */
+  font-weight: var(--sl-fontWeight-500);
+  line-height: var(--sl-size-lineHeight-250);
+  margin: 0;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-150);
+}
+
+.actions sl-button {
+  inline-size: 36px;
+  block-size: 36px;
+}

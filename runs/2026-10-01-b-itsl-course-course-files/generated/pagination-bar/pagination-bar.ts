@@ -15,12 +15,12 @@ import styles from './pagination-bar.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-itsl-pagination-page-change': SlItslPaginationPageChangeEvent;
-    'sl-itsl-pagination-page-size-change': SlItslPaginationPageSizeChangeEvent;
+    'sl-itsl-course-pagination-page-change': SlItslPaginationPageChangeEvent;
+    'sl-itsl-course-pagination-page-size-change': SlItslPaginationPageSizeChangeEvent;
   }
 
   interface HTMLElementTagNameMap {
-    'sl-itsl-pagination-bar': PaginationBar;
+    'sl-itsl-course-pagination-bar': PaginationBar;
   }
 }
 
@@ -86,12 +86,12 @@ function getVisiblePages(page: number, pageCount: number): number[] {
  * markup instead, reusing `sl-button`, `sl-icon`, `sl-select` and `sl-option` as building blocks.
  *
  * ```html
- * <sl-itsl-pagination-bar .model=${model}></sl-itsl-pagination-bar>
+ * <sl-itsl-course-pagination-bar .model=${model}></sl-itsl-course-pagination-bar>
  * ```
  *
- * @fires sl-itsl-pagination-page-change - Emitted with the new 1-based page number when the user
+ * @fires sl-itsl-course-pagination-page-change - Emitted with the new 1-based page number when the user
  *   activates the previous/next buttons or a page link.
- * @fires sl-itsl-pagination-page-size-change - Emitted with the new page size when the user
+ * @fires sl-itsl-course-pagination-page-size-change - Emitted with the new page size when the user
  *   changes the page-size select.
  */
 export class PaginationBar extends ScopedElementsMixin(LitElement) {
@@ -109,14 +109,14 @@ export class PaginationBar extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** The current page, page size and total item count. */
-  @property({ attribute: false }) model?: PaginationModel = DEFAULT_MODEL;
+  @property({ attribute: false }) model: PaginationModel = { ...DEFAULT_MODEL };
 
   /** @internal Emitted when the current page changes. */
-  @event({ name: 'sl-itsl-pagination-page-change' })
+  @event({ name: 'sl-itsl-course-pagination-page-change' })
   pageChangeEvent!: EventEmitter<SlItslPaginationPageChangeEvent>;
 
   /** @internal Emitted when the page size changes. */
-  @event({ name: 'sl-itsl-pagination-page-size-change' })
+  @event({ name: 'sl-itsl-course-pagination-page-size-change' })
   pageSizeChangeEvent!: EventEmitter<SlItslPaginationPageSizeChangeEvent>;
 
   override connectedCallback(): void {
@@ -186,6 +186,6 @@ export class PaginationBar extends ScopedElementsMixin(LitElement) {
 
 // This is the top-level element for this component, so it registers itself globally, guarded so
 // re-importing this module (e.g. from the sibling `sl-itsl-course-files-page`) doesn't throw.
-if (!customElements.get('sl-itsl-pagination-bar')) {
-  customElements.define('sl-itsl-pagination-bar', PaginationBar);
+if (!customElements.get('sl-itsl-course-pagination-bar')) {
+  customElements.define('sl-itsl-course-pagination-bar', PaginationBar);
 }

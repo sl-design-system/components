@@ -14,7 +14,9 @@ type Props = Pick<
   | 'locale'
   | 'max'
   | 'min'
+  | 'mode'
   | 'month'
+  | 'range'
   | 'readonly'
   | 'selected'
   | 'showToday'
@@ -48,6 +50,7 @@ export default {
   title: 'Date & Time/Calendar',
   args: {
     readonly: false,
+    mode: 'single',
     showToday: false,
     showWeekNumbers: false
   },
@@ -72,8 +75,15 @@ export default {
     min: {
       control: 'date'
     },
+    mode: {
+      control: 'inline-radio',
+      options: ['single', 'range']
+    },
     month: {
       control: 'date'
+    },
+    range: {
+      control: 'object'
     },
     selected: {
       control: 'date'
@@ -86,7 +96,9 @@ export default {
     locale,
     max,
     min,
+    mode,
     month,
+    range,
     readonly,
     selected,
     showToday,
@@ -101,8 +113,12 @@ export default {
       return value instanceof Date ? value : new Date(value);
     };
 
-    const onSelectDate = (event: SlChangeEvent<Date>) => {
-      updateArgs({ selected: event.detail.getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
+    const onSelectDate = (event: SlChangeEvent<Date | Date[]>) => {
+      if (Array.isArray(event.detail)) {
+        updateArgs({ range: event.detail.map(date => date.getTime()) });
+      } else {
+        updateArgs({ selected: event.detail.getTime() }); //needs to be set to the 'time' otherwise Storybook chokes on the date format 🤷
+      }
     };
 
     return html`
@@ -129,7 +145,9 @@ export default {
         locale=${ifDefined(locale)}
         max=${ifDefined(parseDate(max)?.toISOString())}
         min=${ifDefined(parseDate(min)?.toISOString())}
+        mode=${ifDefined(mode)}
         month=${ifDefined(parseDate(month)?.toISOString())}
+        .range=${range?.map(date => parseDate(date)).filter(date => date !== undefined)}
         selected=${ifDefined(parseDate(selected)?.toISOString())}></sl-calendar>
     `;
   }
@@ -176,6 +194,15 @@ export const Selected: Story = {
     month: new Date(1755640800000),
     selected: new Date(1755640800000),
     showToday: true
+  }
+};
+
+export const Range: Story = {
+  args: {
+    mode: 'range',
+    month: new Date(2025, 8, 1),
+    range: [new Date(2025, 8, 17), new Date(2025, 8, 22)],
+    showWeekNumbers: true
   }
 };
 

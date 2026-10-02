@@ -307,7 +307,7 @@ describe('FetchListDataSource', () => {
       });
     });
 
-    it('should keep the group selected when members are not materialized', () => {
+    it('should keep the group selected after update, even when no members are present', () => {
       const group = ds.items.at(0);
 
       expect(isListDataSourceGroupItem(group)).to.be.true;

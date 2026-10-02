@@ -41,9 +41,15 @@ export const positionPopover = (
 ): (() => void) => {
   // Reset element to top left to prevent layout interference
   // See https://floating-ui.com/docs/computePosition#initial-layout
+  element.style.insetBlockEnd = element.style.insetInlineEnd = 'auto';
   element.style.insetBlockStart = element.style.insetInlineStart = '0px';
 
+  let disposed = false,
+    generation = 0;
+
   const cleanup = autoUpdate(anchor, element, () => {
+    const currentGeneration = ++generation;
+
     // Offset should come first, according to floating-ui docs
     // Flip should come before shift, otherwise it won't flip properly
     const middleware = [
@@ -54,6 +60,10 @@ export const positionPopover = (
         // With popover, we no longer need to
         padding: options.viewportMargin,
         apply: ({ availableWidth, availableHeight, elements }) => {
+          if (disposed || currentGeneration !== generation) {
+            return;
+          }
+
           // Make sure that the overlay is contained by the visible page.
           const style = getComputedStyle(element),
             maxBlock = style.getPropertyValue('--sl-popover-max-block-size'),
@@ -104,20 +114,39 @@ export const positionPopover = (
       placement: options.position ?? 'top',
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
+      if (disposed || currentGeneration !== generation) {
+        return;
+      }
+
+      const isRtl = getComputedStyle(element).direction === 'rtl',
+        inlineStart = isRtl
+          ? document.documentElement.clientWidth - x - element.getBoundingClientRect().width
+          : x;
+
       Object.assign(element.style, {
-        insetInlineStart: `${roundByDPR(x)}px`,
+        insetInlineStart: `${roundByDPR(inlineStart)}px`,
         insetBlockStart: `${roundByDPR(y)}px`
       });
       element.setAttribute('actual-placement', actualPlacement);
 
       if (arrow && arrowElement) {
+        const arrowInlineStart =
+          typeof arrow.x === 'number' && isRtl
+            ? element.clientWidth - arrow.x - arrowElement.offsetWidth
+            : arrow.x;
+
         Object.assign(arrowElement.style, {
-          insetInlineStart: typeof arrow.x === 'number' ? `${roundByDPR(arrow.x)}px` : '',
+          insetInlineStart:
+            typeof arrowInlineStart === 'number' ? `${roundByDPR(arrowInlineStart)}px` : '',
           insetBlockStart: typeof arrow.y === 'number' ? `${roundByDPR(arrow.y)}px` : ''
         });
       }
     });
   });
 
-  return () => cleanup();
+  return () => {
+    disposed = true;
+    generation++;
+    cleanup();
+  };
 };

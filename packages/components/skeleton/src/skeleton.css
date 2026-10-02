@@ -19,6 +19,11 @@
   border-radius: 50%;
 }
 
+:host([effect='none']) {
+  animation: none;
+  background: var(--sl-color-skeleton-plain);
+}
+
 :host([effect='sheen']) {
   background-image: linear-gradient(
     100deg,

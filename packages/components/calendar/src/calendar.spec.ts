@@ -849,4 +849,134 @@ describe('sl-calendar', () => {
       expect(dayButton?.ariaDescribedByElements).to.include(helperText);
     });
   });
+
+  describe('header width alignment and navigation stability', () => {
+    it('should maintain consistent header width aligned with the calendar body across all months', async () => {
+      const allMonths = Array.from({ length: 12 }, (_, i) => new Date(2023, i, 1));
+      let expectedWidth: number | undefined;
+
+      for (const month of allMonths) {
+        el = await fixture(html`<sl-calendar .month=${month}></sl-calendar>`);
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+        await selectDay.updateComplete;
+
+        const header = selectDay.renderRoot.querySelector('header')!;
+        const scroller = selectDay.renderRoot.querySelector('.scroller')!;
+        const calendarWidth = el.getBoundingClientRect().width;
+        const headerWidth = header.getBoundingClientRect().width;
+        const scrollerWidth = scroller.getBoundingClientRect().width;
+
+        if (expectedWidth === undefined) {
+          expectedWidth = calendarWidth;
+        }
+
+        expect(calendarWidth).to.equal(expectedWidth);
+        expect(headerWidth).to.equal(scrollerWidth);
+        expect(headerWidth).to.equal(calendarWidth);
+      }
+    });
+
+    it('should maintain stable navigation arrow positions across all months', async () => {
+      const shortMonthEl = await fixture<Calendar>(
+        html`<sl-calendar .month=${new Date(2023, 4, 1)}></sl-calendar>`
+      );
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await shortMonthEl.updateComplete;
+
+      const shortSelectDay = shortMonthEl.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+      await shortSelectDay.updateComplete;
+
+      const shortHeader = shortSelectDay.renderRoot.querySelector('header')!;
+      const shortPrevBtn = shortSelectDay.renderRoot.querySelector('.previous-month')!;
+      const shortNextBtn = shortSelectDay.renderRoot.querySelector('.next-month')!;
+
+      const expectedPrevLeft =
+        shortPrevBtn.getBoundingClientRect().left - shortHeader.getBoundingClientRect().left;
+      const expectedNextLeft =
+        shortNextBtn.getBoundingClientRect().left - shortHeader.getBoundingClientRect().left;
+
+      const allMonths = Array.from({ length: 12 }, (_, i) => new Date(2023, i, 1));
+      for (const month of allMonths) {
+        el = await fixture(html`<sl-calendar .month=${month}></sl-calendar>`);
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+        await selectDay.updateComplete;
+
+        const header = selectDay.renderRoot.querySelector('header')!;
+        const prevBtn = selectDay.renderRoot.querySelector('.previous-month')!;
+        const nextBtn = selectDay.renderRoot.querySelector('.next-month')!;
+
+        const prevLeft = prevBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+        const nextLeft = nextBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+
+        expect(prevLeft).to.equal(expectedPrevLeft);
+        expect(nextLeft).to.equal(expectedNextLeft);
+      }
+    });
+
+    it('should maintain header alignment and arrow stability in locales with long month names', async () => {
+      const locales = ['es', 'pl', 'de', 'fr', 'nl'];
+
+      for (const locale of locales) {
+        el = await fixture(
+          html`<sl-calendar locale=${locale} .month=${new Date(2023, 8, 1)}></sl-calendar>`
+        );
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+        await selectDay.updateComplete;
+
+        const header = selectDay.renderRoot.querySelector('header')!;
+        const scroller = selectDay.renderRoot.querySelector('.scroller')!;
+        const prevBtn = selectDay.renderRoot.querySelector('.previous-month')!;
+        const nextBtn = selectDay.renderRoot.querySelector('.next-month')!;
+
+        const calendarWidth = el.getBoundingClientRect().width;
+        const headerWidth = header.getBoundingClientRect().width;
+        const scrollerWidth = scroller.getBoundingClientRect().width;
+        const prevLeft = prevBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+        const nextLeft = nextBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+
+        expect(headerWidth).to.equal(scrollerWidth);
+        expect(calendarWidth).to.equal(headerWidth);
+        expect(prevLeft).to.equal(160);
+        expect(nextLeft).to.equal(200);
+      }
+    });
+
+    it('should maintain header alignment and arrow stability when show-week-numbers is enabled', async () => {
+      const allMonths = [new Date(2023, 4, 1), new Date(2023, 8, 1), new Date(2023, 10, 1)];
+
+      for (const month of allMonths) {
+        el = await fixture(html`<sl-calendar show-week-numbers .month=${month}></sl-calendar>`);
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+        await selectDay.updateComplete;
+
+        const header = selectDay.renderRoot.querySelector('header')!;
+        const scroller = selectDay.renderRoot.querySelector('.scroller')!;
+        const prevBtn = selectDay.renderRoot.querySelector('.previous-month')!;
+        const nextBtn = selectDay.renderRoot.querySelector('.next-month')!;
+
+        const calendarWidth = el.getBoundingClientRect().width;
+        const headerWidth = header.getBoundingClientRect().width;
+        const scrollerWidth = scroller.getBoundingClientRect().width;
+        const prevLeft = prevBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+        const nextLeft = nextBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+
+        expect(headerWidth).to.equal(scrollerWidth);
+        expect(calendarWidth).to.equal(headerWidth);
+        expect(prevLeft).to.equal(196);
+        expect(nextLeft).to.equal(236);
+      }
+    });
+  });
 });

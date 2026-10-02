@@ -142,8 +142,7 @@ describe('sl-grid', () => {
       expect(headers[1]).to.have.attribute('role', 'presentation');
       expect(headers[1]).not.to.have.attribute('aria-hidden');
       headers.slice(2).forEach(header => {
-        expect(header).to.have.attribute('scope', 'col');
-        expect(header).to.have.attribute('role', 'columnheader');
+        expect(header).to.have.attribute('role', 'cell');
       });
 
       const firstNameHeaderId = headers[2].id,
@@ -159,27 +158,27 @@ describe('sl-grid', () => {
       expect(headers[2]).to.have.attribute('aria-colindex', '1');
       expect(headers[2]).not.to.have.attribute('headers');
       expect(headers[2]).not.to.have.attribute('abbr');
-      expect(headers[2]).to.have.attribute('aria-label');
+      expect(headers[2]).not.to.have.attribute('aria-label');
 
       expect(headers[3]).to.have.attribute('aria-colindex', '2');
       expect(headers[3]).not.to.have.attribute('headers');
       expect(headers[3]).not.to.have.attribute('abbr');
-      expect(headers[3]).to.have.attribute('aria-label');
+      expect(headers[3]).not.to.have.attribute('aria-label');
 
       expect(headers[4]).to.have.attribute('aria-colindex', '3');
       expect(headers[4]).not.to.have.attribute('headers');
       expect(headers[4]).not.to.have.attribute('abbr');
-      expect(headers[4]).to.have.attribute('aria-label');
+      expect(headers[4]).not.to.have.attribute('aria-label');
 
       expect(headers[5]).to.have.attribute('aria-colindex', '4');
       expect(headers[5]).not.to.have.attribute('headers');
       expect(headers[5]).not.to.have.attribute('abbr');
-      expect(headers[5]).to.have.attribute('aria-label');
+      expect(headers[5]).not.to.have.attribute('aria-label');
 
       expect(headers[6]).to.have.attribute('aria-colindex', '5');
       expect(headers[6]).not.to.have.attribute('headers');
       expect(headers[6]).not.to.have.attribute('abbr');
-      expect(headers[6]).to.have.attribute('aria-label');
+      expect(headers[6]).not.to.have.attribute('aria-label');
 
       expect(cells[0]).to.have.attribute('headers', `${firstNameHeaderId}`);
       expect(cells[1]).to.have.attribute('headers', `${lastNameHeaderId}`);
@@ -187,11 +186,11 @@ describe('sl-grid', () => {
       expect(cells[3]).to.have.attribute('headers', `${cityHeaderId}`);
       expect(cells[4]).to.have.attribute('headers', `${countryHeaderId}`);
 
-      expect(cells[0]).to.have.attribute('aria-labelledby', `${firstNameHeaderId} ${cells[0].id}`);
-      expect(cells[1]).to.have.attribute('aria-labelledby', `${lastNameHeaderId} ${cells[1].id}`);
-      expect(cells[2]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId} ${cells[2].id}`);
-      expect(cells[3]).to.have.attribute('aria-labelledby', `${cityHeaderId} ${cells[3].id}`);
-      expect(cells[4]).to.have.attribute('aria-labelledby', `${countryHeaderId} ${cells[4].id}`);
+      expect(cells[0]).to.have.attribute('aria-labelledby', `${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('aria-labelledby', `${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('aria-labelledby', `${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('aria-labelledby', `${countryHeaderId}`);
     });
   });
 

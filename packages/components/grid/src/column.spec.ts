@@ -92,9 +92,7 @@ describe('sl-column', () => {
 
       expect(labels.every(Boolean)).to.be.true;
       labels.forEach((label, index) => {
-        expect(label).to.equal(
-          `${el.renderRoot.querySelectorAll('th')[index].id} ${cells[index].id}`
-        );
+        expect(label).to.equal(`${el.renderRoot.querySelectorAll('th')[index].id}`);
         expect(cells[index].textContent?.trim()).to.equal(['John', 'Doe', '20'][index]);
       });
     });

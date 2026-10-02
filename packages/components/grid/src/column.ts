@@ -276,28 +276,19 @@ export class GridColumn<T = any> extends LitElement {
 
     const classes = this.getClasses(),
       parts = ['header', ...this.getParts()],
-      groupLabel = this.groupHeaderLabels.join(' '),
-      // Only plain text headers can safely be hidden from assistive technology
-      groupedText =
-        !!groupLabel && !this.hideHeaderText && typeof this.renderHeaderLabel() === 'string',
-      ariaLabel = groupedText
-        ? `${groupLabel} ${this.headerLabelText}`.trim()
-        : this.headerAriaLabel;
+      // Headers inside a column group are exposed as cells, so VoiceOver reads them only once
+      grouped = this.groupHeaderIds.length > 0;
 
     return html`
       <th
         aria-colindex=${String(this.columnIndex)}
-        aria-label=${ifDefined(ariaLabel)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader"
-        scope="col">
-        ${
-          groupedText
-            ? html`<span aria-hidden="true">${this.renderHeaderLabel()}</span>`
-            : this.renderHeaderLabel()
-        }
+        role=${grouped ? 'cell' : 'columnheader'}
+        scope=${ifDefined(grouped ? undefined : 'col')}>
+        ${this.renderHeaderLabel()}
       </th>
     `;
   }
@@ -333,7 +324,7 @@ export class GridColumn<T = any> extends LitElement {
       parts = ['data', ...this.getParts(item.data)],
       cellLabel = this.getCellAriaLabel(data),
       cellId = cellLabel ? this.getCellId(item) : undefined,
-      labelledBy = cellId ? `${this.headerCellId} ${cellId}` : undefined;
+      labelledBy = cellId ? this.headerCellId : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`

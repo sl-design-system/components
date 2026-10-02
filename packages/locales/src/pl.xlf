@@ -182,6 +182,14 @@
   <source>Please select an option.</source>
   <target>Wybierz opcję.</target>
 </trans-unit>
+<trans-unit id="sl.toggleGroup.selectOne">
+  <source>Select one</source>
+  <target>Wybierz jedną opcję.</target>
+</trans-unit>
+<trans-unit id="sl.toggleGroup.selectOneOrMore">
+  <source>Select one or more</source>
+  <target>Wybierz jedną lub więcej opcji.</target>
+</trans-unit>
 <trans-unit id="sl.tabs.showAll">
   <source>Show all</source>
   <target>Pokaż wszystkie</target>

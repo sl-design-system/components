@@ -60,9 +60,9 @@ describe('sl-column-group', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th')),
         dataCells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
 
-      expect(headers[0]).to.have.attribute('role', 'presentation');
+      expect(headers[0]).to.have.attribute('role', 'cell');
       expect(headers[0]).not.to.have.attribute('aria-hidden');
-      expect(headers[1]).to.have.attribute('role', 'presentation');
+      expect(headers[1]).to.have.attribute('role', 'cell');
       expect(headers[1]).not.to.have.attribute('aria-hidden');
 
       headers.slice(2).forEach(header => {

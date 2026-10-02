@@ -40,7 +40,12 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     }
 
     return html`
-      <th colspan=${Math.max(this.columnSpan, 1)} id=${this.headerCellId} role="presentation">
+      <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-colspan=${Math.max(this.columnSpan, 1)}
+        colspan=${Math.max(this.columnSpan, 1)}
+        id=${this.headerCellId}
+        role="cell">
         ${this.renderHeaderLabel()}
       </th>
     `;

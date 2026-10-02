@@ -1,13 +1,13 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1014-329272
 import figma from 'figma';
+import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const selected = instance.getBoolean('Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
 
-  const menuBase = instance.findInstance('menu-base');
-  if (menuBase.type === 'ERROR') return null;
+  checkInstance(instance.findInstance('menu-base'), 'menu-base');
 
   return figma.code`
     <sl-menu-item

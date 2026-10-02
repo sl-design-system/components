@@ -1,16 +1,18 @@
 import figma from 'figma';
+import { checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const size = instance.getEnum('Size', { SM: 'sm', LG: 'lg' }) || 'md';
+  const size = checkEnum(instance.getEnum('Size', { SM: 'sm', LG: 'lg' }) || 'md');
 
-  const fill =
+  const fill = checkEnum(
     instance.getEnum('Variant', {
       Ghost: 'ghost',
       Link: 'link',
       Outline: 'outline'
-    }) || 'solid';
+    }) || 'solid'
+  );
 
   const buttons = instance
     .findConnectedInstances(node => node.codeConnectId() === 'button')

@@ -21,7 +21,7 @@
   );
   --sl-brand-light-color-background-accent-green-subtle: #149c4b33;
   --sl-brand-light-color-background-accent-green-subtlest: #149c4b1a;
-  --sl-brand-light-color-background-accent-grey-bold: var(--sl-brand-light-color-palette-grey-150);
+  --sl-brand-light-color-background-accent-grey-bold: var(--sl-brand-light-color-palette-grey-300);
   --sl-brand-light-color-background-accent-grey-interactive-bold: var(
     --sl-brand-light-color-palette-grey-600
   );

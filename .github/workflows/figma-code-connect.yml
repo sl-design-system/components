@@ -1,0 +1,123 @@
+name: Figma Code Connect
+
+on:
+  pull_request:
+    branches: ['main']
+    types: [opened, synchronize, reopened, ready_for_review]
+
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+env:
+  HUSKY: 0
+
+jobs:
+  preview:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log workflow trigger
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "head_repo=${{ github.event.pull_request.head.repo.full_name || github.repository }}"
+          echo "repo=${{ github.repository }}"
+          echo "run_id=${{ github.run_id }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+        env:
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+
+      - name: Install dependencies
+        env:
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+        run: yarn install --immutable
+
+      - name: Generate component metadata
+        run: node scripts/build-metadata.js
+
+      - name: Run Code Connect preview
+        working-directory: scripts/connect-figma-components
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+        run: yarn connect:test:report
+
+      - name: Publish report to job summary
+        if: always()
+        run: |
+          if [ -f scripts/connect-figma-components/figma-connect-summary-report.md ]; then
+            cat scripts/connect-figma-components/figma-connect-summary-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f scripts/connect-figma-components/figma-connect-full-report.md ]; then
+            printf '\n<details>\n<summary>View full report</summary>\n\n' >> "$GITHUB_STEP_SUMMARY"
+            cat scripts/connect-figma-components/figma-connect-full-report.md >> "$GITHUB_STEP_SUMMARY"
+            printf '\n\n</details>\n' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - if: always() && github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '### 🧩 Figma Code Connect'
+
+      - if: always() && github.event_name == 'pull_request'
+        name: Build comment body
+        id: comment
+        env:
+          SUMMARY_REPORT_PATH: scripts/connect-figma-components/figma-connect-summary-report.md
+          FULL_REPORT_PATH: scripts/connect-figma-components/figma-connect-full-report.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          DELIMITER="EOF_$(date +%s%N)"
+          {
+            printf 'body<<%s\n' "$DELIMITER"
+            printf '### 🧩 Figma Code Connect\n- [View workflow run](%s)\n\n' "$RUN_URL"
+
+            if [ -f "$SUMMARY_REPORT_PATH" ]; then
+              cat "$SUMMARY_REPORT_PATH"
+              printf '\n'
+            else
+              printf '%s\n\n' '- No report generated.'
+            fi
+
+            if [ -f "$FULL_REPORT_PATH" ]; then
+              printf '<details>\n<summary>View full report</summary>\n\n'
+              cat "$FULL_REPORT_PATH"
+              printf '\n\n</details>\n'
+            fi
+
+            printf '%s\n' "$DELIMITER"
+          } >> "$GITHUB_OUTPUT"
+
+      - if: always() && github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.comment.outputs.body }}
+          edit-mode: replace
+
+      - name: Upload Code Connect report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-code-connect-report
+          path: scripts/connect-figma-components/figma-connect-full-report.md
+          if-no-files-found: warn

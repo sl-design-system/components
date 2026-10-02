@@ -8,7 +8,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { type ButtonBar } from './button-bar.js';
 import './register.js';
 
-type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons(): TemplateResult };
+type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size' | 'shape'> & {
+  buttons(): TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -25,13 +27,21 @@ export default {
     buttons: {
       table: { disable: true }
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg']
     }
   },
-  render: ({ align, buttons, reverse, size }) => html`
-    <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
+  render: ({ align, buttons, reverse, size, shape }) => html`
+    <sl-button-bar
+      .align=${align}
+      ?reverse=${reverse}
+      size=${ifDefined(size)}
+      shape=${ifDefined(shape)}>
       ${
         buttons?.() ??
         html`

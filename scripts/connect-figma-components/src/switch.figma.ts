@@ -1,13 +1,14 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=5127-320173
 import figma from 'figma';
+import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = instance.getBoolean('Status'),
-    disabled = instance.getString('State') === 'Disabled',
-    reverse = instance.getBoolean('Reverse'),
-    showText = instance.getBoolean('Switch Text'),
+  const checked = checkBooleanProperty(instance.getBoolean('Status'), 'Status'),
+    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled',
+    reverse = checkBooleanProperty(instance.getBoolean('Reverse'), 'Reverse'),
+    showText = checkBooleanProperty(instance.getBoolean('Switch Text'), 'Switch Text'),
     size = instance.getString('Size') ?? 'md',
     text = instance.getString('Text');
 

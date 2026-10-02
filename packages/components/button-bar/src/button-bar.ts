@@ -1,4 +1,9 @@
-import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
+import {
+  type ButtonFill,
+  type ButtonShape,
+  type ButtonSize,
+  type ButtonVariant
+} from '@sl-design-system/button';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
@@ -76,6 +81,12 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
    * @default undefined
    */
   @property() size?: ButtonSize;
+  /**
+   * Determines the shape of all buttons in the bar.
+   *
+   * @default undefined
+   */
+  @property() shape?: ButtonShape;
 
   /**
    * Determines the variant of all buttons in the bar.
@@ -93,7 +104,12 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('fill') || changes.has('size') || changes.has('variant')) {
+    if (
+      changes.has('fill') ||
+      changes.has('size') ||
+      changes.has('variant') ||
+      changes.has('shape')
+    ) {
       this.#updateButtons();
     }
   }
@@ -150,7 +166,12 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
 
   #updateButtons(): void {
     this.buttons.forEach(element => {
-      const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
+      const button = element as {
+        fill?: ButtonFill;
+        size?: ButtonSize;
+        variant?: ButtonVariant;
+        shape?: ButtonShape;
+      };
 
       if (this.size) {
         button.size = this.size;
@@ -162,6 +183,10 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
 
       if (this.variant) {
         button.variant = this.variant;
+      }
+
+      if (this.shape) {
+        button.shape = this.shape;
       }
     });
   }

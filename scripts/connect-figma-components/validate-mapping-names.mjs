@@ -123,6 +123,18 @@ function findAttributeUsages(source) {
     );
 
   function visit(node) {
+    if (ts.isTemplateExpression(node)) {
+      let prefix = node.head.text;
+
+      for (const span of node.templateSpans) {
+        const attribute = prefix.match(/([a-z][a-z0-9-]*)=\s*["']?$/)?.[1],
+          variable = getIdentifierName(span.expression);
+
+        if (attribute && variable) usages.push({ variable, attribute });
+        prefix += span.literal.text;
+      }
+    }
+
     if (ts.isConditionalExpression(node)) {
       const usage = getTemplateAttributeUsage(node.whenTrue),
         variable = usage?.variable ?? getIdentifierName(node.condition);

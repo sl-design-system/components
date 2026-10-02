@@ -6,7 +6,7 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const iconType = checkEnum(
-    instance.getEnum('Type', { Chevron: 'chevron', Plus: 'plusminus' }) ?? 'plusminus'
+    instance.getEnum('icon-type', { Chevron: 'chevron', Plus: 'plusminus' }) ?? 'plusminus'
   );
 
   const items = instance

@@ -11,41 +11,43 @@ const instance = figma.selectedInstance;
 function getExample() {
   const slot = instance.getString('slot');
 
-  const buttonVariants = checkInstance(instance.findInstance('Button-Variants'), 'Button-Variants');
-
-  const disabled = checkStringProperty(buttonVariants.getString('State'), 'State') === 'Disabled';
+  const buttonVariants = checkInstance(instance.findInstance('button-variants'), 'button-variants');
 
   // The default fill is "solid".
   const fill = checkEnum(
-    buttonVariants.getEnum('Type', {
-      Outline: 'outline',
-      Ghost: 'ghost',
-      Link: 'link'
+    buttonVariants.getEnum('fill', {
+      outline: 'outline',
+      ghost: 'ghost',
+      link: 'link'
     }) || 'solid'
   );
 
   // The default variant is "secondary".
   const variant = checkEnum(
-    buttonVariants.getEnum('Variant', {
-      Primary: 'primary',
-      Positive: 'success',
-      Info: 'info',
-      Caution: 'warning',
-      Negative: 'danger',
-      Inverted: 'inverted'
+    buttonVariants.getEnum('variant', {
+      primary: 'primary',
+      secondary: 'secondary',
+      success: 'success',
+      info: 'info',
+      warning: 'warning',
+      danger: 'danger',
+      inverted: 'inverted'
     }) || 'secondary'
   );
 
-  const buttonBase = checkInstance(buttonVariants.findInstance('Button-Base'), 'Button-Base');
+  const buttonBase = checkInstance(buttonVariants.findInstance('button-base'), 'button-base');
 
-  const iconOnly = checkBooleanProperty(buttonBase.getBoolean('Icon only'), 'Icon only'),
-    iconStart = checkBooleanProperty(buttonBase.getBoolean('Icon Start'), 'Icon Start'),
-    iconEnd = checkBooleanProperty(buttonBase.getBoolean('Icon End'), 'Icon End'),
-    label = checkStringProperty(buttonBase.getString('𝐓 - Label'), '𝐓 - Label');
+  const iconOnly = checkBooleanProperty(buttonBase.getBoolean('icon-only'), 'icon-only'),
+    iconStart = checkBooleanProperty(
+      buttonBase.getBoolean('display-icon-start'),
+      'display-icon-start'
+    ),
+    iconEnd = checkBooleanProperty(buttonBase.getBoolean('display-icon-end'), 'display-icon-end'),
+    text = checkStringProperty(buttonBase.getString('text'), 'text');
 
   // The default size is "md".
   const size = checkEnum(
-    buttonBase.getEnum('↕️ - Size', {
+    buttonBase.getEnum('size', {
       SM: 'sm',
       LG: 'lg'
     }) || 'md'
@@ -53,22 +55,28 @@ function getExample() {
 
   let icon;
   if (iconStart || iconEnd) {
-    icon = buttonBase.findInstance('Base/Icon', { traverseInstances: true });
+    const iconInstance = checkInstance(
+        buttonBase.findInstance('Base/Icon', { traverseInstances: true }),
+        'Base/Icon'
+      ),
+      iconName = checkStringProperty(iconInstance.getString('icon-name'), 'icon-name'),
+      iconVariant = iconInstance.getEnum('variant', { outline: 'far', solid: 'fas' });
+
+    icon = figma.code`<sl-icon name="${iconVariant ? `${iconVariant}-` : ''}${iconName}"></sl-icon>`;
   }
 
   return figma.code`
     <sl-button
-      ${iconOnly ? `aria-label="${label}"` : ''}
-      ${disabled ? 'disabled' : ''}
+      ${iconOnly ? `aria-label="${text}"` : ''}
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
       ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
       ${typeof slot === 'string' ? `slot="${slot}"` : ''}
       ${variant !== 'secondary' ? `variant="${variant}"` : ''}
     >
-      ${iconStart ? icon?.executeTemplate().example : ''}
-      ${!iconOnly ? label : ''}
-      ${iconEnd ? icon?.executeTemplate().example : ''}
+      ${iconStart ? icon : ''}
+      ${!iconOnly ? text : ''}
+      ${iconEnd ? icon : ''}
     </sl-button>
   `;
 }

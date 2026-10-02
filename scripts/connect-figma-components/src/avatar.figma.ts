@@ -10,20 +10,26 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const colorInstance = instance.getInstanceSwap('Color'),
+  const colorInstance = instance.getInstanceSwap('emphasis'),
     { color = 'grey', emphasis = 'subtle' } =
       colorInstance?.executeTemplate().metadata?.props ?? {};
 
-  const initials = checkStringProperty(instance.getString('Initals'), 'Initals'),
-    headerPosition = checkStringProperty(instance.getString('Header position'), 'Header position'),
+  const initials = checkStringProperty(instance.getString('initials'), 'initials'),
+    showInitials =
+      checkEnum(
+        instance.getEnum('display-initials', { True: 'true', False: 'false' }) ?? 'false'
+      ) === 'true',
+    showName = checkBooleanProperty(instance.getBoolean('display-name'), 'display-name'),
+    imageOnly = !showName,
+    headerPosition = checkStringProperty(instance.getString('header-position'), 'header-position'),
     vertical = headerPosition === 'Under';
 
   const shape = checkEnum(
-    instance.getEnum('Shape', { Circle: 'circle', Square: 'square' }) ?? 'circle'
+    instance.getEnum('shape', { Circle: 'circle', Square: 'square' }) ?? 'circle'
   );
 
   const size = checkEnum(
-    instance.getEnum('Size', {
+    instance.getEnum('size', {
       SM: 'sm',
       MD: 'md',
       LG: 'lg',
@@ -36,31 +42,33 @@ function getExample() {
 
   const header = checkInstance(instance.findInstance('avatar-header'), 'avatar-header');
 
-  const heading = checkStringProperty(header.getString('Header'), 'Header'),
-    subheading = checkStringProperty(header.getString('Subheader'), 'Subheader');
+  const displayName = checkStringProperty(header.getString('display-name'), 'display-name'),
+    subheading = checkStringProperty(header.getString('subheading'), 'subheading'),
+    showSubheading = checkBooleanProperty(header.getBoolean('show subheading'), 'show subheading');
 
-  const hasBadge = checkBooleanProperty(instance.getBoolean('Badge'), 'Badge');
+  const hasBadge = checkBooleanProperty(instance.getBoolean('badge'), 'badge');
 
   let badgeColor, badgeEmphasis, badgeText;
   if (hasBadge) {
-    const badgeMetadata = instance.getInstanceSwap('Badge color')?.executeTemplate().metadata;
+    const badgeMetadata = instance.getInstanceSwap('badge-color')?.executeTemplate().metadata;
 
     badgeColor = (badgeMetadata?.props?.color as string) ?? 'grey';
     badgeEmphasis = (badgeMetadata?.props?.emphasis as string) ?? 'subtle';
-    badgeText = checkStringProperty(instance.getString('Badge Label'), 'Badge Label');
+    badgeText = checkStringProperty(instance.getString('badge-label'), 'badge-label');
   }
 
   return figma.code`
     <sl-avatar
       ${color !== 'grey' ? `color="${color as string}"` : ''}
       ${emphasis !== 'subtle' ? `emphasis="${emphasis as string}"` : ''}
-      ${heading ? `display-name="${heading}"` : ''}
-      ${initials ? `display-initials="${initials}"` : ''}
+      ${imageOnly ? 'image-only' : ''}
+      ${showName && displayName ? `display-name="${displayName}"` : ''}
+      ${showInitials && initials ? `display-initials="${initials}"` : ''}
       ${shape !== 'circle' ? `shape="${shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
       ${vertical ? 'vertical' : ''}
     >
-      ${subheading}
+      ${showSubheading ? subheading : ''}
       ${
         hasBadge
           ? `

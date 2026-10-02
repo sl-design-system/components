@@ -2,7 +2,12 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import ts from 'typescript';
 
-const allowedNameMappings = ['𝐓 - Label -> aria-label'];
+const allowedNameMappings = [
+  'label -> aria-label',
+  'header-position -> vertical',
+  'text -> aria-label',
+  'icon-name -> name'
+];
 
 function normalizeName(name) {
   return name

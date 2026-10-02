@@ -16,11 +16,11 @@ function getExample() {
   );
 
   const title = checkInstance(
-    header.findInstance('accordion-title', { traverseInstances: true }),
-    'accordion-title'
+    header.findInstance('accordion-summary', { traverseInstances: true }),
+    'accordion-summary'
   );
 
-  const summary = checkStringProperty(title.getString('Title'), 'Title');
+  const summary = checkStringProperty(title.getString('summary'), 'summary');
 
   return figma.code`
     <sl-accordion-item

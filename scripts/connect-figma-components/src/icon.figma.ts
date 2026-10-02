@@ -7,7 +7,7 @@ const instance = figma.selectedInstance;
 function getExample() {
   const name = checkStringProperty(instance.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
     slot = instance.getString('slot'),
-    variant = instance.getEnum('Variant', { Outline: 'far', Solid: 'fas' });
+    variant = instance.getEnum('variant', { outline: 'far', solid: 'fas' });
 
   return figma.code`
     <sl-icon

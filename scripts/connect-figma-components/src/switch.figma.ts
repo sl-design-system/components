@@ -1,25 +1,47 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=5127-320173
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17158-159747
 import figma from 'figma';
-import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
+import {
+  checkBooleanProperty,
+  checkEnum,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = checkBooleanProperty(instance.getBoolean('Status'), 'Status'),
-    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled',
-    reverse = checkBooleanProperty(instance.getBoolean('Reverse'), 'Reverse'),
-    showText = checkBooleanProperty(instance.getBoolean('Switch Text'), 'Switch Text'),
-    size = instance.getString('Size') ?? 'md',
-    text = instance.getString('Text');
+  const hasDescription = checkBooleanProperty(instance.getBoolean('description'), 'description'),
+    description = hasDescription
+      ? checkStringProperty(instance.getString('description'), 'description')
+      : '',
+    displayInfotip = checkBooleanProperty(
+      instance.getBoolean('display-infotip'),
+      'display-infotip'
+    ),
+    label = checkStringProperty(instance.getString('label'), 'label'),
+    size = checkEnum(instance.getEnum('size', { sm: 'sm', md: 'md', lg: 'lg' }) ?? 'md'),
+    switchPosition = checkEnum(
+      instance.getEnum('switch-position', { left: 'left', right: 'right' }) ?? 'right'
+    );
+
+  const infotip = displayInfotip
+    ? instance
+        .findConnectedInstances(node => node.codeConnectId() === 'infotip', {
+          traverseInstances: true
+        })
+        .map(child => child.executeTemplate().example)
+        .flatMap(results => results.filter(result => result.type === 'CODE'))
+        .map(result => result.code)
+        .join('\n')
+    : '';
 
   return figma.code`
     <sl-switch
-      ${checked ? 'checked' : ''}
-      ${disabled ? 'disabled' : ''}
-      ${reverse ? 'reverse' : ''}
+      ${switchPosition === 'left' ? 'reverse' : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
     >
-      ${showText ? text : ''}
+      ${label}
+      ${description ? `<span slot="description">${description}</span>` : ''}
+      ${infotip}
     </sl-switch>
   `;
 }

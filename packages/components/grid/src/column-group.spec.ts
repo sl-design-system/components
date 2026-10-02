@@ -60,14 +60,10 @@ describe('sl-column-group', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th')),
         dataCells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
 
-      expect(headers[0]).to.have.attribute('colspan', '2');
-      expect(headers[0]).to.have.attribute('aria-colindex', '1');
-      expect(headers[0]).to.have.attribute('scope', 'colgroup');
-      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
-      expect(headers[1]).to.have.attribute('colspan', '4');
-      expect(headers[1]).to.have.attribute('aria-colindex', '3');
-      expect(headers[1]).to.have.attribute('scope', 'colgroup');
-      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[0]).to.have.attribute('role', 'presentation');
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).to.have.attribute('role', 'presentation');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
 
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
@@ -76,60 +72,48 @@ describe('sl-column-group', () => {
       expect(headers[0]).not.to.have.attribute('aria-labelledby');
       expect(headers[1]).not.to.have.attribute('aria-labelledby');
 
-      expect(headers[2]).not.to.have.attribute('aria-labelledby');
+      expect(headers[2]).to.have.attribute('aria-label');
       expect(headers[2]).to.have.attribute('aria-colindex', '1');
-      expect(headers[2]).not.to.have.attribute('aria-description');
       expect(headers[2]).not.to.have.attribute('headers');
       expect(headers[2]).not.to.have.attribute('abbr');
-      expect(headers[2]).not.to.have.attribute('aria-label');
       expect(headers[2].textContent?.trim()).to.equal('First name');
 
-      expect(headers[3]).not.to.have.attribute('aria-labelledby');
+      expect(headers[3]).to.have.attribute('aria-label');
       expect(headers[3]).to.have.attribute('aria-colindex', '2');
-      expect(headers[3]).not.to.have.attribute('aria-description');
       expect(headers[3]).not.to.have.attribute('headers');
       expect(headers[3]).not.to.have.attribute('abbr');
-      expect(headers[3]).not.to.have.attribute('aria-label');
       expect(headers[3].textContent?.trim()).to.equal('Last name');
 
-      expect(headers[4]).not.to.have.attribute('aria-labelledby');
+      expect(headers[4]).to.have.attribute('aria-label');
       expect(headers[4]).to.have.attribute('aria-colindex', '3');
-      expect(headers[4]).not.to.have.attribute('aria-description');
       expect(headers[4]).not.to.have.attribute('headers');
       expect(headers[4]).not.to.have.attribute('abbr');
-      expect(headers[4]).not.to.have.attribute('aria-label');
       expect(headers[4].textContent?.trim()).to.equal('Biology');
 
-      expect(headers[5]).not.to.have.attribute('aria-labelledby');
+      expect(headers[5]).to.have.attribute('aria-label');
       expect(headers[5]).to.have.attribute('aria-colindex', '4');
-      expect(headers[5]).not.to.have.attribute('aria-description');
       expect(headers[5]).not.to.have.attribute('headers');
       expect(headers[5]).not.to.have.attribute('abbr');
-      expect(headers[5]).not.to.have.attribute('aria-label');
       expect(headers[5].textContent?.trim()).to.equal('Maths');
 
-      expect(headers[6]).not.to.have.attribute('aria-labelledby');
+      expect(headers[6]).to.have.attribute('aria-label');
       expect(headers[6]).to.have.attribute('aria-colindex', '5');
-      expect(headers[6]).not.to.have.attribute('aria-description');
       expect(headers[6]).not.to.have.attribute('headers');
       expect(headers[6]).not.to.have.attribute('abbr');
-      expect(headers[6]).not.to.have.attribute('aria-label');
       expect(headers[6].textContent?.trim()).to.equal('English');
 
-      expect(headers[7]).not.to.have.attribute('aria-labelledby');
+      expect(headers[7]).to.have.attribute('aria-label');
       expect(headers[7]).to.have.attribute('aria-colindex', '6');
-      expect(headers[7]).not.to.have.attribute('aria-description');
       expect(headers[7]).not.to.have.attribute('headers');
       expect(headers[7]).not.to.have.attribute('abbr');
-      expect(headers[7]).not.to.have.attribute('aria-label');
       expect(headers[7].textContent?.trim()).to.equal('Age');
 
-      expect(dataCells[0]).to.have.attribute('headers', headers[2].id);
-      expect(dataCells[1]).to.have.attribute('headers', headers[3].id);
-      expect(dataCells[2]).to.have.attribute('headers', headers[4].id);
-      expect(dataCells[3]).to.have.attribute('headers', headers[5].id);
-      expect(dataCells[4]).to.have.attribute('headers', headers[6].id);
-      expect(dataCells[5]).to.have.attribute('headers', headers[7].id);
+      expect(dataCells[0]).to.have.attribute('headers', `${headers[2].id}`);
+      expect(dataCells[1]).to.have.attribute('headers', `${headers[3].id}`);
+      expect(dataCells[2]).to.have.attribute('headers', `${headers[4].id}`);
+      expect(dataCells[3]).to.have.attribute('headers', `${headers[5].id}`);
+      expect(dataCells[4]).to.have.attribute('headers', `${headers[6].id}`);
+      expect(dataCells[5]).to.have.attribute('headers', `${headers[7].id}`);
 
       expect(dataCells[0]).to.have.attribute(
         'aria-labelledby',
@@ -157,21 +141,18 @@ describe('sl-column-group', () => {
     it('should associate grouped headers through table header relationships', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
-      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
       expect(headers[2]).not.to.have.attribute('headers');
       expect(headers[3]).not.to.have.attribute('headers');
       expect(headers[4]).not.to.have.attribute('headers');
-      expect(headers[2]).not.to.have.attribute('aria-description');
-      expect(headers[3]).not.to.have.attribute('aria-description');
-      expect(headers[4]).not.to.have.attribute('aria-description');
     });
 
-    it('should not wrap grouped leaf header labels in spans', () => {
+    it('should hide the visible text of grouped leaf headers from assistive technology', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th')).slice(2);
 
       headers.forEach(header => {
-        expect(header.querySelector('span')).not.to.exist;
+        expect(header.querySelector('span')).to.have.attribute('aria-hidden', 'true');
       });
     });
 

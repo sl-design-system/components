@@ -241,6 +241,8 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerIds(): string {
+    // Data cells should only reference the leaf header, not group headers
+    // Group context comes through the leaf header's aria-labelledby
     return this.headerCellId;
   }
 
@@ -273,18 +275,29 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     const classes = this.getClasses(),
-      parts = ['header', ...this.getParts()];
+      parts = ['header', ...this.getParts()],
+      groupLabel = this.groupHeaderLabels.join(' '),
+      // Only plain text headers can safely be hidden from assistive technology
+      groupedText =
+        !!groupLabel && !this.hideHeaderText && typeof this.renderHeaderLabel() === 'string',
+      ariaLabel = groupedText
+        ? `${groupLabel} ${this.headerLabelText}`.trim()
+        : this.headerAriaLabel;
 
     return html`
       <th
         aria-colindex=${String(this.columnIndex)}
-        aria-label=${ifDefined(this.headerAriaLabel)}
+        aria-label=${ifDefined(ariaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
         role="columnheader"
         scope="col">
-        ${this.renderHeaderLabel()}
+        ${
+          groupedText
+            ? html`<span aria-hidden="true">${this.renderHeaderLabel()}</span>`
+            : this.renderHeaderLabel()
+        }
       </th>
     `;
   }

@@ -1,5 +1,14 @@
 # @sl-design-system/locales
 
+## 0.5.0
+
+### Minor Changes
+
+- [#3756](https://github.com/sl-design-system/components/pull/3756) [`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a) - New Dutch, Italian, Spanish and Polish translations for `sl-toggle-group`:
+
+  - `sl.toggleGroup.selectOne`,
+  - `sl.toggleGroup.selectOneOrMore`.
+
 ## 0.4.2
 
 ### Patch Changes

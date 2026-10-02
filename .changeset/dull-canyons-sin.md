@@ -2,4 +2,4 @@
 '@sl-design-system/editorial-suite': patch
 ---
 
-Fix border colour for secondary outline buttons
+Made background secondary bold color darker for better contrast in outline buttons.

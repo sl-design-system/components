@@ -67,6 +67,7 @@ describe('sl-grid', () => {
       const table = el.renderRoot.querySelector('table');
 
       expect(table).to.exist;
+      expect(table).to.have.attribute('role', 'table');
       expect(table).to.contain('thead');
       expect(table).to.contain('tbody');
     });
@@ -104,6 +105,92 @@ describe('sl-grid', () => {
       rows.forEach(row => {
         expect(row).not.to.have.attribute('aria-selected');
       });
+    });
+  });
+
+  describe('column groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            {
+              firstName: 'John',
+              lastName: 'Doe',
+              school: { name: 'Example School', city: 'Example City', country: 'Example Country' }
+            }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid-column-group>
+          <sl-grid-column-group header="School">
+            <sl-grid-column path="school.name"></sl-grid-column>
+            <sl-grid-column path="school.city"></sl-grid-column>
+            <sl-grid-column path="school.country"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should scope group headers and leaf headers correctly', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('role', 'cell');
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).to.have.attribute('role', 'cell');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+      headers.slice(2).forEach(header => {
+        expect(header).to.have.attribute('role', 'cell');
+      });
+
+      const firstNameHeaderId = headers[2].id,
+        lastNameHeaderId = headers[3].id,
+        schoolNameHeaderId = headers[4].id,
+        cityHeaderId = headers[5].id,
+        countryHeaderId = headers[6].id,
+        cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+
+      expect(headers[2]).to.have.attribute('aria-colindex', '1');
+      expect(headers[2]).not.to.have.attribute('headers');
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).not.to.have.attribute('aria-label');
+
+      expect(headers[3]).to.have.attribute('aria-colindex', '2');
+      expect(headers[3]).not.to.have.attribute('headers');
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).not.to.have.attribute('aria-label');
+
+      expect(headers[4]).to.have.attribute('aria-colindex', '3');
+      expect(headers[4]).not.to.have.attribute('headers');
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).not.to.have.attribute('aria-label');
+
+      expect(headers[5]).to.have.attribute('aria-colindex', '4');
+      expect(headers[5]).not.to.have.attribute('headers');
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).not.to.have.attribute('aria-label');
+
+      expect(headers[6]).to.have.attribute('aria-colindex', '5');
+      expect(headers[6]).not.to.have.attribute('headers');
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).not.to.have.attribute('aria-label');
+
+      expect(cells[0]).to.have.attribute('headers', `${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('headers', `${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('headers', `${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('headers', `${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('headers', `${countryHeaderId}`);
+
+      expect(cells[0]).to.have.attribute('aria-labelledby', `${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('aria-labelledby', `${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('aria-labelledby', `${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('aria-labelledby', `${countryHeaderId}`);
     });
   });
 
@@ -1834,6 +1921,7 @@ describe('sl-grid', () => {
       `);
 
       await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
       await el.updateComplete;
 
       const tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
@@ -1844,7 +1932,7 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(Math.ceil(tfoot!.getBoundingClientRect().top)).to.be.at.least(
+      expect(Math.ceil(tfoot!.getBoundingClientRect().bottom)).to.be.at.least(
         Math.floor(row!.getBoundingClientRect().bottom)
       );
     });

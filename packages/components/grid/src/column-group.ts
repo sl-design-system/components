@@ -39,19 +39,29 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
       return nothing;
     }
 
-    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.renderHeaderLabel()}</th>`;
+    return html`
+      <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-colspan=${Math.max(this.columnSpan, 1)}
+        colspan=${Math.max(this.columnSpan, 1)}
+        id=${this.headerCellId}
+        role="cell">
+        ${this.renderHeaderLabel()}
+      </th>
+    `;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    columns.forEach(col => (col.grid = this.grid));
+    columns.forEach(col => {
+      col.grid = this.grid;
+      col.groupHeaderIds = [];
+      col.groupHeaderLabels = [];
+    });
 
     this.columns = columns;
-    this.scopedElements = columns.reduce((acc, cur) => {
-      return { ...acc, ...cur.scopedElements };
-    }, {});
 
     // Notify the grid that the column definition has changed
     this.columnUpdateEvent.emit({ grid: this.grid!, column: this });

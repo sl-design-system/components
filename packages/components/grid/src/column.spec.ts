@@ -43,15 +43,28 @@ describe('sl-column', () => {
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
+    it('should expose the header label on the th', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      headers.forEach((header, index) => {
+        expect(header).not.to.have.attribute('aria-label');
+        expect(header).not.to.have.attribute('aria-labelledby');
+        expect(header.querySelector('span')).not.to.exist;
+        expect(header.textContent?.trim()).to.equal(
+          ['First name', 'Last name', 'Current age'][index]
+        );
+      });
+    });
+
     it('should visually hide the header text when set', async () => {
       el.querySelector('sl-grid-column')!.hideHeaderText = true;
       el.requestUpdate();
       await el.updateComplete;
 
-      const span = el.renderRoot.querySelector('th span');
+      const header = el.renderRoot.querySelector('th');
 
-      expect(span).to.have.trimmed.text('First name');
-      expect(span).to.have.class('visually-hidden');
+      expect(header).to.have.attribute('aria-label', 'First name');
+      expect(header?.textContent?.trim()).to.equal('');
     });
 
     it('should have the right justify-content value', () => {
@@ -72,6 +85,16 @@ describe('sl-column', () => {
         'data last-name',
         'data age'
       ]);
+    });
+
+    it('should reference rendered plain cell values with aria-labelledby', () => {
+      const labels = cells.map(cell => cell.getAttribute('aria-labelledby'));
+
+      expect(labels.every(Boolean)).to.be.true;
+      labels.forEach((label, index) => {
+        expect(label).to.equal(`${el.renderRoot.querySelectorAll('th')[index].id}`);
+        expect(cells[index].textContent?.trim()).to.equal(['John', 'Doe', '20'][index]);
+      });
     });
 
     it('should not ellipsize the text in the cells', () => {
@@ -209,6 +232,15 @@ describe('sl-column', () => {
 
       expect(data).to.deep.equal(['Bar', '']);
     });
+
+    it('should omit aria-labelledby for empty string values', () => {
+      const dataCells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(dataCells[0].getAttribute('aria-labelledby')).to.be.a('string');
+      expect(dataCells[0].id).to.not.equal('');
+      expect(dataCells[1].getAttribute('aria-labelledby')).to.equal(null);
+      expect(dataCells[1].id).to.equal('');
+    });
   });
 
   describe('custom renderer', () => {
@@ -242,10 +274,12 @@ describe('sl-column', () => {
     });
 
     it('should render the elements set with the custom renderer', () => {
-      const avatar = cells[0].querySelector('sl-avatar') as Avatar;
+      const avatar = cells[0].querySelector('sl-avatar');
 
       expect(avatar).to.exist;
-      expect(avatar?.shadowRoot?.querySelector('[part="name"]')?.textContent).to.equal('John Doe');
+      expect(
+        (avatar as unknown as Avatar).shadowRoot?.querySelector('[part="name"]')?.textContent
+      ).to.equal('John Doe');
     });
 
     it('should have the right parts, including one set on the column', () => {

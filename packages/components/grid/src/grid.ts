@@ -482,7 +482,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : nothing
       }
-      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
+      <table
+        part="table"
+        aria-colcount=${this.#headerRows.at(-1)?.filter(col => !col.hidden).length || 0}
+        aria-rowcount=${this.dataSource?.items.length || 0}
+        role="table">
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -596,7 +600,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
-          <tr>
+          <tr aria-rowindex=${rowIndex + 1} role="row">
             ${columns.map(col => col.renderHeaderRow(rowIndex))}
           </tr>
         `
@@ -646,6 +650,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         aria-rowindex=${index + 1}
         aria-selected=${ariaSelected}
         index=${index}
+        role="row"
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -677,9 +682,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
         aria-rowindex=${index + 1}
         .draggable=${groupDraggable}
+        role="row"
         part="group"
         index=${index}>
-        <td part="group-header">
+        <td part="group-header" role="cell">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
@@ -1341,6 +1347,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#columnDefinitions = columns;
     this.#headerRows = this.#flattenColumnGroups(columns);
+    this.#setColumnAccessibility(columns);
 
     // Recalculate the column widths
     await this.recalculateColumnWidths();
@@ -1480,6 +1487,46 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     } else {
       return [columns];
     }
+  }
+
+  #setColumnAccessibility(
+    columns: Array<GridColumn<T>>,
+    startIndex = 1,
+    parentGroup?: GridColumnGroup<T>
+  ): number {
+    let currentIndex = startIndex;
+
+    columns.forEach(col => {
+      if (col.hidden) {
+        return;
+      }
+
+      const parentHeaderIds = parentGroup
+        ? [...parentGroup.groupHeaderIds, parentGroup.headerCellId].filter(
+            (value): value is string => !!value
+          )
+        : [];
+      const parentHeaderLabels = parentGroup
+        ? [...parentGroup.groupHeaderLabels, parentGroup.headerLabelText].filter(
+            (value): value is string => !!value
+          )
+        : [];
+      col.groupHeaderIds = parentHeaderIds;
+      col.groupHeaderLabels = parentHeaderLabels;
+      col.columnIndex = currentIndex;
+
+      if (col instanceof GridColumnGroup) {
+        const childColumns = col.columns as Array<GridColumn<T>>;
+
+        currentIndex = this.#setColumnAccessibility(childColumns, currentIndex, col);
+        col.columnSpan = Math.max(currentIndex - col.columnIndex, 1);
+      } else {
+        col.columnSpan = 1;
+        currentIndex += 1;
+      }
+    });
+
+    return currentIndex;
   }
 
   #getGroupHeaderClasses(): string[] {

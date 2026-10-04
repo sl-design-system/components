@@ -34,6 +34,27 @@ measurement.
 **Do not normalise.** Establish whether a faithful raster is obtainable; if it is not, verify and
 refuse rather than reconstruct. Reasoning in the measurement draft.
 
+## 2b. The control changed the order — read this before picking anything up
+
+[`control-runs.md`](control-runs.md): 38 unassisted runs of the unmodified skill, **5 produced
+code**. Three consequences for this list.
+
+**Our nineteen measure the assisted condition.** All nineteen completed because a supervisor
+removed the blockers, including instructing runs not to halt on an empty Code Connect map. Any
+number computed over them must say so. The control is the baseline; the gap between 5/38 and
+19/19 is the value of the supervision, and every item in `pipeline-defects.md` is a candidate for
+turning some of it into something the skill does alone.
+
+**Item 7 is partly answered.** There is now σ at the outcome level: three of nineteen cases
+flipped outcome between identical passes, and blocked-node counts moved by up to 3× where the
+verdict was stable. The mechanism is agent judgement — one analyst declined to emit the halt
+token the other emitted, on identical input. **Fidelity-level σ is still missing**, which is the
+part item 7 should now mean.
+
+**There is a first A/B available, and it is cheap.** Fourteen of nineteen cases halt on one
+branch. Fix that branch, re-run the 38, and the 5/38 either moves or it does not — one change,
+one predicted effect, one measured delta. Nothing else in this list has that shape yet.
+
 ## 3. One measurement, run over all nineteen
 
 There is still **no comparable number** for any run. Each measured itself, in prose, by its own

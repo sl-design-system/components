@@ -6,6 +6,11 @@ what turned out to be specific to it, and what no single run could have revealed
 
 Each entry names the evidence it rests on.
 
+**These nineteen runs were supervised.** A separate unassisted control — 38 runs of the unmodified
+skill with only the four Stage 0 answers — produced code **5 times**. See
+[`control-runs.md`](control-runs.md) before reading any completion rate here as a property of the
+pipeline.
+
 **Three documents, three audiences.** This one is the evidence and the reasoning — read it when
 you want to know why something is believed. Two companions turn it into work:
 

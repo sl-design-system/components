@@ -55,6 +55,25 @@ part item 7 should now mean.
 branch. Fix that branch, re-run the 38, and the 5/38 either moves or it does not — one change,
 one predicted effect, one measured delta. Nothing else in this list has that shape yet.
 
+## 2c. The two goals, and why marking serves both
+
+[`two-goals.md`](two-goals.md). The design system team wants provenance and determinism; the
+competence owner wants appearance. The batch measured the conflict three times — fonts, Kampus's
+palette, the hardcoding incentive — and one output cannot top both scores.
+
+It does not have to. **Record the basis of every decision** (`mapped` / `token` / `inferred` /
+`invented`) alongside the Figma source value, and one artifact answers both questions: provenance
+for one reader, delta for the other. The disagreement between them is a design system gap found
+by a real design, which is the feedback loop the DS team actually wants.
+
+The hard cases resolve by rule rather than judgement: **if the node binds a design system
+variable, emit the token** and treat a visible difference as a Figma-code sync defect; if it binds
+another library's variable or nothing, **emit the raw value marked `as-is`** and record a token
+gap. We already read the bindings on every run.
+
+This also supplies the node-to-element link item 1 says the registry cannot proceed without, so
+it should be built before the schema, not after.
+
 ## 3. One measurement, run over all nineteen
 
 There is still **no comparable number** for any run. Each measured itself, in prose, by its own

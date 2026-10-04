@@ -13,7 +13,40 @@ noting when someone asks what running the thing bought us.
 
 ---
 
-## The pipeline refuses the designs that need it most
+## The pipeline refuses the designs that need it most — and it was built to
+
+**The halt is deliberate.** `vision.md` states it: unconnected components "must be resolved (by
+publishing Code Connect mappings) before proceeding — `get_design_context` will block and prompt
+for this **rather than silently falling back to raw design data**." The reason is sound, and it is
+the same failure this batch kept finding under a different name: silent degradation.
+
+What is wrong is not the rule but **the input it assumes**. The vision describes the map as
+returning `null` for nodes without a mapping — that is a _mapped design with gaps_, where asking a
+human to publish the missing mappings is a reasonable, actionable request. What the corpus
+actually returns is `{}`: no mapping at all, because the design is drawn in itslearning's,
+Bingel's or Vuetify's library. The remedy the halt prints is unactionable, because there is
+nothing to map.
+
+So the halt is correct for the audience the vision had in mind — the design system team building
+an SLDS component from a design made of SLDS components — and wrong as the only mode. 14 of 19
+cases, both passes (see [`control-runs.md`](control-runs.md)).
+
+**Removing it is not the fix, and our own batch is the evidence.** When the supervisor overrode
+the halt, runs degraded in exactly the ways the vision feared: hand-drawn SVG icons inside a
+pixel-compared region, invented token names carried into three implementer briefs, reaching past
+public APIs into private `--_` custom properties. **The halt is a one-bit answer to a question
+that needs a number**, and marking is what makes removing it safe rather than a softer version of
+removing it.
+
+The shape is already analysed in [`A-NOJIRA-ds-conformance`](../NOJIRA-ds-conformance/analysis.md)
+F6 and its recommendation: one halt policy becomes **a mode plus a classification**, with every
+unresolved node sorted into one of five categories and routed to whoever can act on it. The
+control supplies the numbers that make it the first thing to do rather than the fourth.
+
+**The success test is not "more runs produce code."** Turning fourteen halts into fourteen
+low-fidelity ports with invented content would be worse than halting. The test is _more runs
+produce code whose conformance is recorded_ — mapped, inferred, or invented, counted and attached
+to the output.
 
 **Observed:** Stage 1 returns `BLOCKED_ON_CODE_CONNECT` when component instances have no mapping,
 and tells the user to publish mappings and re-run. On B-Itsl-Course every instance is unmapped

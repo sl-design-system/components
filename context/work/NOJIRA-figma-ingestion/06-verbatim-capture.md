@@ -118,9 +118,32 @@ until now only one side was on disk.
    checkpoint so an interrupted capture resumes rather than restarts, and `complete: false` with
    the reason whenever a budget, a cap or a `429` stopped it. Record `Retry-After` when it
    arrives: a run that quietly waited must not look like one that did not.
-9. **The token is temporary.** It lives in `.env` as `FIGMA_READ_TOKEN`, which is gitignored and
-   untracked, and it is revoked when this task ends. Nothing may bake it into a committed file,
-   a fixture or a cache path, and the capture must still be readable after it is gone.
+9. **Commit the per-node captures; do not commit the whole-file dumps.** Measured on four
+   designs: 915 KB / 1.19 MB / 1.79 MB / 2.18 MB raw, compressing 12-19× — **roughly 28 MB raw
+   and under 2 MB of git objects for all nineteen**, against a repository whose `.git` is
+   already 112 MB. Re-fetching later is not free and may not even be possible: the token is
+   temporary and `lastModified` is already `2026-09-23`, so a capture is a snapshot of a file
+   that will move. The whole-file `GET /v1/files/:key` is **287 MB for one file** and twelve of
+   them is ~3.4 GB; GitHub rejects any single file over 100 MB outright. Take it once if it is
+   wanted, keep it out of git, and record its hash.
+
+   Add a `.gitattributes` entry marking the captures `-diff linguist-generated` so they do not
+   swamp reviews.
+
+10. **Publication is a separate decision, and it is not made by committing.** This repository is
+    **public**, the branch is **not pushed** — 184 unpushed commits, and the 1 355-file corpus
+    already committed here has never left the machine. A REST capture is the complete design:
+    every string, every layer name, every unreleased screen of Kampus, itslearning, NSP, Sesame,
+    ETSL and MyPortal. Committing it to this branch is safe and reversible; **pushing it is
+    neither**, because git history keeps it.
+
+    So: **the branch must not be pushed until somebody decides whether this corpus belongs in a
+    public repository.** That gate already exists because of the corpus committed before this
+    task; this task only makes it larger and writes it down.
+
+11. **The token is temporary.** It lives in `.env` as `FIGMA_READ_TOKEN`, which is gitignored and
+    untracked, and it is revoked when this task ends. Nothing may bake it into a committed file,
+    a fixture or a cache path, and the capture must still be readable after it is gone.
 
 ## The token's scopes
 

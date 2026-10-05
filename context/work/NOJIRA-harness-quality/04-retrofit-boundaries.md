@@ -12,6 +12,7 @@ owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [harness, zod, testing, use-cases]
+commit: c088eda0ee5650e96ec2d18ea811712f6f4d5619
 source_plan: P-NOJIRA-harness-quality
 depends_on: [T-NOJIRA-harness-quality-01]
 ---

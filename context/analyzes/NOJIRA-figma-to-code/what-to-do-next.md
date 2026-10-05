@@ -24,6 +24,21 @@ the ten remaining failures belong to `P-NOJIRA-figma-ingestion`, not to the harn
 hold captures that are not Figma's output at all, two are truncated at the MCP output cap, and
 one carries a Figma property literally named `↕️Size`.
 
+**The instruments are calibrated.** `P-NOJIRA-harness-quality` is complete as of 2026-10-05: all
+four tasks done, all four use cases passing, **237 tests** and a type gate over the four scripts
+with a named consumer. Three measurement faults were found and fixed in the process, and each one
+had been reporting a number rather than an error:
+
+| Fault                                                                                                          | Where                            | Effect on the record                                        |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------- |
+| Six runs scored against a fabricated `1440×1024` frame, all six declaring a root the reader never searched for | `render-design.mjs`              | six frames corrected; ten runs unchanged to the byte        |
+| A 100% hex tie settled by `readdirSync` order                                                                  | `theme-match.mjs`, `a7-myportal` | one verdict withdrawn; a tie is now a tie                   |
+| A response shape that scanned quietly to zero externals                                                        | `mode-decision.mjs`              | refused at the boundary, and cross-checked against the scan |
+
+**The headline figures survived all of it, re-measured after every change**: 9 of 19 runs
+transform every region, 59 of 71 regions, 116 advisory blocks, 267 captures. The instrument now
+says so because it looked, not because it defaulted.
+
 ---
 
 ## Step 0 — one week of measurement, before any plan resumes

@@ -2,8 +2,8 @@
 type: plan
 schema_version: 1
 id: P-NOJIRA-html-contract
-title: The HTML contract and the common format it is generated from
-description: An adapter from Figma captures into a schema-validated common format, and three script-generated HTML artifacts built on it — the design, a per-element overlay, and a progress view — producing the first comparable numbers across the nineteen existing runs without a single Figma call
+title: The contract — what the common format must express, agreed before anything reads it
+description: Draft the common format against the 36 requirements of the metadata-contract analysis, fold in the architecture package that specifies the same artifact under another name, and land it as a language-neutral schema — the one artifact every generator, metric and registry key is written against
 jira: null
 resource: null
 status: approved
@@ -13,8 +13,8 @@ created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [figma, design-to-code, html, schema, determinism, measurement]
 source_analysis: A-NOJIRA-pipeline-staging
-slice: html-contract
-depends_on: []
+slice: contract
+depends_on: [P-NOJIRA-corpus-census]
 approved_by: marcin.ludwig
 approved_date: 2026-10-05
 open_questions: []
@@ -76,39 +76,15 @@ blocks on `data-figma-node` existing first.
 
 ## Work breakdown
 
-- `T-NOJIRA-html-contract-00` — **The contract itself, and a human gate on it.** Draft the format
-  as a document, walk it against the checklist below, and **do not start 01 until it is
-  approved.** Nothing else in this plan can be changed as cheaply afterwards: the schema is what
-  every generator, every metric and the registry's keys are written against, so a field missing
-  here is a rewrite later rather than an addition.
-- `T-NOJIRA-html-contract-01` — The common format in code: the approved contract as **language-neutral
-  JSON Schema** (normative), with `zod` **derived** from it. R31 requires the normative artifact be
-  readable by `.mjs` scripts _and_ a Python toolkit; zod is TypeScript-only, and mandating it as
-  the contract would have produced two validators that drift
-- `T-NOJIRA-html-contract-02` — Adapter from captures to the format, reporting gaps rather than
-  hiding them
-- `T-NOJIRA-html-contract-03` — Retrofit: run the adapter over all nineteen runs; the runs it
-  cannot adapt are the incomplete captures, named
-- `T-NOJIRA-html-contract-04` — The closure check: every visited node resolved, captured,
-  descended, hidden or excluded, and the frontier empty
-- `T-NOJIRA-html-contract-05` — Generator 1, the design HTML, from the format alone
-- `T-NOJIRA-html-contract-06` — Determinism proof: generate twice, compare checksums, across all
-  adaptable runs
-- `T-NOJIRA-html-contract-07a` — Reference integrity: verify each run's reference image against
-  the frame's declared size and detect the halved-colour-channel case; refuse a distorted
-  reference rather than correcting it
-- `T-NOJIRA-html-contract-07b` — Fidelity **computed from the format, not from the raster**:
-  the build's measured geometry against Figma's declared geometry, colours against resolved
-  variables, typography against token values. The first comparable number, and it needs no
-  reference image — which is why a downscaled reference stops blocking a run. The raster is kept
-  for human review and for build-against-build regression, never scored against the design
-- `T-NOJIRA-html-contract-08` — Generator 2, the overlay, with per-element state and inspection
-- `T-NOJIRA-html-contract-09` — Generator 3, the progress view
-- `T-NOJIRA-html-contract-10` — Fixture-based tests for every generator, so none of them needs
-  Figma to be tested
-- `T-NOJIRA-html-contract-11` — **The six computable checks** `A-NOJIRA-figma-to-code` F5 calls
-  "the governing principle for the whole effort" — pure `getBoundingClientRect` and
-  `getComputedStyle` arithmetic, currently named in no plan and no task despite that billing
+- `T-NOJIRA-html-contract-00` — **The contract as a document, and a human gate on it.** Primary
+  input is the 36 requirements; first deliverable is a disposition against every one.
+- `T-NOJIRA-html-contract-01` — The format in code: **language-neutral JSON Schema normative**,
+  `zod` derived from it, and a round-trip test proving the two accept and reject the same
+  documents.
+
+**Two tasks, because this plan ends where agreement ends.** Everything built on the contract is
+`P-NOJIRA-html-artifacts`, which depends on this plan finishing rather than on either of its
+tasks individually.
 
 ### Task 00 cannot be approved without a survivorship census first
 

@@ -2,8 +2,8 @@
 type: plan
 schema_version: 1
 id: P-NOJIRA-figma-ingestion
-title: Ingestion quality — knowing what came out of Figma, and whether it came out whole
-description: Turn the Figma fetch into a scripted, instrumented, verifiable step — Code Connect as the traversal's stopping rule, the empty map classified into five causes with owners, assets captured before their URLs expire, boundary checks at the schema edge, and a ledger that makes the cost and flakiness of every call countable
+title: Stop the pipeline refusing the designs that need it most
+description: Decide the mode from evidence, make Code Connect the traversal's stopping rule, classify the empty map into five causes with owners instead of halting — and measure the result against the fourteen cases that halt today
 jira: null
 resource: null
 status: approved
@@ -13,8 +13,8 @@ created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [figma, design-to-code, ingestion, determinism, instrumentation]
 source_analysis: A-NOJIRA-ds-conformance
-slice: ingestion-quality
-depends_on: [P-NOJIRA-html-contract]
+slice: halt-diagnosis
+depends_on: []
 approved_by: marcin.ludwig
 approved_date: 2026-10-05
 open_questions: []
@@ -81,63 +81,32 @@ is design system team work this plan only ranks.
 
 ## Work breakdown
 
-- `T-NOJIRA-figma-ingestion-01` — The call wrapper and the append-only ledger: call, node,
-  duration, bytes, status, attempt, whether a retry rescued it, cache hit. **Decides here:**
-  whether the implementation agents keep the Figma tools at all. Leaving them is a ledger complete
-  by compliance, which is the failure shape that made nineteen runs' self-reported costs disagree
-  by two orders of magnitude.
-- `T-NOJIRA-figma-ingestion-02` — Boundary validation: the eight checks, at capture time, without
-  transforming the stored bytes. **Decides here:** structure from the documented, versioned REST
-  API and semantics from MCP, or everything from MCP. The MCP surface has produced six
-  undocumented behaviours and four of them cost a run, so the split is worth pricing rather than
-  assuming.
-- `T-NOJIRA-figma-ingestion-03` — Mode decision, cached per file: library membership from
+- `T-NOJIRA-figma-ingestion-01` — Mode decision, cached per file: library membership from
   `list_file_components_for_code_connect`, written to disk and grepped, never read into context
-- `T-NOJIRA-figma-ingestion-04` — Scripted traversal with Code Connect as the stopping rule,
-  probing per node, failing open and recording why it descended
-- `T-NOJIRA-figma-ingestion-05` — Unresolved-node classification: suggestions call, filter out
-  internals of resolved instances and pure assets, sort into the causes with owners. **The five
-  causes are the retrieval-and-mapping axis only** — `A-NOJIRA-ds-conformance` F3b (attached but
-  **overridden** instances, which it argues is the worse case) and F4 (the soft similarity layer,
-  reported with its uncertainty and never used as a gate) are a second axis this task must either
-  carry or explicitly reject. The audit found both silently absent from both
-- `T-NOJIRA-figma-ingestion-06` — Asset capture during the fetch, after mapping resolution, with
-  the cap-of-20 signal treated as "probably more"
-- `T-NOJIRA-figma-ingestion-07` — **Invoke** the closure check during ingestion and emit its
-  census. The check itself is built once, in `T-NOJIRA-html-contract-04`, and runs over the
-  common format — it never touches Figma. Building it twice was the third of three owners this
-  census had
-- `T-NOJIRA-figma-ingestion-08` — Per-run metrics derived from the ledger, and cross-run analysis
-  over the corpus
-- `T-NOJIRA-figma-ingestion-09` — Re-run the 19 × 2 control and compare against 5 of 38
+- `T-NOJIRA-figma-ingestion-02` — Scripted traversal with Code Connect as the stopping rule,
+  probing per node, **failing open** and recording _why_ it descended — genuinely unmapped, or
+  map unreadable. Those produce identical markup and mean opposite things
+- `T-NOJIRA-figma-ingestion-03` — Unresolved-node classification: suggestions call, filter out
+  internals of resolved instances and pure assets, sort into the five causes with owners.
+  `A-NOJIRA-ds-conformance` F3b (attached but **overridden**) and F4 (the similarity layer) are a
+  second axis this task must carry or explicitly reject
+- `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
+  today. A third of the cost of the full control, and it can falsify this plan on its own
 
-**01 and 02 come first and are not negotiable**, because every later claim in this plan is a
-measurement, and an unmeasured change here is how v2 happened.
+**Each task is measured on landing, not batched to the end** — that structure is what made v2's
+good ideas indistinguishable from its bad ones:
 
-### The review caught this plan committing v2's mistake
+| After | Measure                                                    | Against                           |
+| ----- | ---------------------------------------------------------- | --------------------------------- |
+| 01    | does the mode agree with what the traversal then observes? | the 19 designs, no code generated |
+| 02    | **the fourteen-case probe.** If none converts, stop        | 14 halts                          |
+| 03    | is the cause stable across two passes of one design?       | counts that moved up to threefold |
+| 04    | completions **and** recorded conformance                   | 5 of 38                           |
 
-As first written, tasks 03 to 08 all changed ingestion and task 09 measured once at the end —
-**eight changes, one measurement**, which is precisely the structure that made v2's good ideas
-indistinguishable from its bad ones. The plan preached incremental measurement and did not
-practise it.
-
-Corrected: **each behaviour-changing task is measured on landing**, and the cheap probe comes
-before the expensive one.
-
-| After             | Measure                                                    | Against                                                                                 |
-| ----------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| 03 mode decision  | does the mode agree with what the traversal then observes? | the 19 designs, no code generated                                                       |
-| 04 stopping rule  | **re-run only the 14 cases that halted**                   | 14 halts. If none converts, stop — the diagnosis is wrong and 24 further runs are saved |
-| 05 classification | is the cause stable across two passes of one design?       | the control's blocked-node counts, which moved up to threefold                          |
-| 06 assets         | do generated artifacts still reference Figma URLs?         | the batch's 404s                                                                        |
-| 09 full re-run    | completions **and** recorded conformance                   | 5 of 38                                                                                 |
-
-The 14-case probe after 04 is the one that matters: it is a third of the cost of 09 and it can
-falsify the plan's central claim on its own.
-
-**04 before 05**, because the classification needs the resolved set to filter against. **06 after
-04**, because an icon that maps to `sl-icon` is a component and downloading it as a raster
-converts a mapped component into a picture.
+**Deliberately not here:** the ledger, the boundary checks, asset capture and the metrics. They
+are instrumentation rather than diagnosis, they are weeks rather than days, and one of them
+contains the REST-versus-MCP fork. `P-NOJIRA-ingestion-hardening` owns them and depends on this
+plan.
 
 ## Risks & dependencies
 
@@ -146,11 +115,9 @@ invented content would satisfy that and be worse than halting, because halting a
 truth. The test is _more runs produce code whose conformance is recorded_. Stated here because it
 is the one misreading that would make the plan actively harmful.
 
-**Nothing to measure against until `P-NOJIRA-html-contract` lands.** 09 compares against a
-baseline of completion counts, which exists — but a change to ingestion should also move fidelity,
-and there is no comparable fidelity figure until that plan's task 07b. Hence the dependency. The
-14-case probe after 04 is the exception: it measures halts, which need no fidelity figure, so it
-can run earlier than the rest.
+**This plan has no dependencies, by design.** It measures halts, and a halt needs no fidelity
+figure. An earlier draft made it depend on the HTML plan for a number it does not use, which
+would have delayed the only slice with a measured baseline to move.
 
 **The ledger under-reports if any agent calls Figma directly.** Discouraging it is not enough;
 the second open question asks whether the implementation agents lose the tools outright. Without

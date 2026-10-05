@@ -488,3 +488,73 @@ working runs.
 **Ingestion, narrowed to tasks 01–05 and 09.** The only slice with a measured baseline to move, a
 diagnosed fix, proven API calls, and a task 09 that re-runs the control so the result is a number
 against 5 of 38 rather than a claim.
+
+---
+
+# The feasibility review ran the code instead of reading the plans
+
+It re-ran `render-design.mjs` over all nineteen runs and diffed metadata against output. Four
+measurements, each of which changes something.
+
+## Survivorship is 9 of 19 — and six of the failures are one bug, fixable in hours
+
+Nine runs render: `a3`, `a4`, `a7`, `a8`, `b-itsl-collab-add-element`, `b-itsl-course-course-files`,
+`b-kampus-notes-panel`, `b-sanna-account-creation`, `b-sesame-group-details`. Seven render **one
+node id**.
+
+But roughly six of the ten failures are **a single advisory-concatenation bug** in
+`normalise-captures.mjs`'s `extractBlocks` — splitting on the known sentinels would plausibly lift
+survivorship past the ten-run threshold the plan sets for narrowing its own scope.
+
+> **That is the cheapest schedule-moving work in either plan, and it is in neither.** Hours of
+> work that decides whether the HTML plan runs at full scope or narrows to tasks 00–04.
+
+## The first comparable number has N ≈ 4, not 19 — and that hits my own revision
+
+Node ids present in **both** `figma-metadata.txt` with geometry **and** the render: a3 337, a7 331,
+b-sesame 114, a4 110, a8 59, a10 57, b-sanna 29 — and **zero** in a5, a6, a9,
+`b-itsl-bookmk-course-files`. `get_metadata` stops at instance boundaries while design-context
+emits hundreds of ids, so the declared and the measured sets barely overlap.
+
+I revised the fidelity design hours earlier to compute from the format rather than the raster,
+and claimed it restored the corpus from 8 runs to 19. **It does not.** It trades one small
+population for another small population.
+
+And the reason is worth stating because it is not a defect to engineer away: comparing the build
+against **design-context** — the thing it was generated from — is close to tautological. Only
+**metadata geometry is an independent statement of position**, which is exactly why its overlap
+is small: it stops where Code Connect starts. **The honest independent-comparison population is
+about four runs**, and no amount of tooling changes that without capturing differently.
+
+## 07a is unexecutable on five runs, and fails silently
+
+`a9` and `b-nsp-home` metadata open with `Currently selected nodes:`; `a4`'s opens with an `<!--`
+header a normaliser wrote into a raw file. `render-design.mjs` then falls back to a hardcoded
+`1440×1024` — so those runs' geometry is scored against **a fabricated frame**, with nothing
+saying so.
+
+Measured raster distortion is also worse than recorded: a8 1024×820 against 1280×1024,
+b-itsl-course 1024×615 against 1280×768, b-sanna 1024×715 against 1512×982, b-sesame 934×1280
+against 1280×2392.
+
+## Sizing, and the one task that is already done
+
+The adapter is **weeks, not days** — four provenance classes needing four recovery paths. The SL
+snippet language is **HTML, not JSX**, so the TSX loader rejects a capture at exactly the point
+where Code Connect resolved. `a1` is not Figma bytes at all: `function IconButton({…})` and
+`{lorem-ipsum description, 2-line clamp}` are agent prose wearing JSX, and the run yields three
+CSS classes in total — there is nothing there to be faithful to.
+
+**And `T-NOJIRA-html-contract-06`, the determinism proof, is already true:** two runs of `a3`
+produce identical sha1. Hours to formalise, not days.
+
+## What one week would produce
+
+Fix the advisory split and re-normalise. Add frame-declaration and PNG-dimension verification as
+about forty lines, committing a `census.json` — per run: provenance class, renders or not,
+reference exact or downscaled or undeclared. Then build **only** the geometry comparator —
+parent-relative metadata boxes summed through the ancestor chain against `getBoundingClientRect`
+in the browser `shoot.mjs` already drives — and run it on `a3` and `a7`, where N ≈ 330.
+
+**Two real fidelity numbers, and a nineteen-run census naming every reason the other seventeen
+have none.** No schema, no overlay, no Figma call.

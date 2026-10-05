@@ -126,13 +126,13 @@ one measured delta.
 
 ## Risks & dependencies
 
-| Risk | Consequence | Mitigation |
-|---|---|---|
-| The corpus Figma file is edited mid-effort | Results stop being comparable and degrade silently rather than failing loudly | Freeze by copying into a file the design teams do not own; record the last-modified stamp with every result and fail the run when it changes |
-| Figma and browser renderers differ systematically | The pixel dimension produces noise rather than signal | Tiered tolerances by element class; if it still fails, the analysis already names the fallback — DOM geometry only, one dimension replaced, plan intact |
-| Code Connect scaffolds block ingestion on real product designs | Some corpus cases cannot run at all | Select initial cases that avoid the 14 unmapped components; exercise the others in as-is mode, which does not require a mapping |
-| The bench itself accretes requirements | The plan reproduces the failure it was written to prevent | Acceptance is fixed at two fidelity dimensions; anything further is a separate plan against a measured gap |
-| Measurement is built but never used to gate changes | The numbers become decoration | The next plan's acceptance is expressed as a score delta against this baseline, which makes the gate structural rather than cultural |
+| Risk                                                           | Consequence                                                                   | Mitigation                                                                                                                                              |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The corpus Figma file is edited mid-effort                     | Results stop being comparable and degrade silently rather than failing loudly | Freeze by copying into a file the design teams do not own; record the last-modified stamp with every result and fail the run when it changes            |
+| Figma and browser renderers differ systematically              | The pixel dimension produces noise rather than signal                         | Tiered tolerances by element class; if it still fails, the analysis already names the fallback — DOM geometry only, one dimension replaced, plan intact |
+| Code Connect scaffolds block ingestion on real product designs | Some corpus cases cannot run at all                                           | Select initial cases that avoid the 14 unmapped components; exercise the others in as-is mode, which does not require a mapping                         |
+| The bench itself accretes requirements                         | The plan reproduces the failure it was written to prevent                     | Acceptance is fixed at two fidelity dimensions; anything further is a separate plan against a measured gap                                              |
+| Measurement is built but never used to gate changes            | The numbers become decoration                                                 | The next plan's acceptance is expressed as a score delta against this baseline, which makes the gate structural rather than cultural                    |
 
 **Three blockers found on the first attempt at the smoke run**, before it could start. None is
 hard, all three are prerequisites nobody had written down:
@@ -147,7 +147,7 @@ hard, all three are prerequisites nobody had written down:
    adjusted. **This is exactly the class of thing the smoke run exists to surface**, and it would
    have been discovered halfway through `T-15` otherwise.
 3. **The Figma desktop MCP server is not answering.** Registered under the expected name it reports
-   *connected, tools fetch failed — request timed out*, and the Docker-gateway Figma server this
+   _connected, tools fetch failed — request timed out_, and the Docker-gateway Figma server this
    session had been using has since failed to connect at all. That is why a single
    `get_code_connect_map` call hung for over five minutes. The blocker is the server's
    responsiveness, not the naming — and since Code Connect resolution is the pipeline's cheapest and
@@ -169,8 +169,8 @@ small change, it plausibly moves generation speed (R8) by a large factor, it rem
 desktop-application dependency that stops anything running unattended, and it is exactly the shape
 of change the bench exists to adjudicate — plausible, cheap, and currently unproven.
 
-**Figma's documentation settles the server choice.** It states that the remote server is *strongly
-recommended*, connects without the desktop application, and provides the broadest feature set; the
+**Figma's documentation settles the server choice.** It states that the remote server is _strongly
+recommended_, connects without the desktop application, and provides the broadest feature set; the
 desktop server is positioned for specific organization and government needs. And the rate limits
 are **identical for both** — 600 tool calls per day and 20 per minute on an Organization plan with
 a Dev or Full seat — so there is no quota argument for preferring the desktop server. That removes
@@ -227,8 +227,8 @@ dependency for strict-mode cases, not a blocker for this plan.
 9. Every result records what the run cost — tokens by model tier and by pipeline stage — so a tier
    or effort change can be evaluated as a cost delta against a score delta rather than on intuition.
 10. Two runs made under different conditions — a different model, a newer model, an added pipeline
-   step — can be compared directly, with the difference reported against the measured spread so that
-   noise is not read as improvement.
+    step — can be compared directly, with the difference reported against the measured spread so that
+    noise is not read as improvement.
 11. Nothing in the result schema or the runner assumes the thing being measured is the Figma-to-HTML
     stage. A second stage plugs in as another target, not as a fork of the tool.
 
@@ -237,21 +237,21 @@ dependency for strict-mode cases, not a blocker for this plan.
 - Approved by: marcin.ludwig
 - Approved date: 2026-09-30
 - Open questions resolved:
-  - **Where the harness lives** — *answered.* A sibling tool under `tools/`, so it can measure any
+  - **Where the harness lives** — _answered._ A sibling tool under `tools/`, so it can measure any
     generator and not only the `implement-design` plugin. Recorded in `## Approach` and `## Scope`;
     executed by `T-NOJIRA-figma-to-code-01`.
-  - **Who owns the frozen corpus and how it is protected** — *answered.* A new Figma file owned by
+  - **Who owns the frozen corpus and how it is protected** — _answered._ A new Figma file owned by
     the design system team, holding copies of nodes taken from the product files. Executed by
     `T-NOJIRA-figma-to-code-04`, which also records the freeze procedure and the last-modified
     guard.
-  - **Whether increments target the plugin, the prior skill set, or both** — *carried.* This is
+  - **Whether increments target the plugin, the prior skill set, or both** — _carried._ This is
     settled by what the baseline shows, which is the output of `T-NOJIRA-figma-to-code-14`. Deciding
     it now would be guessing; it belongs to the slice 2 plan.
-  - **How mapping work and pipeline work are sequenced** — *carried.* A standing coordination matter
+  - **How mapping work and pipeline work are sequenced** — _carried._ A standing coordination matter
     with the Code Connect work, not a precondition for this slice: strict-mode cases need the
     mappings, as-is mode does not, and `T-NOJIRA-figma-to-code-04` selects initial cases that avoid
     the fourteen unmapped components, informed by the intake report that now precedes it.
-  - **Whether a Jira ticket is created** — *carried.* Administrative. If a ticket appears, every id
+  - **Whether a Jira ticket is created** — _carried._ Administrative. If a ticket appears, every id
     in this initiative is renamed from `NOJIRA-figma-to-code` to its key and the cross-links updated.
 - Outstanding concerns: the fidelity dimension rests on Figma and browser renderers agreeing within
   the tiered tolerances. If they do not, `T-NOJIRA-figma-to-code-11` is the task that will surface
@@ -287,7 +287,7 @@ already reports, exactly as coverage and fidelity are. Sequencing is unchanged: 
 off the result schema and blocks nothing.
 
 **Judgement to be aware of.** Cost is recorded per run and per stage, not attributed to individual
-decisions within a stage. That will show *that* a stage is expensive, never *which* of its choices
+decisions within a stage. That will show _that_ a stage is expensive, never _which_ of its choices
 made it so. Finer attribution was deliberately left out as the kind of instrumentation this slice
 exists to avoid, and reverting that call costs nothing — the per-stage figure is a strict subset of
 anything finer we might add later.
@@ -297,7 +297,7 @@ anything finer we might add later.
 
 ### Amendment 2 — 2026-09-30, after approval
 
-**What changed.** Two things, both about what the measurement tool *is*.
+**What changed.** Two things, both about what the measurement tool _is_.
 
 **It is a bench, not a baseline run.** The purpose stated when this plan was written was to measure
 the current pipeline once and publish the number. The standing need is larger: compare quality
@@ -400,9 +400,9 @@ is written. Half a day, no code, and it is the cheapest risk to retire.
 **Two testing cadences, deliberately not merged.** Conflating them makes the fast one slow and the
 slow one useless:
 
-| | What it answers | When |
-|---|---|---|
-| Unit, integration and calibration tests | is the code correct | every commit, in CI, fast |
+|                                             | What it answers           | When                                |
+| ------------------------------------------- | ------------------------- | ----------------------------------- |
+| Unit, integration and calibration tests     | is the code correct       | every commit, in CI, fast           |
 | A bench run over the corpus with repetition | did quality actually move | once per increment, slow and costly |
 
 Running the corpus on every commit would make the feedback loop unusable and teach nothing a unit
@@ -449,3 +449,61 @@ learned to bypass is not.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-09-30
+
+### Amendment 6 — 2026-10-05, after the three-review pass
+
+**The bench does change the pipeline, and acceptance criterion 5 says it must not.**
+
+Principle 1 and AC-5 are binary: _"`git diff` over `tools/implement-design-plugin/` is empty for
+the whole plan."_ `data-figma-node` — the attribute
+[A-NOJIRA-figma-metadata-contract](../../analyzes/NOJIRA-figma-metadata-contract/analysis.md)
+identifies as the prerequisite for the discrepancy registry, and which
+[P-NOJIRA-html-contract](../NOJIRA-html-contract/plan.md) depends on — is emitted by the
+component-implementer agent, which lives inside that directory. **Emitting it fails AC-5
+outright**, and no approved plan currently owns emitting it.
+
+Three documents acknowledge the question and none of them binds: `sequencing.md` lists it as
+needing a decision, the html-contract approval assigns it to task 00 as "the position to beat",
+and the metadata-contract analysis assigns the attribute to a plan that **does not exist**. Left
+alone, `T-NOJIRA-html-contract-00` settles a criterion belonging to this plan, in one task,
+without this plan being consulted.
+
+**Amended:**
+
+- **Principle 1 becomes "the bench does not change pipeline _behaviour_."** The distinction is
+  the point: a run must produce the same components, with the same content, whether or not it is
+  being measured.
+- **AC-5 becomes two parts.** First, no change to generation logic — what gets built, from what,
+  with what values. Second, any marking change is listed, justified, and **proven
+  non-behavioural** by the unmarked 38-run control remaining comparable to a marked run on
+  completions and conformance.
+- **The unmarked control becomes a kept artifact**, not a historical curiosity, because it is the
+  only thing that keeps the second part checkable.
+
+**Also amended, from the same review pass:**
+
+- **T-06's method is falsified.** It requires "the denominator is honest and not quietly
+  shrinkable". `get_metadata` stops at instance boundaries — 10,936 nodes returned as 27 — so
+  every descent enlarges the universe and **there is no denominator**. Replaced by the closure
+  census (visited, resolved, captured, descended, hidden, excluded, frontier empty), now owned by
+  `T-NOJIRA-html-contract-04`. T-06 is superseded rather than reworded.
+- **T-07 acceptance 1 is unreachable** — "runs the existing pipeline over every registered corpus
+  case" cannot hold while 14 of 19 halt. A halt with a recorded cause is a **first-class result**,
+  not a run failure.
+- **T-09's method is measured false.** "Cost is read from what a run already reports" produced
+  self-reports disagreeing by two orders of magnitude, one of them fabricated. The source becomes
+  the ledger in `T-NOJIRA-figma-ingestion-01` plus orchestration-reported subagent usage, with the
+  supervising session's own consumption marked **unmeasured** rather than estimated.
+- **Amendment 4 is discharged** — its smoke run was superseded by 19 supervised and 38 control
+  runs.
+- **Amendment 2's accessibility deferral has fired without anyone noticing.** It parked
+  accessibility in "the slice that builds the HTML stage". That slice now exists as
+  `P-NOJIRA-html-contract` and does not carry it, while the control shipped two WCAG 2.1 AA
+  failures invisible to every gate any plan builds. Remediation may still defer; **detection must
+  not.**
+
+**Not amended, deliberately:** the goal, the two-dimension discipline, and T-05, T-13, T-14, T-16,
+which the review found intact or strengthened.
+
+- Amendment proposed: 2026-10-05
+- Amendment approved: pending

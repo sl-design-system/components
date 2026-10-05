@@ -81,8 +81,10 @@ blocks on `data-figma-node` existing first.
   approved.** Nothing else in this plan can be changed as cheaply afterwards: the schema is what
   every generator, every metric and the registry's keys are written against, so a field missing
   here is a rewrite later rather than an addition.
-- `T-NOJIRA-html-contract-01` — The common format in code: the approved contract expressed in
-  `zod`, with a validating reader
+- `T-NOJIRA-html-contract-01` — The common format in code: the approved contract as **language-neutral
+  JSON Schema** (normative), with `zod` **derived** from it. R31 requires the normative artifact be
+  readable by `.mjs` scripts _and_ a Python toolkit; zod is TypeScript-only, and mandating it as
+  the contract would have produced two validators that drift
 - `T-NOJIRA-html-contract-02` — Adapter from captures to the format, reporting gaps rather than
   hiding them
 - `T-NOJIRA-html-contract-03` — Retrofit: run the adapter over all nineteen runs; the runs it
@@ -102,9 +104,31 @@ blocks on `data-figma-node` existing first.
 - `T-NOJIRA-html-contract-10` — Fixture-based tests for every generator, so none of them needs
   Figma to be tested
 
+### Task 00 cannot be approved without a survivorship census first
+
+**Three independent reviews agreed this plan should not start at 01, and the measured reason is
+that its premise is thinner than it claims.** Before the contract is drafted, count what actually
+survives across the nineteen runs:
+
+| Measured            | Finding                                                                                                                                                                                                                                        |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| adaptable captures  | **6 runs hold under 10 KB of design context in total**; `a1` holds agent prose and elided class names under `"truncated": false`                                                                                                               |
+| provenance          | every `captures/index.json` was built by `normalise-captures.mjs` **from the runs' own markdown**, and all nineteen `capturedAt` values fall within 64 ms of each other — the exact lie the capture protocol says that field exists to prevent |
+| verified references | **7 are downscaled**, one is channel-halved. Under 07a's refuse-never-correct rule, roughly **8 of 19** reach 07b                                                                                                                              |
+| assets              | 55 captures reference dead asset URLs and **no run has `captures/assets/`**                                                                                                                                                                    |
+
+**That census is the denominator**, and it goes in the plan before anything is built against it.
+Task 03's safety net — "the runs it cannot adapt are named" — **does not fire** on this, because a
+summarised capture parses cleanly and yields a plausible wrong document. That is this project's
+signature failure, found inside its own plan.
+
+Two consequences the contract must carry: a **provenance verdict per capture** (Figma's bytes, or
+reconstructed, or summarised), and **`asset: unavailable` as a format state**, so a fidelity
+figure says whether it scored an image-less render against an image-bearing reference.
+
 ### What task 00 must cover before it can be approved
 
-Three consumers, and the contract fails if it serves only the first.
+**Four** consumers, and the contract fails if it serves only the first.
 
 **1. Generating the design (2.1).** Element identity and the Figma node it came from; geometry;
 resolved style values; text content — including content that appears in no component mapping,
@@ -130,9 +154,25 @@ only it needs:
 - **a question, where one exists** — the decomposer answers twenty to thirty per screen silently,
   and the overlay is where they should surface.
 
-**The test of task 00 is a retrofit, not a review.** Take findings the nineteen runs already
-produced — Kampus's unreachable palette, A10's variable modes, the `::part()` specificity hazard,
-the `24 + 8 = 32` decomposition — and check the contract can record each. A contract that cannot
+**4. Framework code generation — the consumer I left out, and the omission is self-defeating.**
+`html-first.md` makes the HTML the contract implementation is generated from, yet the checklist
+above asks only for geometry, resolved styles, text, assets and mappings. That is **absolute
+positioning**, which is the worst possible input to a component generator. Worse, 07b rewards
+pixel fidelity, so the metric actively pushes the generator toward it.
+
+The contract must therefore record **layout intent, not only layout result**: auto-layout
+direction, gap and padding; **hug / fill / fixed**; bound variables; variant and state; breakpoint;
+role. The data is already in the captures — flex appears in 60 of 87 capture files — and
+`ARCH-handover-package` is explicit that the Figma extract is the **only** channel through which a
+developer without a Dev seat receives it. The rule: **geometry derived, layout recorded.**
+
+**The test of task 00 is a retrofit, not a review.** Take the **six** cases
+`A-NOJIRA-figma-metadata-contract` names, not the four I copied: Kampus's unreachable palette,
+A10's variable modes, the `::part()` specificity hazard, the `24 + 8 = 32` decomposition, **a
+blocked run**, and **a measurement that examined nothing**. The two I dropped are the two that
+analysis added, and the first of them is the **majority outcome** — 14 of 19 cases halt, and
+`P-NOJIRA-figma-ingestion` task 04's probe produces exactly that result. A contract that cannot
+record a halt leaves the other plan nowhere to write its answer. A contract that cannot
 express what we have already found is wrong, and that is discoverable in an afternoon without
 building anything.
 
@@ -166,9 +206,21 @@ prose, not structured decisions, so 08 over them will be partial. That is a find
 the run record must carry, not a blocker — and it is why 08 sits after the measurement tasks
 rather than before.
 
-**It depends on the captures being readable at all.** 3,004 node ids were stored and a reader
-could read 2,114. If 03 cannot adapt most runs, this plan's premise — that value can be extracted
-from data already paid for — is wrong, and the work moves to `P-NOJIRA-figma-ingestion` first.
+**It depends on the captures being readable at all, and the escape route is circular.** The plan
+said that if 03 cannot adapt most runs the work moves to `P-NOJIRA-figma-ingestion` — but that
+plan `depends_on` this one and states it has nothing to measure until 07b. **Neither plan can go
+first under its own rules.**
+
+Resolved by the census in task 00 rather than by discovering it at 03: if fewer than **ten** runs
+survive adaptation, reference verification and asset availability, this plan's scope narrows to
+tasks 00 to 04 — the contract, the adapter and the closure check, all still useful — and 05
+onward waits for a fresh capture made under the protocol. That is a named decision point with a
+number attached, not an escape hatch pointing at a plan that is pointing back.
+
+**A tradeoff worth deciding rather than assuming:** seven references are uniformly downscaled.
+Rendering the comparison _at the reference's resolution_ is not "correcting the reference", and
+would recover roughly seven runs. 07a should decide this explicitly — refuse only what cannot be
+described, record what can.
 
 **Dependency, one way — with one correction from review.** Nothing here needs
 `P-NOJIRA-figma-ingestion`; that plan needs this one, having nothing to measure against until
@@ -178,13 +230,16 @@ is not, and belongs to the other plan.
 
 ## Acceptance
 
-- The format has a `zod` schema derived from stated requirements, and a reader that rejects what
-  does not match.
-- The adapter runs over all nineteen runs and, for each, either produces a valid format document
-  or names what is missing. Neither outcome is silent.
+- The format's normative schema is language-neutral JSON Schema, `zod` is generated from it, and
+  a round-trip test proves the two accept and reject the same documents.
+- The adapter runs over all nineteen runs and the survivorship census is published as a number:
+  **how many produce a valid document, how many are named as unusable, and the two must sum to
+  nineteen.** The earlier wording — "either produces a document or names what is missing" — could
+  not fail, which is not an acceptance criterion.
 - The closure check reports a census — visited, resolved, captured, descended, hidden, excluded,
-  frontier — and agrees with the reconstruction probe's verdict on the eleven runs known to fail
-  it, or explains why not.
+  frontier — and **agrees with the reconstruction probe on at least nine of the eleven runs known
+  to fail it**. The earlier "or explains why not" made the strongest validation available
+  unfalsifiable.
 - The design HTML generates from the format with no Figma call, and **generating twice produces
   identical checksums** for every adaptable run.
 - Each run's reference is verified before any number is computed against it, and a distorted

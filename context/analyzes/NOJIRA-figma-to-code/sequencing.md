@@ -138,3 +138,83 @@ adapter now sitting between the captures and everything downstream.
 `draft-next-steps`, `draft-discrepancy-registry` and `draft-measurement-method` have been carrying
 decisions that are now made. They should be folded into the new plan and deleted, or they will
 keep being read as current thinking after they stop being it.
+
+---
+
+# What three independent reviews found, 2026-10-05
+
+Three agents reviewed the plans against the evidence: one on the two new plans, one tracing the
+whole flow for unowned work, one re-checking the older approved plans. Findings rated
+Severity × Impact + Confidence, per the sl-plan review contract.
+
+**All three said the same thing in different words: do not start at task 01.**
+
+## The structural finding — nothing below the HTML has an owner
+
+The flow was mapped step by step against the plans. Every approved plan stops at the artifact.
+**Three steps that make the artifact worth producing are unowned:**
+
+| Unowned                          | Consequence                                                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| the emitter of `decisions.jsonl` | the overlay is permanently partial, not partial-for-now                                                       |
+| `data-figma-node`                | the registry and caching have **no join key**; the metadata analysis assigns it to a plan that does not exist |
+| **HTML → Angular / Lit / React** | the step the whole split exists for is an assumption in two documents and a roadmap sentence                  |
+
+And nobody owns **retiring the pipeline that currently generates Lit straight from Figma**, so two
+generators will coexist with no decision recorded.
+
+The verdict, quoted because the phrasing is the useful part: _we are building a very
+well-instrumented left-hand side of a handover whose right-hand side exists only as a roadmap
+sentence._
+
+## The corpus is thinner than both plans assumed — measured, not argued
+
+The third review counted instead of trusting:
+
+- **six runs hold under 10 KB** of design context in total;
+- every `captures/index.json` was built by `normalise-captures.mjs` **from the runs' own
+  markdown**, and all nineteen `capturedAt` values fall within 64 ms — the precise lie that field
+  exists to prevent;
+- `a1` holds agent prose and elided class names under `"truncated": false`;
+- **seven references are downscaled**, one is channel-halved;
+- **no run has `captures/assets/`**, while 55 captures point at dead asset URLs.
+
+So roughly **8 of 19** runs reach the fidelity task, not nineteen. And the plan's escape route was
+circular: it sent the work to the ingestion plan, which `depends_on` it.
+
+## Three contract-breaks, all now recorded
+
+1. **AC-5 of the measurement plan forbids touching the pipeline**, and `data-figma-node` is
+   emitted by an agent inside it. Amendment 6 written.
+2. **`zod` as the normative schema breaks R31**, which requires a language-neutral artifact
+   readable by `.mjs` and a Python toolkit. Fixed: JSON Schema normative, zod derived.
+3. **The closure census was owned three times** — ingestion T-07, html-contract T-04 and
+   figma-to-code T-06. T-06 is superseded by Amendment 6.
+
+## The omission that was mine, and self-defeating
+
+Task 00's checklist asked for geometry, resolved styles, text, assets and mappings — **absolute
+positioning** — while `html-first.md` makes the HTML the thing framework code is generated from.
+That is the worst possible codegen input, and 07b's pixel metric would have actively rewarded it.
+The data is already in the captures: flex in 60 of 87 files.
+
+Fixed by a rule rather than a field list: **geometry derived, layout recorded.**
+
+## Also corrected
+
+Task 00's retrofit test cited four acceptance cases where the analysis names six; the two dropped
+were **a blocked run** — the majority outcome at 14 of 19 — and a measurement that examined
+nothing. Four acceptance criteria could not fail and now carry thresholds.
+
+## Still open, and needing a decision rather than an edit
+
+- **Who owns framework generation, and when?** Until this is answered the HTML is a deliverable
+  without a consumer.
+- **Does the pixel metric get demoted**, given it pushes the generator toward absolute
+  positioning? A genuine tradeoff: demote it and `html-first.md`'s central claim changes.
+- **Downscaled references** — refuse, or compare at the reference's resolution and record the
+  scale? The second recovers seven runs and is not "correcting the reference".
+- **Accessibility detection** — Amendment 2 parked it in "the slice that builds the HTML stage";
+  that slice exists and does not carry it, while the control shipped two WCAG failures no gate
+  sees.
+- **All six source analyses are `status: draft`**, which blocks the ADRs that depend on them.

@@ -53,6 +53,7 @@ If you want the theme in your application to follow the user preference, simply 
 
 ## Theme updates
 
+- Fixed issue for all themes where index.d.ts file was missing.
 - [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) adds The Message as a typeface for headings and titles through a new `fonts.css` file.
 - [`editorial-suite`](https://github.com/sl-design-system/components/blob/main/packages/themes/editorial-suite/CHANGELOG.md) darkens the secondary bold background color to improve contrast for outline buttons. [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) updates title tokens and aligns its typography settings with other components.
 

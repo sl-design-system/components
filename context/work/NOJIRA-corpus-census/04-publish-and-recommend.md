@@ -13,7 +13,7 @@ created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [measurement, reporting, decision]
 source_plan: P-NOJIRA-corpus-census
-depends_on: [T-NOJIRA-corpus-census-03]
+depends_on: [T-NOJIRA-corpus-census-02, T-NOJIRA-corpus-census-03]
 ---
 
 # Publish the figures, and recommend full scope or narrowed
@@ -25,6 +25,9 @@ the decision `P-NOJIRA-html-artifacts` is waiting for.
 
 Measured today: the overlap between declared and rendered node sets is ~330 on `a3` and `a7`, and
 **zero on four runs**. The independent-comparison population may be about four.
+
+**This is where the two strands join** — the census says which runs are admissible, the
+comparator says what their geometry does. Neither alone produces a publishable figure.
 
 ## Steps
 

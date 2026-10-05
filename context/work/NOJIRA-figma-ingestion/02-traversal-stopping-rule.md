@@ -26,6 +26,13 @@ against ~233k tokens to expand the same node.
 
 So a failed call does not lose a snippet. **It loses the stopping rule.**
 
+**The dependency on task 01 is soft, and worth naming as such.** The stopping rule is identical in
+both modes — nothing halts during traversal — so the traversal is not blocked on the mode being
+known. What the mode buys is a cost expectation: on a file known to be drawn in another library,
+per-node probing will resolve nothing, and knowing that in advance is the difference between a
+deliberate cost and a surprised one. Start 01 first if doing them in sequence; do not wait on it
+if someone else is already on 02.
+
 ## Steps
 
 1. `get_metadata` at the root — shallow. It stops at instance boundaries by itself: a

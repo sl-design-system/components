@@ -7,13 +7,13 @@ description: Figma declared geometry against the rendered box, with no reference
 jira: null
 resource: null
 status: todo
-independent: false
+independent: true
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [fidelity, geometry, measurement]
 source_plan: P-NOJIRA-corpus-census
-depends_on: [T-NOJIRA-corpus-census-02]
+depends_on: []
 ---
 
 # The geometry comparator
@@ -25,6 +25,11 @@ The first fidelity measurement in the effort, and it needs **no raster**: metada
 
 Metadata geometry is the only **independent** statement of position — comparing the build against
 `get_design_context`, which it was generated from, is close to tautological.
+
+**It does not depend on the census.** Building and testing the comparator needs a fixture with
+known offsets, not the corpus — the census decides _which runs to point it at_, which is task 04.
+Keeping it serial would have made the only multi-day task in this plan wait on hours of work for
+no reason.
 
 ## Steps
 

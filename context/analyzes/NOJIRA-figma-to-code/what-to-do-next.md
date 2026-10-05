@@ -248,3 +248,32 @@ arriving at it separately is the strongest argument either makes.
 
 The packaging question itself is not needed now — it is the same question as the toolkit's
 relocation to aipdlc, deferred until there is working code to move rather than a specification.
+
+## Added 2026-10-06 — a suspicion tested, and a plan that came out of it
+
+The question was whether designers had used our components with renamed properties, which would
+have been expensive: only designers could fix it, and it would have touched many files.
+
+**It did not survive the probe.** `A-NOJIRA-mapping-coverage` traced one failing design to the
+bottom. `sl-card Actionable` returns `{}` while `sl-badge` resolves in the same file, same call —
+and `search_design_system` shows why: Components 2.0 publishes **two** card assets, `sl-card`
+(mapped) and `sl-card Actionable` (a component set, mapped by nothing). The designers used a
+published design-system component. Nobody wrote the mapping.
+
+Three things follow, and they are the new plan
+[`P-NOJIRA-mapping-adapters`](../../plan/NOJIRA-mapping-adapters/plan.md):
+
+|                                                                                              |                                                                                    |
+| -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| The recorded coverage figure counts **code** components; Code Connect binds **Figma** assets | the gap is larger than _40 of 59_ and nobody has counted it                        |
+| Name matching gives confident wrong answers                                                  | our own classifier calls `sl-card Actionable` an `exact` match for `card.figma.ts` |
+| Nothing can disagree with a Code Connect snippet                                             | which is why a second adapter is worth more than its own coverage                  |
+
+Two numbers worth carrying forward on their own. **19% of the corpus's 723 component instances
+are `sl-*`, and nine of nineteen designs contain none at all** — that bounds what any mapping
+work can do. And `get_code_connect_suggestions` returned **135 components with their property
+values in one 32.5-second call**, against ~31 seconds per node for the map, which is what makes
+a second adapter cheap enough to be worth building.
+
+**Nothing here changes the order of Steps 0–3.** The new plan sits behind
+`P-NOJIRA-figma-ingestion` in E2 and competes with nothing currently running.

@@ -97,6 +97,15 @@ of them and it is the right remedy for two.
 | D   | **An SLDS component with no published mapping** — 14 of 54 files are scaffolds               | the component name matches a shipped SLDS component absent from our mapping inventory | write the mapping          | design system team |
 | E   | **A mapping exists but is stale or unpublished** — property renamed in Figma, label mismatch | in our inventory, still returns nothing                                               | republish or fix the drift | design system team |
 
+> **Sharpened 2026-10-06.** _"Property renamed in Figma"_ reads as a cause of `{}`, and it is
+> not one. Code Connect resolves by **node identity**; property names are read only when the
+> template executes, which is after an entry exists. A rename therefore produces a wrong value
+> behind a fallback, or a thrown assertion — never an empty map. Measured across the nineteen
+> runs: **five** `hasTemplate: false` entries in total, all for one component. Telling D from E
+> also needs asset identity rather than a name, because name matching reports
+> `sl-card Actionable` as `card.figma.ts` with full confidence and is wrong.
+> See [A-NOJIRA-mapping-coverage](../NOJIRA-mapping-coverage/analysis.md).
+
 **A and B are our bugs.** The map was readable and we failed to read it. A8 pass 2 rescued three
 of four "blocked" nodes by fanning out per-node lookups; A2 pass 2 got data the same way after two
 identical timeouts. Nothing needs publishing.
@@ -121,6 +130,15 @@ stopping and asking a human to fix the last two.
 - **A** and **B** are detectable by retrying, which is the fix as well as the test.
 
 ## Coverage today, and where it is worth growing
+
+> **Corrected 2026-10-06 by [A-NOJIRA-mapping-coverage](../NOJIRA-mapping-coverage/analysis.md).**
+> The figure below **counts the wrong denominator.** It counts shipped _code_ components; Code
+> Connect binds _Figma_ assets, and the two do not correspond. Probed: Components 2.0 publishes
+> both `sl-card` (a component, mapped by `card.figma.ts`) and `sl-card Actionable` (a component
+> set, mapped by nothing) — one code component, two Figma assets, one mapping. The real gap is
+> Figma-side, larger than the ratio below, and **still uncounted**;
+> `T-NOJIRA-mapping-adapters-01` is where it gets counted. The scaffold demand ranking that
+> follows is unaffected and still holds.
 
 **40 real mappings, 14 scaffolds, against 59 shipped components** — roughly two thirds covered.
 

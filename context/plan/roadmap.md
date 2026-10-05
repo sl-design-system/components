@@ -52,13 +52,13 @@ owns nine of the ten; the harness owns none of them.
 
 ## Epics
 
-| Epic                          | Outcome a stakeholder would recognise                                                                   | Plans                                                                            |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **E1 — Evidence**             | we know which of the nineteen runs are evidence, and have the first fidelity figure with an N beside it | `P-NOJIRA-corpus-census`                                                         |
-| **E2 — Ingestion**            | runs stop refusing the designs that need them; the fetch becomes countable and provably complete        | `P-NOJIRA-figma-ingestion`, then `P-NOJIRA-ingestion-hardening`                  |
-| **E3 — The deliverable**      | a developer receives the design as HTML, plus an overlay marking what matched and what did not          | `P-NOJIRA-html-contract`, then `P-NOJIRA-html-artifacts`                         |
-| **E4 — The bench**            | quality is tracked over time: variance, baseline, cost, rerun policy                                    | `P-NOJIRA-figma-to-code` (reduced by Amendment 6)                                |
-| **E5 — Adoption and hygiene** | the thing is usable, honest, and its claims survive contact                                             | `P-NOJIRA-requirement-triage`, accessibility (unwritten), the designer rehearsal |
+| Epic                          | Outcome a stakeholder would recognise                                                                   | Plans                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| **E1 — Evidence**             | we know which of the nineteen runs are evidence, and have the first fidelity figure with an N beside it | `P-NOJIRA-corpus-census`                                                                        |
+| **E2 — Ingestion**            | runs stop refusing the designs that need them; the fetch becomes countable and provably complete        | `P-NOJIRA-figma-ingestion`, then `P-NOJIRA-mapping-adapters` and `P-NOJIRA-ingestion-hardening` |
+| **E3 — The deliverable**      | a developer receives the design as HTML, plus an overlay marking what matched and what did not          | `P-NOJIRA-html-contract`, then `P-NOJIRA-html-artifacts`                                        |
+| **E4 — The bench**            | quality is tracked over time: variance, baseline, cost, rerun policy                                    | `P-NOJIRA-figma-to-code` (reduced by Amendment 6)                                               |
+| **E5 — Adoption and hygiene** | the thing is usable, honest, and its claims survive contact                                             | `P-NOJIRA-requirement-triage`, accessibility (unwritten), the designer rehearsal                |
 
 ## Plans, and what each waits for
 
@@ -68,6 +68,7 @@ owns nine of the ten; the harness owns none of them.
 | `P-NOJIRA-figma-ingestion`     | E2   | —                                   | **now, in parallel**                                      |
 | `P-NOJIRA-html-contract`       | E3   | corpus-census                       | after E1                                                  |
 | `P-NOJIRA-html-artifacts`      | E3   | html-contract                       | after the contract is agreed                              |
+| `P-NOJIRA-mapping-adapters`    | E2   | figma-ingestion                     | after E2's first plan lands                               |
 | `P-NOJIRA-ingestion-hardening` | E2   | figma-ingestion, html-artifacts     | after the traversal exists and the closure check is built |
 | `P-NOJIRA-figma-to-code`       | E4   | html-artifacts, ingestion-hardening | last                                                      |
 | `P-NOJIRA-requirement-triage`  | E5   | —                                   | anytime; documents only                                   |
@@ -79,6 +80,16 @@ plan.
 **One rule that keeps it true:** a plan's dependency means _that plan is finished_, never _that
 task is done_. A plan may consume a completed plan's output freely; it may not wait mid-flight on
 somebody else's task.
+
+**`P-NOJIRA-mapping-adapters` was added 2026-10-06, from a probe rather than from planning.** A
+suspicion that designers had renamed component properties was tested and did not survive:
+[A-NOJIRA-mapping-coverage](../analyzes/NOJIRA-mapping-coverage/analysis.md) traced one failing
+design to `sl-card Actionable`, a component **Components 2.0 publishes and nobody mapped** —
+alongside `sl-card`, which is mapped. Two Figma assets, one code component, one mapping. Three
+things follow and all three are in the new plan: the recorded coverage figure counts the wrong
+denominator, name matching produces confident wrong answers where asset identity would not, and
+Code Connect currently cannot be checked by anything, which is why a second adapter is worth more
+than its own coverage.
 
 ## Slices — superseded by the two tables above
 

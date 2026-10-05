@@ -1,0 +1,7 @@
+<instance id="4195:33202" name="sl-select (simple-prototype)" x="0" y="44" width="240" height="52">
+  <instance id="I4195:33202;1514:155951" name="sl-base-label" x="0" y="0" width="35" height="20" hidden="true" />
+  <frame id="I4195:33202;1550:6733" name="input and validation" x="12" y="8" width="216" height="36">
+    <instance id="I4195:33202;1514:155394" name="Select variations" x="0" y="0" width="216" height="36" />
+    <instance id="I4195:33202;1545:13374" name="sl-base-validation-message" x="0" y="40" width="144" height="20" hidden="true" />
+  </frame>
+</instance>

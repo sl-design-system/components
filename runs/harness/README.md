@@ -64,6 +64,85 @@ That check exists because of the failure mode it was written against. An element
 registered is still in the DOM: the story loads, nothing throws, the capture succeeds, and the
 image is of an empty page. Presence proves nothing; a shadow root and a non-zero box do.
 
+## Traversal — `traverse.mjs`, with Code Connect as the stopping rule
+
+Code Connect is not a verification step after capture. It decides **how deep to go**:
+`get_design_context` on a mapped node returned `<sl-grid></sl-grid>` for ten thousand nodes,
+against ~233k tokens to expand the same node. A failed call therefore does not lose a snippet —
+**it loses the stopping rule**, and the fallback must fail open: descend, and record that it
+descended because the map was unreadable rather than because the node was unmapped. Those two
+produce identical markup and mean opposite things.
+
+```
+node runs/harness/traverse.mjs --root 334:20573 --out walk.json
+node runs/harness/traverse.mjs --root 334:20573 --expand-mapped   # what pruning saved
+```
+
+The transport is `mcp.mjs`, one MCP session shared with `mode-decision.mjs`. Both the Dev Mode
+server on `127.0.0.1:3845` and the remote answer on the same shape of endpoint and disagree about
+the envelope — one sends an event stream, the other JSON — so `parseEnvelope` accepts both. A
+reader that understood only one found zero externals in 60 KB of a perfectly good response once
+already.
+
+### Four behaviours of the server, measured rather than assumed
+
+Probed 2026-10-05 against the Dev Mode server, and the traversal is shaped by all four.
+
+| Behaviour                                                                                                                                                                                   | What it means here                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **`get_metadata` is depth-limited.** A canvas listed six sections self-closed; asking one of those sections directly returned its children.                                                 | A childless container is enqueued, not believed. Believing the first response would have called a design six empty boxes. |
+| **`get_metadata` stops at instance boundaries.** An instance arrives self-closed from its parent and yields its contents only when asked for by name.                                       | This is what makes pruning a mapped node a real saving rather than a bookkeeping entry.                                   |
+| **The server emits node ids it will not accept.** Inside an instance the children come back as `I4195:33202;1514:155951`, and both tools answer `Node ID must be in the format "123:456"`.  | The id is not absent from Code Connect. It is unaskable, and the two have been read as the same thing.                    |
+| **Only the outermost segment is askable.** The last segment `1514:155394` answers `No node could be found` — it addresses a node inside a library component this document does not contain. | A nested node inherits its enclosing instance's verdict instead of being probed and filed as unmapped.                    |
+
+### Thirty-one seconds, and then `{}`
+
+`get_code_connect_map` on the Dev Mode server answers a rejected id in **0.09 s**, a node that
+does not exist in **0.4 s**, and **every valid node in 30.6–31.1 s** — five samples, the same
+plateau for a 36×36 button instance and for a 240×720 symbol holding twenty nodes. A lookup whose
+cost does not vary with what it looks through has not looked.
+
+The traversal does **not** claim that is a timeout. It claims it cannot tell, which is the honest
+output and the whole point of the task: `--slow-map-ms` (default 10 000) is the line past which an
+empty map stops counting as evidence of absence and starts counting as a failure to read. The
+budget is recorded in the report rather than compiled in, so a reader can see what it was judged
+by.
+
+### What a descent records
+
+Every node leaves the walk with a disposition, and every descent with a reason:
+
+| Disposition           | Reason                       | Means                                                                                    |
+| --------------------- | ---------------------------- | ---------------------------------------------------------------------------------------- |
+| `resolved`            | —                            | A snippet came back. The subtree is **not** fetched.                                     |
+| `descended`           | `genuinely-unmapped`         | The map answered `{}`, promptly. Nothing is mapped here.                                 |
+| `descended`           | `map-unreadable`             | The call was refused, or answered empty past the budget. **The stopping rule was lost.** |
+| `descended`           | `identified-without-snippet` | `hasTemplate: false` — the component is known, the template is not. Descend for content. |
+| `nested`              | `nested-id-not-probeable`    | A `;` id. Answered by the instance that encloses it, never sent to the server.           |
+| `hidden`              | `hidden-in-the-design`       | Excluded on purpose, and written down so a count still means something.                  |
+| `inline`              | —                            | Structure the designer drew; it cost no call.                                            |
+| `unreadable-metadata` | `metadata-unreadable`        | The server's own sentence is kept, not our parser's complaint about it.                  |
+
+The CLI exits **3** when it ran out of node budget and **4** when any descent was
+`map-unreadable`, unless `--allow-truncated` / `--allow-unreadable` says the operator already
+knows. A count taken after either is a floor, not a figure.
+
+### Measured on a live design
+
+One symbol, 34 nodes, 2026-10-05:
+
+|                                                      |                                                 |
+| ---------------------------------------------------- | ----------------------------------------------- |
+| Code Connect calls                                   | 13, every one 30.79–31.01 s, every one `{}`     |
+| Descents                                             | **13 `map-unreadable`, 0 `genuinely-unmapped`** |
+| Nested ids the server emitted and would have refused | **15**                                          |
+| Hidden, excluded and recorded                        | 2                                               |
+
+Under the old reading that design has **28 unmapped nodes** and the halt prints _publish mappings
+and re-run_. What actually happened is that the map could not be read thirteen times and fifteen
+ids were never askable. Neither of those is a missing mapping, and neither is fixed by publishing
+one.
+
 ## The Stage 3 gate — `typecheck.mjs`
 
 The pipeline defines its Stage 3 gate as `tsc` exit 0. **In this repository that is unreachable.**

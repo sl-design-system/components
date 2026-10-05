@@ -1,0 +1,7 @@
+<symbol id="4187:43000" name="Sticky TOC" x="2492" y="178" width="240" height="720">
+  <frame id="4187:33868" name="Frame 31423" x="0" y="0" width="240" height="44">
+    <text id="4187:33829" name="Inhoudsopgave" x="12" y="12" width="180" height="20" />
+    <instance id="4187:33783" name="sl-button-rectangular" x="192" y="4" width="36" height="36" />
+  </frame>
+  <instance id="4195:33202" name="sl-select (simple-prototype)" x="0" y="44" width="240" height="52" />
+</symbol>

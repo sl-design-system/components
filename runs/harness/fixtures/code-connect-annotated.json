@@ -1,0 +1,12 @@
+{
+  "_note": "The single call get_code_connect_map(nodeId=334:20573) over the full subtree returned {} (empty). Per-node targeted calls DID return resolved snippets.",
+  "334:20668": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "<sl-button shape=\"pill\" variant=\"primary\">Join live lesson</sl-button>"
+  }
+}

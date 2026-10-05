@@ -1,0 +1,8 @@
+<canvas id="4193:16775" name="📖  —  Lesson Material" x="0" y="0" width="0" height="0">
+  <section id="4197:31842" name="Outside the group" x="-356" y="-80" width="1436" height="2508" />
+  <section id="4438:4953" name="Outside the group - current nav" x="7275" y="-80" width="2815" height="2508" />
+  <section id="4197:31843" name="Inside the group" x="1288" y="-80" width="1436" height="2508" />
+  <section id="4438:5249" name="Inside the group - current nav" x="10506" y="-80" width="2815" height="2508" />
+  <section id="4834:45222" name="Feedback" x="7275" y="5266" width="4695" height="3342" hidden="true" />
+  <section id="5066:52606" name="Stream naming in breadcrumbs" x="7275" y="2938" width="3697" height="2484" />
+</canvas>

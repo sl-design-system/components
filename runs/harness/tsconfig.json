@@ -23,9 +23,11 @@
   },
   // **A register, not a glob.** A file joins this list when a task has made it type-clean, and
   // the command stays green the whole way. Globbing the directory would put 185 errors behind
-  // the gate on day one, which is the same as having no gate. Remaining entrants are tracked by
-  // T-NOJIRA-harness-quality-04.
+  // the gate on day one, which is the same as having no gate. Every file with a named
+  // consumer is now in; `check-tokens.mjs`, `shoot.mjs`, `link-workspaces.mjs` and
+  // `typecheck.mjs` are not, and join when a task makes them type-clean.
   "include": [
+    "mcp.mjs",
     "mode-decision.mjs",
     "mode-decision.test.mjs",
     "normalise-captures.mjs",
@@ -33,6 +35,8 @@
     "render-design.mjs",
     "render-design.test.mjs",
     "theme-match.mjs",
-    "theme-match.test.mjs"
+    "theme-match.test.mjs",
+    "traverse.mjs",
+    "traverse.test.mjs"
   ]
 }

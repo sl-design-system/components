@@ -84,6 +84,68 @@ design is unmapped and halts with zero retries. That single misreading is 14 of 
 live. Unpublished or stale mappings are invisible to every run, and nothing in a run says which
 it saw.
 
+## What `{}` actually means — five causes wearing one symptom
+
+This is the question worth answering precisely, because the pipeline prints **one** remedy for all
+of them and it is the right remedy for two.
+
+| #   | Cause                                                                                        | How to tell                                                                           | Remedy                     | Whose              |
+| --- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------- | ------------------ |
+| A   | **Retrieval failed** — subtree call timed out or was scoped wrongly                          | per-node calls on the same ids return real mappings                                   | retry per node             | pipeline           |
+| B   | **Nested instance id rejected** — `I123:456;789:012` fails the server's format check         | the id contains `;`                                                                   | probe the parent instance  | pipeline           |
+| C   | **The design uses another library** — itslearning, Kampus legacy, Bingel, Vuetify            | no `<sl-*>` anywhere in `get_design_context`; variables are `$gray--900`, `Size/300`  | as-is mode                 | nobody — expected  |
+| D   | **An SLDS component with no published mapping** — 14 of 54 files are scaffolds               | the component name matches a shipped SLDS component absent from our mapping inventory | write the mapping          | design system team |
+| E   | **A mapping exists but is stale or unpublished** — property renamed in Figma, label mismatch | in our inventory, still returns nothing                                               | republish or fix the drift | design system team |
+
+**A and B are our bugs.** The map was readable and we failed to read it. A8 pass 2 rescued three
+of four "blocked" nodes by fanning out per-node lookups; A2 pass 2 got data the same way after two
+identical timeouts. Nothing needs publishing.
+
+**C is not a fault at all.** Six of ten measured designs are in this state, permanently. The
+printed remedy — publish mappings and re-run — cannot be carried out, because there is nothing to
+map.
+
+**Only D and E are what the halt message describes.**
+
+So `{}` is not one thing. It is a symptom shared by a transport failure, an id-format limitation,
+an expected property of the corpus, and two genuine gaps — and the pipeline answers all five by
+stopping and asking a human to fix the last two.
+
+### The diagnosis is cheap and mostly local
+
+- **C** is already computed: `theme-match.mjs` reports `method: hex-value-fallback` exactly when a
+  design binds no design-system token names. That is the same discrimination.
+- **D** needs no API call at all. The mapping inventory is in this repository —
+  `scripts/connect-figma-components/src/*.figma.ts`. Comparing a component name against it is a
+  local lookup.
+- **A** and **B** are detectable by retrying, which is the fix as well as the test.
+
+## Coverage today, and where it is worth growing
+
+**40 real mappings, 14 scaffolds, against 59 shipped components** — roughly two thirds covered.
+
+Which scaffolds matter is not a matter of taste. Counting how often each appears in the nineteen
+run manifests gives the demand ranking `T-03` is meant to produce, in one command:
+
+| Scaffolded component | Designs that needed it |
+| -------------------- | ---------------------: |
+| `sl-tool-bar`        |                      6 |
+| `sl-form`            |                      6 |
+| `sl-tag`             |                      5 |
+| `sl-paginator`       |                      5 |
+| `sl-tabs`            |                      3 |
+| `sl-skeleton`        |                      2 |
+| `sl-tree`            |                      1 |
+| the other seven      |                      0 |
+
+Four scaffolds account for almost all the demand, and they are the same components the runs
+visibly struggled with — three runs rejected `sl-paginator` and hand-built pagination, several
+substituted `sl-tag` for status pills, and A1 rejected `sl-tool-bar` and then lost its keyboard
+semantics twice doing it by hand.
+
+**Finishing four mappings would address most of the measured gap.** The other seven can wait, and
+knowing that is worth more than the ranking being sophisticated.
+
 ## How it fits the marking proposal
 
 **Centrally, and with no change to the mappings themselves.** Code Connect is the `mapped` basis

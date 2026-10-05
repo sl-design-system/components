@@ -1932,8 +1932,9 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(Math.ceil(tfoot!.getBoundingClientRect().bottom)).to.be.at.least(
-        Math.floor(row!.getBoundingClientRect().bottom)
+      // The scrollbar footer starts exactly where the last (group) row ends
+      expect(Math.round(tfoot!.getBoundingClientRect().top)).to.equal(
+        Math.round(row!.getBoundingClientRect().bottom)
       );
     });
   });

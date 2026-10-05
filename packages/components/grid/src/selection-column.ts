@@ -61,8 +61,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           class=${ifDefined(classes.join(' ') || undefined)}
           id=${this.headerCellId}
           part="header selection"
-          role="columnheader"
-          scope="col">
+          role=${this.headerRole}
+          scope=${ifDefined(this.headerScope)}>
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -80,8 +80,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           part="header selection-placeholder"
-          role="columnheader"
-          scope="col"></th>
+          role=${this.headerRole}
+          scope=${ifDefined(this.headerScope)}></th>
       `;
     }
   }

@@ -67,6 +67,18 @@ describe('sl-column', () => {
       expect(header?.textContent?.trim()).to.equal('');
     });
 
+    it('should not use the form control column label as the hidden header label', async () => {
+      const column = el.querySelector('sl-grid-column')!;
+
+      column.hideHeaderText = true;
+      column.formControlColumnLabel = 'Action';
+      el.requestUpdate();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('th')).to.have.attribute('aria-label', 'First name');
+      expect(column.getFormControlLabel({ firstName: 'John' })).to.equal('Action');
+    });
+
     it('should have the right justify-content value', () => {
       expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
         'start',
@@ -87,13 +99,10 @@ describe('sl-column', () => {
       ]);
     });
 
-    it('should reference rendered plain cell values with aria-labelledby', () => {
-      const labels = cells.map(cell => cell.getAttribute('aria-labelledby'));
-
-      expect(labels.every(Boolean)).to.be.true;
-      labels.forEach((label, index) => {
-        expect(label).to.equal(`${el.renderRoot.querySelectorAll('th')[index].id}`);
-        expect(cells[index].textContent?.trim()).to.equal(['John', 'Doe', '20'][index]);
+    it('should not override the value of ungrouped cells with aria-labelledby', () => {
+      cells.forEach((cell, index) => {
+        expect(cell).not.to.have.attribute('aria-labelledby');
+        expect(cell.textContent?.trim()).to.equal(['John', 'Doe', '20'][index]);
       });
     });
 
@@ -233,11 +242,11 @@ describe('sl-column', () => {
       expect(data).to.deep.equal(['Bar', '']);
     });
 
-    it('should omit aria-labelledby for empty string values', () => {
+    it('should not set aria-labelledby or an id on ungrouped cells', () => {
       const dataCells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
 
-      expect(dataCells[0].getAttribute('aria-labelledby')).to.be.a('string');
-      expect(dataCells[0].id).to.not.equal('');
+      expect(dataCells[0].getAttribute('aria-labelledby')).to.equal(null);
+      expect(dataCells[0].id).to.equal('');
       expect(dataCells[1].getAttribute('aria-labelledby')).to.equal(null);
       expect(dataCells[1].id).to.equal('');
     });

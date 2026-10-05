@@ -597,6 +597,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
     const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0);
 
+    // Intentionally, `aria-rowindex` is not a global position in the table: header rows and body
+    // rows each start counting at 1. NVDA announced the wrong row index otherwise (see #3377).
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
@@ -1506,13 +1508,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             (value): value is string => !!value
           )
         : [];
-      const parentHeaderLabels = parentGroup
-        ? [...parentGroup.groupHeaderLabels, parentGroup.headerLabelText].filter(
-            (value): value is string => !!value
-          )
-        : [];
       col.groupHeaderIds = parentHeaderIds;
-      col.groupHeaderLabels = parentHeaderLabels;
       col.columnIndex = currentIndex;
 
       if (col instanceof GridColumnGroup) {

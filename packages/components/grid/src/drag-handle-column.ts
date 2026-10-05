@@ -3,6 +3,7 @@ import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -45,8 +46,8 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
         aria-colindex=${String(this.columnIndex)}
         id=${this.headerCellId}
         part="header drag-handle"
-        role="columnheader"
-        scope="col">
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
         <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
       </th>
     `;

@@ -58,10 +58,12 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     columns.forEach(col => {
       col.grid = this.grid;
       col.groupHeaderIds = [];
-      col.groupHeaderLabels = [];
     });
 
     this.columns = columns;
+    this.scopedElements = columns.reduce((acc, cur) => {
+      return { ...acc, ...cur.scopedElements };
+    }, {});
 
     // Notify the grid that the column definition has changed
     this.columnUpdateEvent.emit({ grid: this.grid!, column: this });

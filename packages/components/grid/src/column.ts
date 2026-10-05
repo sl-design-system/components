@@ -155,9 +155,6 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal IDs of ancestor group headers that apply to this column header. */
   groupHeaderIds: string[] = [];
 
-  /** @internal Labels of ancestor group headers that apply to this column. */
-  groupHeaderLabels: string[] = [];
-
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
 
@@ -242,17 +239,32 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal */
   get headerIds(): string {
     // Data cells should only reference the leaf header, not group headers
-    // Group context comes through the leaf header's aria-labelledby
     return this.headerCellId;
+  }
+
+  /**
+   * @internal The role for the header cell. Headers inside a column group are exposed as cells, so
+   * VoiceOver reads them only once and doesn't pair them with the wrong group header.
+   */
+  get headerRole(): 'cell' | 'columnheader' {
+    return this.groupHeaderIds.length > 0 ? 'cell' : 'columnheader';
+  }
+
+  /** @internal The scope for the header cell; only column headers have a scope. */
+  get headerScope(): 'col' | undefined {
+    return this.headerRole === 'columnheader' ? 'col' : undefined;
   }
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    if (this.hideHeaderText) {
-      return this.headerLabelText || undefined;
+    if (!this.hideHeaderText) {
+      return undefined;
     }
 
-    return undefined;
+    // Don't use `formControlColumnLabel` here: that only applies to controls inside the cells
+    const headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
+
+    return headerLabel || (this.path ? getNameByPath(this.path) : undefined);
   }
 
   /** @internal Text label used for header announcements and form-control labels. */
@@ -275,9 +287,7 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     const classes = this.getClasses(),
-      parts = ['header', ...this.getParts()],
-      // Headers inside a column group are exposed as cells, so VoiceOver reads them only once
-      grouped = this.groupHeaderIds.length > 0;
+      parts = ['header', ...this.getParts()];
 
     return html`
       <th
@@ -286,8 +296,8 @@ export class GridColumn<T = any> extends LitElement {
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
-        role=${grouped ? 'cell' : 'columnheader'}
-        scope=${ifDefined(grouped ? undefined : 'col')}>
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
         ${this.renderHeaderLabel()}
       </th>
     `;
@@ -323,7 +333,9 @@ export class GridColumn<T = any> extends LitElement {
       data = this.getDisplayValue(item.data),
       parts = ['data', ...this.getParts(item.data)],
       cellLabel = this.getCellAriaLabel(data),
-      cellId = cellLabel ? this.getCellId(item) : undefined,
+      // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
+      // data cell by its column header instead; the rendered value is still read as the content.
+      cellId = cellLabel && this.groupHeaderIds.length > 0 ? this.getCellId(item) : undefined,
       labelledBy = cellId ? this.headerCellId : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {

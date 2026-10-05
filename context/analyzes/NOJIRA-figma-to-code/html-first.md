@@ -226,3 +226,107 @@ Three tests, in increasing rigour and cost: the **reconstruction** says the regi
 (exists, eleven of nineteen runs failed it); **text coverage** says nothing visible went
 unrecorded (the check that would have caught the consent sentences); **node accounting** proves
 every declared node has a home. The first two are cheap and catch what actually went wrong.
+
+---
+
+# A common format, after all — I argued against this and was wrong
+
+I said: do not transform Figma's output, the captures **are** the representation, transforming
+loses fidelity and adds a place to be wrong.
+
+That objection is true and shallow, and the counter-argument is stronger. **Without a common
+format, every consumer re-parses an undocumented format, so each embeds its own assumptions about
+it.** Two things already in this repository are that failure:
+
+- the capture protocol records that **3,004 node ids were stored and a reader built for the job
+  could read 2,114** — the reader's assumptions did not match the data, and nothing said so;
+- the advisory-block problem, where the renderer selected on `call === "get_design_context"` and
+  **"a correct `call` and a separate entry were mutually exclusive"** — a parsing assumption
+  leaking into the storage schema.
+
+And the point that settles it: **without a common format the generator cannot be tested without
+calling Figma.** Its tests would depend on a live, undocumented, rate-limited surface. For the one
+artifact whose whole value is determinism, that is untenable. With a format, the generator is
+tested against fixtures and never calls anything.
+
+## It does not conflict with keeping captures raw — those are different layers
+
+| Layer             | What it is                             | Changes when           | Validated by                  |
+| ----------------- | -------------------------------------- | ---------------------- | ----------------------------- |
+| **raw captures**  | exactly what Figma returned, immutable | never                  | nothing — it is evidence      |
+| **adapter**       | Figma's shapes → ours                  | Figma changes          | its output against the schema |
+| **common format** | our vocabulary, one version            | we decide to change it | `zod`, at the boundary        |
+| **generators**    | HTML, overlay, progress, checks        | our logic changes      | unit tests on fixtures        |
+
+My rule should have been "**no transformation of the stored evidence**", which is compatible with
+an adapter and is what the protocol actually protects. The raw bytes stay so the adapter can be
+rewritten when it turns out wrong — which, on an undocumented format, it will be.
+
+## What this buys, in the terms the question was asked in
+
+**"We will not know what broke."** With this split a failure is one of exactly two things, and
+they are attributable without investigation:
+
+- the **adapter's output fails the schema** → Figma changed something. One place, loud, with the
+  raw bytes beside it to diagnose from.
+- a **generator test fails** → our logic. No Figma involved.
+
+**"It will be hard to monitor quality and progress."** Both are computed over the common format,
+so neither moves when Figma changes its wire shape. A progress view reading our format keeps
+working across a Figma change that breaks ingestion — and says so, which is the useful behaviour.
+
+# Images
+
+`download_assets` returns three things per node: `export` (a render of the whole node),
+`rawImages` (the original uploaded JPEG/PNG/GIF/WebP fills in the subtree, **capped at 20**, each
+with its actual `format`), and `svgAssets` (vector layers best represented as SVG — icons, logos
+— **capped at 20**, the same set `get_design_context` surfaces).
+
+Four things follow, and the first is not optional.
+
+**Download during capture, never later.** The contract says it plainly — _"URLs are temporary —
+download promptly."_ One run recorded exactly this: _"expect these URLs to 404 after expiry; do
+not invent local asset files to replace them."_ Every missing-image discrepancy in the batch is
+this, and a later pass cannot fix it because the URLs are gone.
+
+**Resolve the mapping first, then download what is still an image.** An icon that maps to
+`sl-icon` is a component, not an asset, and downloading it as a raster converts a mapped
+component into a picture. The traversal already knows which nodes resolved — asset collection
+belongs after that branch, not before.
+
+**The caps are a traversal constraint.** Twenty raw images and twenty SVGs per call means a dense
+screen needs per-node calls, which the depth rules already produce. A run that calls once at the
+root and assumes it has everything will silently hold twenty of forty.
+
+**Store like any other capture**, and let the common format reference the local file rather than
+the Figma URL: `captures/assets/<nodeId>.<format>`, with the index recording node, source URL,
+format, bytes and `fetchedAt`. The expiry is why `fetchedAt` matters here more than elsewhere.
+
+# The completeness mechanism — the biggest unknown, made mechanical
+
+Three checks over the common format, which together answer "could we rebuild this screen".
+
+**1. Geometry coverage.** `get_metadata` gives `x/y/width/height` for every node in the placement
+tree. For each, ask whether the format contains an element at that position and size within a
+tolerance. Present or missing, per node, with a name.
+
+**2. Text coverage.** Every text node's content appears somewhere in the format. This is the check
+that would have caught the three consent sentences that existed in no capture and survived only
+because an implementer read the screenshot.
+
+**3. Asset coverage.** Every node with an image fill has a downloaded file in the index.
+
+**With two exemptions, stated rather than assumed:** a **mapped** region is complete by virtue of
+its mapping — Figma substitutes the reference and going deeper returns nothing — and a **hidden or
+decorative** node is complete by being explicitly excluded, with its reason recorded.
+
+The output is not a yes or no but a **coverage figure plus the list of what is missing, by node id
+and name**, which is the form a human can act on and a trend can be plotted from.
+
+**And it is falsifiable against what we already have.** Run it over the nineteen runs: if it
+reports high coverage for a run whose reconstruction visibly lacks half the screen, the mechanism
+is wrong. Eleven of nineteen failed the reconstruction probe, so there is a known-bad set to test
+against — the mechanism has to agree with it or explain why not.
+
+That is the strongest validation available: **the check is tested against runs whose answer we
+already know.**

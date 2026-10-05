@@ -99,7 +99,10 @@ is design system team work this plan only ranks.
   internals of resolved instances and pure assets, sort into the five causes with owners
 - `T-NOJIRA-figma-ingestion-06` — Asset capture during the fetch, after mapping resolution, with
   the cap-of-20 signal treated as "probably more"
-- `T-NOJIRA-figma-ingestion-07` — Closure check during ingestion, emitting the census
+- `T-NOJIRA-figma-ingestion-07` — **Invoke** the closure check during ingestion and emit its
+  census. The check itself is built once, in `T-NOJIRA-html-contract-04`, and runs over the
+  common format — it never touches Figma. Building it twice was the third of three owners this
+  census had
 - `T-NOJIRA-figma-ingestion-08` — Per-run metrics derived from the ledger, and cross-run analysis
   over the corpus
 - `T-NOJIRA-figma-ingestion-09` — Re-run the 19 × 2 control and compare against 5 of 38
@@ -165,7 +168,9 @@ run that reads it into context loses its window.
 - The eight boundary checks run at capture time; a failing capture is recorded as failing rather
   than passed downstream.
 - The mode is decided from evidence, cached per file, and recorded with that evidence.
-- No run halts on an empty map. Every unresolved node carries a cause and an owner, and the
+- **No run halts on an empty map in as-is mode.** Strict mode still halts, deliberately — that is
+  `A-NOJIRA-ds-conformance` F6, and a halt with a recorded cause is a first-class result rather
+  than a failure. Every unresolved node carries a cause and an owner, and the
   blocked-node count is stable between two passes of the same design — the control's moved by up
   to threefold.
 - Assets are captured during the fetch and resolve locally; no generated artifact references a

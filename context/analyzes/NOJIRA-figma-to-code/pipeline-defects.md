@@ -1,5 +1,12 @@
 # What the next version of the skills has to change
 
+> **Partly superseded, 2026-10-05.** Its reference-image section says normalising "must happen
+> once, in the harness", which contradicts `draft-measurement-method.md` ("never scale a
+> reference and then score against it") _and_ itself a paragraph later. The question is settled
+> elsewhere and in a way that removes it: fidelity is computed from the format, not from the
+> raster, so nothing is scored against a reference image at all. See
+> [`sequencing.md`](sequencing.md). The rest of this document stands.
+
 Observed defects in the `implement-design` pipeline, each from a real run rather than a reading of
 the code. Ordered by how much damage it does, not by how hard it is to fix.
 

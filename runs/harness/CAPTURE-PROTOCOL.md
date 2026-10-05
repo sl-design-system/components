@@ -29,7 +29,7 @@ One directory, one index, raw files beside it. No prose inside a raw file, ever.
 
 `<nodeId>` with `:` replaced by `-`, because a colon is awkward in a filename on some systems.
 
-**Every capture is `.txt`, whatever it holds**, and `index.json` says which call produced it. That
+**Every capture is `.txt`, whatever it holds** — including in this document's own example, which said `.jsx` until an audit caught it, and `index.json` says which call produced it. That
 is not fussiness: named `.jsx`, these files were claimed by the repository's own formatter, which
 then failed on them — they are Figma's output, not code anybody maintains, and one contains a prose
 warning appended mid-file. It is the same fault as `figma-metadata.json` holding XML, inverted: an
@@ -53,7 +53,7 @@ The only file a consumer has to understand. Everything else is bytes it points a
       "call": "get_design_context", // the MCP call, verbatim
       "nodeId": "25124:57173",
       "label": "left sidebar menu", // human note; never load-bearing
-      "file": "design-context/25124-57173.jsx",
+      "file": "design-context/25124-57173.txt",
       "bytes": 12649,
       "capturedAt": "2026-10-01T22:14:03Z",
       "truncated": false // true only if the caller knowingly stored less

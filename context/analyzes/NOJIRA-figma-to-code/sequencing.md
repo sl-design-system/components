@@ -225,7 +225,34 @@ nothing. Four acceptance criteria could not fail and now carry thresholds.
 
 ## Should the pixel metric be demoted?
 
-**Recommendation: keep it, report it, and never let it drive a fix loop.** The problem measured
+> **Revised the same day, after a contradiction audit disagreed and was right.** My first answer
+> — keep it as the headline, never let it drive a loop — overrode reasoning already recorded in
+> two places without acknowledging it: `draft-measurement-method.md` makes geometry primary and
+> the raster _"the only subjective one"_, and `render-design.mjs`'s own header says it _"must
+> never be scored against the PNG."_ The revised answer is below; the original reasoning is kept
+> because the loop-target argument survives and is the half that was right.
+
+**Revised recommendation: score geometry, colour, typography and tokens numerically from the
+format; keep the raster for human review and for build-against-build regression.**
+
+Three reasons, and the third is the one I missed:
+
+1. **Pixels as a headline reward the wrong output.** Measured three times, and 07b would have
+   pushed the generator toward absolute positioning — the worst input for the script that
+   generates framework code.
+2. **The loop-target argument still holds** and is now a property of a diagnostic rather than of
+   a score: a fix must state its cause and arithmetic either way.
+3. **It dissolves the reference problem instead of managing it.** If fidelity is computed from
+   the format — the build's measured geometry against Figma's declared geometry, colours against
+   resolved variables, typography against token values — then **no comparison needs the PNG**.
+   The seven downscaled references stop blocking anything, because a downscale is harmless to
+   human review. The corpus goes from roughly 8 scoreable runs back to 19.
+
+That last point reverses a conclusion I reached an hour earlier under the opposite assumption. A
+raster is also a _better_ regression instrument than a fidelity instrument: comparing two builds
+we produced is comparing two things we control, with no undocumented transformation in between.
+
+**Original reasoning, kept because its core survives:** The problem measured
 three times in this batch is not the metric — it is using the metric as a _target_.
 
 | Option                                                         | For                                                                                                                | Against                                                                                                                                           |
@@ -249,6 +276,11 @@ practice, demotion becomes the only remaining lever and `html-first.md`'s centra
 restated.
 
 ## Downscaled references — refuse, or compare at their resolution?
+
+> **Largely dissolved by the revision above.** If the raster is not scored, a downscaled
+> reference is no longer a measurement input and does not need a verdict — it needs a label. What
+> follows applies to the narrower remaining case: using the raster for build-against-build
+> regression, and for human review.
 
 **Recommendation: refuse corruption, record transformation.** They are not the same thing, and
 the current rule collapses them.

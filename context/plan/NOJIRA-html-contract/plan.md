@@ -66,7 +66,7 @@ rewritten when it turns out wrong — which, over an undocumented format, it wil
 
 ## Scope
 
-**In:** the common format and its `zod` schema; the adapter from captures; the three generators;
+**In:** the common format and its schema — **JSON Schema normative, `zod` derived**; the adapter from captures; the three generators;
 the closure check that says whether a capture was complete; retrofitting all nineteen runs.
 
 **Out:** framework code generation; any change to how Figma is called — that is
@@ -97,8 +97,11 @@ blocks on `data-figma-node` existing first.
 - `T-NOJIRA-html-contract-07a` — Reference integrity: verify each run's reference image against
   the frame's declared size and detect the halved-colour-channel case; refuse a distorted
   reference rather than correcting it
-- `T-NOJIRA-html-contract-07b` — Fidelity of the generated design against a verified reference,
-  measured and reported per run — the first comparable number
+- `T-NOJIRA-html-contract-07b` — Fidelity **computed from the format, not from the raster**:
+  the build's measured geometry against Figma's declared geometry, colours against resolved
+  variables, typography against token values. The first comparable number, and it needs no
+  reference image — which is why a downscaled reference stops blocking a run. The raster is kept
+  for human review and for build-against-build regression, never scored against the design
 - `T-NOJIRA-html-contract-08` — Generator 2, the overlay, with per-element state and inspection
 - `T-NOJIRA-html-contract-09` — Generator 3, the progress view
 - `T-NOJIRA-html-contract-10` — Fixture-based tests for every generator, so none of them needs
@@ -122,9 +125,15 @@ Task 03's safety net — "the runs it cannot adapt are named" — **does not fir
 summarised capture parses cleanly and yields a plausible wrong document. That is this project's
 signature failure, found inside its own plan.
 
-Two consequences the contract must carry: a **provenance verdict per capture** (Figma's bytes, or
-reconstructed, or summarised), and **`asset: unavailable` as a format state**, so a fidelity
-figure says whether it scored an image-less render against an image-bearing reference.
+Two things the contract must carry, and the first is a **required field, not a consequence**:
+
+- **`provenance` per capture — mandatory, no default.** One of `figma-bytes`, `reconstructed`,
+  `summarised`. A document whose provenance is unset does not validate. And **`capturedAt` must
+  refuse to populate on a reconstructed index**: that field exists precisely to stop a backfill
+  passing as original evidence, and today all nineteen carry one normalisation timestamp inside
+  64 ms.
+- **`asset: unavailable` as a format state**, so a figure says whether it scored an image-less
+  render.
 
 ### What task 00 must cover before it can be approved
 
@@ -244,8 +253,9 @@ is not, and belongs to the other plan.
   identical checksums** for every adaptable run.
 - Each run's reference is verified before any number is computed against it, and a distorted
   reference is refused rather than corrected.
-- Every run that generates has a fidelity figure against a **verified** reference, produced by
-  the same generator and therefore comparable across runs.
+- Every run that generates has a fidelity figure **computed from the format**, produced by the
+  same generator and therefore comparable across runs. No figure is derived from the reference
+  image.
 - Every generator has tests that run on fixtures, with no network access.
 
 ## Approval

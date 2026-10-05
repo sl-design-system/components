@@ -106,9 +106,12 @@ there is no cross-language contract, so zod alone is enough and no JSON Schema i
 Expected result table) / `## Edge cases` / `## Result`, with `status: draft → ready → passing →
 failing` and a `tests_task` link. That is BDD without new tooling.
 
-**There are zero use cases in the context.** This is the same gap recorded across several
-sessions as "no use case names a corpus case", which leaves a plan acceptance item unmet across
-all sixteen plans.
+**Corrected after writing:** this first said the context holds zero use cases. It holds
+**sixteen**, in `context/tests/` — the error was looking in `context/use-cases/`, which does not
+exist. The real finding is narrower and is the one already on record: all sixteen are
+`status: draft`, and **not one names a real corpus run or a stored fixture**. So the layer
+exists and is unexercised, rather than missing — which makes the remedy "anchor the scenarios
+we have" rather than "introduce a practice".
 
 ### F6 — A fixture built from a description tests the description
 

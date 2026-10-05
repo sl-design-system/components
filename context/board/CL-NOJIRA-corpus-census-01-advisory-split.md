@@ -6,10 +6,10 @@ title: marcin.ludwig implements T-NOJIRA-corpus-census-01
 description: 'Claim on the advisory-block split repair in normalise-captures.mjs'
 jira: null
 resource: null
-status: in-progress
+status: done
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-05T00:00:00Z
+updated: 2026-10-05T17:05:00Z
 tags: [board]
 unit: T-NOJIRA-corpus-census-01
 ---
@@ -20,6 +20,6 @@ unit: T-NOJIRA-corpus-census-01
 
 ## Notes
 
-Running under `sl-implement`. The unit is the `extractBlocks` split in
-`runs/harness/normalise-captures.mjs`; the re-normalisation output is a new versioned
-artifact, never an overwrite of the nineteen existing indexes.
+Delivered in `cbe4455ef`. The split needed three paths, not one — `extractBlocks`, the
+continuation branch, and the region ahead of the code — and the repair is worth +3 runs, not
+the +6 the task file estimated. Numbers in the task's `## Result`.

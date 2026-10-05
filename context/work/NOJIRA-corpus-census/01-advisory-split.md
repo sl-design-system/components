@@ -6,14 +6,15 @@ title: Repair the advisory-block split
 description: Six of the ten non-rendering runs fail on one concatenation bug; fixing it decides whether the downstream plan runs at full scope
 jira: null
 resource: null
-status: todo
+status: done
 independent: true
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-05T00:00:00Z
+updated: 2026-10-05T17:05:00Z
 tags: [captures, parsing, corpus]
 source_plan: P-NOJIRA-corpus-census
 depends_on: []
+commit: cbe4455efe90a779b7610d0ccf1c8b6ec774aada
 ---
 
 # Repair the advisory-block split

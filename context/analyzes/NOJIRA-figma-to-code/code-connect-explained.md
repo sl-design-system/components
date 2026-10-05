@@ -170,3 +170,81 @@ from real product designs rather than intuition.
 
 The traffic runs both ways: better coverage here makes runs more deterministic, and the bench
 tells this workspace where coverage is worth adding.
+
+---
+
+## Do the missing mappings cause the halts? Mostly no
+
+The recollection is right — **14 scaffolds**, components with no real mapping. But they are not
+what stops the runs, and the distinction matters because it points the effort somewhere else.
+
+Six of ten measured designs returned `{}` for the whole file with **zero `<sl-*>` anywhere**.
+Those are cause C: drawn in another library. **Finishing all fourteen scaffolds would change
+nothing for them.** The halts are dominated by C, plus the retrieval failures A and B.
+
+Where the missing mappings do bite is the opposite end — **the designs that already complete**.
+Three runs rejected `sl-paginator` and hand-built pagination; several substituted for `sl-tag`;
+A1 rejected `sl-tool-bar` and lost its keyboard semantics twice doing it by hand. So the scaffolds
+are a **fidelity and quality problem on working runs**, not a halt problem on broken ones.
+
+**One honest limit.** The 14-of-19 halts cannot be attributed cause by cause from the data,
+because a halted run records neither which nodes blocked nor why. The evidence above is from the
+runs that kept going. That the data was never collected is itself one of the findings.
+
+## We do not control `{}` — but there are two calls that answer the question properly
+
+`get_code_connect_map` is Figma's MCP tool. Its return value is not ours to change, and on a
+timeout the server appends an English sentence to the `{}`, which breaks JSON parsing — so the
+distinction exists upstream and is delivered unusably.
+
+What we control is the consumer. But the better news is that **two other calls in the same toolset
+return the structure we were going to reconstruct, and the pipeline uses neither**:
+
+| Call                                                                        | What its contract says                                                                                   | Which cause it settles                                                                      |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `list_file_components_for_code_connect(fileKey)`                            | every component **published to the file's library**, with the dependency graph; unpublished ones omitted | **C** — is this file built from our library or someone else's? One call per file, cacheable |
+| `get_code_connect_suggestions(nodeId, fileKey, excludeMappingPrompt: true)` | "a lightweight list of unmapped components"                                                              | **D** — which components here have no mapping                                               |
+
+That is close to the diagnosis table built by hand, available from the API, and cheaper: a
+file-level question answered once per file rather than per node. It also turns the demand ranking
+from a grep over our manifests into a direct query.
+
+**Untested.** This is read from the tool contracts, not from a run. One probe on a known file —
+an SLDS-based one and an itslearning one — confirms or kills it, and it is the cheapest next
+experiment available.
+
+## Where Code Connect belongs in the order — it is the stopping rule, not a step
+
+The skill already calls `get_metadata` first and Code Connect second, and that order is right:
+you cannot ask about nodes before you have node ids. Literally earlier is impossible.
+
+But the instinct behind the question is correct, and sharper than "earlier". **Code Connect should
+shape the traversal rather than follow it.** A2 measured why: `get_design_context` on a mapped node
+returned `<sl-grid></sl-grid>` — ten thousand nodes represented by an empty element. The Code
+Connect answer decides **how deep you need to go**.
+
+So the shape is interleaved and top-down, with Code Connect as the stopping rule:
+
+1. `get_metadata` at the root — shallow. A2's root returned **27 nodes in 9 seconds** because it
+   stops at instance boundaries.
+2. Code Connect on those top-level instances.
+3. **Mapped** → take the snippet, do not descend.
+4. **Unmapped** → descend, gather the interior, repeat.
+
+This is the real reason Code Connect saves tokens. Not that the call is cheaper — it is one call
+either way — but that **a resolved mapping prunes the tree**.
+
+### And this is why a Code Connect failure costs more than a missing snippet
+
+If the call fails, you do not merely lose a template. **You lose the stopping rule**, and must
+descend into a subtree you might not have needed — which on a node like A2's grid is a 163×
+difference.
+
+The fallback has to be defined, and only one direction is safe:
+
+> **Unknown → descend.** Failing open costs tokens. Failing closed — treating an unresolved node
+> as mapped — silently drops content, which is the failure mode this whole effort keeps finding.
+
+And the mark must record _which_ it was: descended because the node is genuinely unmapped, or
+descended because the map could not be read. Those produce the same markup and mean opposite
+things.

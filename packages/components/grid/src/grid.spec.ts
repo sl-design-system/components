@@ -186,11 +186,29 @@ describe('sl-grid', () => {
       expect(cells[3]).to.have.attribute('headers', `${cityHeaderId}`);
       expect(cells[4]).to.have.attribute('headers', `${countryHeaderId}`);
 
-      expect(cells[0]).to.have.attribute('aria-labelledby', `${firstNameHeaderId}`);
-      expect(cells[1]).to.have.attribute('aria-labelledby', `${lastNameHeaderId}`);
-      expect(cells[2]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId}`);
-      expect(cells[3]).to.have.attribute('aria-labelledby', `${cityHeaderId}`);
-      expect(cells[4]).to.have.attribute('aria-labelledby', `${countryHeaderId}`);
+      const nameGroupHeaderId = headers[0].id,
+        schoolGroupHeaderId = headers[1].id;
+
+      expect(cells[0]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${firstNameHeaderId}`
+      );
+      expect(cells[1]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${lastNameHeaderId}`
+      );
+      expect(cells[2]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${schoolNameHeaderId}`
+      );
+      expect(cells[3]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${cityHeaderId}`
+      );
+      expect(cells[4]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${countryHeaderId}`
+      );
     });
   });
 

@@ -334,9 +334,10 @@ export class GridColumn<T = any> extends LitElement {
       parts = ['data', ...this.getParts(item.data)],
       cellLabel = this.getCellAriaLabel(data),
       // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
-      // data cell by its column header instead; the rendered value is still read as the content.
+      // data cell by its group header(s) and column header instead (e.g. "Name First name"); the
+      // rendered value is still read as the content.
       cellId = cellLabel && this.groupHeaderIds.length > 0 ? this.getCellId(item) : undefined,
-      labelledBy = cellId ? this.headerCellId : undefined;
+      labelledBy = cellId ? [...this.groupHeaderIds, this.headerCellId].join(' ') : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`

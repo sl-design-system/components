@@ -115,11 +115,27 @@ describe('sl-column-group', () => {
       expect(dataCells[4]).to.have.attribute('headers', `${headers[6].id}`);
       expect(dataCells[5]).to.have.attribute('headers', `${headers[7].id}`);
 
-      expect(dataCells[0]).to.have.attribute('aria-labelledby', `${headers[2].id}`);
-      expect(dataCells[1]).to.have.attribute('aria-labelledby', `${headers[3].id}`);
-      expect(dataCells[2]).to.have.attribute('aria-labelledby', `${headers[4].id}`);
-      expect(dataCells[3]).to.have.attribute('aria-labelledby', `${headers[5].id}`);
-      expect(dataCells[4]).to.have.attribute('aria-labelledby', `${headers[6].id}`);
+      // Data cells are named by their group header followed by their column header
+      expect(dataCells[0]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[2].id}`
+      );
+      expect(dataCells[1]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[3].id}`
+      );
+      expect(dataCells[2]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[4].id}`
+      );
+      expect(dataCells[3]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[5].id}`
+      );
+      expect(dataCells[4]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[6].id}`
+      );
       expect(dataCells[5].getAttribute('aria-labelledby')).to.equal(null);
     });
 

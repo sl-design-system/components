@@ -269,28 +269,165 @@ sl-design-system-plugin/
     └── ...
 ```
 
-**Step 3 — the agent.** Its responsibilities, as drafted: translate UI intent into correct
-markup; select components, properties and variants; handle composition; ensure accessibility;
-and **respect component status, preferring stable over draft**. Its source of truth is
-`api-docs/{component}.md`, read on demand, for properties and types, valid enum values, required
-slots, related components and status. Its startup sequence reads an index of stable components
-first and pulls individual docs only as needed. Its output is always the markup, the required
-imports, a brief explanation of the component choices, and any accessibility notes.
+**Step 3 — the agent.** Drafted in full, because the composition rules in it are the part CEM
+cannot supply:
 
-**Step 4 — the skills.** `get-component` reads one doc and displays it, **warning when the
-component is draft or preview**. `create-form` reads `form.md`, `form-field.md` and
-`text-field.md`, builds the nesting, applies labels and validation attributes, and outputs HTML
-plus imports.
+```markdown
+---
+name: sl-design-system-builder
+description: 'Use this agent when the user asks to create, build, or design a UI component or layout using the SL Design System.'
+model: inherit
+tools: ['Read', 'Grep', 'AskUserQuestion']
+---
+
+You are an SL Design System specialist that translates natural language UI requests
+into correct HTML using SLDS web components.
+
+**Your Core Responsibilities:**
+
+1. Translate UI intent into correct SLDS component markup
+2. Select correct components, properties, and variants
+3. Handle component composition (form + form-field + text-field, etc.)
+4. Ensure accessibility (proper labels, ARIA, slots)
+5. Respect component status (prefer stable over draft components)
+
+**Source of Truth:**
+Read `api-docs/{component}.md` to get:
+
+- Available properties and their types
+- Valid enum values
+- Required slots
+- Related/child components
+- Component status (stable/preview/draft)
+
+**Component relationships (analogous to OpenAPI Links):**
+
+- sl-form → must contain sl-form-field → must contain a form control
+- sl-tabs → must contain sl-tab-group → must contain sl-tab elements
+- sl-button inside sl-button-bar for grouped actions
+- sl-icon can be placed inside sl-button default slot
+
+**Startup:**
+
+1. Read `api-docs/index.md` for list of all stable components
+2. Identify which components are needed for the user's request
+3. Read relevant component docs on demand
+
+**Output:**
+Always output:
+
+1. The HTML markup
+2. The required import/register statements
+3. Brief explanation of component choices
+4. Any accessibility notes
+```
+
+**Step 4 — the skills**, two of them drafted. `skills/get-component/SKILL.md`:
+
+```markdown
+---
+name: get-component
+description: Get full API documentation for an SLDS component
+---
+
+Get the API documentation for the specified SLDS component.
+
+1. Read `api-docs/$COMPONENT_NAME.md`
+2. Display: description, status, version, properties table, events, slots, examples
+3. If component is "draft" or "preview", show a warning
+```
+
+`skills/create-form/SKILL.md`:
+
+```markdown
+---
+name: create-form
+description: Create an SLDS form with specified fields
+---
+
+Create an SLDS form from the user's description.
+
+1. Read `api-docs/form.md`, `api-docs/form-field.md`, `api-docs/text-field.md`
+2. Build the form structure: sl-form > sl-form-field > sl-text-field/sl-checkbox/etc.
+3. Apply correct labels, types, validation attributes
+4. Output the complete HTML + import statements
+```
 
 ### F10 — Generating the docs in CI
 
-A `scripts/generate-ai-docs.js` would read each `custom-elements.json` alongside its
-`package.json` for status and version, optionally parse `*.stories.ts` for examples and enum
-values, write one Markdown file per component, and aggregate an index and a `components.json`.
+A `scripts/generate-ai-docs.js`, sketched as pseudocode:
 
-The target format per component carries status, version and package in a header line, then usage
-examples, a properties table with attribute names and types, events, slots, and **related
-components** — the composition information CEM does not hold.
+```javascript
+// Pseudocode — the script's logic
+import fs from 'fs';
+import fg from 'fast-glob';
+
+const components = await fg('../packages/components/*/custom-elements.json', { cwd });
+
+for (const cemPath of components) {
+  const cem = JSON.parse(fs.readFileSync(cemPath));
+  const packageJson = JSON.parse(
+    fs.readFileSync(cemPath.replace('custom-elements.json', 'package.json'))
+  );
+
+  const doc = generateMarkdown({
+    cem,
+    status: packageJson.status, // stable/preview/draft
+    version: packageJson.version,
+    homepage: packageJson.homepage
+  });
+
+  fs.writeFileSync(`dist/ai-docs/${componentName}.md`, doc);
+}
+
+// Also generate index.md listing every component
+// Also generate components.json (an aggregate of all CEMs)
+```
+
+The target format per component, as drafted — note that **Related Components** is the
+composition information CEM does not hold, and therefore the part no generator can produce from
+the manifest alone:
+
+````markdown
+# sl-button
+
+**Status:** stable | **Version:** 2.0.1 | **Package:** @sl-design-system/button
+
+## Usage
+
+```html
+<sl-button variant="primary">Click me</sl-button>
+<sl-button fill="outline" size="sm">Cancel</sl-button>
+```
+
+## Properties
+
+| Name     | Attribute | Type                                                                       | Description                    |
+| -------- | --------- | -------------------------------------------------------------------------- | ------------------------------ |
+| variant  | variant   | 'primary'\|'secondary'\|'success'\|'info'\|'warning'\|'danger'\|'inverted' | The variant of the button      |
+| fill     | fill      | 'solid'\|'outline'\|'link'\|'ghost'                                        | The fill style                 |
+| size     | size      | 'sm'\|'md'\|'lg'                                                           | The size of the button         |
+| disabled | disabled  | boolean                                                                    | Whether the button is disabled |
+
+## Events
+
+| Name     | Type         | Description                        |
+| -------- | ------------ | ---------------------------------- |
+| sl-focus | SlFocusEvent | Emitted when button receives focus |
+| sl-blur  | SlBlurEvent  | Emitted when button loses focus    |
+
+## Slots
+
+| Name      | Description                       |
+| --------- | --------------------------------- |
+| (default) | Text label. Optionally an sl-icon |
+
+## Related Components
+
+- `sl-icon` — can be placed inside button slot
+- `sl-button-bar` — groups multiple buttons
+- `sl-toggle-button` — for toggle/on-off interactions
+````
 
 ### F11 — The two approaches side by side
 

@@ -376,10 +376,31 @@ properties a component accepts from outside versus which `--_private` ones it us
 **which components work together** — CEM does not describe that `form` and `text-field` are
 related · which tokens each component actually uses.
 
-The proposed per-component contract shape, and a CI/CD flow ending in a
-`generate-ai-contracts.js` that reads each `custom-elements.json` plus its `package.json`,
-optionally parses stories for examples and enum values, and aggregates into one
+**The proposed CI/CD flow:**
+
+```yaml
+# .github/workflows/generate-contracts.yml
+- yarn install --immutable
+- node scripts/build-styles.js 'packages/components/**/*.scss'
+- node scripts/build-packages.js components
+- node scripts/build-metadata.js # → custom-elements.json per component
+- node scripts/generate-ai-contracts.js # ← TO BE WRITTEN
+```
+
+where `generate-ai-contracts.js` reads each `custom-elements.json`, reads the matching
+`package.json` for status and version, optionally parses `*.stories.ts` for examples and enum
+values, generates Markdown/JSON/MDX per component, and aggregates into one
 `all-components-api` file.
+
+Its proposed per-component contract shape — status, version and package in a header, then usage,
+a properties table, events, slots and **related components** — is the same artifact
+[`A-NOJIRA-plugin-packaging`](../NOJIRA-plugin-packaging/analysis.md) F10 drafts in fuller form,
+so it is not repeated here.
+
+**The two documents name the same script differently** — `generate-ai-contracts.js` here,
+`generate-ai-docs.js` there, writing to `all-components-api` and `dist/ai-docs` respectively.
+They are one proposal arrived at twice, and whoever writes it should pick one name knowingly
+rather than discover the collision afterwards.
 
 ## What would change our mind
 

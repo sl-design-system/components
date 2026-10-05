@@ -274,6 +274,17 @@ To control the mode yourself, set `--color-scheme` to `light` or `dark` on the b
 <html style="--color-scheme: dark;">
 ```
 
+If you want the theme in your application to follow the user preference, simply add this in your global style sheet:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-scheme: dark;
+    color-scheme: dark;
+  }
+}
+```
+
 ### How do I setup my Bitbucket pipeline to work with the SLDS packages?
 
 For the Sanoma Learning Bitbucket pipelines, there is a common token that you can use to authenticate with the GitHub NPM registry. For your projects' `.npmrc` you can use the following line to authenticate with the GitHub NPM registry:

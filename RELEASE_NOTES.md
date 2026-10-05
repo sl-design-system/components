@@ -4,6 +4,62 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# October 5, 2026
+
+## Breaking changes
+
+- All theme packages replace the separate `light.css` and `dark.css` files with a single `theme.css`. Replace both old imports with the new stylesheet.
+
+The deprecated CSS files remain unchanged; include the appropriate `light-deprecated.css` and/or `dark-deprecated.css` when supporting components that still rely on legacy tokens.
+
+An optional `typography.css` is also available for body text, headings, labels and captions.
+
+### For themes that support dark mode:
+
+The `theme.css` stylesheet includes both palettes and selects one using `--color-scheme`. To force a mode, set the property on the `<html>` element:
+
+```html
+<html style="--color-scheme: dark;"></html>
+<html style="--color-scheme: light;"></html>
+```
+
+If you want the theme in your application to follow the user preference, simply add this in the global style sheet:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-scheme: dark;
+    color-scheme: dark;
+  }
+}
+```
+
+## New features
+
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) adds a `hide-picker` attribute for custom actions that need to close the calendar after handling a click.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) adds `announce-errors` to control screen reader announcements for individual field errors. It is enabled by default; disable it when showing an aggregate error summary to avoid duplicate announcements. The summary also improves accessible announcements and links to invalid fields.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) and [`switch`](https://github.com/sl-design-system/components/blob/main/packages/components/switch/CHANGELOG.md) add support for selectable menu options displayed with a switch.
+- [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) adds a `chips` property for spacing between toggle buttons, and announces whether one or multiple options can be selected to screen reader users.
+
+## Bug fixes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) improves disabled background colors across variants, and [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) makes the missing-icon indicator inherit the surrounding text color.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) and [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fix grouped selection state after selecting filtered rows or groups and clearing filters.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes keyboard navigation for deeply nested menu items. [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes submenu structure when its menu button moves into the overflow menu.
+
+## Locales
+
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds Dutch, Italian, Spanish and Polish translations for the new toggle-group selection instructions.
+
+## Theme updates
+
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) adds The Message as a typeface for headings and titles through a new `fonts.css` file.
+- [`editorial-suite`](https://github.com/sl-design-system/components/blob/main/packages/themes/editorial-suite/CHANGELOG.md) darkens the secondary bold background color to improve contrast for outline buttons. [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) updates title tokens and aligns its typography settings with other components.
+
+## Tooling and packaging
+
+- Theme packages now include and export their TypeScript declarations. [`eslint-plugin-slds`](https://github.com/sl-design-system/components/blob/main/tools/eslint-plugin-slds/CHANGELOG.md) fixes a false positive for checkboxes labelled by tooltips, and [`rolldown-plugin-css-sheet`](https://github.com/sl-design-system/components/blob/main/tools/rolldown-plugin-css-sheet/CHANGELOG.md) fixes CSS imports from virtual modules.
+
 # September 17, 2026
 
 ## New features

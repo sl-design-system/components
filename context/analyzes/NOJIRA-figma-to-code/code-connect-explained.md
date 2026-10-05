@@ -209,9 +209,7 @@ That is close to the diagnosis table built by hand, available from the API, and 
 file-level question answered once per file rather than per node. It also turns the demand ranking
 from a grep over our manifests into a direct query.
 
-**Untested.** This is read from the tool contracts, not from a run. One probe on a known file —
-an SLDS-based one and an itslearning one — confirms or kills it, and it is the cheapest next
-experiment available.
+**Probed 2026-10-05. Both work, and the results are below.**
 
 ## Where Code Connect belongs in the order — it is the stopping rule, not a step
 
@@ -248,3 +246,69 @@ The fallback has to be defined, and only one direction is safe:
 And the mark must record _which_ it was: descended because the node is genuinely unmapped, or
 descended because the map could not be read. Those produce the same markup and mean opposite
 things.
+
+---
+
+## The probe: both calls work, with one caveat each
+
+Run against two files — `Course-files` (itslearning, known to return `{}`) and `SANNA`
+(SLDS-based, known to resolve).
+
+### `list_file_components_for_code_connect` settles library membership outright
+
+| File                       |                                     Components it publishes | Their external dependencies                                                                            |
+| -------------------------- | ----------------------------------------------------------: | ------------------------------------------------------------------------------------------------------ |
+| Course-files (itslearning) |      13 — `courses`, `content`, `assignment`, `Navigation`… | `Cell`, `.Main menu`, `.Navigation item`, `your-files` — **zero `sl-*`**                               |
+| SANNA                      | 153 — `Login`, `Chat screen`, `Step 02 – AI understanding`… | **24 distinct `sl-*`** — `sl-button-pill`, `sl-text-field`, `sl-dialog`, `sl-checkbox`, `sl-grid-row`… |
+
+**Neither file publishes an `sl-*` component**, and that is the right answer — product files consume
+a library, they do not republish it. The discriminator is **`dependencies[].name` and
+`assetKey` on the external entries**. A file whose components depend on `sl-button-pill` consumes
+the design system; one whose components depend on `Cell` consumes itslearning's. Cause **C**,
+decided from a single call, per file, without touching a node.
+
+It also carries `instanceCount` per component — `assignment` 222, `content` 121, `row-private
+files` 66 — so the demand ranking comes from the API rather than from grepping our own manifests.
+
+**The caveat is cost, and it is severe.** Thirteen components returned a comfortable payload; 153
+returned **2.18 MB ≈ 545k tokens** and could not be read into context at all. This has to be
+treated as a **file-producing call** — fetch to disk, grep for what you need — never as a
+context-producing one. A run that calls it naively on a large file loses its context window to it.
+
+### `get_code_connect_suggestions` is lightweight and returns what the halt should have
+
+With `excludeMappingPrompt: true`, on the node where `get_code_connect_map` returned `{}`:
+
+```
+27 entries: { componentName, mainComponentNodeId, instanceNodeId }
+Navigation · PageHeader · Banner · Cell · Status Tag · Pagination · Course Hat · …
+```
+
+Cheap on both files — 27 entries on the itslearning node, **10 on SANNA's**, so it scopes to the
+node's subtree rather than the file and does not inherit the size problem.
+
+Two things this fixes beyond replacing `{}`:
+
+- **The granularity instability.** The control found blocked-node counts moving 11→35, 125→141,
+  24→23 between identical passes because the skill never fixed whether it was counting instances
+  or components. This call returns **both ids explicitly** — `mainComponentNodeId` is the stable
+  identity that would be mapped, `instanceNodeId` is the placement.
+- **It makes the A-versus-absence question moot for diagnosis.** You no longer need to know
+  whether the map call failed or the design is unmapped; you ask the question that returns the
+  list.
+
+**The caveat: it over-reports.** SANNA's ten include `Button-Variants` and `Button-Base` — which
+are the _internals_ `button.figma.batch.ts` descends into via `findInstance('Button-Variants')`.
+They are implementation detail of a component that **is** mapped, not gaps. `logo-wordmark` and
+`Image login` are assets, also not gaps.
+
+So the raw list needs one local filter: drop anything that is a descendant of a resolved instance,
+and drop pure assets. Both are mechanical — the resolved set comes from the map, parentage from
+the metadata tree. This is the same shape as hint 2, _count what a developer would place_, now
+with a concrete place to apply it.
+
+### Net
+
+The diagnosis I proposed to reconstruct by hand is **available from the API, better than the
+reconstruction, and the pipeline uses neither call.** What remains ours is the filter and the
+classification into the five causes — a few dozen lines, not a subsystem.

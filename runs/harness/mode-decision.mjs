@@ -28,6 +28,8 @@ import { Readable } from 'node:stream';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { argv, env, exit } from 'node:process';
+import { open } from 'node:fs/promises';
+import { z } from 'zod';
 
 /**
  * @typedef {Map<string, number>} Externals External component name → how many of the file's
@@ -82,6 +84,178 @@ const QUOTE = String.raw`\\?"`,
 
 /** Enough to span any single dependency entry, so no match is lost on a window boundary. */
 const OVERLAP = 4096;
+
+/** The window the scanner reads in, and the only part of a response that is ever validated. */
+export const WINDOW = 65536;
+
+// ---------------------------------------------------------------------------------------------
+// The boundary
+//
+// The response is never read whole — 2.18 MB on SANNA's 153 components — so a schema over the
+// parsed document is not available to us and never will be. What *is* available is the first
+// window, and it is enough to answer the two questions whose wrong answers shipped: which of the
+// two shapes is this, and do its components carry `dependencies[].external` at all.
+//
+// This is a deliberately narrow contract. It does not certify the response; it refuses one the
+// reader would otherwise scan to a confident zero.
+
+/** One component as this tool needs it: a name, and dependencies that declare externality. */
+export const ComponentEntry = z
+  .object({
+    name: z.string(),
+    dependencies: z.array(z.object({ name: z.string(), external: z.boolean() }).loose())
+  })
+  .loose();
+
+/** The MCP content envelope, whose payload is the components JSON as an escaped string. */
+export const EnvelopePart = z.object({ type: z.literal('text'), text: z.string() }).loose();
+
+/**
+ * Undo the escaping the MCP envelope applies to its payload.
+ *
+ * This is the half of the boundary that matters most: a response in this shape was scanned as
+ * though it were bare JSON and **found zero externals in 60 KB**, which reads downstream as "this
+ * file has no dependencies".
+ *
+ * @param {string} text
+ */
+export const unescapePayload = text => {
+  let out = '';
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] !== '\\') {
+      out += text[i];
+      continue;
+    }
+
+    const next = text[++i];
+
+    out += next === 'n' ? '\n' : next === 't' ? '\t' : next === 'r' ? '\r' : (next ?? '');
+  }
+
+  return out;
+};
+
+/**
+ * The first balanced `{…}` in a string, or `null` when the window ends before it closes. Strings
+ * and their escapes are respected, so a brace inside a value never ends the object.
+ *
+ * @param {string} text
+ * @param {number} [from]
+ */
+export const firstJsonObject = (text, from = 0) => {
+  const start = text.indexOf('{', from);
+
+  if (start === -1) return null;
+
+  let depth = 0,
+    inString = false;
+
+  for (let i = start; i < text.length; i++) {
+    const character = text[i];
+
+    if (inString) {
+      if (character === '\\') i++;
+      else if (character === '"') inString = false;
+      continue;
+    }
+
+    if (character === '"') inString = true;
+    else if (character === '{') depth++;
+    else if (character === '}' && --depth === 0) return text.slice(start, i + 1);
+  }
+
+  return null;
+};
+
+/** @typedef {{ shape: 'bare' | 'envelope'; declaresExternals: boolean; firstComponent: string }} Shape */
+
+/**
+ * Decide which shape the response is in and confirm its components are the thing this tool scans
+ * for. Throws, naming what was expected, when it is neither.
+ *
+ * Only the window is examined. Nothing here grows with the size of the response.
+ *
+ * @param {string} window The first {@link WINDOW} bytes of the response
+ * @returns {Shape}
+ */
+export const inspectFirstWindow = window => {
+  const expected =
+    'expected either a bare JSON array of components, or the MCP envelope ' +
+    '[{"type":"text","text":"<escaped components JSON>"}]';
+
+  if (!window.trim()) throw new Error(`empty response: ${expected}`);
+
+  const head = firstJsonObject(window);
+
+  // An envelope's first object is the content part, whose `text` holds the whole payload — so it
+  // does not close inside the window, and `firstJsonObject` returning null is itself the signal.
+  const envelopeKey = window.match(/"type"\s*:\s*"text"\s*,\s*"text"\s*:\s*"/);
+
+  if (envelopeKey) {
+    EnvelopePart.parse({ type: 'text', text: '' });
+
+    const payload = unescapePayload(window.slice((envelopeKey.index ?? 0) + envelopeKey[0].length)),
+      first = firstJsonObject(payload);
+
+    if (!first) throw new Error(`MCP envelope carries no component object in its first window`);
+
+    const parsed = ComponentEntry.safeParse(JSON.parse(first));
+
+    if (!parsed.success)
+      throw new Error(
+        `MCP envelope payload is not a component list: ${parsed.error.issues[0].message} at ` +
+          `${parsed.error.issues[0].path.join('.') || '(root)'}`
+      );
+
+    return {
+      shape: 'envelope',
+      declaresExternals: /\\?"external\\?"\s*:\s*true/.test(window),
+      firstComponent: parsed.data.name
+    };
+  }
+
+  if (!head) throw new Error(`no JSON object in the first ${WINDOW} bytes: ${expected}`);
+
+  let candidate;
+
+  try {
+    candidate = JSON.parse(head);
+  } catch {
+    throw new Error(`the first JSON object is unparseable: ${expected}`);
+  }
+
+  const parsed = ComponentEntry.safeParse(candidate);
+
+  if (!parsed.success)
+    throw new Error(
+      `${parsed.error.issues[0].message} at ${parsed.error.issues[0].path.join('.') || '(root)'} — ${expected}`
+    );
+
+  return {
+    shape: 'bare',
+    declaresExternals: /"external"\s*:\s*true/.test(window),
+    firstComponent: parsed.data.name
+  };
+};
+
+/**
+ * The first {@link WINDOW} bytes of a file, and not one byte more.
+ *
+ * @param {string} path
+ */
+export const readFirstWindow = async path => {
+  const handle = await open(path, 'r');
+
+  try {
+    const buffer = Buffer.alloc(WINDOW),
+      { bytesRead } = await handle.read(buffer, 0, WINDOW, 0);
+
+    return buffer.subarray(0, bytesRead).toString('utf8');
+  } finally {
+    await handle.close();
+  }
+};
 
 /**
  * Every external the file's components depend on, with how many components depend on each.
@@ -255,6 +429,7 @@ export const fetchComponentsTo = async (path, { fileKey, endpoint = DEFAULT_ENDP
  *   Verdict & {
  *     fileKey: string;
  *     version: string;
+ *     shape: 'bare' | 'envelope';
  *     source: string;
  *     tool: string;
  *     decidedAt: string;
@@ -280,10 +455,25 @@ export const decide = async ({
     from ??
     (await fetchTo(cacheFile(cache, fileKey, version, '.json'), { fileKey, endpoint, token }));
 
+  // Validate the shape before scanning, and never after: a scan of the wrong shape does not fail,
+  // it succeeds at finding nothing.
+  const shape = inspectFirstWindow(await readFirstWindow(source)),
+    externals = await externalsOf(source);
+
+  // The exact defect that shipped, turned into a check. The window declared externals and the
+  // scanner found none across the whole file — that is the reader being broken, not the file
+  // having no dependencies, and the two are indistinguishable in the output.
+  if (shape.declaresExternals && externals.size === 0)
+    throw new Error(
+      `${source}: the response declares "external": true in its first ${WINDOW} bytes and the ` +
+        `scanner found none in the whole file — the reader is wrong, not the file`
+    );
+
   const verdict = {
     fileKey,
     version,
-    ...classify(await externalsOf(source)),
+    shape: shape.shape,
+    ...classify(externals),
     source,
     tool: TOOL,
     decidedAt: new Date().toISOString()

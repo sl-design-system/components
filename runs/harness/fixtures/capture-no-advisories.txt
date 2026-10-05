@@ -1,0 +1,11 @@
+# sl-card Actionable, node 4994:14459
+
+```tsx
+export default function Card() {
+  return (
+    <div className="flex flex-col gap-[8px] p-[16px]" data-node-id="4994:14459">
+      <span className="font-semibold text-[16px]">Class H4A</span>
+    </div>
+  );
+}
+```

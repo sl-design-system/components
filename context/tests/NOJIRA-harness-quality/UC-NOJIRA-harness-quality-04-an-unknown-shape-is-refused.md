@@ -6,7 +6,7 @@ title: Both response shapes are read, a third is refused, and the stream survive
 description: 'The envelope that silently yielded zero externals must never yield zero again — and the fix must not defeat the streaming the script exists for'
 jira: null
 resource: null
-status: draft
+status: passing
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
@@ -28,6 +28,12 @@ Two captured responses, both live from Figma on 2026-10-05:
   escaped string, 7 distinct `sl-*`.
 
 And the corpus for the normaliser: nineteen runs, 116 advisory blocks, 9 of 19 rendering.
+
+Four more fixtures were added by this task, each for a case the corpus does not hold:
+`components-wrong-shape.json` (a third shape), `components-envelope-unreadable.json` (an envelope
+whose payload is prose), `components-large-streaming.json` (408 KB, 6.4 windows, its only external
+past the first window) and `capture-no-advisories.txt` (a clean capture with none of the five
+sentinels).
 
 ## Scenario
 
@@ -57,4 +63,29 @@ from bare JSON and to confirm the first component carries `dependencies[].extern
 
 ## Result
 
-Not yet run.
+**Passing**, 2026-10-05.
+
+| Step | Outcome                                                                                                                                                                                            |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `as-is`, `shape: bare`, externals `.Main menu`, `.Navigation item`, `Cell`, `your-files` — unchanged                                                                                               |
+| 2    | `strict`, `shape: envelope`, 7 `sl-*` — unchanged                                                                                                                                                  |
+| 3    | `components-wrong-shape.json` is refused, the message naming **both** shapes expected; an envelope whose payload is prose, and one whose payload is not a component list, are refused separately   |
+| 4    | `components-large-streaming.json`: 408 KB read, `readFirstWindow` returns exactly 65536 bytes, the window declares **no** external, and the scanner still finds `sl-button-pill` 200 KB further in |
+| 5    | 19 runs, **267 captures, 116 advisory blocks**, summary byte-identical to the before-state                                                                                                         |
+| 6    | `capture-no-advisories.txt` yields one `code` block and no advisories, code byte-identical                                                                                                         |
+
+**The historical defect is now a check, not only a schema.** When the first window declares
+`"external": true` and the scanner finds none in the whole file, `decide` throws
+_"the reader is wrong, not the file"_ rather than returning `undecided`. The two are
+indistinguishable in the output, and that is exactly how the original defect read as a result.
+
+Corpus figures re-measured after the change and all unchanged: **9 of 19** runs transform every
+region, **59 of 71** regions, **116** advisory blocks, **267** captures.
+
+### What the producer schema found on its first run
+
+It rejected real data immediately, and was right to: the index holds two shapes the schema as
+first written did not allow. **Nineteen reference entries carry no `part` at all** —
+`get_screenshot` is neither code nor advisory, and carries a `note` instead — and **three
+continuation entries carry `continuationOf`**. Both are now in the schema, and the missing `part`
+is recorded as the reason `render-design.mjs` has to default it.

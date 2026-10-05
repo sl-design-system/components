@@ -1,0 +1,5 @@
+{
+  "note": "A plausible third shape: an object keyed by component name, as a reader might reasonably assume. It is neither bare JSON components nor the MCP envelope, and a scanner run over it finds nothing and reports it as a result.",
+  "row-private files": { "nodeId": "5037:10462", "dependsOn": ["Cell"] },
+  "assesment rubric": { "nodeId": "5565:1", "dependsOn": [] }
+}

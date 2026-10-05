@@ -10,8 +10,20 @@
  * Usage: node --test "runs/harness/*.test.mjs"
  */
 import { strict as assert } from 'node:assert';
+import { globSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, it } from 'node:test';
-import { ADVISORIES, extractBlocks, splitAdvisoryTail } from './normalise-captures.mjs';
+import {
+  ADVISORIES,
+  ADVISORY_KINDS,
+  CaptureIndexSchema,
+  CaptureSchema,
+  validateIndex,
+  extractBlocks,
+  splitAdvisoryTail
+} from './normalise-captures.mjs';
+import { CaptureIndex as ReaderIndex } from './render-design.mjs';
 
 /** The code half of a response: what a parser must receive, byte for byte. */
 const CODE = `import svgPaths from "./svg-paths";
@@ -140,5 +152,213 @@ describe('splitAdvisoryTail — a continuation carries the advisories too', () =
 
   it('returns a fragment with no advisories unchanged', () => {
     assert.deepEqual(splitAdvisoryTail(FRAGMENT), { code: FRAGMENT, advisories: [] });
+  });
+});
+
+// ------------------------------------------------------------------------------------------
+// The producer boundary, added by T-NOJIRA-harness-quality-04.
+
+describe('ADVISORY_KINDS is derived, not copied', () => {
+  it('names exactly the five sentinels, in the order the corpus shows them', () => {
+    assert.deepEqual(ADVISORY_KINDS, [
+      'stack-conversion',
+      'node-ids',
+      'styles',
+      'component-descriptions',
+      'assets'
+    ]);
+  });
+
+  it('cannot drift from ADVISORIES, because it is computed from it', () => {
+    assert.deepEqual(
+      ADVISORY_KINDS,
+      ADVISORIES.map(advisory => advisory.kind)
+    );
+  });
+});
+
+/** One well-formed capture, from which the malformed variants below differ by one field. */
+const capture = () => ({
+  call: 'get_design_context',
+  part: 'code',
+  nodeId: '2422:87052',
+  label: '# sl-button-bar/Rectangle',
+  file: 'captures-v2/design-context/2422-87052.txt',
+  bytes: 463,
+  capturedAt: '2026-10-05T17:00:59.746Z',
+  truncated: false
+});
+
+describe('CaptureSchema — strict, because a typo is a field nobody ever sees', () => {
+  it('accepts the shape the normaliser writes', () => {
+    assert.equal(CaptureSchema.parse(capture()).call, 'get_design_context');
+  });
+
+  it('accepts an advisory entry with one of the five kinds', () => {
+    assert.ok(
+      CaptureSchema.safeParse({ ...capture(), part: 'advisory', advisory: 'styles' }).success
+    );
+  });
+
+  it('accepts a reference entry, which has a note and no part at all', () => {
+    const { part: _part, ...rest } = capture();
+
+    assert.ok(CaptureSchema.safeParse({ ...rest, call: 'get_screenshot', note: 'x' }).success);
+  });
+
+  it('accepts a continuation, which names the node its first part rooted at', () => {
+    assert.ok(CaptureSchema.safeParse({ ...capture(), continuationOf: '33130:92562' }).success);
+  });
+
+  it('NEGATIVE CONTROL: rejects an advisory kind that is not one of the five', () => {
+    const result = CaptureSchema.safeParse({ ...capture(), part: 'advisory', advisory: 'styling' });
+
+    assert.equal(result.success, false);
+    assert.deepEqual(result.error?.issues[0].path, ['advisory']);
+  });
+
+  it('NEGATIVE CONTROL: rejects an unknown key alongside every required one', () => {
+    // Every required field is present and correct; only the extra key is wrong. A permissive
+    // schema accepts this, and the typo becomes a field no reader ever sees.
+    const result = CaptureSchema.safeParse({ ...capture(), nodeID: '2422:87052' });
+
+    assert.equal(result.success, false);
+    assert.match(String(result.error?.issues[0].message), /unrecognized|unknown/i);
+  });
+
+  it('rejects a missing nodeId, where null is the way to say there is none', () => {
+    const { nodeId: _nodeId, ...rest } = capture();
+
+    assert.equal(CaptureSchema.safeParse(rest).success, false);
+  });
+
+  it('rejects a capturedAt that is not a timestamp', () => {
+    assert.equal(
+      CaptureSchema.safeParse({ ...capture(), capturedAt: '2026-10-05' }).success,
+      false
+    );
+  });
+
+  it('rejects a negative byte count', () => {
+    assert.equal(CaptureSchema.safeParse({ ...capture(), bytes: -1 }).success, false);
+  });
+});
+
+describe('CaptureIndexSchema — the whole artifact', () => {
+  const index = () => ({
+    schemaVersion: 1,
+    run: 'a2-nsp-class-overview',
+    figma: { rootNodeId: '2422:87039' },
+    normalisedFrom: "the run's own files; nothing was fetched",
+    captures: [capture()]
+  });
+
+  it('accepts an index with no captures, because a run that captured nothing is a fact', () => {
+    assert.ok(CaptureIndexSchema.safeParse({ ...index(), captures: [] }).success);
+  });
+
+  it('accepts a null rootNodeId, which is how "no metadata" is spelled', () => {
+    assert.ok(CaptureIndexSchema.safeParse({ ...index(), figma: { rootNodeId: null } }).success);
+  });
+
+  it('NEGATIVE CONTROL: rejects a future schemaVersion rather than reading it as version 1', () => {
+    assert.equal(CaptureIndexSchema.safeParse({ ...index(), schemaVersion: 2 }).success, false);
+  });
+
+  it('names the offending capture by its position', () => {
+    const result = CaptureIndexSchema.safeParse({
+      ...index(),
+      captures: [capture(), { ...capture(), bytes: 'lots' }]
+    });
+
+    assert.deepEqual(result.error?.issues[0].path, ['captures', 1, 'bytes']);
+  });
+});
+
+describe('validateIndex — the check, on input a correct producer cannot emit', () => {
+  const good = {
+    schemaVersion: 1,
+    run: 'a2-nsp-class-overview',
+    figma: { rootNodeId: '2422:87039' },
+    normalisedFrom: "the run's own files; nothing was fetched",
+    captures: [capture()]
+  };
+
+  it('returns the index when it is well formed', () => {
+    assert.equal(validateIndex(good, 'runs/x').run, 'a2-nsp-class-overview');
+  });
+
+  it('NEGATIVE CONTROL: throws, naming the run and the field, on a malformed index', () => {
+    assert.throws(
+      () => validateIndex({ ...good, captures: [{ ...capture(), bytes: 'lots' }] }, 'runs/x'),
+      /** @param {Error} error */ error => {
+        assert.match(error.message, /^runs\/x: the index this run produced is malformed/);
+        assert.match(error.message, /captures\.0\.bytes/);
+        return true;
+      }
+    );
+  });
+
+  it('NEGATIVE CONTROL: throws on an index that is not an object at all', () => {
+    assert.throws(() => validateIndex([capture()], 'runs/y'), /runs\/y: .*malformed/);
+  });
+
+  it('names the root when the fault has no path', () => {
+    assert.throws(() => validateIndex(null, 'runs/z'), /\(root\)/);
+  });
+});
+
+describe('every committed index still satisfies the producer schema', () => {
+  const indexes = globSync('runs/2026-10-01-*/captures-v2/index.json');
+
+  it('finds all nineteen', () => {
+    assert.equal(indexes.length, 19);
+  });
+
+  for (const path of indexes)
+    it(`${path.split('/')[1]} validates`, () => {
+      const result = CaptureIndexSchema.safeParse(JSON.parse(readFileSync(path, 'utf8')));
+
+      assert.ok(result.success, JSON.stringify(result.error?.issues[0]));
+    });
+});
+
+describe('the producer and the reader cannot drift apart', () => {
+  it('what the normaliser writes is what render-design accepts', () => {
+    // Two schemas on purpose: this one is strict and describes the artifact, the reader's is
+    // narrow and validates only the fields it dereferences, so an older or hand-written index
+    // still reads. Nothing but this assertion keeps the two in agreement.
+    for (const path of globSync('runs/2026-10-01-*/captures-v2/index.json')) {
+      const raw = JSON.parse(readFileSync(path, 'utf8'));
+
+      assert.ok(CaptureIndexSchema.safeParse(raw).success, `producer rejected ${path}`);
+      assert.ok(ReaderIndex.safeParse(raw).success, `reader rejected ${path}`);
+    }
+  });
+});
+
+describe('a capture with no advisory sentinel at all', () => {
+  const text = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'capture-no-advisories.txt'),
+    'utf8'
+  );
+
+  it('NEGATIVE CONTROL: yields one code block and no advisories, not a parse failure', () => {
+    const blocks = extractBlocks(text);
+
+    assert.deepEqual(
+      blocks.map(block => block.part),
+      ['code']
+    );
+    assert.equal(blocks[0].kind, undefined);
+  });
+
+  it('leaves the code byte-identical, so nothing was stripped looking for a sentinel', () => {
+    assert.match(extractBlocks(text)[0].text, /^export default function Card\(\) \{/);
+    assert.match(extractBlocks(text)[0].text, /\}\n$/);
+  });
+
+  it('and none of the five sentinels is anywhere in it, which is why this is the control', () => {
+    for (const { sentinel } of ADVISORIES) assert.ok(!text.includes(sentinel));
   });
 });

@@ -232,6 +232,25 @@ so the diff that follows is the change and nothing else. `render-design.mjs` wen
 to 24 with 16/16 outputs identical, and the frame fix that followed moved exactly the six runs it
 was supposed to.
 
+**Validate where the artifact is produced, not only where it is read.** A reader cannot tell a
+malformed file from a thin one — it skips what it cannot use and reports a smaller number. The
+producer's schema is `.strict()`, because a schema that tolerates unknown keys cannot tell a new
+field from a typo, and a typo is a field every reader silently never sees. Where a reader keeps
+its own narrower schema, one test must assert the real artifacts satisfy both; nothing else stops
+the two drifting.
+
+**A schema is not a substitute for a check on the result.** `mode-decision.mjs` shipped two
+defects: one was a wrong shape, which a schema catches, and one was a correct shape read by a
+wrong pattern, which it does not. So the tool also asserts the two against each other — if the
+validated window declares `"external": true` and the scan finds none in the whole file, that is
+the reader being wrong, and it says so instead of reporting `undecided`.
+
+**Validating a stream means validating its first window.** The response that forced this was
+2.18 MB; reading it whole to check it defeats the reason the script streams. Read one window,
+decide the shape, confirm the first record carries the field the scan depends on, then stream.
+Prove it with a fixture several windows long whose signal lies past the first — otherwise a
+validator quietly becoming the reader looks exactly like a passing test.
+
 ### The type-check register
 
 `tsconfig.json` lists files explicitly instead of globbing. A file joins the list once a task has
@@ -239,7 +258,8 @@ made it type-clean, so the gate is green from the first day and stays that way. 
 directory today would put 185 errors behind it, which is the same as having no gate.
 
 Registered so far: `mode-decision.mjs`, `normalise-captures.mjs`, `render-design.mjs`,
-`theme-match.mjs` and their tests. The rest are tracked by `T-NOJIRA-harness-quality-04`.
+`theme-match.mjs` and their tests — the four scripts with a named consumer. The remaining four in
+this directory have no plan behind them yet.
 
 The scripts are `.mjs` with JSDoc types rather than `.ts`. Node 24 runs `.ts` natively, but it
 **strips types without checking them** — `const n: number = 'text'` executes and prints the

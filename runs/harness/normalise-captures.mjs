@@ -19,6 +19,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { argv, exit } from 'node:process';
+import { z } from 'zod';
 
 /** @param {string} name */
 const arg = name => {
@@ -65,6 +66,79 @@ export const ADVISORIES = [
   },
   { kind: 'assets', sentinel: 'Images and SVGs will be stored as constants' }
 ];
+
+/** The five advisory kinds, derived from {@link ADVISORIES} so the two cannot disagree. */
+export const ADVISORY_KINDS = /** @type {[string, ...string[]]} */ (
+  ADVISORIES.map(advisory => advisory.kind)
+);
+
+/**
+ * The index this script writes, validated **where it is produced** rather than where it is read.
+ *
+ * A reader cannot tell a malformed index from a thin one: `render-design.mjs` skipped entries it
+ * could not use and reported a smaller number, which is how six runs looked empty when they were
+ * only stored differently. Catching the shape here puts the error next to the code that caused it.
+ *
+ * `render-design.mjs` keeps its own, deliberately narrower, read-side schema: it validates only the
+ * fields it dereferences, so an older or hand-written index still reads. The two are pinned
+ * together by a test asserting this script's output satisfies that one — which is the only thing
+ * that stops them drifting apart.
+ */
+export const CaptureSchema = z
+  .object({
+    call: z.string().min(1),
+    // Absent on the reference entry — `get_screenshot` is neither code nor advisory, and carries
+    // a `note` instead. A reader that wants code therefore has to default a missing `part`, which
+    // is a defaulting rule the producer could have removed; left as it is because nineteen
+    // committed indexes encode it, and changing it is a change to the artifact, not to the check.
+    part: z.enum(['code', 'advisory']).optional(),
+    // Set on the advisory entries only, naming which of the five sentinels opened the block.
+    advisory: z.enum(ADVISORY_KINDS).optional(),
+    // Set on a `-part2`/`-part3` continuation, naming the node the first part rooted at.
+    continuationOf: z.string().min(1).optional(),
+    nodeId: z.string().nullable(),
+    label: z.string().nullable(),
+    file: z.string().min(1),
+    bytes: z.number().int().nonnegative(),
+    capturedAt: z.iso.datetime(),
+    truncated: z.boolean(),
+    note: z.string().optional()
+  })
+  // Strict on purpose. A producer schema that tolerates unknown keys cannot tell a new field from
+  // a typo, and a typo here is a field every reader silently never sees.
+  .strict();
+
+export const CaptureIndexSchema = z.object({
+  schemaVersion: z.literal(1),
+  run: z.string().min(1),
+  figma: z.object({ rootNodeId: z.string().nullable() }),
+  normalisedFrom: z.string().min(1),
+  captures: z.array(CaptureSchema)
+});
+
+/**
+ * Check an index against {@link CaptureIndexSchema} and throw naming the run and the field.
+ *
+ * Separate from `normalise` so it can be tested with a malformed index, which a correct producer
+ * cannot be made to emit. A check that only ever runs on good input has not been tested.
+ *
+ * @param {unknown} index
+ * @param {string} run
+ */
+export const validateIndex = (index, run) => {
+  const validated = CaptureIndexSchema.safeParse(index);
+
+  if (!validated.success) {
+    const [issue] = validated.error.issues;
+
+    throw new Error(
+      `${run}: the index this run produced is malformed — ${issue.message} at ` +
+        `${issue.path.join('.') || '(root)'}`
+    );
+  }
+
+  return validated.data;
+};
 
 /** Every sentinel occurrence in a stretch of text, earliest first. One response repeats none. */
 /**
@@ -183,7 +257,7 @@ const nodeIdFor = (block, text) =>
 const labelFor = text => text.match(/^#\s*(.+)$/m)?.[1];
 
 /** @param {string} run */
-const normalise = run => {
+export const normalise = run => {
   /** @type {Capture[]} */
   const captures = [];
   const files = readdirSync(run);
@@ -369,6 +443,10 @@ const normalise = run => {
     normalisedFrom: "the run's own files; nothing was fetched",
     captures
   };
+
+  // Validated before it is written, and before it is returned to the summary: an index nobody can
+  // read is worse than a run that produced none, because it counts.
+  validateIndex(index, run);
 
   if (write) {
     mkdirSync(join(run, outDir), { recursive: true });

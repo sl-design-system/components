@@ -94,6 +94,78 @@ will; a script has no judgement. The guarantee has to be structural.
    `X-Figma-Rate-Limit-Type` and `Retry-After`; a run that quietly waited must not look like one
    that did not.
 
+## The token's scopes
+
+Mapped against the scope list Figma offers, 2026-10-06.
+
+| Scope                                                                      | Why                                                                                                                                                                                                                                                                    |              |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `file_content:read`                                                        | _"Read the contents of and render images from files"_ — carries `get_metadata`, `get_design_context`, `get_variable_defs`, `get_screenshot` **and** `download_assets`                                                                                                  | **required** |
+| `file_metadata:read`                                                       | the file's name and identity. `A-NOJIRA-figma-metadata-contract` **F10**: across all nineteen capture trees there is no file key, no file name and no `lastModified` — Figma does not identify the design, the operator does                                           | **required** |
+| `file_versions:read`                                                       | version history. `mode-decision.mjs` caches on `(fileKey, version)` and fills version with the literal string `unknown`, so **every cache entry today is `<key>@unknown`**. This is what makes the key real and makes "has it changed?" answerable without re-fetching | **required** |
+| `library_content:read`, `team_library_content:read`, `library_assets:read` | component and style identity published from libraries — the `componentKey` / `assetKey` that `P-NOJIRA-mapping-adapters` needs because name matching gives confident wrong answers                                                                                     | **required** |
+| `file_code_connect:write`                                                  | `get_code_connect_map`. **There is no `file_code_connect:read`** — see below                                                                                                                                                                                           | see below    |
+
+Not needed: `current_user:read`, `file_comments:*`, `file_dev_resources:*`,
+`private_sandbox:connect`, `folders:read`, `webhooks:*`.
+
+### The Code Connect scope is write-only, and that matters here
+
+Figma offers no read variant. Reading the map means granting a token that can **write component
+code into the file**, and `get_code_connect_suggestions` returns a payload whose last line is an
+instruction to an agent to call `send_code_connect_mappings` — a write tool — against that same
+file. A token with this scope, held by a session that reads that response, is a loaded gun
+pointed at the design system's own file.
+
+So: **two tokens, not one.**
+
+- A **capture token** without `file_code_connect:write`, which is what step 1 tests first. If the
+  four content calls work with it, every part of this task except Code Connect is done with a
+  token that cannot change anything.
+- A **Code Connect token** with the write scope, used only by the script, never exported into a
+  session where a model reads tool output. If that separation cannot be held, Code Connect stays
+  with the editor and the capture records that it did — which is a result, not a failure.
+
+## How the script knows it missed nothing
+
+**There is no denominator, by construction.** `get_metadata` stops at instance boundaries, so the
+universe is discovered rather than declared and every descent enlarges it — the plan says this in
+its own words. A completeness _ratio_ would therefore be invented. What replaces it is five
+checks that are independently falsifiable, and a control that proves they can fail.
+
+1. **Frontier closure.** Every node that entered the frontier left it with a recorded
+   disposition — resolved, captured, descended, nested, hidden, excluded or failed — and the
+   frontier is empty. `traverse.mjs` already produces exactly this shape. A node with no
+   disposition is a bug in the walk, not a gap in the design.
+2. **Nothing declared itself incomplete.** Every tool that truncates says so:
+   `rawImagesTruncated`, `svgAssetsTruncated`, the MCP output cap, and the remote server's
+   `Note: the Code Connect lookup timed out` appended to a `{}`. Complete means no response
+   declared itself partial and no budget bit — not that the walk finished.
+3. **Cross-tool reconciliation, which is the strongest of the five.** Three tools see the same
+   tree from different angles and must agree about which nodes exist: `get_metadata` gives ids
+   structurally, `get_design_context` emits them as `data-node-id`, and
+   `get_code_connect_suggestions` lists component ids. Every id seen by one must be accounted
+   for by the others or explicitly classified — hidden, nested, library-internal. **Disagreement
+   between tools is the detector**, and it is known to fire: F11 measured 16 of 84 design-context
+   captures rooted at a different node than the one queried, and 6 that never mention it at all.
+4. **The raster is an independent witness.** `download_assets.export` is a pixel image of the
+   node at native size, produced by Figma and owing nothing to our traversal. The union of the
+   captured nodes' bounding boxes should cover the frame; **a region of the export that no
+   captured node covers is something we did not see.** Geometry is on every metadata node
+   already, and `T-NOJIRA-corpus-census-03` is building the comparator.
+5. **Re-run determinism.** Capture one design twice and compare hashes. A difference is either a
+   real change — which `file_versions:read` can now confirm — or nondeterminism worth a name.
+
+**And the control.** Delete a known subtree from a capture and prove checks 1, 3 and 4 go red.
+A completeness check nobody has seen fail is decoration; this is the same rule that caught three
+measurement faults in the harness.
+
+**What none of them catches**, stated so nobody reads the five as a guarantee: a node Figma never
+mentions in any tool's output and which covers no visible pixels is invisible to all five. The
+Dev Mode server already showed a version of this — nine of ten pages reported no children, and
+the only one that did was the page the editor had open. Whether the remote server does the same
+with a token is untested and is part of step 1.
+
 ## Acceptance criteria
 
 - Every stored response carries its call record and hash, and **no file is written by any path
@@ -106,6 +178,9 @@ will; a script has no judgement. The guarantee has to be structural.
 - Re-running one design twice produces the same hashes, or names every field that differed.
 - `tools/list` for the token in use is stored with the run, so a later reader knows what was
   reachable.
+- **The five closure checks run on every capture, and the deletion control shows three of them
+  going red.**
+- The file's real version is recorded, so `(fileKey, version)` stops being `<key>@unknown`.
 
 ## Verification
 

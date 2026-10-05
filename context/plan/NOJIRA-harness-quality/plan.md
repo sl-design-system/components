@@ -6,8 +6,8 @@ title: Calibrate the instruments before the next experiment is measured with the
 description: 'Scenario, decomposition, unit tests, a zod boundary and a negative control for the four harness scripts that have a named consumer — render-design first, because it judges figma-ingestion'
 jira: null
 resource: null
-status: proposed
-phase: conceptual
+status: approved
+phase: approved
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
@@ -15,8 +15,8 @@ tags: [harness, testing, quality, zod, typescript]
 source_analysis: A-NOJIRA-harness-testability
 slice: harness-quality
 depends_on: []
-approved_by: null
-approved_date: null
+approved_by: marcin.ludwig
+approved_date: 2026-10-05
 open_questions: []
 ---
 
@@ -147,4 +147,10 @@ its measurement does.
 
 ## Approval
 
-Pending. `phase: conceptual` until the owner approves; no tasks in `work/` before then.
+Approved by marcin.ludwig on 2026-10-05, on the instruction to write the plan and finish the
+tests in the same pass rather than deferring them.
+
+One decision was taken inside the plan rather than asked: **four of the eight scripts are in
+scope**, the ones with a named consumer. `check-tokens.mjs` is the arguable exclusion — it is
+one of the six tools known to have failed silently — and it comes back the moment anything
+depends on its output.

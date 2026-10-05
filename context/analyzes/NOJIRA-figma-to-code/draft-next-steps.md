@@ -141,6 +141,26 @@ From [`pipeline-defects.md`](pipeline-defects.md), with the newest first:
 and needs no further analysis from us. Six components with dead typography and the font namespace
 fault are the two with the widest blast radius.
 
+## 5a. Read the prior art before building any of this
+
+[`fetch-completeness-and-prior-art.md`](fetch-completeness-and-prior-art.md). Verifying the fetch
+is a script — metadata declares the universe, so `declared − covered` with four named buckets is
+an accounting, and eight boundary checks cover "correctly".
+
+But the finding that matters is the other half. **v2 already has** exhaustive per-node-type
+extraction, an independent verifier sub-agent, hard gates that fail the run, the
+no-fallback-values check, cross-node consistency, and a cache keyed on `figmaLastModified`.
+Much of what this conversation proposed is a re-proposal of v2.
+
+v2 came out worse than v1 anyway, and the handover says why without saying it: of its ten
+unresolved issues, **five are "built but never run"** — the router untested, setup and layout
+never executed against a real project, resume only at phase boundaries, auto-verification
+missing. Fifteen skills introduced at once, so when quality dropped nothing could be attributed.
+
+**So the difference this time is not the design, it is that a baseline exists.** 5 of 38, a frozen
+corpus, and one change measured at a time. Carrying v2's gates forward is right; carrying them
+forward all at once is how v2 happened.
+
 ## 5b. Instrumentation — the prerequisite the cost item asks for
 
 [`instrumentation.md`](instrumentation.md). The completeness check is a script and the adapter is

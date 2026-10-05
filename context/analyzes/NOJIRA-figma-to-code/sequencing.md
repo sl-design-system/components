@@ -218,3 +218,111 @@ nothing. Four acceptance criteria could not fail and now carry thresholds.
   that slice exists and does not carry it, while the control shipped two WCAG failures no gate
   sees.
 - **All six source analyses are `status: draft`**, which blocks the ADRs that depend on them.
+
+---
+
+# The two decisions that needed data, not a question
+
+## Should the pixel metric be demoted?
+
+**Recommendation: keep it, report it, and never let it drive a fix loop.** The problem measured
+three times in this batch is not the metric — it is using the metric as a _target_.
+
+| Option                                                         | For                                                                                                                | Against                                                                                                                                           |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Keep as a primary score**                                    | it is literally what "looks like the design" means, mechanically measurable, catches whole classes of layout error | measured three times to reward the wrong behaviour: a constant fitted to a delta, a raw hex over a token, absolute positioning over layout intent |
+| **Demote to a diagnostic**, score structure and tokens instead | aligns the metric with what the HTML is _for_ — codegen input — and removes the perverse incentive                 | "looks like Figma" stops being measured, which is the thing a human judges anyway; structural matching is harder to define than a pixel diff      |
+| **Both, reported separately, pixels never a loop target**      | keeps the information, removes the behaviour                                                                       | needs discipline in the loop design; a human reading the number may still push on it                                                              |
+
+**The evidence points at the third, and it is specific.** One run set `inline-size: 420px` because
+420 + 24 equalled the measured 444 — a constant fitted to a number, in a fix loop asked to close
+a delta. **The same run, in the same turn**, refused to pad a pill that was 18px short because it
+had traced that gap to a missing webfont, and decomposed a 32px offset into 24 + 8 and removed
+both causes.
+
+Same agent, same hour, three behaviours. The variable was **whether naming the cause was
+required** — not whether pixels were being measured. So the fix is in the loop, not the metric:
+a fix must state its cause and its arithmetic, and a raw length arriving without one is rejected.
+
+**What would change this recommendation:** if the loop discipline turns out unenforceable in
+practice, demotion becomes the only remaining lever and `html-first.md`'s central claim has to be
+restated.
+
+## Downscaled references — refuse, or compare at their resolution?
+
+**Recommendation: refuse corruption, record transformation.** They are not the same thing, and
+the current rule collapses them.
+
+|                                                                   | Nature                                                              | Decision                                                                    |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **seven downscaled** references (1512→1024, 1280→1141, 1280→934…) | a **uniform, describable transformation**                           | compare at the reference's own resolution, record the scale with the number |
+| **one channel-halved** reference (`a3`, max 128)                  | **corrupted data** — the transformation is lossy and not invertible | refuse. No resolution fixes it                                              |
+
+Rendering the comparison at 1024 and diffing against a 1024 reference **reconstructs nothing** —
+nothing is inferred or undone, both sides simply live at the same scale. That is categorically
+different from inferring the original from a halved channel, which is reconstruction and is what
+the refuse-never-correct rule exists to forbid.
+
+**The cost of each option:**
+
+- **Refuse everything distorted:** the corpus drops to roughly **8 of 19**, which is below the
+  point where a variance figure means anything. A rule that protects purity by destroying the
+  sample is not protecting the measurement.
+- **Compare at reference resolution:** recovers about seven runs. The price is **precision** — a
+  1px error at 1512 is sub-pixel at 1024 — so numbers from different scales are **not poolable**.
+  Mitigation: record the scale alongside the figure and never average across scales.
+- **Re-fetch the references:** correct data, but it costs Figma calls, breaks the corpus freeze,
+  and `get_screenshot` may distort again — it has four behaviours and nothing selects between
+  them.
+
+**What would change this recommendation:** if recorded scales turn out to cluster (say five runs
+at 1024 and two at 1141), pooling within a scale may give enough samples that the third option is
+unnecessary. That is checkable from the census in task 00, before any of it is built.
+
+---
+
+# Ownership, settled by the owner 2026-10-05
+
+The biggest finding of the review pass was that nothing below the HTML had an owner. It does now,
+and the answer changes the shape of the work rather than just filling a blank.
+
+| Step                                     | Owner                                                        | Form                                               |
+| ---------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| Figma → HTML / code — skills and toolkit | **the aipdlc team**, the one developing the other skills     | most likely lands in the **aipdlc repo**, not here |
+| HTML → application code                  | **the developer**, running a script in their own application | a script, not an agent, not a skill                |
+| the existing `sl-ds-*` skills            | **the design system team**                                   | stays where it is                                  |
+
+Three consequences worth stating, because each contradicts something assumed earlier.
+
+**The last leg is a script the developer runs, not an agent.** That removes the open question
+about who generates framework code and replaces it with a sharper constraint: the HTML must be
+**machine-consumable by a script with no model in the loop**. Absolute positioning plus resolved
+styles cannot satisfy that — which is the same conclusion the fourth-consumer finding reached
+from the other direction, now confirmed by the ownership answer rather than argued from taste.
+
+**The toolkit leaves this repository.** Plans written here are specifying something that will
+live in the aipdlc repo, under a different team. That makes the **contract** the deliverable
+rather than the implementation, and it raises a question none of the plans considers: what
+crosses the repository boundary, and in what form. Worth deciding before task 00 is drafted,
+since the contract is precisely the thing that crosses.
+
+**Two teams, two repos, one artifact.** The design system team owns the current skills; the
+aipdlc team will own the new ones. The HTML contract is the interface between them, and an
+interface between two teams is held to a different standard than an internal format — versioning
+and a deprecation path stop being optional.
+
+## Accessibility — its own plan, preceded by research
+
+Settled by the owner: a separate plan, and research first, because what to test and how is not
+yet known. The probable surface is the **generated HTML**, which is convenient — it is
+script-produced, deterministic, and inspectable without a running application.
+
+Two pieces of evidence the research starts from rather than discovers: the control shipped a
+WCAG 2.1 AA 1.3.5 failure (`autocomplete` suppressed on a name and email form) and a `100vh`
+with `overflow: hidden` that put the action buttons out of reach of **both** mouse and keyboard.
+Neither is visible to a type check or a screenshot diff, and one run hit its iteration cap with
+nine unfixed critical items, all accessibility.
+
+So the research question is not "should we check accessibility" but **"which defects does a
+static artifact let us catch, and which need the running component"** — the two above fall on
+opposite sides of that line.

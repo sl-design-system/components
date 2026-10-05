@@ -6,15 +6,17 @@ title: 'Fidelity dimension: per-component pixel comparison'
 description: Element-level pixel diff with tolerances tiered by element class, retaining diff images for inspection
 jira: null
 resource: null
-status: todo
+status: blocked
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-10-01T12:00:00Z
+updated: 2026-10-05T00:00:00Z
 tags: [fidelity, measurement, visual]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-10]
 ---
+
+> **Reviewed 2026-10-05 — blocked.** Refuses only when reference bounds are absent. `get_screenshot` also **halves every colour channel**, so a present-but-corrupt reference passes this gate. Fidelity has also moved off the raster entirely — see `T-NOJIRA-html-contract-07b`.
 
 # Fidelity dimension: per-component pixel comparison
 

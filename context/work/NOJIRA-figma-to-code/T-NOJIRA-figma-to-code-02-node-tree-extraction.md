@@ -6,15 +6,17 @@ title: Deterministic Figma node-tree extraction
 description: Normalise the Figma calls into one stable node-tree artifact shared by the coverage metric and the intake report
 jira: null
 resource: null
-status: todo
+status: blocked
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-10-01T12:00:00Z
+updated: 2026-10-05T00:00:00Z
 tags: [figma, ingest, determinism]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-01]
 ---
+
+> **Reviewed 2026-10-05 — blocked.** Acceptance "every node in the source tree appears exactly once" assumes an enumerable universe, which Amendment 6 falsified. Needs redefinition against the closure census before it can be claimed.
 
 # Deterministic Figma node-tree extraction
 

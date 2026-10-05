@@ -6,21 +6,24 @@ title: Design intake report as a skill
 description: Read-only report on how much of a Figma design uses the design system, what is detached, and which unmapped components recur across teams
 jira: null
 resource: null
-status: todo
+status: blocked
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-10-01T02:10:00Z
+updated: 2026-10-05T00:00:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
 ---
+
+> **Reviewed 2026-10-05 — blocked.** States the Figma MCP server here is the **desktop** one taking no file key. Measured false: the remote server answers in seconds and takes a `fileKey`, and `list_file_components_for_code_connect` now settles library membership in one call per file. Cheaper than written, and the stated method is wrong.
 
 # Design intake report as a skill
 
 > From [P-NOJIRA-figma-to-code](../../plan/NOJIRA-figma-to-code/plan.md).
 
 ## Objective
+
 Give both audiences the number they currently lack. A product developer learns, before generating
 anything, how much of their design the pipeline can map and how much will be reproduced as-is. The
 design system team learns which unmapped components are actually in demand across eleven teams, so
@@ -44,6 +47,7 @@ that one addresses a file by URL. Confirm which before assuming this skill can b
 of links.
 
 ## Steps
+
 - [ ] Implement the three filters a trial run proved necessary, because structure alone selects fragments and duplicates: **frame width must match a real viewport** (±8px) with height ≥600, which removes widgets, boards and thumbnails; **at least ten distinct component types** with instance density 0.08–0.6, which removes covers, annotation frames and component variants; and **deduplication by component histogram** (cosine >0.85 within a team), which collapses variants differing only by a colour, a note or one element
 - [ ] Treat the classification as a shortlist, never a verdict — a trial run's top candidates included a wireframe with placeholder boxes, a page of designer guidance with no instances, and a thumbnail. Only looking at them caught it, so the report should render what it proposes
 - [ ] Use exactly two calls per design — structure and the Code Connect map — and never `get_design_context`, which is the expensive one and answers a question the report does not ask
@@ -57,6 +61,7 @@ of links.
 - [ ] Present the output so a non-developer can read it — the design system team is an audience for this report, not only engineers
 
 ## Acceptance criteria
+
 - [ ] The skill runs against a Figma URL and produces the report without generating or modifying any code
 - [ ] Run against at least five of the eleven team files, it produces per-file adoption figures and one cross-file ranking
 - [ ] The report proposes candidates with a rendered image, not only numbers
@@ -64,6 +69,8 @@ of links.
 - [ ] The ranking distinguishes a component appearing many times in one file from one appearing across many teams — demand is breadth, not volume
 
 ## Verification
+
 Run against five team files from the analysis inventory. Verify by hand, on one file, that the
 detached-instance count matches what Figma itself reports.
+
 - Use case: `UC-NOJIRA-figma-to-code-03` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-03-adoption-report-is-actionable.md`

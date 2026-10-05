@@ -13,6 +13,16 @@ updated: 2026-10-01T12:00:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
+> **Reviewed 2026-10-05 — this document and `P-NOJIRA-html-contract` specify the same artifact
+> under two names.** The `package/` described here — tree, geometry, style, instances, text,
+> dictionaries, manifest, and an `index.html` generated from them by a pure function — is the
+> plan's "common format" plus its first generator, written twice by two documents that do not
+> reference each other. **The plan is authoritative**: it is gated, its schema is normative, and
+> it can record a halt, which this document has no place for. What survives here and is _not_ in
+> the plan: layout intent and bound variables, and the argument that the Figma extract is the only
+> channel carrying them to a developer without a Dev seat. Fold that in; treat the rest as
+> superseded.
+
 # The handover package — layout, write protocol and verification chain
 
 ## Purpose

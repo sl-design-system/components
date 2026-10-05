@@ -6,15 +6,17 @@ title: Freeze the initial corpus in a design-system-owned Figma file
 description: Create the protected Figma file, copy in the initial cases, and record the freeze procedure and its guard
 jira: null
 resource: null
-status: todo
+status: blocked
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-10-01T12:00:00Z
+updated: 2026-10-05T00:00:00Z
 tags: [corpus, figma, foundation]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-01, T-NOJIRA-figma-to-code-03]
 ---
+
+> **Reviewed 2026-10-05 — blocked.** Says "select three initial cases"; nineteen are registered and were run. Also mis-ordered — `sequencing.md` builds over captures already on disk, so a fresh freeze is needed only when Figma is touched again.
 
 # Freeze the initial corpus in a design-system-owned Figma file
 

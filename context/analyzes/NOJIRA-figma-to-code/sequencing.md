@@ -558,3 +558,78 @@ in the browser `shoot.mjs` already drives — and run it on `a3` and `a7`, where
 
 **Two real fidelity numbers, and a nineteen-run census naming every reason the other seventeen
 have none.** No schema, no overlay, no Figma call.
+
+---
+
+# What eight reviews converge on
+
+Five on document consistency, three on feasibility, value and the artifacts nobody had opened.
+They disagree about very little, and where they converge the conclusion is not a refinement of
+the plans — it is that **the plans are far ahead of what is measurable**.
+
+## The hazard that was live
+
+`T-NOJIRA-figma-to-code-06` was superseded **by name** in Amendment 6 and its file was untouched:
+`status: todo`, still instructing someone to build a denominator that cannot exist, with **three
+tasks listing it in `depends_on`**. Anyone claiming work would have found a live-looking
+foundational task and built the one thing the amendment proved impossible.
+
+Now `cancelled`, with the reason in the file. Eight more tasks marked `blocked` with the specific
+line that is wrong, rather than left reading as current.
+
+## The second quiet duplication, in the same session
+
+`ARCH-handover-package` and `P-NOJIRA-html-contract` **specify the same artifact under two
+names** — the package's tree, geometry, style, instances, text, dictionaries and manifest are the
+plan's common format and its first generator. Neither references the other. The plan is
+authoritative; what survives from the architecture document is layout intent and bound variables,
+which the plan's checklist had dropped.
+
+That is twice in one session: the metadata contract re-derived smaller, and now this. The pattern
+is not carelessness about _one_ document — **it is that a new plan reads the analyses and not the
+architecture**, and nothing makes it.
+
+## None of the sixteen use cases names a corpus case
+
+Plan acceptance 7 requires each to state which case proves it. All sixteen say "a corpus case" or
+"three cases are registered". **AC-7 is unmet across the entire set**, and no use case can be
+checked against the 14-of-19 halt because none identifies what it needs. Ten of the sixteen also
+precondition on a successfully rendered page, which exists for a minority.
+
+## The triage plan's headline is disproved
+
+"Nine already satisfied, eight remain" rests on T-01 confirming nine claims **by running the
+pipeline**. With 14 of 19 halting, "any-scope runs" is disproved outright, and three more claims
+are unobservable on 33 of 38 runs. The task's own note concedes it: _"the count of eight assumes
+all nine hold."_
+
+## Where this leaves the work
+
+The business and feasibility reviews reach the same place from opposite directions.
+
+- **27 of 43 tasks produce nothing externally visible**, and no task carries an estimate.
+- **The first comparable number has N ≈ 4**, not nineteen.
+- **The cheapest schedule-moving work is in neither plan**: one bug in `extractBlocks` whose fix
+  is hours and which plausibly lifts survivorship from 9 runs past the plan's own ten-run
+  narrowing threshold.
+- **The cheapest externally visible win is days** — the five-cause classification and fail-open
+  descent, which do not wait for the HTML plan.
+- **The raster track has negative value** — demoted before starting, and it rewards the one output
+  shape the settled ownership model cannot consume.
+
+So the recommendation is not to re-plan. It is:
+
+> **Spend one week measuring, then re-plan from what it shows.** Fix the advisory split, write
+> `census.json` — per run: provenance class, renders or not, reference exact or downscaled or
+> undeclared — and build only the geometry comparator, on the two runs where N ≈ 330. Two real
+> fidelity numbers and a nineteen-run census naming every reason the other seventeen have none.
+> No schema, no overlay, no Figma call.
+
+Everything in both plans survives that week or is reshaped by it, and it costs less than writing
+the task files would have.
+
+## And the question to answer before any of it
+
+**Nobody has compared 300k–2M tokens and 27–164 minutes per screen against a developer building
+the screen by hand.** At a measured 5 of 38, that comparison is not close — and it is the first
+thing anyone funding this will ask.

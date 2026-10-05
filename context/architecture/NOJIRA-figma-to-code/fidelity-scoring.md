@@ -13,6 +13,15 @@ updated: 2026-10-01T14:00:00Z
 tags: [measurement, fidelity, scoring, bench]
 ---
 
+> **Reviewed 2026-10-05 — dimension 3 is now wrong.** It specifies element-level screenshots
+> against the Figma reference with tiered tolerances. Fidelity has since moved off the raster:
+> the build's measured geometry is compared against Figma's _declared_ geometry, and the raster
+> is kept for human review and build-against-build regression, never scored against the design.
+> The document is also silent on halts — the majority outcome at 14 of 19 — and on the reference
+> corruption measured since: four `get_screenshot` behaviours including halved colour channels.
+> One further measurement bears on it: the independent-comparison population is about **four**
+> runs, because declared and rendered node sets barely overlap.
+
 # How a run is scored
 
 ## Purpose

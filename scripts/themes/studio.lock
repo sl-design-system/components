@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-10-01T14:15:28Z"
+generated_at = "2026-10-05T13:00:40Z"
 cli_version = "dev"
 dependencies = []
 
@@ -23,7 +23,7 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-10-01T14:15:26Z"
+  updated_at = "2026-10-05T13:00:36Z"
 
 [[exports]]
   name = "core-css"
@@ -33,8 +33,8 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:595e50541ff9235a5e74d4c9646f3a47bf8ab96ddd74e44ff9f163bdab76807d"
   output_hash = "sha256:19aa96dbf2917195fd82c4da6ecc56c587443e31f05d5e46b4b43f1a3e3095b4"
-  updated_at = "2026-10-01T14:15:25Z"
+  updated_at = "2026-10-05T13:00:32Z"
 
 [integrity]
-  lockfile_hash = "sha256:8958d3979c610210d2466827a9ade5b3edffaacaa0806ea2a7689d33cfcc7a7b"
+  lockfile_hash = "sha256:95e65a7942b24377f02c76a301e778208f277456c831eccc3c1a6dc811ce3344"
   algorithm = "sha256"

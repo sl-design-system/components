@@ -141,6 +141,22 @@ From [`pipeline-defects.md`](pipeline-defects.md), with the newest first:
 and needs no further analysis from us. Six components with dead typography and the font namespace
 fault are the two with the widest blast radius.
 
+## 5b. Instrumentation — the prerequisite the cost item asks for
+
+[`instrumentation.md`](instrumentation.md). The completeness check is a script and the adapter is
+what keeps an API change away from it; the one judgement in it — "decorative" — is a decision
+recorded during decomposition, never taken at check time.
+
+On measurement, the fix is **where the number comes from**. Nineteen runs self-reported, disagreed
+by two orders of magnitude, and one fabricated a figure. So: an append-only ledger of every Figma
+call, per-run tokens and wall clock emitted by the harness, a decision record, and **a checksum of
+every generated artifact** — which for the script-generated HTML is not bookkeeping but the
+determinism test itself.
+
+It needs one architectural decision to be complete rather than merely encouraged: **the
+implementation agents do not hold the Figma tools; only the ingestion script does.** Then no call
+can be invisible to the ledger.
+
 ## 6. Cost — its own plan, deliberately later
 
 [`cost-and-duration.md`](cost-and-duration.md). One prerequisite before any optimisation: **one

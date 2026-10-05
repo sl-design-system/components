@@ -16,7 +16,7 @@ source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-10]
 ---
 
-> **Reviewed 2026-10-05 — blocked.** Refuses only when reference bounds are absent. `get_screenshot` also **halves every colour channel**, so a present-but-corrupt reference passes this gate. Fidelity has also moved off the raster entirely — see `T-NOJIRA-html-contract-07b`.
+> **Reviewed 2026-10-05 — blocked.** Refuses only when reference bounds are absent. `get_screenshot` also **halves every colour channel**, so a present-but-corrupt reference passes this gate. Fidelity has also moved off the raster entirely — see `T-NOJIRA-html-artifacts-06`.
 
 # Fidelity dimension: per-component pixel comparison
 

@@ -545,7 +545,7 @@ where Code Connect resolved. `a1` is not Figma bytes at all: `function IconButto
 `{lorem-ipsum description, 2-line clamp}` are agent prose wearing JSX, and the run yields three
 CSS classes in total — there is nothing there to be faithful to.
 
-**And `T-NOJIRA-html-contract-06`, the determinism proof, is already true:** two runs of `a3`
+**And `T-NOJIRA-html-artifacts-05`, the determinism proof, is already true:** two runs of `a3`
 produce identical sha1. Hours to formalise, not days.
 
 ## What one week would produce

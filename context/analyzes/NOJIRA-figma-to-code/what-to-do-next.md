@@ -37,8 +37,10 @@ and which of the nineteen runs are evidence at all.
 
 ## Step 1 — the cheapest externally visible win
 
-**Ingestion tasks 03, 04, 05 — the mode decision, the traversal with Code Connect as the stopping
-rule, and the five-cause classification.** Without the ledger, without the boundary checks.
+**`P-NOJIRA-figma-ingestion`, the whole plan** — the mode decision, the traversal with Code
+Connect as the stopping rule, the five-cause classification, and the fourteen-case probe. The
+ledger, the boundary checks and the assets are a separate plan,
+`P-NOJIRA-ingestion-hardening`, which is weeks where this is days.
 
 - Priced in our own analysis as _a few dozen lines, not a subsystem_.
 - `theme-match.mjs` already discriminates the other-library case; the mapping inventory is a local
@@ -46,9 +48,9 @@ rule, and the five-cause classification.** Without the ledger, without the bound
 - Both enabling API calls were probed on 2026-10-05 and work.
 - **It does not wait for Step 0** — the 14-case halt probe needs no fidelity figure.
 
-**Then ingestion task 09, narrowed**: re-run only the fourteen cases that halted. A third of the
-cost of the full control, and **it can falsify the whole diagnosis on its own**. If none of the
-fourteen converts, stop and rethink rather than spending the other twenty-four runs.
+Its last task is **the fourteen-case probe**: re-run only the cases that halt today. A third of
+the cost of the full control, and **it can falsify the whole diagnosis on its own**. If none of
+the fourteen converts, stop and rethink rather than spending the other twenty-four runs.
 
 **Measured against:** 5 of 38. This is the only number in the effort that moves something
 externally visible.
@@ -57,7 +59,8 @@ externally visible.
 
 ## Step 2 — the contract, anchored this time
 
-`T-NOJIRA-html-contract-00`, with the corrections the reviews forced:
+`P-NOJIRA-html-contract` — two tasks, the contract and its schema — with the corrections the
+reviews forced:
 
 - **primary input is the 36 requirements** of `A-NOJIRA-figma-metadata-contract`, with a recorded
   disposition for every one — not a checklist re-derived from four consumers;
@@ -73,20 +76,21 @@ Gated on human approval. Nothing downstream starts until it passes.
 
 ## Step 3 — build on what Step 0 proved
 
-Adapter, schema, generators, closure check — `P-NOJIRA-html-contract` tasks 01 onward, at
-whatever scope the census justified.
+Adapter, generators, closure check, fidelity, overlay — `P-NOJIRA-html-artifacts`, at whatever
+scope the census justified. Then `P-NOJIRA-ingestion-hardening`, which needs both the traversal
+and the closure check to exist.
 
 ---
 
 ## Not yet, and why
 
-| Deferred                               | Reason                                                                                                                                           |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **the raster track** — T-10, T-11, 07a | demoted before it was started; scoreable on a minority; it rewards absolute positioning, which a script with no model in the loop cannot consume |
-| **the progress view**                  | a third generator with no named consumer                                                                                                         |
-| **T-13, T-16**                         | comparison cadence and rerun automation for a cadence that has run zero experiments                                                              |
-| **slice 5, caching**                   | already deferred; stop re-litigating it                                                                                                          |
-| **moving the toolkit to aipdlc**       | a decision to take once there is something worth moving                                                                                          |
+| Deferred                                         | Reason                                                                                                                                           |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **the raster track** — the bench's T-10 and T-11 | demoted before it was started; scoreable on a minority; it rewards absolute positioning, which a script with no model in the loop cannot consume |
+| **the progress view**                            | a third generator with no named consumer                                                                                                         |
+| **T-13, T-16**                                   | comparison cadence and rerun automation for a cadence that has run zero experiments                                                              |
+| **slice 5, caching**                             | already deferred; stop re-litigating it                                                                                                          |
+| **moving the toolkit to aipdlc**                 | a decision to take once there is something worth moving                                                                                          |
 
 ## Owned by someone else, and worth starting in parallel
 

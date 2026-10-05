@@ -67,7 +67,12 @@ plan.
 task is done_. A plan may consume a completed plan's output freely; it may not wait mid-flight on
 somebody else's task.
 
-## Slices
+## Slices — superseded by the two tables above
+
+The slice numbering predates the plan re-cut and the epics. It is kept only because earlier
+documents cite slice numbers; **where it disagrees with the Epics and Plans tables, those win.**
+Three tables describing one body of work is two too many, and this is the one to retire once
+nothing cites it.
 
 | #   | Slice                                       | Plan                                                             | Status                       | One-line scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | --- | ------------------------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

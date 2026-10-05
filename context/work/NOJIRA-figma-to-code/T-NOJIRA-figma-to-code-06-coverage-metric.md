@@ -16,7 +16,7 @@ source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
 ---
 
-> **Reviewed 2026-10-05 — superseded.** Superseded by Amendment 6 and by `T-NOJIRA-html-contract-04`. Its method is falsified: this task requires "the denominator is honest and not quietly shrinkable", and `get_metadata` stops at instance boundaries — 10,936 nodes returned as 27 — so every descent enlarges the universe and **there is no denominator**. Replaced by the closure census. **Do not start this task.** Three tasks still list it in `depends_on`; that link now points at the html-contract task.
+> **Reviewed 2026-10-05 — superseded.** Superseded by Amendment 6 and by `T-NOJIRA-html-artifacts-03`. Its method is falsified: this task requires "the denominator is honest and not quietly shrinkable", and `get_metadata` stops at instance boundaries — 10,936 nodes returned as 27 — so every descent enlarges the universe and **there is no denominator**. Replaced by the closure census. **Do not start this task.** Three tasks still list it in `depends_on`; that link now points at the html-contract task.
 
 # Coverage metric — node accounting
 

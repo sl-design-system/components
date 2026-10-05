@@ -486,13 +486,13 @@ without this plan being consulted.
   shrinkable". `get_metadata` stops at instance boundaries — 10,936 nodes returned as 27 — so
   every descent enlarges the universe and **there is no denominator**. Replaced by the closure
   census (visited, resolved, captured, descended, hidden, excluded, frontier empty), now owned by
-  `T-NOJIRA-html-contract-04`. T-06 is superseded rather than reworded.
+  `T-NOJIRA-html-artifacts-03`. T-06 is superseded rather than reworded.
 - **T-07 acceptance 1 is unreachable** — "runs the existing pipeline over every registered corpus
   case" cannot hold while 14 of 19 halt. A halt with a recorded cause is a **first-class result**,
   not a run failure.
 - **T-09's method is measured false.** "Cost is read from what a run already reports" produced
   self-reports disagreeing by two orders of magnitude, one of them fabricated. The source becomes
-  the ledger in `T-NOJIRA-figma-ingestion-01` plus orchestration-reported subagent usage, with the
+  the ledger in `T-NOJIRA-ingestion-hardening-01` plus orchestration-reported subagent usage, with the
   supervising session's own consumption marked **unmeasured** rather than estimated.
 - **Amendment 4 is discharged** — its smoke run was superseded by 19 supervised and 38 control
   runs.

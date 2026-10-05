@@ -1,0 +1,4 @@
+These styles are contained in the design: color/palette/primary/500: #006666, background: #FFFFFF, color/palette/neutral/100: #ECECF1, color/palette/warning/600: #CA6F2A.
+
+No Code Connect snippets. Full returned code:
+

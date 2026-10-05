@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "run": "a4-sesame-my-groups",
+  "figma": {
+    "rootNodeId": "2847:14994"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "stack-conversion",
+      "nodeId": null,
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/unknown-0.advisory.stack-conversion.txt",
+      "bytes": 565,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "node-ids",
+      "nodeId": null,
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/unknown-1.advisory.node-ids.txt",
+      "bytes": 87,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "assets",
+      "nodeId": null,
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/unknown-2.advisory.assets.txt",
+      "bytes": 2071,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:14995",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-14995.txt",
+      "bytes": 10495,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:14995",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-14995.advisory.styles.txt",
+      "bytes": 529,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15395",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15395.txt",
+      "bytes": 11127,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15395",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15395.advisory.styles.txt",
+      "bytes": 1308,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15379",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15379.txt",
+      "bytes": 11551,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15379",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15379.advisory.styles.txt",
+      "bytes": 795,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "772:26895",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/772-26895.txt",
+      "bytes": 12705,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2:70426",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2-70426.txt",
+      "bytes": 6348,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15358",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15358.txt",
+      "bytes": 4449,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15083",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15083.txt",
+      "bytes": 1941,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15083",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15083.advisory.styles.txt",
+      "bytes": 214,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15089",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15089.txt",
+      "bytes": 1420,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15089",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15089.advisory.styles.txt",
+      "bytes": 222,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15245",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15245.txt",
+      "bytes": 1270,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15427",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15427.txt",
+      "bytes": 1101,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15709",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15709.txt",
+      "bytes": 1733,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15709",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15709.advisory.styles.txt",
+      "bytes": 467,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15077",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15077.txt",
+      "bytes": 588,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "2847:15077",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15077.advisory.styles.txt",
+      "bytes": 257,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15152",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15152.txt",
+      "bytes": 664,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "2847:15242",
+      "label": "Raw `get_design_context` responses — a4-sesame-my-groups",
+      "file": "captures-v2/design-context/2847-15242.txt",
+      "bytes": 941,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "2847:14994",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/2847-14994.txt",
+      "bytes": 44694,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "14",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/14.txt",
+      "bytes": 2170,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.NOTES.txt",
+      "file": "captures-v2/code-connect/unknown-0.txt",
+      "bytes": 489,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/unknown-0.2.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 137273,
+      "capturedAt": "2026-10-05T17:00:59.762Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

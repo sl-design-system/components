@@ -1,0 +1,7 @@
+These styles are contained in the design: Gray/gray 500: #8D8D8D, H4: Font(family: "Open
+> Sans", style: SemiBold, size: 18, weight: 600, lineHeight: 100, letterSpacing: 0).
+
+---
+
+## 13. `2847:15152` — Table body cell, Type column (plain text td instance)
+

@@ -1,0 +1,3 @@
+<CodeConnectSnippet data-node-id="I23759:157574;17193:115254" data-name="sl-badge" data-snippet-language="SL Design System">
+          <sl-badge color="green" size="lg"><sl-icon name="fas-backpack"></sl-icon>Success</sl-badge>
+        </CodeConnectSnippet>

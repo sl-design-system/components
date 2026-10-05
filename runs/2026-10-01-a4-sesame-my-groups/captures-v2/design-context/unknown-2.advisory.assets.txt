@@ -1,0 +1,34 @@
+Images and SVGs will be stored as constants, e.g. const image =
+> `${assetPathPrefix}/<asset file name>`, where assetPathPrefix is declared once at the top
+> of the code and every asset URL interpolates it. These constants will be used in the code
+> as the source for the image, ex: `<img src={image} />`. Image assets are stored on a remote
+> server for 7 days and can be fetched using the provided URLs until they expire.
+
+Node-specific "These styles are contained in the design" and "Component descriptions"
+blocks ARE reproduced per section, because they differ per node.
+
+Nodes fetched, in call order:
+
+| #   | Node ID      | Region                                                    |
+| --- | ------------ | --------------------------------------------------------- |
+| 1   | `2847:14995` | Page title row + page-level action buttons                |
+| 2   | `2847:15395` | Filter / search card                                      |
+| 3   | `2847:15379` | Bulk-selection action bar                                 |
+| 4   | `2847:15003` | App header (top nav bar + secondary school bar)           |
+| 5   | `2847:15426` | Footer                                                    |
+| 6   | `2847:15358` | Row overflow menu ("group-card-dropdown")                 |
+| 7   | `2847:15083` | Table header cell, Name column (with select-all checkbox) |
+| 8   | `2847:15089` | Table body cell, Name column, selected row                |
+| 9   | `2847:15245` | Table body cell, Action column (overflow icon button)     |
+| 10  | `2847:15427` | "40 Groups" result count                                  |
+| 11  | `2847:15709` | `sl-helper-theme` inline error message                    |
+| 12  | `2847:15077` | "ALL SCHOOL GROUPS" section heading                       |
+| 13  | `2847:15152` | Table body cell, Type column (plain text td instance)     |
+| 14  | `2847:15242` | Table header cell, Action column                          |
+
+(14 calls total; the table above supersedes the "11" count in the intro.)
+
+---
+
+## 1. `2847:14995` — Page title row + action buttons
+

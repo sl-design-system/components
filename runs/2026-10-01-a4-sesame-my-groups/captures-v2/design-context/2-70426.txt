@@ -1,0 +1,161 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/e407f82a-ee5f-415b-a230-1274aaa50c25';
+const imgLanguageBlack24Dp12 = `${assetPathPrefix}/b98f1.svg`;
+const imgIconRight = `${assetPathPrefix}/ef41b.svg`;
+const imgImage1 = `${assetPathPrefix}/a908e.png`;
+
+type Component2Props = {
+  className?: string;
+  property1?: 'Dropdown up';
+};
+
+function Component2({ className, property1 = 'Dropdown up' }: Component2Props) {
+  return (
+    <div
+      className={className || 'content-stretch flex items-center relative'}
+      data-node-id="2:70426">
+      <div
+        className="content-stretch flex gap-[8px] items-center pl-[8px] relative shrink-0"
+        data-node-id="2:70427"
+        data-name="School label">
+        <div
+          className="relative shrink-0 size-[16px]"
+          data-node-id="2:70428"
+          data-name="language_black_24dp (1) 2">
+          <img
+            alt=""
+            className="absolute block inset-0 max-w-none size-full"
+            src={imgLanguageBlack24Dp12}
+          />
+        </div>
+        <p
+          className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+          data-node-id="2:70431"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          English - EN
+        </p>
+      </div>
+      <div
+        className="content-stretch flex gap-[8px] items-center justify-center p-[8px] relative rounded-[4px] shrink-0"
+        data-node-id="2:70432"
+        data-name="Button">
+        <div
+          className="relative shrink-0 size-[16px]"
+          data-node-id="2:70434"
+          data-name="Icon-right">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIconRight} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type MenuItemFooterProps = {
+  className?: string;
+  property1?: 'default';
+};
+
+function MenuItemFooter({ className, property1 = 'default' }: MenuItemFooterProps) {
+  return (
+    <div
+      className={className || 'content-stretch flex items-start p-[8px] relative'}
+      data-node-id="2:70415">
+      <p
+        className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+        data-node-id="2:70416"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        Privacy Policy
+      </p>
+    </div>
+  );
+}
+
+type FooterProps = {
+  className?: string;
+  property1?: 'Footer desktop';
+};
+
+function Footer({ className, property1 = 'Footer desktop' }: FooterProps) {
+  return (
+    <div
+      className={
+        className ||
+        'bg-[#f6f8f8] content-stretch flex flex-col items-start overflow-clip px-[128px] py-[24px] relative'
+      }
+      data-node-id="2:70476">
+      <div
+        className="content-stretch flex items-start justify-between relative shrink-0 w-[1024px]"
+        data-node-id="2:70477">
+        <div className="h-[40px] relative shrink-0 w-[198px]" data-node-id="2:70478">
+          <div
+            className="absolute h-[25px] left-0 top-0 w-[112.868px]"
+            data-node-id="2:70479"
+            data-name="image 1">
+            <img
+              alt=""
+              className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+              src={imgImage1}
+            />
+          </div>
+        </div>
+        <div
+          className="content-stretch flex flex-col gap-[8px] items-end relative shrink-0"
+          data-node-id="2:70480">
+          <div
+            className="content-stretch flex gap-[16px] items-start px-[8px] relative shrink-0"
+            data-node-id="2:70481">
+            <MenuItemFooter className="content-stretch flex items-start p-[8px] relative shrink-0" />
+            <div
+              className="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2:70483"
+              data-name="menu item footer">
+              <p
+                className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2:70483;2678:143004"
+                style={{ fontVariationSettings: '"wdth" 100' }}>{`Terms & Conditions`}</p>
+            </div>
+            <div
+              className="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2:70484"
+              data-name="menu item footer">
+              <p
+                className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2:70484;2678:143004"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Contact
+              </p>
+            </div>
+            <div
+              className="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2:70485"
+              data-name="menu item footer">
+              <p
+                className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2:70485;2678:143004"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Cookies
+              </p>
+            </div>
+            <div
+              className="content-stretch flex items-start p-[8px] relative shrink-0"
+              data-node-id="2:70486"
+              data-name="menu item footer">
+              <p
+                className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                data-node-id="I2:70486;2678:143004"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Disclaimer
+              </p>
+            </div>
+          </div>
+          <Component2 className="content-stretch flex items-center relative shrink-0" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Footer1() {
+  return (
+    <Footer className="bg-[#f6f8f8] content-stretch flex flex-col items-start px-[128px] py-[24px] relative size-full" />
+  );
+}

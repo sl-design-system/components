@@ -1,0 +1,15 @@
+export default function TdTextStart() {
+  return (
+    <div
+      className="bg-[#f9ecf5] border-[#dedede] border-b border-solid content-stretch flex items-center px-[16px] py-[10px] relative size-full"
+      data-node-id="2847:15152"
+      data-name="td-text-start">
+      <div
+        className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal h-full justify-center leading-[0] min-w-px relative text-[#323232] text-[14px] tracking-[0.25px]"
+        data-node-id="I2847:15152;72:383"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">class</p>
+      </div>
+    </div>
+  );
+}

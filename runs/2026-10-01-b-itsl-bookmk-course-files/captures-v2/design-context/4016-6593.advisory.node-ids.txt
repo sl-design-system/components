@@ -1,0 +1,108 @@
+Node ids have been added to the code as data attributes, e.g. `data-node-id="1:2"`.
+
+## Styles contained in the design
+
+Body large: Font(family: "default-font", style: Regular, size: Size/300, weight: 400, lineHeight: 1.5, letterSpacing: 0), Base: Font(family: "default-font", style: regular, size: Size/300, weight: 400, lineHeight: 1.5, letterSpacing: 0), Title M: Font(family: "default-font", style: bold, size: Size/400, weight: 700, lineHeight: 1.5, letterSpacing: 0), Gray/900: #333333, Gray/700: #565656, Gray/300: #E1E1E1, layer-shadow: Effect(type: DROP_SHADOW, color: #0000000D, offset: (0, 4), radius: 8, spread: 0), Title XL: Font(family: "default-font", style: bold, size: Size/800, weight: 700, lineHeight: 1.5, letterSpacing: 0), Base small: Font(family: "default-font", style: regular, size: Size/200, weight: 400, lineHeight: 1.5, letterSpacing: 0), Base small strong: Font(family: "default-font", style: bold, size: Size/200, weight: 700, lineHeight: 1.5, letterSpacing: 0), Links/Base primary link: Font(family: "default-font", style: bold, size: Size/300, weight: 700, lineHeight: 1.5, letterSpacing: 0).
+
+## Component descriptions (verbatim, from Figma component documentation)
+
+### Navigation — Node ID: 4016:6647
+
+Menu
+Documentation: https://styleguide.itsbuild.net/assets/patterns/MainMenu/v1/
+
+### Search — Node ID: 4016:5924
+
+Usage: This Figma component represents 2 components in Prometheus: SearchInput and GlobalSearch.
+Global=false (searchinput) can be used on each page where we have search as you type, and it doesn't require confirmation from user; can be combined with filters.
+Global=true (Globalesearch) can be used in navigation and search result page. Used when we require confirmation from user to start the searching mechanism.
+Auto-complete: For SearchInput only. The text field can be combined with auto-complete functionality.
+Keywords: search, global, input
+Documentation: https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/
+
+### Button — Node ID: 4016:5507
+
+Usage: Large is default size; small can be used when large is too big. Button width depends on its label. Button can't lead to another page — use link instead. Truncate button's label if it doesn't fit; label should never wrap.
+Loading: button can be in loading state, text hidden and spinner shown, maintain original width.
+Row of actions: distance defined by variable actions-gap; behaviour handled by ButtonGroup component (no Figma analogue, simple auto-layout row).
+Documentation: https://styleguide.itsbuild.net/assets/inputs/Button/v1/
+
+### magnifying-glass — Node ID: 2275:4351
+
+search
+
+### bell — Node ID: 4016:6527
+
+bell, notification
+
+### comment — Node ID: 4016:6535
+
+Not in Semiotic comment, messages
+
+### Avatar — Node ID: 4016:6537
+
+Usage: predefined sizes only — 100:24x24(size--700), 200:32x32(size--900), 300:48x48(size--1100), 400:64x64(size--1200), 500:80x80(size--1300), 600:96x96(size--1400). Contact UX team for other sizes.
+Keywords: User, person, userpic
+Documentation: https://styleguide.itsbuild.net/assets/nodes/Avatar/v1/
+
+### Editable=False — Node ID: 4680:12985
+
+Usage: This component represents 2 components in Prometheus: PageHeader and PageHeaderEditable. Optional like can concatenate several text lines divided by bullet symbol (accessible solution exists, reusable). Editable option in Figma needs tweaks when title is long or screen is narrow.
+Documentation: https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/
+
+### PageHeader — Node ID: 4680:12984
+
+(same usage text as above — represents PageHeader / PageHeaderEditable; Subtitle concatenates lines divided by bullet; don't use line break/complex structure in subtitle)
+Documentation: https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/
+
+### Banner — Node ID: 4676:9879
+
+Usage: Banners shown inside Banner Area component. Usually at top of page/section, full width of container. Put close to relevant content. Should be dismissible unless critical/important step required. Don't use as only way to access regular info/action. Help banners can be displayed near related items (e.g. mid-form).
+Content: container that can technically contain anything incl. buttons/links/images; accessibility concern — interactive controls in non-persistent banners don't receive focus automatically.
+Writing: UX writing guidelines link (Confluence, internal — not fetched).
+Keywords: alert, feedback, message
+Documentation: https://styleguide.itsbuild.net/assets/feedback/Banner/v1/
+
+### Button — Node ID: 4675:10050
+
+(same Button usage text as above)
+Documentation: https://styleguide.itsbuild.net/assets/inputs/Button/v1/
+
+### xmark — Node ID: 4571:11998
+
+close, remove
+
+### Property 1=Active — Node ID: 4686:11999 (table row template)
+
+Usage: This is a template component — detach before using as starting point for mockups (styles live at Cell level, so table style changes propagate). Once detached, make a new local component. Adjust number of columns; change content type to predefined ones or new. Recommended to rename text cell to column name. Put instances of local row component into List template; row takes full available width. To create header row, select all cells in 1st row instance and toggle "Header" parameter.
+Keywords: Template, blueprint
+
+### Cell — Node ID: 4978:10912
+
+How to use: use cell component to build row and tables; icon cell needs a visible label next to it; action cell always shows 1 button, if more than 1 action use icon-only with ellipsis icon, show actions in dropdown.
+Sort: to show sorting changes, change icon to increase/decrease sorting and background of cell to Brand/100.
+Figma file (sort/table template source): https://www.figma.com/design/8gsaOc6G4f4GcpxOryCcKR/Filter-Area-%2B-Table-template?node-id=4366-19238
+Deprecated: switch cell (should be under action dropdown), input cell, multiple action cell.
+Documentation: https://styleguide.itsbuild.net/assets/lists/Cell/v1/
+
+### Property 1=Inactive — Node ID: 4686:12006 (same as Property 1=Active template text)
+
+### Cell — Node ID: 2295:5708 (duplicate documentation entry, identical to 4978:10912)
+
+### Course-hat — Node ID: 2275:4959
+
+Keywords: Avatar
+Documentation: https://styleguide.itsbuild.net/docs/styles/blocks/
+
+### graduation-cap — Node ID: 2275:4957
+
+course
+
+### Status — Node ID: 2295:4983
+
+Usage: Component used to show a state of some object/process. Can be used without icon. The status cannot be interactive. Colours of statuses shouldn't be changed; consult UX team for a new colour.
+Accessibility: Don't truncate the label — show in multiple lines if long. When zoomed >200%, show status tag without icon.
+Keywords: status, tag, label
+
+## Images/assets note (verbatim)
+

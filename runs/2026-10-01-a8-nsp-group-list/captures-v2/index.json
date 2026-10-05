@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "run": "a8-nsp-group-list",
+  "figma": {
+    "rootNodeId": "334:20573"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "334:20573",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/334-20573.txt",
+      "bytes": 12054,
+      "capturedAt": "2026-10-05T17:00:59.781Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "32",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/32.txt",
+      "bytes": 3467,
+      "capturedAt": "2026-10-05T17:00:59.781Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": "334:20678",
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/334-20678.txt",
+      "bytes": 2885,
+      "capturedAt": "2026-10-05T17:00:59.781Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 165401,
+      "capturedAt": "2026-10-05T17:00:59.781Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

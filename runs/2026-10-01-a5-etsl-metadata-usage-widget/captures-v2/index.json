@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "run": "a5-etsl-metadata-usage-widget",
+  "figma": {
+    "rootNodeId": null
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-0.advisory.styles.txt",
+      "bytes": 2470,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-1.advisory.styles.txt",
+      "bytes": 957,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-2.txt",
+      "bytes": 175,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-3.txt",
+      "bytes": 175,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-4.txt",
+      "bytes": 240,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-5.txt",
+      "bytes": 240,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-6.advisory.styles.txt",
+      "bytes": 1370,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-7.advisory.styles.txt",
+      "bytes": 1299,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-8.advisory.styles.txt",
+      "bytes": 487,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-9.txt",
+      "bytes": 330,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-10.txt",
+      "bytes": 257,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-11.txt",
+      "bytes": 328,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": null,
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/unknown-12.advisory.styles.txt",
+      "bytes": 219,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "17214:103728",
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/17214-103728.txt",
+      "bytes": 1373,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "17214:103728",
+      "label": "Sub-section get_design_context calls (root returned SPARSE metadata only)",
+      "file": "captures-v2/design-context/17214-103728.advisory.styles.txt",
+      "bytes": 1063,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/unknown-0.txt",
+      "bytes": 59075,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "800",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/800.txt",
+      "bytes": 4414,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": "16160:33988",
+      "label": "figma-code-connect-map.NOTE.md",
+      "file": "captures-v2/code-connect/16160-33988.txt",
+      "bytes": 1291,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/unknown-0.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 208828,
+      "capturedAt": "2026-10-05T17:00:59.768Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

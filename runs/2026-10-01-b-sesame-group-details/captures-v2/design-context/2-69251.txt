@@ -1,0 +1,55 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/a4316b41-b3c1-48f7-83ad-28aae389237e';
+const imgProperty1Default = `${assetPathPrefix}/94b18.svg`;
+
+type EmptyIsonProps = {
+  className?: string;
+  property1?: 'Default';
+};
+
+function EmptyIson({ className, property1 = 'Default' }: EmptyIsonProps) {
+  return (
+    <div className={className || 'h-[57.085px] relative w-[80px]'} data-node-id="2:69251">
+      <img
+        alt=""
+        className="absolute block inset-0 max-w-none size-full"
+        src={imgProperty1Default}
+      />
+    </div>
+  );
+}
+
+export default function Frame8829() {
+  return (
+    <div
+      className="content-stretch flex flex-col gap-[24px] items-center justify-center py-[24px] relative size-full"
+      data-node-id="2142:48470">
+      <EmptyIson className="h-[71.357px] relative shrink-0 w-[100px]" />
+      <div
+        className="content-stretch flex flex-col items-center relative shrink-0"
+        data-node-id="2142:48472">
+        <div
+          className="content-stretch flex flex-col items-center relative shrink-0"
+          data-node-id="2142:48473">
+          <div
+            className="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-center relative shrink-0 text-black w-[556px]"
+            data-node-id="2142:48474">
+            <p
+              className="font-['Open_Sans:Bold'] font-bold leading-[normal] relative shrink-0 text-[24px] text-center w-[390px]"
+              data-node-id="2142:48475"
+              style={{
+                fontVariationSettings: '"wdth" 100'
+              }}>{`You don't have any students yet`}</p>
+            <ul
+              className="block font-['Open_Sans:Regular'] font-normal leading-[0] relative shrink-0 text-[16px] w-[220px]"
+              data-node-id="2142:48476"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              <li className="list-disc ms-[24px]">
+                <span className="leading-[24px]">{`Start by adding a student `}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

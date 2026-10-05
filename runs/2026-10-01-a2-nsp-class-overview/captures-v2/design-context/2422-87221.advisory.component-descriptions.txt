@@ -1,0 +1,19 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## sl-button-rectangular
+
+**Node ID:** 2045:9049
+
+A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action.
+
+INVERTED BUTTONS are only to be used with `elevation.surface.raised.inverted` and `elevation.surface.raised.primary`.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/button/usage/](https://sanomalearning.design/categories/components/button/usage/)
+
+## Icon only=true, ↕️ - Size=MD
+
+**Node ID:** 2034:5922
+
+Use for borders that highlight secondary actions.

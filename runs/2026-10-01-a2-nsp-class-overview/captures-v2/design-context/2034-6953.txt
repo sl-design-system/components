@@ -1,0 +1,225 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/4f677b04-56d5-4f42-b913-18499decb593";
+const imgLogo = `${assetPathPrefix}/b4039.svg`;
+const imgProperty1Default = `${assetPathPrefix}/b4762.svg`;
+const imgImage = `${assetPathPrefix}/d2f0d.png`;
+const imgAvatarContent = `${assetPathPrefix}/d5fc3.svg`;
+const imgMask = `${assetPathPrefix}/041a2.svg`;
+
+type ClearProps = {
+className?: string;
+state?: "Default";
+};
+
+function Clear({ className, state = "Default" }: ClearProps) {
+return (
+<div className={className || "content-stretch flex items-start relative"} data-node-id="2034:6953">
+<div className="content-stretch flex items-start relative shrink-0" data-node-id="2034:6956" data-name="sl-icon">
+<div className="content-stretch flex items-center justify-center relative shrink-0" data-node-id="I2034:6956;301:41086" data-name="SL-icon/xs">
+<div className="content-stretch flex items-center justify-center relative shrink-0 size-[12px]" data-node-id="I2034:6956;301:41086;62:7075" data-name="Base/Icon">
+<div className="flex-[1_0_0] h-full min-w-px relative" data-node-id="I2034:6956;301:41086;62:7075;55:7028" data-name="icon-container">
+<div className="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Solid')] font-[var(--icon\/typeset\/fontweight\/icon-solid,normal)] inset-0 justify-center leading-[0] text-[color:var(--color\/foreground\/plain,#25292f)] text-[length:var(--size\/icon\/font\/xs,12px)] text-center" data-node-id="I2034:6956;301:41086;62:7075;55:7029">
+<p className="leading-[16px]">times-circle</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+);
+}
+
+type SlSearchFieldProps = {
+className?: string;
+label?: boolean;
+placeholder?: boolean;
+placeholderText?: string;
+size?: "MD";
+text?: string;
+variant?: "Default";
+};
+
+function SlSearchField({ className, label = true, placeholder = false, placeholderText = "Placeholder", size = "MD", text = "Input value", variant = "Default" }: SlSearchFieldProps) {
+const isMdAndDefaultAndNotPlaceholder = size === "MD" && variant === "Default" && !placeholder;
+const isMdAndDefaultAndPlaceholder = size === "MD" && variant === "Default" && placeholder;
+return (
+<div className={className || "content-stretch flex flex-col gap-[var(--space-new\\/xs,4px)] items-start relative w-[320px]"} id={isMdAndDefaultAndPlaceholder ? "node-2034_7196" : "node-2034_7195"}>
+{label && (
+<div className="content-stretch flex flex-col gap-[var(--space-new\/none,0px)] items-start relative shrink-0" data-node-id="2034:7203" data-name="sl-base-label">
+<div className="content-stretch flex gap-[var(--space-new\/2xs,2px)] items-center relative shrink-0" data-node-id="I2034:7203;961:65930" data-name="label-container">
+<div className="content-stretch flex gap-[2px] items-center relative shrink-0" data-node-id="I2034:7203;961:65947">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[color:var(--color\/foreground\/bold,#222)] text-[length:var(--size\/text-new\/body\/md,14px)] whitespace-nowrap" data-node-id="I2034:7203;961:65931" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Label</p>
+</div>
+</div>
+</div>
+</div>
+)}
+<div className={`${String.raw`content-stretch flex flex-col gap-[var(--space-new\/xs,4px)] items-start relative shrink-0 w-full `}${isMdAndDefaultAndPlaceholder ? "cursor-pointer" : ""}`} id={isMdAndDefaultAndPlaceholder ? "node-2034_7214" : "node-2034_7204"} data-name="Input and validation">
+<div className="content-stretch flex flex-col gap-[var(--space-new\/xs,4px)] isolate items-start relative shrink-0 w-full" id={isMdAndDefaultAndPlaceholder ? "node-2034_7215" : "node-2034_7205"} data-name="Textfield/Default">
+<div className="content-stretch flex gap-[var(--space\/100,8px)] items-center px-[var(--space\/150,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0 w-full z-[2]" id={isMdAndDefaultAndPlaceholder ? "node-2034_7216" : "node-2034_7206"}>
+<div className="content-stretch flex items-center relative shrink-0" id={isMdAndDefaultAndPlaceholder ? "node-2034_7218" : "node-2034_7207"} data-name="sl-icon">
+<div className="content-stretch flex items-center justify-center relative shrink-0" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7218-301_41086" : "node-I2034_7207-301_41086"} data-name="SL-icon/md">
+<div className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7218-301_41086-62_7102" : "node-I2034_7207-301_41086-62_7102"} data-name="Base/Icon">
+<div className="flex-[1_0_0] h-full min-w-px relative" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7218-301_41086-62_7102-49_7112" : "node-I2034_7207-301_41086-62_7102-49_7112"} data-name="icon-container">
+<div className="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Regular')] font-[var(--icon\/typeset\/fontweight\/icon-regular,normal)] inset-0 justify-center leading-[0] text-[color:var(--color\/foreground\/plain,#25292f)] text-[length:var(--size\/icon\/font\/md,16px)] text-center" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7218-301_41086-62_7102-49_7100" : "node-I2034_7207-301_41086-62_7102-49_7100"}>
+<p className="leading-[16px]">search</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+{isMdAndDefaultAndNotPlaceholder && (
+<>
+<div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/plain,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)]" data-node-id="2034:7208" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">{text}</p>
+</div>
+<Clear className="content-stretch cursor-pointer flex items-start relative shrink-0" />
+</>
+)}
+{isMdAndDefaultAndPlaceholder && (
+<div className="[word-break:break-word] flex flex-[1_0_0] flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] h-[20px] justify-center leading-[0] min-w-px relative text-[color:var(--color\/foreground\/subtlest,#59636e)] text-[length:var(--size\/text-new\/body\/md,14px)]" data-node-id="2034:7219" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">{placeholderText}</p>
+</div>
+)}
+</div>
+<div className="absolute flex inset-0 items-center justify-center z-[1]" id={isMdAndDefaultAndPlaceholder ? "node-2034_7222" : "node-2034_7212"} style={{ containerType: "size" }}>
+<div className="-rotate-180 -scale-x-100 flex-none h-[100cqh] w-[100cqw]">
+<div className="bg-[var(--color\/background\/input\/plain,white)] border-[length:var(--size\/borderwidth\/default,1px)] border-[var(--color\/border\/input,#818b98)] border-solid content-stretch flex gap-[var(--space\/100,8px)] items-center px-[var(--space\/150,12px)] py-[var(--space\/075,6px)] relative rounded-[var(--size\/borderradius\/default,4px)] size-full" data-name="formfield-bg">
+<div className="absolute bg-[var(--color\/background\/input\/interactive,#c8d1da)] inset-[-1px] opacity-0 rounded-[var(--size\/borderradius\/default,4px)]" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7222-1615_75922" : "node-I2034_7212-1615_75922"} data-name="interactive" />
+<div className="absolute inset-[-1px]" id={isMdAndDefaultAndPlaceholder ? "node-I2034_7222-1615_75923" : "node-I2034_7212-1615_75923"} data-name="Focus ring outside" />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+);
+}
+
+function Logo({ className }: { className?: string }) {
+return (
+<div className={className || "relative size-[40px]"} data-node-id="2034:4190" data-name="Logo">
+<img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLogo} />
+</div>
+);
+}
+
+type Logo1Props = {
+className?: string;
+property1?: "Default";
+};
+
+function Logo1({ className, property1 = "Default" }: Logo1Props) {
+return (
+<div className={className || "relative size-[40px]"} data-node-id="2034:4193">
+<img alt="" className="absolute block inset-0 max-w-none size-full" src={imgProperty1Default} />
+</div>
+);
+}
+
+export default function Navigation() {
+return (
+<div className="content-stretch flex flex-col items-start relative size-full" data-node-id="2422:87040" data-name="Navigation">
+<div className="bg-white border-[var(--color\/background\/disabled,#f0f2f5)] border-b border-solid content-stretch flex items-center justify-between px-[var(--space-new\/md,8px)] relative shrink-0 w-full" data-node-id="I2422:87040;2071:585" data-name="global">
+<div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-node-id="I2422:87040;2071:586">
+<Logo1 className="relative shrink-0 size-[32px]" />
+<div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-[458px]" data-node-id="I2422:87040;2071:588">
+<a className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch cursor-pointer flex gap-[var(--space-new\/sm,6px)] h-[56px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:589" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:589;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Home</p>
+</div>
+</a>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[56px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:590" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:590;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Calendar</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[56px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:591" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:591;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Method catalogue</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[56px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:592" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:592;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Teaching materials</p>
+</div>
+</div>
+</div>
+</div>
+<div className="content-stretch flex gap-[12px] items-center pr-[var(--space-new\/md,8px)] py-[2px] relative shrink-0" data-node-id="I2422:87040;2071:593">
+<SlSearchField className="content-stretch flex flex-col gap-[var(--space-new\/xs,4px)] items-start relative shrink-0 w-[222px]" label={false} placeholder placeholderText="Search" text="Search" />
+<div className="content-stretch flex gap-[var(--space-new\/md,8px)] items-center relative shrink-0" data-node-id="I2422:87040;2071:595">
+<div className="bg-[var(--color\/background\/neutral\/bold,#e0e6ea)] content-stretch flex gap-[var(--space-new\/md,8px)] items-center p-[var(--space-new\/2xs,2px)] relative rounded-[var(--size\/borderradius\/full,800px)] shrink-0" data-node-id="I2422:87040;2071:597" data-name="profile">
+<div className="content-stretch flex gap-[var(--space-new\/md,8px)] isolate items-center relative shrink-0" data-node-id="I2422:87040;2071:597;10:2841" data-name="sl-avatar">
+<div className="content-stretch flex flex-col items-start relative shrink-0 z-[2]" data-node-id="I2422:87040;2071:597;10:2841;7403:217918">
+<div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-node-id="I2422:87040;2071:597;10:2841;7401:1011" data-name="Avatar">
+<div className="col-1 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[32px_32px] ml-0 mt-0 relative row-1 size-[32px]" data-node-id="I2422:87040;2071:597;10:2841;7401:1018" style={{ maskImage: `url("${imgAvatarContent}")` }} data-name="avatar-content">
+<div className="absolute content-stretch flex inset-0 isolate items-center justify-center" data-node-id="I2422:87040;2071:597;10:2841;7401:1019" data-name="Mask">
+<div className="absolute bg-[var(--color\/background\/primary\/bold,#36f)] inset-0 z-[1]" data-node-id="I2422:87040;2071:597;10:2841;7401:1019;7355:28686" data-name="BG" />
+</div>
+<div className="-translate-y-1/2 absolute aspect-[80/80] left-0 right-0 top-1/2" data-node-id="I2422:87040;2071:597;10:2841;7401:1020" data-name="avatar-content-variant">
+<div className="absolute content-stretch flex inset-0 isolate items-center justify-center mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-19.5px_0px] mask-size-[71px_32px]" data-node-id="I2422:87040;2071:597;10:2841;7401:1025" style={{ maskImage: `url("${imgMask}")` }} data-name="Mask">
+<div className="absolute bg-[var(--color\/foreground\/primary\/onbold,white)] inset-0 z-[2]" data-node-id="I2422:87040;2071:597;10:2841;7401:1025;7355:28738" data-name="FG" />
+</div>
+</div>
+<div className="-translate-x-1/2 absolute aspect-[200/200] bottom-0 left-1/2 top-0" data-node-id="I2422:87040;2071:597;10:2841;7401:1026" data-name="image">
+<img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage} />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="h-[16px] relative shrink-0 w-[24px]" data-node-id="I2422:87040;2071:597;10:4239">
+<div className="absolute content-stretch flex items-start left-0 top-0" data-node-id="I2422:87040;2071:597;10:3939" data-name="sl-icon">
+<div className="content-stretch flex items-center justify-center relative shrink-0" data-node-id="I2422:87040;2071:597;10:3939;301:41086" data-name="SL-icon/md">
+<div className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]" data-node-id="I2422:87040;2071:597;10:3939;301:41086;62:7102" data-name="Base/Icon">
+<div className="flex-[1_0_0] h-full min-w-px relative" data-node-id="I2422:87040;2071:597;10:3939;301:41086;62:7102;49:7112" data-name="icon-container">
+<div className="[word-break:break-word] absolute flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/icon,'Font_Awesome_7_Pro:Regular')] font-[var(--icon\/typeset\/fontweight\/icon-regular,normal)] inset-0 justify-center leading-[0] text-[color:var(--color\/foreground\/secondary\/bold,#222)] text-[length:var(--size\/icon\/font\/md,16px)] text-center" data-node-id="I2422:87040;2071:597;10:3939;301:41086;62:7102;49:7100">
+<p className="leading-[16px]">chevron-down</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div className="content-stretch flex items-start px-[var(--space-new\/md,8px)] relative shrink-0 w-full" data-node-id="I2422:87040;2071:598" data-name="secondary">
+<div aria-hidden className="absolute bg-[#f9fafb] inset-0 pointer-events-none" />
+<div className="content-stretch flex items-center relative shrink-0" data-node-id="I2422:87040;2071:599">
+<div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-node-id="I2422:87040;2071:600">
+<div className="content-stretch flex items-center pl-[var(--space\/700,56px)] relative shrink-0" data-node-id="I2422:87040;2071:601">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Medium')] font-[var(--text-new\/typeset\/fontweight\/semibold,500)] justify-center leading-[0] relative shrink-0 text-[color:var(--color\/palette\/grey\/700,#393f46)] text-[length:var(--size\/text-new\/body\/lg,16px)] whitespace-nowrap" data-node-id="I2422:87040;2071:602" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/300,24px)]">5A English</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[48px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:603" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:603;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Overview</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[48px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:604" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:604;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Method</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[48px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:605" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:605;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Lessons</p>
+</div>
+</div>
+<div className="border-[length:var(--size\/borderwidth\/none,0px)] border-[var(--color\/transparent,rgba(0,0,0,0))] border-solid content-stretch flex gap-[var(--space-new\/sm,6px)] h-[48px] isolate items-center justify-center px-[var(--size\/icon\/font\/xs,12px)] py-[var(--space\/100,8px)] relative rounded-[var(--size\/borderradius\/default,4px)] shrink-0" data-node-id="I2422:87040;2071:606" data-name="Link-nav">
+<div className="[word-break:break-word] flex flex-col font-[family-name:var(--text-new\/typeset\/fontfamily\/body,'Roboto:Regular')] font-[var(--text-new\/typeset\/fontweight\/regular,400)] justify-center leading-[0] min-w-[20px] relative shrink-0 text-[color:var(--color\/palette\/grey\/800,#25292f)] text-[length:var(--size\/text-new\/body\/md,14px)] text-center whitespace-nowrap z-[2]" data-node-id="I2422:87040;2071:606;2034:6886" style={{ fontVariationSettings: '"wdth" 100' }}>
+<p className="leading-[var(--size\/lineheight\/250,20px)]">Participants</p>
+</div>
+<div className="absolute bg-[var(--color\/palette\/grey\/800,#25292f)] bottom-0 h-[2px] left-[10px] right-[10px] rounded-tl-[2px] rounded-tr-[2px] z-[1]" data-node-id="I2422:87040;2071:606;2034:7693" />
+</div>
+</div>
+</div>
+<div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_4px_7px_0px_rgba(37,41,47,0.06)]" />
+</div>
+</div>
+);
+}

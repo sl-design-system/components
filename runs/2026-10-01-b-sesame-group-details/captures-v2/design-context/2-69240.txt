@@ -1,0 +1,101 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/a301de63-897a-416d-b82b-d72d0c6a97c8';
+const imgSanomaPayoffFunky01DarkGreenRgb2 = `${assetPathPrefix}/46163.svg`;
+
+type MenuItemFooterProps = {
+  className?: string;
+  property1?: 'default';
+};
+
+function MenuItemFooter({ className, property1 = 'default' }: MenuItemFooterProps) {
+  return (
+    <div
+      className={className || 'content-stretch flex items-start p-[8px] relative'}
+      data-node-id="2:69240">
+      <p
+        className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+        data-node-id="2:69241"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        Privacy Policy
+      </p>
+    </div>
+  );
+}
+
+export default function Footer() {
+  return (
+    <div
+      className="bg-[#f6f8f8] content-stretch flex flex-col items-start px-[128px] relative size-full"
+      data-node-id="2142:48477"
+      data-name="Footer">
+      <div
+        className="content-stretch flex gap-[12px] items-center relative shrink-0 w-[1024px]"
+        data-node-id="2142:48478">
+        <div
+          className="h-[126px] relative shrink-0 w-[201.6px]"
+          data-node-id="2142:48479"
+          data-name="SANOMA+Payoff FUNKY 01 DARK GREEN RGB 2">
+          <img
+            alt=""
+            className="absolute block inset-0 max-w-none size-full"
+            src={imgSanomaPayoffFunky01DarkGreenRgb2}
+          />
+        </div>
+        <div
+          className="content-stretch flex items-center justify-end relative shrink-0 w-[810px]"
+          data-node-id="2142:48488">
+          <div
+            className="content-stretch flex flex-col items-end relative shrink-0 w-[520px]"
+            data-node-id="2142:48489">
+            <div
+              className="content-stretch flex gap-[16px] items-start px-[8px] relative shrink-0"
+              data-node-id="2142:48490">
+              <MenuItemFooter className="content-stretch flex items-start p-[8px] relative shrink-0" />
+              <div
+                className="content-stretch flex items-start p-[8px] relative shrink-0"
+                data-node-id="2142:48492"
+                data-name="menu item footer">
+                <p
+                  className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48492;2678:143004"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>{`Terms & conditions`}</p>
+              </div>
+              <div
+                className="content-stretch flex items-start p-[8px] relative shrink-0"
+                data-node-id="2142:48493"
+                data-name="menu item footer">
+                <p
+                  className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48493;2678:143004"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Cookies
+                </p>
+              </div>
+              <div
+                className="content-stretch flex items-start p-[8px] relative shrink-0"
+                data-node-id="2142:48494"
+                data-name="menu item footer">
+                <p
+                  className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48494;2678:143004"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Support
+                </p>
+              </div>
+              <div
+                className="content-stretch flex items-start p-[8px] relative shrink-0"
+                data-node-id="2142:48495"
+                data-name="menu item footer">
+                <p
+                  className="[word-break:break-word] capitalize font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                  data-node-id="I2142:48495;2678:143004"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  About our digital services
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

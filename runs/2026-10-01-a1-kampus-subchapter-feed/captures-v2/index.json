@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "run": "a1-kampus-subchapter-feed",
+  "figma": {
+    "rootNodeId": "5311:37116"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "5311:37151",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/5311-37151.txt",
+      "bytes": 1160,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "5311:37150",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/5311-37150.txt",
+      "bytes": 648,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "12545:192801",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/12545-192801.txt",
+      "bytes": 595,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "5311:37120",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/5311-37120.txt",
+      "bytes": 1081,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "11360:135454",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/11360-135454.txt",
+      "bytes": 682,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "5311:37123",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/5311-37123.txt",
+      "bytes": 343,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "5311:37124",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/5311-37124.txt",
+      "bytes": 341,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "1702:18966",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/1702-18966.txt",
+      "bytes": 399,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "12026:147927",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/12026-147927.txt",
+      "bytes": 785,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "1701:8049",
+      "label": "Figma design-context raw responses — Subchapter feed page (5311:37116)",
+      "file": "captures-v2/design-context/1701-8049.txt",
+      "bytes": 1149,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "5311:37116",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/5311-37116.txt",
+      "bytes": 3670,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/unknown-0.txt",
+      "bytes": 2925,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.txt",
+      "file": "captures-v2/code-connect/unknown-0.txt",
+      "bytes": 1139,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 207886,
+      "capturedAt": "2026-10-05T17:00:59.719Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

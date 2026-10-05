@@ -1,0 +1,196 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/03a4cac7-36c7-4cd8-8f24-ab710551c376';
+const imgXmark = `${assetPathPrefix}/1b071.svg`;
+
+export default function BulkPanel() {
+  return (
+    <div
+      className="bg-[#af1685] content-stretch flex items-center overflow-clip pl-[16px] pr-[8px] py-[16px] relative rounded-[24px] size-full"
+      data-node-id="2847:15379"
+      data-name="bulk panel">
+      <div
+        className="content-stretch flex gap-[16px] items-center relative shrink-0"
+        data-node-id="2847:15380">
+        <div className="relative shrink-0 size-[20px]" data-node-id="2847:15381" data-name="xmark">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgXmark} />
+        </div>
+        <div
+          className="content-stretch flex gap-[24px] items-center relative shrink-0"
+          data-node-id="2847:15382"
+          data-name="panel">
+          <div
+            className="[word-break:break-word] content-stretch flex gap-[var(--size\/10,2px)] items-center leading-[1.5] relative shrink-0 text-[length:var(--size\/200,14px)] text-white whitespace-nowrap"
+            data-node-id="2847:15383"
+            data-name="items selected">
+            <p
+              className="font-[family-name:var(--default-font,'Lato:Bold')] not-italic relative shrink-0"
+              data-node-id="2847:15384">
+              3
+            </p>
+            <p
+              className="font-['Open_Sans:Regular'] font-normal relative shrink-0"
+              data-node-id="2847:15385"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              selected out of 40
+            </p>
+          </div>
+          <div
+            className="border-[#e1e1e1] border-l border-solid content-stretch flex gap-[16px] items-center pl-[10px] relative shrink-0"
+            data-node-id="2847:15386"
+            data-name="buttons">
+            <div
+              className="content-stretch flex items-center relative shrink-0"
+              data-node-id="2847:15388">
+              <div
+                className="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="2847:15389"
+                data-name="sl-button">
+                <div
+                  className="content-stretch flex flex-col items-start relative shrink-0"
+                  data-node-id="I2847:15389;2798:30776"
+                  data-name="sl-button-theme">
+                  <div
+                    className="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                    data-node-id="I2847:15389;2798:30776;2798:29038"
+                    data-name="button">
+                    <div
+                      className="relative shrink-0 size-[12px]"
+                      data-node-id="I2847:15389;2798:30776;2798:29038;915:4406"
+                      data-name="icon-core-start">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                        <div
+                          className="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                          data-node-id="I2847:15389;2798:30776;2798:29038;915:4407"
+                          data-name="icon-core-start">
+                          <div
+                            className="flex-[1_0_0] h-full min-w-px relative"
+                            data-node-id="I2847:15389;2798:30776;2798:29038;915:4407;404:33"
+                            data-name="icon-container">
+                            <div
+                              className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[12px] text-center text-white"
+                              data-node-id="I2847:15389;2798:30776;2798:29038;915:4407;404:33;802:2162">
+                              <p className="leading-[14px]">trash</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+                      data-node-id="I2847:15389;2798:30776;2798:29038;915:4408"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      <p className="leading-[16px]">Delete</p>
+                    </div>
+                    <div
+                      className="absolute inset-[-2px]"
+                      data-node-id="I2847:15389;2798:30776;2798:29038;2123:33965"
+                      data-name="Focus ring">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="2847:15390"
+                data-name="sl-button">
+                <div
+                  className="content-stretch flex flex-col items-start relative shrink-0"
+                  data-node-id="I2847:15390;2798:30776"
+                  data-name="sl-button-theme">
+                  <div
+                    className="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                    data-node-id="I2847:15390;2798:30776;2798:29158"
+                    data-name="button">
+                    <div
+                      className="relative shrink-0 size-[12px]"
+                      data-node-id="I2847:15390;2798:30776;2798:29158;915:4406"
+                      data-name="icon-core-start">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                        <div
+                          className="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                          data-node-id="I2847:15390;2798:30776;2798:29158;915:4407"
+                          data-name="icon-core-start">
+                          <div
+                            className="flex-[1_0_0] h-full min-w-px relative"
+                            data-node-id="I2847:15390;2798:30776;2798:29158;915:4407;404:33"
+                            data-name="icon-container">
+                            <div
+                              className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#bfbfbf] text-[12px] text-center"
+                              data-node-id="I2847:15390;2798:30776;2798:29158;915:4407;404:33;802:2162">
+                              <p className="leading-[14px]">boxes-packing</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#bfbfbf] text-[14px] text-center whitespace-nowrap"
+                      data-node-id="I2847:15390;2798:30776;2798:29158;915:4408"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      <p className="leading-[16px]">Reactivate</p>
+                    </div>
+                    <div
+                      className="absolute inset-[-2px]"
+                      data-node-id="I2847:15390;2798:30776;2798:29158;2123:33965"
+                      data-name="Focus ring">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex flex-col items-start relative shrink-0"
+                data-node-id="2847:15391"
+                data-name="sl-button">
+                <div
+                  className="content-stretch flex flex-col items-start relative shrink-0"
+                  data-node-id="I2847:15391;2798:30776"
+                  data-name="sl-button-theme">
+                  <div
+                    className="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                    data-node-id="I2847:15391;2798:30776;2798:29038"
+                    data-name="button">
+                    <div
+                      className="relative shrink-0 size-[12px]"
+                      data-node-id="I2847:15391;2798:30776;2798:29038;915:4406"
+                      data-name="icon-core-start">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                        <div
+                          className="content-stretch flex items-center justify-center relative shrink-0 size-[12px]"
+                          data-node-id="I2847:15391;2798:30776;2798:29038;915:4407"
+                          data-name="icon-core-start">
+                          <div
+                            className="flex-[1_0_0] h-full min-w-px relative"
+                            data-node-id="I2847:15391;2798:30776;2798:29038;915:4407;404:33"
+                            data-name="icon-container">
+                            <div
+                              className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[12px] text-center text-white"
+                              data-node-id="I2847:15391;2798:30776;2798:29038;915:4407;404:33;802:2162">
+                              <p className="leading-[14px]">box-archive</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap"
+                      data-node-id="I2847:15391;2798:30776;2798:29038;915:4408"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      <p className="leading-[16px]">Archive</p>
+                    </div>
+                    <div
+                      className="absolute inset-[-2px]"
+                      data-node-id="I2847:15391;2798:30776;2798:29038;2123:33965"
+                      data-name="Focus ring">
+                      <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

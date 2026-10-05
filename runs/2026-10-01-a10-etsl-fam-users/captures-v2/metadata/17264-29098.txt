@@ -1,0 +1,88 @@
+<frame id="17264:29098" name="FAM - Users" x="3409" y="304" width="1440" height="837">
+  <instance id="17264:29099" name="top nav bar" x="0" y="0" width="1440" height="50" />
+  <frame id="17264:29100" name="top navigation" x="0" y="50" width="1440" height="181">
+    <frame id="17264:29101" name="Frame 39729" x="120" y="0" width="1200" height="137">
+      <frame id="17264:29102" name="Frame 39651" x="0" y="33.5" width="1200" height="70">
+        <frame id="17264:29103" name="Frame 94" x="0" y="0" width="1200" height="70">
+          <text id="17264:29104" name="Functional management" x="0" y="16" width="1195" height="38" />
+        </frame>
+      </frame>
+    </frame>
+    <instance id="17264:29105" name="tabbar-horizontal" x="120" y="137" width="1200" height="44" />
+  </frame>
+  <frame id="17264:29106" name="Frame 39944" x="0" y="231" width="1440" height="606">
+    <frame id="17266:31413" name="Frame 39971" x="120" y="40" width="1200" height="60">
+      <instance id="17266:31414" name="sl-searchfield" x="0" y="0" width="280" height="60" />
+      <instance id="17557:100187" name="sl-select (simple-prototype)" x="290" y="0" width="280" height="60" />
+      <vector id="17266:31418" name="Rectangle 1192" x="290" y="0" width="760" height="60" />
+      <instance id="17266:31419" name="sl-button-rectangular" x="1060" y="24" width="140" height="36" />
+    </frame>
+    <frame id="17264:29112" name="Frame 39970" x="120" y="124" width="1200" height="310">
+      <frame id="17264:29113" name="mat-body" x="0" y="0" width="1200" height="252">
+        <frame id="17264:29114" name="Frame" x="0" y="0" width="155.8333282470703" height="252">
+          <instance id="17264:29115" name="th-text-start" x="0" y="0" width="155.8333282470703" height="48" />
+          <instance id="17264:29116" name="td-text-start" x="0" y="48" width="155.8333282470703" height="68" />
+          <instance id="17264:29117" name="td-text-start" x="0" y="116" width="155.8333282470703" height="68" />
+          <instance id="17264:29118" name="td-text-start" x="0" y="184" width="155.8333282470703" height="68" />
+          <instance id="17264:29119" name="td-text-start" x="0" y="192" width="253" height="48" hidden="true" />
+          <instance id="17264:29120" name="td-text-start" x="0" y="240" width="253" height="48" hidden="true" />
+        </frame>
+        <frame id="17264:29121" name="Frame" x="155.8333282470703" y="0" width="155.83334350585938" height="252">
+          <instance id="17264:29122" name="th-text-start" x="0" y="0" width="155.83334350585938" height="48" />
+          <instance id="17264:29123" name="td-text-start" x="0" y="48" width="155.83334350585938" height="68" />
+          <instance id="17264:29124" name="td-text-start" x="0" y="116" width="155.83334350585938" height="68" />
+          <instance id="17264:29125" name="td-text-start" x="0" y="184" width="155.83334350585938" height="68" />
+          <instance id="17264:29126" name="td-text-start" x="0" y="192" width="253" height="48" hidden="true" />
+          <instance id="17264:29127" name="td-text-start" x="0" y="240" width="253" height="48" hidden="true" />
+        </frame>
+        <frame id="17264:29128" name="Frame" x="311.66668701171875" y="0" width="155.83334350585938" height="252">
+          <instance id="17264:29129" name="th-text-start" x="0" y="0" width="155.83334350585938" height="48" />
+          <instance id="17264:29130" name="td-text-start" x="0" y="48" width="155.83334350585938" height="68" />
+          <instance id="17264:29131" name="td-text-start" x="0" y="116" width="155.83334350585938" height="68" />
+          <instance id="17264:29132" name="td-text-start" x="0" y="184" width="155.83334350585938" height="68" />
+          <instance id="17264:29133" name="td-text-start" x="0" y="192" width="253" height="48" hidden="true" />
+          <instance id="17264:29134" name="td-text-start" x="0" y="240" width="253" height="48" hidden="true" />
+        </frame>
+        <frame id="17264:29135" name="Frame" x="467.5000305175781" y="0" width="155.83334350585938" height="252">
+          <instance id="17264:29136" name="th-text-start" x="0" y="0" width="155.83334350585938" height="48" />
+          <instance id="17264:29137" name="td-text-start" x="0" y="48" width="155.83334350585938" height="68" />
+          <instance id="17264:29138" name="td-text-start" x="0" y="116" width="155.83334350585938" height="68" />
+          <instance id="17264:29139" name="td-text-start" x="0" y="184" width="155.83334350585938" height="68" />
+        </frame>
+        <frame id="17264:29140" name="Frame" x="623.3333740234375" y="0" width="155.83334350585938" height="252">
+          <instance id="17264:29141" name="th-text-start" x="0" y="0" width="155.83334350585938" height="48" />
+          <instance id="17264:29142" name="td-text-start" x="0" y="48" width="155.83334350585938" height="68" />
+          <instance id="17264:29143" name="td-text-start" x="0" y="116" width="155.83334350585938" height="68" />
+          <instance id="17264:29144" name="td-text-start" x="0" y="184" width="155.83334350585938" height="68" />
+        </frame>
+        <frame id="17264:29145" name="Frame" x="779.166748046875" y="0" width="117" height="252">
+          <instance id="17264:29146" name="th-text-start" x="0" y="0" width="117" height="48" />
+          <instance id="17264:29147" name="td-text-start" x="0" y="48" width="117" height="68" />
+          <instance id="17264:29148" name="td-text-start" x="0" y="116" width="117" height="68" />
+          <instance id="17264:29149" name="td-text-start" x="0" y="184" width="117" height="68" />
+        </frame>
+        <frame id="17264:29150" name="Frame" x="896.166748046875" y="0" width="155.83334350585938" height="252">
+          <instance id="17264:29151" name="th-text-start" x="0" y="0" width="155.83334350585938" height="48" />
+          <instance id="17264:29152" name="td-text-start" x="0" y="48" width="155.83334350585938" height="68" />
+          <instance id="17264:29153" name="td-text-start" x="0" y="116" width="155.83334350585938" height="68" />
+          <instance id="17264:29154" name="td-text-start" x="0" y="184" width="155.83334350585938" height="68" />
+        </frame>
+        <frame id="17264:29155" name="Frame" x="1052.0001220703125" y="0" width="148" height="252">
+          <instance id="17264:29156" name="th-text-start" x="0" y="0" width="148" height="48" />
+          <instance id="17264:29157" name="td-text-start" x="0" y="48" width="148" height="68" />
+          <instance id="17264:29158" name="td-text-start" x="0" y="116" width="148" height="68" />
+          <instance id="17264:29159" name="td-text-start" x="0" y="184" width="148" height="68" />
+        </frame>
+        <frame id="17264:29160" name="Frame" x="897" y="0" width="161" height="288" hidden="true">
+          <instance id="17264:29161" name="th-text-start" x="0" y="0" width="161" height="48" />
+          <instance id="17264:29162" name="td-text-start" x="0" y="48" width="161" height="48" />
+          <instance id="17264:29163" name="td-text-start" x="0" y="96" width="161" height="48" />
+          <instance id="17264:29164" name="td-text-start" x="0" y="144" width="161" height="48" />
+          <instance id="17264:29165" name="td-text-start" x="0" y="192" width="161" height="48" />
+          <instance id="17264:29166" name="td-text-start" x="0" y="240" width="161" height="48" />
+        </frame>
+      </frame>
+      <instance id="17264:29167" name="mat-data-footer" x="0" y="252" width="1200" height="58" />
+    </frame>
+  </frame>
+</frame>

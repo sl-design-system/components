@@ -1,0 +1,558 @@
+<frame id="2142:48093" name="Group details" x="7264" y="4521" width="1280" height="2392">
+  <frame id="2142:48094" name="Group 26820" x="127" y="120" width="1025" height="368">
+    <frame id="2142:48095" name="Frame 1407" x="128" y="160" width="934" height="40">
+      <text id="2142:48096" name="Group details" x="0" y="0" width="352" height="40" />
+    </frame>
+    <text id="2142:48097" name="&lt; Back to Groups" x="128" y="120" width="118" height="24" />
+    <frame id="2142:48098" name="Frame 26825" x="127" y="240" width="628" height="248">
+      <frame id="2142:48099" name="left colum" x="0" y="0" width="628" height="248">
+        <frame id="2142:48100" name="group name" x="0" y="0" width="628" height="72">
+          <frame id="2142:48101" name="Frame 26824" x="0" y="0" width="628" height="56">
+            <frame id="2142:48102" name="Group 26815" x="0" y="0" width="322" height="56">
+              <text id="2142:48103" name="Group name" x="0" y="0" width="322" height="24" />
+              <text id="2142:48104" name="4B" x="0" y="28" width="322" height="28" />
+            </frame>
+            <instance id="2142:48105" name="button secondary" x="564" y="12" width="64" height="32" />
+          </frame>
+        </frame>
+        <frame id="2142:48106" name="school year" x="0" y="88" width="628" height="72">
+          <frame id="2142:48107" name="Frame 26824" x="0" y="0" width="628" height="56">
+            <frame id="2142:48108" name="Group 26815" x="0" y="0" width="322" height="56">
+              <text id="2142:48109" name="School year" x="0" y="0" width="322" height="24" />
+              <text id="2142:48110" name="22/23" x="0" y="28" width="322" height="28" />
+            </frame>
+            <instance id="2142:48111" name="button secondary" x="564" y="12" width="64" height="32" />
+          </frame>
+        </frame>
+        <frame id="2142:48112" name="school year" x="0" y="176" width="628" height="72">
+          <frame id="2142:48113" name="Frame 26824" x="0" y="0" width="628" height="56">
+            <frame id="2142:48114" name="Group 26815" x="0" y="0" width="322" height="56">
+              <text id="2142:48115" name="Group type" x="0" y="0" width="322" height="24" />
+              <text id="2142:48116" name="Study group" x="0" y="28" width="322" height="28" />
+            </frame>
+            <instance id="2142:48117" name="Icon-button-sesame" x="473" y="8" width="40" height="40" hidden="true" />
+            <instance id="2142:48118" name="button secondary" x="564" y="12" width="64" height="32" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="2142:48119" name="Button-sesame" x="961" y="240" width="189" height="40">
+      <frame id="2142:48120" name="archive 1" x="65" y="12" width="16" height="16" />
+      <text id="2142:48124" name="Archive group" x="89" y="8" width="100" height="24" />
+      <instance id="2142:48125" name="icon-right" x="74" y="12" width="16" height="16" hidden="true" />
+    </frame>
+    <frame id="2142:48126" name="Linking code" x="788" y="304" width="364" height="184">
+      <frame id="2142:48127" name="Frame 123" x="24" y="16" width="249" height="40">
+        <frame id="2142:48128" name="key (5) 1" x="8" y="12" width="16" height="16" />
+        <text id="2142:48130" name="Toggle label" x="32" y="8" width="217" height="24" />
+      </frame>
+      <frame id="2142:48131" name="Group key" x="24" y="72" width="316" height="40">
+        <text id="2142:48132" name="AB3FRR" x="8" y="0" width="134" height="40" />
+      </frame>
+      <frame id="2142:48133" name="Frame 122" x="24" y="128" width="249" height="40" />
+    </frame>
+  </frame>
+  <frame id="2142:48134" name="Group 26821" x="130" y="568" width="1024" height="56">
+    <frame id="2142:48135" name="tabs" x="130" y="568" width="1024" height="56">
+      <instance id="2142:48136" name="DEMO - Tab-switches" x="0" y="0" width="152" height="56" />
+      <instance id="2142:48137" name="DEMO - Tab-switches" x="152" y="0" width="148" height="56" />
+      <instance id="2142:48138" name="DEMO - Tab-switches" x="300" y="0" width="233" height="56" />
+    </frame>
+  </frame>
+  <frame id="2142:48139" name="Frame 1000000824" x="0" y="0" width="1280" height="120">
+    <frame id="2142:48140" name="top navi bar" x="0" y="0" width="1280" height="56">
+      <frame id="2142:48141" name="MittSanoma 3" x="128" y="16" width="123.46666717529297" height="24" />
+      <frame id="2142:48150" name="Frame 26802" x="459" y="0" width="363" height="58">
+        <instance id="2142:48151" name="menu item SU" x="0" y="10" width="131" height="36" />
+        <instance id="2142:48152" name="menu item SU" x="155" y="10" width="55" height="38" />
+        <instance id="2142:48153" name="menu item SU" x="234" y="10" width="43" height="36" />
+        <instance id="2142:48154" name="menu item SU" x="301" y="10" width="62" height="36" />
+      </frame>
+      <frame id="2142:48155" name="Frame 1000000818" x="874.9367065429688" y="0" width="277" height="56">
+        <instance id="2142:48156" name="avatar_SU" x="108" y="4" width="169" height="48" />
+      </frame>
+    </frame>
+    <frame id="2142:48157" name="secondary bar" x="0" y="56" width="1280" height="64">
+      <frame id="2142:48158" name="Frame 1397" x="799" y="12" width="353" height="40">
+        <frame id="2142:48159" name="School selection" x="0" y="0" width="353" height="40">
+          <frame id="2142:48160" name="Dropdown" x="0" y="8" width="353" height="24">
+            <frame id="2142:48161" name="Frame 1000000829" x="0" y="0" width="353" height="24">
+              <frame id="2142:48162" name="Frame 1000000828" x="0" y="0" width="225" height="24">
+                <text id="2142:48163" name="school-flag" x="0" y="0" width="16" height="24" />
+                <frame id="2142:48164" name="School label" x="16" y="0" width="209" height="24">
+                  <frame id="2142:48165" name="roofing_FILL0_wght400_GRAD0_opsz48 2" x="8" y="0" width="24" height="24" hidden="true" />
+                  <text id="2142:48167" name="Bogaerts International School" x="8" y="0" width="201" height="24" />
+                </frame>
+              </frame>
+              <instance id="2142:48168" name="button" x="233" y="0" width="128" height="24" />
+            </frame>
+          </frame>
+          <instance id="2142:48169" name="Button" x="161" y="0" width="74" height="40" hidden="true" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2142:48170" name="Frame 1000000800" x="128" y="648" width="1024" height="1293">
+    <frame id="2142:48171" name="Frame 1000000776" x="16" y="16" width="992" height="340">
+      <frame id="2142:48172" name="Frame 1000000775" x="0" y="0" width="992" height="340">
+        <frame id="2142:48173" name="Frame 1000000777" x="0" y="0" width="992" height="340">
+          <frame id="2142:48174" name="Frame 8850" x="0" y="0" width="221" height="25">
+            <text id="2142:48175" name="Add student TO GROUP" x="0" y="0" width="221" height="25" />
+          </frame>
+          <frame id="2142:48176" name="Frame 1000000790" x="0" y="49" width="992" height="291">
+            <frame id="2142:48177" name="Frame 26995" x="0" y="0" width="450" height="57">
+              <text id="2142:48178" name="Search for a student" x="0" y="0" width="177" height="25" />
+              <text id="2142:48179" name="Start by searching school records to add an existing student." x="0" y="33" width="450" height="24" />
+            </frame>
+            <frame id="2142:48180" name="Frame 8841" x="0" y="81" width="992" height="64">
+              <frame id="2142:48181" name="Frame 1000000770" x="0" y="0" width="991" height="64">
+                <instance id="2142:48182" name="sl-text_input" x="0" y="0" width="241.75" height="64" />
+                <frame id="2142:48183" name="sl-text_input-theme [DEPRECATED]" x="249.75" y="0" width="241.75" height="64">
+                  <instance id="2142:48184" name="sl-label-theme [DEPRECATED]" x="0" y="0" width="241.75" height="24" />
+                  <instance id="2142:48185" name="sl_base-text_input" x="0" y="24" width="241.75" height="40" />
+                  <instance id="2142:48186" name="sl-helper-theme [DEPRECATED]" x="0" y="72" width="73" height="24" hidden="true" />
+                </frame>
+                <instance id="2142:48187" name="sl-text_input-theme [DEPRECATED]" x="499.5" y="0" width="241.75" height="64" />
+                <frame id="2142:48188" name="sl-select" x="749.25" y="0" width="241.75" height="64">
+                  <instance id="2142:48189" name="sl-label-theme" x="0" y="0" width="34" height="24" />
+                  <frame id="2142:48190" name="dropdown+helper" x="0" y="24" width="242" height="40">
+                    <frame id="2142:48191" name="✏️ dropdown" x="0" y="0" width="242" height="40">
+                      <frame id="2142:48192" name="01" x="0" y="0" width="242" height="40">
+                        <frame id="2142:48193" name="sl_base-selecetbox-bg" x="0" y="0" width="242" height="40">
+                          <frame id="2142:48194" name="sl-selectbox-theme" x="0" y="0" width="242" height="40">
+                            <frame id="2142:48195" name="sl-base-selectbox" x="0" y="0" width="242" height="40">
+                              <text id="2142:48196" name="inputText" x="12" y="6" width="272" height="20" hidden="true" />
+                              <text id="2142:48197" name="placeholder" x="152" y="6" width="132" height="20" hidden="true" />
+                              <text id="2142:48198" name="spacer" x="16" y="8" width="186" height="24" />
+                              <instance id="2142:48199" name="select-box-down" x="210" y="12" width="16" height="16" />
+                              <instance id="2142:48200" name="Focus ring" x="0" y="0" width="242" height="40" hidden="true" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <text id="2142:48201" name="label" x="12" y="8" width="96" height="24" />
+                      </frame>
+                      <frame id="2142:48202" name="Panel" x="0" y="36" width="320" height="550" hidden="true">
+                        <frame id="2142:48203" name="01" x="7" y="7" width="306" height="36">
+                          <frame id="2142:48204" name="divider" x="0" y="0" width="306" height="32" hidden="true">
+                            <instance id="2142:48205" name="divider-line" x="0" y="0" width="306" height="40" hidden="true" />
+                            <frame id="2142:48206" name="group" x="0" y="0" width="306" height="32" hidden="true">
+                              <text id="2142:48207" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48208" name="01-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48209" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48210" name="02" x="7" y="43" width="306" height="36">
+                          <frame id="2142:48211" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48212" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48213" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48214" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48215" name="02-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48216" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48217" name="03" x="7" y="79" width="306" height="36">
+                          <frame id="2142:48218" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48219" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48220" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48221" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48222" name="03-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48223" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48224" name="04" x="7" y="115" width="306" height="36">
+                          <frame id="2142:48225" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48226" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48227" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48228" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48229" name="04-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48230" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48231" name="05" x="7" y="151" width="306" height="36">
+                          <frame id="2142:48232" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48233" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48234" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48235" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48236" name="05-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48237" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48238" name="06" x="7" y="187" width="306" height="36">
+                          <frame id="2142:48239" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48240" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48241" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48242" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48243" name="06-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48244" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48245" name="07" x="7" y="223" width="306" height="36">
+                          <frame id="2142:48246" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48247" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48248" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48249" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48250" name="07-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48251" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48252" name="08" x="7" y="259" width="306" height="36">
+                          <frame id="2142:48253" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48254" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48255" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48256" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48257" name="08-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48258" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48259" name="09" x="7" y="295" width="306" height="36">
+                          <frame id="2142:48260" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48261" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48262" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48263" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48264" name="09-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48265" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48266" name="10" x="7" y="331" width="306" height="36">
+                          <frame id="2142:48267" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48268" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48269" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48270" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48271" name="10-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48272" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48273" name="11" x="7" y="367" width="306" height="36">
+                          <frame id="2142:48274" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48275" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48276" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48277" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48278" name="11-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48279" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48280" name="12" x="7" y="403" width="306" height="36">
+                          <frame id="2142:48281" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48282" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48283" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48284" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48285" name="12-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48286" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48287" name="13" x="7" y="439" width="306" height="36">
+                          <frame id="2142:48288" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48289" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48290" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48291" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48292" name="13-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48293" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48294" name="14" x="7" y="475" width="306" height="36">
+                          <frame id="2142:48295" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48296" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48297" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48298" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48299" name="14-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48300" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                        <frame id="2142:48301" name="15" x="7" y="511" width="306" height="36">
+                          <frame id="2142:48302" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                            <instance id="2142:48303" name="divider-line" x="0" y="0" width="306" height="8" />
+                            <frame id="2142:48304" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                              <text id="2142:48305" name="group-title" x="12" y="9" width="69" height="14" />
+                            </frame>
+                          </frame>
+                          <instance id="2142:48306" name="15-option-state" x="0" y="0" width="306" height="36" />
+                          <text id="2142:48307" name="label" x="12" y="8" width="63" height="24" />
+                        </frame>
+                      </frame>
+                    </frame>
+                    <instance id="2142:48308" name="sl-helper-theme" x="0" y="40" width="63" height="20" hidden="true" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="2142:48309" name="Frame 26994" x="0" y="169" width="992" height="122">
+              <frame id="2142:48310" name="Frame 27088" x="32" y="32" width="202" height="21">
+                <text id="2142:48311" name="magnifying-glass" x="0" y="0" width="18" height="21" />
+                <text id="2142:48312" name="No matching results" x="26" y="0" width="176" height="21" />
+              </frame>
+              <text id="2142:48313" name="Can’t find the student? Please, add a new student by clicking Create new student below." x="32" y="69" width="651" height="21" />
+            </frame>
+          </frame>
+          <frame id="2142:48314" name="close" x="952" y="0" width="40" height="41.248294830322266">
+            <text id="2142:48315" name="close" x="15" y="9" width="11" height="24" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="2142:48316" name="Frame 1000000791" x="16" y="412" width="992" height="841">
+      <frame id="2142:48317" name="Frame 26996" x="0" y="0" width="562" height="725">
+        <frame id="2142:48318" name="Frame 1000000789" x="0" y="0" width="562" height="81">
+          <text id="2142:48319" name="Can’t find the student?" x="0" y="0" width="197" height="25" />
+          <text id="2142:48320" name="If you can’t find the student in the search suggestions or you add the student to school records for the first time, hit Create new student button." x="0" y="33" width="562" height="48" />
+        </frame>
+        <frame id="2142:48321" name="Frame 27025" x="0" y="105" width="320" height="620">
+          <frame id="2142:48322" name="sl-text_input-theme [DEPRECATED]" x="0" y="0" width="320" height="64">
+            <instance id="2142:48323" name="sl-label-theme [DEPRECATED]" x="0" y="0" width="320" height="24" />
+            <instance id="2142:48324" name="sl_base-text_input" x="0" y="24" width="320" height="40" />
+            <instance id="2142:48325" name="sl-helper-theme [DEPRECATED]" x="0" y="72" width="73" height="24" hidden="true" />
+          </frame>
+          <frame id="2142:48326" name="sl-text_input-theme [DEPRECATED]" x="0" y="88" width="320" height="64">
+            <instance id="2142:48327" name="sl-label-theme [DEPRECATED]" x="0" y="0" width="320" height="24" />
+            <frame id="2142:48328" name="sl_base-text_input" x="0" y="24" width="320" height="40">
+              <text id="2142:48329" name="inputText" x="16" y="8" width="288" height="24" />
+              <text id="2142:48330" name="placeholder" x="150" y="8" width="126" height="24" hidden="true" />
+              <instance id="2142:48331" name="core-icon" x="284" y="10" width="20" height="20" hidden="true" />
+              <instance id="2142:48332" name="Focus ring" x="0" y="0" width="320" height="40" />
+            </frame>
+            <instance id="2142:48333" name="sl-helper-theme [DEPRECATED]" x="0" y="72" width="73" height="24" hidden="true" />
+          </frame>
+          <frame id="2142:48334" name="sl-select" x="0" y="176" width="320" height="64">
+            <instance id="2142:48335" name="sl-label-theme" x="0" y="0" width="34" height="24" />
+            <frame id="2142:48336" name="dropdown+helper" x="0" y="24" width="320" height="40">
+              <frame id="2142:48337" name="✏️ dropdown" x="0" y="0" width="320" height="40">
+                <frame id="2142:48338" name="01" x="0" y="0" width="320" height="40">
+                  <frame id="2142:48339" name="sl_base-selecetbox-bg" x="0" y="0" width="320" height="40">
+                    <frame id="2142:48340" name="sl-selectbox-theme" x="0" y="0" width="320" height="40">
+                      <frame id="2142:48341" name="sl-base-selectbox" x="0" y="0" width="320" height="40">
+                        <text id="2142:48342" name="inputText" x="16" y="10" width="264" height="20" />
+                        <text id="2142:48343" name="placeholder" x="152" y="6" width="132" height="20" hidden="true" />
+                        <text id="2142:48344" name="spacer" x="198.6666717529297" y="4" width="85.33333587646484" height="24" hidden="true" />
+                        <instance id="2142:48345" name="select-box-down" x="288" y="12" width="16" height="16" />
+                        <instance id="2142:48346" name="Focus ring" x="0" y="0" width="320" height="40" hidden="true" />
+                      </frame>
+                    </frame>
+                  </frame>
+                  <text id="2142:48347" name="label" x="12" y="8" width="0" height="24" />
+                </frame>
+                <frame id="2142:48348" name="Panel" x="0" y="36" width="320" height="550" hidden="true">
+                  <frame id="2142:48349" name="01" x="7" y="7" width="306" height="36">
+                    <frame id="2142:48350" name="divider" x="0" y="0" width="306" height="32" hidden="true">
+                      <instance id="2142:48351" name="divider-line" x="0" y="0" width="306" height="40" hidden="true" />
+                      <frame id="2142:48352" name="group" x="0" y="0" width="306" height="32" hidden="true">
+                        <text id="2142:48353" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48354" name="01-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48355" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48356" name="02" x="7" y="43" width="306" height="36">
+                    <frame id="2142:48357" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48358" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48359" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48360" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48361" name="02-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48362" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48363" name="03" x="7" y="79" width="306" height="36">
+                    <frame id="2142:48364" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48365" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48366" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48367" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48368" name="03-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48369" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48370" name="04" x="7" y="115" width="306" height="36">
+                    <frame id="2142:48371" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48372" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48373" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48374" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48375" name="04-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48376" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48377" name="05" x="7" y="151" width="306" height="36">
+                    <frame id="2142:48378" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48379" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48380" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48381" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48382" name="05-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48383" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48384" name="06" x="7" y="187" width="306" height="36">
+                    <frame id="2142:48385" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48386" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48387" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48388" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48389" name="06-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48390" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48391" name="07" x="7" y="223" width="306" height="36">
+                    <frame id="2142:48392" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48393" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48394" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48395" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48396" name="07-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48397" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48398" name="08" x="7" y="259" width="306" height="36">
+                    <frame id="2142:48399" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48400" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48401" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48402" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48403" name="08-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48404" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48405" name="09" x="7" y="295" width="306" height="36">
+                    <frame id="2142:48406" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48407" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48408" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48409" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48410" name="09-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48411" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48412" name="10" x="7" y="331" width="306" height="36">
+                    <frame id="2142:48413" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48414" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48415" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48416" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48417" name="10-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48418" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48419" name="11" x="7" y="367" width="306" height="36">
+                    <frame id="2142:48420" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48421" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48422" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48423" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48424" name="11-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48425" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48426" name="12" x="7" y="403" width="306" height="36">
+                    <frame id="2142:48427" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48428" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48429" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48430" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48431" name="12-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48432" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48433" name="13" x="7" y="439" width="306" height="36">
+                    <frame id="2142:48434" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48435" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48436" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48437" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48438" name="13-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48439" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48440" name="14" x="7" y="475" width="306" height="36">
+                    <frame id="2142:48441" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48442" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48443" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48444" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48445" name="14-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48446" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                  <frame id="2142:48447" name="15" x="7" y="511" width="306" height="36">
+                    <frame id="2142:48448" name="divider" x="0" y="0" width="306" height="9" hidden="true">
+                      <instance id="2142:48449" name="divider-line" x="0" y="0" width="306" height="8" />
+                      <frame id="2142:48450" name="group" x="0" y="17" width="306" height="32" hidden="true">
+                        <text id="2142:48451" name="group-title" x="12" y="9" width="69" height="14" />
+                      </frame>
+                    </frame>
+                    <instance id="2142:48452" name="15-option-state" x="0" y="0" width="306" height="36" />
+                    <text id="2142:48453" name="label" x="12" y="8" width="63" height="24" />
+                  </frame>
+                </frame>
+              </frame>
+              <instance id="2142:48454" name="sl-helper-theme" x="0" y="40" width="63" height="20" hidden="true" />
+            </frame>
+          </frame>
+          <instance id="2142:48455" name="sl-radio_group-theme" x="0" y="264" width="68" height="96" />
+          <instance id="3659:36698" name="Accordion-multiple-view" x="0" y="384" width="320" height="60" />
+          <instance id="3659:36670" name="sl-text_input-theme [DEPRECATED]" x="0" y="468" width="320" height="64" />
+          <instance id="2142:48457" name="sl-text_input-theme [DEPRECATED]" x="0" y="556" width="320" height="64" />
+        </frame>
+        <text id="2142:48458" name="Regenerate" x="336" y="611" width="96" height="20" />
+      </frame>
+      <frame id="2142:48459" name="Frame 8842" x="0" y="765" width="992" height="76">
+        <frame id="2142:48460" name="Frame 1000000775" x="8" y="0" width="976" height="76">
+          <frame id="2142:48461" name="Frame 8842" x="0" y="0" width="247" height="40">
+            <frame id="2142:48462" name="Frame 8845" x="0" y="0" width="247" height="40">
+              <frame id="2142:48463" name="Frame 27081" x="0" y="0" width="186" height="40">
+                <frame id="2142:48464" name="Frame 26817" x="0" y="0" width="186" height="40">
+                  <instance id="2142:48465" name="button primary" x="0" y="0" width="186" height="40" />
+                </frame>
+              </frame>
+              <text id="2142:48466" name="Cancel" x="202" y="8" width="45" height="24" />
+            </frame>
+          </frame>
+          <frame id="2142:48467" name="sl-checkbox" x="0" y="56" width="64" height="20">
+            <frame id="2142:48468" name="sl-checkbox-theme" x="0" y="0" width="64" height="20">
+              <instance id="2142:48469" name="sl-base-checkbox" x="0" y="0" width="64" height="20" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2142:48470" name="Frame 8829" x="288" y="1937" width="704" height="208.3566131591797">
+    <instance id="2142:48471" name="Empty ison" x="302" y="24" width="100" height="71.35661315917969" />
+    <frame id="2142:48472" name="Frame 26870" x="74" y="119.35661315917969" width="556" height="65">
+      <frame id="2142:48473" name="Frame 8764" x="0" y="0" width="556" height="65">
+        <frame id="2142:48474" name="Frame 8862" x="0" y="0" width="556" height="65">
+          <text id="2142:48475" name="You don&#39;t have any students yet" x="83" y="0" width="390" height="33" />
+          <text id="2142:48476" name="Start by adding a student" x="168" y="41" width="220" height="24" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="2142:48477" name="Footer" x="0" y="2266" width="1280" height="126">
+    <frame id="2142:48478" name="Frame 26997" x="128" y="0" width="1024" height="126">
+      <frame id="2142:48479" name="SANOMA+Payoff FUNKY 01 DARK GREEN RGB 2" x="0" y="0" width="201.60000610351562" height="126" />
+      <frame id="2142:48488" name="Frame 26829" x="213.60000610351562" y="43" width="810" height="40">
+        <frame id="2142:48489" name="Frame 26828" x="290" y="0" width="520" height="40">
+          <frame id="2142:48490" name="Frame 26827" x="-143" y="0" width="663" height="40">
+            <instance id="2142:48491" name="menu item footer" x="8" y="0" width="108" height="40" />
+            <instance id="2142:48492" name="menu item footer" x="132" y="0" width="147" height="40" />
+            <instance id="2142:48493" name="menu item footer" x="295" y="0" width="69" height="40" />
+            <instance id="2142:48494" name="menu item footer" x="380" y="0" width="71" height="40" />
+            <instance id="2142:48495" name="menu item footer" x="467" y="0" width="188" height="40" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <vector id="2142:48496" name="Arrow 9" x="328" y="1775" width="1415" height="0" />
+</frame>

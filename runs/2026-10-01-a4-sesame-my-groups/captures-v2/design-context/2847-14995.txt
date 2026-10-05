@@ -1,0 +1,193 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/f50f828a-8cc8-446b-982f-e41802e48448';
+const imgIconsPlus = `${assetPathPrefix}/d9725.svg`;
+
+export default function Frame1000000745() {
+  return (
+    <div
+      className="content-stretch flex items-center justify-between relative size-full"
+      data-node-id="2847:14995">
+      <p
+        className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[40px] relative shrink-0 text-[#323232] text-[28px] tracking-[-0.56px] w-[352px]"
+        data-node-id="2847:14996"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        Groups
+      </p>
+      <div
+        className="content-stretch flex gap-[16px] items-center justify-end relative shrink-0 w-[459px]"
+        data-node-id="2847:14997">
+        <div
+          className="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="2847:14998"
+          data-name="sl-button">
+          <div
+            className="content-stretch flex flex-col items-start relative shrink-0"
+            data-node-id="I2847:14998;2798:30776"
+            data-name="sl-button-theme">
+            <div
+              className="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+              data-node-id="I2847:14998;2798:30776;2798:29666"
+              data-name="button">
+              <div
+                className="relative shrink-0 size-[16px]"
+                data-node-id="I2847:14998;2798:30776;2798:29666;915:4542"
+                data-name="icon-core-start">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                    data-node-id="I2847:14998;2798:30776;2798:29666;915:4543"
+                    data-name="icon-core-start">
+                    <div
+                      className="flex-[1_0_0] h-full min-w-px relative"
+                      data-node-id="I2847:14998;2798:30776;2798:29666;915:4543;404:33"
+                      data-name="icon-container">
+                      <div
+                        className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                        data-node-id="I2847:14998;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                        <p className="leading-[14px]">archive</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+                data-node-id="I2847:14998;2798:30776;2798:29666;915:4544"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Archive a school year</p>
+              </div>
+              <div
+                className="absolute inset-[-2px]"
+                data-node-id="I2847:14998;2798:30776;2798:29666;2123:30628"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="2847:14999"
+          data-name="sl-button">
+          <div
+            className="content-stretch flex flex-col items-start relative shrink-0"
+            data-node-id="I2847:14999;2798:30776"
+            data-name="sl-button-theme">
+            <div
+              className="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+              data-node-id="I2847:14999;2798:30776;2798:29666"
+              data-name="button">
+              <div
+                className="relative shrink-0 size-[16px]"
+                data-node-id="I2847:14999;2798:30776;2798:29666;915:4542"
+                data-name="icon-core-start">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                    data-node-id="I2847:14999;2798:30776;2798:29666;915:4543"
+                    data-name="icon-core-start">
+                    <div
+                      className="flex-[1_0_0] h-full min-w-px relative"
+                      data-node-id="I2847:14999;2798:30776;2798:29666;915:4543;404:33"
+                      data-name="icon-container">
+                      <div
+                        className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                        data-node-id="I2847:14999;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                        <p className="leading-[14px]">download</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+                data-node-id="I2847:14999;2798:30776;2798:29666;915:4544"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Download groups</p>
+              </div>
+              <div
+                className="absolute inset-[-2px]"
+                data-node-id="I2847:14999;2798:30776;2798:29666;2123:30628"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex flex-col items-start relative shrink-0"
+          data-node-id="2847:15000"
+          data-name="sl-button">
+          <div
+            className="content-stretch flex flex-col items-start relative shrink-0"
+            data-node-id="I2847:15000;2798:30776"
+            data-name="sl-button-theme">
+            <div
+              className="bg-[rgba(0,0,0,0)] border-2 border-[#af1685] border-solid content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[8px] relative rounded-[800px] shrink-0"
+              data-node-id="I2847:15000;2798:30776;2798:29666"
+              data-name="button">
+              <div
+                className="relative shrink-0 size-[16px]"
+                data-node-id="I2847:15000;2798:30776;2798:29666;915:4542"
+                data-name="icon-core-start">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    className="content-stretch flex items-center justify-center relative shrink-0 size-[16px]"
+                    data-node-id="I2847:15000;2798:30776;2798:29666;915:4543"
+                    data-name="icon-core-start">
+                    <div
+                      className="flex-[1_0_0] h-full min-w-px relative"
+                      data-node-id="I2847:15000;2798:30776;2798:29666;915:4543;404:33"
+                      data-name="icon-container">
+                      <div
+                        className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#af1685] text-[16px] text-center"
+                        data-node-id="I2847:15000;2798:30776;2798:29666;915:4543;404:33;802:2162">
+                        <p className="leading-[14px]">upload</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#af1685] text-[14px] text-center whitespace-nowrap"
+                data-node-id="I2847:15000;2798:30776;2798:29666;915:4544"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Upload groups</p>
+              </div>
+              <div
+                className="absolute inset-[-2px]"
+                data-node-id="I2847:15000;2798:30776;2798:29666;2123:30628"
+                data-name="Focus ring">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex items-center justify-end relative shrink-0"
+          data-node-id="2847:15001">
+          <div
+            className="bg-[#af1685] content-stretch flex gap-[10px] items-center justify-center overflow-clip pl-[16px] pr-[24px] py-[8px] relative rounded-[24px] shrink-0"
+            data-node-id="2847:15002"
+            data-name="Button">
+            <div
+              className="relative shrink-0 size-[24px]"
+              data-node-id="I2847:15002;3:1423"
+              data-name="Icons/plus">
+              <img
+                alt=""
+                className="absolute block inset-0 max-w-none size-full"
+                src={imgIconsPlus}
+              />
+            </div>
+            <p
+              className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px] text-white tracking-[0.42px] whitespace-nowrap"
+              data-node-id="I2847:15002;3:1424"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              Add group
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

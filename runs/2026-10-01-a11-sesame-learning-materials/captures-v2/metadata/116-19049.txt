@@ -1,0 +1,188 @@
+<frame id="116:19049" name="Learning materials" x="3851" y="414" width="360" height="1871">
+  <rounded-rectangle id="116:19050" name="Rectangle 1" x="-1" y="337" width="361" height="670" />
+  <instance id="116:19051" name="top bar" x="0" y="0" width="360" height="112" />
+  <text id="116:19052" name="Learning materials" x="15" y="144" width="329" height="33" />
+  <instance id="116:19053" name="Button" x="12" y="209" width="332" height="40" />
+  <instance id="116:19054" name="Frame 26851" x="16" y="265" width="329" height="40" />
+  <frame id="116:19055" name="Frame 26853" x="15" y="373" width="328" height="584">
+    <frame id="116:19056" name="Frame 8836" x="0" y="0" width="328" height="80">
+      <frame id="116:19057" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19058" name="Frame 1483" x="16" y="12" width="158" height="24">
+          <text id="116:19059" name="Alles Klar! Aktuell 1" x="0" y="0" width="130" height="24" />
+          <instance id="116:19060" name="external-link" x="142" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19061" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19062" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19063" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19064" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <frame id="116:19065" name="Platform tag" x="231.16665649414062" y="0" width="64.83333587646484" height="24">
+            <frame id="116:19066" name="bingel_b_logo" x="0" y="0" width="17.83333396911621" height="24" />
+            <text id="116:19073" name="Bingel" x="23.83333396911621" y="2" width="41" height="20" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19074" name="Frame 8837" x="0" y="84" width="328" height="80">
+      <frame id="116:19075" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19076" name="Frame 1483" x="16" y="12" width="171" height="24">
+          <text id="116:19077" name="Alles Klar! Modullar 1" x="0" y="0" width="143" height="24" />
+          <instance id="116:19078" name="external-link" x="155" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19079" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19080" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19081" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19082" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <frame id="116:19083" name="Platform tag" x="231.16665649414062" y="0" width="64.83333587646484" height="24">
+            <frame id="116:19084" name="bingel_b_logo" x="0" y="0" width="17.83333396911621" height="24" />
+            <text id="116:19091" name="Bingel" x="23.83333396911621" y="2" width="41" height="20" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19092" name="Frame 8838" x="0" y="168" width="328" height="80">
+      <frame id="116:19093" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19094" name="Frame 1483" x="16" y="12" width="112" height="24">
+          <text id="116:19095" name="Buckle Up! 1" x="0" y="0" width="84" height="24" />
+          <instance id="116:19096" name="external-link" x="96" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19097" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19098" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19099" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19100" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <instance id="116:19101" name="Platform tag" x="216.8000030517578" y="0" width="79.19999694824219" height="24" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19102" name="Frame 8839" x="0" y="252" width="328" height="80">
+      <frame id="116:19103" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19104" name="Frame 1483" x="16" y="12" width="112" height="24">
+          <text id="116:19105" name="Buckle Up! 2" x="0" y="0" width="84" height="24" />
+          <instance id="116:19106" name="external-link" x="96" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19107" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19108" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19109" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19110" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <instance id="116:19111" name="Platform tag" x="216.8000030517578" y="0" width="79.19999694824219" height="24" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19112" name="Frame 8840" x="0" y="336" width="328" height="80">
+      <frame id="116:19113" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19114" name="Frame 1483" x="16" y="12" width="112" height="24">
+          <text id="116:19115" name="Buckle Up! 3" x="0" y="0" width="84" height="24" />
+          <instance id="116:19116" name="external-link" x="96" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19117" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19118" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19119" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19120" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <instance id="116:19121" name="Platform tag" x="216.8000030517578" y="0" width="79.19999694824219" height="24" />
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19122" name="Frame 8841" x="0" y="420" width="328" height="80">
+      <frame id="116:19123" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19124" name="Frame 1483" x="16" y="12" width="131" height="24">
+          <text id="116:19125" name="Stay ON TRACK" x="0" y="0" width="103" height="24" />
+          <instance id="116:19126" name="external-link" x="115" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19127" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19128" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19129" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19130" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <frame id="116:19131" name="Platform tag" x="187" y="0" width="109" height="24">
+            <frame id="116:19132" name="LexiaProvia-favicon-310x310px" x="0" y="0" width="24" height="24" />
+            <text id="116:19146" name="Lexia Provia" x="30" y="2" width="79" height="20" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+    <frame id="116:19147" name="Frame 8842" x="0" y="504" width="328" height="80">
+      <frame id="116:19148" name="Frame 8828" x="0" y="0" width="328" height="80">
+        <frame id="116:19149" name="Frame 1483" x="16" y="12" width="125" height="24">
+          <text id="116:19150" name="Get ON TRACK" x="0" y="0" width="97" height="24" />
+          <instance id="116:19151" name="external-link" x="109" y="4" width="16" height="16" />
+        </frame>
+        <frame id="116:19152" name="Frame 8889" x="16" y="44" width="296" height="24">
+          <frame id="116:19153" name="Frame 8888" x="0" y="1.5" width="57" height="21">
+            <frame id="116:19154" name="Frame 8763" x="0" y="0" width="57" height="21">
+              <text id="116:19155" name="Platform" x="0" y="0" width="57" height="21" />
+            </frame>
+          </frame>
+          <frame id="116:19156" name="Platform tag" x="187" y="0" width="109" height="24">
+            <frame id="116:19157" name="LexiaProvia-favicon-310x310px" x="0" y="0" width="24" height="24" />
+            <text id="116:19171" name="Lexia Provia" x="30" y="2" width="79" height="20" />
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="116:19172" name="Frame 27001" x="16" y="1039" width="329" height="405">
+    <text id="116:19173" name="Digital platforms" x="0" y="0" width="329" height="33" />
+    <frame id="116:19174" name="Frame 26988" x="0" y="57" width="328" height="348">
+      <frame id="116:19175" name="Frame 26985" x="0" y="0" width="328" height="348">
+        <frame id="116:19176" name="Frame 8845" x="0" y="0" width="328" height="100">
+          <frame id="116:19177" name="Frame 8828" x="0" y="0" width="328" height="100">
+            <frame id="116:19178" name="Frame 8889" x="36" y="30" width="296" height="40">
+              <frame id="116:19179" name="Platform tag" x="0" y="0" width="128" height="40">
+                <frame id="116:19180" name="logo-svg 1" x="0" y="0" width="76" height="40" />
+                <text id="116:19204" name="Bingel" x="82" y="10" width="46" height="20" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="116:19205" name="Frame 8844" x="0" y="124" width="328" height="100">
+          <frame id="116:19206" name="Frame 8828" x="0" y="0" width="328" height="100">
+            <frame id="116:19207" name="Frame 8889" x="36" y="32" width="296" height="36">
+              <frame id="116:19208" name="Platform tag" x="0" y="0" width="233.1615753173828" height="36">
+                <frame id="116:19209" name="g8" x="0" y="36" width="137.1615753173828" height="36" />
+                <text id="116:19267" name="Lexia Provia" x="143.1615753173828" y="8" width="90" height="20" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="116:19268" name="Frame 8843" x="0" y="248" width="328" height="100">
+          <frame id="116:19269" name="Frame 8828" x="0" y="0" width="328" height="100">
+            <frame id="116:19270" name="Frame 8889" x="36" y="38" width="296" height="24">
+              <frame id="116:19271" name="Platform tag" x="0" y="0" width="152.34585571289062" height="24">
+                <frame id="116:19272" name="g12" x="0" y="24" width="85.34585571289062" height="24" />
+                <text id="116:19310" name="Kampus" x="91.34585571289062" y="2" width="61" height="20" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <frame id="116:19311" name="Footer" x="0" y="1534" width="360" height="337">
+    <frame id="116:19312" name="Frame 26811" x="16" y="16" width="328" height="305">
+      <frame id="116:19313" name="button footer" x="0" y="0" width="262" height="41">
+        <frame id="116:19314" name="SANOMA+Payoff Regular Dark Green RGB 1" x="0" y="8" width="261.6071472167969" height="25">
+          <frame id="116:19315" name="Group" x="0.0017438615905120969" y="0.1057216078042984" width="148.6660919189453" height="24.787609100341797" />
+          <vector id="116:19320" name="Vector" x="156.48684692382812" y="6.165749549865723" width="105.08736419677734" height="14.909534454345703" />
+        </frame>
+      </frame>
+      <frame id="116:19321" name="Frame 26810" x="0" y="57" width="141" height="200">
+        <instance id="116:19322" name="menu item footer" x="0" y="0" width="100" height="40" />
+        <instance id="116:19323" name="menu item footer" x="0" y="40" width="141" height="40" />
+        <instance id="116:19324" name="menu item footer" x="0" y="80" width="61" height="40" />
+        <instance id="116:19325" name="menu item footer" x="0" y="120" width="61" height="40" />
+        <instance id="116:19326" name="menu item footer" x="0" y="160" width="80" height="40" />
+      </frame>
+      <instance id="116:19327" name="Component 2" x="0" y="273" width="143" height="32" />
+    </frame>
+  </frame>
+</frame>

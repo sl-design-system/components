@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "run": "b-itsl-bookmk-course-files",
+  "figma": {
+    "rootNodeId": "4886:12955"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "4016:6593",
+      "label": "get_design_context raw response — node 4886:12955 (course files)",
+      "file": "captures-v2/design-context/4016-6593.txt",
+      "bytes": 18729,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "stack-conversion",
+      "nodeId": "4016:6593",
+      "label": "get_design_context raw response — node 4886:12955 (course files)",
+      "file": "captures-v2/design-context/4016-6593.advisory.stack-conversion.txt",
+      "bytes": 569,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "node-ids",
+      "nodeId": "4016:6593",
+      "label": "get_design_context raw response — node 4886:12955 (course files)",
+      "file": "captures-v2/design-context/4016-6593.advisory.node-ids.txt",
+      "bytes": 6701,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "assets",
+      "nodeId": "4016:6593",
+      "label": "get_design_context raw response — node 4886:12955 (course files)",
+      "file": "captures-v2/design-context/4016-6593.advisory.assets.txt",
+      "bytes": 8025,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "4886:12955",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/4886-12955.txt",
+      "bytes": 1706,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/8.txt",
+      "bytes": 2227,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/unknown-0.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 58668,
+      "capturedAt": "2026-10-05T17:00:59.789Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

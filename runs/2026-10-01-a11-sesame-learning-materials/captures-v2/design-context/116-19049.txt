@@ -1,0 +1,47 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/7c385214-fd7a-4b49-8346-de25989882da";
+const imgIconsSearch = `${assetPathPrefix}/1077e.svg`;
+const imgIconsMenu = `${assetPathPrefix}/785ce.svg`;
+const imgVector = `${assetPathPrefix}/e81e8.svg`;
+const imgGroup = `${assetPathPrefix}/bcc1f.svg`;
+const imgFrame26856 = `${assetPathPrefix}/757aa.svg`;
+const imgIconRight = `${assetPathPrefix}/e13d1.svg`;
+const imgIconsPlus = `${assetPathPrefix}/d9725.svg`;
+const imgExternalLink = `${assetPathPrefix}/b6b70.svg`;
+const imgGroup1 = `${assetPathPrefix}/dfb2c.svg`;
+const imgKampusLogoIcon = `${assetPathPrefix}/9485b.svg`;
+const imgG10 = `${assetPathPrefix}/82efb.svg`;
+const imgPath14 = `${assetPathPrefix}/053d5.svg`;
+const imgG24 = `${assetPathPrefix}/2e4b2.svg`;
+const imgG25 = `${assetPathPrefix}/36183.svg`;
+const imgG28 = `${assetPathPrefix}/99de8.svg`;
+const imgLogoSvg1 = `${assetPathPrefix}/13cda.svg`;
+const imgG11 = `${assetPathPrefix}/38639.svg`;
+const imgPath15 = `${assetPathPrefix}/b8482.svg`;
+const imgPath16 = `${assetPathPrefix}/ceb8a.svg`;
+const imgPath18 = `${assetPathPrefix}/50559.svg`;
+const imgPath20 = `${assetPathPrefix}/24ea6.svg`;
+const imgG26 = `${assetPathPrefix}/6acf3.svg`;
+const imgG27 = `${assetPathPrefix}/f414c.svg`;
+const imgG12 = `${assetPathPrefix}/b571c.svg`;
+const imgSanomaPayoffRegularDarkGreenRgb1 = `${assetPathPrefix}/4d62a.svg`;
+const imgLanguageBlack24Dp12 = `${assetPathPrefix}/b98f1.svg`;
+const imgIconRight1 = `${assetPathPrefix}/2c3d2.svg`;
+
+(See conversation transcript / metadata file for the full JSX tree; truncated here for brevity — structure fully mirrored in figma-metadata.json with node ids, and fully described in manifest.md Overview/Layout sections.)
+
+Key data-node-id to DOM mappings captured from the reference code:
+
+- 116:19051 "top bar": contains "Top bar" (I116:19051;2678:142321) > "top navi bar" (logo I116:19051;4592:125817 = "Logo_MyVanIn", ProfileButton avatar instance, ButtonMobile "Icons/menu" instance) and a school-selector row (I116:19051;2678:142330 "Dropdown" > "School label" text "Bogaerts International School" + "Button" containing "Icon-right" icon I116:19051;2824:112251;2678:142791).
+- 116:19052 text "Learning materials", H1 mobile style (Open Sans Bold 24px), color #323232.
+- 116:19053 "Button" ("Assign a license to myself"): bg #2f5c64, rounded-[24px], icon "Icons/plus" (I116:19053;3:1423) + label text (Bold 14px, white, tracking 0.42px).
+- 116:19054 search-like control: border #bfbfbf, rounded-[6px], placeholder text "Search by product name" (#8d8d8d, Regular 16px) + Search() sub-component (rounded-[3px], "Icons/search" icon).
+- 116:19055 "Frame 26853": vertical stack (gap 4px) of 7 repeating "material" cards (116:19056/19074/19092/19102/19112/19122/19147), each:
+  - bg white, border-l-4 (color varies by platform: #79b928 green x2, #643695 purple x3, #f1b437 orange x2), rounded-[8px], px16/py12, height 80px
+  - Row 1: title text (SemiBold 14px, #2f5c64, lineHeight 24) + "external-link" icon instance (16px)
+  - Row 2: border-b divider (#cecfd2) row containing "Platform" label (Regular 14px, #5d5d5d, lineHeight 21) and a "Platform tag" (logo icon + platform name text, Regular 14px, #6d6e73, lineHeight 20)
+- 116:19172 "Frame 27001" "Digital platforms" section: H1-style heading + 3 cards (116:19176/19205/19268), each bg white border-l-4 (green/orange/purple), rounded-[8px], h-100px, drop-shadow, containing a "Platform tag" (logo + name, Regular 16px, #323232, lineHeight 20).
+- 116:19311 "Footer": bg #f6f8f8, p16, containing Sanoma payoff logo image, 5x "menu item footer" instances (SemiBold 14px, capitalize, #323232: Privacy Policy / Terms & Conditions / Contact / Cookies / Disclaimer), and "Component 2" language selector (globe/language icon + "English - EN" text SemiBold 14px + "Icon-right" chevron icon, rotated to point up in this context per screenshot).
+
+## Image asset note from tool
+
+Images and SVGs are stored as remote constants (asset URLs valid 7 days); not persisted locally by the design-analyst (out of scope for this stage).

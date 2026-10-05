@@ -1,0 +1,30 @@
+{
+  "note": "Every call below (whole-subtree and individual, at both instance-id and main-component-id level) returned an empty object {} — i.e. zero Code Connect registrations resolve anywhere in this Figma file for this node tree. Verified across 21 distinct probes spanning all major regions of the screen, so this is not a scoping/timeout artifact (per the 'empty subtree call' caveat) — it is a genuine total absence of Code Connect mapping for this file.",
+  "queries": {
+    "5308:32158": {},
+    "5308:32162": {},
+    "5308:32159": {},
+    "5308:32164": {},
+    "5308:32165": {},
+    "5308:32167": {},
+    "5308:32170": {},
+    "5308:32178": {},
+    "5308:32180": {},
+    "5308:32182": {},
+    "5308:32183": {},
+    "5308:34107": {},
+    "11360:135408": { "comment": "Icon-button main component" },
+    "12026:147754": { "comment": "Button main component" },
+    "5306:67658": { "comment": "Checkbox-with-text main component" },
+    "1702:18965": { "comment": "Simple-toggle main component" },
+    "1001:2105": { "comment": "number-tag main component" }
+  },
+  "invalid_nested_id_attempts": [
+    "I5308:32162;5308:29283",
+    "I5308:32162;5308:29285",
+    "I5308:32162;5308:29289",
+    "I5308:32162;8034:123724",
+    "I5308:32162;5308:29877"
+  ],
+  "invalid_nested_id_error": "Input validation error: Invalid arguments for tool get_code_connect_map: nodeId: Node ID must be in the format \"123:456\" or \"123-456\" -- the remote server's get_code_connect_map tool rejects nested instance ids (with ';'), so descendants-within-instances could only be checked indirectly via get_design_context, which also showed no sl-* / Code-Connect-resolved output (plain reconstructed React+Tailwind divs only)."
+}

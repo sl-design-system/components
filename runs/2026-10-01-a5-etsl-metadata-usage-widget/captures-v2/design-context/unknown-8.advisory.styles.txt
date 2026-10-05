@@ -1,0 +1,4 @@
+These styles are contained in the design: color/palette/neutral/700: #585C61, text/body/lg/demibold: Font(family: "Roboto", style: SemiBold, size: 16, weight: 600, lineHeight: 24, letterSpacing: 0), Body/md/regular: Font(family: "text-new/typeset/fontFamily/body", style: Regular, size: size/text-new/body/md, weight: text-new/typeset/fontWeight/regular, lineHeight: size/lineHeight/250, letterSpacing: 0), color/palette/neutral/50: #F4F5FA.
+
+CODE CONNECT SNIPPETS RETURNED (verbatim):
+

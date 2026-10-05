@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "run": "b-sanna-account-creation",
+  "figma": {
+    "rootNodeId": "174:232051"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "176:38378",
+      "label": "# Component descriptions (from Figma)",
+      "file": "captures-v2/design-context/176-38378.txt",
+      "bytes": 9371,
+      "capturedAt": "2026-10-05T17:00:59.807Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "174:232051",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/174-232051.txt",
+      "bytes": 3438,
+      "capturedAt": "2026-10-05T17:00:59.807Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "32",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/32.txt",
+      "bytes": 2323,
+      "capturedAt": "2026-10-05T17:00:59.807Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": "174:231588",
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/174-231588.txt",
+      "bytes": 6011,
+      "capturedAt": "2026-10-05T17:00:59.807Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 459672,
+      "capturedAt": "2026-10-05T17:00:59.807Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

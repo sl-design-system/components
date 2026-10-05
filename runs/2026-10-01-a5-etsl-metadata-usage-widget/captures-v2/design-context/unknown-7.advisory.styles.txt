@@ -1,0 +1,21 @@
+These styles are contained in the design: color/palette/neutral/800: #3D4047, color/palette/neutral/900: #1D1F20, color/button/primary/link/active/foreground: #003D3D, color/palette/neutral/400: #AFB6C5, color/button/primary/link/idle/foreground: #006666.
+
+Component descriptions:
+
+- `sl-icon` (11872:25670) — https://sanomalearning.design/categories/components/icon/usage/
+- `sl-button` (9670:4424) — https://sanomalearning.design/categories/components/button/
+
+No CodeConnectSnippet wrapper emitted for these `sl-icon` / `sl-button` instances — the raw internals were inlined instead.
+
+Key structure of one "asset card" (`17214:103606`, 117x104):
+
+- bg white, border 1px `#afb6c5`, rounded-4, p-8, flex-col gap-8
+- `17214:103607` "imag" slot > `17214:103608` "ES- logos" (h-32, w-101) > `17214:103609` `sl-icon` 20x20, FA Solid glyph name rendered as text, colour `#3d4047` (glyphs seen: `file`, `image`)
+- `17214:103610` > `17214:103611` "label + num" — Roboto Regular 14/20 `#1d1f20`, two spans gap-4: name + "(n)"
+- `17214:103612` `sl-button` link variant — Raleway Bold 14/16, "See all"; idle `#066` (`17214:103619`), active/visited `#003d3d` + underline (`17214:103612`)
+
+## Call 6 — 17214:104035 (Publication status column of the "Recently published" widget)
+
+Bound variables (verbatim):
+
+> 

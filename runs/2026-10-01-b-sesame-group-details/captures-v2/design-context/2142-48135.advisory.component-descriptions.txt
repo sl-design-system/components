@@ -1,0 +1,27 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+### State=Active, Content=Number indicator
+
+**Node ID:** 2:69159
+
+Tab / Default
+
+### DEMO - Tab-switches
+
+**Node ID:** 2:69119
+
+✨Variants
+
+### number-tag
+
+**Node ID:** 2:69165
+
+✅ implemented
+
+### State=Inactive, Content=Number indicator
+
+**Node ID:** 2:69162
+
+Tab / Default
+
+> 

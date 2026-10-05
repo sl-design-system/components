@@ -1,0 +1,59 @@
+Node ids have been added to the code as data attributes, e.g. `data-node-id=\"1:2\"`."
+- Styles: "Large: Effect(type: DROP_SHADOW, color: #3E55980D, offset: (0, 5), radius: 11, spread: 0); Effect(type: DROP_SHADOW, color: #3E55980A, offset: (0, 20), radius: 20, spread: 0); Effect(type: DROP_SHADOW, color: #3E559808, offset: (0, 45), radius: 27, spread: 0); Effect(type: DROP_SHADOW, color: #3E559803, offset: (0, 80), radius: 32, spread: 0); Effect(type: DROP_SHADOW, color: #3E559800, offset: (0, 125), radius: 35, spread: 0)."
+- "If the node is connected to a code component in the users codebase via Code Connect, the connected component will be included in the final markup wrapped in a CodeConnectSnippet element... IMPORTANT: the CodeConnectSnippet wrapper element should not be part of the final code."
+
+## Component descriptions (verbatim)
+
+### sl-select (simple-prototype)
+
+**Node ID:** 1422:260651
+
+A select component allows users to choose from a predefined list of options. You can click or tap on it, and it reveals a list of options and you can select the option that aligns with your preference.
+
+**Documentation:**
+
+- https://sanomalearning.design/categories/components/select/usage/
+
+### sl-icon
+
+**Node ID:** 37:52328
+
+Icons communicate messages, enhance interactivity, and highlight critical information. Use them as visual representations of concepts, objects, or actions efficiently.
+
+**Documentation:**
+
+- https://sanomalearning.design/categories/components/icon/usage/
+
+### Variant=Default, State=Idle
+
+**Node ID:** 123:20912
+
+Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons.
+
+### sl-button-pill
+
+**Node ID:** 397:42251
+
+A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action.
+
+INVERTED BUTTONS are only to be used with `elevation.surface.raised.inverted` and `elevation.surface.raised.primary`.
+
+**Documentation:**
+
+- https://sanomalearning.design/categories/components/button/usage/
+
+### Icon only=false, ↕️ - Size=MD
+
+**Node ID:** 123:17069
+
+Use for borders that highlight secondary actions.
+
+### Icon only=false, ↕️ - Size=SM
+
+**Node ID:** 32:118323
+
+Use for borders that highlight secondary actions.
+
+## Image asset note (verbatim)
+
+"

@@ -1,0 +1,16 @@
+These styles are contained in the design: Dark blue: #02242E,#000000, text/heading/1: Font(family: "Raleway", style: Bold, size: 28, weight: 700, lineHeight: 38, letterSpacing: -1), color/tab/default/foreground: #02242E, tab/subtitle: Font(family: "Roboto", style: Regular, size: 14, weight: 400, lineHeight: 20, letterSpacing: 0), color/tab/default/indicator: #4589BE, color/palette/neutral/50: #F4F5FA, color/tab/default/border: #C8C8CF, color/tab/tabbar/border: #C8C8CF, color/palette/neutral/300: #C8C8CF.
+
+No Code Connect snippets. `tabbar-horizontal` (17214:103592) is a plain Figma component (node structure `tabs` > `1-4` / `5-8` > `tab horizontal-theme` > `tab-config` > `tab-base` > `tab-content` > `main`).
+
+Key structure:
+
+- page header bar `17214:103586` bg `#f4f5fa`, border-bottom 1px `#c8c8cf`, px-120 py-10
+- H1 `17214:103590` "Functional management" Raleway Bold 28/38, letter-spacing -0.28px, `#021d25`, centred
+- tab bar `17214:103592` bg `rgba(245,245,245,0.7)`, border-bottom `#c8c8cf`, 7 tabs: Dashboard (selected), Publications, Export, Asset request, Metadata imports, Metadata exports, Connected outlines
+- tab: px-24 py-12, Roboto Regular 14/20 `#02242e`; selected tab has a 4px indicator bar `#4589be` at bottom (`bottom-[-1px]`)
+
+## Call 5 — 17214:103605 (a pair of "asset card" nodes from the Assets widget)
+
+Bound variables (verbatim):
+
+> 

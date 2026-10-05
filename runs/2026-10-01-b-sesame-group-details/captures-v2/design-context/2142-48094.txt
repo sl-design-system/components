@@ -1,0 +1,204 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/6d39f572-1609-4ba9-8261-573ec77d16ec';
+const imgIconsEdit2 = `${assetPathPrefix}/6f425.svg`;
+const imgArchive1 = `${assetPathPrefix}/31566.svg`;
+const imgKey51 = `${assetPathPrefix}/06e41.svg`;
+
+export default function Group26820() {
+  return (
+    <div className="contents relative size-full" data-node-id="2142:48094">
+      <div
+        className="absolute h-[40px] left-[128px] top-[160px] w-[934px]"
+        data-node-id="2142:48095">
+        <p
+          className="[word-break:break-word] absolute font-['Open_Sans:Bold'] font-bold leading-[40px] left-0 text-[28px] text-black top-0 tracking-[-0.56px] w-[352px]"
+          data-node-id="2142:48096"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          Group details
+        </p>
+      </div>
+      <p
+        className="[word-break:break-word] absolute font-['Open_Sans:Bold'] font-bold leading-[24px] left-[128px] text-[#01766d] text-[14px] top-[120px] whitespace-nowrap"
+        data-node-id="2142:48097"
+        style={{ fontVariationSettings: '"wdth" 100' }}>{`< Back to Groups`}</p>
+      <div
+        className="absolute content-stretch flex flex-col items-start left-[127px] top-[240px]"
+        data-node-id="2142:48098">
+        <div
+          className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[628px]"
+          data-node-id="2142:48099"
+          data-name="left colum">
+          <div
+            className="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+            data-node-id="2142:48100"
+            data-name="group name">
+            <div
+              className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+              data-node-id="2142:48101">
+              <div
+                className="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+                data-node-id="2142:48102">
+                <p
+                  className="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                  data-node-id="2142:48103"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Group name
+                </p>
+                <p
+                  className="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                  data-node-id="2142:48104"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  French 1D
+                </p>
+              </div>
+              <div
+                className="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                data-node-id="2142:48105"
+                data-name="button secondary">
+                <div
+                  className="relative shrink-0 size-[16px]"
+                  data-node-id="I2142:48105;2846:104553"
+                  data-name="Icons/plus">
+                  <img
+                    alt=""
+                    className="absolute block inset-0 max-w-none size-full"
+                    src={imgIconsEdit2}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+            data-node-id="2142:48106"
+            data-name="school year">
+            <div
+              className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+              data-node-id="2142:48107">
+              <div
+                className="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+                data-node-id="2142:48108">
+                <p
+                  className="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                  data-node-id="2142:48109"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  School year
+                </p>
+                <p
+                  className="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                  data-node-id="2142:48110"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  22/23
+                </p>
+              </div>
+              <div
+                className="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                data-node-id="2142:48111"
+                data-name="button secondary">
+                <div
+                  className="relative shrink-0 size-[16px]"
+                  data-node-id="I2142:48111;2846:104553"
+                  data-name="Icons/plus">
+                  <img
+                    alt=""
+                    className="absolute block inset-0 max-w-none size-full"
+                    src={imgIconsEdit2}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="border-[#cecfd2] border-b border-solid content-stretch flex h-[72px] items-start relative shrink-0 w-full"
+            data-node-id="2142:48112"
+            data-name="school year">
+            <div
+              className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px relative"
+              data-node-id="2142:48113">
+              <div
+                className="[word-break:break-word] grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 text-[#323232] text-[16px]"
+                data-node-id="2142:48114">
+                <p
+                  className="col-1 font-['Open_Sans:Regular'] font-normal leading-[24px] ml-0 mt-0 relative row-1 tracking-[-0.32px] w-[322px]"
+                  data-node-id="2142:48115"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Group type
+                </p>
+                <p
+                  className="col-1 font-['Open_Sans:Bold'] font-bold leading-[28px] ml-0 mt-[28px] relative row-1 w-[322px]"
+                  data-node-id="2142:48116"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Study group
+                </p>
+              </div>
+              <div
+                className="bg-white border border-[#01766d] border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[8px] relative rounded-[4px] shrink-0"
+                data-node-id="2142:48118"
+                data-name="button secondary">
+                <div
+                  className="relative shrink-0 size-[16px]"
+                  data-node-id="I2142:48118;2846:104553"
+                  data-name="Icons/plus">
+                  <img
+                    alt=""
+                    className="absolute block inset-0 max-w-none size-full"
+                    src={imgIconsEdit2}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="absolute bg-white content-stretch flex gap-[8px] items-center justify-end left-[calc(81.25%-79px)] py-[8px] rounded-[6px] top-[240px] w-[189px]"
+        data-node-id="2142:48119"
+        data-name="Button-sesame">
+        <div
+          className="relative shrink-0 size-[16px]"
+          data-node-id="2142:48120"
+          data-name="archive 1">
+          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgArchive1} />
+        </div>
+        <p
+          className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#ed1111] text-[14px] tracking-[0.42px] whitespace-nowrap"
+          data-node-id="2142:48124"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          Archive group
+        </p>
+      </div>
+      <div
+        className="absolute bg-[#f5f5f6] content-stretch drop-shadow-[0px_2px_4px_rgba(109,110,115,0.35)] flex flex-col gap-[16px] items-start left-[calc(62.5%-12px)] px-[24px] py-[16px] rounded-[16px] top-[304px] w-[364px]"
+        data-node-id="2142:48126"
+        data-name="Linking code">
+        <div
+          className="content-stretch flex gap-[8px] items-center p-[8px] relative shrink-0 w-[249px]"
+          data-node-id="2142:48127">
+          <div
+            className="relative shrink-0 size-[16px]"
+            data-node-id="2142:48128"
+            data-name="key (5) 1">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgKey51} />
+          </div>
+          <p
+            className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#5d5d5d] text-[16px] w-[217px]"
+            data-node-id="2142:48130"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            Linking code
+          </p>
+        </div>
+        <div
+          className="content-stretch flex items-center pl-[8px] relative shrink-0 w-full"
+          data-node-id="2142:48131"
+          data-name="Group key">
+          <p
+            className="[word-break:break-word] font-['Open_Sans:Bold'] font-bold leading-[40px] relative shrink-0 text-[#323232] text-[36px] tracking-[-0.72px] whitespace-nowrap"
+            data-node-id="2142:48132"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            AB3FRR
+          </p>
+        </div>
+        <div className="h-[40px] relative shrink-0 w-[249px]" data-node-id="2142:48133" />
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,413 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## Navigation
+
+**Node ID:** 4016:6647
+
+Menu
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/patterns/MainMenu/v1/](https://styleguide.itsbuild.net/assets/patterns/MainMenu/v1/)
+
+## Search
+
+**Node ID:** 4016:5924
+
+Usage
+-----
+
+This Figma component represents 2 components in Prometheus: SearchInput and GlobalSearch.
+
+**Global=false (**[**searchinput**](https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/)**)** can be used on each page where we have search as you type, and it doesn't require from user confirmation.
+
+- can be combined with filters
+
+**Global=true (**[**Globalesearch**](https://styleguide.itsbuild.net/assets/inputs/GlobalSearch/v1/)**)** can be used in navigation and search result page. Used when we require confirmation form user to start the searching mechanism
+
+Auto-complete
+-------------
+
+- For SearchInput only.
+- The text field can be combined with auto-complete functionality, to facilitate the introduction of Names and entries from databases.
+
+Keywords
+--------
+
+search, global, input
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/](https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/)
+
+## Button
+
+**Node ID:** 4016:5507
+
+Usage
+-----
+
+1.  **Large** is a default size of the button. The small size can be used in some specific cases when the large one is too big.
+2.  The button width depends on its label.
+3.  The button can't lead to another page — use the [link](https://styleguide.itsbuild.net/assets/Navigation/Link/v1/) instead.
+4.  **Truncate** button's label if it doesn’t fit. Button label should never wrap. Avoid such long labels and translations. Truncating is a way to handle exception cases, but in the end the copy has to be updated.
+
+Loading
+-------
+
+The button can be in the loading state: the button text is hidden and a spinner is shown in its place. Maintain the width that it would have if the text were visible. For examples, see the Styleguide.
+
+Row of actions
+--------------
+
+1.  The distance between actions is defined in the variable **actions-gap**.
+2.  The behaviour of a row of actions is handled by the [ButtonGroup](https://styleguide.itsbuild.net/assets/inputs/ButtonGroup/v1/) component. We don't have any analogue in Figma, for designers it is simple row inside an Auto Layout. Feel free to the refer to the ButtonGroup component in communication with developers.
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/Button/v1/](https://styleguide.itsbuild.net/assets/inputs/Button/v1/)
+
+## magnifying-glass
+
+**Node ID:** 2275:4351
+
+search
+
+## bell
+
+**Node ID:** 4016:6527
+
+bell, notification
+
+## comment
+
+**Node ID:** 4016:6535
+
+Not in Semiotic comment, messages
+
+## Avatar
+
+**Node ID:** 4016:6537
+
+Usage
+-----
+
+The avatar component has a predefined set of sizes:
+
+- 100: **24x24** (size--700)
+- 200: **32x32** (size--900)
+- 300: **48x48** (size--1100)
+- 400: **64x64** (size--1200)
+- 500: **80x80** (size--1300)
+- 600: **96x96** (size--1400)
+
+Please use only these options. If some other size is crucial, please contact the UX team.
+
+Keywords
+--------
+
+User, person, userpic
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/nodes/Avatar/v1/](https://styleguide.itsbuild.net/assets/nodes/Avatar/v1/)
+
+## Editable=False
+
+**Node ID:** 4680:12985
+
+Usage
+-----
+
+1.  This component represents 2 components in Prometheus: [PageHeader](https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/) and [PageHeaderEditable](https://styleguide.itsbuild.net/assets/patterns/PageHeaderEditable/v1/).
+2.  The optional like can concatenate several text lines divided by the bullet symbol. This solution can be done accessibly (Mikhail Voronov has created a code for this solution, it can be reused in any place).
+3.  The editable option in Figma needs some tweaks when the title is long or the screen is narrow.
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/](https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/)
+
+## PageHeader
+
+**Node ID:** 4680:12984
+
+Usage
+-----
+
+1.  This component represents 2 components in Prometheus: [PageHeader](https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/) and [PageHeaderEditable](https://styleguide.itsbuild.net/assets/patterns/PageHeaderEditable/v1/).
+2.  The Subtitle concatenates several text lines divided by the bullet symbol. This solution can be done accessibly (Mikhail Voronov has created a code for this solution, it can be reused in any place). Please don't use like break and complex structure in the subtitle.
+3.  The editable option in Figma needs some tweaks when the title is long or the screen is narrow. Check the component in the Styleguide.
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/](https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/)
+
+## Breadcrumb trail
+
+**Node ID:** 4680:9561
+
+How to use:
+===========
+
+1.  can be used as a additional navigation when there are multiple levels of hierarchy
+2.  for smaller screens wrap into multiline
+3.  when used inside PageHeader do not show current location!
+
+For more guidelines please check:
+
+[https://www.figma.com/design/NcOdZ7kMoI18os0UibrVk6/Breadcrumbs?node-id=1-2](https://www.figma.com/design/NcOdZ7kMoI18os0UibrVk6/Breadcrumbs?node-id=1-2)
+
+Keywords:
+=========
+
+breadcrumb, breadcrumbs, trail
+
+## chevron-right
+
+**Node ID:** 4676:10993
+
+arrow, right
+
+## Banner
+
+**Node ID:** 4676:9879
+
+Usage
+-----
+
+1.  Banners are shown inside the [Banner Area](https://styleguide.itsbuild.net/assets/feedback/BannerArea/v1/) component.
+2.  Banners are usually located at the top of a page or section and take the full width of their container.
+3.  Put the banner as close to relevant content as possible.
+4.  Banner should be dismissible unless it contains critical information or an important step a user needs to take.
+5.  Don’t use it as a the only way to access information or action one needs on a regular basis.
+6.  Help banners can be displayed near the items they are related to (for example, in the middle of the form)
+
+Content
+-------
+
+A banner is a container that, from the technical standpoint, can contain anything, including buttons, links, images etc. Note that there’re **accessibility concerns** about having interactive controls like links or buttons in not persistent banner since the focus is not move to it once it appear on a page.
+
+---
+
+Writing
+-------
+
+[Writing guidelines for banners](https://sanoma-learning.atlassian.net/wiki/spaces/GM2/pages/82144369/UX+writing+guidelines+for+components#UXwritingguidelinesforcomponents-banners)
+
+Keywords
+--------
+
+alert, feedback, message
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/feedback/Banner/v1/](https://styleguide.itsbuild.net/assets/feedback/Banner/v1/)
+
+## Button
+
+**Node ID:** 4675:10050
+
+Usage
+-----
+
+1.  **Large** is a default size of the button. The small size can be used in some specific cases when the large one is too big.
+2.  The button width depends on its label.
+3.  The button can't lead to another page — use the [link](https://styleguide.itsbuild.net/assets/Navigation/Link/v1/) instead.
+4.  **Truncate** button's label if it doesn’t fit. Button label should never wrap. Avoid such long labels and translations. Truncating is a way to handle exception cases, but in the end the copy has to be updated.
+
+Loading
+-------
+
+The button can be in the loading state: the button text is hidden and a spinner is shown in its place. Maintain the width that it would have if the text were visible. For examples, see the Styleguide.
+
+Row of actions
+--------------
+
+1.  The distance between actions is defined in the variable **actions-gap**.
+2.  The behaviour of a row of actions is handled by the [ButtonGroup](https://styleguide.itsbuild.net/assets/inputs/ButtonGroup/v1/) component. We don't have any analogue in Figma, for designers it is simple row inside an Auto Layout. Feel free to the refer to the ButtonGroup component in communication with developers.
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/Button/v1/](https://styleguide.itsbuild.net/assets/inputs/Button/v1/)
+
+## xmark
+
+**Node ID:** 4571:11998
+
+close, remove
+
+## Search
+
+**Node ID:** 4680:12012
+
+Usage
+-----
+
+This Figma component represents 2 components in Prometheus: SearchInput and GlobalSearch.
+
+**Global=false (**[**searchinput**](https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/)**)** can be used on each page where we have search as you type, and it doesn't require from user confirmation.
+
+- can be combined with filters
+
+**Global=true (**[**Globalesearch**](https://styleguide.itsbuild.net/assets/inputs/GlobalSearch/v1/)**)** can be used in navigation and search result page. Used when we require confirmation form user to start the searching mechanism
+
+Auto-complete
+-------------
+
+- For SearchInput only.
+- The text field can be combined with auto-complete functionality, to facilitate the introduction of Names and entries from databases.
+
+Keywords
+--------
+
+search, global, input
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/](https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/)
+
+## magnifying-glass
+
+**Node ID:** 4680:12010
+
+search
+
+## caret-down
+
+**Node ID:** 4573:8425
+
+expand, arrow, down
+
+## Cell
+
+**Node ID:** 4978:10912
+
+How to use:
+-----------
+
+1.  use cell component to build row and tables
+2.  icon call need to have a visible label next to it
+3.  action cell always show 1 button, if more then 1 action use icon only with ellipsis icon, show actions in drop down
+
+**Sort:**
+
+1.  to show sorting changes, change icon to increase/decrease sorting and background of a cell to Brand/100
+
+Figma file: [https://www.figma.com/design/8gsaOc6G4f4GcpxOryCcKR/Filter-Area-%2B-Table-template?node-id=4366-19238&node-type=section&t=R0DKmavklfAfkWa8-11](https://www.figma.com/design/8gsaOc6G4f4GcpxOryCcKR/Filter-Area-%2B-Table-template?node-id=4366-19238&node-type=section&t=R0DKmavklfAfkWa8-11)
+
+**Deprecated:**
+
+1.  switch cell - switch should be under action drop down
+2.  input cell
+3.  multiple action cell
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/lists/Cell/v1/](https://styleguide.itsbuild.net/assets/lists/Cell/v1/)
+
+## Checkbox
+
+**Node ID:** 4571:13623
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/Checkbox/v1/](https://styleguide.itsbuild.net/assets/inputs/Checkbox/v1/)
+
+## check
+
+**Node ID:** 4571:13619
+
+check, complete, task
+
+## ellipsis
+
+**Node ID:** 4676:8755
+
+3-dot, dots, ellipsis, options, more
+
+## Variant=Desktop
+
+**Node ID:** 4978:11049
+
+Usage
+-----
+
+- This is a template component — please **detach it** before using as a starting point for your mockups. Don't worry, actual styles are at the level of Cells, so if the table style changes in the future, your mockups will be updated.
+- Once detached, **make a new, local component** out of it. It keeps the shared styles connected but the content of your table is completely independent and nothing from outside would be able to break it. You may have as many local row components as you need.
+- Adjust the number of columns in the local row component. You can change the type of content to one of predefined ones, or create something new. It is recommended to change text in the text cell to the name of the column.
+- Put as many instances of your local row component as you need to the [List](https://www.figma.com/file/p3JEpXtd3He8nBXat7n1tY/itslearning-Web-UI-kit?type=design&node-id=1606-2444&mode=design&t=JAmqVT6FZlYwzFyL-4) template. A row takes the full available width.
+- To create a table header row, select all cells inside the 1st row instance in a list and toggle the "Header" parameter.
+
+Keywords
+--------
+
+Template, blueprint
+
+## Bulk actions panel
+
+**Node ID:** 4978:11048
+
+How to use:
+-----------
+
+1.  use bulk panel for bulk actions in table
+2.  change numbers on the panel
+3.  display actions available only in bulk
+4.  wrap buttons if they do not fit into one line
+
+Figma file:
+
+[https://www.figma.com/design/8gsaOc6G4f4GcpxOryCcKR/Filter-Area-%2B-Table-template?node-id=4371-26576&node-type=section&t=S4I9Ms6ePwmtx7s9-11](https://www.figma.com/design/8gsaOc6G4f4GcpxOryCcKR/Filter-Area-%2B-Table-template?node-id=4371-26576&node-type=section&t=S4I9Ms6ePwmtx7s9-11)
+
+## Pagination
+
+**Node ID:** 4680:14009
+
+Usage
+-----
+
+1.  When there is only 1 page, the pages are not visible.
+2.  The control of the number of element in the list is optional.
+3.  The component is in implementation now.
+4.  When there is only 1 page, **hide** the component.
+
+Keywords
+--------
+
+Pages
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/Navigation/Pagination/v1/](https://styleguide.itsbuild.net/assets/Navigation/Pagination/v1/)
+
+## chevron-left
+
+**Node ID:** 4680:13994
+
+arrow, left
+
+## Select
+
+**Node ID:** 4680:13737
+
+Usage
+-----
+
+- Use when there’re 5+ options.
+- Use for the least important actions so the user isn’t distracted by secondary tasks.
+- Can also be used for a set of actions that won’t fit in the available screen space.
+
+Label on the left
+-----------------
+
+Label on the left should not be used in forms. It can be helpful in toolbars above lists or tables. Label on the left would not work for multiline version of component.
+
+Keywords
+--------
+
+select, dropdown
+
+**Documentation:**
+
+- [https://styleguide.itsbuild.net/assets/inputs/Select/v1/](https://styleguide.itsbuild.net/assets/inputs/Select/v1/)
+  

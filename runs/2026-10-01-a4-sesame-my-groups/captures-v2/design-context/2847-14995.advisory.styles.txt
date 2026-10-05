@@ -1,0 +1,15 @@
+These styles are contained in the design: button/primary/outline/idle/foreground: #AF1685,
+> button/primary/outline/idle/background: #000000, button/primary/outline/idle/border: #AF1685.
+
+> Component descriptions:
+>
+> ## sl-button — **Node ID:** 2:48280
+>
+> A button initiates an action when clicked, like redirecting to a new page or submitting a
+> form. It's a key element for interaction and action.
+> Documentation: https://sanomalearning.design/categories/components/button/
+
+---
+
+## 2. `2847:15395` — Filter / search card
+

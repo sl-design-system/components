@@ -1,0 +1,19 @@
+These styles are contained in the design: Display small: Font(family: "default-font",
+> style: Bold, size: Size/200, weight: 700, lineHeight: 1.5, letterSpacing: 0),
+> button/text/sm: Font(family: "Open Sans", style: Bold, size: 14, weight: 700, lineHeight:
+> 16, letterSpacing: 0), button/primary/ghost/idle/background: #000000,
+> button/primary/ghost/idle/border: #000000, button/primary/ghost/disabled/background:
+> #000000, button/primary/ghost/disabled/border: #000000.
+
+> Component descriptions:
+>
+> ## xmark — **Node ID:** 7:5952 — close, remove
+>
+> ## sl-button — **Node ID:** 2:48280 — A button initiates an action when clicked...
+>
+> Documentation: https://sanomalearning.design/categories/components/button/
+
+---
+
+## 4. `2847:15003` — App header (top nav bar + secondary school bar)
+

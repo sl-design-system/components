@@ -1,0 +1,91 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/16793136-ac0c-4184-ad1e-c2f59854ba6d';
+export default function GroupCardDropdown() {
+  return (
+    <div
+      className="bg-white border border-solid border-white content-stretch flex flex-col items-center overflow-clip p-[12px] relative rounded-[4px] shadow-[0px_2px_8px_0px_rgba(109,110,115,0.35)] size-full"
+      data-node-id="2847:15358"
+      data-name="group-card-dropdown">
+      <div
+        className="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+        data-node-id="2847:15362"
+        data-name="Dropdown Panels">
+        <div
+          className="[word-break:break-word] content-stretch flex gap-[8px] h-full items-center justify-center leading-[24px] py-[10px] relative shrink-0 text-[14px] w-[29px]"
+          data-node-id="2847:15363">
+          <p
+            className="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] left-[32px] right-[-131px] text-[#323232] top-[6px]"
+            data-node-id="2847:15364"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            View details
+          </p>
+          <p
+            className="font-['Font_Awesome_6_Pro:Regular'] not-italic relative shrink-0 text-black whitespace-nowrap"
+            data-node-id="2847:15365">
+            eye
+          </p>
+        </div>
+      </div>
+      <div
+        className="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+        data-node-id="2847:15366"
+        data-name="Dropdown Panels">
+        <div
+          className="content-stretch flex gap-[8px] items-center justify-center p-[8px] relative rounded-[4px] shrink-0"
+          data-node-id="2847:15367"
+          data-name="Button">
+          <div
+            className="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[#323232] text-[14px] tracking-[0.4px] whitespace-nowrap"
+            data-node-id="2847:15369">
+            <p className="leading-[20px]">trash</p>
+          </div>
+        </div>
+        <p
+          className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[141px]"
+          data-node-id="2847:15370"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          Delete group
+        </p>
+      </div>
+      <div
+        className="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+        data-node-id="2847:15371"
+        data-name="Dropdown Panels">
+        <div
+          className="[word-break:break-word] content-stretch flex gap-[8px] items-center justify-center py-[10px] relative shrink-0 text-[#323232] w-[29px]"
+          data-node-id="2847:15372">
+          <div
+            className="flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[16px] tracking-[0.25px] whitespace-nowrap"
+            data-node-id="2847:15373">
+            <p className="leading-[20px]">box-archive</p>
+          </div>
+          <p
+            className="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] leading-[24px] left-[32px] right-[-131px] text-[14px] top-[6px]"
+            data-node-id="2847:15374"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            Archive group
+          </p>
+        </div>
+      </div>
+      <div
+        className="content-stretch flex h-[40px] items-center pl-[6px] pr-[5px] py-[2px] relative shrink-0 w-full"
+        data-node-id="2847:15375"
+        data-name="Dropdown Panels">
+        <div
+          className="[word-break:break-word] content-stretch flex gap-[8px] h-full items-center justify-center leading-[24px] py-[10px] relative shrink-0 text-[#323232] text-[14px] w-[29px]"
+          data-node-id="2847:15376">
+          <p
+            className="font-['Font_Awesome_6_Pro:Regular'] not-italic relative shrink-0 whitespace-nowrap"
+            data-node-id="2847:15377">
+            boxes-packing
+          </p>
+          <p
+            className="absolute font-['Open_Sans:SemiBold'] font-semibold h-[24px] left-[32px] right-[-131px] top-[6px]"
+            data-node-id="2847:15378"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            Reactivate group
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

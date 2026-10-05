@@ -1,0 +1,112 @@
+Images and SVGs will be stored as constants, e.g. const image = `${assetPathPrefix}/<asset file name>`, where assetPathPrefix is declared once at the top of the code and every asset URL interpolates it. Image assets are stored on a remote server for 7 days and can be fetched using the provided URLs until they expire.
+
+## Screenshot
+
+Rendered screenshot matches: itslearning "Files" app, "Save course materials" tab active, blue info banner, 4-column course table (Course/Status/Teacher/Last updated) with 4 visible rows (Math 2c, Archived/Deleted statuses, "Floyd Miles and 2 more", 05/04/2024). See cached `screenshot.png` in this run folder.
+
+---
+
+## Supplement — table subtree (node `4886:12965`), recovered by the orchestrator
+
+**Why this section exists:** the analyst wrote the top-node `get_design_context` output into this
+file but replaced the entire table subtree with a one-line `<!-- … truncated here for brevity -->`
+comment. The file is meant to be the verbatim raw tool output kept for reproducibility, so the
+elision destroyed the only per-cell geometry in the run. The orchestrator re-called
+`get_design_context` on `4886:12965` and distilled the result below. **Finding for the batch: the
+analyst summarised a "raw output" artifact.**
+
+### Table (`4886:12965`) — flex column, width 1120px, no gap, no own background
+
+Every row (`courses`) is: `background #ffffff` (`--sl-color-white`), `border-bottom: 1px solid
+#e1e1e1` (`--sl-color-palette-grey-300`), `overflow: clip`, `display:flex`, `align-items:
+flex-start`, full width. **4 cells per row, each `flex: 1 0 0; min-width: 0`** — so the four
+columns are equal width (280px each at 1120px).
+
+### Header row (`4886:12966`), min-height 32px
+
+- Every cell: `background #f9f9f9` (`--sl-color-palette-grey-050`), `padding-inline: 8px`
+  (`--sl-size-100`), `align-self: stretch`, `min-height: 32px`.
+- Label wrapper: `padding-block: 5px`, centred. Label text: **Lato Bold 14px / 1.5**, colour
+  `#333333` (`--sl-color-palette-grey-900`). Figma style "Base small strong" (weight **700**).
+- Labels, in order: `Course`, `Status`, `Teacher`, `Last updated`.
+- **Only the Teacher and Last-updated cells** carry a sort Button: `min-height 32px`,
+  `min-width 32px`, `padding 4px` (`--sl-size-050`), `gap 4px`, `border-radius 4px`
+  (`--sl-size-borderRadius-md`), containing a **20×20** `arrow-up-arrow-down` icon.
+  Theme equivalent: `<sl-icon name="sort" size="md">` — see Icon Gaps.
+
+### Body rows (`4886:12968`, `12969`, `12971`, `12973` — and `12972`, which is **hidden**)
+
+Cell padding for all four body cells: `padding-inline: 8px` (`--sl-size-100`),
+`padding-block: 12px` (`--sl-size-150`), `align-self: stretch`.
+
+1. **Course cell** — `gap: 8px`. Contains:
+   - "Course-hat": a **24×24** circle, `border-radius: 120px` (i.e. fully round →
+     `--sl-size-borderRadius-full`), background `#d9e3e8` (Figma `$pigeongrey--100`, **genuinely
+     unbound — no token anywhere in the repo**), holding a `graduation-cap` glyph inset 18.75%
+     (→ 15×15 within the 24px circle). **`graduation-cap` is not registered in the itslearning
+     theme.**
+   - Course-name link: **Lato Bold 16px / 1.5, underlined**, colour `#00458f`
+     (`--sl-color-palette-blue-700`), `flex: 1 0 0`. Figma style "Links/Base primary link"
+     (weight **700**). Text: `Math 2c`.
+2. **Status cell** — `gap: 4px`. Contains one "Status" chip:
+   `background #f4f4f4` (`--sl-color-palette-grey-100`), `border: 1px solid #cfcfcf`
+   (`--sl-color-palette-grey-400`), `border-radius: 12px`, `min-height: 24px`,
+   `padding-inline: 8px` (`--sl-size-100`), `gap: 2px` (`--sl-size-025`), `align-items: flex-start`.
+   - Icon wrapper is **12px wide × 20px tall** with a **16×16** `circle-pen` glyph positioned
+     `left: -4px; top: 4px` — i.e. the icon deliberately overhangs its wrapper to the left.
+     **`circle-pen` is not registered in the itslearning theme.**
+   - Label wrapper: `padding-top: 1px` (`--sl-size-010`), `padding-bottom: 2px`
+     (`--sl-size-025`). Label: **Lato Regular 14px / 1.5**, colour `#333333`.
+   - Row values, top to bottom: `Archived`, `Deleted`, `Deleted`, `Archived`.
+3. **Teacher cell** — text **Lato Regular 16px / 1.5**, `#333333`, `flex: 1 0 0`.
+   Value in every row: `Floyd Miles and 2 more`.
+4. **Last updated cell** — same type as Teacher. Value in every row: `05/04/2024`.
+
+### Figma component documentation attached to this subtree (verbatim excerpts)
+
+- **Status** (`2295:4983`): "Component used to show a state of some object, process etc. Can be
+  used without any icon. **The status cannot be interactive.** Colours of statuses shouldn't be
+  changed." Accessibility: "Don't truncate the label. If it is long, show it in multiple lines."
+  Keywords: status, tag, label.
+- **Cell** (`2295:5708` / `4978:10912`): "use cell component to build row and tables"; "icon cell
+  needs to have a visible label next to it"; sorting is shown by changing the icon _and_ the
+  cell background to Brand/100.
+- **Course-hat** (`2275:4959`): Keywords: **Avatar**. **graduation-cap** (`2275:4957`): "course".
+- **Button** (`4675:10050`): "The button can't lead to another page — use the link instead."
+  (Relevant: the course name is a link, not a button.)
+- Row template (`4686:11999` Active / `4686:12006` Inactive): explicitly a _template_ component
+  meant to be detached — i.e. there is no single shared "row" component in the library, which is
+  why no Code Connect mapping exists for it.
+
+### Remaining page geometry (from the top-node context, for completeness)
+
+- Page root: `background #f2f2f2` (`--sl-color-palette-grey-150`), column flex, centred.
+- `.Main menu` bar: height **56px**, `background #ffffff`, `border-bottom: 1px solid #e1e1e1`,
+  `padding-inline: 4px` (`--sl-size-050`). Logo area: `padding-inline 8px`, `padding-block 12px`,
+  32×32 logo. Nav items: `padding-inline 16px` (`--sl-size-200`), `padding-block 12px`,
+  `gap 8px`, label **Lato Regular 16px/1.5** `#333333`.
+- `.Secondary menu` bar: height **56px**, `background #f9f9f9`, `border-bottom: 1px solid #e1e1e1`,
+  `padding-inline: 4px`, plus `box-shadow: inset 0 4px 8px 0 rgba(0,0,0,0.05)`.
+  "Course" group: `gap 8px`, `padding-inline 8px`, a 32×32 `your-files` app icon, and the label
+  **Lato Bold 18px/1.5** `#333333`. Two `.Navigation item`s ("Your files", "Save course
+  materials "), same metrics as the main-menu items. The **active** item carries a "Highlight"
+  bar: `position:absolute; bottom:0; left:16px; right:16px; height:4px; background #565656`
+  (`--sl-color-palette-grey-700`), `border-radius: 8px 8px 0 0`.
+- `content-area-wrapper`: `padding-inline: 48px` (`--sl-size-600`, Figma `ca-horisontal-margin`),
+  `padding-bottom: 56px`.
+- `content-area`: `max-width 1280px`, `padding-bottom: 20px` (`--sl-size-250`).
+- `PageHeader` → "Title and subtitle": `padding-block: 20px` (`--sl-size-250`), `gap 4px`;
+  title **Lato Bold 26px / 1.5** `#333333`, `max-width 800px`. Text: `Save course materials `
+  (note the trailing space in the Figma string). An empty 40×40 "Actions slot" sits to its right.
+- `cards`: column, `gap 20px` (Figma `ca-cards-gap`).
+- `Content-block` (the card): `background #ffffff`, `border: 1px solid #e1e1e1`,
+  `border-radius: 4px`, `padding-inline: 32px` (`--sl-size-400`), `padding-block: 20px`
+  (`--sl-size-250`), `gap: 20px`.
+- `Banner` (`4886:12963`): `background #ecf8ff` (`--sl-color-palette-blue-050`),
+  `padding-left: 12px` (`--sl-size-150`), full width, `align-items: flex-start`. Icon wrapper
+  `padding-top: 10px` holding a **24×24** `circle-info` (theme name: `info`). Text wrapper
+  `padding-left 8px`, `padding-right 12px`, `padding-block 12px`, text **Lato Regular 14px/1.5**
+  `#333333`: "This section contains all the course files you've created or uploaded. Select a
+  course to access its files". Dismiss button wrapper `padding-right 2px`, `padding-block 2px`;
+  the button is `padding 8px`, `border-radius 4px`, holding a **24×24** `xmark`.
+  **Note: the Banner has no rounded corners and no border in the design.**

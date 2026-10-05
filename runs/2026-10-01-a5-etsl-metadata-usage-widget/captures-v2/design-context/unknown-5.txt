@@ -1,0 +1,11 @@
+<CodeConnectSnippet data-node-id="I17214:104003;17193:115254" data-name="sl-badge" data-snippet-language="SL Design System">
+    <sl-badge
+       color="orange"
+
+       size="lg"
+
+    >
+
+      Unused
+    </sl-badge>
+  </CodeConnectSnippet>

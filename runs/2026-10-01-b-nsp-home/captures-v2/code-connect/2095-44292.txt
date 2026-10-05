@@ -1,0 +1,35 @@
+{
+  "_note": "Full-subtree calls (top node 2095:44291, 2095:44296 'cards') consistently timed out (retried per protocol). Per-instance-node calls were used instead as a workaround since single simple instances succeeded. Results below are as resolved per individual node id.",
+  "2095:44292": { "name": "Navigation", "result": {} },
+  "2095:44300": {
+    "name": "sl-button-rectangular",
+    "result": {
+      "source": "",
+      "version": "unknown",
+      "label": "SL Design System",
+      "hasTemplate": true,
+      "snippetImports": [],
+      "snippetNestedFunctions": [],
+      "snippet": "\n    <sl-button\n      \n      \n      fill=\"outline\"\n      \n      \n      \n      variant=\"primary\"\n    >\n      \n    <sl-icon\n      name=\"far-plus\"\n      \n    ></sl-icon>\n  \n      Create class\n      \n    </sl-button>\n  "
+    }
+  },
+  "2095:44444": {
+    "name": "media/Responsive (card 1)",
+    "result": {},
+    "note": "genuine null, no timeout"
+  },
+  "2095:44451": {
+    "name": "sl-icon (card 1)",
+    "result": "TIMEOUT (retried x2)",
+    "note": "identified by node name per heuristic: sl-icon"
+  },
+  "2095:44463": {
+    "name": "sl-icon (card 2)",
+    "result": "TIMEOUT",
+    "note": "peer instance, same timeout"
+  },
+  "2095:44448": { "name": "card-slot-header-badges (card 1)", "result": "TIMEOUT (retried x2)" },
+  "2095:44460": { "name": "card-slot-header-badges (card 2)", "result": "TIMEOUT (peer, same)" },
+  "2095:44308": { "name": "Content-block", "result": {}, "note": "genuine null, no timeout" },
+  "2095:44296": { "name": "cards (subtree query)", "result": "TIMEOUT (retried x2)" }
+}

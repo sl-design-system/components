@@ -1,0 +1,15 @@
+{}
+
+/* Note: get_code_connect_map returned {} (empty) for the root node 5311:37116 AND for
+   every distinct top-level component instance individually queried:
+   5311:37117 (Fullscreen toggle), 5311:37120 (Table of contents - Elements basics),
+   5311:37122 (breadcrumb-2023), 5311:37123 (Feed headings (2023)), 5311:37124 (Feed filters),
+   5311:37125 (Student view), 5311:37127 (Theory-card-UPDATE), 5311:37131 (Exercise-card-UPDATE),
+   5311:37150 (Left-toolbar), 5311:37151 (Header-navigation).
+   No hasTemplate:false entries were observed either -- this file has NO Code Connect
+   mappings recorded at all for this subtree (an infrastructure gap, not a genuine absence
+   of matching components). Nested instance sub-node IDs (format "I<id>;<id>") are not
+   queryable via get_code_connect_map (tool rejects the composite ID format), so internal
+   primitives (Icon-button, Button, number-tag, Filter-pill, Simple-toggle, star/star-outlined)
+   could not be directly checked for Code Connect either -- their presence/identity was
+   inferred from get_design_context component descriptions instead (see figma-design-context.md). */

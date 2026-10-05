@@ -1,0 +1,2 @@
+These styles are contained in the design: text button: Font(family: "Open Sans", style: Bold, size: 14, weight: 700, lineHeight: 24, letterSpacing: 0), secondary text color: #5D5D5D, Neutrals/$kampus-color-gray-1: #F5F5F6, shadow-low: Effect(type: DROP_SHADOW, color: #6D6E7359, offset: (0, 2), radius: 8, spread: 0).
+> 

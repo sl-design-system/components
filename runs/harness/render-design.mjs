@@ -15,6 +15,11 @@
  *   `get_design_context` returns disjoint regions rather than one frame.
  *
  * Usage: node runs/harness/render-design.mjs --run runs/2026-10-01-<slug> [--out <file.html>]
+ *
+ *     [--index <dir>]
+ *
+ * `--index` reads a re-normalised capture set — `captures-v2`, say — instead of `captures`, so a
+ * repair can be counted against the original without replacing it.
  */
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -29,7 +34,9 @@ const arg = name => {
 const run = arg('run');
 
 if (!run || !existsSync(run)) {
-  console.error('usage: render-design.mjs --run runs/2026-10-01-<slug> [--out file.html]');
+  console.error(
+    'usage: render-design.mjs --run runs/2026-10-01-<slug> [--out file.html] [--index <dir>]'
+  );
   exit(2);
 }
 
@@ -289,7 +296,7 @@ const buildStylesheet = classes =>
  * fallback below reads the run's original files, which arrived in four different shapes — and
  * reading those is what made six runs look empty when they were only stored differently.
  */
-const indexPath = join(run, 'captures', 'index.json'),
+const indexPath = join(run, arg('index') ?? 'captures', 'index.json'),
   regions = [];
 
 if (existsSync(indexPath)) {

@@ -1,0 +1,9 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma.
+
+### external-link
+
+Node ID: 1:2518
+"link outside, out link, open in new window, external link"
+
+## Typography note from tool
+

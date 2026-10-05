@@ -1,0 +1,238 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/53e3a5be-a7fb-4f2b-968d-a67122295d4b';
+const imgGroup = `${assetPathPrefix}/c6fa2.svg`;
+const imgGroup1 = `${assetPathPrefix}/e056f.svg`;
+const imgLine24 = `${assetPathPrefix}/a20fe.svg`;
+const imgSlAvatarCircle = `${assetPathPrefix}/d6912.svg`;
+
+type MenuItemSuProps = {
+  className?: string;
+  property1?: 'default';
+};
+
+function MenuItemSu({ className, property1 = 'default' }: MenuItemSuProps) {
+  return (
+    <div
+      className={
+        className || 'content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative'
+      }
+      data-node-id="772:26895">
+      <div
+        className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+        data-node-id="772:26891"
+        style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="leading-[20px]">Learning materials</p>
+      </div>
+    </div>
+  );
+}
+
+export default function Frame1000000824() {
+  return (
+    <div
+      className="content-stretch flex flex-col items-center relative size-full"
+      data-node-id="2142:48139">
+      <div
+        className="bg-white h-[56px] overflow-clip relative shrink-0 w-full"
+        data-node-id="2142:48140"
+        data-name="top navi bar">
+        <div
+          className="absolute h-[24px] left-[128px] overflow-clip top-[16px] w-[123.467px]"
+          data-node-id="2142:48141"
+          data-name="MittSanoma 3">
+          <div
+            className="absolute contents inset-0"
+            data-node-id="2142:48142"
+            data-name="Clip path group">
+            <div
+              className="absolute inset-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-size-[123.467px_24px]"
+              data-node-id="2142:48145"
+              style={{ maskImage: `url("${imgGroup}")` }}
+              data-name="Group">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgGroup1} />
+            </div>
+          </div>
+        </div>
+        <div
+          className="-translate-x-1/2 absolute content-stretch flex gap-[24px] items-start justify-end left-[calc(50%+0.5px)] py-[10px] top-0"
+          data-node-id="2142:48150">
+          <MenuItemSu className="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0" />
+          <div
+            className="content-stretch flex flex-col gap-[2px] items-center px-[2px] py-[8px] relative shrink-0"
+            data-node-id="2142:48152"
+            data-name="menu item SU">
+            <div
+              className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center w-full"
+              data-node-id="I2142:48152;772:26885"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[20px]">Groups</p>
+            </div>
+            <div className="h-0 relative shrink-0 w-full" data-node-id="I2142:48152;772:26886">
+              <div className="absolute inset-[-2px_0_0_0]">
+                <img alt="" className="block max-w-none size-full" src={imgLine24} />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+            data-node-id="2142:48153"
+            data-name="menu item SU">
+            <div
+              className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+              data-node-id="I2142:48153;772:26891"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[20px]">Users</p>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex items-start overflow-clip px-[2px] py-[8px] relative shrink-0"
+            data-node-id="2142:48154"
+            data-name="menu item SU">
+            <div
+              className="[word-break:break-word] flex flex-col font-['Open_Sans:SemiBold'] font-semibold justify-end leading-[0] relative shrink-0 text-[#323232] text-[14px] text-center whitespace-nowrap"
+              data-node-id="I2142:48154;772:26891"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="leading-[20px]">Licenses</p>
+            </div>
+          </div>
+        </div>
+        <div
+          className="absolute content-stretch flex h-[56px] items-center justify-end left-[calc(68.75%-5.06px)] top-0 w-[277px]"
+          data-node-id="2142:48155">
+          <div
+            className="content-stretch flex items-start p-[8px] relative rounded-[4px] shrink-0"
+            data-node-id="2142:48156"
+            data-name="avatar_SU">
+            <div
+              className="content-stretch flex gap-[8px] isolate items-center relative shrink-0"
+              data-node-id="I2142:48156;775:12268"
+              data-name="sl-avatar-circle-text">
+              <div
+                className="[word-break:break-word] content-stretch flex flex-col font-['Open_Sans:Regular'] font-normal items-end leading-[0] relative shrink-0 text-[#323232] whitespace-nowrap z-[3]"
+                data-node-id="I2142:48156;775:12269"
+                data-name="avatar-header">
+                <div
+                  className="flex flex-col justify-center relative shrink-0 text-[14px]"
+                  data-node-id="I2142:48156;775:12270"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  <p className="leading-[20px]">Anna Magiera</p>
+                </div>
+                <div
+                  className="flex flex-col justify-center relative shrink-0 text-[12px]"
+                  data-node-id="I2142:48156;775:12271"
+                  style={{ fontVariationSettings: '"wdth" 100' }}>
+                  <p className="leading-[12px]">Teacher</p>
+                </div>
+              </div>
+              <div
+                className="content-stretch flex isolate items-center relative shrink-0 z-[2]"
+                data-node-id="I2142:48156;775:12272"
+                data-name="sl-avatar-circle-text">
+                <div
+                  className="relative shrink-0 size-[32px] z-[1]"
+                  data-node-id="I2142:48156;775:12273"
+                  data-name="sl-avatar-circle">
+                  <img
+                    alt=""
+                    className="absolute block inset-0 max-w-none size-full"
+                    src={imgSlAvatarCircle}
+                  />
+                  <div
+                    className="absolute content-stretch flex gap-[8px] h-[12px] isolate items-center justify-center min-w-[12px] px-px py-[2px] right-[-2px] rounded-[999px] top-[-2px]"
+                    data-node-id="I2142:48156;775:12281"
+                    data-name="icon">
+                    <div
+                      className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-center leading-[0] not-italic relative shrink-0 text-[#323232] text-[9px] text-center uppercase whitespace-nowrap z-[2]"
+                      data-node-id="I2142:48156;775:12282">
+                      <p className="leading-[9px]">gear</p>
+                    </div>
+                    <div
+                      className="absolute inset-0 z-[1]"
+                      data-node-id="I2142:48156;775:12283"
+                      data-name="icon-bg">
+                      <div
+                        className="absolute bg-white inset-0 rounded-[800px]"
+                        data-node-id="I2142:48156;775:12283;2801:8913"
+                        data-name="badge-bg"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="-translate-x-1/2 -translate-y-1/2 [text-box-edge:cap_alphabetic] [text-box-trim:trim-both] [word-break:break-word] absolute flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] left-1/2 text-[#323232] text-[12px] text-center top-[calc(50%+0.5px)] uppercase w-[32px]"
+                    data-node-id="I2142:48156;775:12284"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">EM</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="[word-break:break-word] flex flex-col font-['Font_Awesome_6_Pro:Regular'] justify-end leading-[0] not-italic relative shrink-0 text-[14px] text-black text-center whitespace-nowrap z-[1]"
+                data-node-id="I2142:48156;775:12286">
+                <p className="leading-[20px]">chevron-down</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bg-white content-stretch flex items-center justify-end overflow-clip px-[128px] py-[12px] relative shrink-0 w-full"
+        data-node-id="2142:48157"
+        data-name="secondary bar">
+        <div
+          className="content-stretch flex items-start relative shrink-0"
+          data-node-id="2142:48158">
+          <div
+            className="content-stretch flex gap-[16px] h-[40px] items-center relative shrink-0"
+            data-node-id="2142:48159"
+            data-name="School selection">
+            <div
+              className="content-stretch flex items-center relative shrink-0"
+              data-node-id="2142:48160"
+              data-name="Dropdown">
+              <div
+                className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[353px]"
+                data-node-id="2142:48161">
+                <div
+                  className="content-stretch flex items-center relative shrink-0"
+                  data-node-id="2142:48162">
+                  <p
+                    className="[word-break:break-word] font-['Font_Awesome_6_Pro:Regular'] leading-[24px] not-italic relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                    data-node-id="2142:48163">
+                    school-flag
+                  </p>
+                  <div
+                    className="content-stretch flex gap-[8px] items-start pl-[8px] relative shrink-0"
+                    data-node-id="2142:48164"
+                    data-name="School label">
+                    <p
+                      className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] whitespace-nowrap"
+                      data-node-id="2142:48167"
+                      style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Bogaerts International School
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="bg-[rgba(0,0,0,0)] border-2 border-[rgba(0,0,0,0)] border-solid content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[4px] relative rounded-[800px] shrink-0"
+                  data-node-id="2142:48168"
+                  data-name="button">
+                  <div
+                    className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#01766d] text-[14px] text-center whitespace-nowrap"
+                    data-node-id="I2142:48168;915:4408"
+                    style={{ fontVariationSettings: '"wdth" 100' }}>
+                    <p className="leading-[16px]">Switch school</p>
+                  </div>
+                  <div
+                    className="absolute inset-[-2px]"
+                    data-node-id="I2142:48168;2123:33965"
+                    data-name="Focus ring">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,13 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/ed87b985-f3c6-4c5a-9113-8d4fb54f4e36";
+export default function SlButtonBarRectangle() {
+return (
+<CodeConnectSnippet data-node-id="2422:87052" data-name="sl-button-bar/Rectangle" data-snippet-language="SL Design System">
+<sl-button-bar fill="outline">
+<sl-button variant="primary">
+<sl-icon name="far-presentation-screen"></sl-icon>
+Add students
+</sl-button>
+</sl-button-bar>
+</CodeConnectSnippet>
+);
+}

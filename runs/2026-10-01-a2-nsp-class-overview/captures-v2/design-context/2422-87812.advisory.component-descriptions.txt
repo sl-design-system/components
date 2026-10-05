@@ -1,0 +1,79 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## Frame=true, Zebra=false, Horizontal dividers=true, Vertical dividers=false, Full Vertical dividers=false
+
+**Node ID:** 2422:87518
+
+Use to visually group or seperate UI elements, such as card, tabs or side panel dividers.
+
+## sl-button-rectangular
+
+**Node ID:** 2045:9049
+
+A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action.
+
+INVERTED BUTTONS are only to be used with `elevation.surface.raised.inverted` and `elevation.surface.raised.primary`.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/button/usage/](https://sanomalearning.design/categories/components/button/usage/)
+
+## Icon only=true, ↕️ - Size=SM
+
+**Node ID:** 2034:5920
+
+Use for borders that highlight secondary actions.
+
+## Row type=Header, State=Idle
+
+**Node ID:** 2404:74809
+
+An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping).
+
+## sl-search-field embeded
+
+**Node ID:** 2404:74162
+
+A search field lets users specify a word or phrase to filter relevant content within a specific page section. For example, filter the content in a data grid or a list of content.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/search-field/](https://sanomalearning.design/categories/components/search-field/)
+
+## sl-icon
+
+**Node ID:** 2003:3302
+
+Icons communicate messages, enhance interactivity, and highlight critical information. Use them as visual representations of concepts, objects, or actions efficiently.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)
+
+## Variant=Default, State=Idle
+
+**Node ID:** 2404:73802
+
+Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons.
+
+## Row type=Default, State=Idle
+
+**Node ID:** 2404:74806
+
+Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'.
+
+## sl-button-bar/Rectangle
+
+**Node ID:** 2079:26529
+
+The Button bar provides a organized way to present buttons side by side, which will stack up when there's not enough space.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/button-bar/usage/](https://sanomalearning.design/categories/components/button-bar/usage/)
+
+## Icon only=true, ↕️ - Size=MD
+
+**Node ID:** 2034:5922
+
+Use for borders that highlight secondary actions.

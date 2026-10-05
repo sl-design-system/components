@@ -1,0 +1,15 @@
+These styles are contained in the design: color/palette/black/base: #02242E.
+
+Component descriptions:
+
+- `sl-icon` (10035:248424) — https://sanomalearning.design/categories/components/icon/usage/
+- `sl-avatar` (25192:26099) — "An avatar is a visual representation of an entity, such as a user or an organization." https://sanomalearning.design/categories/components/avatar/usage/
+
+Assets referenced (Figma CDN, 7-day expiry):
+
+- `imgLogo` = `${assetPathPrefix}/32664.png` — "Editorial Suite" wordmark, 155x20
+- `imgAvatarContent` = `${assetPathPrefix}/0b42d.svg` — avatar mask
+- `imgMask` = `${assetPathPrefix}/16d93.svg` — avatar initials mask
+- assetPathPrefix = `https://www.figma.com/api/mcp/asset/fec12cd4-f983-469c-ad67-b0c2d35f1876`
+
+Key structure: bg `#02242e`, h-50, pl-16 pr-20, logo left; right side: a "Projects" control (sl-icon `book-circle-arrow-up` 20px white + FA `chevron-down` 14px white, px-16 py-13, gap-4) and `sl-avatar` 32x32 with `var(--color/background/primary/bold,#36f)` bg and `var(--color/foreground/primary/onbold,white)` initials.

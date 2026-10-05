@@ -1,0 +1,69 @@
+export default function Tabs() {
+  return (
+    <div
+      className="border-[#cecfd2] border-b border-solid content-stretch flex items-start relative size-full"
+      data-node-id="2142:48135"
+      data-name="tabs">
+      <div
+        className="content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+        data-node-id="2142:48136"
+        data-name="DEMO - Tab-switches">
+        <div
+          aria-hidden
+          className="absolute bg-[rgba(255,255,255,0.01)] inset-0 pointer-events-none"
+        />
+        <div
+          className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#5d5d5d] text-[16px] text-center whitespace-nowrap"
+          data-node-id="I2142:48136;11109:145010"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[24px]">Students</p>
+        </div>
+        <div
+          className="bg-[#f2a900] content-stretch flex flex-col items-center justify-center px-[3px] py-px relative rounded-[12px] shrink-0 size-[24px]"
+          data-node-id="I2142:48136;11109:145011"
+          data-name="number-tag">
+          <div
+            className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[12px] tracking-[0.36px] whitespace-nowrap"
+            data-node-id="I2142:48136;11109:145011;10169:35199"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[16px]">10</p>
+          </div>
+        </div>
+        <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_-2px_0px_0px_#2e5c64]" />
+      </div>
+      <div
+        className="bg-[rgba(255,255,255,0.01)] border-[#cecfd2] border-b border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+        data-node-id="2142:48137"
+        data-name="DEMO - Tab-switches">
+        <div
+          className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[16px] text-center whitespace-nowrap"
+          data-node-id="I2142:48137;11109:145013"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[24px]">Teachers</p>
+        </div>
+        <div
+          className="bg-[#f2a900] content-stretch flex flex-col items-center justify-center px-[3px] py-px relative rounded-[12px] shrink-0 size-[24px]"
+          data-node-id="I2142:48137;11109:145014"
+          data-name="number-tag">
+          <div
+            className="[word-break:break-word] flex flex-col font-['Open_Sans:Bold'] font-bold justify-center leading-[0] relative shrink-0 text-[#323232] text-[12px] tracking-[0.36px] whitespace-nowrap"
+            data-node-id="I2142:48137;11109:145014;10169:35199"
+            style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[16px]">1</p>
+          </div>
+        </div>
+      </div>
+      <div
+        className="bg-[rgba(255,255,255,0.01)] border-[#cecfd2] border-b border-solid content-stretch flex gap-[8px] items-center px-[24px] py-[16px] relative shrink-0"
+        data-node-id="2142:48138"
+        data-name="DEMO - Tab-switches">
+        <div
+          className="[word-break:break-word] flex flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] relative shrink-0 text-[#323232] text-[16px] text-center whitespace-nowrap"
+          data-node-id="I2142:48138;11109:145013"
+          style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="leading-[24px]">Manage student licenses</p>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,49 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+### sl-text_input
+
+**Node ID:** 7:35563
+
+A text field component allows users to enter and edit single-line textual input. It serves as a fundamental building block for various form inputs in user interfaces
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/text-field/](https://sanomalearning.design/categories/components/text-field/)
+
+### sl-text_input-theme
+
+**Node ID:** 7:4834
+
+✏️ Only edit the properties below The colors of this component are fixed and you wouldn't have to edit them. You can adjust the width of the field to fit your design.
+
+### sl-label-theme
+
+**Node ID:** 2:99832
+
+Padding property
+
+### sl_base-text_input-lg2
+
+**Node ID:** 7:4824
+
+🚫 Do not edit this component. This component is used to build the text input component and not intended for independent use. ↖️ Instead, edit the top-level component.
+
+### sl-label-theme [DEPRECATED]
+
+**Node ID:** 7:5008
+
+⛔️ This component is deprecated. Please use the component \[Form Field\] in your projects going forward. Padding property
+
+### sl_base-text_input-lg
+
+**Node ID:** 7:4708
+
+🚫 Do not edit this component. This component is used to build the text input component and not intended for independent use. ↖️ Instead, edit the top-level component.
+
+### sl-text_input-theme [DEPRECATED]
+
+**Node ID:** 7:5182
+
+⛔️ This component is deprecated. Please use the component \[Form Field\] in your projects going forward. ✏️ Only edit the properties below The colors of this component are fixed and you wouldn't have to edit them. You can adjust the width of the field to fit your design.
+
+> 

@@ -1,0 +1,49 @@
+<symbol id="174:232051" name="Account creation" x="5804" y="2025" width="1512" height="982">
+  <instance id="174:231461" name="sl-button-pill" x="927" y="579" width="368" height="24" hidden="true" />
+  <frame id="174:231462" name="Frame 48097621" x="147" y="143" width="462" height="752">
+    <frame id="174:231463" name="Frame 48097622" x="-1" y="0" width="464" height="40">
+      <text id="174:231464" name="Component name" x="0" y="0" width="464" height="40" />
+    </frame>
+    <frame id="174:231465" name="content inputs" x="43" y="96" width="376" height="656">
+      <frame id="174:231466" name="Frame 48097620" x="1" y="0" width="374" height="596">
+        <frame id="174:231467" name="Frame 48097619" x="0" y="0" width="374" height="144">
+          <frame id="174:231468" name="Frame 48097618" x="0" y="0" width="374" height="144">
+            <frame id="174:231587" name="inputs wrapper" x="0" y="0" width="374" height="60">
+              <instance id="174:231588" name="sl-text-field" x="0" y="0" width="179" height="60" />
+              <instance id="174:231589" name="sl-text-field" x="195" y="0" width="179" height="60" />
+            </frame>
+            <instance id="174:231470" name="sl-text-field" x="0" y="84" width="374" height="60" />
+          </frame>
+        </frame>
+        <frame id="174:231965" name="Frame 1000001002" x="0" y="208" width="374" height="212">
+          <frame id="174:231966" name="Frame 1000001005" x="0" y="0" width="374" height="212">
+            <instance id="174:231967" name="sl-checkbox" x="0" y="0" width="338" height="24" />
+            <instance id="174:231968" name="sl-checkbox" x="0" y="48" width="374" height="60" />
+            <instance id="174:231969" name="sl-checkbox" x="0" y="132" width="374" height="80" />
+          </frame>
+        </frame>
+        <frame id="174:232024" name="Frame 1000001004" x="0" y="484" width="374" height="112">
+          <instance id="174:232025" name="sl-button-pill" x="0" y="0" width="374" height="48" />
+          <instance id="174:232026" name="sl-button-pill" x="0" y="64" width="374" height="48" />
+        </frame>
+      </frame>
+      <frame id="174:231473" name="Frame 48097617" x="0" y="620" width="376" height="36">
+        <text id="174:231474" name="Already have an account?" x="69.5" y="8" width="185" height="20" />
+        <instance id="174:231475" name="sl-button-pill" x="258.5" y="0" width="48" height="36" />
+      </frame>
+    </frame>
+  </frame>
+  <instance id="174:231476" name="logo-wordmark" x="40" y="41" width="106.9979248046875" height="19.45416831970215" />
+  <instance id="174:231477" name="Image login" x="732" y="29" width="745" height="924" />
+  <instance id="174:231478" name="footer" x="0" y="925" width="732" height="41" />
+</symbol>
+
+<!-- footer instance children (queried separately) -->
+<instance id="174:231478" name="footer" x="0" y="925" width="732" height="41">
+  <frame id="I174:231478;173:3540" name="Frame 48097624" x="10" y="8.5" width="712" height="24">
+    <instance id="I174:231478;173:3541" name="sl-button-pill" x="61.5" y="0" width="102" height="24" />
+    <instance id="I174:231478;173:3542" name="sl-button-pill" x="195.5" y="0" width="100" height="24" />
+    <instance id="I174:231478;173:3543" name="sl-button-pill" x="327.5" y="0" width="98" height="24" />
+    <instance id="I174:231478;216:81142" name="sl-button-pill" x="457.5" y="0" width="193" height="24" />
+  </frame>
+</instance>

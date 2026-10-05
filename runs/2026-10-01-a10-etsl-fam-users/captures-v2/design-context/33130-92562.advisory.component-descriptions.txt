@@ -1,0 +1,144 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## sl-icon
+
+**Node ID:** 10035:248424
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)
+
+## sl-avatar
+
+**Node ID:** 25192:26099
+
+An avatar is a visual representation of an entity, such as a user or an organization.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/avatar/usage/](https://sanomalearning.design/categories/components/avatar/usage/)
+
+## sl-searchfield
+
+**Node ID:** 9336:18285
+
+A search field is used for searching and filtering items.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/search-field/usage/](https://sanomalearning.design/categories/components/search-field/usage/)
+
+## sl-searchfield-theme
+
+**Node ID:** 9336:18236
+
+✏️ Only edit the properties below The colors of this component are fixed and you wouldn't have to edit them. You can adjust the width of the field to fit your design.
+
+## sl-label-theme
+
+**Node ID:** 9336:18131
+
+Padding property
+
+## sl_base-search_field-lg
+
+**Node ID:** 9336:18217
+
+🚫 Do not edit this component. This component is used to build the text input component and not intended for independent use. ↖️ Instead, edit the top-level component.
+
+## sl-select (simple-prototype)
+
+**Node ID:** 33130:93208
+
+A select component allows users to choose from a predefined list of options. You can click or tap on it, and it reveals a list of options and you can select the option that aligns with your preference.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/select/usage/](https://sanomalearning.design/categories/components/select/usage/)
+
+## sl-icon
+
+**Node ID:** 31464:100692
+
+Icons communicate messages, enhance interactivity, and highlight critical information. Use them as visual representations of concepts, objects, or actions efficiently.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)
+
+## Variant=Default, State=Idle
+
+**Node ID:** 31464:101305
+
+Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons.
+
+## sl-button-rectangular
+
+**Node ID:** 31464:99442
+
+A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action.
+
+INVERTED BUTTONS are only to be used with `elevation.surface.raised.inverted` and `elevation.surface.raised.primary`.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/button/usage/](https://sanomalearning.design/categories/components/button/usage/)
+
+## Icon only=false, ↕️ - Size=MD
+
+**Node ID:** 17100:104844
+
+Use for borders that highlight secondary actions.
+
+## th-text-start
+
+**Node ID:** 5922:160168
+
+**Documentation:**
+
+- [https://vuetifyjs.com/en/components/data-tables](https://vuetifyjs.com/en/components/data-tables)
+
+## sl-button-rectangular
+
+**Node ID:** 23435:65345
+
+A button initiates an action when clicked, like redirecting to a new page or submitting a form. It's a key element for interaction and action.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/button/usage/](https://sanomalearning.design/categories/components/button/usage/)
+
+## Icon only=false, ↕️ - Size=SM
+
+**Node ID:** 17100:104842
+
+Use for borders that highlight secondary actions.
+
+## mat-icon
+
+**Node ID:** 6034:37830
+
+Download and install the latest Material Design Icons font here: https://github.com/google/material-design-icons/releases
+
+**Documentation:**
+
+- [https://vuetifyjs.com/en/components/icons](https://vuetifyjs.com/en/components/icons)
+
+## mat-divider
+
+**Node ID:** 6034:37928
+
+**Documentation:**
+
+- [https://vuetifyjs.com/en/components/dividers](https://vuetifyjs.com/en/components/dividers)
+
+## mat-btn
+
+**Node ID:** 5922:159537
+
+**Documentation:**
+
+- [https://vuetifyjs.com/en/components/floating-action-buttons/](https://vuetifyjs.com/en/components/floating-action-buttons/)
+
+----- ENTRY BOUNDARY -----
+

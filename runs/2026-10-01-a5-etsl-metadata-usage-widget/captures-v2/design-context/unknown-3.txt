@@ -1,0 +1,1 @@
+<CodeConnectSnippet data-node-id="I17214:103978;17193:64984" data-name="sl-icon" data-snippet-language="SL Design System"><SlIcon ↕️Size="16160:33988" /></CodeConnectSnippet>

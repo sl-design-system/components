@@ -1,0 +1,8 @@
+export default function FeedHeadings2023() {
+  return (
+    <div data-node-id="5311:37123" data-name="Feed headings (2023)">
+      <ol className="list-decimal"><li>Kieli, kulttuuri ja identiteetti</li></ol>  {/* h1, numbered */}
+      <div data-name="Actions">2x Icon-button (link/share icon, overflow "..." menu icon)</div>
+    </div>
+  );
+}

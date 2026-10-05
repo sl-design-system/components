@@ -1,0 +1,31 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## sl-searchfield
+
+**Node ID:** 7759:22582
+
+A search field is used for searching and filtering items.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/search-field/usage/](https://sanomalearning.design/categories/components/search-field/usage/)
+
+## sl-searchfield-theme
+
+**Node ID:** 7759:22533
+
+✏️ Only edit the properties below The colors of this component are fixed and you wouldn't have to edit them. You can adjust the width of the field to fit your design.
+
+## sl_base-search_field-lg
+
+**Node ID:** 7759:22499
+
+🚫 Do not edit this component. This component is used to build the text input component and not intended for independent use. ↖️ Instead, edit the top-level component.
+
+## sl-icon
+
+**Node ID:** 16328:179956
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)

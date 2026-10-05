@@ -1,0 +1,81 @@
+Images and SVGs will be stored as constants... Image assets are stored on a remote server for 7 days and can be fetched using the provided URLs until they expire.
+
+## Component descriptions (Figma library "usage" documentation attached to main components — this is the evidence used to identify instances in place of a working Code Connect map)
+
+### Mobile=False — Node ID: 5566:11566
+
+Menu
+Documentation: https://styleguide.itsbuild.net/assets/patterns/MainMenu/v1/
+
+### Navigation — Node ID: 5566:11565
+
+Usage: 1) Ask developers about specific breakpoints when menus change for smaller screens. 2) Note that there is no variant for a mid-size screen in Figma, but the behaviour in code might have more variations depending on the available space on the screen. These 2 options help easily depict 2 most common cases.
+Keywords: Menu, main, course
+
+### Search — Node ID: 5483:11897
+
+Usage: This Figma component represents 2 components in Prometheus: SearchInput and GlobalSearch. Global=false (searchinput) can be used on each page where we have search as you type, and it doesn't require from user confirmation; can be combined with filters. Global=true (Globalesearch) can be used in navigation and search result page. Used when we require confirmation from user to start the searching mechanism. Auto-complete: for SearchInput only; the text field can be combined with auto-complete functionality.
+Keywords: search, global, input
+Documentation: https://styleguide.itsbuild.net/assets/inputs/SearchInput/v1/
+
+### Button — Node ID: 5368:8591
+
+Usage: 1) Large is a default size of the button. The small size can be used in some specific cases when the large one is too big. 2) The button width depends on its label. 3) The button can't lead to another page — use the link instead. 4) Truncate button's label if it doesn't fit; button label should never wrap.
+Loading: the button can be in a loading state (text hidden, spinner shown, width maintained).
+Row of actions: distance between actions defined by `actions-gap` variable; behaviour of a row of actions handled by the ButtonGroup component — "We don't have any analogue in Figma, for designers it is simple row inside an Auto Layout."
+Documentation: https://styleguide.itsbuild.net/assets/inputs/Button/v1/
+
+### magnifying-glass — Node ID: 5483:11895
+
+search
+
+### bell — Node ID: 5483:12029
+
+bell, notification
+
+### comment — Node ID: 5483:3871
+
+Not in Semiotic comment, messages
+
+### Avatar — Node ID: 2275:4903
+
+Usage: predefined sizes only — 100: 24x24 (size--700), 200: 32x32 (size--900), 300: 48x48 (size--1100), 400: 64x64 (size--1200), 500: 80x80 (size--1300), 600: 96x96 (size--1400). Please use only these options.
+Keywords: User, person, userpic
+Documentation: https://styleguide.itsbuild.net/assets/nodes/Avatar/v1/
+
+### Course Hat — Node ID: 5512:7653
+
+Course avatar, label
+Documentation: https://prom.itsldevops.net/docs/styles/blocks/#course-hat
+
+### graduation-cap — Node ID: 4023:1013
+
+course
+
+### ellipsis — Node ID: 5483:3670
+
+3-dot, dots, ellipsis, options, more
+
+### Editable=False — Node ID: 5483:11384
+
+Usage: 1) This component represents 2 components in Prometheus: PageHeader and PageHeaderEditable. 2) The optional like can concatenate several text lines divided by the bullet symbol (accessible solution exists, reusable). 3) The editable option in Figma needs some tweaks when the title is long or the screen is narrow.
+Documentation: https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/
+
+### PageHeader — Node ID: 5483:11383
+
+Usage: 1) Represents 2 components in Prometheus: PageHeader and PageHeaderEditable. 2) The Subtitle concatenates several text lines divided by the bullet symbol (accessible solution exists) — don't use line break and complex structure in the subtitle. 3) The editable option in Figma needs tweaks when the title is long or the screen is narrow.
+Documentation: https://styleguide.itsbuild.net/assets/patterns/PageHeader/v1/
+
+### Breadcrumb trail — Node ID: 5483:11343
+
+How to use: 1) can be used as additional navigation when there are multiple levels of hierarchy. 2) for smaller screens wrap into multiline. 3) when used inside PageHeader do not show current location!
+More guidelines: https://www.figma.com/design/NcOdZ7kMoI18os0UibrVk6/Breadcrumbs?node-id=1-2
+Keywords: breadcrumb, breadcrumbs, trail
+
+### chevron-right — Node ID: 5483:11183
+
+arrow, right
+
+### file-import — Node ID: 5512:6760
+
+import

@@ -1,0 +1,29 @@
+These styles are contained in the design: input/textField/default/default/icon: #8D8D8D,
+> input/textField/default/default/inputText: #323232, input/textField/text/lg: Font(family:
+> "Open Sans", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0),
+> input/textField/default/default/background: #FFFFFF, input/textField/default/default/border:
+> #9D9F9F, none: Effect(type: DROP_SHADOW, color: #00000000, offset: (0, 0), radius: 0,
+> spread: 0), text button: Font(family: "Open Sans", style: Bold, size: 14, weight: 700,
+> lineHeight: 24, letterSpacing: 0).
+
+> Component descriptions:
+>
+> ## sl-searchfield — **Node ID:** 2:70500
+>
+> A search field is used for searching and filtering items.
+> Documentation: https://sanomalearning.design/categories/components/search-field/usage/
+>
+> ## sl-searchfield-theme — **Node ID:** 2:70502
+>
+> ✏️ Only edit the properties below The colors of this component are fixed and you wouldn't
+> have to edit them. You can adjust the width of the field to fit your design.
+>
+> ## sl_base-search_field-lg — **Node ID:** 2:70650
+>
+> 🚫 Do not edit this component. This component is used to build the text input component and
+> not intended for independent use. ↖️ Instead, edit the top-level component.
+
+---
+
+## 3. `2847:15379` — Bulk-selection action bar
+

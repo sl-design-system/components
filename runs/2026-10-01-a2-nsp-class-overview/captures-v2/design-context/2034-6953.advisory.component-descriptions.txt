@@ -1,0 +1,53 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+## Type=Simple
+
+**Node ID:** 2034:6902
+
+Use for borders that highlight secondary actions.
+
+## sl-search-field
+
+**Node ID:** 2034:7194
+
+A search field lets users specify a word or phrase to filter relevant content within a specific page section. For example, filter the content in a data grid or a list of content.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/search-field/](https://sanomalearning.design/categories/components/search-field/)
+
+## sl-icon
+
+**Node ID:** 2003:3302
+
+Icons communicate messages, enhance interactivity, and highlight critical information. Use them as visual representations of concepts, objects, or actions efficiently.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)
+
+## Variant=Default, State=Idle
+
+**Node ID:** 2034:7164
+
+Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons.
+
+## sl-avatar
+
+**Node ID:** 2034:2165
+
+An avatar is a visual representation of an entity, such as a user or an organization.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/avatar/usage/](https://sanomalearning.design/categories/components/avatar/usage/)
+
+## sl-icon
+
+**Node ID:** 2034:4975
+
+Icons communicate messages, enhance interactivity, and highlight critical information. Use them as visual representations of concepts, objects, or actions efficiently.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/icon/usage/](https://sanomalearning.design/categories/components/icon/usage/)

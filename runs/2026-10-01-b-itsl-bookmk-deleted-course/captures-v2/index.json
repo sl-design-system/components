@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "run": "b-itsl-bookmk-deleted-course",
+  "figma": {
+    "rootNodeId": "4549:8339"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.txt",
+      "bytes": 67131,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "stack-conversion",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.advisory.stack-conversion.txt",
+      "bytes": 556,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "node-ids",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.advisory.node-ids.txt",
+      "bytes": 84,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.advisory.styles.txt",
+      "bytes": 1556,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "component-descriptions",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.advisory.component-descriptions.txt",
+      "bytes": 13807,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "assets",
+      "nodeId": "4680:14010",
+      "label": "# Navigation",
+      "file": "captures-v2/design-context/4680-14010.advisory.assets.txt",
+      "bytes": 635,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "4549:8339",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/4549-8339.txt",
+      "bytes": 10177,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": "8",
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/8.txt",
+      "bytes": 2835,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": "4549:8339",
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/4549-8339.txt",
+      "bytes": 2026,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 85715,
+      "capturedAt": "2026-10-05T17:00:59.793Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

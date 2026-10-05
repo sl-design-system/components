@@ -1,0 +1,2 @@
+SUPER CRITICAL: The generated React+Tailwind code MUST be converted to match the target project's technology stack and styling system. ... DO NOT install any Tailwind as a dependency unless the user instructs you to do so."
+- "

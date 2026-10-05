@@ -1,0 +1,4 @@
+These styles are contained in the design: black/0.87: #000000, text/heading/3: Font(family: "Raleway", style: Bold, size: 16, weight: 700, lineHeight: 24, letterSpacing: 0), color/button/primary/ghost/idle/background: #000000, color/button/primary/ghost/idle/border: #000000, color/palette/neutral/50: #F4F5FA, text/heading/2: Font(family: "Raleway", style: Medium, size: 24, weight: 500, lineHeight: 34, letterSpacing: 0), color/palette/neutral/400: #AFB6C5, color/palette/success/400: #149C4B, color/palette/neutral/700: #585C61, color/palette/neutral/900: #1D1F20, v-text/body-2: Font(family: "Roboto", style: Regular, size: 14, weight: 400, lineHeight: 20, letterSpacing: 0.25), Body/md/regular: Font(family: "text-new/typeset/fontFamily/body", style: Regular, size: size/text-new/body/md, weight: text-new/typeset/fontWeight/regular, lineHeight: size/lineHeight/250, letterSpacing: 0), background: #FFFFFF.
+
+CODE CONNECT SNIPPETS RETURNED (verbatim):
+

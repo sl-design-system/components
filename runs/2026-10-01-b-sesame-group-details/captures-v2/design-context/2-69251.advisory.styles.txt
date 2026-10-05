@@ -1,0 +1,2 @@
+These styles are contained in the design: Gray/gray 300: #BFBFBF.
+>    

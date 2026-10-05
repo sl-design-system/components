@@ -1,0 +1,7 @@
+These styles are contained in the design: boxShadow/none: Effect(type: DROP_SHADOW, color:
+> #00000000, offset: (0, 0), radius: 0, spread: 0).
+
+---
+
+## 8. `2847:15089` — Table body cell, Name column, selected row
+

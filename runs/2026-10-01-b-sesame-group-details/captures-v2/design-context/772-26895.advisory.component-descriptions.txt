@@ -1,0 +1,17 @@
+Component descriptions: The following components have usage descriptions or documentation links defined in Figma. These descriptions provide important context about the intended usage, best practices, and any constraints for each component. Follow these guidelines when implementing or using these components.
+
+### Property 1=Default
+
+**Node ID:** 777:12400
+
+An avatar is a visual representation of an entity, such as a user or an organization.
+
+**Notes**
+
+- A subheader on a small horizontal avatar is not allowed and is turned off by default.
+
+**Documentation:**
+
+- [https://sanomalearning.design/categories/components/avatar/](https://sanomalearning.design/categories/components/avatar/)
+
+> 

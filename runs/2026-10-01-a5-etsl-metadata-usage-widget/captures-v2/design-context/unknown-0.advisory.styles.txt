@@ -1,0 +1,21 @@
+These styles are contained in the design: color/button/primary/solid/idle/foreground: #FFFFFF, color/button/primary/solid/idle/background: #006666, color/button/primary/solid/idle/border: #006666, dashboard widgets: Effect(type: DROP_SHADOW, color: #3232470F, offset: (0, 8), radius: 16, spread: 0); Effect(type: DROP_SHADOW, color: #32324714, offset: (0, 2), radius: 4, spread: 0), color/button/primary/outline/idle/foreground: #006666, color/button/primary/outline/idle/background: #000000, color/button/primary/outline/idle/border: #006666, black/0.87: #000000, text/heading/3: Font(family: "Raleway", style: Bold, size: 16, weight: 700, lineHeight: 24, letterSpacing: 0), color/palette/neutral/50: #F4F5FA, color/palette/neutral/800: #3D4047, text/body/md/demibold: Font(family: "Roboto", style: SemiBold, size: 14, weight: 600, lineHeight: 20, letterSpacing: 0), color/button/default/ghost/idle/foreground: #585C61, color/button/default/ghost/idle/background: #000000, color/button/default/ghost/idle/border: #000000, color/palette/primary/500: #006666.
+
+Component descriptions:
+
+- `sl-button` (Node ID 9670:4424) — "A button initiates an action when clicked..." docs https://sanomalearning.design/categories/components/button/
+
+Key structure:
+
+- 3 stacked full-width buttons (250x40) in `17214:103881`:
+  - `17214:103883` "add widget" — sl-button-theme, filled `bg-[#066]` border `#066`, px-24 py-8, rounded-4, icon `plus` (FA Solid 16px, white) + label "Add widget" (Raleway Medium 14/24, white)
+  - `17214:103886` "Outline editor" — outline variant, transparent bg, border `#066`, icons `edit` (start) + `arrow-right` (end), text `#066`
+  - `17214:103889` "Advanced search" — outline variant, icons `magnifying-glass-plus` (start) + `arrow-right` (end), text `#066`
+  - all three carry drop-shadow `0px 2px 2px rgba(50,50,71,0.08), 0px 8px 8px rgba(50,50,71,0.06)`
+- `17214:103890` "outline details" card = "Descriptive metadata": header `17214:103891` bg `#f4f5fa`, px-16 py-10, rounded-top-4, title Raleway Bold 16/24 `rgba(0,0,0,0.87)`; body rows Roboto SemiBold label + Roboto Regular value, 14/20, `#3d4047`
+- `17214:103909` "outline details" card = "Product IDs": same header + `17214:103912` sl-button (ghost icon-only, icon `close` 16px `#585c61`, p-8, rounded-4); body = two columns of 3 links, Roboto Regular 14/20 `#066`, first one underlined
+
+## Call 3 — 17214:103970 "recently edited" (= the "Metadata Usage" widget)
+
+Bound variables (verbatim):
+
+> 

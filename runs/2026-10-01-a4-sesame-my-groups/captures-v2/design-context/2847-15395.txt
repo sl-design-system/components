@@ -1,0 +1,218 @@
+const assetPathPrefix = 'https://www.figma.com/api/mcp/asset/70c6421b-1acb-4e4c-896f-7af0cac9a9f7';
+const imgBtnIcons = `${assetPathPrefix}/22f82.svg`;
+
+export default function Frame27162() {
+  return (
+    <div
+      className="bg-white content-stretch drop-shadow-[0px_2px_2px_rgba(0,0,0,0.25)] flex flex-col gap-[24px] items-start p-[24px] relative rounded-[4px] size-full"
+      data-node-id="2847:15395">
+      <div
+        className="content-stretch flex items-center relative shrink-0 w-full"
+        data-node-id="2847:15396">
+        <div
+          className="content-stretch flex flex-col items-start relative shrink-0 w-[629px]"
+          data-node-id="2847:15397"
+          data-name="sl-searchfield">
+          <div
+            className="content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex flex-col isolate items-start relative rounded-[2px] shrink-0 w-full"
+            data-node-id="I2847:15397;6128:2229"
+            data-name="sl-searchfield-theme">
+            <div
+              className="bg-white border border-[#9d9f9f] border-solid content-stretch drop-shadow-[0px_0px_0px_rgba(0,0,0,0)] flex gap-[8px] isolate items-center justify-center px-[16px] py-[8px] relative rounded-[4px] shrink-0 w-full z-[1]"
+              data-node-id="I2847:15397;6128:2229;6128:2182"
+              data-name="sl_base-search_field">
+              <div
+                className="relative shrink-0 size-[20px] z-[5]"
+                data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939"
+                data-name="core-icon-start">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    className="flex-[1_0_0] h-full min-w-px relative"
+                    data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939;399:65"
+                    data-name="search">
+                    <div
+                      className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#8d8d8d] text-[16px] text-center"
+                      data-node-id="I2847:15397;6128:2229;6128:2182;6670:1939;399:65;5555:15890">
+                      <p className="leading-[16px]">search</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="[word-break:break-word] flex flex-[1_0_0] flex-col font-['Open_Sans:Regular'] font-normal justify-center leading-[0] min-w-px relative text-[#323232] text-[16px] z-[4]"
+                data-node-id="I2847:15397;6128:2229;6128:2182;6670:1937"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                <p className="leading-[24px]">Input Value</p>
+              </div>
+              <button
+                className="-translate-y-1/2 absolute bg-[rgba(0,0,0,0)] cursor-pointer right-[3px] size-[32px] top-1/2 z-[1]"
+                data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614"
+                data-name="field-button">
+                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
+                  <div
+                    className="content-stretch flex items-center justify-center relative shrink-0 size-[20px]"
+                    data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575"
+                    data-name="core-icon">
+                    <div
+                      className="flex-[1_0_0] h-full min-w-px relative"
+                      data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65"
+                      data-name="xmark">
+                      <div
+                        className="[word-break:break-word] absolute flex flex-col font-['Font_Awesome_6_Pro:Regular'] inset-0 justify-center leading-[0] not-italic text-[#323232] text-[16px] text-center"
+                        data-node-id="I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65;1765:11246">
+                        <p className="leading-[16px]">xmark</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="content-stretch flex h-[68px] items-end justify-between relative shrink-0 w-full"
+        data-node-id="2847:15398">
+        <div
+          className="content-end flex flex-wrap gap-[16px] items-end relative shrink-0 w-[632px]"
+          data-node-id="2847:15399">
+          <div
+            className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+            data-node-id="2847:15400"
+            data-name="Dropdown">
+            <p
+              className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+              data-node-id="2847:15401"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              Group status
+            </p>
+            <div
+              className="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+              data-node-id="2847:15402"
+              data-name="dropdown">
+              <p
+                className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+                data-node-id="2847:15403"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Active
+              </p>
+              <div
+                className="relative shrink-0 size-[12px]"
+                data-node-id="2847:15404"
+                data-name="btn icons">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgBtnIcons}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+            data-node-id="2847:15406"
+            data-name="Dropdown">
+            <p
+              className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+              data-node-id="2847:15407"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              Group type
+            </p>
+            <div
+              className="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+              data-node-id="2847:15408"
+              data-name="dropdown">
+              <p
+                className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+                data-node-id="2847:15409"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Any
+              </p>
+              <div
+                className="relative shrink-0 size-[12px]"
+                data-node-id="2847:15410"
+                data-name="btn icons">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgBtnIcons}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[200px]"
+            data-node-id="2847:15412"
+            data-name="Dropdown">
+            <p
+              className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#323232] text-[14px] w-[200px]"
+              data-node-id="2847:15413"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              School year
+            </p>
+            <div
+              className="bg-white border border-[#bfbfbf] border-solid content-stretch flex h-[40px] items-center justify-between p-[16px] relative rounded-[6px] shrink-0 w-[200px]"
+              data-node-id="2847:15414"
+              data-name="dropdown">
+              <p
+                className="[word-break:break-word] font-['Open_Sans:Regular'] font-normal leading-[24px] relative shrink-0 text-[#323232] text-[16px] whitespace-nowrap"
+                data-node-id="2847:15415"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Any
+              </p>
+              <div
+                className="relative shrink-0 size-[12px]"
+                data-node-id="2847:15416"
+                data-name="btn icons">
+                <img
+                  alt=""
+                  className="absolute block inset-0 max-w-none size-full"
+                  src={imgBtnIcons}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="content-stretch flex gap-[24px] items-center justify-end relative shrink-0"
+          data-node-id="2847:15418">
+          <div
+            className="content-stretch flex gap-[8px] items-center relative shrink-0"
+            data-node-id="2847:15419">
+            <p
+              className="[word-break:break-word] font-['Font_Awesome_6_Pro:Regular'] leading-[24px] not-italic relative shrink-0 text-[#af1685] text-[14px] whitespace-nowrap"
+              data-node-id="2847:15420">
+              xmark
+            </p>
+            <div
+              className="content-stretch flex items-center relative shrink-0 w-[78px]"
+              data-node-id="2847:15421">
+              <p
+                className="[word-break:break-word] font-['Open_Sans:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[#af1685] text-[14px] whitespace-nowrap"
+                data-node-id="2847:15422"
+                style={{ fontVariationSettings: '"wdth" 100' }}>
+                Clear filters
+              </p>
+            </div>
+          </div>
+          <div
+            className="[word-break:break-word] bg-[#af1685] content-center flex flex-wrap gap-[8px] items-center px-[24px] py-[8px] relative rounded-[24px] shrink-0 text-white whitespace-nowrap"
+            data-node-id="2847:15423"
+            data-name="button primary">
+            <p
+              className="font-['Font_Awesome_6_Pro:Regular'] leading-[normal] not-italic relative shrink-0 text-[16px]"
+              data-node-id="2847:15424">
+              magnifying-glass
+            </p>
+            <p
+              className="font-['Open_Sans:Bold'] font-bold leading-[24px] relative shrink-0 text-[14px]"
+              data-node-id="2847:15425"
+              style={{ fontVariationSettings: '"wdth" 100' }}>
+              Search
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

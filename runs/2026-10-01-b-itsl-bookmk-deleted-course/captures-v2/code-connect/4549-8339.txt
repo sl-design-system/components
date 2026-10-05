@@ -1,0 +1,19 @@
+{
+  "_result": {},
+  "_note": "Every get_code_connect_map call on the remote `figma` server returned the empty object literally `{}` -- no entries at all, not even null-valued or hasTemplate:false entries. Per the pipeline hint, the subtree-scope empty result was NOT treated as evidence; per-node calls were made on every significant top-level instance and all also returned {}. Root cause: node 4549:8339 is assembled from the *itslearning* Figma library, not the SL Design System Figma library. Confirmed independently by get_design_context, whose output contains zero `<sl-*>` tags and binds only itslearning-namespaced variables (--$gray--*, --$brand--*, --size/*, --border-radius, --default-font). Code Connect for the label 'SL Design System' does exist in this workspace (sibling runs a8-nsp-group-list, b-sanna-account-creation, b-nsp-home resolved real snippets), so this is an absent-library condition for this particular frame, not a broken/unmapped SLDS component.",
+  "_calls": {
+    "4549:8339": { "name": "Deleted course - content (full subtree)", "result": {} },
+    "4549:8340": { "name": "Navigation", "result": {} },
+    "4549:8343": { "name": "PageHeader", "result": {} },
+    "4549:8349": { "name": "Banner", "result": {} },
+    "4549:8358": { "name": "Search", "result": {} },
+    "4573:8406": { "name": "Button (Actions)", "result": {} },
+    "4549:8425": { "name": "Pagination", "result": {} },
+    "4571:16720": { "name": "Bulk actions panel", "result": {} },
+    "4571:16763": { "name": "Cell (table data cell)", "result": {} },
+    "4549:8357": { "name": "Select", "result": {} },
+    "4549:8429": { "name": "Read-only field", "result": {} },
+    "4549:8353": { "name": "Button (with codeConnectLabel='SL Design System')", "result": {} }
+  },
+  "_limitation": "Nested instance-internal ids (compound form 'I<instance>;<node>', e.g. I4549:8349;23112:4891 'circle-info') cannot be queried: get_code_connect_map's nodeId schema on the remote server is ^\\d+[:-]\\d+$ and rejects the compound form."
+}

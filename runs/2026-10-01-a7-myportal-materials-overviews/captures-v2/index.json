@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "run": "a7-myportal-materials-overviews",
+  "figma": {
+    "rootNodeId": "15878:180439"
+  },
+  "normalisedFrom": "the run's own files; nothing was fetched",
+  "captures": [
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "15878:180663",
+      "label": "figma-design-context.md — Part 1: Top header bar (node 15878:180663)",
+      "file": "captures-v2/design-context/15878-180663.txt",
+      "bytes": 13055,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "15878:180698",
+      "label": "figma-design-context.md — Part 2: Left sidebar menu (node 15878:180698)",
+      "file": "captures-v2/design-context/15878-180698.txt",
+      "bytes": 9408,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "15878:180442",
+      "label": "figma-design-context.md — Part 3: Breadcrumb (node 15878:180442)",
+      "file": "captures-v2/design-context/15878-180442.txt",
+      "bytes": 3907,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "16752:171373",
+      "label": "figma-design-context.md — Part 4: Class card row (node 16752:171373)",
+      "file": "captures-v2/design-context/16752-171373.txt",
+      "bytes": 52793,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "16737:82185",
+      "label": "figma-design-context.md — Part 5: Left sidebar search + select tree (node 16737:82185)",
+      "file": "captures-v2/design-context/16737-82185.txt",
+      "bytes": 75853,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "styles",
+      "nodeId": "16737:82185",
+      "label": "figma-design-context.md — Part 5: Left sidebar search + select tree (node 16737:82185)",
+      "file": "captures-v2/design-context/16737-82185.advisory.styles.txt",
+      "bytes": 869,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "advisory",
+      "advisory": "component-descriptions",
+      "nodeId": "16737:82185",
+      "label": "figma-design-context.md — Part 5: Left sidebar search + select tree (node 16737:82185)",
+      "file": "captures-v2/design-context/16737-82185.advisory.component-descriptions.txt",
+      "bytes": 1216,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_design_context",
+      "part": "code",
+      "nodeId": "24382:668407",
+      "label": "figma-design-context.md — Part 6: \"Summative test\" files panel (node 24382:668407)",
+      "file": "captures-v2/design-context/24382-668407.txt",
+      "bytes": 16786,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_metadata",
+      "part": "code",
+      "nodeId": "15878:180439",
+      "label": "figma-metadata.txt",
+      "file": "captures-v2/metadata/15878-180439.txt",
+      "bytes": 44982,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_variable_defs",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-variable-defs.json",
+      "file": "captures-v2/variables/unknown-0.txt",
+      "bytes": 2912,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_code_connect_map",
+      "part": "code",
+      "nodeId": null,
+      "label": "figma-code-connect-map.json",
+      "file": "captures-v2/code-connect/unknown-0.txt",
+      "bytes": 3,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false
+    },
+    {
+      "call": "get_screenshot",
+      "nodeId": null,
+      "label": "reference",
+      "file": "screenshot.png",
+      "bytes": 230089,
+      "capturedAt": "2026-10-05T17:00:59.778Z",
+      "truncated": false,
+      "note": "reference integrity not asserted at capture time; see batch-findings on get_screenshot distortions"
+    }
+  ]
+}

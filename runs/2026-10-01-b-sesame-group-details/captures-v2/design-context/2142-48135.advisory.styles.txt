@@ -1,0 +1,2 @@
+These styles are contained in the design: Body/Small-bold: Font(family: "Open Sans", style: Bold, size: 16, weight: 700, lineHeight: 24, letterSpacing: 0), UI/Tiny-bold: Font(family: "Open Sans", style: Bold, size: 12, weight: 700, lineHeight: 16, letterSpacing: 3), Body/Small: Font(family: "Open Sans", style: Regular, size: 16, weight: 400, lineHeight: 24, letterSpacing: 0).
+

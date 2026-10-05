@@ -1,0 +1,109 @@
+                            <div className="content-start flex flex-wrap gap-[var(--size\/25,4px)] gap-y-[4px] h-full items-start px-[var(--size\/50,8px)] py-[var(--size\/25,4px)] relative shrink-0" data-name="Cell">
+                              <div className="content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center p-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4411:11862;4088:16276;18131:6496" data-name="Button">
+                                <div className="relative shrink-0 size-[24px]" data-node-id="I4411:11862;4088:16276;18131:6496;1902:2850" data-name="Icon placeholder">
+                                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipsis2} />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="absolute bg-[var(--$gray--0,white)] content-stretch drop-shadow-[0px_3px_4.5px_rgba(0,0,0,0.2)] flex flex-col items-start left-[124px] py-[var(--dropdown\/dropdown-vertical-padding,4px)] rounded-[var(--border-radius,4px)] top-[102px] w-[250px]" data-node-id="4099:12638" data-name="Dropdown">
+                      <div className="content-stretch flex gap-[var(--size\/50,8px)] items-start pl-[var(--size\/500,20px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative shrink-0 w-full" data-node-id="I4099:12638;13188:5104" data-name=".Dropdown option">
+                        <div className="relative shrink-0 size-[24px]" data-node-id="I4099:12638;13188:5104;877:2673" data-name="Icon placeholder">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgArrowTurnDownRight} />
+                        </div>
+                        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-[24px] min-w-px relative" data-node-id="I4099:12638;13188:5104;22394:10537">
+                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full" data-node-id="I4099:12638;13188:5104;877:2574">
+                            <p className="leading-[1.5]">Move to</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="content-stretch flex gap-[var(--size\/50,8px)] items-start pl-[var(--size\/500,20px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative shrink-0 w-full" data-node-id="I4099:12638;13188:5105" data-name=".Dropdown option">
+                        <div className="relative shrink-0 size-[24px]" data-node-id="I4099:12638;13188:5105;877:2673" data-name="Icon placeholder">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgDownload} />
+                        </div>
+                        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-[24px] min-w-px relative" data-node-id="I4099:12638;13188:5105;22394:10537">
+                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full" data-node-id="I4099:12638;13188:5105;877:2574">
+                            <p className="leading-[1.5]">Download</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="content-stretch flex gap-[var(--size\/50,8px)] items-start pl-[var(--size\/500,20px)] pr-[var(--size\/100,12px)] py-[var(--size\/100,12px)] relative shrink-0 w-full" data-node-id="I4099:12638;13188:5106" data-name=".Dropdown option">
+                        <div className="relative shrink-0 size-[24px]" data-node-id="I4099:12638;13188:5106;877:2673" data-name="Icon placeholder">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgTrash} />
+                        </div>
+                        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-[24px] min-w-px relative" data-node-id="I4099:12638;13188:5106;22394:10537">
+                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] justify-center leading-[0] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/200,14px)] w-full" data-node-id="I4099:12638;13188:5106;877:2574">
+                            <p className="leading-[1.5]">Delete</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <Pagination className="content-stretch flex gap-[var(--size\/300,16px)] items-center justify-end relative rounded-[40px] shrink-0 w-full" />
+                </div>
+              </div>
+              <div className="bg-[var(--$gray--0,white)] border border-[var(--$gray--300,#e1e1e1)] border-solid content-stretch flex flex-col gap-[var(--size\/500,20px)] items-start px-[20px] py-[var(--content-block\/content-block-vertical-padding,20px)] relative rounded-[4px] shrink-0 w-[400px]" data-node-id="4994:15549" data-name="settings summary">
+                <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-full relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/600,22px)] w-[min-content]" data-node-id="I4994:15549;4994:12242">
+                  Settings summary
+                </p>
+                <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full" data-node-id="I4994:15549;4994:12269" data-name="visibility">
+                  <div className="relative shrink-0 size-[24px]" data-node-id="I4994:15549;4994:12270" data-name="eye">
+                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEye} />
+                  </div>
+                  <p className="[word-break:break-word] flex-[1_0_0] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] min-w-px relative text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)]" data-node-id="I4994:15549;4994:12271">
+                    Visible to students
+                  </p>
+                </div>
+                <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="I4994:15549;4994:12468" data-name="date">
+                  <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full" data-node-id="I4994:15549;4994:12469" data-name="wrapper">
+                    <div className="relative shrink-0 size-[24px]" data-node-id="I4994:15549;4994:12470" data-name="timer">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgTimer} />
+                    </div>
+                    <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Regular')] font-[var(--bold,normal)] leading-[0] not-italic relative shrink-0 text-[0px] text-[color:var(--$gray--900,#333)] w-[328px]" data-node-id="I4994:15549;4994:12471">
+                      <span className="font-['Lato:Bold'] leading-[1.5] text-[#333] text-[16px]">{`Closing date: `}</span>
+                      <span className="font-['Lato:Bold'] leading-[1.5] text-[#333] text-[16px]">May 30, 2025 23:00</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="content-stretch flex flex-col items-start relative shrink-0 w-[360px]" data-node-id="I4994:15549;4994:14240" data-name="assign">
+                  <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full" data-node-id="I4994:15549;4994:14240;4994:14208" data-name="wrapper">
+                    <div className="relative shrink-0 size-[24px]" data-node-id="I4994:15549;4994:14240;4994:14209" data-name="users">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgUsers} />
+                    </div>
+                    <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$gray--900,#333)] text-[length:var(--size\/300,16px)] w-[328px]" data-node-id="I4994:15549;4994:14240;4994:14210">
+                      Assigned to 5 participants + [Group name]
+                    </p>
+                  </div>
+                </div>
+                <Tools className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-[360px]" />
+                <div className="content-start flex flex-wrap gap-[12px] items-start pt-[var(--size\/500,20px)] relative shrink-0 w-full" data-node-id="I4994:15549;4994:12280" data-name="Actions">
+                  <div className="bg-[var(--$gray--0,white)] border-2 border-[var(--$brand--400,#a997b5)] border-solid content-stretch flex gap-[var(--size\/25,4px)] items-center justify-center px-[var(--size\/700,24px)] py-[var(--size\/50,8px)] relative rounded-[var(--border-radius,4px)] shrink-0" data-node-id="I4994:15549;4994:12281" data-name="Button">
+                    <p className="[word-break:break-word] font-[family-name:var(--default-font,'Lato:Bold')] font-[var(--bold,normal)] leading-[1.5] relative shrink-0 text-[color:var(--$brand--800,#42354a)] text-[length:var(--size\/300,16px)] text-center whitespace-nowrap" data-node-id="I4994:15549;4994:12281;1915:4326">
+                      Edit
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="absolute content-stretch flex items-start justify-center left-[773px] top-[134px]" data-node-id="4571:8205" data-name="Heading">
+            <div className="bg-[#3f2f9b] content-stretch flex items-center px-[16px] py-[12px] relative shrink-0" data-node-id="I4571:8205;2839:1646" data-name="Label wrapper">
+              <p className="[word-break:break-word] font-['Noto_Sans:Regular'] font-normal leading-[normal] relative shrink-0 text-[12px] text-white whitespace-nowrap" data-node-id="I4571:8205;2839:1647" style={{ fontVariationSettings: '"CTGR" 0, "wdth" 100' }}>
+                H2
+              </p>
+            </div>
+            <div className="relative self-stretch shrink-0 w-[16px]" data-node-id="I4571:8205;2839:1419" data-name="Arrow">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgArrow} />
+            </div>
+          </div>
+          <div className="absolute content-stretch flex h-[40px] items-start justify-center left-[28px] top-[626px] w-[64px]" data-node-id="4571:8212" data-name="Heading" />
+        </div>
+      </div>
+    </div>
+
+);
+}
+

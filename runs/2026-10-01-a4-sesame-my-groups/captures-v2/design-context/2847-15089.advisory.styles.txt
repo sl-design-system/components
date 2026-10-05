@@ -1,0 +1,7 @@
+These styles are contained in the design: v-icon/medium: Font(family: "Material Icons",
+> style: Regular, size: 24, weight: 400, lineHeight: 1, letterSpacing: 0).
+
+---
+
+## 9. `2847:15245` — Table body cell, Action column
+

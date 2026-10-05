@@ -1,0 +1,13 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/4d8a1617-677c-4749-95ac-4f750a28ba14";
+export default function LeftToolbar() {
+  return (
+    <div data-node-id="5311:37150" data-name="Left-toolbar">
+      <img data-node-id="I5311:37150;9353:30179" data-name="image 14" /> {/* user avatar-like image */}
+      <div data-node-id="I5311:37150;9353:30181" data-name="Feed Tools">
+        Filter row x5: "Contents" (toc icon), "Edit content" (edit-feed icon + number-tag badge),
+        "Assignments" (assignments icon + number-tag badge "1"), "Notes" (notes icon),
+        "Access key" (access-key-sec icon)
+      </div>
+    </div>
+  );
+}

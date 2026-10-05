@@ -1,0 +1,41 @@
+{
+  "2422:87039": {},
+  "2422:87040": {},
+  "2422:87226": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      aria-label=\"Button\"\n      \n      fill=\"ghost\"\n      \n      \n      \n      \n    >\n      \n    <sl-icon\n      name=\"far-copy\"\n      \n    ></sl-icon>\n  \n      \n      \n    </sl-button>\n  "
+  },
+  "2422:87227": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      aria-label=\"Button\"\n      \n      fill=\"ghost\"\n      \n      \n      \n      \n    >\n      \n    <sl-icon\n      name=\"far-share\"\n      \n    ></sl-icon>\n  \n      \n      \n    </sl-button>\n  "
+  },
+  "2422:87052": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button-bar\n      fill=\"outline\"\n      \n      \n    >\n      \n    <sl-button\n      \n      \n      \n      \n      \n      \n      variant=\"primary\"\n    >\n      \n    <sl-icon\n      name=\"far-presentation-screen\"\n      \n    ></sl-icon>\n  \n      Add students\n      \n    </sl-button>\n  \n    </sl-button-bar>\n  "
+  },
+  "2422:91204": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button-bar\n      fill=\"outline\"\n      \n      \n    >\n      \n    <sl-button\n      \n      \n      fill=\"outline\"\n      \n      \n      \n      \n    >\n      \n      Create groups\n      \n    </sl-button>\n  \n    </sl-button-bar>\n  "
+  },
+  "2422:87812": {}
+}

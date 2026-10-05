@@ -1,0 +1,8 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/431b4847-1360-4bf4-ac46-90dfb4ef4d66";
+export default function SlGridQuickGrid() {
+return (
+<CodeConnectSnippet data-node-id="2422:87812" data-name="sl-grid-quick-grid" data-snippet-language="SL Design System">
+<sl-grid></sl-grid>
+</CodeConnectSnippet>
+);
+}

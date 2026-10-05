@@ -1,0 +1,10 @@
+const assetPathPrefix = "https://www.figma.com/api/mcp/asset/7cc79c07-8c25-475d-bbde-3171d185b1eb";
+export default function SlButtonBarRectangle() {
+return (
+<CodeConnectSnippet data-node-id="2422:91204" data-name="sl-button-bar/Rectangle" data-snippet-language="SL Design System">
+<sl-button-bar fill="outline">
+<sl-button fill="outline">Create groups</sl-button>
+</sl-button-bar>
+</CodeConnectSnippet>
+);
+}

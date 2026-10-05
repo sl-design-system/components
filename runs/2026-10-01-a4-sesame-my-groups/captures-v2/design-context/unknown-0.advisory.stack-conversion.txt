@@ -1,0 +1,8 @@
+SUPER CRITICAL: The generated React+Tailwind code MUST be converted to match the target
+> project's technology stack and styling system. 1. Analyze the target codebase to
+> identify: technology stack, styling approach, component patterns, and design tokens 2. Convert React syntax to the target framework/library 3. Transform all Tailwind
+> classes to the target styling system while preserving exact visual design 4. Follow the
+> project's existing patterns and conventions. DO NOT install any Tailwind as a dependency
+> unless the user instructs you to do so.
+
+> 

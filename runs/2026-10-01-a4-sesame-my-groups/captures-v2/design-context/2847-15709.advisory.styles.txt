@@ -1,0 +1,10 @@
+These styles are contained in the design: color/input/helper/icon/invalid: #ED1111,
+> text/input/textField/fontIcon/md: Font(family: "Font Awesome 6 Pro", style: Solid, size:
+> 15, weight: 900, lineHeight: 16, letterSpacing: 0), color/input/helper/text/invalid:
+> #ED1111, text/input/helper/text/sm: Font(family: "Open Sans", style: Regular, size: 12,
+> weight: 400, lineHeight: 16, letterSpacing: 0).
+
+---
+
+## 12. `2847:15077` — "ALL SCHOOL GROUPS" section heading
+

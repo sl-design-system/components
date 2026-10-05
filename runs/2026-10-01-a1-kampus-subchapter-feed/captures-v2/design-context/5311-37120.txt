@@ -1,0 +1,21 @@
+export default function TableOfContentsElementsBasics() {
+  return (
+    <div data-node-id="5311:37120" data-name="Table of contents - Elements basics">
+      <div data-name="layer content">
+        <div data-name=".TOC-header">
+          "Table of Contents" heading + Icon-button (close "X")
+          Button-row: "Expand all" / "Collapse all" (Button component)
+        </div>
+        <div data-name="TOC-items">
+          repeated .TOC-item rows: "Start page", ".TOC-chapter" ("Minä, kieli ja kulttuuri",
+          expanded, containing 9 .TOC-subchapter rows: "Jakson tavoitteet", "1. Kieli, kulttuuri
+          ja identiteetti" (highlighted/current, purple bg #F0ECF5), "2. Maailman kielet",
+          "3. Suomen sukukielet", "4. Monikielinen Suomi", "5. Suomen kielen ominaispiirteet",
+          "6. Puhekielen vaihtelu", "Open oma kappale", "Teacher-created subchapter"),
+          then collapsed chapters "Kielitieto", "Lukutaito", "Kirjallisuustieto",
+          "Kirjoitustaito", "Vuorovaikutustaidot", "Kielitaito", "Chapter"
+        </div>
+      </div>
+    </div>
+  );
+}

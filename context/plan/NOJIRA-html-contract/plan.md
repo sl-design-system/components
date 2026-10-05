@@ -140,6 +140,10 @@ surface that runs have been inferring from pictures — one gave `sl-avatar` an 
 not have, and `sl-select` documents a part that cannot match. It is generated rather than
 committed, so using it means running `scripts/build-metadata.js` first.
 
+CEM's structure, the plugins that generate it, and the fact that it is absent from the repository
+are surveyed in [`A-NOJIRA-design-system-architecture`](../../analyzes/NOJIRA-design-system-architecture/analysis.md)
+F6 and F8 — read it before task 00 rather than re-deriving the shape from a manifest.
+
 **A naming hazard to fix while doing it:** there are two colliding `R` namespaces — R1–R31 in
 `A-NOJIRA-requirement-backlog` and R1–R36 in the contract analysis. Prefix them before anything
 cites a bare number.

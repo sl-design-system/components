@@ -81,7 +81,10 @@ it can be instrumented; the closure check must exist before it can be invoked.
 
 **The REST-versus-MCP fork in task 02 is larger than it looks** — a new auth surface and a second
 schema. It is isolated in one task deliberately, so a decision to stay on MCP costs nothing
-elsewhere.
+elsewhere. The one piece of recorded reasoning about when MCP is the wrong shape is
+[`A-NOJIRA-plugin-packaging`](../../analyzes/NOJIRA-plugin-packaging/analysis.md) F3, where
+Spotify rejected it for registry size rather than documentation quality — a different argument
+from the one this task weighs, and worth reading before it decides.
 
 **A file-level call returned 2.18 MB.** Anything reading it into context loses its window; it is a
 fetch-and-grep call.

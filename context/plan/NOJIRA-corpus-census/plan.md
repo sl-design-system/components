@@ -66,7 +66,12 @@ that is agent prose stays agent prose and is classified as such.
   alone.** Output is a versioned re-normalisation, not an overwrite.
 - `T-NOJIRA-corpus-census-02` — `census.json`: per run, the **provenance class** (Figma's bytes /
   reconstructed / summarised / agent prose), whether it renders, and the **reference state**
-  (exact / downscaled with its factor / channel-halved / undeclared frame).
+  (exact / downscaled with its factor / channel-halved / undeclared frame). **This task owns
+  reference integrity** — it does not merely record the state, it **refuses** a channel-halved
+  reference and flags an undeclared frame, because three runs' metadata begins with prose and the
+  renderer silently falls back to a hardcoded 1440×1024, scoring their geometry against a
+  fabricated frame. The review found this orphaned: one document had cut it, another still
+  required it, and no task owned it.
 - `T-NOJIRA-corpus-census-03` — The geometry comparator: metadata's declared `x/y/w/h`, summed
   through the ancestor chain, against `getBoundingClientRect` in the browser `shoot.mjs` already
   drives.
@@ -89,13 +94,15 @@ protocol before it can carry a fidelity claim. Better learned here than after th
 runs' own markdown, with all nineteen timestamps inside 64 ms. Versioning the output is what stops
 this slice adding a second undisclosed layer.
 
-**Nothing depends on this slice that cannot start without it.** `P-NOJIRA-figma-ingestion` tasks
-03–05 are independent and should run in parallel.
+**Nothing depends on this slice that cannot start without it.** `P-NOJIRA-figma-ingestion` is
+independent of it entirely and should run in parallel.
 
 ## Acceptance
 
 - `extractBlocks` splits on the known sentinels, and the count of rendering runs is reported
   **before and after** — a number, not an impression.
+- A channel-halved reference is refused and an undeclared frame is named; **no run is scored
+  against a fabricated frame**.
 - `census.json` carries all nineteen runs with no `unknown` provenance. A run whose class cannot
   be determined is itself a finding and must be named, not defaulted.
 - The geometry comparator is tested against a fixture with known offsets before it is run on a
@@ -103,7 +110,8 @@ this slice adding a second undisclosed layer.
 - Every published figure states its **N** and the comparator version. A figure without N is not
   published.
 - The slice ends with an explicit recommendation: **full scope or narrowed**, for
-  `P-NOJIRA-html-contract`, with the number that decides it.
+  `P-NOJIRA-html-artifacts` — the plan that builds against the corpus — with the number that
+  decides it.
 
 ## Approval
 

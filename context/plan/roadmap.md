@@ -157,7 +157,12 @@ schedule with nothing changed at all**, which is the only one that catches drift
 Always the whole corpus, never only the case believed to be affected — a change that fixes one
 screen and breaks another is exactly what this is for.
 
-## Gating rule between slices
+## Gating rule — superseded
+
+> Replaced by the plan-level rule above: a plan's dependency means _that plan is finished_,
+> never _that task is done_. What follows describes slice-to-slice gating and predates the re-cut.
+
+### Original between slices
 
 A slice may not start until the previous one can express its own success as a number. Slice 2's
 acceptance is written as a score delta against slice 1's baseline; slice 3's against slice 2's.

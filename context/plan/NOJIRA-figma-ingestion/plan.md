@@ -71,13 +71,13 @@ use them between changes rather than after them.
 
 ## Scope
 
-**In:** the scripted traversal with Code Connect as its stopping rule; the five-cause
-classification with owners; asset capture; the eight boundary checks; the closure check applied
-during ingestion; the call ledger and per-run metrics.
+**In:** the mode decision; the scripted traversal with Code Connect as its stopping rule; the
+five-cause classification with owners; the fourteen-case probe that measures all three.
 
-**Out:** the common format and the HTML generators — `P-NOJIRA-html-contract`; component
-decomposition and implementation, which stay with the agent; growing Code Connect coverage, which
-is design system team work this plan only ranks.
+**Out:** the ledger, the eight boundary checks, asset capture, the closure check and the full
+19 × 2 re-run — all `P-NOJIRA-ingestion-hardening`, which is weeks where this is days; the common
+format and the HTML generators; component decomposition and implementation, which stay with the
+agent; growing Code Connect coverage, which is design system team work this plan only ranks.
 
 ## Work breakdown
 
@@ -134,21 +134,19 @@ run that reads it into context loses its window.
 
 ## Acceptance
 
-- Every Figma call in a run appears in the ledger, with its status and attempt. A run's call count
-  is derivable without reading a transcript.
-- The eight boundary checks run at capture time; a failing capture is recorded as failing rather
-  than passed downstream.
 - The mode is decided from evidence, cached per file, and recorded with that evidence.
 - **No run halts on an empty map in as-is mode.** Strict mode still halts, deliberately — that is
   `A-NOJIRA-ds-conformance` F6, and a halt with a recorded cause is a first-class result rather
-  than a failure. Every unresolved node carries a cause and an owner, and the
-  blocked-node count is stable between two passes of the same design — the control's moved by up
-  to threefold.
-- Assets are captured during the fetch and resolve locally; no generated artifact references a
-  Figma URL.
-- The closure check reports an empty frontier, or names what is still in it.
-- The 19 × 2 re-run is compared against 5 of 38 **on completions and on recorded conformance**,
-  and the comparison states which of the two moved.
+  than a failure.
+- Every unresolved node carries a cause and an owner, and the **blocked-node count is stable
+  between two passes of the same design** — the control's moved by up to threefold.
+- A descent records _why_ it descended: genuinely unmapped, or map unreadable.
+- **The fourteen-case probe reports how many of the fourteen converted.** If none did, the plan
+  has falsified its own diagnosis and says so.
+
+Everything else this plan used to assert — ledger completeness, the eight checks, assets
+resolving locally, an empty closure frontier, the 19 × 2 comparison — now belongs to
+`P-NOJIRA-ingestion-hardening` and was removed when the plans were re-cut by executable unit.
 
 ## Approval
 
@@ -159,7 +157,7 @@ decided in task 02, and whether implementation agents keep the Figma tools in ta
 decisions the task cannot avoid making, so recording them as plan-level unknowns would only have
 delayed the same choice.
 
-Sequencing still binds: everything fidelity-shaped waits on `P-NOJIRA-html-contract` task 07b.
-The exception is the 14-case halt probe after task 04, which measures halts and needs no fidelity
-figure — it can run as soon as 04 lands, and it can falsify this plan on its own for a third of
-the cost of the full re-run.
+**This plan depends on nothing and can start today.** An earlier draft made it wait on a
+fidelity figure it does not use — it measures halts — which would have delayed the only slice
+with a measured baseline to move. Its last task is the fourteen-case probe, a third of the cost
+of the full control, and it can falsify the plan on its own.

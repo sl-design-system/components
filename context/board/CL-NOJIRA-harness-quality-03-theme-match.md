@@ -21,4 +21,5 @@ unit: T-NOJIRA-harness-quality-03
 ## Notes
 
 Delivered. 19/19 outputs byte-identical across the decomposition, then one verdict changed —
-`a7-myportal-materials-overviews`, which had been settling a 100% hex tie by directory order.
+`a7-myportal-materials-overviews`, which had been settling a 100% hex tie by directory order. The pre-commit formatter then ate the regression fixture, which is why
+`runs/harness/fixtures` is now in `.oxfmtrc.json`'s ignore list.

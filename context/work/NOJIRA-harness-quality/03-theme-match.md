@@ -12,6 +12,7 @@ owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [harness, themes, testing]
+commit: d05e5e2d9fc2fe6b98524c08a9872f9b7a7e249b
 source_plan: P-NOJIRA-harness-quality
 depends_on: [T-NOJIRA-harness-quality-01]
 ---

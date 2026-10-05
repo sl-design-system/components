@@ -213,6 +213,13 @@ them — `readRegions`, `CodeConnectSnippet`, `buildReport` — survived a plaus
 silence. Mutate each export once and check something goes red; it takes minutes and it is the only
 evidence that a suite is load-bearing.
 
+**A fixture is captured bytes, so no formatter may touch it.** `runs/harness/fixtures` is in
+`.oxfmtrc.json`'s `ignorePatterns`, added 2026-10-05 after the pre-commit hook reformatted
+`theme-wrapped-declaration.css` — collapsing the wrapped declarations that are the entire point of
+the file and turning two passing tests red inside the commit that added them. A formatter that
+rewrites a fixture invalidates every test anchored to it, silently, unless a test happens to
+assert the exact bytes.
+
 **A tool that cannot say "I don't know" will say something else.** Added 2026-10-05 with
 `T-NOJIRA-harness-quality-03`. `theme-match.mjs` settled a dead-heat between two themes by
 `readdirSync` order and named a winner; `render-design.mjs` substituted a frame nobody declared.

@@ -3,11 +3,13 @@
    reported a three-way tie where the right answer matches every token. */
 :root {
   /* Wrapped across three lines — the shape that caused the silent miss. */
-  --sl-color-foreground-bold: var(--sl-brand-color-foreground-bold);
+  --sl-color-foreground-bold: var(
+    --sl-brand-color-foreground-bold
+  );
   --sl-brand-color-foreground-bold: #0b7285;
 
   /* Spaces inside `var()`, which `var(--` never matched. */
-  --sl-color-background-plain: var(--sl-brand-color-background-plain);
+  --sl-color-background-plain: var( --sl-brand-color-background-plain );
 
   /* Declared after the property that references it: the file is collected before anything is
      resolved, so a forward reference is not a special case. */
@@ -15,7 +17,9 @@
 
   /* Two hops, the second one wrapped. */
   --sl-color-border-plain: var(--sl-alias-border);
-  --sl-alias-border: var(--sl-brand-border);
+  --sl-alias-border: var(
+    --sl-brand-border
+  );
   --sl-brand-border: #dee2e6;
 
   /* A reference to a property no file declares, with a fallback. */

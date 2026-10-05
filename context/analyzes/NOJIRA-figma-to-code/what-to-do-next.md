@@ -16,22 +16,35 @@ being an argument.
 design system team. If it goes to aipdlc, all of it goes — there is no interface between two
 teams to design, only one relocation decision to take later.
 
+**The target is all nineteen.** Every design in the corpus fetches cleanly from Figma and becomes
+HTML. Early passes will land short of that and that is expected — 9 of 19 render today — but the
+number to steer by is nineteen, not "better than last time". What stands between the two is now
+measured run by run in [`render-failure-taxonomy.md`](render-failure-taxonomy.md), and **nine of
+the ten remaining failures belong to `P-NOJIRA-figma-ingestion`, not to the harness**: seven runs
+hold captures that are not Figma's output at all, two are truncated at the MCP output cap, and
+one carries a Figma property literally named `↕️Size`.
+
 ---
 
 ## Step 0 — one week of measurement, before any plan resumes
 
 Costs less than writing the task files would. Needs no Figma call, no schema, no new plan.
 
-|     | Work                                                                                                                                    | Size      | Why it is first                                                                                   |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
-| 0.1 | Fix the advisory-block split in `normalise-captures.mjs` (`extractBlocks`)                                                              | **hours** | six of ten non-rendering runs fail for this reason alone — survivorship goes from 9 to roughly 15 |
-| 0.2 | Write `census.json` — per run: provenance class, renders or not, reference exact / downscaled / undeclared                              | **hours** | nobody knows which runs can be measured; both plans assumed nineteen                              |
-| 0.3 | Build the geometry comparator — metadata's declared `x/y/w/h` against `getBoundingClientRect` in the browser `shoot.mjs` already drives | **days**  | the first real fidelity number, and it needs no reference image                                   |
-| 0.4 | Run it on `a3` and `a7`, where ~330 node ids overlap                                                                                    | hours     | two numbers, and a named reason for every run that has none                                       |
+|     | Work                                                                                                                                    | Size      | Why it is first                                                                                            |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| 0.1 | ~~Fix the advisory-block split in `normalise-captures.mjs` (`extractBlocks`)~~ **done, `cbe4455ef`**                                    | hours     | estimated at six runs and worth **three** — see [`render-failure-taxonomy.md`](render-failure-taxonomy.md) |
+| 0.2 | Write `census.json` — per run: provenance class, renders or not, reference exact / downscaled / undeclared                              | **hours** | nobody knows which runs can be measured; both plans assumed nineteen                                       |
+| 0.3 | Build the geometry comparator — metadata's declared `x/y/w/h` against `getBoundingClientRect` in the browser `shoot.mjs` already drives | **days**  | the first real fidelity number, and it needs no reference image                                            |
+| 0.4 | Run it on `a3` and `a7`, where ~330 node ids overlap                                                                                    | hours     | two numbers, and a named reason for every run that has none                                                |
 
 **What it decides.** Whether `P-NOJIRA-html-contract` runs at full scope or narrows to tasks
 00–04; whether the independent-comparison population is really N ≈ 4 or larger once 0.1 lands;
 and which of the nineteen runs are evidence at all.
+
+**0.1 has landed, and it moved less than this table expected.** Measured 6 → 9 of nineteen on
+regenerated input, not 9 → 15: four runs held a contaminated capture rather than six, and one of
+those four is truncated as well and fails anyway. The estimate above is left as written, struck
+through, because the gap between it and the measurement is the point.
 
 ---
 

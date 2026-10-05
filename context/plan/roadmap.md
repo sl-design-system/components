@@ -33,9 +33,22 @@ between tasks in different plans and left no plan that could be run to completio
 is by executable unit; the epics restore the thematic view on top.
 
 [`what-to-do-next.md`](../analyzes/NOJIRA-figma-to-code/what-to-do-next.md) is the ordered view.
-Two facts settled 2026-10-05: the **cost question is closed** — the HTML is generated once and
+Three facts settled 2026-10-05: the **cost question is closed** — the HTML is generated once and
 consumed by hundreds of developers, so per-screen token cost against one developer was the wrong
-unit — and the **toolkit moves whole or not at all**.
+unit — the **toolkit moves whole or not at all**, and **the target is all nineteen runs**.
+
+### The target is all nineteen
+
+Every design in the corpus fetches cleanly from Figma and becomes HTML. Early passes land short
+and that is expected — **9 of 19 render** as of 2026-10-05, up from 6 before the advisory-split
+repair — but nineteen is the number the work steers by.
+
+[`render-failure-taxonomy.md`](../analyzes/NOJIRA-figma-to-code/render-failure-taxonomy.md)
+measures what stands in the way, run by run, and the answer reorders nothing but sharpens why:
+**nine of the ten remaining failures cannot be fixed by parsing.** Seven runs hold captures that
+are not Figma's output at all, two are truncated at the MCP 25k output cap, and one carries a
+Figma property literally named `↕️Size` that no JSX parser accepts. `P-NOJIRA-figma-ingestion`
+owns nine of the ten; the harness owns none of them.
 
 ## Epics
 

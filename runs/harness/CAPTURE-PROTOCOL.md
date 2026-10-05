@@ -218,3 +218,46 @@ resolve `assetPathPrefix` through the index instead.
 This is the one gap that cannot be closed later. Metadata, context and mappings can all be
 re-fetched from the file at any time; **an asset URL embedded in a capture is dead on arrival**, and
 every reconstruction the corpus can produce is already missing its images.
+
+---
+
+## Three things the advisory-split repair established
+
+Added 2026-10-05 with `T-NOJIRA-corpus-census-01`. Each was found by measuring, and each is a
+trap for the next reader rather than a decision.
+
+### The advisory split now exists, and it needed three code paths
+
+`part: "advisory"` entries are emitted for real, with an `advisory` field naming which of the
+five blocks each one holds — `stack-conversion`, `node-ids`, `styles`, `component-descriptions`,
+`assets` — and filenames of the form `<node>.advisory.<kind>.txt`.
+
+**No sentinel anywhere in the corpus falls inside a fence.** A fenced response therefore always
+had clean code and merely discarded its advisories; only an unfenced one concatenated them. But
+repairing `extractBlocks` alone fixes neither a **continuation** — the mid-syntax later parts of
+a response split across files, which never reach it — nor a response whose advisories arrived
+**ahead** of the code, in the region discarded as commentary. All three paths carry the split.
+
+### `capturedAt` is the run directory's mtime, not a capture time
+
+`normalise-captures.mjs` reads `statSync(run).mtime`, and writing the output **into** the run
+directory updates it. So every regeneration stamps a fresh `capturedAt`, and the index is not
+byte-reproducible across two runs of the same code.
+
+This is the mechanism behind "every `capturedAt` within 64 ms" in the reconstructed indexes. It
+is **not evidence of when anything was captured** and must not be read as such. A consumer that
+needs a real capture time has to get it from the run's own markdown.
+
+### Two responses can root at the same node, and one used to overwrite the other
+
+`a2-nsp-class-overview` listed `2422-87812.txt` twice in its index, both entries pointing at one
+file — the second response had silently replaced the first on disk. The emitter now keeps a set
+of paths it has used and suffixes a collision, so the index and the directory agree.
+
+### Three runs' captures are not reproducible at all
+
+`a8-nsp-group-list`, `b-itsl-course-course-files` and `b-kampus-notes-panel` hold
+`captures/design-context/*.txt` that **no version of the script generates** — their
+`figma-design-context.md` is agent prose, and those files were written by a backfill agent. They
+disappear from any re-normalised index. Classify them deliberately; do not read their absence as
+a regression.

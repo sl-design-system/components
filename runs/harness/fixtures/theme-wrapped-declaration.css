@@ -1,0 +1,40 @@
+/* Shaped after packages/themes/max/theme.css, which holds 339 declarations wrapping across
+   lines. An earlier resolver read values line by line, left every one of these unresolved, and
+   reported a three-way tie where the right answer matches every token. */
+:root {
+  /* Wrapped across three lines — the shape that caused the silent miss. */
+  --sl-color-foreground-bold: var(--sl-brand-color-foreground-bold);
+  --sl-brand-color-foreground-bold: #0b7285;
+
+  /* Spaces inside `var()`, which `var(--` never matched. */
+  --sl-color-background-plain: var(--sl-brand-color-background-plain);
+
+  /* Declared after the property that references it: the file is collected before anything is
+     resolved, so a forward reference is not a special case. */
+  --sl-brand-color-background-plain: #ffffff;
+
+  /* Two hops, the second one wrapped. */
+  --sl-color-border-plain: var(--sl-alias-border);
+  --sl-alias-border: var(--sl-brand-border);
+  --sl-brand-border: #dee2e6;
+
+  /* A reference to a property no file declares, with a fallback. */
+  --sl-color-foreground-disabled: var(--sl-nothing-declares-this, #adb5bd);
+
+  /* A reference to a property no file declares, with no fallback: left as written. */
+  --sl-color-foreground-plain: var(--sl-also-undeclared);
+
+  /* A cycle. The resolver caps the chain rather than looping. */
+  --sl-color-loop-a: var(--sl-color-loop-b);
+  --sl-color-loop-b: var(--sl-color-loop-a);
+
+  /* Scalars carry a unit in the theme; the design reports a bare number. */
+  --sl-size-200: 8px;
+}
+
+/* The dark block overrides later in the file. The light values come first and win, because a
+   design's variable defs are the light mode unless Figma says otherwise. */
+:root[data-theme='dark'] {
+  --sl-color-foreground-bold: #ffffff;
+  --sl-color-background-plain: #000000;
+}

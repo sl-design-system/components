@@ -1,0 +1,6 @@
+{
+  "$brand--700": "#010203",
+  "$gray--900": "#040506",
+  "Size/300": "12",
+  "button/primary/outline/idle/background": "#070809"
+}

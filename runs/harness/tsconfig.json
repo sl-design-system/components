@@ -24,13 +24,15 @@
   // **A register, not a glob.** A file joins this list when a task has made it type-clean, and
   // the command stays green the whole way. Globbing the directory would put 185 errors behind
   // the gate on day one, which is the same as having no gate. Remaining entrants are tracked by
-  // T-NOJIRA-harness-quality-03 (theme-match) and -04.
+  // T-NOJIRA-harness-quality-04.
   "include": [
     "mode-decision.mjs",
     "mode-decision.test.mjs",
     "normalise-captures.mjs",
     "normalise-captures.test.mjs",
     "render-design.mjs",
-    "render-design.test.mjs"
+    "render-design.test.mjs",
+    "theme-match.mjs",
+    "theme-match.test.mjs"
   ]
 }

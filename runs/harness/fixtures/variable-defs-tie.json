@@ -1,0 +1,23 @@
+{
+  "color/palette/neutral/700": "#54585D",
+  "color/palette/neutral/50": "#F2F3F5",
+  "color/button/success/link/focus/foreground": "#235500",
+  "color/button/warning/solid/idle/background": "#FF9D00",
+  "color/button/default/outline/focus/border": "#0074DF",
+  "color/palette/primary/900": "#001223",
+  "color/button/default/solid/idle/border": "#E3E6EA",
+  "color/foreground/bold": "#1b1c1e",
+  "color/foreground/plain": "#373a3e",
+  "color/background/primary/interactive/plain": "#0074df",
+  "color/foreground/disabled": "#b8c0c8",
+  "color/border/plain": "#d5d9de",
+  "color/shadow/overlay2": "#2222221f",
+  "color/shadow/overlay1": "#2222220a",
+  "color/background/input/interactive": "#c7cdd3",
+  "color/background/input/plain": "#ffffff",
+  "color/border/input": "#8d959d",
+  "color/palette/neutral/600": "#71777D",
+  "color/input/fieldLabel/select/panel/bacground": "#FFFFFF",
+  "color/palette/primary/500": "#0060B9",
+  "color/palette/white/base": "#FFFFFF"
+}

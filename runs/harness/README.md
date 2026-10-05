@@ -213,6 +213,12 @@ them — `readRegions`, `CodeConnectSnippet`, `buildReport` — survived a plaus
 silence. Mutate each export once and check something goes red; it takes minutes and it is the only
 evidence that a suite is load-bearing.
 
+**A tool that cannot say "I don't know" will say something else.** Added 2026-10-05 with
+`T-NOJIRA-harness-quality-03`. `theme-match.mjs` settled a dead-heat between two themes by
+`readdirSync` order and named a winner; `render-design.mjs` substituted a frame nobody declared.
+Give every verdict an explicit `outcome`, let the no-answer cases leave by their own exit code,
+and never let a sort order decide anything.
+
 **Reshaping a measurement tool is proved by byte-identity, before any fix goes in.** Keep the old
 output over the whole corpus, decompose, re-run, diff. Then make the behaviour change separately,
 so the diff that follows is the change and nothing else. `render-design.mjs` went from 0 exports
@@ -225,8 +231,8 @@ was supposed to.
 made it type-clean, so the gate is green from the first day and stays that way. Globbing the
 directory today would put 185 errors behind it, which is the same as having no gate.
 
-Registered so far: `mode-decision.mjs`, `normalise-captures.mjs`, `render-design.mjs` and their
-tests. `theme-match.mjs` and the rest are tracked by `T-NOJIRA-harness-quality-03` and `-04`.
+Registered so far: `mode-decision.mjs`, `normalise-captures.mjs`, `render-design.mjs`,
+`theme-match.mjs` and their tests. The rest are tracked by `T-NOJIRA-harness-quality-04`.
 
 The scripts are `.mjs` with JSDoc types rather than `.ts`. Node 24 runs `.ts` natively, but it
 **strips types without checking them** — `const n: number = 'text'` executes and prints the

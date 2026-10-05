@@ -105,3 +105,52 @@ Nine task files are marked `blocked` or `cancelled` with the wrong line quoted; 
 still name no corpus case, so plan acceptance 7 is unmet across all sixteen; and the triage plan's
 "nine already satisfied" is disproved by the control. None of these blocks Step 0, and all of them
 block someone picking up a task file and trusting it.
+
+---
+
+## Why not write the adapter and the generator right now?
+
+You could. Nothing blocks it. The question is what you would learn and what you would redo, and
+there are three specific answers.
+
+**Step 0 is not a detour — it is the first days of the adapter, reordered to produce a decision.**
+The geometry comparator is load-bearing in the generator anyway; building it standalone means it
+is tested in isolation against a fixture with known offsets rather than debugged inside a larger
+pipeline.
+
+**Without the census, the adapter gets designed against whatever it happens to meet.** There are
+four provenance classes in the corpus — Figma's bytes, reconstructed, summarised, and agent prose
+wearing JSX — and each needs a different recovery path. Discovered one crash at a time, that is a
+parser with four accidental branches. Known up front, it is a parser with four designed ones.
+
+**Without the census, a fidelity number cannot be interpreted.** Today nine of nineteen runs
+render and the independent-comparison population is about four. If you build the generator first
+and it produces a number, nobody can say whether that number describes the pipeline, the corpus,
+or a splitter bug.
+
+### What each step adds that we do not have
+
+|            | Adds                                                                                   | It does not             |
+| ---------- | -------------------------------------------------------------------------------------- | ----------------------- |
+| **Step 0** | knowing **which runs are evidence**, and the first fidelity figure with an N beside it | improve the generator   |
+| **Step 1** | **more runs that produce anything at all** — the halt rate is 14 of 19                 | improve the measurement |
+
+They are orthogonal on purpose. Step 0 tells you what you have; Step 1 gets you more of it.
+Neither makes the generator better, and both change what it is fed and judged on — which is why
+doing them first stops the generator being tuned against a corpus nobody had characterised.
+
+### Can they corrupt the judgement? Yes, in two specific ways
+
+**Re-normalising changes the artifacts.** The nineteen captures were already rebuilt once from the
+runs' own markdown — every `capturedAt` within 64 ms. Repairing the splitter and re-normalising
+would add a **second** undisclosed layer. The rule, written into the census plan: a re-normalised
+index is a **new versioned artifact, never an overwrite**, and the original run markdown stays the
+source.
+
+**Step 1 changes the pipeline, so later runs stop being comparable to 5 of 38.** That is the
+intent — the number is meant to move — but it means the baseline must be **preserved and never
+re-run under the new code**. That rule already exists as Amendment 6's "the unmarked control is a
+kept artifact"; Step 1 is the first thing that depends on it holding.
+
+Neither risk argues against the steps. Both argue for doing them deliberately rather than as a
+side effect of building something else.

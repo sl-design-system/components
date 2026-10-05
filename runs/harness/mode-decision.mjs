@@ -22,14 +22,13 @@
  * node runs/harness/mode-decision.mjs --from <f> --file <k> --json
  */
 import { createReadStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { createWriteStream } from 'node:fs';
-import { pipeline } from 'node:stream/promises';
-import { Readable } from 'node:stream';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { argv, env, exit } from 'node:process';
 import { open } from 'node:fs/promises';
 import { z } from 'zod';
+
+import { DEFAULT_ENDPOINT, openSession } from './mcp.mjs';
 
 /**
  * @typedef {Map<string, number>} Externals External component name → how many of the file's
@@ -52,7 +51,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 export const CACHE_DIR = join(HERE, '.mode-cache');
 
 /** The Dev Mode server on this machine. It does not publish the per-file call; the remote does. */
-export const DEFAULT_ENDPOINT = 'http://127.0.0.1:3845/mcp';
+export { DEFAULT_ENDPOINT };
 
 export const TOOL = 'list_file_components_for_code_connect';
 
@@ -352,59 +351,9 @@ const cacheFile = (cache, fileKey, version, extension) =>
  * @returns {Promise<string>} Where the response was written — never its contents
  */
 export const fetchComponentsTo = async (path, { fileKey, endpoint = DEFAULT_ENDPOINT, token }) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json, text/event-stream',
-    ...(token ? { Authorization: `Bearer ${token}` } : {})
-  };
+  const session = await openSession({ endpoint, token });
 
-  const handshake = await fetch(endpoint, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 1,
-      method: 'initialize',
-      params: {
-        protocolVersion: '2025-06-18',
-        capabilities: {},
-        clientInfo: { name: 'slds-harness', version: '0.1.0' }
-      }
-    })
-  });
-
-  if (!handshake.ok) throw new Error(`${endpoint} refused the handshake: ${handshake.status}`);
-
-  const session = handshake.headers.get('mcp-session-id');
-
-  await handshake.body?.cancel();
-
-  const withSession = { ...headers, ...(session ? { 'mcp-session-id': session } : {}) };
-
-  await fetch(endpoint, {
-    method: 'POST',
-    headers: withSession,
-    body: JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' })
-  }).then(response => response.body?.cancel());
-
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: withSession,
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 2,
-      method: 'tools/call',
-      params: { name: TOOL, arguments: { fileKey } }
-    })
-  });
-
-  if (!response.ok) throw new Error(`${TOOL} failed: ${response.status} ${response.statusText}`);
-  if (!response.body) throw new Error(`${TOOL} returned no body`);
-
-  mkdirSync(dirname(path), { recursive: true });
-  await pipeline(Readable.fromWeb(response.body), createWriteStream(path));
-
-  return path;
+  return session.callTo(path, TOOL, { fileKey });
 };
 
 /**

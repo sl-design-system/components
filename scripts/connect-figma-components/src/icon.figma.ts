@@ -5,9 +5,14 @@ import { checkStringProperty } from './_shared/figma-assertions.js';
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const name = checkStringProperty(instance.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
+  const name = checkStringProperty(instance.getString('icon-name'), 'icon-name'),
     slot = instance.getString('slot'),
-    variant = instance.getEnum('variant', { outline: 'far', solid: 'fas' });
+    variant = instance.getEnum('variant', {
+      outline: 'far',
+      solid: 'fas',
+      'duotone-outline': 'fad',
+      'duotone-solid': 'fadr'
+    });
 
   return figma.code`
     <sl-icon

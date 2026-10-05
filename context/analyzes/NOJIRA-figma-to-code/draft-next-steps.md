@@ -1,5 +1,10 @@
 # Draft — what the batch says should happen next
 
+> **Superseded in part by [`sequencing.md`](sequencing.md)**, which sets the build order and says
+> what to do with the approved plans. Read that first; this file keeps the inventory of work the
+> runs identified. Both should be folded into a plan and deleted — a draft that outlives its
+> decisions gets read as current thinking after it stops being so.
+
 **Status: draft.** A holding place for work the nineteen runs identified, so that it survives
 until each piece gets a real plan. Ordered by what blocks what, not by size.
 

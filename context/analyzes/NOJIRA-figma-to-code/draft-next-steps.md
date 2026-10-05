@@ -1,6 +1,7 @@
 # Draft — what the batch says should happen next
 
-> **Superseded in part by [`sequencing.md`](sequencing.md)**, which sets the build order and says
+> **Superseded by [`what-to-do-next.md`](what-to-do-next.md)**, which is the single ordered view.
+> Also superseded in part by [`sequencing.md`](sequencing.md), which sets the build order and says
 > what to do with the approved plans. Read that first; this file keeps the inventory of work the
 > runs identified. Both should be folded into a plan and deleted — a draft that outlives its
 > decisions gets read as current thinking after it stops being so.

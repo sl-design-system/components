@@ -22,6 +22,19 @@ deliberately left unplanned — their content should be chosen from what the bas
 actually broken, not from what we guess today. Planning them now would repeat the failure the
 analysis documents.
 
+## Read this first
+
+**[`what-to-do-next.md`](../analyzes/NOJIRA-figma-to-code/what-to-do-next.md) is the ordered
+view.** Eight reviews on 2026-10-05 changed enough that slice order alone no longer describes the
+work: a week of measurement comes before any slice resumes, and the cheapest externally visible
+win sits inside slice 2b rather than at the front of slice 1.
+
+Two facts settled the same day. The **cost question is closed** — the HTML is generated once and
+consumed by hundreds of developers, so per-screen token cost against one developer was the wrong
+unit. And the **toolkit moves whole or not at all**: it is built here, the skill belongs to the
+design system team, and relocation to aipdlc is one later decision rather than an interface to
+design.
+
 ## Slices
 
 | #   | Slice                                       | Plan                                                             | Status                       | One-line scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |

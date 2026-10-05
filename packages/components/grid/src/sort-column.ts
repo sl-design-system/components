@@ -84,7 +84,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
       <th
         aria-colindex=${String(this.columnIndex)}
         aria-label=${ifDefined(this.headerAriaLabel)}
-        aria-sort=${ifDefined(this.ariaSorting)}
+        aria-sort=${ifDefined(this.headerRole === 'columnheader' ? this.ariaSorting : undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
         role=${this.headerRole}

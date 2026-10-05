@@ -1,5 +1,6 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -43,6 +44,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
       <th
         aria-colindex=${String(this.columnIndex)}
         aria-colspan=${Math.max(this.columnSpan, 1)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         colspan=${Math.max(this.columnSpan, 1)}
         id=${this.headerCellId}
         role="cell">
@@ -55,10 +57,8 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    columns.forEach(col => {
-      col.grid = this.grid;
-      col.groupHeaderIds = [];
-    });
+    // The grid recalculates `groupHeaderIds` when it receives the column update event
+    columns.forEach(col => (col.grid = this.grid));
 
     this.columns = columns;
     this.scopedElements = columns.reduce((acc, cur) => {

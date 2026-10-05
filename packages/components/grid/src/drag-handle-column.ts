@@ -40,15 +40,25 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeaderRow(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult {
+    // Only the first header row gets the stable id and the label; other rows
+    // (e.g. when a filter column adds a second header row) are empty placeholders.
+    const first = index === 0;
+
     return html`
       <th
         aria-colindex=${String(this.columnIndex)}
-        id=${this.headerCellId}
+        id=${ifDefined(first ? this.headerCellId : undefined)}
         part="header drag-handle"
         role=${this.headerRole}
         scope=${ifDefined(this.headerScope)}>
-        <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
+        ${
+          first
+            ? html`
+                <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
+              `
+            : nothing
+        }
       </th>
     `;
   }

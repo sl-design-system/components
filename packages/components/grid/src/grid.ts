@@ -484,7 +484,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
       <table
         part="table"
-        aria-colcount=${this.#headerRows.at(-1)?.filter(col => !col.hidden).length || 0}
+        aria-colcount=${this.#headerRows.at(-1)?.length || 0}
         aria-rowcount=${this.dataSource?.items.length || 0}
         role="table">
         <caption></caption>
@@ -813,6 +813,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target.scopedElements);
+
+    // When the contents of a column group change, the flattened header rows and the
+    // accessibility metadata (group header ids, column indexes) need to be rebuilt.
+    if (event.target instanceof GridColumnGroup && this.#columnDefinitions.length) {
+      this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
+      this.#setColumnAccessibility(this.#columnDefinitions);
+      this.requestUpdate();
+    }
   }
 
   #announceSelection(item: ListDataSourceDataItem<T>, index: number, selected?: boolean): void {
@@ -1499,16 +1507,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     let currentIndex = startIndex;
 
     columns.forEach(col => {
-      if (col.hidden) {
-        return;
-      }
-
+      // Hidden columns are still rendered, so they are counted like any other column
       const parentHeaderIds = parentGroup
         ? [...parentGroup.groupHeaderIds, parentGroup.headerCellId].filter(
             (value): value is string => !!value
           )
         : [];
       col.groupHeaderIds = parentHeaderIds;
+      col.groupHeaderLabels = parentGroup
+        ? [...parentGroup.groupHeaderLabels, parentGroup.headerLabelText].filter(Boolean)
+        : [];
       col.columnIndex = currentIndex;
 
       if (col instanceof GridColumnGroup) {

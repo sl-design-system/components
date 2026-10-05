@@ -155,6 +155,9 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal IDs of ancestor group headers that apply to this column header. */
   groupHeaderIds: string[] = [];
 
+  /** @internal Text labels of ancestor group headers; used to name form controls in cells. */
+  groupHeaderLabels: string[] = [];
+
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
 
@@ -443,7 +446,7 @@ export class GridColumn<T = any> extends LitElement {
     const columnLabel = this.headerLabelText,
       rowLabel = this.formControlLabel?.(item)?.trim();
 
-    return [columnLabel, rowLabel].filter(Boolean).join(' ');
+    return [...this.groupHeaderLabels, columnLabel, rowLabel].filter(Boolean).join(' ');
   }
 
   /**

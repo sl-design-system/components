@@ -1794,6 +1794,23 @@ describe('sl-grid', () => {
       );
     });
 
+    it('should count hidden columns in aria-colcount and column indices', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe', email: 'j@d.nl' }]}>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
+
+      expect(el.renderRoot.querySelector('table')).to.have.attribute('aria-colcount', '3');
+      expect(cells.map(cell => cell.getAttribute('aria-colindex'))).to.deep.equal(['1', '2', '3']);
+    });
+
     it('should use the sticky order from the last visible sticky start column', async () => {
       const dataSource = new ArrayListDataSource(
         [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],

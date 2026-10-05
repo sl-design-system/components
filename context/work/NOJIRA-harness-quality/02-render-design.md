@@ -12,6 +12,7 @@ owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
 tags: [harness, render, testing, zod]
+commit: aedbdde341f7576a609a59ad3690249380cdd03a
 source_plan: P-NOJIRA-harness-quality
 depends_on: [T-NOJIRA-harness-quality-01]
 ---

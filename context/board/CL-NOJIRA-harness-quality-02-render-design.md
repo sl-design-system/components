@@ -6,7 +6,7 @@ title: marcin.ludwig implements T-NOJIRA-harness-quality-02
 description: 'Claim on making render-design.mjs testable without changing a byte of its output'
 jira: null
 resource: null
-status: in-progress
+status: done
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
@@ -20,4 +20,7 @@ unit: T-NOJIRA-harness-quality-02
 
 ## Notes
 
-In progress.
+Delivered. The decomposition was proved byte-identical over all nineteen runs before any fix went
+in, every export was mutation-checked, and the fabricated-frame control was shown red — on a
+fixture, because all six corpus runs that hit the fallback turned out to declare a frame the
+reader never searched for.

@@ -118,3 +118,111 @@ What is ours, and what carries a validated schema:
 - **decision record** — per element: source, emitted, basis, delta
 
 The captures stay raw. The schema sits on the records that describe them, not on the bytes.
+
+---
+
+# Three robustness questions
+
+## 1. What is the contract with Figma, and what happens when it moves
+
+**There is no official library for consuming what we consume.** The repository has three official
+Figma packages — `@figma/code-connect` 2.0.1, `@figma/plugin-typings`,
+`@figma/eslint-plugin-figma-plugins` — and all three are for **authoring**: writing mappings and
+writing plugins. Nothing official describes or types the MCP server's responses.
+
+And those responses are not a versioned contract. Everything we know about their shape was found
+by being surprised:
+
+| Behaviour                                                                                                                       | How we found out                                    |
+| ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `get_screenshot` has four modes — exact, canvas bleed, downscale to a 1600/1280 long edge, **and halving every colour channel** | measuring captures                                  |
+| `get_metadata` returns XML                                                                                                      | the repository's formatter rejecting a `.json` file |
+| `get_design_context` returns the code **plus five advisory blocks**                                                             | a renderer feeding prose to a TSX parser            |
+| `get_code_connect_map` appends an English sentence to `{}` on timeout                                                           | invalid JSON in a `.json` file                      |
+| nested instance ids are rejected by a format check                                                                              | a run concluding the interior was unmapped          |
+| `hasTemplate: false` is a third state between resolved and absent                                                               | a run nearly halting on it                          |
+
+Six undocumented behaviours, four of which cost a run. **This is the least defended dependency in
+the design.**
+
+**So yes, validate — but at the boundary, not at the end.** Validating the final artifact means
+every decision was already made on data nobody checked; the failure surfaces far from its cause.
+Validate each response **as it is captured**, which is where the shape is known and where a
+failure is still actionable: retry, record, or stop.
+
+Two constraints on how:
+
+- **It must not transform.** The capture protocol's rule — a capture file holds exactly what the
+  call returned — is what lets a reader be rewritten later when it turns out to be wrong. So:
+  capture raw, validate a _parsed view_ of it, and record the verdict in `index.json` beside the
+  bytes. The bytes never change.
+- **The point is not correctness, it is noise.** A schema over an undocumented format will break
+  when Figma changes something. That is the feature. It converts a silent shape change — which in
+  this project has meant a confident wrong number every single time — into a loud failure at the
+  one place that knows what was expected.
+
+`zod` is not in the repository today; it would be a new, small dependency.
+
+**One question this raises and does not settle:** the Figma **REST API is documented and
+versioned**, where the MCP server is neither. The MCP server is what gives us Code Connect
+resolution and design context. It may be right to take structure from REST and semantics from
+MCP, rather than everything from the undocumented surface. Worth deciding deliberately.
+
+## 2. Where the agent sits, and what it reads
+
+**The agent interprets from disk, never during the fetch.** Four reasons, each from something
+that happened:
+
+- a crash mid-interpretation costs nothing, because the call was already persisted;
+- the same bytes can be re-read when a reader turns out to be wrong, which happened twice;
+- the interpretation becomes reproducible — re-run it on the same bytes and compare;
+- the payload stays out of the context window. One call returned 2.18 MB; an agent that reads
+  responses as they arrive loses its context to that.
+
+**The agent should almost never open a raw capture.** It reads the small derived files — the
+index, the classification, the decision record — and greps a capture when it needs one specific
+thing. That rule is what keeps the 2.18 MB incident from recurring by accident.
+
+So the shape is: **a skill the agent invokes runs the scripts; the scripts write; the agent reads
+what the scripts derived.** Three points where it acts, and nowhere else:
+
+1. **after capture and validation** — decide component boundaries and names, reading the index,
+   the classified unresolved list and the reconstruction;
+2. **implementation** — write the code for one component, reading its spec and the relevant
+   capture excerpt;
+3. **review** — read its own output.
+
+Mode, traversal, classification, every check and all three HTML files involve no agent at all.
+
+## 3. Can we know we have everything? Not as a proof, and that is the right answer
+
+**We cannot prove 100%, and aiming at a proof would be aiming at the wrong thing.** Where Code
+Connect resolves, we _deliberately_ do not hold the interior — the snippet is the authority and
+going deeper returns nothing. So "100% of the screen" and "100% of what is needed to reproduce
+it" are different quantities, and they differ exactly at the mapped nodes.
+
+The honest formulation is **completeness per region against a stated boundary**:
+
+| Region               | Complete when                                      |
+| -------------------- | -------------------------------------------------- |
+| mapped               | the mapping is recorded — by virtue of the mapping |
+| unmapped             | its own `get_design_context` is captured           |
+| hidden or decorative | it is explicitly excluded, with the reason         |
+
+A region in none of the three is a gap. That is `T-NOJIRA-figma-to-code-06`, node accounting, and
+it is the only true completeness check we have — the others sample.
+
+It is also **half built already**: the capture protocol counts node ids, and that count is how we
+know 3,004 were stored and a reader could read 2,114. Closing the loop means comparing the ids we
+hold against the ids the metadata tree declares, and assigning every one to a bucket.
+
+**And the limit that remains, stated rather than hidden:** `get_metadata` itself stops at instance
+boundaries — A2's 10,936-node design returned 27. So the tree we account against is the
+**placement-level view**, not every node in the file. That is the right view to account against,
+because it is the view a developer works in. But our completeness is _relative to it_, and anyone
+reading a completeness figure should know which tree it counted.
+
+Three tests, in increasing rigour and cost: the **reconstruction** says the regions are there
+(exists, eleven of nineteen runs failed it); **text coverage** says nothing visible went
+unrecorded (the check that would have caught the consent sentences); **node accounting** proves
+every declared node has a home. The first two are cheap and catch what actually went wrong.

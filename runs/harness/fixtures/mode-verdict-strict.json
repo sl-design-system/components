@@ -1,0 +1,39 @@
+{
+  "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
+  "version": "unknown",
+  "shape": "envelope",
+  "mode": "strict",
+  "reason": "7 distinct sl-* externals, e.g. sl-avatar, sl-badge, sl-button-bar/Pill",
+  "evidence": {
+    "slds": [
+      "sl-avatar",
+      "sl-badge",
+      "sl-button-bar/Pill",
+      "sl-button-pill",
+      "sl-button-rectangular",
+      "sl-card Actionable",
+      "sl-icon"
+    ],
+    "sldsCount": 7,
+    "other": [
+      "Hover state",
+      "Logo"
+    ],
+    "otherCount": 2,
+    "dependents": {
+      "Hover state": 14,
+      "Logo": 1,
+      "sl-avatar": 5,
+      "sl-badge": 1,
+      "sl-button-bar/Pill": 1,
+      "sl-button-pill": 4,
+      "sl-button-rectangular": 4,
+      "sl-card Actionable": 1,
+      "sl-icon": 2
+    }
+  },
+  "source": "runs/harness/fixtures/nsp-group-list-components.mcp.json",
+  "tool": "list_file_components_for_code_connect",
+  "decidedAt": "2026-10-05T21:55:28.181Z",
+  "cached": false
+}

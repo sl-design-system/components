@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 1,
+  "rootId": "4187:43000",
+  "expandedMapped": false,
+  "slowMapMs": 10000,
+  "complete": true,
+  "calls": {
+    "metadata": 14,
+    "map": 13
+  },
+  "bytes": {
+    "metadata": 7783,
+    "snippets": 0
+  },
+  "counts": {
+    "root": 1,
+    "resolved": 0,
+    "descended": 13,
+    "inline": 3,
+    "nested": 15,
+    "hidden": 2,
+    "unreadableMetadata": 0
+  },
+  "descents": {
+    "map-unreadable": 13
+  },
+  "pruned": [],
+  "nodes": [
+    {
+      "id": "4187:43000",
+      "tag": "symbol",
+      "name": "Sticky TOC",
+      "disposition": "root",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "4187:33868",
+      "tag": "frame",
+      "name": "Frame 31423",
+      "disposition": "inline",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "4187:33829",
+      "tag": "text",
+      "name": "Inhoudsopgave",
+      "disposition": "inline",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "4187:33783",
+      "tag": "instance",
+      "name": "sl-button-rectangular",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:33783",
+      "detail": "the map answered empty after 30792 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30792
+    },
+    {
+      "id": "4195:33202",
+      "tag": "instance",
+      "name": "sl-select (simple-prototype)",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4195:33202",
+      "detail": "the map answered empty after 31004 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 31004
+    },
+    {
+      "id": "4187:42819",
+      "tag": "frame",
+      "name": "Frame 31424",
+      "disposition": "inline",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "4187:35722",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:35722",
+      "detail": "the map answered empty after 30998 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30998
+    },
+    {
+      "id": "4187:36625",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36625",
+      "detail": "the map answered empty after 30997 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30997
+    },
+    {
+      "id": "4187:36665",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36665",
+      "detail": "the map answered empty after 30999 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30999
+    },
+    {
+      "id": "4187:36721",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36721",
+      "detail": "the map answered empty after 31003 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 31003
+    },
+    {
+      "id": "4187:36741",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36741",
+      "detail": "the map answered empty after 30994 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30994
+    },
+    {
+      "id": "4187:36761",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36761",
+      "detail": "the map answered empty after 31005 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 31005
+    },
+    {
+      "id": "4187:36781",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36781",
+      "detail": "the map answered empty after 30998 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30998
+    },
+    {
+      "id": "4187:36801",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36801",
+      "detail": "the map answered empty after 31000 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 31000
+    },
+    {
+      "id": "4187:36846",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36846",
+      "detail": "the map answered empty after 30998 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30998
+    },
+    {
+      "id": "4187:36869",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36869",
+      "detail": "the map answered empty after 31004 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 31004
+    },
+    {
+      "id": "4187:36892",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "4187:36892",
+      "detail": "the map answered empty after 30998 ms, at or past the 10000 ms budget — a call that slow has timed out, and a timeout is not an absence",
+      "snippetBytes": 0,
+      "ms": 30998
+    },
+    {
+      "id": "I4187:33783;109:59550",
+      "tag": "instance",
+      "name": "Button-Variants",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:33783",
+      "detail": "answered by 4187:33783: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:33783;2101:99172",
+      "tag": "instance",
+      "name": "Focus ring outside",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:33783",
+      "detail": "answered by 4187:33783: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4195:33202;1514:155951",
+      "tag": "instance",
+      "name": "sl-base-label",
+      "disposition": "hidden",
+      "reason": "hidden-in-the-design",
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4195:33202;1550:6733",
+      "tag": "frame",
+      "name": "input and validation",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4195:33202",
+      "detail": "answered by 4195:33202: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4195:33202;1514:155394",
+      "tag": "instance",
+      "name": "Select variations",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4195:33202",
+      "detail": "answered by 4195:33202: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4195:33202;1545:13374",
+      "tag": "instance",
+      "name": "sl-base-validation-message",
+      "disposition": "hidden",
+      "reason": "hidden-in-the-design",
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:35722;2995:1766",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:35722",
+      "detail": "answered by 4187:35722: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36625;2995:1766",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36625",
+      "detail": "answered by 4187:36625: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36665;2995:1772",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36665",
+      "detail": "answered by 4187:36665: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36721;2995:1774",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36721",
+      "detail": "answered by 4187:36721: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36741;2995:1774",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36741",
+      "detail": "answered by 4187:36741: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36761;2995:1774",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36761",
+      "detail": "answered by 4187:36761: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36781;2995:1774",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36781",
+      "detail": "answered by 4187:36781: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36801;2995:1770",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36801",
+      "detail": "answered by 4187:36801: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36846;2995:1770",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36846",
+      "detail": "answered by 4187:36846: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36869;2995:1770",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36869",
+      "detail": "answered by 4187:36869: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "I4187:36892;2995:1770",
+      "tag": "instance",
+      "name": "Base Tree Node",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "4187:36892",
+      "detail": "answered by 4187:36892: unreadable",
+      "snippetBytes": 0,
+      "ms": 0
+    }
+  ]
+}

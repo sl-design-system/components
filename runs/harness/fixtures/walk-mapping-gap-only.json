@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "rootId": "334:20573",
+  "expandedMapped": false,
+  "slowMapMs": 10000,
+  "complete": true,
+  "calls": {
+    "metadata": 7,
+    "map": 7
+  },
+  "bytes": {
+    "metadata": 1024,
+    "snippets": 142
+  },
+  "counts": {
+    "root": 1,
+    "resolved": 1,
+    "descended": 2,
+    "inline": 0,
+    "nested": 0,
+    "hidden": 0,
+    "unreadableMetadata": 0
+  },
+  "descents": {
+    "genuinely-unmapped": 2
+  },
+  "pruned": [
+    "334:20668"
+  ],
+  "nodes": [
+    {
+      "id": "334:20573",
+      "tag": "frame",
+      "name": "Group list",
+      "disposition": "root",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "334:20668",
+      "tag": "instance",
+      "name": "sl-button-pill",
+      "disposition": "resolved",
+      "reason": null,
+      "probedAs": "334:20668",
+      "detail": "SL Design System",
+      "snippetBytes": 142,
+      "ms": 410
+    },
+    {
+      "id": "334:22670",
+      "tag": "instance",
+      "name": "sl-badge [DRAFT]",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "334:22670",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 380
+    },
+    {
+      "id": "334:20593",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "334:20593",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 402
+    }
+  ]
+}

@@ -1,0 +1,632 @@
+Your task is to find the best matching component in the codebase for a given Figma component design.
+Figma component design is provided with the following structure for each component, keyed by node id:
+```
+{
+  componentName: ComponentName,
+  componentProperties: {
+    "prop1": "value1",
+    "prop2": "value2"
+  },
+  componentUrl: string //image URL as a MCP resource
+}
+```
+Each component may also have an associated image for visual inspection.
+Component: Sticky TOC
+Node ID: 4187:43000
+Properties: {}
+Component: ↔️ - Width Hug=true
+Node ID: 4187:33783
+Properties: {}
+Component: Type=Ghost, Variant=Secondary, State=Idle
+Node ID: 5383:96
+Properties: {}
+Component: Icon only=true, ↕️ - Size=MD
+Node ID: 5383:97
+Properties: {
+  "Focusring": "false",
+  "Icon Start": "true",
+  "𝐓 - Label": "Button",
+  "Icon End": "false"
+}
+Component: SL-icon/md
+Node ID: 5383:99
+Properties: {}
+Component: Variant=Outline
+Node ID: 5383:101
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: Focus ring outside
+Node ID: 5383:115
+Properties: {
+  "show": "true"
+}
+Component: sl-select (simple-prototype)
+Node ID: 4195:33202
+Properties: {
+  "Label": "true",
+  "Validation message": "false"
+}
+Component: Optional=false, Required=false
+Node ID: 5383:133
+Properties: {
+  "Label": "Label",
+  "Show Hint": "true",
+  "Hint": "This is a hint",
+  "Show Info": "true"
+}
+Component: Placeholder=false, Menu open=false, Variant=Default, ↕️ - Size=MD
+Node ID: 5383:135
+Properties: {
+  "Input value": "Input value",
+  "Placeholder text": "Placeholder",
+  "Clear button": "false"
+}
+Component: State=Default
+Node ID: 5383:147
+Properties: {}
+Component: sl-icon
+Node ID: 5383:150
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/md
+Node ID: 5383:153
+Properties: {}
+Component: Variant=Outline
+Node ID: 5383:157
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: Focus ring outside
+Node ID: 5383:170
+Properties: {
+  "show": "true"
+}
+Component: Multi select=false, Emphasis=Bold, Icon=false
+Node ID: 5383:174
+Properties: {
+  "01 - 05": "true",
+  "06 - 10": "true",
+  "11 - 15": "true",
+  "Divider 01": "false",
+  "Item 01": "true",
+  "Divider 02": "false",
+  "Item 02": "true",
+  "Divider 03": "false",
+  "Item 03": "true",
+  "Divider 04": "false",
+  "Item 04": "true",
+  "Divider 05": "false",
+  "Item 05": "true",
+  "Divider 06": "false",
+  "Item 06": "true",
+  "Divider 07": "false",
+  "Item 07": "true",
+  "Divider 08": "false",
+  "Item 08": "true",
+  "Divider 09": "false",
+  "Item 09": "true",
+  "Divider 10": "false",
+  "Item 10": "true",
+  "Divider 11": "false",
+  "Item 11": "true",
+  "Divider 12": "false",
+  "Item 12": "true",
+  "Divider 13": "false",
+  "Item 13": "true",
+  "Divider 14": "false",
+  "Item 14": "true",
+  "Divider 15": "false",
+  "Item 15": "true"
+}
+Component: Variant=Default, State=Idle
+Node ID: 5383:175
+Properties: {}
+Component: Focus ring outside
+Node ID: 5383:181
+Properties: {
+  "show": "true"
+}
+Component: sl-base-validation-message
+Node ID: 5383:186
+Properties: {
+  "Message": "Validation message"
+}
+Component: Variant=Parent, Multiselect=False, Expanded=True, Indeterminate=false, Selected=False
+Node ID: 4187:35722
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:211
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=0, Guides=True
+Node ID: 5383:214
+Properties: {}
+Component: last-node-level=True
+Node ID: 5383:217
+Properties: {}
+Component: sl-icon
+Node ID: 5383:227
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:230
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:233
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:243
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:253
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:254
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:255
+Properties: {}
+Component: Variant=Parent, Multiselect=False, Expanded=True, Indeterminate=false, Selected=False
+Node ID: 4187:36625
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:281
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=1, Guides=False
+Node ID: 5383:282
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:283
+Properties: {}
+Component: sl-icon
+Node ID: 5383:288
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:289
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:290
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:294
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:300
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:301
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:302
+Properties: {}
+Component: Variant=Child, Multiselect=False, Expanded=False, Indeterminate=false, Selected=True
+Node ID: 4187:36665
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:327
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=2, Guides=False
+Node ID: 5383:330
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:331
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:334
+Properties: {}
+Component: sl-icon
+Node ID: 5383:346
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: State=Idle
+Node ID: 5383:347
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:357
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:358
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=True
+Node ID: 5383:359
+Properties: {}
+Component: Variant=Child, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36721
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:394
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=2, Guides=False
+Node ID: 5383:397
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:398
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:400
+Properties: {}
+Component: sl-icon
+Node ID: 5383:411
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: State=Idle
+Node ID: 5383:412
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:422
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:423
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:424
+Properties: {}
+Component: Variant=Child, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36741
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:447
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=2, Guides=False
+Node ID: 5383:448
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:449
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:451
+Properties: {}
+Component: sl-icon
+Node ID: 5383:455
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: State=Idle
+Node ID: 5383:456
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:462
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:463
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:464
+Properties: {}
+Component: Variant=Child, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36761
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:486
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=2, Guides=False
+Node ID: 5383:487
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:488
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:490
+Properties: {}
+Component: sl-icon
+Node ID: 5383:494
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: State=Idle
+Node ID: 5383:495
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:501
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:502
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:503
+Properties: {}
+Component: Variant=Child, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36781
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:525
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=2, Guides=False
+Node ID: 5383:526
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:527
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:529
+Properties: {}
+Component: sl-icon
+Node ID: 5383:533
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: State=Idle
+Node ID: 5383:534
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:540
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:541
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:542
+Properties: {}
+Component: Variant=Parent, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36801
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:564
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=1, Guides=False
+Node ID: 5383:567
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:568
+Properties: {}
+Component: sl-icon
+Node ID: 5383:579
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:581
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:583
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:590
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:600
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:601
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:602
+Properties: {}
+Component: Variant=Parent, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36846
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:628
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=1, Guides=False
+Node ID: 5383:629
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:630
+Properties: {}
+Component: sl-icon
+Node ID: 5383:634
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:635
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:636
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:640
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:646
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:647
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:648
+Properties: {}
+Component: Variant=Parent, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36869
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:673
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=1, Guides=False
+Node ID: 5383:674
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:675
+Properties: {}
+Component: sl-icon
+Node ID: 5383:679
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:680
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:681
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:685
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:691
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:692
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:693
+Properties: {}
+Component: Variant=Parent, Multiselect=False, Expanded=False, Indeterminate=false, Selected=False
+Node ID: 4187:36892
+Properties: {}
+Component: base-tree-node
+Node ID: 5383:718
+Properties: {
+  "Node Label": "Node Label",
+  "Icon": "true",
+  "showFocus": "false"
+}
+Component: Level=1, Guides=False
+Node ID: 5383:719
+Properties: {}
+Component: last-node-level=False
+Node ID: 5383:720
+Properties: {}
+Component: sl-icon
+Node ID: 5383:724
+Properties: {
+  "↕️ - Size": "4051:10275"
+}
+Component: SL-icon/xs
+Node ID: 5383:725
+Properties: {}
+Component: Variant=Solid
+Node ID: 5383:726
+Properties: {
+  "SVG icon": "2016:504",
+  "𝐓 - FontAwesome": "universal-access",
+  "☯︎ - Duotone - #": "universal-access#",
+  "☯︎ - Duotone - ##": "universal-access##"
+}
+Component: State=Idle
+Node ID: 5383:730
+Properties: {}
+Component: Actions Type=Badge
+Node ID: 5383:736
+Properties: {}
+Component: Focus ring border
+Node ID: 5383:737
+Properties: {
+  "show": "true"
+}
+Component: State=Idle, Selected=False
+Node ID: 5383:738
+Properties: {}
+Your actions:
+  - Search the codebase (by file names, exports, component signatures, props, or comments) for components that match the design's shape, property set, and styling.
+  - Weigh prop names, default values, CSS classes or style objects, and any descriptive comments to decide the best match.
+  - If multiple candidates are equally good, pick the one with the closest prop‑interface match and document your reasoning in a 1–2 sentence comment before your tool call.
+  - IMPORTANT: After you find all matches, show the user the list of matches and ask them to select the best match in the following format:
+```
+The following components match the design:
+  - [${componentName}](${pathToComponent}): ${designComponentName} at nodeId [${nodeId}](https://www.figma.com/design/5QzpiEMczWmmNmHhr1zGiq?node-id=${nodeIdWithHypohenInsteadOfColon})
+  ...additional matches
+Would you like to match this design to one of these components?
+```
+  - SUPER IMPORTANT: If the user selects a component, you will need to call send_code_connect_mappings tool with fileKey: 5QzpiEMczWmmNmHhr1zGiq and nodeId: 4187:43000 and the following JSON object:
+{
+  mappings: [{
+    nodeId: "string", // the Figma node identifier,
+    componentName: "string", // e.g. "Button/Primary"
+    source: "string", // the path to the component in the codebase
+    label: "string" // The framework or language label for this Code Connect mapping. Valid values:  React, Web Components, Vue, Svelte, Storybook, Javascript, Swift, Swift UIKit, Objective-C UIKit, SwiftUI, Compose, Java, Kotlin, Android XML Layout, Flutter, Markdown
+  }],
+}
+  - SUPER IMPORTANT: If the user says no or similar, call send_code_connect_mappings tool with fileKey: 5QzpiEMczWmmNmHhr1zGiq and nodeId: 4187:43000 and the following JSON object:
+{
+  mappings: [],
+}
+

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "rootId": "334:20573",
+  "expandedMapped": false,
+  "slowMapMs": 10000,
+  "complete": true,
+  "calls": { "metadata": 7, "map": 7 },
+  "bytes": { "metadata": 1024, "snippets": 142 },
+  "counts": {
+    "root": 1,
+    "resolved": 1,
+    "descended": 5,
+    "inline": 0,
+    "nested": 1,
+    "hidden": 0,
+    "unreadableMetadata": 0
+  },
+  "descents": { "genuinely-unmapped": 4, "map-unreadable": 1 },
+  "pruned": ["334:20668"],
+  "nodes": [
+    {
+      "id": "334:20573",
+      "tag": "frame",
+      "name": "Group list",
+      "disposition": "root",
+      "reason": null,
+      "probedAs": null,
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 0
+    },
+    {
+      "id": "334:20668",
+      "tag": "instance",
+      "name": "sl-button-pill",
+      "disposition": "resolved",
+      "reason": null,
+      "probedAs": "334:20668",
+      "detail": "SL Design System",
+      "snippetBytes": 142,
+      "ms": 410
+    },
+    {
+      "id": "334:22670",
+      "tag": "instance",
+      "name": "sl-badge [DRAFT]",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "334:22670",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 380
+    },
+    {
+      "id": "334:20593",
+      "tag": "instance",
+      "name": "sl-tree",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "334:20593",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 402
+    },
+    {
+      "id": "364:19522",
+      "tag": "instance",
+      "name": "sl-searchfield",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "364:19522",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 395
+    },
+    {
+      "id": "334:24372",
+      "tag": "instance",
+      "name": "Cell",
+      "disposition": "descended",
+      "reason": "genuinely-unmapped",
+      "probedAs": "334:24372",
+      "detail": null,
+      "snippetBytes": 0,
+      "ms": 371
+    },
+    {
+      "id": "334:20685",
+      "tag": "instance",
+      "name": "sl-card Actionable",
+      "disposition": "descended",
+      "reason": "map-unreadable",
+      "probedAs": "334:20685",
+      "detail": "the map answered empty after 31005 ms, at or past the 10000 ms budget",
+      "snippetBytes": 0,
+      "ms": 31005
+    },
+    {
+      "id": "I334:20668;1514:155951",
+      "tag": "instance",
+      "name": "sl-base-label",
+      "disposition": "nested",
+      "reason": "nested-id-not-probeable",
+      "probedAs": "334:20668",
+      "detail": "answered by 334:20668: resolved",
+      "snippetBytes": 0,
+      "ms": 0
+    }
+  ]
+}

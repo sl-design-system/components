@@ -6,8 +6,8 @@ title: The HTML contract and the common format it is generated from
 description: An adapter from Figma captures into a schema-validated common format, and three script-generated HTML artifacts built on it — the design, a per-element overlay, and a progress view — producing the first comparable numbers across the nineteen existing runs without a single Figma call
 jira: null
 resource: null
-status: proposed
-phase: conceptual
+status: approved
+phase: approved
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
@@ -15,11 +15,9 @@ tags: [figma, design-to-code, html, schema, determinism, measurement]
 source_analysis: A-NOJIRA-pipeline-staging
 slice: html-contract
 depends_on: []
-approved_by: null
-approved_date: null
-open_questions:
-  - Is the HTML the intermediate deliverable a developer receives, or only the completeness probe? The plan assumes the former; the answer changes nothing before step 2 and everything after it.
-  - Does the bench depend on marks, or degrade gracefully without them? P-NOJIRA-figma-to-code states the bench does not change the pipeline, and `data-figma-node` does.
+approved_by: marcin.ludwig
+approved_date: 2026-10-05
+open_questions: []
 ---
 
 # The HTML contract and the common format it is generated from
@@ -78,8 +76,13 @@ blocks on `data-figma-node` existing first.
 
 ## Work breakdown
 
-- `T-NOJIRA-html-contract-01` — The common format: schema derived from the contract analysis's
-  requirements, expressed in `zod`, with a validating reader
+- `T-NOJIRA-html-contract-00` — **The contract itself, and a human gate on it.** Draft the format
+  as a document, walk it against the checklist below, and **do not start 01 until it is
+  approved.** Nothing else in this plan can be changed as cheaply afterwards: the schema is what
+  every generator, every metric and the registry's keys are written against, so a field missing
+  here is a rewrite later rather than an addition.
+- `T-NOJIRA-html-contract-01` — The common format in code: the approved contract expressed in
+  `zod`, with a validating reader
 - `T-NOJIRA-html-contract-02` — Adapter from captures to the format, reporting gaps rather than
   hiding them
 - `T-NOJIRA-html-contract-03` — Retrofit: run the adapter over all nineteen runs; the runs it
@@ -99,8 +102,42 @@ blocks on `data-figma-node` existing first.
 - `T-NOJIRA-html-contract-10` — Fixture-based tests for every generator, so none of them needs
   Figma to be tested
 
-**The numbers are the execution order.** 01 to 04 answer whether the idea is coherent and cost
-nothing; 05 to 07 produce the first comparable measurement; 08 and 09 are the viewers; 10 is what
+### What task 00 must cover before it can be approved
+
+Three consumers, and the contract fails if it serves only the first.
+
+**1. Generating the design (2.1).** Element identity and the Figma node it came from; geometry;
+resolved style values; text content — including content that appears in no component mapping,
+which is how three consent sentences nearly went missing; asset references resolved to local
+files, never to an expiring Figma URL; and the component mapping where one resolved.
+
+**2. Analysis.** Per run: the mode and its evidence; the call ledger's derived figures — count,
+duration, bytes, retries, cache hits; tokens and wall clock per phase; the closure census;
+coverage figures; the guards (pipeline tree, file version, variable mode). These make a run
+comparable with another run, which is the thing the corpus cannot do today.
+
+**3. The overlay (2.2) — the consumer most likely to be under-served**, because it needs things
+only it needs:
+
+- **per element, a state** — matched, approximated, inferred, invented, missing — not a boolean;
+- **both values**: what the design said and what was emitted, so the overlay can show the
+  difference rather than assert it;
+- **the delta**, and whether it was **avoidable** — a colour between two ramp steps is unreachable
+  by construction, and the overlay must distinguish that from a mistake;
+- **the basis**: mapped, token, inferred, invented;
+- **the cause**, for anything unresolved, with its owner — the five causes;
+- **the anchor** — the node id, so hover and click attach to something;
+- **a question, where one exists** — the decomposer answers twenty to thirty per screen silently,
+  and the overlay is where they should surface.
+
+**The test of task 00 is a retrofit, not a review.** Take findings the nineteen runs already
+produced — Kampus's unreachable palette, A10's variable modes, the `::part()` specificity hazard,
+the `24 + 8 = 32` decomposition — and check the contract can record each. A contract that cannot
+express what we have already found is wrong, and that is discoverable in an afternoon without
+building anything.
+
+**The numbers are the execution order.** 00 is a gate; 01 to 04 answer whether the idea is
+coherent and cost nothing; 05 to 07 produce the first comparable measurement; 08 and 09 are the viewers; 10 is what
 keeps the generators testable as they change.
 
 Three orderings are load-bearing. **04 before 05**, because generating HTML from an incomplete
@@ -158,6 +195,18 @@ is not, and belongs to the other plan.
 
 ## Approval
 
-Not approved. Two open questions in the frontmatter need answers before `sl-tasks`, and one of
-them — whether the HTML is the deliverable or only the probe — changes the plan's purpose rather
-than its detail.
+**Approved 2026-10-05 by marcin.ludwig**, with task 00 added at approval as a human gate on the
+contract itself.
+
+Two questions were open when the plan was written and both are now settled, one by the owner and
+one by being assigned somewhere:
+
+- **Is the HTML the deliverable or only the probe?** The deliverable. _"html będzie kontraktem z
+  którego później można wygenerować implementację"_ — so the framework code is generated from the
+  HTML, and the probe is a by-product rather than the purpose.
+- **Does the bench depend on marks?** Decided inside task 00, which is where marks are specified.
+  The position to beat: marks are precision rather than precondition, so the bench degrades
+  gracefully and the unmarked control stays comparable.
+
+Approving the plan is not approving the contract. Task 00 is its own gate, and 01 does not start
+until it passes.

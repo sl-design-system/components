@@ -6,8 +6,8 @@ title: Ingestion quality — knowing what came out of Figma, and whether it came
 description: Turn the Figma fetch into a scripted, instrumented, verifiable step — Code Connect as the traversal's stopping rule, the empty map classified into five causes with owners, assets captured before their URLs expire, boundary checks at the schema edge, and a ledger that makes the cost and flakiness of every call countable
 jira: null
 resource: null
-status: proposed
-phase: conceptual
+status: approved
+phase: approved
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T00:00:00Z
@@ -15,11 +15,9 @@ tags: [figma, design-to-code, ingestion, determinism, instrumentation]
 source_analysis: A-NOJIRA-ds-conformance
 slice: ingestion-quality
 depends_on: [P-NOJIRA-html-contract]
-approved_by: null
-approved_date: null
-open_questions:
-  - Structure from the documented REST API and semantics from the undocumented MCP server, or everything from MCP? The MCP surface has produced six undocumented behaviours, four of which cost a run.
-  - Do the implementation agents lose the Figma tools outright? It is what makes the ledger complete by construction rather than by compliance, and it is a constraint on every future skill.
+approved_by: marcin.ludwig
+approved_date: 2026-10-05
+open_questions: []
 ---
 
 # Ingestion quality — knowing what came out of Figma, and whether it came out whole
@@ -84,9 +82,15 @@ is design system team work this plan only ranks.
 ## Work breakdown
 
 - `T-NOJIRA-figma-ingestion-01` — The call wrapper and the append-only ledger: call, node,
-  duration, bytes, status, attempt, whether a retry rescued it, cache hit
+  duration, bytes, status, attempt, whether a retry rescued it, cache hit. **Decides here:**
+  whether the implementation agents keep the Figma tools at all. Leaving them is a ledger complete
+  by compliance, which is the failure shape that made nineteen runs' self-reported costs disagree
+  by two orders of magnitude.
 - `T-NOJIRA-figma-ingestion-02` — Boundary validation: the eight checks, at capture time, without
-  transforming the stored bytes
+  transforming the stored bytes. **Decides here:** structure from the documented, versioned REST
+  API and semantics from MCP, or everything from MCP. The MCP surface has produced six
+  undocumented behaviours and four of them cost a run, so the split is worth pricing rather than
+  assuming.
 - `T-NOJIRA-figma-ingestion-03` — Mode decision, cached per file: library membership from
   `list_file_components_for_code_connect`, written to disk and grepped, never read into context
 - `T-NOJIRA-figma-ingestion-04` — Scripted traversal with Code Connect as the stopping rule,
@@ -172,6 +176,14 @@ run that reads it into context loses its window.
 
 ## Approval
 
-Not approved. Depends on `P-NOJIRA-html-contract` reaching its task 07, and on the two open
-questions in the frontmatter — the REST-versus-MCP split, and whether implementation agents keep
-the Figma tools.
+**Approved 2026-10-05 by marcin.ludwig.**
+
+The two questions that were open are not closed but **assigned**: the REST-versus-MCP split is
+decided in task 02, and whether implementation agents keep the Figma tools in task 01. Both are
+decisions the task cannot avoid making, so recording them as plan-level unknowns would only have
+delayed the same choice.
+
+Sequencing still binds: everything fidelity-shaped waits on `P-NOJIRA-html-contract` task 07b.
+The exception is the 14-case halt probe after task 04, which measures halts and needs no fidelity
+figure — it can run as soon as 04 lands, and it can falsify this plan on its own for a third of
+the cost of the full re-run.

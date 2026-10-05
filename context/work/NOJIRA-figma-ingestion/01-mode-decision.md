@@ -14,7 +14,7 @@ updated: 2026-10-05T18:40:00Z
 tags: [figma, mode, caching]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: []
-commit: pending
+commit: cff8209113f0a8cbbca256f6b878a7b1806a6133
 ---
 
 # Decide the mode from evidence, once per file

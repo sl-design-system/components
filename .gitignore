@@ -67,3 +67,7 @@ examples/lit/src/_runs/
 
 # Local agent definitions — not part of this repo
 agents/
+
+# Per-file Figma mode verdicts and the responses they were read from — regenerable, and the
+# responses run to megabytes. See runs/harness/mode-decision.mjs.
+runs/harness/.mode-cache/

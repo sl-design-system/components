@@ -96,7 +96,11 @@ is design system team work this plan only ranks.
 - `T-NOJIRA-figma-ingestion-04` — Scripted traversal with Code Connect as the stopping rule,
   probing per node, failing open and recording why it descended
 - `T-NOJIRA-figma-ingestion-05` — Unresolved-node classification: suggestions call, filter out
-  internals of resolved instances and pure assets, sort into the five causes with owners
+  internals of resolved instances and pure assets, sort into the causes with owners. **The five
+  causes are the retrieval-and-mapping axis only** — `A-NOJIRA-ds-conformance` F3b (attached but
+  **overridden** instances, which it argues is the worse case) and F4 (the soft similarity layer,
+  reported with its uncertainty and never used as a gate) are a second axis this task must either
+  carry or explicitly reject. The audit found both silently absent from both
 - `T-NOJIRA-figma-ingestion-06` — Asset capture during the fetch, after mapping resolution, with
   the cap-of-20 signal treated as "probably more"
 - `T-NOJIRA-figma-ingestion-07` — **Invoke** the closure check during ingestion and emit its

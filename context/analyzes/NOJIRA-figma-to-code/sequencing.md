@@ -358,3 +358,65 @@ nine unfixed critical items, all accessibility.
 So the research question is not "should we check accessibility" but **"which defects does a
 static artifact let us catch, and which need the running component"** — the two above fall on
 opposite sides of that line.
+
+---
+
+# The traceability audit, and the thing it found that I did
+
+Counted rather than asserted: **67 numbered requirements** across two colliding `R` namespaces,
+**68 findings**, **50 open questions**, **105 document-id references of which 23 do not resolve**.
+
+## What I did
+
+**I quietly replaced the metadata contract with a smaller one I derived myself.**
+
+`A-NOJIRA-figma-metadata-contract` is the most carefully argued document in this context: 24
+findings, 36 requirements each anchored to one, a three-artifact split, a six-case acceptance
+test, a three-step sequence. Its `## Leads to` names a plan and an ADR. **Neither was ever
+created.** Four days later I wrote `P-NOJIRA-html-contract` with "the contract itself" as task
+00 and built its checklist from four consumers — **citing one of the thirty-six.**
+
+It was not rejected and not deferred. It was re-derived, smaller, by a plan that did not know it
+was replacing it. That is the failure this effort criticised v2 for, in the same repository, four
+days after the analysis was written.
+
+Fixed: task 00's primary input is the R-list, its first deliverable is a disposition against all
+thirty-six, and the four-consumer checklist is demoted to a lens for finding gaps in that list.
+
+## Other threads that were agreed and then lost
+
+| Thread                                                          | Where it was agreed           | Why it matters                                                                                                                               |
+| --------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`data-figma-node` has no owner**                              | contract F15, sequence step 2 | Amendment 6 says so verbatim — and Amendment 6 is itself `pending`. The registry is blocked on it                                            |
+| **F11 — artifact per step, re-run is a no-op**                  | `A-NOJIRA-pipeline-staging`   | its own argument: free at the start, a rewrite to retrofit. Neither plan required it. **Now an acceptance criterion**                        |
+| **F5 — six computable checks**                                  | `A-NOJIRA-figma-to-code`      | billed as "the governing principle for the whole effort", pure geometry arithmetic, named in no plan. **Now task 11**                        |
+| **F3b and F4** — overridden instances, and the similarity layer | `A-NOJIRA-ds-conformance`     | the five causes cover retrieval and mapping only; F3b argues overridden-but-attached is the _worse_ case. **Now named in ingestion task 05** |
+| **F8 — the designer rehearsal**                                 | `A-NOJIRA-designer-workflow`  | its one immediately actionable recommendation. The word appears in the analysis and the roadmap, and nowhere else                            |
+| **Accessibility detection**                                     | Amendment 6                   | "detection must not defer" — and nothing detects                                                                                             |
+
+## Broken references
+
+Twenty-three unresolved ids. Twenty of them are one gap: **both approved plans have zero task
+files**, because `sl-tasks` has not run — correctly, since task 00 is a gate. The other three are
+real: `P-NOJIRA-figma-metadata-contract` and `AD-NOJIRA-figma-metadata-contract` are referenced
+and do not exist, and `batch-findings.md` cites a `T-NOJIRA-ds-conformance` with no number.
+
+## Eight questions still open and unowned
+
+Reference normalisation (now dissolved by scoring from the format); per-dimension tolerances and
+who accepts them; **what a developer does when the HTML is wrong** — the roadmap says "nothing
+describes that route yet"; who receives routed findings; which marketplace hosts the pipeline;
+Figma seat inventory and API limits; whether a mapping's property surface can be enumerated; and
+whether the mode partitions the score, the schema, or both.
+
+## What this changes about the method
+
+The three plan reviews checked the plans against each other. **This audit checked them against
+what we had already decided**, and found a different and worse class of error: not contradiction
+but **quiet replacement**. A contradiction announces itself when two documents are read together;
+a re-derivation reads as perfectly coherent, because it is — it is simply smaller than what it
+replaced, and nothing points at the gap.
+
+The cheap defence is mechanical: **a plan's `source_analysis` requires a disposition against that
+analysis's numbered requirements before approval.** Had that rule existed, this plan could not
+have been approved citing one of thirty-six.

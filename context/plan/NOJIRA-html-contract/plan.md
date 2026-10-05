@@ -106,6 +106,9 @@ blocks on `data-figma-node` existing first.
 - `T-NOJIRA-html-contract-09` — Generator 3, the progress view
 - `T-NOJIRA-html-contract-10` — Fixture-based tests for every generator, so none of them needs
   Figma to be tested
+- `T-NOJIRA-html-contract-11` — **The six computable checks** `A-NOJIRA-figma-to-code` F5 calls
+  "the governing principle for the whole effort" — pure `getBoundingClientRect` and
+  `getComputedStyle` arithmetic, currently named in no plan and no task despite that billing
 
 ### Task 00 cannot be approved without a survivorship census first
 
@@ -135,7 +138,30 @@ Two things the contract must carry, and the first is a **required field, not a c
 - **`asset: unavailable` as a format state**, so a figure says whether it scored an image-less
   render.
 
-### What task 00 must cover before it can be approved
+### Task 00 is anchored to the 36 requirements, not re-derived from them
+
+**A traceability audit found that this plan quietly replaced the contract it should have
+implemented.** `A-NOJIRA-figma-metadata-contract` carries 24 findings, **36 numbered
+requirements** each anchored to one, a three-artifact split with lifecycles, a six-case
+acceptance test and a three-step sequence. Its `## Leads to` names a plan and an ADR; **neither
+was ever created.** Four days later this plan was approved with "the contract itself" as task
+00, and derived its checklist afresh from four consumers — **citing exactly one of the
+thirty-six.**
+
+That is the same failure this effort criticised v2 for, committed in the same repository, four
+days after the analysis was written.
+
+**So task 00's primary input is the R-list, and its first deliverable is a disposition against
+every one of the thirty-six**: satisfied by the format, deferred with a named trigger, or
+rejected with a reason. The four-consumer checklist below is a **lens for finding gaps in that
+list**, not a substitute for it, and anything the lens surfaces that the R-list does not contain
+is an amendment to the analysis rather than a quiet addition here.
+
+**A naming hazard to fix while doing it:** there are two colliding `R` namespaces — R1–R31 in
+`A-NOJIRA-requirement-backlog` and R1–R36 in the contract analysis. Prefix them before anything
+cites a bare number.
+
+### The four-consumer lens
 
 **Four** consumers, and the contract fails if it serves only the first.
 
@@ -238,6 +264,14 @@ first, so 07a lives here rather than there. Verification is cheap and local; fix
 is not, and belongs to the other plan.
 
 ## Acceptance
+
+- **Every one of the contract analysis's 36 requirements has a recorded disposition** — satisfied,
+  deferred with a trigger, or rejected with a reason. A requirement with no disposition fails
+  task 00.
+- **Each step writes a versioned artifact and re-running a completed step is a no-op**
+  (`A-NOJIRA-pipeline-staging` F11, requirement R21). F11's own argument is that this costs
+  nothing at the start and is a rewrite to retrofit — neither approved plan required it until
+  the audit noticed.
 
 - The format's normative schema is language-neutral JSON Schema, `zod` is generated from it, and
   a round-trip test proves the two accept and reject the same documents.

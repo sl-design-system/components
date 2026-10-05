@@ -207,11 +207,26 @@ number, and six tools here have done exactly that. Every measurement script need
 control_: a known-bad input it must report rather than score, and the control has to be shown
 going red, not merely shown green.
 
+**Coverage is not the criterion; a test that fails when the function breaks is.** Added 2026-10-05
+with `T-NOJIRA-harness-quality-02`. Every export in `render-design.mjs` had a test and three of
+them — `readRegions`, `CodeConnectSnippet`, `buildReport` — survived a plausible wrong edit in
+silence. Mutate each export once and check something goes red; it takes minutes and it is the only
+evidence that a suite is load-bearing.
+
+**Reshaping a measurement tool is proved by byte-identity, before any fix goes in.** Keep the old
+output over the whole corpus, decompose, re-run, diff. Then make the behaviour change separately,
+so the diff that follows is the change and nothing else. `render-design.mjs` went from 0 exports
+to 24 with 16/16 outputs identical, and the frame fix that followed moved exactly the six runs it
+was supposed to.
+
 ### The type-check register
 
 `tsconfig.json` lists files explicitly instead of globbing. A file joins the list once a task has
 made it type-clean, so the gate is green from the first day and stays that way. Globbing the
 directory today would put 185 errors behind it, which is the same as having no gate.
+
+Registered so far: `mode-decision.mjs`, `normalise-captures.mjs`, `render-design.mjs` and their
+tests. `theme-match.mjs` and the rest are tracked by `T-NOJIRA-harness-quality-03` and `-04`.
 
 The scripts are `.mjs` with JSDoc types rather than `.ts`. Node 24 runs `.ts` natively, but it
 **strips types without checking them** — `const n: number = 'text'` executes and prints the

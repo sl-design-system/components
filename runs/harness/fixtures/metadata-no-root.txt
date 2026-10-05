@@ -1,0 +1,5 @@
+Notes from the capture session. The agent summarised the tree instead of pasting it, so no
+root box survives anywhere in this file — there is nothing to measure geometry against.
+
+- top navigation, full width
+- a list of groups, two columns

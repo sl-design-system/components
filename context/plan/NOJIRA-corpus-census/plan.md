@@ -68,10 +68,12 @@ that is agent prose stays agent prose and is classified as such.
   reconstructed / summarised / agent prose), whether it renders, and the **reference state**
   (exact / downscaled with its factor / channel-halved / undeclared frame). **This task owns
   reference integrity** — it does not merely record the state, it **refuses** a channel-halved
-  reference and flags an undeclared frame, because three runs' metadata begins with prose and the
-  renderer silently falls back to a hardcoded 1440×1024, scoring their geometry against a
-  fabricated frame. The review found this orphaned: one document had cut it, another still
-  required it, and no task owned it.
+  reference and flags an undeclared frame. The review found this orphaned: one document had cut
+  it, another still required it, and no task owned it.
+  **Partly discharged 2026-10-05 by `T-NOJIRA-harness-quality-02`:** the fabricated-frame half is
+  closed — it was six runs rather than three, all six declared a frame the reader failed to find,
+  and the probe now refuses rather than substituting. What remains here is the **reference**
+  state: refusing a channel-halved reference, which no script yet does.
 - `T-NOJIRA-corpus-census-03` — The geometry comparator: metadata's declared `x/y/w/h`, summed
   through the ancestor chain, against `getBoundingClientRect` in the browser `shoot.mjs` already
   drives.

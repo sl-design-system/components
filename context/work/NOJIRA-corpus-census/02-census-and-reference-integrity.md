@@ -41,10 +41,11 @@ it, another still required it, no task held it.
 2. Record whether it renders, after task 01.
 3. Record the **reference state**: exact, downscaled with its factor, channel-halved, or
    undeclared frame.
-4. **Refuse** a channel-halved reference — it is lossy and not invertible. **Name** an undeclared
-   frame: three runs' metadata begins with prose, and `render-design.mjs` silently falls back to
-   a hardcoded `1440×1024`, so their geometry would otherwise be scored against a fabricated
-   frame.
+4. **Refuse** a channel-halved reference — it is lossy and not invertible. The undeclared-frame
+   half of this step is **already done**: `T-NOJIRA-harness-quality-02` measured six runs on the
+   fabricated `1440×1024`, not three, found that all six declare a root the reader never searched
+   for, and made the probe refuse rather than substitute. Record the frame each run declares from
+   `render-design.mjs --run <run>`; do not re-derive it.
 5. Write `census.json`.
 
 ## Acceptance criteria
@@ -55,7 +56,8 @@ it, another still required it, no task held it.
 - Plan against **9 of 19 rendering**, the figure measured after task 01, not the 15 the roadmap
   estimated.
 - A channel-halved reference is refused; an undeclared frame is named.
-- **No run is scored against a fabricated frame.**
+- **No run is scored against a fabricated frame** — met for all nineteen as of
+  `T-NOJIRA-harness-quality-02`; this task records the result rather than re-establishing it.
 
 ## Verification
 

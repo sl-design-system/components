@@ -1,0 +1,6 @@
+<symbol id="174:232051" name="Account creation" x="5804" y="2025" width="1512" height="982">
+  <instance id="174:231461" name="sl-button-pill" x="927" y="579" width="368" height="24" hidden="true" />
+  <frame id="174:231462" name="Frame 48097621" x="147" y="143" width="462" height="752">
+    <frame id="174:231463" name="Frame 48097622" x="-1" y="0" width="464" height="40">
+      <text id="174:231464" name="Component name" x="0" y="0" width="464" height="40" />
+    </frame>

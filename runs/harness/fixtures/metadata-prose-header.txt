@@ -1,0 +1,8 @@
+Currently selected nodes:
+- 71:13345: Login 1
+
+<frame id="71:13345" name="Login 1" x="10553" y="461" width="1512" height="982">
+  <instance id="71:13346" name="sl-button-pill" x="927" y="579" width="368" height="24" hidden="true" />
+  <instance id="71:13361" name="logo-wordmark" x="40" y="41" width="106.9979248046875" height="19.45416831970215" />
+  <instance id="71:13362" name="Image login" x="732" y="29" width="745" height="924" />
+  <frame id="71:13433" name="Frame 48097622" x="147" y="231" width="461" height="504">

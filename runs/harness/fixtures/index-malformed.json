@@ -1,0 +1,7 @@
+{
+  "capturedAt": "2026-10-01T00:00:00.000Z",
+  "captures": [
+    { "file": "captures/01-get_design_context.tsx", "call": "get_design_context", "part": "code" },
+    { "call": "get_design_context", "part": "code", "label": "the entry with no file at all" }
+  ]
+}

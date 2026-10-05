@@ -1,0 +1,12 @@
+<!--
+Raw verbatim response of mcp__figma__get_metadata
+  fileKey: UBr399hnydpNF9P5Jb2vfx
+  nodeId:  2847:14994
+  server:  figma (remote)
+The tool returns XML, not JSON, despite the .json filename mandated by the pipeline.
+Preamble line returned by the tool: "Currently selected nodes: - 2847:14994: My Groups"
+-->
+<frame id="2847:14994" name="My Groups" x="3199" y="465" width="1280" height="1796">
+  <frame id="2847:14995" name="Frame 1000000745" x="128" y="152" width="1013" height="40">
+    <text id="2847:14996" name="Groups" x="0" y="0" width="352" height="40" />
+    <frame id="2847:14997" name="Frame 1000000830" x="554" y="0" width="459" height="40">

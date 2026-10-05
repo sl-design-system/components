@@ -533,6 +533,16 @@ header a normaliser wrote into a raw file. `render-design.mjs` then falls back t
 `1440×1024` — so those runs' geometry is scored against **a fabricated frame**, with nothing
 saying so.
 
+> **Measured 2026-10-05, under `T-NOJIRA-harness-quality-02`: it was six runs, not three, and the
+> data was never missing.** `a4`, `a5`, `a9`, `b-itsl-collab-add-element`, `b-nsp-home` and
+> `b-sanna-account-creation` all fell back. Every one of them **declares a root box** — the reader
+> looked at line 0 only and matched `<frame` only, so it missed a root behind a prose header
+> (`a9`, `b-nsp-home`, `b-itsl-collab-add-element`), behind an HTML comment (`a4`), inside an
+> escaped MCP envelope (`a5`), and a root spelled `<symbol` (`b-sanna-account-creation`). The
+> reader now searches, and **no run is scored against a fabricated frame**; six frames were
+> corrected, ten runs' output is unchanged to the byte. This is the third time in this batch that
+> a measurement tool returned a number where it should have raised.
+
 Measured raster distortion is also worse than recorded: a8 1024×820 against 1280×1024,
 b-itsl-course 1024×615 against 1280×768, b-sanna 1024×715 against 1512×982, b-sesame 934×1280
 against 1280×2392.

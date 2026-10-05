@@ -6,7 +6,7 @@ title: Make render-design testable, and prove the decomposition changed nothing
 description: '546 lines, zero exports, zero tests — and it produces every survivorship number in the effort, including the one figma-ingestion will be judged by'
 jira: null
 resource: null
-status: todo
+status: done
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
@@ -52,6 +52,29 @@ preserving, so a later plan can absorb or replace it cheaply.
 - **The negative control is shown going red** against a deliberately damaged input, not merely
   shown green against a good one.
 - The run with an undeclared frame is named rather than measured against `1440×1024`.
+
+## Outcome
+
+Delivered 2026-10-05. 546 lines with no export became **24 exported functions and 83 tests**, and
+the CLI at the foot of the file holds no logic.
+
+- **Byte-identity, step 2's whole point:** the decomposition was measured with the frame fix
+  pinned back to the old behaviour, so the comparison isolates the reshaping. **16/16 HTML
+  byte-identical, 16/16 reports identical**, and the three runs that exit 1 did so with identical
+  stderr. `capturedAt` never appears in this tool's output, so no field had to be excepted.
+- **Mutation-checked, not merely covered.** A plausible wrong edit was applied to each of the 24
+  exports in turn; three survived (`readRegions`, `CodeConnectSnippet`, `buildReport`) and gained
+  tests until they did not. Coverage is not the criterion — a test that fails when the function
+  breaks is.
+- **The fabricated frame was six runs, not three — and the data was never missing.** `a4`, `a5`,
+  `a9`, `b-itsl-collab-add-element`, `b-nsp-home` and `b-sanna-account-creation` all fell back,
+  and all six **declare a root box**. The reader looked at line 0 only and matched `<frame` only,
+  so it missed a root behind a prose header, behind an HTML comment, inside an escaped MCP
+  envelope, and one spelled `<symbol`. Searching for it corrects six frames and leaves the other
+  ten runs untouched to the byte.
+- Because no corpus run is genuinely undeclared, the negative control is anchored to
+  `fixtures/metadata-no-root.txt` rather than to `a9`. A control built on `a9` would now pass for
+  the wrong reason, which is the failure this plan exists to stop.
 
 ## Verification
 

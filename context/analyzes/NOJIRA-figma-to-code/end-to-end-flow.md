@@ -177,3 +177,104 @@ classification is stable, because an unstable classification would make T2 unrea
 
 The cheapest useful failure is T1 saying the causes cannot be told apart. That costs a day and
 saves the rest.
+
+---
+
+# Disk, resume, and knowing the metadata is right
+
+## 1. What is written, when, and why
+
+**Most of this is already specified** in [`runs/harness/CAPTURE-PROTOCOL.md`](../../../runs/harness/CAPTURE-PROTOCOL.md),
+written from nineteen runs' mistakes: one directory, one `index.json`, one call per file, named by
+node, **every capture `.txt` whatever it holds**, and `truncated` recorded when a caller knowingly
+stored less. That protocol stands; what follows is what it does not yet cover.
+
+**Write before you read.** Anything that cost an API call is persisted the moment it returns,
+before any agent interprets it. If the agent dies mid-interpretation the call is not repeated —
+and the bytes an interpretation was derived from stay available to check it against.
+
+**Never overwrite; a retry writes beside, not over.** A3 pass 2 wrote a real 46 KB
+`figma-metadata.json` on attempt 1 and a 12-byte `PLACEHOLDER` over it on attempt 3, because
+re-spawns share a folder and write unconditionally. The rule: write to a temp name, rename
+atomically, and if the target exists write `<name>.attempt-N` and record the divergence in
+`index.json`. **The folder exists for reproducibility and the retry loop defeated it.**
+
+**New artifacts this flow adds:**
+
+| File                         | When                     | Why                                                                                                                                      |
+| ---------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `captures/library-graph.txt` | Phase 0, per file        | the 2.18 MB answer. Cached by `(fileKey, fileVersion)`, grepped never read                                                               |
+| `mode.json`                  | Phase 0                  | the verdict plus its evidence — which externals, how many `sl-*`. Tiny, and it is what a reader checks first                             |
+| `captures/suggestions.txt`   | Phase 1b                 | the named unmapped list, raw                                                                                                             |
+| `unresolved.json`            | after the filter         | classified into the five causes, each with an owner                                                                                      |
+| `decisions.jsonl`            | Phase 2, **append-only** | one line per decision: node, source value, emitted value, basis. Append-only so a crash leaves a valid prefix rather than a corrupt file |
+| `progress.json`              | after every phase        | stage states, guards, and the terminal record                                                                                            |
+
+## 2. When an agent dies
+
+**Resume is re-running the same procedure.** Because every call writes one file named by node, the
+procedure can ask "does `captures/code-connect/4007-3169.txt` exist?" and skip what is already
+answered. Idempotence by construction beats a progress file that has to be kept in sync with
+reality — the batch had both, and only the files were ever right.
+
+`progress.json` then carries what the filesystem cannot:
+
+- **the guards.** The pipeline tree hash — `git rev-parse HEAD:tools/implement-design-plugin`, not
+  `HEAD`, which moved a dozen commits that could not affect a run and would have refused every
+  resume. Plus `figmaFileVersion`, and now **the variable mode**, because A10 showed two frames of
+  one file resolve the same token names to different values and the mode's name is not readable
+  through any call we have — only its effect.
+- **a terminal record, written last.** This is the one that matters most, and it comes from the
+  worst failure mode in the batch: eight runs ended a turn on a status line — _"waiting on X"_ —
+  which looks exactly like finishing. **Absence of a terminal record must mean "died", not
+  "finished".** Without that rule, partial output is indistinguishable from complete output, and
+  the batch showed that is not hypothetical.
+
+What a resume must refuse: a changed pipeline tree, a changed file version, or a changed variable
+mode. A run that is half one thing and half another describes neither.
+
+## 3. The metadata: from what, when, and how we know it is right
+
+**Built from** `get_metadata` (structure, ids, geometry), `get_code_connect_map` per node
+(identity), `get_design_context` (CSS, tokens, content), `get_variable_defs` (token name to value)
+and `get_screenshot` (reference). **When:** Phase 1, interleaved, pruned wherever a mapping
+resolves.
+
+### Do we have everything? — the reconstruction probe, with one trap
+
+`node runs/harness/render-design.mjs --run <run>` rebuilds the screen from the capture alone. If
+it shows the screen, the capture was deep enough. **Eleven of nineteen runs failed this before
+anybody looked.**
+
+**The trap, and it will mislead somebody:** where Code Connect resolves, Figma substitutes the
+reference for the markup, so **a well-mapped design reconstructs emptier than an unmapped one**.
+Read naively, the best-captured designs score worst. Completeness has to be judged per region —
+a mapped region is complete _by virtue of its mapping_, and only unmapped regions are expected to
+reconstruct.
+
+The protocol's depth rule says the same thing from the other side: capture is sufficient when
+every region a developer would place has its own `get_design_context`, and a `CodeConnectSnippet`
+reference is a stopping point rather than a gap.
+
+### Is it correct? — four checks, each from a real failure
+
+1. **Round trip.** The reconstruction against the reference. Catches missing regions. Already
+   built.
+2. **Cross-source agreement.** `get_design_context` reports a fallback hex and `get_variable_defs`
+   reports the variable's resolved value; on SANNA these disagreed — `#29076e` against `#32005a`.
+   Two sources for one fact, and a disagreement is a detectable defect rather than a judgement
+   call.
+3. **Text coverage — the check that would have caught the worst near-miss.** B-SANNA's three
+   consent sentences appear in **neither** `get_design_context` (which emits a bare
+   `<sl-checkbox checked>`) nor the manifest. They survived only because an implementer read them
+   off the screenshot. Diffing text visible in the reference against text present in the capture
+   makes that gap mechanical. **A schema that records component mappings but not their labels is
+   one OCR failure away from inventing legal copy.**
+4. **Node accounting.** Every node in the tree is emitted, absorbed into a parent's emission, or
+   explicitly excluded as hidden or decorative. A node in none of the three is an unaccounted gap.
+   This is `T-NOJIRA-figma-to-code-06`, and it is the only one of the four that is a true
+   completeness proof rather than a sampling check.
+
+The honest ordering: 1 and 3 are cheap and catch the failures that actually happened; 2 is nearly
+free; 4 is the rigorous one and the most work. Doing 1 and 3 first is not a compromise — it is
+where the measured defects are.

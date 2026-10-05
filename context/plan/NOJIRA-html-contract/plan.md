@@ -134,6 +134,12 @@ rejected with a reason. The four-consumer checklist below is a **lens for findin
 list**, not a substitute for it, and anything the lens surfaces that the R-list does not contain
 is an amendment to the analysis rather than a quiet addition here.
 
+**And one input I missed entirely:** `custom-elements.json` (CEM) declares every component's
+attributes, slots, **cssParts** and **cssProperties**. It is the authority for the component
+surface that runs have been inferring from pictures — one gave `sl-avatar` an `icon` slot it does
+not have, and `sl-select` documents a part that cannot match. It is generated rather than
+committed, so using it means running `scripts/build-metadata.js` first.
+
 **A naming hazard to fix while doing it:** there are two colliding `R` namespaces — R1–R31 in
 `A-NOJIRA-requirement-backlog` and R1–R36 in the contract analysis. Prefix them before anything
 cites a bare number.

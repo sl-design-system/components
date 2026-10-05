@@ -74,6 +74,22 @@ gap. We already read the bindings on every run.
 This also supplies the node-to-element link item 1 says the registry cannot proceed without, so
 it should be built before the schema, not after.
 
+## 2d. The flow end to end, and the four experiments that test it
+
+[`end-to-end-flow.md`](end-to-end-flow.md) walks the whole thing in order — what is called, when,
+what it decides — and names four experiments, cheapest first:
+
+|     | Experiment                                                                   | Cost    | Falsified if                                                                  |
+| --- | ---------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| T1  | does the diagnosis classify? Phase 0 + 1b over 19 designs, no code generated | hours   | a meaningful share cannot be classified, or two runs classify differently     |
+| T2  | the A/B against the control's 5/38                                           | 38 runs | completions rise but conformance figures are empty or disagree between passes |
+| T3  | does marking earn its cost? correspondence from marks vs from geometry       | small   | the two agree — then geometry is enough and the bench stays independent       |
+| T4  | does variance drop at the located point?                                     | 38 runs | outcomes still flip, meaning the variance was never in that branch            |
+
+**T1 first and alone.** It is hours, it generates nothing, and it answers the question every
+halted run failed to record. T2 should not start until T1 shows the classification is stable,
+because an unstable classification makes T2 unreadable.
+
 ## 3. One measurement, run over all nineteen
 
 There is still **no comparable number** for any run. Each measured itself, in prose, by its own

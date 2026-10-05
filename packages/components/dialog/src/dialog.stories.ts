@@ -35,9 +35,6 @@ Icon.register(faBurst, faTrash);
 
 export default {
   title: 'Overlay/Dialog',
-  parameters: {
-    viewport: { disable: true }
-  },
   args: {
     closeButton: false,
     disableCancel: false,
@@ -186,7 +183,7 @@ export const Lazy: Story = {
 };
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
       value: 'mobile',
       isRotated: false

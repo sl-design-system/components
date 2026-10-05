@@ -10,9 +10,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Paginator/Paginator',
-  parameters: {
-    viewport: { disable: true }
-  },
   args: {
     page: 2,
     pageSize: 10,
@@ -48,7 +45,7 @@ export default {
 export const Basic: Story = {};
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
       value: 'mobile',
       isRotated: false

@@ -74,6 +74,26 @@ gap. We already read the bindings on every run.
 This also supplies the node-to-element link item 1 says the registry cannot proceed without, so
 it should be built before the schema, not after.
 
+## 2a-bis. HTML is the deliverable, and T0 comes before everything
+
+[`html-first.md`](html-first.md). Three script-generated HTML files — the design, an overlay
+marking per-element state, and optionally a progress view — with validated contracts on our own
+records and raw captures underneath. Framework code comes later, from the HTML.
+
+**This resolves the two-goals tension better than two scores on one artifact did.** A
+script-generated artifact has no judgement in it, so two runs produce identical output: the design
+system team's "repeatable, ideally exact" is satisfied **by construction** at 2.1, and the
+competence owner's "useful in a real project" at the framework step, where agent judgement lives
+and a human reviews a PR anyway. The variance the control measured cannot occur before the agent
+enters.
+
+**T0, before T1 and before the registry.** Can a script produce 2.1 _faithfully_?
+`render-design.mjs` converts captures to HTML today but its header disowns fidelity explicitly.
+That is a statement about the converter, not about the data. Render one well-captured run, compare
+to its reference, measure the gap and its kind. If it is small, the position is sound; if it is
+large and structural, Phase 1 must capture more — far cheaper to learn now than after the registry
+is keyed.
+
 ## 2d. The flow end to end, and the four experiments that test it
 
 [`end-to-end-flow.md`](end-to-end-flow.md) walks the whole thing in order — what is called, when,

@@ -3,7 +3,6 @@ body {
   font-size: var(--sl-base-fontSize);
   line-height: var(--sl-text-md-lineHeight);
   font-weight: var(--sl-fontWeight-regular);
-  background-color: var(--sl-color-background-default);
 }
 
 .display {

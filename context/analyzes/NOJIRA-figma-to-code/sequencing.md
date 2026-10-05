@@ -420,3 +420,71 @@ replaced, and nothing points at the gap.
 The cheap defence is mechanical: **a plan's `source_analysis` requires a disposition against that
 analysis's numbered requirements before approval.** Had that rule existed, this plan could not
 have been approved citing one of thirty-six.
+
+---
+
+# The business review, and the question nobody had asked
+
+## 27 of 43 tasks produce nothing anyone outside this effort would notice
+
+Four approved plans, 43 tasks, **not one of them carries an estimate** — which is itself the
+finding. Slices 1 and 1b, twenty-seven tasks, are measurement and documents. The only externally
+visible thing in slice 1 is T-03, the intake report.
+
+## The cheapest externally visible win is days, not a quarter
+
+**The five-cause classification plus fail-open descent** — ingestion tasks 03, 04 and 05, without
+the ledger. `code-connect-explained.md` already prices it: _a few dozen lines, not a subsystem._
+Cause C is discriminated by `theme-match.mjs` today, cause D is a local grep over the mapping
+inventory, and A and B are fixed by the per-node retry that three runs improvised by accident. The
+two API calls that settle it were probed and both work.
+
+And it does **not** wait for the HTML plan: the 14-case halt probe needs no fidelity figure.
+
+## The cut list, and one item has negative value
+
+1. **The raster track — T-10, T-11 and 07a.** Demoted before it was started; `render-design.mjs`
+   says it must never be scored against the PNG; it would be scoreable on 8 of 19 runs; and it
+   **actively rewards absolute positioning**, which the settled ownership model — a script with no
+   model in the loop — cannot consume. Not low value. _Negative._
+2. **Slice 1b as a plan** — six tasks and an ADR to produce a list of eight that slice 3 reorders.
+3. **The progress view** — a third generator with no named consumer.
+4. **T-13 and T-16** — comparison cadence and rerun automation for a cadence that has run zero
+   experiments.
+
+Losing all four loses insurance, not product.
+
+## The opportunity cost, stated correctly — I had it wrong
+
+I offered "four mappings" as an alternative to the whole effort. It is not.
+
+> **The four mappings are an alternative to slice 1, not to the programme.** They are a _fidelity_
+> fix on the 5 runs that work, not a _halt_ fix on the 14 that do not — `code-connect-explained.md`
+> says plainly that finishing all fourteen scaffolds would change nothing for the halts.
+
+And the sharper version of the same point: **slice 1 measures fidelity on output that exists 13%
+of the time.** You cannot improve a number you obtain one run in eight.
+
+The honest reallocation: **halt classification (days) + four mappings (days) + the designer
+rehearsal (free)** — roughly 15% of the 43 tasks, touching both the halt rate and fidelity on
+working runs.
+
+## What kills this commercially rather than technically
+
+- **We are specifying someone else's build.** Forty-three tasks written here, for the aipdlc team,
+  and **nobody from that team has co-signed anything.** Specifying another team's work at this
+  scale is precisely the rework the owner is trying to avoid.
+- **One Figma release note is an existential event.** Six undocumented behaviours already; the
+  whole stopping-rule design rests on `get_code_connect_suggestions`, probed once, which already
+  over-reports.
+- **Nobody has scheduled the old pipeline's retirement**, so developers keep using the installed
+  one and the new one never acquires users.
+- **The question nobody asked.** 300k–2M tokens and 27–164 minutes per screen, ~8M for the batch.
+  **Nobody has compared that to a developer building the screen by hand.** At 5 of 38, that
+  comparison is not close — and it is the first thing any funder will ask.
+
+## If only one slice were funded
+
+**Ingestion, narrowed to tasks 01–05 and 09.** The only slice with a measured baseline to move, a
+diagnosed fix, proven API calls, and a task 09 that re-runs the control so the result is a number
+against 5 of 38 rather than a claim.

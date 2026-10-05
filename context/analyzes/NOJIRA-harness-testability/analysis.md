@@ -180,8 +180,12 @@ must be able to fail.**
 
 ## Open questions
 
-- Can `tsc --noEmit` cover `runs/harness/` without pulling it into the monorepo's TypeScript
-  project, which currently excludes it? `eslint` already refuses these files for that reason.
+- ~~Can `tsc --noEmit` cover `runs/harness/`?~~ **Answered while writing this.** There is no root
+  `tsconfig.json` — only `tsconfig.base.json` and per-package ones — so the harness takes its own
+  `runs/harness/tsconfig.json` and nothing in the monorepo project changes. Probed with
+  `allowJs`/`checkJs` over the two reshaped scripts: it runs and reports **44 errors, all
+  `implicitly has an 'any' type`**, which is the expected shape for untyped `.mjs` under `strict`.
+  `@types/node` has to be present, which it was not until it was pulled from the yarn cache.
 - Does `P-NOJIRA-html-artifacts` absorb the completeness probe, or does the probe stay? The
   answer moves `render-design.mjs` between first priority and out of scope.
 - Is a negative control per tool enough, or does each published figure need to state which

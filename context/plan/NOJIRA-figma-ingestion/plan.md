@@ -90,6 +90,10 @@ agent; growing Code Connect coverage, which is design system team work this plan
   internals of resolved instances and pure assets, sort into the five causes with owners.
   `A-NOJIRA-ds-conformance` F3b (attached but **overridden**) and F4 (the similarity layer) are a
   second axis this task must carry or explicitly reject
+- `T-NOJIRA-figma-ingestion-05` — **Two reader defects the remote server exposed.** Added after
+  03; see Amendment 1. The map may answer about a node's descendants rather than the node, and
+  the remote tool's map form carries no snippet — the reader calls both an absence. Both must be
+  fixed before anything is measured on them
 - `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
   today. A third of the cost of the full control, and it can falsify this plan on its own
 
@@ -100,6 +104,7 @@ good ideas indistinguishable from its bad ones:
 | ----- | ---------------------------------------------------------- | --------------------------------- |
 | 01    | does the mode agree with what the traversal then observes? | the 19 designs, no code generated |
 | 02    | **the fourteen-case probe.** If none converts, stop        | 14 halts                          |
+| 05    | `334:20594` stops being reported as unmapped               | the live walk, before the fix     |
 | 03    | is the cause stable across two passes of one design?       | counts that moved up to threefold |
 | 04    | completions **and** recorded conformance                   | 5 of 38                           |
 
@@ -161,3 +166,38 @@ delayed the same choice.
 fidelity figure it does not use — it measures halts — which would have delayed the only slice
 with a measured baseline to move. Its last task is the fourteen-case probe, a third of the cost
 of the full control, and it can falsify the plan on its own.
+
+### Amendment 1 — 2026-10-06, after approval
+
+Recorded because an approved plan that changes quietly is worse than one that was never approved.
+
+**What changed.** One task added, `T-NOJIRA-figma-ingestion-05`, between 03 and 04. Probing the
+**remote** Figma server on 2026-10-06 — which is where 04 must run, and which 01 to 03 were not
+exercised against — exposed two defects in the reader this plan delivered, both turning a
+successful answer into an absence:
+
+- `get_code_connect_map(334:20594)` returns entries for `334:20605`, `334:20610` and `334:20609`
+  — nodes **inside** the instance — and nothing for the instance itself. `classifyMap` looks up
+  one id, finds nothing, and files `genuinely-unmapped`.
+- Those entries carry `hasTemplate: true` with **no `snippet`**, which is the remote tool's
+  documented map form. `classifyMap` refuses it as a contradiction.
+
+Together they would route cause E to the design system team about an instance whose internals the
+map had just resolved. 04 is a measurement and both instruments are wrong, so it waits.
+
+Two further observations from the same probe, carried into 05 rather than left loose: the remote
+server appends `Note: the Code Connect lookup timed out` to a `{}` and the Dev Mode server does
+not, and the ~31 s per-call plateau recorded in 02 is a **Dev Mode property** — the remote
+answers in seconds, which removes the cost objection to running 04 over fourteen designs.
+
+**What did not change.** The goal, the approach, the five causes, the mode decision, the
+stopping rule, and the acceptance criteria. 05 repairs two readers; it adds no capability and
+moves no boundary. The dependency chain is unchanged except that 04 now waits on 05.
+
+**Judgement to be aware of.** 05 could have been folded into 04 as a first step. It is separate
+because 04's output is a number this plan is judged on, and a measurement task that quietly
+repairs its own instruments produces a figure nobody can date. Reverting costs one task boundary
+and the ability to say when the instruments became trustworthy.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-10-06

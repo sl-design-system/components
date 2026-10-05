@@ -6,7 +6,7 @@ title: marcin.ludwig implements T-NOJIRA-figma-ingestion-01
 description: 'Claim on the per-file mode decision derived from Code Connect externals'
 jira: null
 resource: null
-status: released
+status: done
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
 updated: 2026-10-05T18:00:00Z
@@ -20,6 +20,6 @@ unit: T-NOJIRA-figma-ingestion-01
 
 ## Notes
 
-Released, not done. The script and its nine tests are delivered and green; the two-file
-verification needs `list_file_components_for_code_connect`, which the local Dev Mode server does
-not publish and the remote gates behind OAuth. Unblocking condition in the task's `## Result`.
+Delivered and verified live on both files. Two defects only a real response could expose: the
+discriminator is `external: true`, not the `name`/`assetKey` pair, and the payload arrives
+escaped inside the MCP envelope — the reader found zero externals in 60 KB until it handled that.

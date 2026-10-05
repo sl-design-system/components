@@ -40,14 +40,30 @@ export const DEFAULT_ENDPOINT = 'http://127.0.0.1:3845/mcp';
 export const TOOL = 'list_file_components_for_code_connect';
 
 /**
- * An external dependency entry carries both a `name` and an `assetKey`; a component entry carries a
- * `name` without one. Keying on the pair is what separates "the file depends on `Cell`" from "the
- * file publishes a component called `courses`" — the distinction the whole decision rests on.
+ * A dependency entry is `{ name, external, assetKey }`; a component entry has a `name` and an
+ * `assetKey` but no `external`. So **`external: true` is the discriminator** — it separates "the
+ * file depends on `Cell`" from "the file publishes a component called `courses`", which is the
+ * distinction the whole decision rests on.
  *
- * Both key orders are accepted because the probe recorded the fields, not their order.
+ * Two things here were wrong on the first attempt, both found by reading live responses rather than
+ * the probe's prose about them:
+ *
+ * - The pattern paired `name` directly with `assetKey`, and `external` sits between them;
+ * - It only understood bare JSON, while a response arrives **wrapped in the MCP content envelope with
+ *   the payload as an escaped string** — `\"name\": \"sl-avatar\"`, and `\n` for the newlines. It
+ *   found zero externals in 60 KB of real response.
+ *
+ * So quotes are optionally backslash-escaped and gaps accept literal `\n` as well as whitespace.
+ * Both key orders are accepted, because the field order is not promised anywhere.
  */
-const EXTERNAL =
-  /"name"\s*:\s*"((?:[^"\\]|\\.)*)"\s*,\s*"assetKey"|"assetKey"\s*:\s*"(?:[^"\\]|\\.)*"\s*,\s*"name"\s*:\s*"((?:[^"\\]|\\.)*)"/g;
+const QUOTE = String.raw`\\?"`,
+  GAP = String.raw`(?:\s|\\[nrt])*`,
+  NAME = String.raw`([^"\\]+)`,
+  EXTERNAL = new RegExp(
+    `${QUOTE}name${QUOTE}${GAP}:${GAP}${QUOTE}${NAME}${QUOTE}${GAP},${GAP}${QUOTE}external${QUOTE}${GAP}:${GAP}true` +
+      `|${QUOTE}external${QUOTE}${GAP}:${GAP}true${GAP},${GAP}${QUOTE}name${QUOTE}${GAP}:${GAP}${QUOTE}${NAME}${QUOTE}`,
+    'g'
+  );
 
 /** Enough to span any single dependency entry, so no match is lost on a window boundary. */
 const OVERLAP = 4096;

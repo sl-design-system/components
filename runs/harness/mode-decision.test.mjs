@@ -14,15 +14,21 @@ import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import { classify, decide, externalsOf } from './mode-decision.mjs';
 
-/** The shape the probe documented: components, each with `dependencies[].name` and `assetKey`. */
-const file = components => ({ components });
+/**
+ * The shape a live response actually has — a bare array, each entry's `dependencies` carrying `{
+ * name, external, assetKey }`. Captured 2026-10-05 from `mONnHPTYNNaBwV3cFUHIYv` and kept verbatim
+ * in `fixtures/course-files-components.json`, which the last test reads.
+ */
+const file = components => components;
 const component = (name, instanceCount, ...dependencies) => ({
   name,
   instanceCount,
   dependencies: dependencies.map((dependency, index) => ({
     name: dependency,
+    external: true,
     assetKey: `key-${index}`
-  }))
+  })),
+  assetKey: `own-${name}`
 });
 
 const COURSE_FILES = file([
@@ -73,10 +79,58 @@ describe('externalsOf — the externals are read off the dependency graph', () =
 
   it('never loads the file whole — it streams, so a 2.18 MB response costs no memory', async () => {
     // A dependency name split across the 64 KiB boundary the reader uses must still be found.
-    const padding = { note: 'x'.repeat(70_000) };
-    const externals = await externalsOf(write({ ...padding, ...SANNA }));
+    const padded = [{ name: 'pad', note: 'x'.repeat(70_000), dependencies: [] }, ...SANNA],
+      externals = await externalsOf(write(padded));
 
     assert.ok(externals.has('sl-button-pill'));
+  });
+
+  /**
+   * The one case read off the wire rather than constructed. `code-connect-explained.md` recorded
+   * this file as _"13 — `courses`, `content`, `assignment`, `Navigation`… depending on `Cell`,
+   * `.Main menu`, `.Navigation item`, `your-files` — zero `sl-*`"_, and the live response agrees.
+   */
+  it('matches the live response the probe recorded, externals and all', async () => {
+    const externals = await externalsOf(
+      join(import.meta.dirname, 'fixtures', 'course-files-components.json')
+    );
+
+    assert.deepEqual([...externals.keys()].sort(), [
+      '.Main menu',
+      '.Navigation item',
+      'Cell',
+      'your-files'
+    ]);
+    assert.equal(externals.get('Cell'), 9, 'nine of the thirteen components depend on Cell');
+    assert.equal(classify(externals).mode, 'as-is');
+  });
+
+  /**
+   * What a response actually looks like when it arrives: wrapped in the MCP content envelope, with
+   * the payload as an **escaped string** — `\\"name\\": \\"sl-avatar\\"` and `\\n` for the
+   * newlines. The first version of this reader found zero externals in 60 KB of real response
+   * because it only understood bare JSON, and `fetchComponentsTo` writes the envelope too.
+   */
+  it('reads the envelope a live call returns, not just bare JSON', async () => {
+    const externals = await externalsOf(
+      join(import.meta.dirname, 'fixtures', 'nsp-group-list-components.mcp.json')
+    );
+
+    assert.ok(externals.has('sl-avatar'), 'sl-avatar is an external of this file');
+    assert.ok(
+      [...externals.keys()].filter(name => name.startsWith('sl-')).length > 5,
+      'an SLDS-based file depends on many sl-* components'
+    );
+    assert.equal(classify(externals).mode, 'strict');
+  });
+
+  it('does not mistake a published component for an external dependency', async () => {
+    const externals = await externalsOf(
+      join(import.meta.dirname, 'fixtures', 'course-files-components.json')
+    );
+
+    for (const published of ['courses', 'content', 'assignment', 'Navigation', 'shield'])
+      assert.ok(!externals.has(published), `${published} is published by the file, not external`);
   });
 });
 

@@ -6,7 +6,7 @@ title: Decide the mode from evidence, once per file
 description: 'Strict or as-is, derived from which library the file depends on — not from the team label'
 jira: null
 resource: null
-status: blocked
+status: done
 independent: true
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
@@ -14,6 +14,7 @@ updated: 2026-10-05T18:40:00Z
 tags: [figma, mode, caching]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: []
+commit: pending
 ---
 
 # Decide the mode from evidence, once per file
@@ -47,67 +48,84 @@ depend on `Cell` and `.Main menu`, with **zero**.
 
 Run against one SLDS-based file and one itslearning file; the verdicts must differ and each must name the externals it saw.
 
-## Result — implemented and tested, blocked on the one call it needs
+## Result
 
-`runs/harness/mode-decision.mjs`, with nine tests in `mode-decision.test.mjs`. Everything the
-acceptance criteria ask for is built and green; the task's **Verification** step is what cannot
-be done here, and the reason is not a defect.
+`runs/harness/mode-decision.mjs`, with twelve tests in `mode-decision.test.mjs`. Verified live on
+both files the task names.
+
+### The two verdicts
+
+| file                                    | verdict    | the evidence that decided it                                                                                                                  |
+| --------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `4TdMrcnIVOn3Hrfj2OpVZU` NSP group list | **strict** | 7 distinct `sl-*` — `sl-avatar`, `sl-badge`, `sl-button-bar/Pill`, `sl-button-pill`, `sl-button-rectangular`, `sl-card Actionable`, `sl-icon` |
+| `mONnHPTYNNaBwV3cFUHIYv` Course-files   | **as-is**  | 0 `sl-*`; depends on `Cell` (9 of its 13 components), `.Main menu`, `.Navigation item`, `your-files`                                          |
+
+The second row reproduces the 2026-10-05 probe exactly — _"13 components … `Cell`, `.Main menu`,
+`.Navigation item`, `your-files` — zero `sl-*`"_. Both responses are kept under
+`runs/harness/fixtures/`, so the verdicts are reproducible without a Figma call.
+
+The NSP file also depends on two non-SLDS externals, `Hover state` and `Logo`. Any `sl-*` makes
+it strict; a product file picking up a stray external does not make it someone else's design.
 
 ### What works
 
-- **The mode is recorded with its evidence.** The verdict carries `evidence.slds`,
-  `evidence.other`, both counts, and `dependents` — how many of the file's components depend on
-  each external — plus the `reason` sentence, the tool name and the source path.
-- **Cached per `(fileKey, version)`.** A second design from the same file reads
-  `.mode-cache/<fileKey>@<version>.verdict.json` and makes no call; the test proves it by passing
-  a fetcher that throws. Twelve files hold the nineteen designs, so this is twelve calls, then
-  none.
-- **The response is never read whole.** `fetchComponentsTo` streams the HTTP body straight to
-  disk with `pipeline`, and `externalsOf` scans the file in 64 KiB windows overlapping by 4 KiB,
-  de-duplicating matches by absolute offset. A test puts a 70 KB pad before the payload so a
-  dependency name lands across a window boundary and must still be found.
+- **The mode is recorded with its evidence.** `evidence.slds`, `evidence.other`, both counts, and
+  `dependents` — how many of the file's components depend on each external — plus the `reason`,
+  the tool name and the source path.
+- **Cached per `(fileKey, version)`.** A second design from the same file reads the cached verdict
+  and makes no call; a test proves it by passing a fetcher that throws. Twelve files hold the
+  nineteen designs.
+- **The response is never read whole.** `fetchComponentsTo` streams the HTTP body to disk with
+  `pipeline`; `externalsOf` scans in 64 KiB windows overlapping by 4 KiB, de-duplicating by
+  absolute offset. A test pads 70 KB ahead of the payload so a name lands across a boundary.
 
-The discriminator is `dependencies[].name` paired with `assetKey`, as
-[`code-connect-explained.md`](../../analyzes/NOJIRA-figma-to-code/code-connect-explained.md)
-recorded — never the component list, because **neither file publishes an `sl-*` component** and
-reading the list would classify both files the same way.
+### Two things only a live response could teach
+
+Both were wrong in the first version, and both came from building against the probe's prose
+rather than a stored response.
+
+1. **`external: true` is the discriminator, not the `name`/`assetKey` pair.** The real entry is
+   `{ name, external, assetKey }` — `external` sits _between_ them, so a pattern pairing `name`
+   with `assetKey` matched nothing. Keying on the component list instead would be worse still:
+   **neither file publishes an `sl-*` component**, because product files consume a library rather
+   than republish it, so the list classifies both files identically.
+2. **A response arrives wrapped in the MCP content envelope, with the payload as an escaped
+   string** — `\"name\": \"sl-avatar\"`, `\n` for newlines. The reader found **zero externals in
+   60 KB of real response** until it accepted escaped quotes and literal `\n`. `fetchComponentsTo`
+   writes that envelope too, so this was not only a fixture problem.
 
 ### One decision the task did not specify
 
 **No externals at all is `undecided`, not `as-is`,** and the CLI exits 1. An empty Code Connect
-result is five causes wearing one symptom and only one of them means "another library". Letting
-it fall through to `as-is` would convert a failed call into a verdict — the mistake this task
-exists to stop. Anything else means as-is, as written; _nothing_ means we do not know.
+result is five causes wearing one symptom and only one means "another library". Letting it fall
+through would convert a failed call into a verdict. Anything else means as-is, as written;
+_nothing_ means we do not know.
 
-### Why Verification could not be run
+### Reaching the call
 
-The call lives on the **remote** Figma MCP (`https://mcp.figma.com/mcp`), behind OAuth held by
-the editor's MCP client. The **local** Dev Mode server at `127.0.0.1:3845` publishes ten tools
-and `list_file_components_for_code_connect` is not among them, so a harness script cannot reach
-it. Requesting it there returns `No matching discriminator` — confirmed, and that rejection was
-itself streamed to disk, which is the transport working.
+The script talks MCP over HTTP to `--endpoint`, default the Dev Mode server on
+`127.0.0.1:3845`. **That server does not publish this tool** — ten tools, and
+`list_file_components_for_code_connect` is not among them; it answers `No matching
+discriminator`, and that rejection streams to disk like any other response, which is the
+transport working. The tool lives on `https://mcp.figma.com/mcp`, behind OAuth held by the
+editor's MCP client, so a bare script gets `401`.
 
-The other route is to call it from an agent, but the response was **2.18 MB on SANNA's 153
-components** and would land in a context window, which this task forbids in its own step 1.
-
-So the two-file check — one SLDS file, one itslearning file, verdicts differing — is deferred.
-Proven instead: the full transport live against the local server; all three verdict paths through
-the CLI; and the classifier against the probe's recorded numbers.
-
-**To unblock:** a Figma token in `FIGMA_MCP_TOKEN`, or any MCP client that can redirect a tool
-result to a file. Then:
+Two ways to run it, both exercised:
 
 ```
-node runs/harness/mode-decision.mjs --file Mzc8BuOvMxOJGAQtv0h64M --endpoint https://mcp.figma.com/mcp   # SANNA   → strict
-node runs/harness/mode-decision.mjs --file mONnHPTYNNaBwV3cFUHIYv --endpoint https://mcp.figma.com/mcp   # itsl    → as-is
+# the editor's Figma MCP holds the credential: let it write the response to a file, then classify
+node runs/harness/mode-decision.mjs --file <fileKey> --from <response.json>
+
+# with a bearer token in the environment, the script fetches and classifies in one step
+FIGMA_MCP_TOKEN=... node runs/harness/mode-decision.mjs --file <fileKey> \
+  --endpoint https://mcp.figma.com/mcp
 ```
 
-One thing to check when it runs: the `dependencies[].name` + `assetKey` pairing is taken from the
-probe's prose, not from a stored response. If the real shape differs, `externalsOf` is what
-changes, and its tests carry the expected values.
+The envelope is handled either way, so a response saved straight from the editor needs no
+unwrapping.
 
-### This blocker is task 01's alone
+### This call is the plan's only remote one
 
-Measured across the plan's four tasks: `get_code_connect_map`, `get_code_connect_suggestions`,
+Measured across the four tasks: `get_code_connect_map`, `get_code_connect_suggestions`,
 `get_design_context` and `get_metadata` — everything tasks 02, 03 and 04 call — **are all on the
-local server**. Only this task needs the remote. `T-NOJIRA-figma-ingestion-02` can start.
+local server**. Only this task needed the remote.

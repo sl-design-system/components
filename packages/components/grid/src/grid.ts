@@ -820,6 +820,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
       this.#setColumnAccessibility(this.#columnDefinitions);
       this.requestUpdate();
+
+      // Refresh the row width, scrollbar measurements and auto-width columns for the new layout
+      void this.recalculateColumnWidths();
     }
   }
 

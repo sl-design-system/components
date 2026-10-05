@@ -278,3 +278,89 @@ reference is a stopping point rather than a gap.
 The honest ordering: 1 and 3 are cheap and catch the failures that actually happened; 2 is nearly
 free; 4 is the rigorous one and the most work. Doing 1 and 3 first is not a compromise — it is
 where the measured defects are.
+
+---
+
+# The word "metadata" means two things, and that is our fault
+
+Spotted in review, and it is a genuine collision in our own documents, not a misreading.
+
+| What we have said     | What it is                                                                                           |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| "metadata"            | **Figma's** `get_metadata` output — an XML node tree of ids, names, geometry. One capture among five |
+| "our metadata schema" | the intermediate record we said we would define, from which files get generated                      |
+
+Two different artifacts, one word. Everything below uses the second set of names.
+
+## We did not abandon the second one — it split into three
+
+[`A-NOJIRA-figma-metadata-contract`](../NOJIRA-figma-metadata-contract/analysis.md) reached a
+conclusion its own drafts did not expect: **the contract is three artifacts with three lifecycles,
+not one file.** Treating them as one is what made the design feel intractable.
+
+| Artifact                 | Written by                                                | Lifecycle               | Status                                            |
+| ------------------------ | --------------------------------------------------------- | ----------------------- | ------------------------------------------------- |
+| **Capture index**        | the ingestion step                                        | rewritten on re-capture | **exists** — `index.json` in the capture protocol |
+| **Run record**           | the pipeline, per run                                     | append-only, immutable  | v1 now                                            |
+| **Discrepancy registry** | measured half regenerated, decided half human and durable | split                   | **blocked** on the node-to-element link           |
+
+So the thing remembered as "our metadata files that the output is generated from" is now the
+**capture index plus the run record** — and the registry, which is the comparison rather than the
+input, is deliberately last because keying it before `data-figma-node` exists would bake in a
+heuristic we could not change later.
+
+## And the generation input turned out to mostly exist already
+
+The reason the schema got smaller rather than larger: **`get_design_context` already returns JSX
+with `data-node-id` on every element.** `render-design.mjs` says it plainly — _"Figma did the hard
+part; this is a converter, not a renderer."_
+
+So there is no separate synthesis step producing an intermediate representation. The captures
+**are** the representation; the index says what they are and the run record says what was decided
+about them.
+
+# Is the sequence right? Three corrections
+
+The proposed shape was: **Figma API → disk → verify via Code Connect → generate our metadata →
+produce HTML.** Close, and wrong in three places that matter.
+
+**1. Code Connect is not a step after capture. It is the stopping rule during it.** Put it
+afterwards and you have already paid for depth you did not need — on A2 that is the difference
+between 27 nodes and 233k tokens for one grid. It runs _between_ `get_metadata` and the next
+`get_design_context`, deciding whether that call happens at all.
+
+**2. "Generate our metadata" is not a phase.** The capture index is written _as each call
+returns_; the run record is appended _as each decision is made_. Neither is a pass over collected
+data — making them a phase reintroduces the failure where a crash loses everything between the
+last call and the write.
+
+**3. "Produce HTML" is ambiguous, and the two readings are different projects.** Worth settling
+explicitly rather than by drift:
+
+- **HTML as the completeness probe** — what `render-design.mjs` does today. Never scored against
+  the reference, never shipped; it answers "was the capture deep enough".
+- **HTML as the intermediate deliverable** — the staged architecture discussed earlier, where
+  HTML is the contract a developer receives and the app consumes.
+
+The current flow produces **Lit components**, with HTML only as the probe. If the intended
+deliverable is the HTML contract, that is a different Phase 2 and should be decided now, because
+everything about marking and measurement attaches to whichever one is the real output.
+
+# Where the tests are — one per phase, each able to fail before the next spends money
+
+| Phase       | The test                                                                                                     | Catches                                                     | Exists?             |
+| ----------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- | ------------------- |
+| 0 mode      | does the later traversal agree with the verdict? strict but every node returns `{}` means the mode was wrong | a mis-set mode that would misclassify everything downstream | no                  |
+| 1 capture   | **reconstruction probe** — rebuild the screen from the capture alone                                         | regions never captured. 11 of 19 runs failed it             | **yes**             |
+| 1 capture   | **text coverage** — text visible in the reference but absent from every capture                              | the near-miss that nearly invented legal copy               | no                  |
+| 1 capture   | **cross-source agreement** — design-context's fallback hex against the variable's resolved value             | one source silently wrong; caught `#29076e` vs `#32005a`    | no                  |
+| 1b classify | **stability** — two runs classify the same design the same way                                               | a classification that is still a judgement                  | no (this is T1)     |
+| 2 emit      | scoped type check · token existence · render verdict                                                         | a tree that compiles and does not render                    | **yes, all three**  |
+| 3 measure   | conformance and fidelity, against the per-design floor                                                       | a run blamed for the design system's gaps                   | partly              |
+| across      | variance — two passes, diff the decisions                                                                    | the thing the bench exists for                              | no (T4)             |
+| against     | the control's **5 of 38**                                                                                    | whether any of it helped                                    | **baseline exists** |
+
+The ordering principle is the one the batch kept violating: **a phase's test must be able to fail
+before the next phase spends anything.** The reconstruction probe costs seconds and eleven runs
+would have been stopped by it; instead they ran six stages on a capture that could not describe
+the screen.

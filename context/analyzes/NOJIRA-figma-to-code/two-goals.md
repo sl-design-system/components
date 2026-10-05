@@ -132,3 +132,38 @@ a run computes the bound: **per design, the best achievable fidelity using only 
 design's floor is 87%, the remaining 13% is a design system backlog item with a number attached —
 not a pipeline defect, and not a run's fault. That number is the most useful thing this effort
 can hand the design system team, and it falls out of the work either way.
+
+---
+
+## How this sits against the approved plan
+
+Checked task by task against `P-NOJIRA-figma-to-code`. **Nothing here contradicts it**; most of it
+is how several already-approved tasks get their input.
+
+| Task                                                     | Relation                                                                                                 |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `T-02` deterministic node-tree extraction                | marking consumes it — the node id in a mark comes from here                                              |
+| `T-03` intake report: adoption, detached, demand ranking | **this is the mode decision.** The file-level probe that picks strict or as-is is already a planned task |
+| `T-06` coverage metric: node accounting                  | marking is the mechanism that answers it; without it coverage is a heuristic                             |
+| `T-10` fidelity: DOM position                            | needs node-to-element correspondence, which a mark supplies exactly                                      |
+| `T-11` fidelity: per-component pixels                    | same — it has to know which DOM region is which node                                                     |
+| `T-12` strict and as-is modes                            | already the mode proposal, now with the control's numbers behind it                                      |
+| `T-08` variance reporting                                | "emit decisions as data, diff two runs" is how this gets signal that is not pixel noise                  |
+
+So the proposal adds **one** thing the plan does not have: the marking itself, which is a
+prerequisite for 06, 10 and 11 and currently no task. The metadata-contract analysis reached the
+same place from the other direction — the registry cannot be written before the node-to-element
+link exists.
+
+### One genuine tension the plan has not decided
+
+The plan is explicit that the bench is **a sibling tool that does not change the pipeline**. Marking
+_is_ a pipeline change. If the bench needs marks, it can no longer measure a pipeline that does not
+cooperate — and the 38 control runs produce none, so the baseline and a marked run would not be
+scored the same way.
+
+The way out is to treat marks as **precision, not precondition**: the bench measures geometry and
+pixels without them, and measures correspondence exactly with them, saying which mode it used in
+the result. That keeps the baseline comparable and still rewards cooperation. It needs deciding
+explicitly rather than by default, because the alternative — deriving correspondence heuristically
+so the bench stays pure — is the option the metadata-contract analysis already rejected.

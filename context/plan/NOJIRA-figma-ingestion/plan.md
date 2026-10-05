@@ -94,6 +94,9 @@ agent; growing Code Connect coverage, which is design system team work this plan
   03; see Amendment 1. The map may answer about a node's descendants rather than the node, and
   the remote tool's map form carries no snippet — the reader calls both an absence. Both must be
   fixed before anything is measured on them
+- `T-NOJIRA-figma-ingestion-06` — **Capture what Figma actually returns, by script.** Added
+  after 03; see Amendment 2. Three runs of nineteen carry verbatim captures and Code Connect is
+  the tool's own output in eight; every plan in this slice rests on agents' summaries of the data
 - `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
   today. A third of the cost of the full control, and it can falsify this plan on its own
 
@@ -105,6 +108,7 @@ good ideas indistinguishable from its bad ones:
 | 01    | does the mode agree with what the traversal then observes? | the 19 designs, no code generated |
 | 02    | **the fourteen-case probe.** If none converts, stop        | 14 halts                          |
 | 05    | `334:20594` stops being reported as unmapped               | the live walk, before the fix     |
+| 06    | runs whose captures are verbatim and hashed                | **3 of 19**                       |
 | 03    | is the cause stable across two passes of one design?       | counts that moved up to threefold |
 | 04    | completions **and** recorded conformance                   | 5 of 38                           |
 
@@ -198,6 +202,47 @@ moves no boundary. The dependency chain is unchanged except that 04 now waits on
 because 04's output is a number this plan is judged on, and a measurement task that quietly
 repairs its own instruments produces a figure nobody can date. Reverting costs one task boundary
 and the ability to say when the instruments became trustworthy.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-10-06
+
+### Amendment 2 — 2026-10-06, after approval
+
+**What changed.** A second task added, `T-NOJIRA-figma-ingestion-06`, after 05 and before 04.
+
+The corpus is not what this plan assumed it was. The `implement-design` skill instructs its
+analyst to persist every Figma call _"preserving the response verbatim"_; measured across all
+nineteen runs, `figma-code-connect-map.json` is the tool's own output in **8 cases**, hand-authored
+in 8 and absent in 3, and **3 runs of 19** have metadata, Code Connect and design context all
+verbatim. The rest carry `_note`, `probe_method` and `_per_node_probes` — agents describing what
+they saw instead of recording what they received.
+
+Code Connect is the single source this whole slice rests on, so that is the ground under tasks
+01 to 05. It is also the ground under `A-NOJIRA-figma-metadata-contract`, which is still `draft`
+and was derived from these captures.
+
+Three probes on 2026-10-06 decided the shape of the remedy:
+
+- **A script can reach the remote server.** `Authorization: Bearer figd_…` answers _"figd\_ tokens
+  must be passed via X-Figma-Token header"_, so a personal access token is a supported scheme and
+  no OAuth dance is needed. Which tools a token unlocks is 06's first step.
+- **`download_assets` exists, works, and no run has ever called it.** It returns an export, raw
+  images and SVGs, reports its own truncation at a cap of 20 each, and all three URL classes
+  downloaded successfully. `A-NOJIRA-figma-metadata-contract` F16 — _0 bytes saved, URLs 404
+  immediately_ — is at least partly an artefact of nobody calling the tool that serves them.
+- **Half of F14's raster distortion is a default.** `get_screenshot` clamps to
+  `maxDimension: 1024`; a8's 1280×1024 frame is stored as 1024×820, which is that clamp exactly.
+  `download_assets.export` returned the same node at native size.
+
+**What did not change.** The goal, the approach, the five causes, the stopping rule, the halt
+policy and the acceptance criteria. 06 produces data; it decides nothing this plan already
+decided, and the fourteen-case probe generates its own data either way.
+
+**Judgement to be aware of.** 06 is not needed by 04 and could have been deferred to its own
+plan. It sits here because this plan already owns the Figma calls and the traversal, and because
+leaving 04 to run while the corpus underneath it is 3-of-19 verbatim means the next person to
+question a figure has to do this work anyway, with less context. Reverting costs one task; the
+measurement stands either way.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-10-06

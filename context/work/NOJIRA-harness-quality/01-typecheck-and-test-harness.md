@@ -14,7 +14,7 @@ updated: 2026-10-05T00:00:00Z
 tags: [harness, typescript, tooling]
 source_plan: P-NOJIRA-harness-quality
 depends_on: []
-commit: pending
+commit: 314f8b70603cbd98f83df43cb5aa70ef6647e703
 ---
 
 # One command that type-checks and tests the harness

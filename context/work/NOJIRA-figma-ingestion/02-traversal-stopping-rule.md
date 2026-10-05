@@ -138,6 +138,14 @@ this traversal needs are published on `127.0.0.1:3845`; only `T-NOJIRA-figma-ing
 per-file call lives on the remote behind the editor's OAuth. No REST path was needed and none was
 built.
 
+> **Scoped down 2026-10-06 by `T-NOJIRA-figma-ingestion-06`.** That answer is right for the
+> traversal and wrong as a general conclusion. A personal access token reaches the **REST** API
+> and is refused by `mcp.figma.com` outright, and REST returns what MCP withholds: `componentId`
+> and `overrides` on every instance, the file's `version` and `lastModified`, variable modes, and
+> **620 nodes for a8's frame where `get_metadata` reported 98**. The fork is not one choice but
+> two: MCP for the interpreted views and Code Connect, REST for the document model. 06 captures
+> both.
+
 ### One thing left where it is
 
 Five of nineteen recorded Code Connect captures are prose or hand-annotated JSON rather than tool

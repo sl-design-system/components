@@ -36,67 +36,97 @@ hand-assembled JSON carrying `_note`, `probe_method`, `_per_node_probes`. The ag
 what they saw instead of recording what they received. The instruction existed and nothing
 checked it.
 
-So the corpus is not ground truth. It is nineteen summaries, and the metadata contract
-(`A-NOJIRA-figma-metadata-contract`, still `draft`) was derived from them.
-
 **The remedy is a script, not a better instruction.** An agent that _may_ summarise sometimes
-will; a script has no judgement. The guarantee has to be structural.
+will; a script has no judgement.
+
+### What the token probe found, and why this task changed shape
+
+Probed 2026-10-06 with a six-scope read token:
+
+|                                          |                                                                                                                                                                                                                                                                                                                                     |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mcp.figma.com` with `X-Figma-Token`     | **401 Unauthorized.** The token is well-formed and the server recognises the type — it rejected `Authorization: Bearer` with _"figd\_ tokens must be passed via X-Figma-Token header"_ — and still refuses. The MCP endpoint wants OAuth with `scope="mcp:connect"`; a personal access token does not reach it, whatever its scopes |
+| `api.figma.com` REST with the same token | **200, and it returns more than MCP does**                                                                                                                                                                                                                                                                                          |
+
+So the capture is **REST-first**, and the MCP half stays with the editor. That reopens the
+REST-versus-MCP fork `T-NOJIRA-figma-ingestion-02` closed in favour of MCP — correctly, for the
+traversal, which needs Code Connect and gets it from the Dev Mode server. For **capture** the
+answer is the other one, and the two are not in conflict.
+
+### What REST returns, measured
+
+On `4TdMrcnIVOn3Hrfj2OpVZU`, the file holding `a8-nsp-group-list`:
+
+| call                                     | result                                                                                             |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `GET /v1/files/:key`                     | **287 MB, 96 s, 200 248 nodes** — the whole document, no pagination, no depth limit, no truncation |
+| `GET /v1/files/:key/nodes?ids=334:20573` | **915 KB, 2.6 s, 620 nodes** — the frame's complete subtree, descending **through** instances      |
+| `GET /v1/files/:key/versions`            | 24 KB of version history                                                                           |
+
+**`get_metadata` reported 98 nodes for that same frame. REST reports 620.** The corpus captured
+roughly **one node in six**, because MCP metadata stops at instance boundaries and REST does not.
+That single ratio is the answer to "are we looking at the design or at a summary of it".
+
+Four things REST carries that MCP withholds, each of which closes a question another document
+has open:
+
+| REST field                                              | closes                                                                                                                                                                                      |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`, `lastModified`, `version` on the file           | **F10** — _Figma does not identify the design_. And `mode-decision.mjs` caches on `(fileKey, version)` with the literal string `unknown`, so **every cache entry today is `<key>@unknown`** |
+| `componentId` on every instance                         | the identity key `P-NOJIRA-mapping-adapters` needs. Name matching calls `sl-card Actionable` an exact match for `card.figma.ts`; `componentId` cannot                                       |
+| `overrides` and `componentProperties` on every instance | **F3b** — `A-NOJIRA-ds-conformance` left open _"whether overrides are visible in the fetched data at all"_. In REST they are                                                                |
+| `explicitVariableModes` on each canvas                  | **F12** — the variable mode MCP omits, which is why 37 of 399 token names resolve to more than one value with no way to tell which                                                          |
+
+**Neither source supersedes the other.** REST is the authoritative document model; MCP is the
+interpreted view — `get_design_context`'s markup and Code Connect's snippets exist nowhere in
+REST. The contract is the correspondence between them, and nobody has written it down because
+until now only one side was on disk.
 
 ## Steps
 
-1. **Settle the token first.** The remote server accepts a Figma personal access token:
-   `Authorization: Bearer figd_…` answers `figd_ tokens must be passed via X-Figma-Token header`,
-   so the scheme is supported and no OAuth dance is needed. **What is unproven is which tools a
-   PAT unlocks.** One `tools/list` with a real token answers it. If Code Connect is not among
-   them, capture the rest by script and record that Code Connect stays with the editor — that is
-   a result, not a blocker.
-2. **Walk the whole tree, not the top.** `traverse.mjs` already does this and already handles the
-   three things that make it hard: depth-limited metadata, instance boundaries, and the `;` ids
-   the server emits and refuses. Run it with `--expand-mapped` — pruning at a mapped node is
-   right when producing HTML and wrong when recording what Figma returns.
-3. **Call every tool the HTML needs, not two.** The capture today uses four; a design becomes
-   HTML from six:
-
-   | call                   | what it carries          | note                                        |
-   | ---------------------- | ------------------------ | ------------------------------------------- |
-   | `get_metadata`         | structure                | depth-limited; recurse                      |
-   | `get_code_connect_map` | mappings                 | answers about descendants, see task 05      |
-   | `get_design_context`   | layout, text, styles     | subtree-complete until it is truncated      |
-   | `get_variable_defs`    | bound tokens             | **per node, not once per run** — see step 4 |
-   | `download_assets`      | **the icons and images** | never called by any run; see step 5         |
-   | `get_screenshot`       | the reference raster     | pass `maxDimension` explicitly; see step 6  |
-
-4. **`get_variable_defs` per node.** `A-NOJIRA-figma-metadata-contract` F12 measured 37 of 399
-   token names resolving to more than one value — the same `color/background/primary/bold` is
-   `#137271` in one ETSL frame and `#3366ff` in another, because the variable mode is invisible.
-   Every run captured one call at the root, so that difference cannot be read out of the corpus
-   at all. Per node it can.
-5. **Download the assets in the same run.** Probed 2026-10-06 on `334:20573`:
-   `download_assets` returns an `export` render, `rawImages` and `svgAssets`, **and reports its
-   own truncation** — `rawImagesTruncated: true`, `svgAssetsTruncated: true`, with a message
-   naming the cap of 20 each. All three URL classes were downloaded successfully at the time of
-   capture. They are short-lived, so the download happens in the run, not afterwards.
-6. **Record the raster's parameters.** `get_screenshot` defaults to `maxDimension: 1024`. a8's
-   frame is 1280×1024 and its stored screenshot is **1024×820** — that is the default, not a
-   distortion. `download_assets.export` returned the same node at native **1280×1024**. Capture
-   both, record which is which, and pass `maxDimension` explicitly so the number is a choice.
-7. **Make the frontier truncation-driven.** `get_design_context` is subtree-complete and
+1. **Capture REST, per node, streaming to disk.** `GET /v1/files/:key/nodes?ids=<root>` for each
+   of the nineteen designs. 915 KB and 2.6 s for a 620-node frame, so the corpus is minutes, not
+   hours. **The response is never read into memory or a context window** — `mode-decision.mjs`
+   already has that discipline and `mcp.mjs` the streaming primitive. One whole-file
+   `GET /v1/files/:key` is worth taking **once**, as ground truth, with the 287 MB figure in mind.
+2. **Capture the file's identity alongside it** — `name`, `lastModified`, `version`, and
+   `/versions` — so `(fileKey, version)` stops being `@unknown` and "has it changed?" is
+   answerable without re-fetching.
+3. **Capture the MCP side as it is reachable, and record which half is missing.** The Dev Mode
+   server answers `get_metadata`, `get_design_context`, `get_variable_defs`,
+   `get_code_connect_map`, `get_screenshot` and `download_assets` without a token, for the file
+   the editor has open. That is a per-file manual step for twelve files; it is also the only
+   path to Code Connect until somebody holds an OAuth credential. **A design whose MCP half was
+   not captured says so** rather than looking like one with nothing to report.
+4. **Download the assets in the same run.** Probed 2026-10-06: `download_assets` returns an
+   `export` render, `rawImages` and `svgAssets`, **reports its own truncation** —
+   `rawImagesTruncated`, `svgAssetsTruncated`, cap of 20 each — and all three URL classes
+   downloaded successfully. They are short-lived. REST's `GET /v1/images/:key?ids=` is the
+   token-reachable equivalent for renders and should be captured too, so the two can be compared.
+5. **Record the raster's parameters.** `get_screenshot` defaults to `maxDimension: 1024`; a8's
+   frame is 1280×1024 and its stored screenshot is **1024×820**, which is that default and not a
+   distortion. `download_assets.export` returned the same node at native size. Capture both,
+   record which is which, and pass `maxDimension` explicitly so the number is a choice.
+6. **Make the MCP frontier truncation-driven.** `get_design_context` is subtree-complete and
    `download_assets` caps at 20 — both say so when they stop. Recurse where a response declared
-   itself incomplete, and nowhere else. The call count then scales with truncation events rather
-   than with node count, which is what makes a very large design tractable: a 10,936-node design
-   returned 27 top-level nodes from `get_metadata`.
-8. **Every file gets a call record.** Tool, arguments, server, HTTP status, elapsed time, byte
-   count and a hash of the response. `verbatim` then becomes checkable rather than inferred —
-   the measurement above needed a heuristic, and the first heuristic was wrong by four runs.
-9. **Budget, resumability and honest incompleteness.** A per-design call and byte budget, a
+   itself incomplete, and nowhere else, so the call count scales with truncation events rather
+   than node count. REST needs none of this: it returns the subtree whole.
+7. **Every file gets a call record.** Endpoint, arguments, status, elapsed time, byte count and a
+   hash of the response. `verbatim` then becomes checkable rather than inferred — the measurement
+   above needed a heuristic, and the first heuristic was wrong by four runs.
+8. **Budget, resumability and honest incompleteness.** A per-design call and byte budget, a
    checkpoint so an interrupted capture resumes rather than restarts, and `complete: false` with
-   the reason whenever a budget, a cap or a `429` stopped it. The server sends
-   `X-Figma-Rate-Limit-Type` and `Retry-After`; a run that quietly waited must not look like one
-   that did not.
+   the reason whenever a budget, a cap or a `429` stopped it. Record `Retry-After` when it
+   arrives: a run that quietly waited must not look like one that did not.
+9. **The token is temporary.** It lives in `.env` as `FIGMA_READ_TOKEN`, which is gitignored and
+   untracked, and it is revoked when this task ends. Nothing may bake it into a committed file,
+   a fixture or a cache path, and the capture must still be readable after it is gone.
 
 ## The token's scopes
 
-Mapped against the scope list Figma offers, 2026-10-06.
+Granted and in use, confirmed by the REST API naming them back in a 403:
+`file_content:read`, `file_metadata:read`, `file_versions:read`, `library_content:read`,
+`team_library_content:read`, `library_assets:read`. Mapped against the scope list Figma offers.
 
 | Scope                                                                      | Why                                                                                                                                                                                                                                                                    |              |
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
@@ -109,7 +139,7 @@ Mapped against the scope list Figma offers, 2026-10-06.
 Not needed: `current_user:read`, `file_comments:*`, `file_dev_resources:*`,
 `private_sandbox:connect`, `folders:read`, `webhooks:*`.
 
-### The Code Connect scope is write-only, and that matters here
+### The Code Connect scope is write-only — and moot, for now
 
 Figma offers no read variant. Reading the map means granting a token that can **write component
 code into the file**, and `get_code_connect_suggestions` returns a payload whose last line is an
@@ -117,14 +147,14 @@ instruction to an agent to call `send_code_connect_mappings` — a write tool �
 file. A token with this scope, held by a session that reads that response, is a loaded gun
 pointed at the design system's own file.
 
-So: **two tokens, not one.**
+**The probe settled it without anyone having to decide.** `mcp.figma.com` refuses personal
+access tokens whatever their scopes, so no token reaches `get_code_connect_map` and the write
+scope would be granted for nothing. Code Connect stays with the editor, which is where the
+credential already is, and the capture records which designs it covered.
 
-- A **capture token** without `file_code_connect:write`, which is what step 1 tests first. If the
-  four content calls work with it, every part of this task except Code Connect is done with a
-  token that cannot change anything.
-- A **Code Connect token** with the write scope, used only by the script, never exported into a
-  session where a model reads tool output. If that separation cannot be held, Code Connect stays
-  with the editor and the capture records that it did — which is a result, not a failure.
+If an OAuth credential is ever minted for the script, this paragraph is the reason to keep it in
+a separate one from the capture token, and to keep it out of any session where a model reads
+tool output.
 
 ## How the script knows it missed nothing
 
@@ -184,8 +214,13 @@ with a token is untested and is part of step 1.
 
 ## Verification
 
-Re-run two designs and diff. Then re-derive two findings of
-`A-NOJIRA-figma-metadata-contract` from the new captures rather than the old ones —
-**F14** (raster distortion) and **F16** (assets), both of which this task's probes already
-contradict in part: the downscales are the `maxDimension` default, and the asset URLs resolve.
-If the contract's findings survive on real data, it leaves `draft` with evidence behind it.
+Re-run two designs and diff. Then re-derive four findings of
+`A-NOJIRA-figma-metadata-contract` from the new captures rather than the old ones — **F10**
+(the design is unidentified), **F12** (variable modes invisible), **F14** (raster distortion)
+and **F16** (assets). This task's probes already contradict all four in part: REST carries the
+file version and the variable modes, the downscales are the `maxDimension` default, and the
+asset URLs resolve. If the rest of the contract survives on real data, it leaves `draft` with
+evidence behind it.
+
+The sharpest single check: **`get_metadata` reported 98 nodes for a8's frame and REST reports 620.** Any capture that does not reconcile those two numbers, or explain the difference node by
+node, has not understood what it captured.

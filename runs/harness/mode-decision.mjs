@@ -29,6 +29,21 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { argv, env, exit } from 'node:process';
 
+/**
+ * @typedef {Map<string, number>} Externals External component name → how many of the file's
+ *   components depend on it.
+ *
+ * @typedef {{
+ *   slds: string[];
+ *   sldsCount: number;
+ *   other: string[];
+ *   otherCount: number;
+ *   dependents: Record<string, number>;
+ * }} Evidence
+ *
+ * @typedef {{ mode: 'strict' | 'as-is' | 'undecided'; reason: string; evidence: Evidence }} Verdict
+ */
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 
 /** Twelve files hold the nineteen designs, so a cache turns nineteen calls into twelve. */
@@ -74,6 +89,7 @@ const OVERLAP = 4096;
  * Streams. A 2.18 MB response is read in 64 KiB windows that overlap by `OVERLAP` bytes, and
  * matches are de-duplicated by absolute offset so the overlap never double-counts.
  */
+/** @param {string} path @returns {Promise<Externals>} */
 export const externalsOf = async path => {
   const externals = new Map(),
     seen = new Set();
@@ -103,6 +119,7 @@ export const externalsOf = async path => {
   return externals;
 };
 
+/** @param {string} name */
 const isSlds = name => name.startsWith('sl-');
 
 /**
@@ -113,6 +130,7 @@ const isSlds = name => name.startsWith('sl-');
  * unwritten mapping, a stale one — and only the third means "someone else's design". Reading it as
  * a verdict turns a failed call into a decision, which is the exact mistake the batch made.
  */
+/** @param {Externals} externals @returns {Verdict} */
 export const classify = externals => {
   const slds = [...externals.keys()].filter(isSlds).sort(),
     other = [...externals.keys()].filter(name => !isSlds(name)).sort(),
@@ -146,12 +164,18 @@ export const classify = externals => {
   };
 };
 
+/** @param {string} cache @param {string} fileKey @param {string} version @param {string} extension */
 const cacheFile = (cache, fileKey, version, extension) =>
   join(cache, `${fileKey}@${version}${extension}`);
 
 /**
  * Calls the tool and writes the response straight to `path`, byte by byte. The body is never
  * assembled in memory and never returned, only its location.
+ */
+/**
+ * @param {string} path
+ * @param {{ fileKey: string; endpoint?: string; token?: string }} options
+ * @returns {Promise<string>} Where the response was written — never its contents
  */
 export const fetchComponentsTo = async (path, { fileKey, endpoint = DEFAULT_ENDPOINT, token }) => {
   const headers = {
@@ -214,6 +238,30 @@ export const fetchComponentsTo = async (path, { fileKey, endpoint = DEFAULT_ENDP
  *
  * Nineteen designs sit in twelve files, so the second design from a file costs nothing.
  */
+/**
+ * @param {{
+ *   fileKey: string;
+ *   version?: string;
+ *   from?: string;
+ *   cache?: string;
+ *   endpoint?: string;
+ *   token?: string;
+ *   fetchTo?: (
+ *     path: string,
+ *     options: { fileKey: string; endpoint?: string; token?: string }
+ *   ) => Promise<string>;
+ * }} options
+ * @returns {Promise<
+ *   Verdict & {
+ *     fileKey: string;
+ *     version: string;
+ *     source: string;
+ *     tool: string;
+ *     decidedAt: string;
+ *     cached: boolean;
+ *   }
+ * >}
+ */
 export const decide = async ({
   fileKey,
   version = 'unknown',
@@ -249,6 +297,7 @@ export const decide = async ({
 
 // Only when run, never when imported: the test loads the classifier from this module.
 if (import.meta.main) {
+  /** @param {string} name */
   const arg = name => {
     const i = argv.indexOf(`--${name}`);
 

@@ -42,7 +42,9 @@ const ASSETS =
 
 const ADVISORY_TEXT = STACK + NODE_IDS + STYLES + DESCRIPTIONS + ASSETS;
 
+/** @param {{ part: string; kind?: string; text: string }[]} blocks */
 const codeOf = blocks => blocks.filter(block => block.part === 'code');
+/** @param {{ part: string; kind?: string; text: string }[]} blocks */
 const advisoriesOf = blocks => blocks.filter(block => block.part === 'advisory');
 
 describe('extractBlocks — the five advisory blocks are separate entries', () => {

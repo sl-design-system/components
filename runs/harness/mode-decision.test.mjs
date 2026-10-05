@@ -19,7 +19,9 @@ import { classify, decide, externalsOf } from './mode-decision.mjs';
  * name, external, assetKey }`. Captured 2026-10-05 from `mONnHPTYNNaBwV3cFUHIYv` and kept verbatim
  * in `fixtures/course-files-components.json`, which the last test reads.
  */
+/** @param {object[]} components */
 const file = components => components;
+/** @param {string} name @param {number} instanceCount @param {...string} dependencies */
 const component = (name, instanceCount, ...dependencies) => ({
   name,
   instanceCount,
@@ -44,6 +46,7 @@ const SANNA = file([
   component('Step 02 – AI understanding', 2, 'sl-grid-row', 'sl-text-field')
 ]);
 
+/** @param {unknown} payload @returns {string} */
 const write = payload => {
   const path = join(mkdtempSync(join(tmpdir(), 'mode-')), 'components.json');
 

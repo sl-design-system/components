@@ -173,3 +173,54 @@ the first of the defects below, and `shoot.mjs` reports it as `nothing-rendered`
 returning a blank image as if it were a result. Three defects surfaced in the process, all in the generated code rather than the
 harness, and all recorded in
 [`smoke-run-findings.md`](../../context/analyzes/NOJIRA-figma-to-code/smoke-run-findings.md).
+
+---
+
+## Writing a script here
+
+Added 2026-10-05 with `T-NOJIRA-harness-quality-01`, after a script shipped two defects behind
+twenty-three passing tests. These are not style preferences; each one is a thing that went wrong.
+
+**`yarn check-harness` is the gate.** It runs `tsc --noEmit -p runs/harness` and
+`node --test "runs/harness/*.test.mjs"`, and fails if either does. Run it before you commit.
+
+**A script and its tests are one deliverable.** A script without tests is not finished. Write
+them together, not after.
+
+**Write it so it can be tested.** Export the functions; keep the CLI a thin shell over them,
+behind `if (import.meta.main)`. Six of the eight scripts here were written as monoliths with no
+exported function, which is why they have no tests — the gap is not that tests were skipped, it
+is that the shape forbids them.
+
+**Fixtures come from bytes we captured, never from a description of them.** Put them in
+`fixtures/`. `mode-decision.mjs` had atomic, isolated, passing unit tests and was wrong twice,
+because its fixtures were written from a probe's prose: the real discriminator was a field the
+prose did not mention, and real responses arrive wrapped in an escaped envelope the prose did not
+describe. It found **zero externals in 60 KB of real data** and reported that as a result.
+
+**Validate at the boundary with zod, not only with types.** A type annotation states what we
+assumed; the assumption is what is usually wrong. Static typing would have caught neither defect
+above; a four-line schema rejects the second outright.
+
+**A measurement tool must be able to fail.** A broken checker does not raise — it returns a
+number, and six tools here have done exactly that. Every measurement script needs a _negative
+control_: a known-bad input it must report rather than score, and the control has to be shown
+going red, not merely shown green.
+
+### The type-check register
+
+`tsconfig.json` lists files explicitly instead of globbing. A file joins the list once a task has
+made it type-clean, so the gate is green from the first day and stays that way. Globbing the
+directory today would put 185 errors behind it, which is the same as having no gate.
+
+The scripts are `.mjs` with JSDoc types rather than `.ts`. Node 24 runs `.ts` natively, but it
+**strips types without checking them** — `const n: number = 'text'` executes and prints the
+string — so the rename buys nothing that `checkJs` does not already give, and it would change
+every invocation in every runbook.
+
+### A note on installing
+
+`@types/node` and `zod` are declared in the root `package.json`. A full `yarn install` currently
+fails on the private `@fortawesome` packages, which need a real `FONT_AWESOME_AUTH_TOKEN`; that
+is unrelated to the harness but it does mean a fresh checkout cannot resolve these two until the
+token is available.

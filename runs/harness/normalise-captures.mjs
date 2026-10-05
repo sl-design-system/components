@@ -20,6 +20,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSy
 import { basename, join } from 'node:path';
 import { argv, exit } from 'node:process';
 
+/** @param {string} name */
 const arg = name => {
   const i = argv.indexOf(`--${name}`);
   return i === -1 ? undefined : argv[i + 1];
@@ -40,6 +41,7 @@ const outDir = arg('out-dir') ?? 'captures';
  */
 
 /** `25124:57173` → `25124-57173`, because a colon is awkward in a filename. */
+/** @param {string} nodeId */
 const safe = nodeId => nodeId.replace(/:/g, '-');
 
 /**
@@ -65,6 +67,25 @@ export const ADVISORIES = [
 ];
 
 /** Every sentinel occurrence in a stretch of text, earliest first. One response repeats none. */
+/**
+ * @typedef {{ part: 'code' | 'advisory'; kind?: string; text: string }} Block
+ *
+ * @typedef {{
+ *   call: string;
+ *   part?: string;
+ *   advisory?: string;
+ *   nodeId: string | null;
+ *   label: string | null;
+ *   file: string;
+ *   bytes: number;
+ *   capturedAt: string;
+ *   truncated: boolean;
+ *   continuationOf?: string;
+ *   note?: string;
+ * }} Capture
+ * @param {string} text
+ * @returns {{ kind: string; at: number }[]}
+ */
 const advisoryHits = text => {
   const hits = [];
 
@@ -84,6 +105,7 @@ const advisoryHits = text => {
  * Advisories inside a stretch of prose: each runs from its own sentinel to the next one, or to the
  * end. Whatever precedes the first sentinel is not an advisory and is left where it was.
  */
+/** @param {string} text @returns {Block[]} */
 const splitAdvisories = text =>
   advisoryHits(text).map(({ kind, at }, index, hits) => ({
     part: 'advisory',
@@ -96,6 +118,7 @@ const splitAdvisories = text =>
  * sentinel — never rewritten, only cut short — so a parser receives the same bytes it would have
  * received if Figma had sent a separator.
  */
+/** @param {string} text @returns {{ code: string, advisories: Block[] }} */
 export const splitAdvisoryTail = text => {
   const hits = advisoryHits(text);
 
@@ -116,10 +139,12 @@ export const splitAdvisoryTail = text => {
  * Both shapes are handled the same way: the code is what precedes the first sentinel, and each
  * advisory is its own entry. The code block's bytes are never rewritten, only cut short.
  */
+/** @param {string} text @returns {Block[]} */
 export const extractBlocks = text => {
   const fences = [...text.matchAll(/```(?:jsx|tsx|ts|js|javascript|typescript)?\n([\s\S]*?)```/g)];
 
   if (fences.length) {
+    /** @type {Block[]} */
     const blocks = [];
     let cursor = 0;
 
@@ -149,48 +174,66 @@ export const extractBlocks = text => {
 };
 
 /** The node a block describes: its own outermost `data-node-id`, else the heading's. */
+/** @param {string} block @param {string} text @returns {string | undefined} */
 const nodeIdFor = (block, text) =>
   block.match(/data-node-id="([\d:]+)"/)?.[1] ??
   text.match(/^#\s*(.+)$/m)?.[1].match(/node\s+([\d:]+)/)?.[1];
 
+/** @param {string} text */
 const labelFor = text => text.match(/^#\s*(.+)$/m)?.[1];
 
+/** @param {string} run */
 const normalise = run => {
-  const captures = [],
-    files = readdirSync(run),
-    stamp = statSync(run).mtime.toISOString(),
-    taken = new Set(),
-    emit = (dir, nodeId, extension, body, call, label, index, part = 'code', kind) => {
-      // An advisory is named for the block it holds, so the five of one response sit beside the
-      // code rather than on top of each other.
-      const stem = `${safe(nodeId ?? `unknown-${index}`)}${kind ? `.advisory.${kind}` : ''}`;
-      let relative = `${dir}/${stem}${extension}`;
+  /** @type {Capture[]} */
+  const captures = [];
+  const files = readdirSync(run);
+  const stamp = statSync(run).mtime.toISOString();
+  /**
+   * Paths already written in this run, so a second response rooting at one node cannot silently
+   * replace the first on disk while both stay in the index.
+   */
+  const taken = new Set();
 
-      // Two responses in one file can root at the same node. Before this, the second silently
-      // replaced the first on disk while both stayed in the index, pointing at the same bytes.
-      for (let n = 2; taken.has(relative); n++) relative = `${dir}/${stem}.${n}${extension}`;
-      taken.add(relative);
+  /**
+   * @param {string} dir
+   * @param {string | null | undefined} nodeId
+   * @param {string} extension
+   * @param {string} body
+   * @param {string} call
+   * @param {string | null} label
+   * @param {number} index
+   * @param {'code' | 'advisory'} [part]
+   * @param {string} [kind]
+   */
+  const emit = (dir, nodeId, extension, body, call, label, index, part = 'code', kind) => {
+    const stem = `${safe(nodeId ?? `unknown-${index}`)}${kind ? `.advisory.${kind}` : ''}`;
+    let relative = `${dir}/${stem}${extension}`;
 
-      if (write) {
-        mkdirSync(join(run, outDir, dir), { recursive: true });
-        writeFileSync(join(run, outDir, relative), body);
-      }
+    // Two responses in one file can root at the same node. Before this, the second silently
+    // replaced the first on disk while both stayed in the index, pointing at the same bytes.
+    for (let n = 2; taken.has(relative); n++) relative = `${dir}/${stem}.${n}${extension}`;
+    taken.add(relative);
 
-      captures.push({
-        call,
-        // Which part of the response this file holds. A design-context response has a code block
-        // and advisory blocks; a reader that wants one must not be handed the other.
-        part,
-        ...(kind ? { advisory: kind } : {}),
-        nodeId: nodeId ?? null,
-        label: label ?? null,
-        file: `${outDir}/${relative}`,
-        bytes: body.length,
-        capturedAt: stamp,
-        // The run's own files are what it saw; this step only moves bytes.
-        truncated: /\[(?:table subtree )?omitted\]|truncated for brevity/i.test(body)
-      });
-    };
+    if (write) {
+      mkdirSync(join(run, outDir, dir), { recursive: true });
+      writeFileSync(join(run, outDir, relative), body);
+    }
+
+    captures.push({
+      call,
+      // Which part of the response this file holds. A design-context response has a code block
+      // and advisory blocks; a reader that wants one must not be handed the other.
+      part,
+      ...(kind ? { advisory: kind } : {}),
+      nodeId: nodeId ?? null,
+      label: label ?? null,
+      file: `${outDir}/${relative}`,
+      bytes: body.length,
+      capturedAt: stamp,
+      // The run's own files are what it saw; this step only moves bytes.
+      truncated: /\[(?:table subtree )?omitted\]|truncated for brevity/i.test(body)
+    });
+  };
 
   // Files in the order they were written: the base name, then `-part2`, `-part3`. An alphabetical
   // sort puts `-part2` before `.md`, because a hyphen precedes a dot, and silently reverses them.
@@ -207,6 +250,7 @@ const normalise = run => {
   // So it records the fact instead of acting on it. Each file becomes its own capture, and one
   // that does not open a module is marked `continuationOf` the previous. A consumer joins them if
   // it needs to and knows exactly which, rather than inheriting a guess made here.
+  /** @type {string | null} */
   let previous = null;
 
   for (const name of contextFiles) {
@@ -220,7 +264,8 @@ const normalise = run => {
       // The advisories ride on the **last** of a split response's parts, which never reaches
       // `extractBlocks`. Repairing only the fenced and unfenced paths left two runs untouched.
       const { code, advisories } = splitAdvisoryTail(text),
-        relative = `design-context/${safe(previous)}.part${captures.length}.txt`;
+        /** @type {string} */
+        relative = `design-context/${safe(previous ?? 'unknown')}.part${captures.length}.txt`;
 
       if (write) {
         mkdirSync(join(run, outDir, 'design-context'), { recursive: true });
@@ -259,12 +304,13 @@ const normalise = run => {
     // An advisory names no node of its own — it describes the code block it was appended to, so
     // it takes that block's id. Keyed on its own text it would land under `unknown-N` and a
     // reader could not tell which response it belongs to.
+    /** @type {string | null} */
     let codeNode = null;
 
     blocks.forEach((block, index) => {
       const nodeId = block.part === 'code' ? nodeIdFor(block.text, text) : codeNode;
 
-      if (block.part === 'code') codeNode = nodeId;
+      if (block.part === 'code') codeNode = nodeId ?? null;
       previous = nodeId ?? previous;
       emit(
         'design-context',
@@ -280,11 +326,14 @@ const normalise = run => {
     });
   }
 
-  for (const [pattern, dir, extension, call] of [
+  /** @type {[RegExp, string, string, string][]} */
+  const others = [
     [/^figma-metadata\.(txt|json|xml)$/, 'metadata', '.txt', 'get_metadata'],
     [/^figma-variable-defs.*\.json$/, 'variables', '.txt', 'get_variable_defs'],
     [/^figma-code-connect-map.*\.(json|txt|md)$/, 'code-connect', '.txt', 'get_code_connect_map']
-  ])
+  ];
+
+  for (const [pattern, dir, extension, call] of others)
     for (const name of files.filter(f => pattern.test(f))) {
       const body = readFileSync(join(run, name), 'utf8'),
         rootNode = body.match(/id="([\d:]+)"/)?.[1] ?? body.match(/"([\d:]+)"/)?.[1];
@@ -345,8 +394,9 @@ if (import.meta.main) {
   }
 
   const summary = runs.map(run => {
-    const index = normalise(run),
-      byCall = {};
+    const index = normalise(String(run));
+    /** @type {Record<string, number>} */
+    const byCall = {};
 
     for (const capture of index.captures) byCall[capture.call] = (byCall[capture.call] ?? 0) + 1;
 

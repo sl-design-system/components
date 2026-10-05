@@ -6,7 +6,7 @@ title: One command that type-checks and tests the harness
 description: 'A local tsconfig, the node types it needs, and a single command — because Node runs .ts without checking it and nothing checks the harness today'
 jira: null
 resource: null
-status: todo
+status: done
 independent: true
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
@@ -14,6 +14,7 @@ updated: 2026-10-05T00:00:00Z
 tags: [harness, typescript, tooling]
 source_plan: P-NOJIRA-harness-quality
 depends_on: []
+commit: pending
 ---
 
 # One command that type-checks and tests the harness
@@ -53,3 +54,58 @@ its own without touching anything else.
 
 Run the command on a clean tree; then break one type and one test deliberately and confirm each
 turns the command red on its own.
+
+## Result
+
+`yarn check-harness` runs `tsc --noEmit -p runs/harness` and `node --test
+"runs/harness/*.test.mjs"` and fails if either does. **Shown failing in both directions**, which
+is the criterion that mattered:
+
+|                                   | exit |
+| --------------------------------- | ---- |
+| clean tree                        | `0`  |
+| a deliberate type error           | `2`  |
+| a deliberately inverted assertion | `1`  |
+| restored                          | `0`  |
+
+### What the register decided
+
+`tsconfig.json` lists four files rather than globbing `*.mjs`. Globbing puts **185 errors**
+behind the gate on day one, which is the same as having no gate. A file joins the list when a
+task has made it clean — tasks 02, 03 and 04 are the remaining entrants — so the command is
+green from the first day and stays green.
+
+The scripts stay `.mjs` with JSDoc rather than becoming `.ts`. Native execution makes the rename
+free, but it buys nothing `checkJs` does not already give and it would change every invocation
+in every runbook.
+
+### Three things the type-check found that the tests did not
+
+The 70 errors over the two reshaped scripts were mostly missing annotations, but three were
+signal:
+
+- `block.kind` was read on a union where the code variant has no `kind`. Harmless at runtime
+  today, unsound the moment a third variant appears.
+- the `[pattern, dir, extension, call]` table inferred `string | RegExp` per element, so
+  `pattern.test` was not provably callable — a reordering would have failed at runtime only.
+- `@types/node` resolves `fetch` through `undici-types`, which was **absent**, so every
+  `Response` property read as an error. Installing it is what made the `fetchComponentsTo`
+  signatures checkable at all.
+
+### Dependencies and the lockfile
+
+`@types/node@^22.7.4` and `zod@^4.0.10` are now root `devDependencies`. Both descriptors already
+existed in `yarn.lock`, so the change is **two lines in the root workspace's dependency list and
+no new resolutions**.
+
+This was nearly a regression: `yarn install --immutable` — what CI runs — refuses a
+`package.json` whose dependencies the lockfile does not record, and it would have failed on the
+declaration alone. Caught by running it. `yarn install --mode=update-lockfile` produced the
+entry without fetching, and `--immutable` now clears the Resolution step and stops only at the
+Fetch step on the private `@fortawesome` packages, which is the pre-existing condition of this
+working copy and not something this task introduced.
+
+### The convention
+
+Written into `runs/harness/README.md` under _Writing a script here_, each rule attached to the
+failure that produced it rather than stated as a preference.

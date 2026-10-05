@@ -8083,6 +8083,7 @@ __metadata:
     "@storybook/web-components-vite": "npm:^10.5.10"
     "@types/chai-datetime": "npm:^1.0.0"
     "@types/chai-dom": "npm:^1.11.3"
+    "@types/node": "npm:^22.7.4"
     "@types/react": "npm:^19.2.18"
     "@types/sinon": "npm:^22.0.0"
     "@types/sinon-chai": "npm:^4.0.0"
@@ -8116,6 +8117,7 @@ __metadata:
     vite: "npm:^8.2.1"
     vitest: "npm:~4.1.10"
     wireit: "npm:^0.14.13"
+    zod: "npm:^4.0.10"
   languageName: unknown
   linkType: soft
 

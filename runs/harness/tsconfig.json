@@ -1,0 +1,34 @@
+{
+  // The harness is not a workspace and sits outside the monorepo's TypeScript project, which is
+  // why `eslint` refuses these files too. It gets its own config instead of being folded in:
+  // there is no root `tsconfig.json` to extend, only `tsconfig.base.json` and per-package ones.
+  //
+  // This exists because **Node 24 strips types without checking them** — `const n: number =
+  // 'text'` runs and prints the string — so typing the harness is decoration until something
+  // fails on it. `yarn check-harness` is that something.
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    // The scripts are `.mjs` with JSDoc types rather than `.ts`. Native execution makes `.ts`
+    // free, but a rename is a change to every invocation in every runbook for no checking gain —
+    // `checkJs` gets the same guarantee today, and a file can convert when it has a reason to.
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true
+  },
+  // **A register, not a glob.** A file joins this list when a task has made it type-clean, and
+  // the command stays green the whole way. Globbing the directory would put 185 errors behind
+  // the gate on day one, which is the same as having no gate. Remaining entrants are tracked by
+  // T-NOJIRA-harness-quality-02 (render-design), -03 (theme-match) and -04.
+  "include": [
+    "mode-decision.mjs",
+    "mode-decision.test.mjs",
+    "normalise-captures.mjs",
+    "normalise-captures.test.mjs"
+  ]
+}

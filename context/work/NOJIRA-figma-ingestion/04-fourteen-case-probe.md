@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-06T13:00:00Z
+updated: 2026-10-06T15:00:00Z
 tags: [measurement, baseline, control]
 source_plan: P-NOJIRA-figma-ingestion
-depends_on: [T-NOJIRA-figma-ingestion-08]
+depends_on: [T-NOJIRA-figma-ingestion-09]
 ---
 
 # The fourteen-case probe
@@ -276,8 +276,51 @@ In an as-is design, **A and B are the only two causes that can halt**, and A is 
 retrieval failure. So this is plausibly the last thing between the ten as-is designs and a
 conversion count — but that is a prediction, and it is written here before it is tested.
 
-### What remains when it resumes
+### Phase A walked — three of fourteen, 2026-10-06
 
-- a nested node inheriting its enclosing instance's **diagnosis**, not only its success
-- Phase A per design, for the conversion count
-- Phase B, conformance, **only** for whatever Phase A converted
+With 09 in place. The tree comes from the REST captures through the new
+`runs/harness/rest-metadata.mjs`, validated against the live tool: **every one of the 98 ids
+`get_metadata` returned for a8 is present** in the 116 it produces, so a replay can see more of
+a design than the live tool did and under-report nothing. The map is live, one call per
+outermost instance, every response in `runs/probe-04/code-connect/` with its hash.
+
+| Design                       | Mode   | Map calls | Resolved | Unresolved | Nested covered | Causes     |  Exit |
+| ---------------------------- | ------ | --------: | -------: | ---------: | -------------: | ---------- | ----: |
+| `b-itsl-bookmk-course-files` | as-is  |         8 |        0 |          8 |             40 | C ×8       | **0** |
+| `b-itsl-course-course-files` | as-is  |         9 |        0 |          9 |             51 | C ×9       | **0** |
+| `a2-nsp-class-overview`      | strict |         6 |        4 |          2 |             34 | A ×1, D ×1 | **6** |
+
+**Two of three converted.** Both are designs the control halted on with _publish mappings and
+re-run_; what they say now is that eight and nine components come from another library, owner
+nobody, reproduce them as-is.
+
+**The third did not, and should not.** a2 is strict and halts for two reasons that are both
+real: one map **timed out and said so**, and one component genuinely has no mapping. One message
+has become two, with two owners and two remedies — which is this plan's thesis, measured.
+
+**125 nested nodes across the three.** Before `T-NOJIRA-figma-ingestion-09` each was a separate
+pipeline-owned finding and any one of them exits 6. Both conversions are conversions because 91
+of them stopped being findings about nothing. 09's prediction about itself — that it was the
+last blocker for an as-is design — **held on the two tested**, and is still untested on eight.
+
+### What remains: 683 map calls and a credential
+
+Eleven designs, one call per outermost instance, and nothing else. The tree, the mode, the
+classifier and the five causes are on disk and tested.
+
+| Transport                                  |                                                                                             |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `capture.mjs` with a personal access token | **cannot** — `mcp.figma.com` answers `figd_` with 401                                       |
+| the Dev Mode server                        | ~31 s per call, one file at a time: **six hours** plus switching the tab across eight files |
+| an agent, as here                          | 683 calls one at a time                                                                     |
+| **a script with OAuth `mcp:connect`**      | minutes, unattended                                                                         |
+
+**The measurement is blocked on that credential and on nothing else.** That is the one thing to
+take from this attempt that is not already in the numbers.
+
+### Phase B is not started
+
+Conformance, for whatever converts. Two designs now qualify and neither has been run through
+`implement-design`. Criterion two of this task is therefore **unmet**, and the two conversions
+above must not be read as success until it is: _fourteen low-fidelity ports with invented
+content would satisfy a conversion count and be worse than halting._

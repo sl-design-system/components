@@ -9,7 +9,7 @@ resource: null
 status: released
 owner: marcin.ludwig
 created: 2026-10-06T00:00:00Z
-updated: 2026-10-06T13:00:00Z
+updated: 2026-10-06T15:00:00Z
 tags: [board]
 unit: T-NOJIRA-figma-ingestion-04
 ---
@@ -54,3 +54,14 @@ the one whose enclosing instance did **not** answer is still cause B, owner pipe
 exits 6 — in an as-is design, where the parent is already diagnosed as cause C.
 
 A nested node should inherit its enclosing instance's **diagnosis**, not only its success.
+
+**Released a third time 2026-10-06** at `ccc12b66f`, with Phase A walked on **three of
+fourteen**: two conversions and one correct halt.
+
+Still not finished, and the reason is no longer a defect. **683 map calls remain and the only
+transport that can make them unattended is an OAuth `mcp:connect` credential a script can
+hold.** A personal access token is refused; the Dev Mode server is six hours and a manual tab
+switch per file; an agent is 683 calls one at a time.
+
+Phase B — conformance — is not started, so criterion two is unmet and the two conversions must
+not be read as success yet.

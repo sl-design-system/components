@@ -3,7 +3,7 @@
   "rootNodeId": "71:13345",
   "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
   "source": "link",
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "identity": {
     "name": "SANNA - Ready for Development",
     "lastModified": "2026-10-01T23:21:51Z",
@@ -24,58 +24,65 @@
       "url": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/nodes?ids=71%3A13345",
       "status": 200,
       "ok": true,
-      "ms": 8412,
+      "ms": 1976,
       "bytes": 1294908,
       "sha256": "3b68adacfca5ea65bd6a70fd155cf51e1b93ee95099a6fbd30c5474fb9bb331a",
       "file": "runs/captures/a9-sanna-login/rest/nodes-71-13345.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/versions",
       "status": 200,
       "ok": true,
-      "ms": 634,
+      "ms": 420,
       "bytes": 23070,
       "sha256": "184f392bee6ca41835921ae1474040bacdb885f6dd1ec4ba5c720ccd8d88c1a3",
       "file": "runs/captures/a9-sanna-login/rest/versions.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/images/Mzc8BuOvMxOJGAQtv0h64M?ids=71%3A13345&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 16483,
+      "ms": 449,
       "bytes": 131,
       "sha256": "4cd450f18b182334e45242f8147ed89454e521b149c9e7525912f51f8d01c09f",
       "file": "runs/captures/a9-sanna-login/rest/images-71-13345.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/nodes?ids=176%3A38379%2C71%3A13441",
       "status": 200,
       "ok": true,
-      "ms": 6687,
+      "ms": 685,
       "bytes": 1030428,
       "sha256": "785aaa4ab0a4237b9d511bb6b63ad1859152b847d8c555edb5990c6713cb5517",
       "file": "runs/captures/a9-sanna-login/rest/nodes-extra.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/7e6e354b-8f03-4ffb-9566-3db1195c22cd",
       "status": 200,
       "ok": true,
-      "ms": 544,
+      "ms": 1903,
       "bytes": 1643668,
       "sha256": "c3a6fc5d97b6e86ac04d5f3f017ac7bee49123a0bc6eea3f45f88ce84a00c97f",
       "file": "runs/captures/a9-sanna-login/assets/71-13345.png",
+      "retryAfter": null,
+      "error": null
+    },
+    {
+      "url": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/nodes?ids=176%3A38388%2C56%3A25434",
+      "status": 200,
+      "ok": true,
+      "ms": 513,
+      "bytes": 8124,
+      "sha256": "98bd811534c28b8c87d5533bbd295ec7b01707d04060f167fc9d60a00302e64d",
+      "file": "runs/captures/a9-sanna-login/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
     }

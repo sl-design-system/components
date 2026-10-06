@@ -3,7 +3,7 @@
   "rootNodeId": "4007:3161",
   "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
   "source": "index+link",
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "identity": {
     "name": "Course files",
     "lastModified": "2026-07-14T10:45:23Z",
@@ -24,58 +24,65 @@
       "url": "https://api.figma.com/v1/files/mONnHPTYNNaBwV3cFUHIYv/nodes?ids=4007%3A3161",
       "status": 200,
       "ok": true,
-      "ms": 2760,
+      "ms": 1529,
       "bytes": 748158,
       "sha256": "3aa326a5e762d7722cb846880b3c59b5695ed6b1c93360ff109583743359267a",
       "file": "runs/captures/b-itsl-course-course-files/rest/nodes-4007-3161.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/mONnHPTYNNaBwV3cFUHIYv/versions",
       "status": 200,
       "ok": true,
-      "ms": 423,
+      "ms": 480,
       "bytes": 23286,
       "sha256": "64b71c5506fc3898295426377a0daa5ac9be5a43c65be0d184bdb15dd5f0e9e6",
       "file": "runs/captures/b-itsl-course-course-files/rest/versions.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/images/mONnHPTYNNaBwV3cFUHIYv?ids=4007%3A3161&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 3999,
+      "ms": 469,
       "bytes": 132,
       "sha256": "41cea797c8d01da8fe56bfef72336857ad46eb77ffe48bf8249a6a11af26e6ff",
       "file": "runs/captures/b-itsl-course-course-files/rest/images-4007-3161.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/mONnHPTYNNaBwV3cFUHIYv/nodes?ids=4007%3A3166%2C4007%3A3169%2C4007%3A3183%2C4008%3A9031%2C4461%3A5869",
       "status": 200,
       "ok": true,
-      "ms": 2061,
+      "ms": 509,
       "bytes": 737038,
       "sha256": "035f061d5ddbb659b20cdff94b6a10322f5009467b029e290583dc28cda429c5",
       "file": "runs/captures/b-itsl-course-course-files/rest/nodes-extra.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/339298f0-a89c-4d4c-9b91-c6763eb92eee",
       "status": 200,
       "ok": true,
-      "ms": 280,
+      "ms": 1091,
       "bytes": 140283,
       "sha256": "1bf5ce8ffebccb0a06860ca561bdd7363cea3078425003d504d99cdfc928e224",
       "file": "runs/captures/b-itsl-course-course-files/assets/4007-3161.png",
+      "retryAfter": null,
+      "error": null
+    },
+    {
+      "url": "https://api.figma.com/v1/files/mONnHPTYNNaBwV3cFUHIYv/nodes?ids=2254%3A1411%2C2254%3A1415%2C5067%3A20739%2C6145%3A12462%2C6145%3A12464%2C6145%3A12465%2C6145%3A12466%2C6145%3A12467%2C6145%3A12468%2C6145%3A12469%2C6145%3A12470%2C6145%3A12471%2C6145%3A12472%2C6145%3A12473%2C6145%3A12474",
+      "status": 200,
+      "ok": true,
+      "ms": 591,
+      "bytes": 34726,
+      "sha256": "bd143ed3c8e1e20d934d97b1d27d4d08e6b967bf4c147d80feb4b517210959a7",
+      "file": "runs/captures/b-itsl-course-course-files/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
     }

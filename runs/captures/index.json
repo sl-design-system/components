@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "source": "https://api.figma.com/v1",
   "note": "Verbatim REST captures. Nothing here was read by anything that could summarise it; every byte is as api.figma.com sent it.",
   "designs": [
@@ -35,7 +35,9 @@
         "nodeCount": 1514,
         "nestedIds": 1442,
         "withComponentId": 604,
-        "absentFromFile": ["123:456"]
+        "absentFromFile": [
+          "123:456"
+        ]
       },
       "complete": true,
       "reasons": []
@@ -71,7 +73,9 @@
         "nodeCount": 10987,
         "nestedIds": 10918,
         "withComponentId": 3735,
-        "absentFromFile": ["1:2"]
+        "absentFromFile": [
+          "1:2"
+        ]
       },
       "complete": true,
       "reasons": []
@@ -233,7 +237,9 @@
         "nodeCount": 460,
         "nestedIds": 364,
         "withComponentId": 120,
-        "absentFromFile": ["123:456"]
+        "absentFromFile": [
+          "123:456"
+        ]
       },
       "complete": true,
       "reasons": []

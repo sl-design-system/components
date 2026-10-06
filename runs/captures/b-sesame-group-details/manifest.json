@@ -3,7 +3,7 @@
   "rootNodeId": "2142:48093",
   "fileKey": "UBr399hnydpNF9P5Jb2vfx",
   "source": "link",
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "identity": {
     "name": "MySesame Redesign",
     "lastModified": "2026-10-05T11:40:30Z",
@@ -24,58 +24,65 @@
       "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=2142%3A48093",
       "status": 200,
       "ok": true,
-      "ms": 1931,
+      "ms": 841,
       "bytes": 1194527,
       "sha256": "4271110d8a9371ae578304a87f3a886130fc66e4b6dff2e67884084fa987c49d",
       "file": "runs/captures/b-sesame-group-details/rest/nodes-2142-48093.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/versions",
       "status": 200,
       "ok": true,
-      "ms": 793,
+      "ms": 311,
       "bytes": 24977,
       "sha256": "cf8cb7dc6f928b074585bbb8cd8f27ded4755a7776837dae2c1c6a6922f07b47",
       "file": "runs/captures/b-sesame-group-details/rest/versions.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/images/UBr399hnydpNF9P5Jb2vfx?ids=2142%3A48093&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 12969,
+      "ms": 385,
       "bytes": 133,
       "sha256": "0bdcba1debc1fad5394d363a7b01bc0ecdb30728a343a85ded234afccb568bc2",
       "file": "runs/captures/b-sesame-group-details/rest/images-2142-48093.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=2%3A69240%2C2%3A69251%2C2%3A8679%2C2142%3A48094%2C2142%3A48135%2C772%3A26895",
       "status": 200,
       "ok": true,
-      "ms": 7808,
+      "ms": 446,
       "bytes": 82489,
       "sha256": "b0fc8a756eab0b7aa797dbc2399caa1d4ecb929f7d53578887cfd072177fa18b",
       "file": "runs/captures/b-sesame-group-details/rest/nodes-extra.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/016fc44f-a850-49de-a3b1-e25f6ccbd298",
       "status": 200,
       "ok": true,
-      "ms": 320,
+      "ms": 261,
       "bytes": 340826,
       "sha256": "cebbcedf68c9da5fbdb00c2da29fd122ccf8b4b7f9878f153ee9c9294333fbd6",
       "file": "runs/captures/b-sesame-group-details/assets/2142-48093.png",
+      "retryAfter": null,
+      "error": null
+    },
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=2%3A69241%2C2%3A8680",
+      "status": 200,
+      "ok": true,
+      "ms": 532,
+      "bytes": 3008,
+      "sha256": "fbed2a3566ea4463baa51c70f3ca06886400751701e34a84ca4372964020f461",
+      "file": "runs/captures/b-sesame-group-details/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
     }

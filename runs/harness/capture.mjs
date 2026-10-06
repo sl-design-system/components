@@ -22,6 +22,7 @@
  * never mentions in any tool's output and which covers no visible pixels is invisible to all five.
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { argv, env, exit } from 'node:process';
 import { join } from 'node:path';
 import { z } from 'zod';
@@ -665,6 +666,50 @@ export const probeReach = async ({ probe, fileKey, base = REST_BASE }) => {
 // ---------------------------------------------------------------------------------------------
 
 /**
+ * Re-hashes what is on disk against what the call record says was written.
+ *
+ * This exists because it fired. The pre-commit formatter reformatted **71 of 71** stored JSON
+ * captures on their first commit — pretty-printing is a perfectly reasonable thing for a formatter
+ * to do and a fatal thing to do to evidence. Nothing about the files looked wrong afterwards; only
+ * the hashes did. `verbatim` is a property that has to be checked, not a property a directory can
+ * have by being called one.
+ *
+ * @param {{
+ *   records: { file?: string | null; sha256?: string | null }[];
+ *   read: (path: string) => Buffer;
+ *   exists: (path: string) => boolean;
+ *   digest: (bytes: Buffer) => string;
+ * }} input
+ */
+export const verifyStored = ({ records, read, exists, digest }) => {
+  /** @type {{ file: string; reason: string }[]} */
+  const failures = [];
+
+  let checked = 0;
+
+  for (const record of records) {
+    if (!record.file || !record.sha256) continue;
+
+    if (!exists(record.file)) {
+      failures.push({ file: record.file, reason: 'the record names a file that is not there' });
+      continue;
+    }
+
+    checked += 1;
+
+    const actual = digest(read(record.file));
+
+    if (actual !== record.sha256)
+      failures.push({
+        file: record.file,
+        reason: `the bytes on disk hash to ${actual.slice(0, 12)}, the record says ${record.sha256.slice(0, 12)}`
+      });
+  }
+
+  return { status: failures.length ? 'red' : 'green', checked, failures };
+};
+
+/**
  * Every node id the design's stored REST documents hold, across all of them, plus the ids Figma
  * answered `null` for.
  *
@@ -777,10 +822,39 @@ if (import.meta.main) {
     only = arg('only'),
     token = env.FIGMA_READ_TOKEN;
 
+  if (argv.includes('--verify')) {
+    let checked = 0,
+      bad = 0;
+
+    for (const entry of existsSync(outRoot) ? readdirSync(outRoot) : []) {
+      const manifest = join(outRoot, entry, 'manifest.json');
+
+      if (!existsSync(manifest)) continue;
+
+      const verdict = verifyStored({
+        records: /** @type {{ records: import('./rest.mjs').CallRecord[] }} */ (
+          JSON.parse(readFileSync(manifest, 'utf8'))
+        ).records,
+        read: path => readFileSync(path),
+        exists: path => existsSync(path),
+        digest: bytes => createHash('sha256').update(bytes).digest('hex')
+      });
+
+      checked += verdict.checked;
+      bad += verdict.failures.length;
+
+      for (const failure of verdict.failures) console.error(`${failure.file}: ${failure.reason}`);
+    }
+
+    console.error(`${checked} stored responses checked, ${bad} no longer verbatim`);
+    exit(bad ? 4 : 0);
+  }
+
   if (!token) {
     console.error(
       'capture.mjs needs FIGMA_READ_TOKEN in the environment.\n' +
-        'usage: capture.mjs [--runs <dir>] [--out <dir>] [--only <run>] [--scan <dir>]... [--resume]'
+        'usage: capture.mjs [--runs <dir>] [--out <dir>] [--only <run>] [--scan <dir>]... ' +
+        '[--resume] [--verify]'
     );
     exit(2);
   }

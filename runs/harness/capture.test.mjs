@@ -24,7 +24,8 @@ import {
   metadataIds,
   readRestCapture,
   reconcile,
-  runChecks
+  runChecks,
+  verifyStored
 } from './capture.mjs';
 
 /**
@@ -571,6 +572,53 @@ describe('THE DELETION CONTROL — a capture missing a subtree is caught', () =>
 
       assert.equal(after.ratio, before.ratio);
       assert.equal(after.status, 'green');
+    });
+  });
+});
+
+describe('verbatim is checked, not assumed', () => {
+  /** @param {Buffer} bytes */
+  const digest = bytes => `h:${bytes.toString()}`;
+
+  /** @param {Record<string, string>} files */
+  const world = files => ({
+    /** @param {string} path */
+    read: path => Buffer.from(files[path] ?? ''),
+    /** @param {string} path */
+    exists: path => path in files,
+    digest
+  });
+
+  it('is green when the bytes on disk are the bytes the record attests to', () => {
+    const verdict = verifyStored({
+      records: [{ file: 'a.json', sha256: 'h:abc' }],
+      ...world({ 'a.json': 'abc' })
+    });
+
+    assert.equal(verdict.status, 'green');
+    assert.equal(verdict.checked, 1);
+  });
+
+  describe('NEGATIVE CONTROL: a file that changed under us is caught', () => {
+    it('catches a reformatted capture, which is what the pre-commit hook did to all 71', () => {
+      const verdict = verifyStored({
+        records: [{ file: 'a.json', sha256: 'h:abc' }],
+        ...world({ 'a.json': 'a b c' })
+      });
+
+      assert.equal(verdict.status, 'red');
+      assert.match(verdict.failures[0].reason, /hash/);
+    });
+
+    it('catches a record whose file is gone', () => {
+      const verdict = verifyStored({
+        records: [{ file: 'a.json', sha256: 'h:abc' }],
+        ...world({})
+      });
+
+      assert.equal(verdict.status, 'red');
+      assert.equal(verdict.checked, 0);
+      assert.match(verdict.failures[0].reason, /not there/);
     });
   });
 });

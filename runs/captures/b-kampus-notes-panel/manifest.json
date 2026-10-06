@@ -3,7 +3,7 @@
   "rootNodeId": "5308:32158",
   "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
   "source": "index+link",
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "identity": {
     "name": "🌁 New content view (blended)",
     "lastModified": "2026-10-05T15:26:24Z",
@@ -24,58 +24,65 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32158",
       "status": 200,
       "ok": true,
-      "ms": 6060,
+      "ms": 1580,
       "bytes": 1058030,
       "sha256": "3b19fd4dc094948009505e1e63a798c320f3713af8ddeed831600f502d31a72c",
       "file": "runs/captures/b-kampus-notes-panel/rest/nodes-5308-32158.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/versions",
       "status": 200,
       "ok": true,
-      "ms": 927,
+      "ms": 365,
       "bytes": 23142,
       "sha256": "2447145b505fad5f6c4c20892bf3910dd9ceec967f7bc5dc59b5ee1753342f65",
       "file": "runs/captures/b-kampus-notes-panel/rest/versions.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/images/73YHtIYl0UHXH8ST4J7VKI?ids=5308%3A32158&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 14140,
+      "ms": 494,
       "bytes": 133,
       "sha256": "41f87cbcf53d414424c6e11d37af71eccce8f76046d5497be781bcd693944c71",
       "file": "runs/captures/b-kampus-notes-panel/rest/images-5308-32158.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32159%2C5308%3A32162%2C5308%3A32163%2C5308%3A32182%2C5308%3A32183",
       "status": 200,
       "ok": true,
-      "ms": 6705,
+      "ms": 555,
       "bytes": 733849,
       "sha256": "1f40340f71b7dacbabeddf89ff644b7c4843c7c9f7a8d79866e8a40fd75a7f21",
       "file": "runs/captures/b-kampus-notes-panel/rest/nodes-extra.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/ce8a2d20-5c9b-442a-a61f-33f5e26d8337",
       "status": 200,
       "ok": true,
-      "ms": 399,
+      "ms": 2142,
       "bytes": 2834945,
       "sha256": "84be0ff49dc9b093e03477c33a172a7f5063893f80fc3f6fb2c6a48e11e0c8b6",
       "file": "runs/captures/b-kampus-notes-panel/assets/5308-32158.png",
+      "retryAfter": null,
+      "error": null
+    },
+    {
+      "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=107%3A1162%2C11360%3A135454%2C11360%3A135593%2C12545%3A192801%2C12545%3A192803%2C12545%3A192804%2C1702%3A18966%2C4214%3A11777%2C4701%3A55280%2C4701%3A55282%2C5306%3A67706%2C5306%3A67778%2C5306%3A67779%2C5306%3A67780",
+      "status": 200,
+      "ok": true,
+      "ms": 528,
+      "bytes": 18490,
+      "sha256": "13d9e21ca4c4294de3a2a55029e85f966eada28cebb4a838a89e69693527c943",
+      "file": "runs/captures/b-kampus-notes-panel/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
     }
@@ -101,7 +108,9 @@
       "onlyRest": 849,
       "onlyMetadata": [],
       "onlyDesignContext": [],
-      "nested": ["I12545:192803;192:2472"]
+      "nested": [
+        "I12545:192803;192:2472"
+      ]
     },
     "coverage": {
       "status": "green",

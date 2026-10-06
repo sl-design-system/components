@@ -8,7 +8,8 @@
     "*generated",
     "packages/components/shared/src/vendor",
     "website",
-    "runs/harness/fixtures"
+    "runs/harness/fixtures",
+    "runs/captures"
   ],
   "insertFinalNewline": true,
   "jsdoc": true,

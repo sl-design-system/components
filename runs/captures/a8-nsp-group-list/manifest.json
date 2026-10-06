@@ -3,7 +3,7 @@
   "rootNodeId": "334:20573",
   "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
   "source": "index+link",
-  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "capturedAt": "2026-10-06T00:12:18.088Z",
   "identity": {
     "name": "New Secondary",
     "lastModified": "2026-09-23T14:00:01Z",
@@ -24,55 +24,51 @@
       "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/nodes?ids=334%3A20573",
       "status": 200,
       "ok": true,
-      "ms": 1853,
+      "ms": 928,
       "bytes": 915428,
       "sha256": "a696e6f38f1533300a63875d143adfc8400368d3acede54140678090701dbbaa",
       "file": "runs/captures/a8-nsp-group-list/rest/nodes-334-20573.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/versions",
       "status": 200,
       "ok": true,
-      "ms": 379,
+      "ms": 328,
       "bytes": 24136,
       "sha256": "d89c0de2918a3d3297c4dc25aa188d213f9d2a4d05a694b17b1ade90bed57545",
       "file": "runs/captures/a8-nsp-group-list/rest/versions.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/images/4TdMrcnIVOn3Hrfj2OpVZU?ids=334%3A20573&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 9935,
+      "ms": 433,
       "bytes": 132,
       "sha256": "09de937284b36756676b72783ea006fc18a11de5dfe12d8ed3624d4f7363226d",
       "file": "runs/captures/a8-nsp-group-list/rest/images-334-20573.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/nodes?ids=334%3A20574%2C334%3A20578%2C334%3A20684%2C334%3A20678",
       "status": 200,
       "ok": true,
-      "ms": 3069,
+      "ms": 705,
       "bytes": 989091,
       "sha256": "31263dc1d56427555314fc344cdb783b539cef140032a706da7011acadbdff2b",
       "file": "runs/captures/a8-nsp-group-list/rest/nodes-extra.json",
       "retryAfter": null,
-      "error": null,
-      "reused": true
+      "error": null
     },
     {
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/6b6526b2-b2a7-42e5-aaa8-97901d5fe4b9",
       "status": 200,
       "ok": true,
-      "ms": 541,
+      "ms": 503,
       "bytes": 795527,
       "sha256": "025f34bbb40bc08e82054867a52b3f80b5d16e56ac631b1a4814074135195e42",
       "file": "runs/captures/a8-nsp-group-list/assets/334-20573.png",

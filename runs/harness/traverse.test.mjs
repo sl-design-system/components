@@ -610,6 +610,74 @@ describe('traverse — a node the map answered about is mapped, not unmapped', (
   });
 });
 
+describe('traverse — a nested node carries what answered for it, as a field', () => {
+  // The children are the ids the captured responses really key, so a fixture can answer for
+  // them: `334:20605` and `334:20609` are Mask and Base/Icon inside the avatar.
+  const design = {
+    '1:1': '<frame id="1:1" name="root"><instance id="2:2" name="sl-avatar" /></frame>',
+    '2:2':
+      '<instance id="2:2" name="sl-avatar">' +
+      '<vector id="I2:2;334:20605" name="Mask" /><vector id="I2:2;334:20609" name="Icon" /></instance>'
+  };
+
+  /** @param {string} map */
+  const walkWith = async map => {
+    const w = world({ metadata: design, maps: { '2:2': map } });
+
+    return traverse({
+      rootId: '1:1',
+      getMetadata: w.getMetadata,
+      getMap: w.getMap,
+      expandMapped: true
+    });
+  };
+
+  it('records the enclosing verdict as a field, not only inside the prose', async () => {
+    const resolved = fixture('code-connect-remote-snippet.json').replaceAll('334:20593', '2:2'),
+      report = await walkWith(resolved),
+      nested = report.nodes.filter(node => node.disposition === 'nested');
+
+    assert.equal(nested.length, 2);
+    for (const node of nested) {
+      assert.equal(node.enclosingOutcome, 'resolved');
+      assert.equal(node.probedAs, '2:2');
+      // and the prose is still there for a reader
+      assert.match(node.detail ?? '', /answered by 2:2/);
+    }
+  });
+
+  it('carries mapped through the same field, because that answered too', async () => {
+    const report = await walkWith(fixture('code-connect-descendants.json')),
+      nested = report.nodes.filter(node => node.disposition === 'nested');
+
+    assert.ok(nested.length > 0);
+    for (const node of nested) assert.equal(node.enclosingOutcome, 'mapped');
+  });
+
+  describe('NEGATIVE CONTROL: an instance that did not answer says so', () => {
+    it('leaves the enclosing outcome empty, which is not an answer', async () => {
+      const report = await walkWith('{}'),
+        nested = report.nodes.filter(node => node.disposition === 'nested');
+
+      assert.ok(nested.length > 0);
+      for (const node of nested) assert.equal(node.enclosingOutcome, 'empty');
+    });
+
+    it('and a nested node with no enclosing instance at all carries null', async () => {
+      const w = world({
+          metadata: {
+            '1:1': '<frame id="1:1" name="root"><vector id="I9:9;8:8" name="x" /></frame>'
+          },
+          maps: {}
+        }),
+        report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap }),
+        nested = report.nodes.find(node => node.disposition === 'nested');
+
+      assert.equal(nested?.enclosingOutcome, null);
+    });
+  });
+});
+
 describe('traverse — the report says which server answered', () => {
   const design = { '1:1': '<frame id="1:1" name="root" />' };
 

@@ -321,19 +321,106 @@ describe('parseSuggestions — the payload, and the prompt wrapped around it', (
 
 // =============================================================================================
 
+describe('a node inside an instance that answered is not unresolved', () => {
+  /** @param {string} enclosingOutcome @param {string} [detail] */
+  const walkWithNested = (enclosingOutcome, detail = `answered by 2:2: ${enclosingOutcome}`) => ({
+    rootId: '1:1',
+    nodes: [
+      { id: '1:1', name: 'root', disposition: 'root', reason: null, probedAs: null },
+      {
+        id: '2:2',
+        name: 'sl-avatar',
+        disposition: enclosingOutcome === 'empty' ? 'descended' : enclosingOutcome,
+        reason: enclosingOutcome === 'empty' ? 'genuinely-unmapped' : null,
+        probedAs: '2:2'
+      },
+      {
+        id: 'I2:2;3:3',
+        name: 'Mask',
+        disposition: 'nested',
+        reason: 'nested-id-not-probeable',
+        probedAs: '2:2',
+        detail,
+        enclosingOutcome: enclosingOutcome === 'empty' ? 'empty' : enclosingOutcome
+      }
+    ]
+  });
+
+  /** @param {ReturnType<typeof walkWithNested>} walk */
+  const run = walk => classify({ walk, mode: 'strict', modeSource: 'flag', inventory });
+
+  it('drops a nested node whose enclosing instance resolved', () => {
+    const report = run(walkWithNested('resolved'));
+
+    assert.equal(
+      report.unresolved.some(node => node.id === 'I2:2;3:3'),
+      false
+    );
+    assert.equal(report.counts.coveredByEnclosing, 1);
+  });
+
+  it('drops one whose enclosing instance was mapped, which also answered', () => {
+    const report = run(walkWithNested('mapped'));
+
+    assert.equal(
+      report.unresolved.some(node => node.id === 'I2:2;3:3'),
+      false
+    );
+  });
+
+  it('reads the field, not the prose beside it', () => {
+    // A classifier that parsed `detail` would be the next defect of this shape. Changing the
+    // sentence must change nothing.
+    const report = run(walkWithNested('resolved', 'the enclosing instance exploded'));
+
+    assert.equal(
+      report.unresolved.some(node => node.id === 'I2:2;3:3'),
+      false
+    );
+  });
+
+  describe('NEGATIVE CONTROL: cause B survives for the case it was written for', () => {
+    it('keeps a nested node whose enclosing instance did not answer', () => {
+      const report = run(walkWithNested('empty')),
+        hit = report.unresolved.find(node => node.id === 'I2:2;3:3');
+
+      assert.equal(hit?.letter, 'B');
+      assert.equal(hit?.owner, 'pipeline');
+      assert.equal(report.counts.coveredByEnclosing, 0);
+    });
+
+    it('keeps one with no enclosing outcome recorded at all — an older walk', () => {
+      const walk = walkWithNested('resolved');
+
+      walk.nodes[2].enclosingOutcome = /** @type {string | undefined} */ (undefined);
+
+      assert.equal(run(walk).unresolved.find(node => node.id === 'I2:2;3:3')?.letter, 'B');
+    });
+  });
+});
+
+// =============================================================================================
+
 describe('classify — every unresolved node carries a cause and an owner', () => {
   const walk = walkFixture('walk-five-causes.json');
 
   /** @param {string} mode */
   const run = mode => classify({ walk, mode, modeSource: 'flag', inventory });
 
-  it('gives all five causes on a walk that contains all five', () => {
+  it('gives the causes on a walk that contains all five', () => {
+    // **`B nested-id-rejected: 1` left this list**, and the number that moved is the point of
+    // `T-NOJIRA-figma-ingestion-08`. The one nested node here sits inside `334:20668`, which
+    // resolved with a snippet — so nothing about it is unresolved, and reporting it as a
+    // pipeline bug was telling us to fix something that had already worked.
     assert.deepEqual(run('strict').counts.byCause, {
       'A retrieval-failed': 1,
-      'B nested-id-rejected': 1,
       'D no-mapping-written': 2,
       'E mapping-stale': 2
     });
+  });
+
+  it('counts what the enclosing instance covered rather than dropping it silently', () => {
+    assert.equal(run('strict').counts.coveredByEnclosing, 1);
   });
 
   it('leaves no node without an owner and a remedy', () => {
@@ -351,13 +438,12 @@ describe('classify — every unresolved node carries a cause and an owner', () =
       report.unresolved.some(node => node.id === '334:20668'),
       false
     );
-    assert.equal(report.counts.unresolved, 6);
+    assert.equal(report.counts.unresolved, 5);
   });
 
   it('turns the mapping gaps into another library when the file is as-is', () => {
     assert.deepEqual(run('as-is').counts.byCause, {
       'A retrieval-failed': 1,
-      'B nested-id-rejected': 1,
       'C another-library': 4
     });
   });
@@ -506,10 +592,43 @@ describe('NEGATIVE CONTROL: the CLI leaves by a non-zero exit when it does not k
   it('exits 6 when anything on the list is our own bug', async () => {
     // Ours first. A diagnosis standing on a map we never read would send the design system team
     // after our failure.
+    //
+    // **This was `pipeline: 2` before `T-NOJIRA-figma-ingestion-08`.** The one that left was a
+    // node inside an instance that resolved with a snippet; cause A, a map that could not be
+    // read, is the one that is really ours and it still exits 6. The control survives the fix,
+    // which is what it is here to do.
     const { code, stdout } = await run(['--walk', WALK, '--mode', 'strict']);
 
     assert.equal(code, 6);
-    assert.equal(JSON.parse(stdout).counts.byOwner.pipeline, 2);
+    assert.equal(JSON.parse(stdout).counts.byOwner.pipeline, 1);
+  });
+
+  it('exits 0 on a walk whose only nested nodes sit inside instances that answered', async () => {
+    const walk = {
+        rootId: '1:1',
+        nodes: [
+          { id: '1:1', name: 'root', disposition: 'root', reason: null, probedAs: null },
+          { id: '2:2', name: 'sl-avatar', disposition: 'resolved', reason: null, probedAs: '2:2' },
+          {
+            id: 'I2:2;3:3',
+            name: 'Mask',
+            disposition: 'nested',
+            reason: 'nested-id-not-probeable',
+            probedAs: '2:2',
+            detail: 'answered by 2:2: resolved',
+            enclosingOutcome: 'resolved'
+          }
+        ]
+      },
+      path = join(mkdtempSync(join(tmpdir(), 'slds-covered-')), 'walk.json');
+
+    writeFileSync(path, JSON.stringify(walk));
+
+    const { code, stdout } = await run(['--walk', path, '--mode', 'strict']);
+
+    assert.equal(code, 0);
+    assert.equal(JSON.parse(stdout).counts.unresolved, 0);
+    assert.equal(JSON.parse(stdout).counts.coveredByEnclosing, 1);
   });
 
   it('exits 5 on a strict file whose only problem is a missing mapping', async () => {

@@ -4,8 +4,14 @@
   "expandedMapped": false,
   "slowMapMs": 10000,
   "complete": true,
-  "calls": { "metadata": 7, "map": 7 },
-  "bytes": { "metadata": 1024, "snippets": 142 },
+  "calls": {
+    "metadata": 7,
+    "map": 7
+  },
+  "bytes": {
+    "metadata": 1024,
+    "snippets": 142
+  },
   "counts": {
     "root": 1,
     "resolved": 1,
@@ -15,8 +21,13 @@
     "hidden": 0,
     "unreadableMetadata": 0
   },
-  "descents": { "genuinely-unmapped": 4, "map-unreadable": 1 },
-  "pruned": ["334:20668"],
+  "descents": {
+    "genuinely-unmapped": 4,
+    "map-unreadable": 1
+  },
+  "pruned": [
+    "334:20668"
+  ],
   "nodes": [
     {
       "id": "334:20573",
@@ -104,7 +115,8 @@
       "probedAs": "334:20668",
       "detail": "answered by 334:20668: resolved",
       "snippetBytes": 0,
-      "ms": 0
+      "ms": 0,
+      "enclosingOutcome": "resolved"
     }
   ]
 }

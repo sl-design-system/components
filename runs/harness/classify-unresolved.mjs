@@ -313,11 +313,28 @@ export const Walk = z.object({
         name: z.string().nullable(),
         disposition: z.string().min(1),
         reason: z.string().nullable(),
-        probedAs: z.string().nullable()
+        probedAs: z.string().nullable(),
+        // Optional because walks recorded before `T-NOJIRA-figma-ingestion-08` do not carry it,
+        // and a reader that refused them would make the corpus unreadable to its own tooling.
+        enclosingOutcome: z.string().nullable().optional()
       })
       .loose()
   )
 });
+
+/**
+ * The outcomes that mean **the enclosing instance answered**.
+ *
+ * A node inside one of these is not unresolved. `resolved` delivered this subtree as a snippet;
+ * `mapped` is the remote server's map form, where Code Connect knows the component and the snippet
+ * was not in that response. Either way the question about the child was answered by the parent,
+ * which is what cause B's own remedy — _ask the enclosing instance_ — asks for.
+ *
+ * Measured 2026-10-06: the two nodes inside a8's `sl-avatar`, whose snippet the walk is holding,
+ * were being reported as pipeline bugs. `classify-unresolved.mjs` exits 6 on any pipeline-owned
+ * node, so **no design could convert while a single resolved instance contained nested ids**.
+ */
+export const ANSWERED = new Set(['resolved', 'mapped']);
 
 /** @typedef {{ cause: Cause; evidence: string; match: Match | null }} Diagnosis */
 
@@ -408,8 +425,23 @@ export const classify = ({ walk, mode, modeSource, inventory, suggestions = null
   const parsed = Walk.parse(walk),
     inDesign = new Set(parsed.nodes.map(node => node.id));
 
+  /**
+   * A node whose enclosing instance answered is not a finding.
+   *
+   * One predicate, used for both the exclusion and the count, so the two cannot drift. Only nested
+   * nodes carry `enclosingOutcome` today; writing the rule in terms of the field rather than the
+   * disposition means it keeps meaning the same thing if that ever changes.
+   *
+   * @param {{ enclosingOutcome?: string | null }} node
+   */
+  const answeredByEnclosing = node => ANSWERED.has(node.enclosingOutcome ?? '');
+
+  // Counted rather than dropped: a number that disappears is how a count stops meaning anything.
+  const covered = parsed.nodes.filter(answeredByEnclosing);
+
   const unresolved = parsed.nodes
     .filter(node => node.disposition === 'descended' || node.disposition === 'nested')
+    .filter(node => !answeredByEnclosing(node))
     .map(node => {
       const diagnosis = diagnose(node, { mode, inventory });
 
@@ -450,6 +482,7 @@ export const classify = ({ walk, mode, modeSource, inventory, suggestions = null
     modeSource,
     counts: {
       unresolved: unresolved.length,
+      coveredByEnclosing: covered.length,
       byCause: tally(unresolved.map(one => `${CAUSES[one.cause].letter} ${one.cause}`)),
       byOwner: tally(unresolved.map(one => one.owner))
     },

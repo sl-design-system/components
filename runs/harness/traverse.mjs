@@ -437,6 +437,7 @@ export const DESCENT_REASON = /** @type {Record<string, string>} */ ({
  *   reason: string | null;
  *   probedAs: string | null;
  *   resolvedBy: string | null;
+ *   enclosingOutcome: string | null;
  *   detail: string | null;
  *   snippetBytes: number;
  *   ms: number;
@@ -452,6 +453,7 @@ const record = (node, fields) => ({
   reason: null,
   probedAs: null,
   resolvedBy: null,
+  enclosingOutcome: null,
   detail: null,
   snippetBytes: 0,
   ms: 0,
@@ -563,6 +565,9 @@ export const traverse = async ({
           disposition: 'nested',
           reason: 'nested-id-not-probeable',
           probedAs: within?.id ?? target.id,
+          // **A field, not the prose.** A classifier reading `answered by …: resolved` out of a
+          // sentence is the next defect of this shape, and the sentence is for a human.
+          enclosingOutcome: within?.outcome ?? null,
           detail: within ? `answered by ${within.id}: ${within.outcome}` : null
         })
       );
@@ -703,6 +708,7 @@ export const traverse = async ({
         reason: 'metadata-unreadable',
         probedAs: next.id,
         resolvedBy: null,
+        enclosingOutcome: null,
         detail: firstLine(answer.text),
         snippetBytes: 0,
         ms: 0
@@ -725,6 +731,7 @@ export const traverse = async ({
         reason: 'metadata-unreadable',
         probedAs: next.id,
         resolvedBy: null,
+        enclosingOutcome: null,
         detail: /** @type {Error} */ (error).message,
         snippetBytes: 0,
         ms: 0

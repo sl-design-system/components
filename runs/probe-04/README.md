@@ -45,3 +45,48 @@ outside the mapped library. One is a timeout that says so.
 It is not a node-count cap — 468 works and 620 does not. The root answers `{}` twice, in both id
 spellings, and its own child answers fourteen mappings. Whatever the rule is, **asking at the
 node in the design's URL is the one way to get nothing.**
+
+## The mode of all fourteen, decided 2026-10-06
+
+Eight files, every verdict from `runs/harness/mode-decision.mjs` rather than from reading the
+listing. Each one is stored in `modes/` with the byte count and sha256 of the component listing
+it was decided from, and whether that listing is the tool's own output (`verbatim`) or reduced
+to the two fields the decision reads (`reduced`, for the four that arrived small enough to come
+through a conversation rather than be persisted to a file).
+
+| Design | File | Mode | `sl-*` externals | `sl-*` instances | Predicted | Agrees |
+| ------ | ---- | ---- | ---------------: | ---------------: | --------- | ------ |
+| `a1-kampus-subchapter-feed` | `73YHtIYl…` | **as-is** | 0 | 0 | converts | yes |
+| `a11-sesame-learning-materials` | `UBr399hn…` | **as-is** | 0 | 0 | converts | yes |
+| `a4-sesame-my-groups` | `UBr399hn…` | **as-is** | 0 | 24 | causes A and B | **no** |
+| `a6-itsl-collab-shared-folder` | `Q3gzx1pC…` | **as-is** | 0 | 0 | converts | yes |
+| `b-itsl-bookmk-course-files` | `ya00uFyX…` | **as-is** | 0 | 0 | converts | yes |
+| `b-itsl-bookmk-deleted-course` | `ya00uFyX…` | **as-is** | 0 | 0 | converts | yes |
+| `b-itsl-collab-add-element` | `Q3gzx1pC…` | **as-is** | 0 | 0 | converts | yes |
+| `b-itsl-course-course-files` | `mONnHPTY…` | **as-is** | 0 | 0 | converts | yes |
+| `b-kampus-notes-panel` | `73YHtIYl…` | **as-is** | 0 | 0 | converts | yes |
+| `b-sesame-group-details` | `UBr399hn…` | **as-is** | 0 | 63 | causes A and B | **no** |
+| `a10-etsl-fam-users` | `S5QgDy8X…` | **strict** | 21 | 122 | causes A and B | yes |
+| `a2-nsp-class-overview` | `sSrpLCZm…` | **strict** | 4 | 801 | causes A and B | yes |
+| `a5-etsl-metadata-usage-widget` | `S5QgDy8X…` | **strict** | 21 | 109 | causes A and B | yes |
+| `a8-nsp-group-list` | `4TdMrcnI…` | **strict** | 7 | 72 | causes A and B | yes |
+
+**Ten as-is, four strict.** The four strict files carry 4, 7 and 21 distinct `sl-*` externals.
+
+### The prediction agrees on twelve of fourteen, and the two it misses are the same mistake
+
+`T-NOJIRA-figma-ingestion-05` predicted from the count of **instances named `sl-*`** in each
+design. The mode is decided from the file's **component dependency graph**. They disagree about
+`a4-sesame-my-groups` and `b-sesame-group-details`, which hold 24 and 63 instances named `sl-*`
+in a file with **zero `sl-*` externals**.
+
+MySesame names its own local components `sl-*`. **Naming is not dependency**, and the prediction
+used the weaker of the two signals.
+
+Phase A had already shown this from the other direction and nobody connected it at the time:
+`2847:14998`, an instance named `sl-button`, asked directly, returns `{}` — because its
+`componentId` is `2:48281`, a component outside the mapped library. The empty map was true, and
+the reason it was true is the reason the mode is as-is.
+
+Both halves were measured before either was read against the other, which is the only reason
+this reads as a finding rather than as a rationalisation.

@@ -1,0 +1,36 @@
+{
+  "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+  "version": "unknown",
+  "shape": "bare",
+  "mode": "as-is",
+  "reason": "no sl-* externals; depends on Button, Cell, Status Tag",
+  "evidence": {
+    "slds": [],
+    "sldsCount": 0,
+    "other": [
+      "Button",
+      "Cell",
+      "Status Tag",
+      "bookmark",
+      "docx",
+      "folder",
+      "impress"
+    ],
+    "otherCount": 7,
+    "dependents": {
+      "bookmark": 3,
+      "Button": 4,
+      "Cell": 2,
+      "docx": 1,
+      "folder": 1,
+      "impress": 1,
+      "Status Tag": 2
+    }
+  },
+  "tool": "list_file_components_for_code_connect",
+  "decidedAt": "2026-10-06T10:22:39.832Z",
+  "cached": true,
+  "listingProvenance": "reduced",
+  "listingBytes": 1357,
+  "listingSha256": "d8cbc0a4092cc59ef9ad8c1eb3d07f9289d41a389bd4d5d57f77adba8af4df61"
+}

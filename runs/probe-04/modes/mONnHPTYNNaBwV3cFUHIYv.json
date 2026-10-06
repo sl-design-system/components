@@ -1,0 +1,30 @@
+{
+  "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
+  "version": "unknown",
+  "shape": "bare",
+  "mode": "as-is",
+  "reason": "no sl-* externals; depends on .Main menu, .Navigation item, Cell",
+  "evidence": {
+    "slds": [],
+    "sldsCount": 0,
+    "other": [
+      ".Main menu",
+      ".Navigation item",
+      "Cell",
+      "your-files"
+    ],
+    "otherCount": 4,
+    "dependents": {
+      ".Main menu": 1,
+      ".Navigation item": 1,
+      "Cell": 9,
+      "your-files": 1
+    }
+  },
+  "tool": "list_file_components_for_code_connect",
+  "decidedAt": "2026-10-06T09:51:19.939Z",
+  "cached": true,
+  "listingProvenance": "reduced",
+  "listingBytes": 2809,
+  "listingSha256": "e3e2188cef90c72ae693bc85cc29df3978f8a2f16b4e06b8e28f3f6008ba40a8"
+}

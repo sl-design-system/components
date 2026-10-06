@@ -6,10 +6,10 @@ title: marcin.ludwig implements T-NOJIRA-figma-ingestion-04
 description: 'Claim on the fourteen-case probe, the measurement that can falsify this plan on its own'
 jira: null
 resource: null
-status: released
+status: in-progress
 owner: marcin.ludwig
 created: 2026-10-06T00:00:00Z
-updated: 2026-10-06T10:00:00Z
+updated: 2026-10-06T12:00:00Z
 tags: [board]
 unit: T-NOJIRA-figma-ingestion-04
 ---
@@ -39,3 +39,8 @@ No conversion count was produced and the prediction has not been read against an
 deliberate: a count taken through a known-broken classifier would be the fourth measurement
 fault in this slice, and reading a prediction against a broken count would be the first
 dishonest one.
+
+**Re-claimed 2026-10-06** after `T-NOJIRA-figma-ingestion-08` landed at `cbd556b40`. Pre-gates
+green: clean tree, 08 done, 490 tests and `tsc --noEmit` over seventeen files.
+
+Resuming at the eight remaining mode decisions. The prediction is still unread.

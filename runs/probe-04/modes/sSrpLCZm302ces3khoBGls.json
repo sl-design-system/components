@@ -1,0 +1,37 @@
+{
+  "fileKey": "sSrpLCZm302ces3khoBGls",
+  "version": "unknown",
+  "shape": "bare",
+  "mode": "strict",
+  "reason": "4 distinct sl-* externals, e.g. sl-avatar, sl-button-pill, sl-button-rectangular",
+  "evidence": {
+    "slds": [
+      "sl-avatar",
+      "sl-button-pill",
+      "sl-button-rectangular",
+      "sl-search-field"
+    ],
+    "sldsCount": 4,
+    "other": [
+      "Focus ring outside",
+      "Frame 23",
+      "Logo"
+    ],
+    "otherCount": 3,
+    "dependents": {
+      "Focus ring outside": 1,
+      "Frame 23": 1,
+      "Logo": 1,
+      "sl-avatar": 1,
+      "sl-button-pill": 1,
+      "sl-button-rectangular": 1,
+      "sl-search-field": 2
+    }
+  },
+  "tool": "list_file_components_for_code_connect",
+  "decidedAt": "2026-10-06T10:27:11.705Z",
+  "cached": true,
+  "listingProvenance": "reduced",
+  "listingBytes": 530,
+  "listingSha256": "22505a7349992b8be92fe673b1d42fdc52657c6549cc87163f2baa6b46354de6"
+}

@@ -90,3 +90,46 @@ the reason it was true is the reason the mode is as-is.
 
 Both halves were measured before either was read against the other, which is the only reason
 this reads as a finding rather than as a rationalisation.
+
+## Phase A walked, three designs of fourteen
+
+The tree comes from the REST captures through `runs/harness/rest-metadata.mjs` — validated
+against the live tool: **every one of the 98 ids `get_metadata` returned for a8 is present** in
+the 116 it produces. The map comes from `mcp.figma.com` through this session's connection, one
+call per outermost instance, every response in `code-connect/` with its hash.
+
+| Design | Mode | Map calls | Resolved | Unresolved | Nested covered | Causes | Exit |
+| ------ | ---- | --------: | -------: | ---------: | -------------: | ------ | ---: |
+| `b-itsl-bookmk-course-files` | as-is | 8 | 0 | 8 | 40 | C ×8 | **0** |
+| `b-itsl-course-course-files` | as-is | 9 | 0 | 9 | 51 | C ×9 | **0** |
+| `a2-nsp-class-overview` | strict | 6 | 4 | 2 | 34 | A ×1, D ×1 | **6** |
+
+**Two of the three converted**, and both are designs the control halted on with
+_publish mappings and re-run_. What they say now is that eight and nine components come from
+another library, owner nobody, reproduce them as-is.
+
+**The third did not, and should not.** `a2-nsp-class-overview` is strict and halts for two
+reasons that are both real: one map **timed out and said so**, and one component genuinely has
+no mapping. Under the control that design produced one message; it now produces two, with two
+owners and two remedies.
+
+### The number that was hiding the diagnosis
+
+**125 nested nodes across the three** — 40, 51 and 34 — every one of them an id the server
+emits and refuses. Before `T-NOJIRA-figma-ingestion-09` each was a separate finding owned by
+the pipeline, and **any one of them exits 6**. Both conversions above are conversions because
+those 91 stopped being findings about nothing.
+
+### What the remaining eleven need
+
+**683 more map calls**, one per outermost instance, and that is the whole of what is left:
+
+| | |
+| - | - |
+| `runs/harness/capture.mjs` with a personal access token | **cannot** — `mcp.figma.com` answers a `figd_` token 401 |
+| the Dev Mode server | ~31 s per call and one file at a time: **six hours** of calls plus switching the active tab across eight files |
+| an agent, as here | 683 calls one at a time |
+| **a script with an OAuth `mcp:connect` credential** | minutes, unattended |
+
+The measurement is not blocked on anything but that credential. Everything else — the tree, the
+mode, the classifier, the five causes — is on disk and tested.

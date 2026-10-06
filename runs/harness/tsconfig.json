@@ -37,6 +37,8 @@
     "normalise-captures.mjs",
     "normalise-captures.test.mjs",
     "render-design.mjs",
+    "rest-metadata.mjs",
+    "rest-metadata.test.mjs",
     "rest.mjs",
     "rest.test.mjs",
     "render-design.test.mjs",

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "rootId": "2422:87039",
+  "mode": "strict",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 2,
+    "coveredByEnclosing": 0,
+    "nestedWithEnclosing": 34,
+    "byCause": {
+      "A retrieval-failed": 1,
+      "D no-mapping-written": 1
+    },
+    "byOwner": {
+      "design-system-team": 1,
+      "pipeline": 1
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "2422:87040",
+      "name": "Navigation",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for navigation",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 21
+    },
+    {
+      "id": "2422:87812",
+      "name": "sl-grid-quick-grid",
+      "cause": "retrieval-failed",
+      "letter": "A",
+      "owner": "pipeline",
+      "remedy": "retry the node, or raise --slow-map-ms; the map was never read",
+      "evidence": "the traversal could not read the map",
+      "match": null,
+      "nestedBelow": 13
+    }
+  ]
+}

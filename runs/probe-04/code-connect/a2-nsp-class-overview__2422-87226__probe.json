@@ -1,0 +1,1 @@
+{"2422:87226":{"source":"","version":"unknown","label":"SL Design System","hasTemplate":true,"snippetImports":[],"snippetNestedFunctions":[],"snippet":"\n    <sl-button\n      aria-label=\"Button\"\n      \n      fill=\"ghost\"\n      \n      \n      \n      \n    >\n      <!-- Code Connect Logic Instance -->\n      \n      \n    </sl-button>\n  "}}

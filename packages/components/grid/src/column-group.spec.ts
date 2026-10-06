@@ -136,7 +136,11 @@ describe('sl-column-group', () => {
         'aria-labelledby',
         `${headers[1].id} ${headers[6].id}`
       );
-      expect(dataCells[5].getAttribute('aria-labelledby')).to.equal(null);
+      // Cells without a value keep their group context too
+      expect(dataCells[5]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[7].id}`
+      );
     });
 
     it('should associate grouped headers through table header relationships', () => {

@@ -458,6 +458,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('ellipsizeText')) {
       this.#headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
+
+    // Group header texts can change after the first render; keep the copied labels up to date
+    this.#setColumnAccessibility(this.#columnDefinitions);
   }
 
   override render(): TemplateResult {

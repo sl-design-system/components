@@ -54,8 +54,6 @@ export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: Gri
 
 let nextHeaderCellId = 0;
 
-let nextCellId = 0;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */
@@ -66,9 +64,6 @@ export class GridColumn<T = any> extends LitElement {
 
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
-
-  /** Ids for the cells, each cell keeps the same id between renders. */
-  #cellIds = new WeakMap<ListDataSourceDataItem<T>, string>();
 
   /** The scoped elements set on this column. */
   #scopedElements: Record<string, typeof HTMLElement>;
@@ -335,16 +330,14 @@ export class GridColumn<T = any> extends LitElement {
     const classes = this.getClasses(item.data),
       data = this.getDisplayValue(item.data),
       parts = ['data', ...this.getParts(item.data)],
-      cellLabel = this.getCellAriaLabel(data),
       // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
       // data cell by its group header(s) and column header instead (e.g. "Name First name"); the
-      // rendered value is still read as the content.
-      // Empty strings are included, so blank cells still announce their group and column header.
-      cellId =
-        (typeof data === 'string' || cellLabel !== undefined) && this.groupHeaderIds.length > 0
-          ? this.getCellId(item)
-          : undefined,
-      labelledBy = cellId ? [...this.groupHeaderIds, this.headerCellId].join(' ') : undefined;
+      // rendered value is still read as the content. This applies to every cell in a grouped
+      // column, including empty cells and cells with custom templates.
+      labelledBy =
+        this.groupHeaderIds.length > 0
+          ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+          : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
@@ -353,7 +346,6 @@ export class GridColumn<T = any> extends LitElement {
           aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
-          id=${ifDefined(cellId)}
           part=${parts.join(' ')}
           role="cell">
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
@@ -366,7 +358,6 @@ export class GridColumn<T = any> extends LitElement {
           aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
-          id=${ifDefined(cellId)}
           part=${parts.join(' ')}
           role="cell">
           ${data}
@@ -416,36 +407,6 @@ export class GridColumn<T = any> extends LitElement {
     } else {
       return 'No path set';
     }
-  }
-
-  /**
-   * Returns the text of a cell value if it is a string, number or boolean. Otherwise returns
-   * nothing.
-   */
-  getCellAriaLabel(value: unknown): string | undefined {
-    if (typeof value === 'string') {
-      const label = value.trim();
-
-      return label || undefined;
-    }
-
-    if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
-      return String(value);
-    }
-
-    return undefined;
-  }
-
-  /** Returns an id for the cell that stays the same between renders. */
-  getCellId(item: ListDataSourceDataItem<T>): string {
-    let id = this.#cellIds.get(item);
-
-    if (!id) {
-      id = `${this.headerCellId}-cell-${nextCellId++}`;
-      this.#cellIds.set(item, id);
-    }
-
-    return id;
   }
 
   /** Returns a label for form controls rendered inside this column. */

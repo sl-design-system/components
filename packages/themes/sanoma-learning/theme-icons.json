@@ -1,7 +1,4 @@
 {
-  "breadcrumb-separator": {
-    "fa-icon": "chevron-right"
-  },
   "pinata": {
     "fa-icon": "pinata",
     "style": "solid"

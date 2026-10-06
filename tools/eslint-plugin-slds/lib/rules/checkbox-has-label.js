@@ -1,4 +1,3 @@
-import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import {
   checkTemplateForLabel,
   hasAttribute,
@@ -69,8 +68,6 @@ export const checkboxHasLabel = {
         if (isNestedHtmlTemplate(node, context)) {
           return;
         }
-
-        const tooltipLabelledIds = collectTooltipLabelledIds(TemplateAnalyzer.create(node));
 
         checkTemplateForLabel({
           context,

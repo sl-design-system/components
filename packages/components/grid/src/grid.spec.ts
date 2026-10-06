@@ -212,6 +212,37 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('column group header changes', () => {
+    it('should update the group label of nested columns when the group header changes', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe' }]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      const column = grid.querySelector('sl-grid-column')!,
+        group = grid.querySelector('sl-grid-column-group')!;
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Name First name'
+      );
+
+      group.header = 'Person';
+
+      // No manual update of the grid: the group has to notify it
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Person First name'
+      );
+    });
+  });
+
   describe('column group with filter columns', () => {
     it('should keep the surviving filter registered after removing the first column', async () => {
       const grid: Grid<Person> = await fixture(html`

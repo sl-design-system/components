@@ -35,6 +35,21 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    // The labels of the group are copied to the nested columns by the grid. Tell the grid when
+    // they change, so it can refresh them.
+    if (
+      this.grid &&
+      (changes.has('header') ||
+        changes.has('formControlColumnLabel') ||
+        changes.has('hideHeaderText'))
+    ) {
+      this.columnUpdateEvent.emit({ grid: this.grid, column: this });
+    }
+  }
+
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index >= this.headerRowCount) {
       return nothing;

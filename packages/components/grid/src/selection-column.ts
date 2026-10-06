@@ -92,6 +92,10 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <td
         @click=${this.#onClick}
+        aria-labelledby=${ifDefined(
+          // Only the group header(s); the leaf header contains the "Select all rows" checkbox
+          this.groupHeaderIds.length > 0 ? this.groupHeaderIds.join(' ') : undefined
+        )}
         class=${ifDefined(classes.join(' ') || undefined)}
         headers=${this.headerIds}
         part="data selection"

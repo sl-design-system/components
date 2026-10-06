@@ -78,6 +78,12 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
           this.#onStartDrag(event, item.data)}
         @touchstart=${(event: Event & { target: HTMLElement }) =>
           this.#onStartDrag(event, item.data)}
+        aria-labelledby=${ifDefined(
+          // The cell has no text, so name it by its group header(s) and the "Reorder" header
+          this.groupHeaderIds.length > 0
+            ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+            : undefined
+        )}
         headers=${this.headerIds}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
         role="cell">

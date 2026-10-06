@@ -330,3 +330,61 @@ Four designs: `b-itsl-bookmk-deleted-course` (81), `b-sesame-group-details` (107
 `a4-sesame-my-groups` (152), `a5-etsl-metadata-usage-widget` (158), at the outermost-instance
 estimate. **Two of them are the ones that most test the prediction**: b-sesame and a4 are as-is
 by mode while holding 63 and 24 instances *named* `sl-*`.
+
+## Twelve of fourteen walked — nine convert, and the prediction scores 11 of 12
+
+255 live Code Connect calls, 1 983 nodes, 837 nested ids covered.
+
+| Design | Mode | Nodes | Calls | Unresolved | Nested | Causes | Exit | Predicted |
+| ------ | ---- | ----: | ----: | ---------: | -----: | ------ | ---: | --------- |
+| `a11-sesame-learning-materials` | as-is | 365 | 19 | 19 | 58 | C ×19 | **0** | converts ✓ |
+| `b-sesame-group-details` | as-is | 277 | 36 | 36 | 63 | C ×36 | **0** | does not — **MISS** |
+| `a1-kampus-subchapter-feed` | as-is | 274 | 23 | 23 | **213** | C ×23 | **0** | converts ✓ |
+| `b-itsl-bookmk-deleted-course` | as-is | 238 | 52 | 52 | 109 | C ×52 | **0** | converts ✓ |
+| `a6-itsl-collab-shared-folder` | as-is | 159 | 20 | 20 | 98 | C ×20 | **0** | converts ✓ |
+| `b-kampus-notes-panel` | as-is | 95 | 16 | 16 | 58 | C ×16 | **0** | converts ✓ |
+| `b-itsl-course-course-files` | as-is | 89 | 9 | 9 | 51 | C ×9 | **0** | converts ✓ |
+| `b-itsl-collab-add-element` | as-is | 88 | 8 | 8 | 43 | C ×8 | **0** | converts ✓ |
+| `b-itsl-bookmk-course-files` | as-is | 77 | 8 | 8 | 40 | C ×8 | **0** | converts ✓ |
+| `a10-etsl-fam-users` | strict | 134 | 38 | 36 | 52 | D ×35, E ×1 | 5 | does not ✓ |
+| `a8-nsp-group-list` | strict | 123 | 20 | 6 | 18 | D ×1, E ×5 | 5 | does not ✓ |
+| `a2-nsp-class-overview` | strict | 64 | 6 | 2 | 34 | A ×1, D ×1 | 6 | does not ✓ |
+
+### The prediction, scored
+
+`T-NOJIRA-figma-ingestion-05` recorded on 2026-10-06, dated, before `T-08` and `T-09` existed
+and therefore before any design could convert at all: **eight designs convert, named one by
+one.** All eight are now walked and **all eight converted.**
+
+**Eleven of twelve correct, and the one miss is the one it was warned about.**
+`b-sesame-group-details` was predicted not to convert because it holds **63 instances named
+`sl-*`**. It converted, with 36 findings all cause C.
+
+The mechanism is in this run's own evidence: `2142:48182`, an instance **named `sl-text_input`**
+with `componentId: 7:35563`, asked directly, answers `{}`. MySesame names its local components
+`sl-*` and depends on no SLDS component at all. **Naming is not dependency**, and the prediction
+used the weaker of the two signals — which is what a prediction is for.
+
+### The split is the mode, exactly
+
+Nine as-is designs, nine conversions. Three strict, none. No exception in either direction, and
+the mode for all fourteen was decided from the dependency graph before a single walk ran.
+
+### What a converted design now says
+
+Not _publish mappings and re-run_. Eight to fifty-two components come from another library,
+owner nobody, reproduce them as-is — and between 40 and 213 nested ids per design are accounted
+for rather than reported.
+
+### What a strict design now says
+
+`a8-nsp-group-list` was measured by `T-NOJIRA-figma-ingestion-03` at **28 unresolved, every one
+ours, exit 6**. It is now **6 findings, every one the design system team's, exit 5**, with 5
+snippets taken and 9 more components recognised as mapped. `a10-etsl-fam-users` reports **35
+components with no mapping written** and nothing owned by the pipeline.
+
+### What is left
+
+Two designs: `a4-sesame-my-groups` and `a5-etsl-metadata-usage-widget`. a4 is the second and
+last test of the naming-against-dependency divergence — as-is by mode, 24 instances named
+`sl-*`.

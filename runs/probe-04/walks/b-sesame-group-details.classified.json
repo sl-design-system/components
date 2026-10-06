@@ -1,0 +1,425 @@
+{
+  "schemaVersion": 1,
+  "rootId": "2142:48093",
+  "mode": "as-is",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 36,
+    "coveredByEnclosing": 0,
+    "nestedWithEnclosing": 63,
+    "byCause": {
+      "C another-library": 36
+    },
+    "byOwner": {
+      "nobody": 36
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "2142:48105",
+      "name": "button secondary",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48111",
+      "name": "button secondary",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48118",
+      "name": "button secondary",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48136",
+      "name": "DEMO - Tab-switches",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48137",
+      "name": "DEMO - Tab-switches",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48138",
+      "name": "DEMO - Tab-switches",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48151",
+      "name": "menu item SU",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48152",
+      "name": "menu item SU",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48153",
+      "name": "menu item SU",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48154",
+      "name": "menu item SU",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48156",
+      "name": "avatar_SU",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 14
+    },
+    {
+      "id": "2142:48168",
+      "name": "button",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48182",
+      "name": "sl-text_input",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48184",
+      "name": "sl-label-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48185",
+      "name": "sl_base-text_input",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48187",
+      "name": "sl-text_input-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48189",
+      "name": "sl-label-theme",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48199",
+      "name": "select-box-down",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48323",
+      "name": "sl-label-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48324",
+      "name": "sl_base-text_input",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48327",
+      "name": "sl-label-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48332",
+      "name": "Focus ring",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 0
+    },
+    {
+      "id": "2142:48335",
+      "name": "sl-label-theme",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48345",
+      "name": "select-box-down",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48455",
+      "name": "sl-radio_group-theme",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the mode is as-is, yet sl-radio-group-theme matches radio-group.figma.ts by prefix — the file may consume the library without depending on it",
+      "match": {
+        "component": "sl-radio-group",
+        "how": "prefix",
+        "state": "published",
+        "file": "radio-group.figma.ts"
+      },
+      "nestedBelow": 4
+    },
+    {
+      "id": "3659:36698",
+      "name": "Accordion-multiple-view",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "3659:36670",
+      "name": "sl-text_input-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48457",
+      "name": "sl-text_input-theme [DEPRECATED]",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "2142:48465",
+      "name": "button primary",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48469",
+      "name": "sl-base-checkbox",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48471",
+      "name": "Empty ison",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    },
+    {
+      "id": "2142:48491",
+      "name": "menu item footer",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48492",
+      "name": "menu item footer",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48493",
+      "name": "menu item footer",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48494",
+      "name": "menu item footer",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    },
+    {
+      "id": "2142:48495",
+      "name": "menu item footer",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 1
+    }
+  ]
+}

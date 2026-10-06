@@ -243,26 +243,67 @@ export const readMap = text => {
 
 /**
  * @typedef {{
- *   outcome: 'resolved' | 'identified' | 'empty' | 'unreadable';
+ *   outcome: 'resolved' | 'mapped' | 'identified' | 'empty' | 'unreadable';
  *   detail: string | null;
  *   label: string | null;
  *   snippet: string;
+ *   resolvedBy: string | null;
+ *   entries: number;
  * }} Verdict
+ *   `resolved` and `mapped` both mean Code Connect knows this node. They differ in whether a
+ *   snippet came with the answer, which decides whether the traversal may stop here — and
+ *   `resolvedBy` says which id answered, because it is often not the one that was asked.
  */
 
 /** @param {string} text */
 const firstLine = text => text.split('\n')[0].slice(0, 160).trim();
 
 /**
- * What one map response says about the node it was asked about.
+ * Every key a node id might be looked up under.
+ *
+ * A node inside an instance arrives as `I334:20594;334:20605`, and the map keys the same node by
+ * its **last segment**, `334:20605`. Comparing the two forms directly finds nothing — which is how
+ * a map full of answers was read as empty.
+ *
+ * @param {string} id
+ * @returns {string[]}
+ */
+const keysFor = id => {
+  const plain = id.startsWith('I') ? id.slice(1) : id,
+    segments = plain.split(';');
+
+  return [...new Set([id, plain, ...segments, ...segments.map(one => one.replace(':', '-'))])];
+};
+
+/**
+ * What one map response says about a node — **and about its subtree**.
+ *
+ * Probed 2026-10-06 on the remote server: `get_code_connect_map(334:20594)`, an `sl-avatar`,
+ * returns entries for `334:20605`, `334:20610` and `334:20609` — Mask, Mask and Base/Icon, all
+ * _inside_ the instance — and **nothing for `334:20594` itself**. Each entry carries `hasTemplate:
+ * true` with **no `snippet` key**, which is the remote tool's map form; the snippet arrives only
+ * when the exact node is asked for.
+ *
+ * A reader that looked up one id and demanded a snippet called that response empty and filed
+ * `genuinely-unmapped`. In strict mode the classifier then sent **cause E** — _a mapping is
+ * published and did not resolve_ — to the design system team, about an instance whose internals the
+ * map had just resolved three of. Two successful answers, read as two absences.
  *
  * @param {ToolResult} answer
  * @param {string} nodeId
+ * @param {string[]} [descendants] Ids below this node, in the form the metadata emits them
  * @returns {Verdict}
  */
-export const classifyMap = (answer, nodeId) => {
+export const classifyMap = (answer, nodeId, descendants = []) => {
   /** @type {Verdict} */
-  const base = { outcome: 'empty', detail: null, label: null, snippet: '' };
+  const base = {
+    outcome: 'empty',
+    detail: null,
+    label: null,
+    snippet: '',
+    resolvedBy: null,
+    entries: 0
+  };
 
   if (answer.isError) return { ...base, outcome: 'unreadable', detail: firstLine(answer.text) };
 
@@ -275,22 +316,61 @@ export const classifyMap = (answer, nodeId) => {
     return { ...base, outcome: 'unreadable', detail: /** @type {Error} */ (error).message };
   }
 
-  const entry = map.entries[nodeId] ?? map.entries[nodeId.replace(':', '-')];
+  base.entries = Object.keys(map.entries).length;
 
-  if (!entry) return base;
-  if (!entry.hasTemplate) return { ...base, outcome: 'identified', detail: entry.source };
+  /** @param {string} id */
+  const lookup = id => {
+    for (const key of keysFor(id)) if (map.entries[key]) return { key, entry: map.entries[key] };
 
-  // A template that carries no snippet is a contradiction, and reading it as either a snippet or
-  // an absence invents an answer. It is refused the way any other unknown shape is.
-  if (!entry.snippet) {
+    return null;
+  };
+
+  const own = lookup(nodeId);
+
+  if (own) {
+    const { entry } = own;
+
+    if (!entry.hasTemplate)
+      return { ...base, outcome: 'identified', detail: entry.source, resolvedBy: own.key };
+
+    // **The map form is not a contradiction.** `hasTemplate: true` with no snippet is what the
+    // remote server sends, and the only honest reading is that the node is mapped and the
+    // snippet was not in this response.
+    if (!entry.snippet)
+      return {
+        ...base,
+        outcome: 'mapped',
+        detail: entry.source,
+        label: entry.label ?? null,
+        resolvedBy: own.key
+      };
+
     return {
       ...base,
-      outcome: 'unreadable',
-      detail: `${nodeId}: the entry declares hasTemplate and carries no snippet`
+      outcome: 'resolved',
+      label: entry.label ?? null,
+      snippet: entry.snippet,
+      resolvedBy: own.key
     };
   }
 
-  return { ...base, outcome: 'resolved', label: entry.label ?? null, snippet: entry.snippet };
+  // Nothing for the node itself. A descendant with a template still means Code Connect knows this
+  // subtree — but only a template: `hasTemplate: false` below a node says nothing about the node,
+  // and promoting it would be the same substitution in the other direction.
+  for (const descendant of descendants) {
+    const below = lookup(descendant);
+
+    if (below?.entry.hasTemplate)
+      return {
+        ...base,
+        outcome: 'mapped',
+        detail: `answered by ${below.key}: ${below.entry.source}`,
+        label: below.entry.label ?? null,
+        resolvedBy: below.key
+      };
+  }
+
+  return base;
 };
 
 /**
@@ -331,7 +411,7 @@ export const applyBudget = (verdict, ms, budget = SLOW_MAP_MS) =>
  * Why the traversal went deeper. `genuinely-unmapped` and `map-unreadable` produce identical markup
  * and mean opposite things, which is the whole reason the reason is recorded.
  */
-export const DESCENT_REASON = /** @type {const} */ ({
+export const DESCENT_REASON = /** @type {Record<string, string>} */ ({
   empty: 'genuinely-unmapped',
   unreadable: 'map-unreadable',
   identified: 'identified-without-snippet'
@@ -348,6 +428,7 @@ export const DESCENT_REASON = /** @type {const} */ ({
  *   disposition:
  *     | 'root'
  *     | 'resolved'
+ *     | 'mapped'
  *     | 'descended'
  *     | 'inline'
  *     | 'nested'
@@ -355,6 +436,7 @@ export const DESCENT_REASON = /** @type {const} */ ({
  *     | 'unreadable-metadata';
  *   reason: string | null;
  *   probedAs: string | null;
+ *   resolvedBy: string | null;
  *   detail: string | null;
  *   snippetBytes: number;
  *   ms: number;
@@ -369,6 +451,7 @@ const record = (node, fields) => ({
   disposition: 'inline',
   reason: null,
   probedAs: null,
+  resolvedBy: null,
   detail: null,
   snippetBytes: 0,
   ms: 0,
@@ -389,6 +472,7 @@ const record = (node, fields) => ({
  *   expandMapped?: boolean;
  *   maxNodes?: number;
  *   slowMapMs?: number;
+ *   endpoint?: string | null;
  * }} options
  */
 export const traverse = async ({
@@ -397,7 +481,8 @@ export const traverse = async ({
   getMap,
   expandMapped = false,
   maxNodes = 2000,
-  slowMapMs = SLOW_MAP_MS
+  slowMapMs = SLOW_MAP_MS,
+  endpoint = null
 }) => {
   /** @type {{ id: string; within: { id: string; outcome: string } | null }[]} */
   const frontier = [{ id: rootId, within: null }];
@@ -412,6 +497,34 @@ export const traverse = async ({
   let metadataBytes = 0,
     snippetBytes = 0,
     truncated = false;
+
+  /**
+   * One metadata call per node, however many times the walk wants it.
+   *
+   * It exists because of the defect this task fixes: deciding whether a map answered about a node's
+   * subtree needs that subtree's ids, and at an instance boundary `get_metadata` has not produced
+   * them yet. The children are fetched at the moment the question is asked — which is the same call
+   * the frontier was about to make — and the cache keeps it one call.
+   *
+   * @type {Map<string, ToolResult>}
+   */
+  const metadataCache = new Map();
+
+  /** @param {string} id */
+  const metadataOf = async id => {
+    const cached = metadataCache.get(id);
+
+    if (cached) return cached;
+
+    calls.metadata += 1;
+
+    const answer = await getMetadata(id);
+
+    metadataCache.set(id, answer);
+    metadataBytes += answer.text.length;
+
+    return answer;
+  };
 
   /** @param {string} id @param {{ id: string; outcome: string } | null} within */
   const enqueue = (id, within) => {
@@ -462,10 +575,65 @@ export const traverse = async ({
     if (PROBEABLE_TAGS.has(node.tag)) {
       calls.map += 1;
 
+      // The map is asked about this node and answers about its subtree, so the subtree's ids are
+      // what settle it. They are not in hand here: `get_metadata` stops at instance boundaries,
+      // which is exactly where this matters, so they are fetched below — once, and only when
+      // there is something to settle.
+      /** @type {string[]} */
+      const below = [];
+
+      /** @param {FigmaNode} one */
+      const collect = one => {
+        for (const child of one.children) {
+          below.push(child.id);
+          collect(child);
+        }
+      };
+
       const started = Date.now(),
         answer = await getMap(target.id),
-        ms = Date.now() - started,
-        verdict = applyBudget(classifyMap(answer, target.id), ms, slowMapMs);
+        ms = Date.now() - started;
+
+      let verdict = applyBudget(classifyMap(answer, target.id, below), ms, slowMapMs);
+
+      // **The map held answers and none of them was this node.** At an instance boundary `below`
+      // is empty, because metadata stops there — so the children that would settle it have to be
+      // asked for. Only when there is something to settle: an empty map needs no second call.
+      if (verdict.outcome === 'empty' && verdict.entries > 0 && !below.length) {
+        const deeper = await metadataOf(target.id);
+
+        if (!deeper.isError) {
+          try {
+            collect(parseMetadata(deeper.text));
+          } catch {
+            // An unreadable expansion leaves the first verdict standing; it is not evidence.
+          }
+
+          if (below.length)
+            verdict = applyBudget(classifyMap(answer, target.id, below), ms, slowMapMs);
+        }
+      }
+
+      if (verdict.outcome === 'mapped') {
+        // Mapped, and no snippet to stop with. The node is **not** a descent — nothing about it
+        // is unresolved — but its content still has to come from somewhere, so the walk goes on.
+        records.push(
+          record(node, {
+            disposition: 'mapped',
+            probedAs: target.id,
+            resolvedBy: verdict.resolvedBy,
+            detail: verdict.detail,
+            ms
+          })
+        );
+
+        enqueue(node.id, { id: target.id, outcome: verdict.outcome });
+
+        for (const child of node.children)
+          await visit(child, { id: target.id, outcome: verdict.outcome });
+
+        return;
+      }
 
       if (verdict.outcome === 'resolved') {
         snippetBytes += verdict.snippet.length;
@@ -474,6 +642,7 @@ export const traverse = async ({
           record(node, {
             disposition: 'resolved',
             probedAs: target.id,
+            resolvedBy: verdict.resolvedBy,
             detail: verdict.label,
             snippetBytes: verdict.snippet.length,
             ms
@@ -489,6 +658,7 @@ export const traverse = async ({
             disposition: 'descended',
             reason: DESCENT_REASON[verdict.outcome],
             probedAs: target.id,
+            resolvedBy: null,
             detail: verdict.detail,
             ms
           })
@@ -522,11 +692,7 @@ export const traverse = async ({
       frontier.shift()
     );
 
-    calls.metadata += 1;
-
-    const answer = await getMetadata(next.id);
-
-    metadataBytes += answer.text.length;
+    const answer = await metadataOf(next.id);
 
     if (answer.isError) {
       records.push({
@@ -536,6 +702,7 @@ export const traverse = async ({
         disposition: 'unreadable-metadata',
         reason: 'metadata-unreadable',
         probedAs: next.id,
+        resolvedBy: null,
         detail: firstLine(answer.text),
         snippetBytes: 0,
         ms: 0
@@ -557,6 +724,7 @@ export const traverse = async ({
         disposition: 'unreadable-metadata',
         reason: 'metadata-unreadable',
         probedAs: next.id,
+        resolvedBy: null,
         detail: /** @type {Error} */ (error).message,
         snippetBytes: 0,
         ms: 0
@@ -586,6 +754,9 @@ export const traverse = async ({
   return {
     schemaVersion: 1,
     rootId,
+    // **Which server answered.** Two servers publish the same tool names and do not answer the
+    // same way; a report that does not say which one spoke cannot be compared with another.
+    endpoint,
     expandedMapped: expandMapped,
     slowMapMs,
     complete: !truncated,
@@ -594,6 +765,7 @@ export const traverse = async ({
     counts: {
       root: countOf('root'),
       resolved: countOf('resolved'),
+      mapped: countOf('mapped'),
       descended: countOf('descended'),
       inline: countOf('inline'),
       nested: countOf('nested'),
@@ -618,27 +790,37 @@ const arg = name => {
 };
 
 if (import.meta.main) {
-  const rootId = arg('root');
+  const rootId = arg('root'),
+    endpoint = arg('endpoint');
+
+  const usage =
+    'usage: traverse.mjs --root <nodeId as 123:456> --endpoint <url> [--out <file>] ' +
+    '[--expand-mapped] [--max-nodes <n>] [--slow-map-ms <ms>] [--allow-truncated] ' +
+    `[--allow-unreadable]\n  the Dev Mode server on this machine is ${DEFAULT_ENDPOINT}`;
 
   if (!rootId || !NODE_ID.test(rootId)) {
-    console.error(
-      'usage: traverse.mjs --root <nodeId as 123:456> [--endpoint <url>] [--out <file>] ' +
-        '[--expand-mapped] [--max-nodes <n>] [--slow-map-ms <ms>] [--allow-truncated] ' +
-        '[--allow-unreadable]'
-    );
+    console.error(usage);
+    exit(2);
+  }
+
+  // **No default endpoint.** Two servers publish these tool names and do not answer the same
+  // way: the Dev Mode server on this machine answers every valid node `{}` after ~31 s and
+  // publishes neither task 01's tool nor the remote map form, and the remote one publishes both
+  // and needs an OAuth credential. A default silently picks one of those worlds, and the report
+  // that comes out cannot be compared with one from the other.
+  if (!endpoint) {
+    console.error(`traverse.mjs: --endpoint is required, and has no default.\n${usage}`);
     exit(2);
   }
 
   let report;
 
   try {
-    const session = await openSession({
-      endpoint: arg('endpoint') ?? DEFAULT_ENDPOINT,
-      token: env.FIGMA_MCP_TOKEN
-    });
+    const session = await openSession({ endpoint, token: env.FIGMA_MCP_TOKEN });
 
     report = await traverse({
       rootId,
+      endpoint: session.endpoint,
       getMetadata: id => session.call(METADATA_TOOL, { nodeId: id }),
       getMap: id => session.call(MAP_TOOL, { nodeId: id }),
       expandMapped: argv.includes('--expand-mapped'),

@@ -256,19 +256,124 @@ describe('classifyMap — what one response says about one node', () => {
     assert.equal(verdict.detail, '{}');
   });
 
-  it('NEGATIVE CONTROL: refuses a template that carries no snippet rather than guessing', () => {
+  it('calls a template with no snippet mapped — it is the remote map form, not a contradiction', () => {
+    // Probed 2026-10-06 on the remote server: every entry carries `hasTemplate: true` and no
+    // `snippet` key, because the snippet arrives only when the exact node is asked for. The
+    // reader used to refuse this shape, which sent a mapped component to the design system team
+    // as cause E — *a mapping is published and did not resolve*.
+    const verdict = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20594');
+
+    assert.equal(verdict.outcome, 'mapped');
+    assert.equal(verdict.resolvedBy, '334:20594');
+    assert.equal(verdict.snippet, '');
+  });
+
+  it('keeps mapped distinguishable from identified, which is the whole point of two names', () => {
+    const mapped = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20594'),
+      identified = classifyMap(answered(fixture('code-connect-identified.json')), '0:3');
+
+    assert.notEqual(mapped.outcome, identified.outcome);
+    assert.equal(mapped.outcome, 'mapped');
+    assert.equal(identified.outcome, 'identified');
+  });
+
+  describe('NEGATIVE CONTROL: the refusals that must survive the fix', () => {
+    it('still refuses an entry that is malformed rather than merely snippetless', () => {
+      const verdict = classifyMap(answered('{"1:1":{"version":"1","hasTemplate":true}}'), '1:1');
+
+      assert.equal(verdict.outcome, 'unreadable');
+      assert.match(verdict.detail ?? '', /malformed/);
+    });
+
+    it('still refuses a map that is not an object keyed by node id', () => {
+      assert.equal(classifyMap(answered('[1,2,3]'), '1:1').outcome, 'unreadable');
+    });
+
+    it('still refuses a body that is not JSON', () => {
+      assert.equal(classifyMap(answered('No node could be found'), '1:1').outcome, 'unreadable');
+    });
+  });
+});
+
+describe('a map may answer about descendants', () => {
+  // `get_code_connect_map(334:20594)` — sl-avatar — returns three entries, for Mask, Mask and
+  // Base/Icon, and **nothing for 334:20594 itself**. The reader looked up one id, found nothing,
+  // and filed `genuinely-unmapped` about an instance whose internals the map had just resolved.
+  const avatar = answered(fixture('code-connect-descendants.json'));
+
+  it('resolves a node its descendants answered for, and names the id that answered', () => {
+    const verdict = classifyMap(avatar, '334:20594', ['334:20605', '334:20610', '334:20609']);
+
+    assert.equal(verdict.outcome, 'mapped');
+    assert.equal(verdict.resolvedBy, '334:20605');
+  });
+
+  it('matches a descendant through the nested id form the server actually emits', () => {
+    // Inside an instance the children arrive as `I334:20594;334:20605`, and the map keys them by
+    // their last segment. Comparing the two forms directly finds nothing.
+    const verdict = classifyMap(avatar, '334:20594', ['I334:20594;334:20605']);
+
+    assert.equal(verdict.outcome, 'mapped');
+    assert.equal(verdict.resolvedBy, '334:20605');
+  });
+
+  it("prefers the node's own entry over any descendant", () => {
+    const verdict = classifyMap(answered(fixture('code-connect-resolved.json')), '334:20668', [
+      '334:20605'
+    ]);
+
+    assert.equal(verdict.outcome, 'resolved');
+    assert.equal(verdict.resolvedBy, '334:20668');
+  });
+
+  it('matches a descendant by its enclosing instance, not only by its last segment', () => {
+    // `I1:2;3:4` names a node inside instance `1:2`, and the map may key either end of that.
+    // Keeping the `I` on would try `I1:2` and `3:4` and never `1:2`.
     const verdict = classifyMap(
-      answered('{"1:1":{"source":"","version":"1","hasTemplate":true}}'),
-      '1:1'
+      answered('{"1:2":{"source":"x","version":"1","hasTemplate":true}}'),
+      '9:9',
+      ['I1:2;3:4']
     );
 
-    assert.equal(verdict.outcome, 'unreadable');
-    assert.match(verdict.detail ?? '', /declares hasTemplate and carries no snippet/);
+    assert.equal(verdict.outcome, 'mapped');
+    assert.equal(verdict.resolvedBy, '1:2');
+  });
+
+  describe('NEGATIVE CONTROL: a descendant lookup cannot invent a mapping', () => {
+    it('stays empty when no descendant is in the map either', () => {
+      const verdict = classifyMap(avatar, '1:1', ['2:2', '3:3']);
+
+      assert.equal(verdict.outcome, 'empty');
+      assert.equal(verdict.resolvedBy, null);
+    });
+
+    it('stays empty when the descendant list is empty, which is the old behaviour exactly', () => {
+      assert.equal(classifyMap(avatar, '334:20594').outcome, 'empty');
+    });
+
+    it('does not promote a descendant that Code Connect only identified', () => {
+      // `hasTemplate: false` below a node says nothing about the node. Treating it as a mapping
+      // would be the same substitution in the other direction.
+      const verdict = classifyMap(
+        answered('{"2:2":{"source":"x","version":"1","hasTemplate":false}}'),
+        '1:1',
+        ['2:2']
+      );
+
+      assert.equal(verdict.outcome, 'empty');
+    });
   });
 });
 
 describe('applyBudget — an empty map that took too long is not an absence', () => {
-  const empty = { outcome: /** @type {const} */ ('empty'), detail: null, label: null, snippet: '' };
+  const empty = {
+    outcome: /** @type {const} */ ('empty'),
+    detail: null,
+    label: null,
+    snippet: '',
+    resolvedBy: null,
+    entries: 0
+  };
 
   it('downgrades the thirty-one-second empty the Dev Mode server returns', () => {
     // Five samples on 2026-10-05: 30.6s, 30.8s, 31.0s, 31.0s, 31.1s — the same plateau for a
@@ -373,6 +478,128 @@ describe('traverse — the stopping rule', () => {
 
     assert.equal(report.bytes.snippets > 0, true);
     assert.equal(report.bytes.metadata, design['1:1'].length);
+  });
+});
+
+describe('traverse — a node the map answered about is mapped, not unmapped', () => {
+  const design = {
+    '1:1': '<frame id="1:1" name="root"><instance id="1:2" name="sl-avatar" /></frame>',
+    '1:2':
+      '<instance id="1:2" name="sl-avatar"><vector id="I1:2;334:20605" name="Mask" /></instance>'
+  };
+
+  it('records the node as mapped and names the descendant that answered', async () => {
+    const w = world({
+        metadata: design,
+        maps: { '1:2': fixture('code-connect-descendants.json') }
+      }),
+      report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap }),
+      avatar = report.nodes.find(node => node.id === '1:2');
+
+    assert.equal(avatar?.disposition, 'mapped');
+    assert.equal(avatar?.resolvedBy, '334:20605');
+    assert.equal(report.counts.mapped, 1);
+  });
+
+  it('still descends, because a map form carries no snippet to stop with', async () => {
+    const w = world({
+      metadata: design,
+      maps: { '1:2': fixture('code-connect-descendants.json') }
+    });
+
+    await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap });
+
+    assert.deepEqual(w.metadataCalls, ['1:1', '1:2']);
+  });
+
+  it('visits the children, which is the only place its content can come from', async () => {
+    const w = world({
+        metadata: design,
+        maps: { '1:2': fixture('code-connect-descendants.json') }
+      }),
+      report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap });
+
+    assert.ok(
+      report.nodes.some(node => node.id === 'I1:2;334:20605'),
+      'the mapped node pruned its subtree, and there was no snippet to replace it with'
+    );
+  });
+
+  it('asks for the subtree once, however many times the walk wants it', async () => {
+    // The question is settled by a metadata call the frontier was going to make anyway. The
+    // cache is what keeps that from being two calls for the same node.
+    const w = world({
+      metadata: design,
+      maps: { '1:2': fixture('code-connect-descendants.json') }
+    });
+
+    await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap });
+
+    assert.equal(w.metadataCalls.filter(id => id === '1:2').length, 1);
+  });
+
+  it('counts no descent for it, which is what stops it reaching the design system team', async () => {
+    const w = world({
+        metadata: design,
+        maps: { '1:2': fixture('code-connect-descendants.json') }
+      }),
+      report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap });
+
+    assert.equal(report.descents['genuinely-unmapped'], undefined);
+    assert.equal(report.counts.descended, 0);
+  });
+
+  describe('NEGATIVE CONTROL: the same design with an empty map is still unmapped', () => {
+    it('descends and says genuinely-unmapped when nothing in the subtree answered', async () => {
+      const w = world({ metadata: design, maps: { '1:2': '{}' } }),
+        report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap }),
+        avatar = report.nodes.find(node => node.id === '1:2');
+
+      assert.equal(avatar?.disposition, 'descended');
+      assert.equal(avatar?.reason, 'genuinely-unmapped');
+      assert.equal(report.counts.mapped, 0);
+    });
+
+    it('asks nothing extra of a map that answered nothing', async () => {
+      // The second call exists to settle a response that held entries. An empty map holds none,
+      // so there is nothing to settle — and under a budget the walk may never reach this node,
+      // which is where asking anyway becomes a call that buys nothing.
+      const w = world({ metadata: design, maps: { '1:2': '{}' } }),
+        report = await traverse({
+          rootId: '1:1',
+          getMetadata: w.getMetadata,
+          getMap: w.getMap,
+          maxNodes: 2
+        });
+
+      assert.deepEqual(w.metadataCalls, ['1:1']);
+      assert.equal(report.complete, false);
+    });
+  });
+});
+
+describe('traverse — the report says which server answered', () => {
+  const design = { '1:1': '<frame id="1:1" name="root" />' };
+
+  it('records the endpoint it was told it was talking to', async () => {
+    const w = world({ metadata: design, maps: {} }),
+      report = await traverse({
+        rootId: '1:1',
+        getMetadata: w.getMetadata,
+        getMap: w.getMap,
+        endpoint: 'https://mcp.figma.com/mcp'
+      });
+
+    assert.equal(report.endpoint, 'https://mcp.figma.com/mcp');
+  });
+
+  describe('NEGATIVE CONTROL: an unrecorded endpoint is not silently a default', () => {
+    it('records null rather than naming a server nobody chose', async () => {
+      const w = world({ metadata: design, maps: {} }),
+        report = await traverse({ rootId: '1:1', getMetadata: w.getMetadata, getMap: w.getMap });
+
+      assert.equal(report.endpoint, null);
+    });
   });
 });
 
@@ -808,9 +1035,24 @@ describe('NEGATIVE CONTROL: the CLI leaves by a non-zero exit when it does not k
   });
 
   it('exits 2 on a root the server could only reject', async () => {
-    const { code } = await run(['--root', 'I4195:33202;1514:155394']);
+    const { code } = await run([
+      '--root',
+      'I4195:33202;1514:155394',
+      '--endpoint',
+      'http://127.0.0.1:1/mcp'
+    ]);
 
     assert.equal(code, 2);
+  });
+
+  it('exits 2 when no endpoint is named, rather than choosing a server for the operator', async () => {
+    // Two servers answer the same tool names and do not answer the same way: the Dev Mode server
+    // on this machine publishes neither task 01's tool nor the map form, and the remote one
+    // publishes both. A default picks one of those worlds silently.
+    const { code, stderr } = await run(['--root', '1:1']);
+
+    assert.equal(code, 2);
+    assert.match(stderr, /--endpoint/);
   });
 
   it('exits 4 when a descent happened because the map could not be read', async () => {

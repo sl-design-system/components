@@ -1,0 +1,21 @@
+{
+  "_provenance": "get_code_connect_map(334:20594) against the remote server, 2026-10-06. The node asked about is sl-avatar; every key below is a node INSIDE it, and there is no entry for 334:20594 itself. Reconstructed from the response recorded in T-NOJIRA-figma-ingestion-05 — the remote server needs an OAuth credential and the Dev Mode server needs New Secondary as the active tab, so it cannot be re-pulled here. Non-id keys are read as annotations, which is why this note can live in the fixture.",
+  "334:20605": {
+    "componentName": "Mask",
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/avatar/src/avatar.ts",
+    "version": "unknown",
+    "hasTemplate": true
+  },
+  "334:20610": {
+    "componentName": "Mask",
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/avatar/src/avatar.ts",
+    "version": "unknown",
+    "hasTemplate": true
+  },
+  "334:20609": {
+    "componentName": "Base/Icon",
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "hasTemplate": true
+  }
+}

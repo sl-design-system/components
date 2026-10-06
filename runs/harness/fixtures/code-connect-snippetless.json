@@ -1,0 +1,9 @@
+{
+  "_provenance": "The remote server's map form, 2026-10-06: hasTemplate is true and there is no snippet key, because the snippet arrives only when the exact node is asked for. The Dev Mode server never sends this shape, which is why it was invisible until the remote one was probed.",
+  "334:20594": {
+    "componentName": "sl-avatar",
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/avatar/src/avatar.ts",
+    "version": "unknown",
+    "hasTemplate": true
+  }
+}

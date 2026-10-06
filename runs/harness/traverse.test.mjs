@@ -257,19 +257,40 @@ describe('classifyMap — what one response says about one node', () => {
   });
 
   it('calls a template with no snippet mapped — it is the remote map form, not a contradiction', () => {
-    // Probed 2026-10-06 on the remote server: every entry carries `hasTemplate: true` and no
-    // `snippet` key, because the snippet arrives only when the exact node is asked for. The
-    // reader used to refuse this shape, which sent a mapped component to the design system team
-    // as cause E — *a mapping is published and did not resolve*.
-    const verdict = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20594');
+    // Captured 2026-10-06 from `mcp.figma.com`: `334:20605` asked for **directly**, and the
+    // entry still carries `hasTemplate: true` with no `snippet` key. The reader used to refuse
+    // this shape, which sent a mapped component to the design system team as cause E — *a
+    // mapping is published and did not resolve*.
+    const verdict = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20605');
 
     assert.equal(verdict.outcome, 'mapped');
-    assert.equal(verdict.resolvedBy, '334:20594');
+    assert.equal(verdict.resolvedBy, '334:20605');
     assert.equal(verdict.snippet, '');
   });
 
+  it('calls the one that does carry a snippet resolved, on the same server and the same day', () => {
+    // `334:20593` asked for exactly the same way and answered **with** a snippet. The two
+    // captures together are what makes the distinction a measurement rather than an argument:
+    // whether an entry carries a snippet is a property of the entry, not of how it was asked.
+    const verdict = classifyMap(answered(fixture('code-connect-remote-snippet.json')), '334:20593');
+
+    assert.equal(verdict.outcome, 'resolved');
+    assert.equal(verdict.label, 'SL Design System');
+    assert.match(verdict.snippet, /<sl-avatar/);
+  });
+
+  it('reads an entry whose source is empty, which is most of them', () => {
+    // Four of the five captured entries carry `source: ""`. An earlier reconstruction filled it
+    // with a plausible GitHub URL; a reader that needed a source would have passed against the
+    // reconstruction and failed against the server.
+    const verdict = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20605');
+
+    assert.equal(verdict.detail, '');
+    assert.equal(verdict.outcome, 'mapped');
+  });
+
   it('keeps mapped distinguishable from identified, which is the whole point of two names', () => {
-    const mapped = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20594'),
+    const mapped = classifyMap(answered(fixture('code-connect-snippetless.json')), '334:20605'),
       identified = classifyMap(answered(fixture('code-connect-identified.json')), '0:3');
 
     assert.notEqual(mapped.outcome, identified.outcome);
@@ -306,6 +327,17 @@ describe('a map may answer about descendants', () => {
 
     assert.equal(verdict.outcome, 'mapped');
     assert.equal(verdict.resolvedBy, '334:20605');
+  });
+
+  it('is a capture, so a reader that needed componentName would fail here', () => {
+    // Two of the three captured entries have no `componentName` at all; the third has `Icon`.
+    // The reconstruction this replaced gave all three the Figma layer names — Mask, Mask and
+    // Base/Icon — which are not what the server sends.
+    const entries = JSON.parse(fixture('code-connect-descendants.json'));
+
+    assert.deepEqual(Object.keys(entries), ['334:20605', '334:20610', '334:20609']);
+    assert.equal(entries['334:20605'].componentName, undefined);
+    assert.equal(entries['334:20609'].componentName, 'Icon');
   });
 
   it('matches a descendant through the nested id form the server actually emits', () => {

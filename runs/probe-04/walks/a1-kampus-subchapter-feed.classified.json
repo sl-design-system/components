@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "rootId": "5311:37116",
+  "mode": "as-is",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 23,
+    "coveredByEnclosing": 0,
+    "nestedWithEnclosing": 213,
+    "byCause": {
+      "C another-library": 23
+    },
+    "byOwner": {
+      "nobody": 23
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "5311:37117",
+      "name": "Fullscreen toggle",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "5311:37120",
+      "name": "Table of contents - Elements basics",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 18
+    },
+    {
+      "id": "5311:37122",
+      "name": "breadcrumb-2023",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 9
+    },
+    {
+      "id": "5311:37123",
+      "name": "Feed headings (2023)",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 5
+    },
+    {
+      "id": "5311:37124",
+      "name": "Feed filters",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "5311:37125",
+      "name": "Student view",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 2
+    },
+    {
+      "id": "5311:37126",
+      "name": "Feed headings (2023)",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "5311:37127",
+      "name": "Theory-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 8
+    },
+    {
+      "id": "5311:37128",
+      "name": "Feed headings (2023)",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "5311:37131",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37132",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37135",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37136",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37137",
+      "name": "Feed headings (2023)",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "5311:37138",
+      "name": "Theory-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 8
+    },
+    {
+      "id": "5311:37139",
+      "name": "Theory-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 8
+    },
+    {
+      "id": "5311:37140",
+      "name": "Feed headings (2023)",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "5311:37143",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37144",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37147",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37148",
+      "name": "Exercise-card-UPDATE",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 13
+    },
+    {
+      "id": "5311:37150",
+      "name": "Left-toolbar",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 7
+    },
+    {
+      "id": "5311:37151",
+      "name": "Header-navigation",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 12
+    }
+  ]
+}

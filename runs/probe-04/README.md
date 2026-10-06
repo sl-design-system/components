@@ -207,3 +207,55 @@ session is — or somebody asks Sanoma's Figma account team to register one.
 
 That also means the agent-driven path is the **supported** one rather than a workaround, and the
 683 calls are a cost rather than a symptom.
+
+## Seven of fourteen walked — six convert
+
+89 live Code Connect calls, every response in `code-connect/` with its hash. Four of the seven
+were probed by subagents working from an explicit node list; **their reports were not taken as
+evidence** — each set was checked here against the ids asked for, for extra or missing files,
+for parseability and for byte size, before any walk was run. Delegating this to agents is the
+move that failed the first time, so the verification is on this side.
+
+| Design | Mode | Nodes | Map calls | Resolved | Unresolved | Nested covered | Causes | Exit |
+| ------ | ---- | ----: | --------: | -------: | ---------: | -------------: | ------ | ---: |
+| `a1-kampus-subchapter-feed` | as-is | 274 | 23 | 0 | 23 | **213** | C ×23 | **0** |
+| `a11-sesame-learning-materials` | as-is | 365 | 19 | 0 | 19 | 58 | C ×19 | **0** |
+| `b-kampus-notes-panel` | as-is | 95 | 16 | 0 | 16 | 58 | C ×16 | **0** |
+| `b-itsl-course-course-files` | as-is | 89 | 9 | 0 | 9 | 51 | C ×9 | **0** |
+| `b-itsl-collab-add-element` | as-is | 88 | 8 | 0 | 8 | 43 | C ×8 | **0** |
+| `b-itsl-bookmk-course-files` | as-is | 77 | 8 | 0 | 8 | 40 | C ×8 | **0** |
+| `a2-nsp-class-overview` | strict | 64 | 6 | 4 | 2 | 34 | A ×1, D ×1 | 6 |
+
+**Every as-is design measured so far converts: six of six.** All six are designs the control
+halted on with _publish mappings and re-run_; what they say now is that eight to twenty-three
+components come from another library, owner nobody, reproduce them as-is.
+
+**The one that halts, halts correctly.** a2 is strict, and its two findings are a map that
+**timed out and said so** and a component that genuinely has no mapping — ours and the design
+system team's, with different remedies.
+
+### 497 nested nodes
+
+Across the seven, **497 ids the server emits and refuses**, including **213 in a1-kampus
+alone**. Before `T-NOJIRA-figma-ingestion-09` each was a separate finding owned by the pipeline,
+and one is enough to exit 6. Every conversion above is a conversion because those stopped being
+findings about nothing.
+
+### Against the prediction
+
+`T-NOJIRA-figma-ingestion-05` predicted on 2026-10-06, before any of this ran, that **eight
+designs convert** — the eight with zero `sl-*` instances. Four of those eight are now measured
+and all four converted. Two more conversions, a11 and a4's file-mates, came from the mode
+measurement rather than the instance count, which is the correction Amendment 5 recorded.
+
+**Nothing here contradicts the prediction yet, and nothing here confirms it.** Six of fourteen
+remain unwalked, and the two that would most test it — `b-sesame-group-details` and
+`a4-sesame-my-groups`, as-is by mode but holding 63 and 24 instances **named** `sl-*` — are
+among them.
+
+### What is left
+
+Seven designs, roughly 600 calls at the outermost-instance estimate: a6 (25),
+b-itsl-bookmk-deleted-course (81), b-sesame-group-details (107), a4-sesame-my-groups (152),
+a5-etsl-metadata-usage-widget (158), a8-nsp-group-list (27), a10-etsl-fam-users (50). The walk
+prunes, so the real number is lower — the seven above were estimated at 113 and cost 89.

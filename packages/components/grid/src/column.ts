@@ -53,6 +53,7 @@ export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefin
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
 let nextHeaderCellId = 0;
+
 let nextCellId = 0;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,7 +67,7 @@ export class GridColumn<T = any> extends LitElement {
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
 
-  /** Stable ids for rendered text-like cells. */
+  /** Ids for the cells, each cell keeps the same id between renders. */
   #cellIds = new WeakMap<ListDataSourceDataItem<T>, string>();
 
   /** The scoped elements set on this column. */
@@ -241,7 +242,6 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerIds(): string {
-    // Data cells should only reference the leaf header, not group headers
     return this.headerCellId;
   }
 
@@ -418,7 +418,10 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
-  /** Returns an accessible label for plain text-like cell values. */
+  /**
+   * Returns the text of a cell value if it is a string, number or boolean. Otherwise returns
+   * nothing.
+   */
   getCellAriaLabel(value: unknown): string | undefined {
     if (typeof value === 'string') {
       const label = value.trim();
@@ -433,7 +436,7 @@ export class GridColumn<T = any> extends LitElement {
     return undefined;
   }
 
-  /** Returns a stable id for the rendered text-like cell. */
+  /** Returns an id for the cell that stays the same between renders. */
   getCellId(item: ListDataSourceDataItem<T>): string {
     let id = this.#cellIds.get(item);
 

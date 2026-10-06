@@ -6,10 +6,10 @@ title: marcin.ludwig implements T-NOJIRA-figma-ingestion-04
 description: 'Claim on the fourteen-case probe, the measurement that can falsify this plan on its own'
 jira: null
 resource: null
-status: in-progress
+status: released
 owner: marcin.ludwig
 created: 2026-10-06T00:00:00Z
-updated: 2026-10-06T12:00:00Z
+updated: 2026-10-06T13:00:00Z
 tags: [board]
 unit: T-NOJIRA-figma-ingestion-04
 ---
@@ -44,3 +44,13 @@ dishonest one.
 green: clean tree, 08 done, 490 tests and `tsc --noEmit` over seventeen files.
 
 Resuming at the eight remaining mode decisions. The prediction is still unread.
+
+**Released again 2026-10-06** at `657103f4f`, with the mode of all fourteen decided — **ten
+as-is, four strict** — and the prediction read for the first time: **twelve of fourteen**.
+
+Released rather than finished because the conversion count hits the fourth defect of the same
+shape. `T-NOJIRA-figma-ingestion-08` fixed the nested node whose enclosing instance answered;
+the one whose enclosing instance did **not** answer is still cause B, owner pipeline, and still
+exits 6 — in an as-is design, where the parent is already diagnosed as cause C.
+
+A nested node should inherit its enclosing instance's **diagnosis**, not only its success.

@@ -10,7 +10,7 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-06T10:00:00Z
+updated: 2026-10-06T13:00:00Z
 tags: [measurement, baseline, control]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: [T-NOJIRA-figma-ingestion-08]
@@ -220,11 +220,64 @@ eight, confirmed through `mode-decision.mjs` rather than by reading the componen
 node. No design can convert through that. `T-NOJIRA-figma-ingestion-08` fixes it, and this task
 now depends on it.
 
+### Phase A, resumed after 08 — the mode of all fourteen
+
+Eight files, every verdict from `mode-decision.mjs` rather than from reading the listing, stored
+in `runs/probe-04/modes/` with the byte count and sha256 of the listing it rests on.
+
+| Design                          | File        | Mode       | `sl-*` externals | `sl-*` instances | Predicted      | Agrees |
+| ------------------------------- | ----------- | ---------- | ---------------: | ---------------: | -------------- | ------ |
+| `a1-kampus-subchapter-feed`     | `73YHtIYl…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `a11-sesame-learning-materials` | `UBr399hn…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `a4-sesame-my-groups`           | `UBr399hn…` | **as-is**  |                0 |               24 | causes A and B | **no** |
+| `a6-itsl-collab-shared-folder`  | `Q3gzx1pC…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-itsl-bookmk-course-files`    | `ya00uFyX…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-itsl-bookmk-deleted-course`  | `ya00uFyX…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-itsl-collab-add-element`     | `Q3gzx1pC…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-itsl-course-course-files`    | `mONnHPTY…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-kampus-notes-panel`          | `73YHtIYl…` | **as-is**  |                0 |                0 | converts       | yes    |
+| `b-sesame-group-details`        | `UBr399hn…` | **as-is**  |                0 |               63 | causes A and B | **no** |
+| `a10-etsl-fam-users`            | `S5QgDy8X…` | **strict** |               21 |              122 | causes A and B | yes    |
+| `a2-nsp-class-overview`         | `sSrpLCZm…` | **strict** |                4 |              801 | causes A and B | yes    |
+| `a5-etsl-metadata-usage-widget` | `S5QgDy8X…` | **strict** |               21 |              109 | causes A and B | yes    |
+| `a8-nsp-group-list`             | `4TdMrcnI…` | **strict** |                7 |               72 | causes A and B | yes    |
+
+**Ten as-is, four strict.** So ten of the fourteen have no mapping gap to report to anybody:
+their unresolved nodes become cause C, owner nobody.
+
+### The prediction, read for the first time: twelve of fourteen
+
+`T-NOJIRA-figma-ingestion-05` predicted from **instances named `sl-*`**. The mode is decided
+from the file's **component dependency graph**. They disagree about `a4-sesame-my-groups` and
+`b-sesame-group-details` — 24 and 63 instances named `sl-*` in a file with **zero `sl-*`
+externals**, because MySesame names its own local components `sl-*`.
+
+**Naming is not dependency**, and the prediction used the weaker signal. Phase A had already
+shown it from the other direction: `2847:14998`, an instance named `sl-button`, returns `{}`
+when asked directly, because its `componentId` is `2:48281` — outside the mapped library.
+
+Both halves were measured before either was read against the other.
+
+### What still stops the count — the fourth defect of one shape
+
+`T-NOJIRA-figma-ingestion-08` fixed the nested node whose enclosing instance **answered**. The
+case where it **did not** answer is still cause B, owner pipeline, in every mode:
+
+```
+as-is → {"B nested-id-rejected": 1, "C another-library": 1}
+        byOwner {"nobody": 1, "pipeline": 1}   → exit 6
+```
+
+The enclosing instance is already diagnosed — cause C, _another library, reproduce it as-is_ —
+and its child carries a second, different story with an owner and a halt attached. Cause B's
+remedy is _ask the enclosing instance_; it was asked, and `{}` is what cause C already explains.
+
+In an as-is design, **A and B are the only two causes that can halt**, and A is a genuine
+retrieval failure. So this is plausibly the last thing between the ten as-is designs and a
+conversion count — but that is a prediction, and it is written here before it is tested.
+
 ### What remains when it resumes
 
-- eight mode decisions, one per remaining file, through `list_file_components_for_code_connect`
-- Phase A per design with 08 in place, for the conversion count
+- a nested node inheriting its enclosing instance's **diagnosis**, not only its success
+- Phase A per design, for the conversion count
 - Phase B, conformance, **only** for whatever Phase A converted
-
-**Nothing here has been read against the prediction.** Eight and six is still unexamined, and
-should stay that way until Phase A produces a count.

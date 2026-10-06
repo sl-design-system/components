@@ -11,6 +11,8 @@ import { describe, it } from 'node:test';
 
 import {
   CAPTURE_SCHEMA_VERSION,
+  captureDesign,
+  carryForward,
   DISPOSITIONS,
   ASSET_CAP,
   collectNodes,
@@ -24,6 +26,8 @@ import {
   metadataIds,
   readRestCapture,
   reconcile,
+  budgetStop,
+  rootOfRun,
   runChecks,
   verifyStored
 } from './capture.mjs';
@@ -85,7 +89,13 @@ describe('the target list', () => {
     });
 
     assert.deepEqual(targets, [
-      { run: 'a8', rootNodeId: '334:20573', fileKey: '4TdMrcnIVOn3Hrfj2OpVZU', source: 'link' }
+      {
+        run: 'a8',
+        rootNodeId: '334:20573',
+        fileKey: '4TdMrcnIVOn3Hrfj2OpVZU',
+        source: 'link',
+        rootSource: 'index'
+      }
     ]);
     assert.deepEqual(unidentified, [{ run: 'a5', reason: 'the run records no root node id' }]);
   });
@@ -121,6 +131,296 @@ describe('the target list', () => {
 
       assert.match(unidentified[0].reason, /no link/);
     });
+  });
+});
+
+describe('a run that did not record its own root', () => {
+  // `runs/harness/fixtures/metadata-escaped-envelope.txt` **is** a5's metadata, kept as a
+  // fixture by `render-design.mjs` for the same reason it matters here: every quote is escaped,
+  // so `id="…"` appears nowhere in the file.
+  const a5 = read('runs/harness/fixtures/metadata-escaped-envelope.txt');
+
+  it('takes the root the index recorded when there is one', () => {
+    assert.deepEqual(rootOfRun({ indexRoot: '334:20573', metadata: a5 }), {
+      rootNodeId: '334:20573',
+      rootSource: 'index'
+    });
+  });
+
+  it("falls back to the root in the run's own capture", () => {
+    assert.deepEqual(rootOfRun({ indexRoot: null, metadata: a5 }), {
+      rootNodeId: '17214:103584',
+      rootSource: 'capture'
+    });
+  });
+
+  it('says so when neither knows', () => {
+    assert.deepEqual(rootOfRun({ indexRoot: null, metadata: 'No node could be found' }), {
+      rootNodeId: null,
+      rootSource: 'none'
+    });
+  });
+
+  describe('NEGATIVE CONTROL: a frame nobody declared is not a root', () => {
+    it('refuses an id that came with a fabricated frame', () => {
+      const verdict = rootOfRun({
+        indexRoot: null,
+        metadata: 'anything',
+        resolve: () => ({
+          frame: { id: '1:1', width: 1440, height: 1024 },
+          declared: false,
+          line: null
+        })
+      });
+
+      assert.deepEqual(verdict, { rootNodeId: null, rootSource: 'none' });
+    });
+  });
+
+  describe('NEGATIVE CONTROL: the escaped envelope defeats the obvious reader', () => {
+    it('a reader that greps id="…" finds nothing in it, which is why one was not written', () => {
+      assert.equal(/\bid="[^"]*"/.test(a5), false);
+      assert.equal(metadataIds(a5).length, 0);
+    });
+
+    it('and the fallback finds the root anyway', () => {
+      assert.equal(rootOfRun({ indexRoot: null, metadata: a5 }).rootNodeId, '17214:103584');
+    });
+  });
+});
+
+describe('the target list, when the resolver cannot do it alone', () => {
+  it('takes an operator override, and marks it as one rather than as evidence', () => {
+    const { targets, unidentified } = matchTargets({
+      runs: [{ run: 'a5', rootNodeId: null, fileKey: null }],
+      links: [],
+      override: { run: 'a5', fileKey: 'S5QgDy8X9eqhvECPANSZMM', rootNodeId: '17214:103584' }
+    });
+
+    assert.deepEqual(unidentified, []);
+    assert.deepEqual(targets, [
+      {
+        run: 'a5',
+        rootNodeId: '17214:103584',
+        fileKey: 'S5QgDy8X9eqhvECPANSZMM',
+        source: 'override',
+        rootSource: 'override'
+      }
+    ]);
+  });
+
+  it('records that a root came from the capture, which is weaker than the index saying it', () => {
+    const { targets } = matchTargets({
+      runs: [{ run: 'a5', rootNodeId: '17214:103584', fileKey: null, rootSource: 'capture' }],
+      links: [{ fileKey: 'S5QgDy8X9eqhvECPANSZMM', nodeId: '17214:103584' }]
+    });
+
+    assert.equal(targets[0].rootSource, 'capture');
+    assert.equal(targets[0].source, 'link');
+  });
+
+  describe('NEGATIVE CONTROL: an override for another run does not rescue this one', () => {
+    it('leaves the run unidentified', () => {
+      const { targets, unidentified } = matchTargets({
+        runs: [{ run: 'a5', rootNodeId: null, fileKey: null }],
+        links: [],
+        override: { run: 'a8', fileKey: 'K', rootNodeId: '1:2' }
+      });
+
+      assert.deepEqual(targets, []);
+      assert.equal(unidentified.length, 1);
+    });
+  });
+});
+
+describe('a run that is not resuming starts from nothing', () => {
+  const target = { run: 'x', fileKey: 'K', rootNodeId: '1:2' },
+    rest = {
+      /** @param {string} path */
+      getTo: async path => ({
+        url: 'u',
+        status: 200,
+        ok: true,
+        ms: 1,
+        bytes: 2,
+        sha256: 'h',
+        file: path,
+        retryAfter: null,
+        error: null
+      })
+    };
+
+  it('clears the design before capturing it', async () => {
+    /** @type {string[]} */
+    const cleared = [];
+
+    await captureDesign({ rest, target, outDir: 'out/x', clear: dir => cleared.push(dir) });
+
+    assert.deepEqual(cleared, ['out/x']);
+  });
+
+  it('stops before the call that would break the budget, not after it', async () => {
+    /** @type {string[]} */
+    const asked = [];
+
+    const { records, stoppedBy } = await captureDesign({
+      rest: {
+        /** @param {string} path @param {string} url */
+        getTo: async (path, url) => {
+          asked.push(url);
+
+          return {
+            url,
+            status: 200,
+            ok: true,
+            ms: 1,
+            bytes: 2,
+            sha256: 'h',
+            file: path,
+            retryAfter: null,
+            error: null
+          };
+        }
+      },
+      target,
+      outDir: 'out/x',
+      maxCalls: 2
+    });
+
+    assert.equal(asked.length, 2);
+    assert.equal(records.length, 2);
+    assert.match(stoppedBy ?? '', /max-calls/);
+  });
+
+  describe('NEGATIVE CONTROL: resuming must not throw away what it is resuming from', () => {
+    it('clears nothing when resuming', async () => {
+      /** @type {string[]} */
+      const cleared = [];
+
+      await captureDesign({
+        rest,
+        target,
+        outDir: 'out/x',
+        resume: true,
+        exists: () => false,
+        clear: dir => cleared.push(dir)
+      });
+
+      assert.deepEqual(cleared, []);
+    });
+  });
+});
+
+describe('a resumed run keeps the records of what it did not re-fetch', () => {
+  /** @param {string} path */
+  const exists = path => path !== 'gone.json';
+
+  it('carries forward a record for a file the run skipped', () => {
+    const kept = carryForward({
+      records: [{ file: 'a.json', sha256: 'a' }],
+      previous: [
+        { file: 'a.json', sha256: 'a' },
+        { file: 'b.png', sha256: 'b' }
+      ],
+      exists
+    });
+
+    assert.deepEqual(
+      kept.map(one => one.file),
+      ['a.json', 'b.png']
+    );
+    assert.equal(kept[1].reused, true);
+  });
+
+  it('prefers the record this run made over the one it inherited', () => {
+    const kept = carryForward({
+      records: [{ file: 'a.json', sha256: 'fresh' }],
+      previous: [{ file: 'a.json', sha256: 'stale' }],
+      exists
+    });
+
+    assert.equal(kept.length, 1);
+    assert.equal(kept[0].sha256, 'fresh');
+  });
+
+  describe('NEGATIVE CONTROL: a record is never carried for a file that is gone', () => {
+    it('drops it rather than attesting to something that is not there', () => {
+      const kept = carryForward({
+        records: [],
+        previous: [{ file: 'gone.json', sha256: 'x' }],
+        exists
+      });
+
+      assert.deepEqual(kept, []);
+    });
+
+    it('and a file on disk with no record is what this prevents', () => {
+      // Nineteen renders were on disk with no record saying what they should hash to, because a
+      // resumed run rebuilt its manifest from the calls it made rather than from what it holds.
+      const kept = carryForward({
+        records: [{ file: 'a.json', sha256: 'a' }],
+        previous: [{ file: 'render.png', sha256: 'r' }],
+        exists
+      });
+
+      assert.ok(kept.some(one => one.file === 'render.png'));
+    });
+  });
+});
+
+describe('the per-design budget', () => {
+  it('lets a capture through when it is inside both budgets', () => {
+    assert.equal(budgetStop({ bytes: 10, calls: 1, maxBytes: 100, maxCalls: 5 }), null);
+  });
+
+  it('is off when no budget was set, which is what every capture so far ran under', () => {
+    assert.equal(budgetStop({ bytes: 28_466_383, calls: 4 }), null);
+  });
+
+  describe('NEGATIVE CONTROL: a budget that bites names itself', () => {
+    it('stops on bytes, naming the number', () => {
+      // a2-nsp-class-overview pulled 28 MB in one call with nothing able to stop it.
+      const stop = budgetStop({ bytes: 28_466_383, calls: 1, maxBytes: 8_000_000 });
+
+      assert.match(stop ?? '', /max-bytes/);
+      assert.match(stop ?? '', /8000000/);
+    });
+
+    it('stops on calls, naming the number', () => {
+      const stop = budgetStop({ bytes: 1, calls: 6, maxCalls: 5 });
+
+      assert.match(stop ?? '', /max-calls/);
+      assert.match(stop ?? '', /5/);
+    });
+
+    it('makes the capture incomplete with the budget as the reason', () => {
+      const report = runChecks({
+        budget: { status: 'red', detail: 'the --max-bytes budget of 8000000 stopped it' }
+      });
+
+      assert.equal(report.complete, false);
+      assert.match(report.reasons[0], /max-bytes/);
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+
+describe('the corpus is nineteen designs', () => {
+  it('captured all of them, and has nothing left unidentified', () => {
+    const index = JSON.parse(read('runs/captures/index.json'));
+
+    assert.equal(index.designs.length, 19);
+    assert.deepEqual(index.unidentified, []);
+  });
+
+  it('holds the nineteenth, whose root its own run never recorded', () => {
+    const a5 = JSON.parse(read('runs/captures/a5-etsl-metadata-usage-widget/manifest.json'));
+
+    assert.equal(a5.rootNodeId, '17214:103584');
+    assert.equal(a5.fileKey, 'S5QgDy8X9eqhvECPANSZMM');
+    assert.equal(a5.rootSource, 'capture');
+    assert.equal(a5.complete, true);
   });
 });
 
@@ -597,6 +897,17 @@ describe('verbatim is checked, not assumed', () => {
 
     assert.equal(verdict.status, 'green');
     assert.equal(verdict.checked, 1);
+  });
+
+  it('reports a file on disk that no record attests to', () => {
+    const verdict = verifyStored({
+      records: [{ file: 'a.json', sha256: 'h:abc' }],
+      present: ['a.json', 'orphan.png'],
+      ...world({ 'a.json': 'abc' })
+    });
+
+    assert.equal(verdict.status, 'red');
+    assert.deepEqual(verdict.unattested, ['orphan.png']);
   });
 
   describe('NEGATIVE CONTROL: a file that changed under us is caught', () => {

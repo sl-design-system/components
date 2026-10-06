@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "source": "https://api.figma.com/v1",
   "note": "Verbatim REST captures. Nothing here was read by anything that could summarise it; every byte is as api.figma.com sent it.",
   "designs": [
@@ -11,8 +11,8 @@
       "source": "link",
       "identity": {
         "name": "🌁 New content view (blended)",
-        "lastModified": "2026-10-05T15:26:24Z",
-        "version": "2406897384547070779",
+        "lastModified": "2026-10-06T07:30:40Z",
+        "version": "2407148223516430547",
         "frameNodes": 1803,
         "nodeCount": 1812,
         "nestedIds": 1767,
@@ -29,8 +29,8 @@
       "source": "link",
       "identity": {
         "name": "Editorial Suite designs",
-        "lastModified": "2026-10-05T15:01:50Z",
-        "version": "2406894558453122256",
+        "lastModified": "2026-10-06T08:36:40Z",
+        "version": "2407166550151690771",
         "frameNodes": 1512,
         "nodeCount": 1514,
         "nestedIds": 1442,
@@ -111,6 +111,24 @@
         "nodeCount": 842,
         "nestedIds": 371,
         "withComponentId": 271,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a5-etsl-metadata-usage-widget",
+      "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+      "rootNodeId": "17214:103584",
+      "source": "link",
+      "identity": {
+        "name": "Editorial Suite designs",
+        "lastModified": "2026-10-06T08:37:50Z",
+        "version": "2407166550151690771",
+        "frameNodes": 1856,
+        "nodeCount": 1857,
+        "nestedIds": 1348,
+        "withComponentId": 745,
         "absentFromFile": []
       },
       "complete": true,
@@ -269,8 +287,8 @@
       "source": "index+link",
       "identity": {
         "name": "🌁 New content view (blended)",
-        "lastModified": "2026-10-05T15:26:24Z",
-        "version": "2406897384547070779",
+        "lastModified": "2026-10-06T07:30:40Z",
+        "version": "2407148223516430547",
         "frameNodes": 1038,
         "nodeCount": 1052,
         "nestedIds": 1011,
@@ -335,10 +353,5 @@
       "reasons": []
     }
   ],
-  "unidentified": [
-    {
-      "run": "a5-etsl-metadata-usage-widget",
-      "reason": "the run records no root node id"
-    }
-  ]
+  "unidentified": []
 }

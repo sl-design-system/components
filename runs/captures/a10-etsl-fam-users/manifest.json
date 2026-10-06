@@ -3,11 +3,12 @@
   "rootNodeId": "17264:29098",
   "fileKey": "S5QgDy8X9eqhvECPANSZMM",
   "source": "link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "Editorial Suite designs",
-    "lastModified": "2026-10-05T15:01:50Z",
-    "version": "2406894558453122256",
+    "lastModified": "2026-10-06T08:36:40Z",
+    "version": "2407166550151690771",
     "frameNodes": 1512,
     "nodeCount": 1514,
     "nestedIds": 1442,
@@ -26,9 +27,9 @@
       "url": "https://api.figma.com/v1/files/S5QgDy8X9eqhvECPANSZMM/nodes?ids=17264%3A29098",
       "status": 200,
       "ok": true,
-      "ms": 1555,
+      "ms": 8703,
       "bytes": 2183027,
-      "sha256": "1f3d566867619ebe201321a9e6aa363781ba6add44b5028fba5d08177ff6b428",
+      "sha256": "4a495d45c67b9d910ea1f0e0bbcea990f512c4602899461de3b98ad220d0b901",
       "file": "runs/captures/a10-etsl-fam-users/rest/nodes-17264-29098.json",
       "retryAfter": null,
       "error": null
@@ -37,9 +38,9 @@
       "url": "https://api.figma.com/v1/files/S5QgDy8X9eqhvECPANSZMM/versions",
       "status": 200,
       "ok": true,
-      "ms": 371,
+      "ms": 635,
       "bytes": 24927,
-      "sha256": "ef5a1b24a53772a09710e3cdbb0dc96fe4cf92edd068b29bd4e65affb3fbdf33",
+      "sha256": "0c96bf974565c6b1d6a9f896c244e959bd22260c5d95f5a49ff8c9e7ac47e764",
       "file": "runs/captures/a10-etsl-fam-users/rest/versions.json",
       "retryAfter": null,
       "error": null
@@ -48,9 +49,9 @@
       "url": "https://api.figma.com/v1/images/S5QgDy8X9eqhvECPANSZMM?ids=17264%3A29098&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 549,
+      "ms": 7994,
       "bytes": 134,
-      "sha256": "c21980e97cd0afec6da272a003ed80ba594c71db6ff61cfdd0bffd936490a2e2",
+      "sha256": "a13d1261ac652b7ef9c7d299834139428f6650a0a5c89d44a3e04b4e009bea10",
       "file": "runs/captures/a10-etsl-fam-users/rest/images-17264-29098.json",
       "retryAfter": null,
       "error": null
@@ -59,18 +60,18 @@
       "url": "https://api.figma.com/v1/files/S5QgDy8X9eqhvECPANSZMM/nodes?ids=33130%3A92562%2C123%3A456%2C17266%3A31419",
       "status": 200,
       "ok": true,
-      "ms": 599,
+      "ms": 4308,
       "bytes": 43888,
-      "sha256": "bf93770dd0c2d9b9fdf06d070bca9df2b1ce67f522ec7f58c9e8e8141367d0d8",
+      "sha256": "4c39a69e67b79d5793b7d8101faeebefbae695d35e1ca7e97745675e6eac80bd",
       "file": "runs/captures/a10-etsl-fam-users/rest/nodes-extra.json",
       "retryAfter": null,
       "error": null
     },
     {
-      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/16508831-9a40-42af-a9b2-dbed439343b1",
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/563b96e4-fadc-4482-a830-f155dfe2de51",
       "status": 200,
       "ok": true,
-      "ms": 1102,
+      "ms": 1100,
       "bytes": 148031,
       "sha256": "1cfa70f49cd87161899a0dcef946697081371989bcaee181cefc5be60dc946a5",
       "file": "runs/captures/a10-etsl-fam-users/assets/17264-29098.png",
@@ -81,9 +82,9 @@
       "url": "https://api.figma.com/v1/files/S5QgDy8X9eqhvECPANSZMM/nodes?ids=33130%3A92564",
       "status": 200,
       "ok": true,
-      "ms": 412,
+      "ms": 3664,
       "bytes": 1540,
-      "sha256": "bd7fb6470c96e335d3fe5a7fe50017d256fe54e5c03eb1b733565613a91743c1",
+      "sha256": "5ed3d3068b508414f3b6db6f264fbe5479ecc8ec9c7ff4cc4ae60832246c240a",
       "file": "runs/captures/a10-etsl-fam-users/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
@@ -124,6 +125,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

@@ -21,13 +21,19 @@
  * **What none of them catches**, said plainly so the five are not read as a guarantee: a node Figma
  * never mentions in any tool's output and which covers no visible pixels is invisible to all five.
  */
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { argv, env, exit } from 'node:process';
 import { join } from 'node:path';
 import { z } from 'zod';
 
 import { REST_BASE, TOKEN_HEADER, imagesUrl, nodesUrl, openRest, versionsUrl } from './rest.mjs';
+// `resolveFrame` is the harness's reader for a metadata capture's root, and it already survives
+// the six shapes the corpus actually contains — a prose header, a comment header, an MCP
+// envelope with every quote escaped, a `<symbol` root. Importing it across the layer is the
+// cheaper mistake: writing a third reader of Figma metadata here is how the two that already
+// exist drifted apart once.
+import { resolveFrame } from './render-design.mjs';
 
 export const CAPTURE_SCHEMA_VERSION = 1;
 
@@ -66,17 +72,108 @@ export const figmaLinks = text =>
   }));
 
 /**
+ * The root node id of a run, and where it came from.
+ *
+ * `T-NOJIRA-figma-ingestion-06` reported a5-etsl-metadata-usage-widget as unidentifiable because
+ * `captures/index.json` records `rootNodeId: null` for it — the one run of nineteen where that
+ * field is empty. **The root was in the run the whole time**, as `<frame id="17214:103584"
+ * name="Metadata usage widget">` at the top of its own metadata capture, and a link already in this
+ * repository named that node in a file the token reaches.
+ *
+ * The two sources are not equal evidence, so which one answered travels with the target: an index
+ * that records the root was written by the operator about the design, and a capture's root element
+ * is the design as the server described it.
+ *
+ * @param {{
+ *   indexRoot?: string | null;
+ *   metadata?: string | null;
+ *   resolve?: typeof resolveFrame;
+ * }} input
+ * @returns {{ rootNodeId: string | null; rootSource: 'index' | 'capture' | 'none' }}
+ */
+export const rootOfRun = ({ indexRoot, metadata, resolve = resolveFrame }) => {
+  if (indexRoot) return { rootNodeId: indexRoot, rootSource: 'index' };
+
+  if (metadata) {
+    const { frame, declared } = resolve(metadata);
+
+    // `declared: false` means `resolveFrame` fabricated a 1440x1024 default. Today that frame
+    // carries no id, so this guard is belt and braces — the reader is injectable precisely so
+    // the belt can be shown holding, rather than trusted because of how a neighbour behaves.
+    if (declared && frame.id) return { rootNodeId: frame.id, rootSource: 'capture' };
+  }
+
+  return { rootNodeId: null, rootSource: 'none' };
+};
+
+/**
+ * Whether a budget has been reached, and which one.
+ *
+ * Step 8 of `T-NOJIRA-figma-ingestion-06` asked for this and it was not delivered, so that task's
+ * criterion — _a design that could not be captured whole says so, with which budget or cap stopped
+ * it_ — passed with nothing able to stop anything. a2-nsp-class-overview pulled **28 MB in one
+ * call**.
+ *
+ * Off by default, because every capture so far ran without one and turning a budget on by surprise
+ * would make eighteen complete captures incomplete.
+ *
+ * @param {{ bytes: number; calls: number; maxBytes?: number; maxCalls?: number }} input
+ * @returns {string | null}
+ */
+export const budgetStop = ({ bytes, calls, maxBytes, maxCalls }) => {
+  if (maxBytes !== undefined && bytes >= maxBytes)
+    return `the --max-bytes budget of ${maxBytes} stopped it at ${bytes} bytes`;
+
+  if (maxCalls !== undefined && calls >= maxCalls)
+    return `the --max-calls budget of ${maxCalls} stopped it at ${calls} calls`;
+
+  return null;
+};
+
+/**
+ * Everything this run holds, not only what it fetched.
+ *
+ * A resumed run rebuilt its manifest from the calls it made, so the records for files it skipped
+ * vanished — **nineteen renders sat on disk with nothing saying what they should hash to.**
+ * `--verify` still reported zero failures, over fewer files, which is the same vacuous pass this
+ * plan keeps finding: a check that examines less is not a check that found less.
+ *
+ * A record is carried only while its file is there. Attesting to a file that is gone is the other
+ * half of the same mistake.
+ *
+ * @template {{ file?: string | null }} T
+ * @param {{ records: T[]; previous: T[]; exists: (path: string) => boolean }} input
+ * @returns {(T & { reused?: boolean })[]}
+ */
+export const carryForward = ({ records, previous, exists }) => {
+  const made = new Set(records.map(one => one.file).filter(Boolean));
+
+  return [
+    ...records,
+    ...previous
+      .filter(one => one.file && !made.has(one.file) && exists(one.file))
+      .map(one => ({ ...one, reused: true }))
+  ];
+};
+
+/**
  * Pairs each run with the file that holds it.
  *
  * **A run whose root two files claim is not guessed at.** Capturing the wrong file would produce a
  * complete, hash-checked, entirely wrong design, and every check above would pass on it.
  *
  * @param {{
- *   runs: { run: string; rootNodeId: string | null; fileKey?: string | null }[];
+ *   runs: {
+ *     run: string;
+ *     rootNodeId: string | null;
+ *     fileKey?: string | null;
+ *     rootSource?: string;
+ *   }[];
  *   links: { fileKey: string; nodeId: string }[];
+ *   override?: { run: string; fileKey: string; rootNodeId: string } | null;
  * }} input
  */
-export const matchTargets = ({ runs, links }) => {
+export const matchTargets = ({ runs, links, override = null }) => {
   /** @type {Map<string, Set<string>>} */
   const byNode = new Map();
 
@@ -85,13 +182,35 @@ export const matchTargets = ({ runs, links }) => {
     byNode.get(nodeId)?.add(fileKey);
   }
 
-  /** @type {{ run: string; rootNodeId: string; fileKey: string; source: string }[]} */
+  /**
+   * @type {{
+   *   run: string;
+   *   rootNodeId: string;
+   *   fileKey: string;
+   *   source: string;
+   *   rootSource: string;
+   * }[]}
+   */
   const targets = [];
 
   /** @type {{ run: string; reason: string }[]} */
   const unidentified = [];
 
   for (const one of runs) {
+    // **An override is an assertion, not evidence**, and is labelled as one so a later reader
+    // can tell a design the resolver identified from one an operator named.
+    if (override && override.run === one.run) {
+      targets.push({
+        run: one.run,
+        rootNodeId: override.rootNodeId,
+        fileKey: override.fileKey,
+        source: 'override',
+        rootSource: 'override'
+      });
+
+      continue;
+    }
+
     if (!one.rootNodeId) {
       unidentified.push({ run: one.run, reason: 'the run records no root node id' });
       continue;
@@ -118,7 +237,8 @@ export const matchTargets = ({ runs, links }) => {
       run: one.run,
       rootNodeId: one.rootNodeId,
       fileKey,
-      source: one.fileKey ? (linked.includes(one.fileKey) ? 'index+link' : 'index') : 'link'
+      source: one.fileKey ? (linked.includes(one.fileKey) ? 'index+link' : 'index') : 'link',
+      rootSource: one.rootSource ?? 'index'
     });
   }
 
@@ -556,6 +676,9 @@ export const runChecks = checks => {
  *   previous?: import('./rest.mjs').CallRecord[];
  *   extraIds?: string[];
  *   read?: (path: string) => string;
+ *   maxBytes?: number;
+ *   maxCalls?: number;
+ *   clear?: (dir: string) => void;
  * }} input
  */
 export const captureDesign = async ({
@@ -567,8 +690,16 @@ export const captureDesign = async ({
   exists,
   previous = [],
   extraIds = [],
-  read
+  read,
+  maxBytes,
+  maxCalls,
+  clear
 }) => {
+  // **A run that is not resuming starts from nothing.** Otherwise it reads files an earlier run
+  // left — `nodes-named.json` was being used to satisfy the reconciliation and then not fetched,
+  // so fourteen designs held a file this run depended on and did not attest to.
+  if (!resume) clear?.(outDir);
+
   const { fileKey, rootNodeId } = target,
     slug = rootNodeId.replace(':', '-'),
     options = base ? { base } : {},
@@ -592,6 +723,18 @@ export const captureDesign = async ({
   /** @type {import('./rest.mjs').CallRecord[]} */
   const records = [];
 
+  /** @type {string | null} */
+  let stoppedBy = null;
+
+  /** The budget is checked **before** each call, so the one that would exceed it is not made. */
+  const overBudget = () =>
+    budgetStop({
+      bytes: records.reduce((sum, one) => sum + one.bytes, 0),
+      calls: records.length,
+      maxBytes,
+      maxCalls
+    });
+
   /**
    * The render Figma produced for this node. `/v1/images` answers with a **short-lived S3 URL**, so
    * a capture that stored only the URL would hold a 404 within the week — and the raster is check
@@ -608,6 +751,10 @@ export const captureDesign = async ({
   };
 
   for (const [path, url] of plan) {
+    stoppedBy = overBudget();
+
+    if (stoppedBy) break;
+
     if (resume && exists?.(path)) {
       // A checkpoint is only a checkpoint if it carries the earlier call's record forward.
       // Dropping it would make a resumed run indistinguishable from one that captured nothing.
@@ -624,10 +771,20 @@ export const captureDesign = async ({
 
   const imageCall = records.find(one => one.file?.includes('/images-'));
 
-  if (imageCall?.file && read && (!resume || !exists?.(`${outDir}/assets/${slug}.png`)))
+  stoppedBy ??= overBudget();
+
+  if (
+    !stoppedBy &&
+    imageCall?.file &&
+    read &&
+    (!resume || !exists?.(`${outDir}/assets/${slug}.png`))
+  )
     records.push(...(await render(read(imageCall.file))));
 
-  return records;
+  return {
+    records: exists ? carryForward({ records, previous, exists }) : records,
+    stoppedBy
+  };
 };
 
 /**
@@ -674,14 +831,20 @@ export const probeReach = async ({ probe, fileKey, base = REST_BASE }) => {
  * the hashes did. `verbatim` is a property that has to be checked, not a property a directory can
  * have by being called one.
  *
+ * **It checks both directions.** A record whose file changed is one failure; a file no record names
+ * is the other, and it is the one that hid for a whole task: a resumed run rebuilt its manifest
+ * from the calls it made, nineteen renders lost their records, and `--verify` went on reporting
+ * zero failures over twenty-seven fewer files. A check that examines less has not found less.
+ *
  * @param {{
  *   records: { file?: string | null; sha256?: string | null }[];
  *   read: (path: string) => Buffer;
  *   exists: (path: string) => boolean;
  *   digest: (bytes: Buffer) => string;
+ *   present?: string[];
  * }} input
  */
-export const verifyStored = ({ records, read, exists, digest }) => {
+export const verifyStored = ({ records, read, exists, digest, present = [] }) => {
   /** @type {{ file: string; reason: string }[]} */
   const failures = [];
 
@@ -706,7 +869,15 @@ export const verifyStored = ({ records, read, exists, digest }) => {
       });
   }
 
-  return { status: failures.length ? 'red' : 'green', checked, failures };
+  const named = new Set(records.map(one => one.file).filter(Boolean)),
+    unattested = present.filter(path => !named.has(path)).sort();
+
+  return {
+    status: failures.length || unattested.length ? 'red' : 'green',
+    checked,
+    failures,
+    unattested
+  };
 };
 
 /**
@@ -831,19 +1002,32 @@ if (import.meta.main) {
 
       if (!existsSync(manifest)) continue;
 
+      /** @param {string} dir @returns {string[]} */
+      const filesUnder = dir =>
+        !existsSync(dir)
+          ? []
+          : readdirSync(dir, { withFileTypes: true }).flatMap(one =>
+              one.isDirectory() ? filesUnder(join(dir, one.name)) : [join(dir, one.name)]
+            );
+
       const verdict = verifyStored({
         records: /** @type {{ records: import('./rest.mjs').CallRecord[] }} */ (
           JSON.parse(readFileSync(manifest, 'utf8'))
         ).records,
         read: path => readFileSync(path),
         exists: path => existsSync(path),
-        digest: bytes => createHash('sha256').update(bytes).digest('hex')
+        digest: bytes => createHash('sha256').update(bytes).digest('hex'),
+        // Everything the design holds except the manifest, which describes the rest and cannot
+        // describe itself.
+        present: filesUnder(join(outRoot, entry)).filter(path => path !== manifest)
       });
 
       checked += verdict.checked;
-      bad += verdict.failures.length;
+      bad += verdict.failures.length + verdict.unattested.length;
 
       for (const failure of verdict.failures) console.error(`${failure.file}: ${failure.reason}`);
+      for (const path of verdict.unattested)
+        console.error(`${path}: no record attests to this file`);
     }
 
     console.error(`${checked} stored responses checked, ${bad} no longer verbatim`);
@@ -874,10 +1058,16 @@ if (import.meta.main) {
       JSON.parse(readFileSync(index, 'utf8'))
     ).figma;
 
+    const metadataPath = join(runsDir, entry.name, 'figma-metadata.txt'),
+      root = rootOfRun({
+        indexRoot: figma?.rootNodeId ?? null,
+        metadata: existsSync(metadataPath) ? readFileSync(metadataPath, 'utf8') : null
+      });
+
     runs.push({
       run: entry.name.replace(/^\d{4}-\d{2}-\d{2}-/, ''),
-      rootNodeId: figma?.rootNodeId ?? null,
-      fileKey: figma?.fileKey ?? null
+      fileKey: figma?.fileKey ?? null,
+      ...root
     });
   }
 
@@ -900,7 +1090,22 @@ if (import.meta.main) {
     .concat(argv.includes('--scan') ? [] : [runsDir, 'context']))
     if (existsSync(dir)) scan(dir);
 
-  const { targets, unidentified } = matchTargets({ runs, links }),
+  const overrideKey = arg('file-key'),
+    overrideRoot = arg('root');
+
+  if ((overrideKey || overrideRoot) && !(overrideKey && overrideRoot && only)) {
+    console.error('capture.mjs: --file-key and --root must be given together, with --only <run>');
+    exit(2);
+  }
+
+  const { targets, unidentified } = matchTargets({
+      runs,
+      links,
+      override:
+        overrideKey && overrideRoot && only
+          ? { run: only, fileKey: overrideKey, rootNodeId: overrideRoot }
+          : null
+    }),
     wanted = only ? targets.filter(one => one.run === only) : targets;
 
   if (!wanted.length) {
@@ -912,6 +1117,8 @@ if (import.meta.main) {
 
   const rest = openRest({ token }),
     resume = argv.includes('--resume'),
+    maxBytes = arg('max-bytes') === undefined ? undefined : Number(arg('max-bytes')),
+    maxCalls = arg('max-calls') === undefined ? undefined : Number(arg('max-calls')),
     started = new Date().toISOString();
 
   /** @type {Record<string, unknown>[]} */
@@ -927,7 +1134,7 @@ if (import.meta.main) {
               JSON.parse(readFileSync(manifestPath, 'utf8'))
             ).records ?? [])
           : [],
-      records = await captureDesign({
+      { records, stoppedBy } = await captureDesign({
         rest,
         target,
         outDir,
@@ -935,6 +1142,12 @@ if (import.meta.main) {
         previous,
         exists: path => existsSync(path),
         read: path => readFileSync(path, 'utf8'),
+        clear: dir => {
+          for (const sub of ['rest', 'assets'])
+            rmSync(join(dir, sub), { recursive: true, force: true });
+        },
+        maxBytes,
+        maxCalls,
         extraIds: [
           ...new Set(
             ['design-context', 'metadata', 'code-connect'].flatMap(kind =>
@@ -1018,7 +1231,10 @@ if (import.meta.main) {
       truncation: declaredTruncations({ rest: records.map(one => one.error ?? '').join('\n') }),
       reconciliation: agreement,
       coverage: witness,
-      determinism: { status: 'skipped', detail: 'this design was captured once' }
+      determinism: { status: 'skipped', detail: 'this design was captured once' },
+      budget: stoppedBy
+        ? { status: 'red', detail: stoppedBy }
+        : { status: 'green', detail: maxBytes || maxCalls ? 'inside the budget' : 'no budget set' }
     });
 
     const manifest = {

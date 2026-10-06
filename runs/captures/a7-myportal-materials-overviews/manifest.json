@@ -3,7 +3,8 @@
   "rootNodeId": "15878:180439",
   "fileKey": "1yroCKkROktqhRCP2wwlzB",
   "source": "link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "MyPortal – Designs 2025",
     "lastModified": "2026-09-09T07:47:41Z",
@@ -24,7 +25,7 @@
       "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/nodes?ids=15878%3A180439",
       "status": 200,
       "ok": true,
-      "ms": 698,
+      "ms": 1452,
       "bytes": 1197052,
       "sha256": "0b883faeff4ddeb3473b187e28f38bdf8be6290a0e51e2be7b4f6e1b9fbbea9c",
       "file": "runs/captures/a7-myportal-materials-overviews/rest/nodes-15878-180439.json",
@@ -35,7 +36,7 @@
       "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/versions",
       "status": 200,
       "ok": true,
-      "ms": 356,
+      "ms": 522,
       "bytes": 24748,
       "sha256": "b73ef0d3e4205168213174f6e6b4f54f37cbac56abfc8283429edecaee3672a2",
       "file": "runs/captures/a7-myportal-materials-overviews/rest/versions.json",
@@ -46,7 +47,7 @@
       "url": "https://api.figma.com/v1/images/1yroCKkROktqhRCP2wwlzB?ids=15878%3A180439&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 420,
+      "ms": 579,
       "bytes": 135,
       "sha256": "9ab2cefa9604ef5f04fea9f26084caae07b1e628bf66d5aadeb873a715071bf2",
       "file": "runs/captures/a7-myportal-materials-overviews/rest/images-15878-180439.json",
@@ -57,7 +58,7 @@
       "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/nodes?ids=15878%3A180442%2C15878%3A180663%2C15878%3A180698%2C16737%3A82185%2C16752%3A171373%2C24382%3A668407",
       "status": 200,
       "ok": true,
-      "ms": 1457,
+      "ms": 581,
       "bytes": 1196573,
       "sha256": "e45f4b9f8c2100be1e3fe24e1e30b002214a61171bb0c7141f139ef49f3127be",
       "file": "runs/captures/a7-myportal-materials-overviews/rest/nodes-extra.json",
@@ -68,7 +69,7 @@
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/13fa034e-e40d-43fe-8414-ee98af6d9ac7",
       "status": 200,
       "ok": true,
-      "ms": 1501,
+      "ms": 1546,
       "bytes": 598335,
       "sha256": "322baff7b31524b56d3a3a5a5f752896e9b1c229c5b420b3f3de9daf2a9c6d87",
       "file": "runs/captures/a7-myportal-materials-overviews/assets/15878-180439.png",
@@ -111,6 +112,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

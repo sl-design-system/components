@@ -3,11 +3,12 @@
   "rootNodeId": "5311:37116",
   "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
   "source": "link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "🌁 New content view (blended)",
-    "lastModified": "2026-10-05T15:26:24Z",
-    "version": "2406897384547070779",
+    "lastModified": "2026-10-06T07:30:40Z",
+    "version": "2407148223516430547",
     "frameNodes": 1803,
     "nodeCount": 1812,
     "nestedIds": 1767,
@@ -24,9 +25,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5311%3A37116",
       "status": 200,
       "ok": true,
-      "ms": 2412,
+      "ms": 1674,
       "bytes": 1791623,
-      "sha256": "7e6b8a833d17d30240d2d38e034bc86ac059ab2d45139249eda35fd656951c37",
+      "sha256": "ab3f8b3d8addca9fa10258a91fa93bd732b65fbcd5f747a435a7ebb2b9ade9de",
       "file": "runs/captures/a1-kampus-subchapter-feed/rest/nodes-5311-37116.json",
       "retryAfter": null,
       "error": null
@@ -35,9 +36,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/versions",
       "status": 200,
       "ok": true,
-      "ms": 356,
-      "bytes": 23142,
-      "sha256": "2447145b505fad5f6c4c20892bf3910dd9ceec967f7bc5dc59b5ee1753342f65",
+      "ms": 367,
+      "bytes": 23085,
+      "sha256": "dace76e719ac2088fb136915067bb12e9cabbb38c87762e1313e62b91f19e546",
       "file": "runs/captures/a1-kampus-subchapter-feed/rest/versions.json",
       "retryAfter": null,
       "error": null
@@ -46,9 +47,9 @@
       "url": "https://api.figma.com/v1/images/73YHtIYl0UHXH8ST4J7VKI?ids=5311%3A37116&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 863,
+      "ms": 695,
       "bytes": 133,
-      "sha256": "0b71d069f66975620980a202eee8d7444d3e35958c6b5ebba3fbe2b2707a20d5",
+      "sha256": "a76f675786eafb0ff9fea7463ce46f5d43fc5e2757e4504609529b0eb6cb5ff4",
       "file": "runs/captures/a1-kampus-subchapter-feed/rest/images-5311-37116.json",
       "retryAfter": null,
       "error": null
@@ -57,18 +58,18 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=11360%3A135454%2C12026%3A147927%2C12545%3A192801%2C1701%3A8049%2C1702%3A18966%2C5311%3A37120%2C5311%3A37123%2C5311%3A37124%2C5311%3A37150%2C5311%3A37151",
       "status": 200,
       "ok": true,
-      "ms": 1223,
+      "ms": 885,
       "bytes": 634043,
-      "sha256": "30790aeb08fb0640a349731bde2765beb67596e828bfdb404e74cdcf84937992",
+      "sha256": "f7ca977a5b0cf827754755ad277eaae1bd4473c65090ce77ea41def488f3feb3",
       "file": "runs/captures/a1-kampus-subchapter-feed/rest/nodes-extra.json",
       "retryAfter": null,
       "error": null
     },
     {
-      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/3a6928f7-95d9-4434-a23b-1a8a8b01c264",
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/253aee2f-4433-4cbc-b819-cecce8223337",
       "status": 200,
       "ok": true,
-      "ms": 1509,
+      "ms": 1486,
       "bytes": 616629,
       "sha256": "1c2ee562b724a71bdd43370a2ca4c55cfe0cac0cf8e2c533defa1bf703f905f0",
       "file": "runs/captures/a1-kampus-subchapter-feed/assets/5311-37116.png",
@@ -79,9 +80,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=11360%3A135593%2C12033%3A148258%2C12545%3A192803%2C4701%3A55280",
       "status": 200,
       "ok": true,
-      "ms": 431,
+      "ms": 5284,
       "bytes": 7678,
-      "sha256": "3492bb3af0e182abce28bd84860266b9d824e4c3837afdc48b517175b0d26256",
+      "sha256": "c3d4a07c279086bbc6c5b1d183c203667cecb0d538b5a11ba8a6a5de06be66f1",
       "file": "runs/captures/a1-kampus-subchapter-feed/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
@@ -124,6 +125,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

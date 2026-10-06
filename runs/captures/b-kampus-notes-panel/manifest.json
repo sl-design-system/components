@@ -3,11 +3,12 @@
   "rootNodeId": "5308:32158",
   "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
   "source": "index+link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "🌁 New content view (blended)",
-    "lastModified": "2026-10-05T15:26:24Z",
-    "version": "2406897384547070779",
+    "lastModified": "2026-10-06T07:30:40Z",
+    "version": "2407148223516430547",
     "frameNodes": 1038,
     "nodeCount": 1052,
     "nestedIds": 1011,
@@ -24,9 +25,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32158",
       "status": 200,
       "ok": true,
-      "ms": 1580,
+      "ms": 1148,
       "bytes": 1058030,
-      "sha256": "3b19fd4dc094948009505e1e63a798c320f3713af8ddeed831600f502d31a72c",
+      "sha256": "aaf41125ea496a26c248b6b0e4a1a9b61406a313b3885048f92c53486a68397b",
       "file": "runs/captures/b-kampus-notes-panel/rest/nodes-5308-32158.json",
       "retryAfter": null,
       "error": null
@@ -35,9 +36,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/versions",
       "status": 200,
       "ok": true,
-      "ms": 365,
-      "bytes": 23142,
-      "sha256": "2447145b505fad5f6c4c20892bf3910dd9ceec967f7bc5dc59b5ee1753342f65",
+      "ms": 377,
+      "bytes": 23085,
+      "sha256": "dace76e719ac2088fb136915067bb12e9cabbb38c87762e1313e62b91f19e546",
       "file": "runs/captures/b-kampus-notes-panel/rest/versions.json",
       "retryAfter": null,
       "error": null
@@ -46,9 +47,9 @@
       "url": "https://api.figma.com/v1/images/73YHtIYl0UHXH8ST4J7VKI?ids=5308%3A32158&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 494,
+      "ms": 464,
       "bytes": 133,
-      "sha256": "41f87cbcf53d414424c6e11d37af71eccce8f76046d5497be781bcd693944c71",
+      "sha256": "50e2b531adcd3cf595f6ccbe3590deb1d69e4e3961f74db928372641406b7bf0",
       "file": "runs/captures/b-kampus-notes-panel/rest/images-5308-32158.json",
       "retryAfter": null,
       "error": null
@@ -57,18 +58,18 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32159%2C5308%3A32162%2C5308%3A32163%2C5308%3A32182%2C5308%3A32183",
       "status": 200,
       "ok": true,
-      "ms": 555,
+      "ms": 721,
       "bytes": 733849,
-      "sha256": "1f40340f71b7dacbabeddf89ff644b7c4843c7c9f7a8d79866e8a40fd75a7f21",
+      "sha256": "aa1b1f6f9a04ef5d7965e9fa2193b4fdfc0dc5e7248795f458103569cde892c1",
       "file": "runs/captures/b-kampus-notes-panel/rest/nodes-extra.json",
       "retryAfter": null,
       "error": null
     },
     {
-      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/ce8a2d20-5c9b-442a-a61f-33f5e26d8337",
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/a4c874ad-7daa-4ad6-900d-eeb2e08daa78",
       "status": 200,
       "ok": true,
-      "ms": 2142,
+      "ms": 2036,
       "bytes": 2834945,
       "sha256": "84be0ff49dc9b093e03477c33a172a7f5063893f80fc3f6fb2c6a48e11e0c8b6",
       "file": "runs/captures/b-kampus-notes-panel/assets/5308-32158.png",
@@ -79,9 +80,9 @@
       "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=107%3A1162%2C11360%3A135454%2C11360%3A135593%2C12545%3A192801%2C12545%3A192803%2C12545%3A192804%2C1702%3A18966%2C4214%3A11777%2C4701%3A55280%2C4701%3A55282%2C5306%3A67706%2C5306%3A67778%2C5306%3A67779%2C5306%3A67780",
       "status": 200,
       "ok": true,
-      "ms": 528,
+      "ms": 5491,
       "bytes": 18490,
-      "sha256": "13d9e21ca4c4294de3a2a55029e85f966eada28cebb4a838a89e69693527c943",
+      "sha256": "082415bc7ad3b08493fb052d75d6906f724ca374d02a370598bd11578f50c23e",
       "file": "runs/captures/b-kampus-notes-panel/rest/nodes-named.json",
       "retryAfter": null,
       "error": null
@@ -124,6 +125,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

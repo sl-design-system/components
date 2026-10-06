@@ -3,7 +3,8 @@
   "rootNodeId": "116:19049",
   "fileKey": "UBr399hnydpNF9P5Jb2vfx",
   "source": "link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "MySesame Redesign",
     "lastModified": "2026-10-05T11:40:30Z",
@@ -24,7 +25,7 @@
       "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=116%3A19049",
       "status": 200,
       "ok": true,
-      "ms": 836,
+      "ms": 1326,
       "bytes": 320297,
       "sha256": "71877e0e684173386dfd4916cc0e204c418c7d5d96be5ad9528465c98b5db49e",
       "file": "runs/captures/a11-sesame-learning-materials/rest/nodes-116-19049.json",
@@ -35,7 +36,7 @@
       "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/versions",
       "status": 200,
       "ok": true,
-      "ms": 337,
+      "ms": 359,
       "bytes": 24977,
       "sha256": "cf8cb7dc6f928b074585bbb8cd8f27ded4755a7776837dae2c1c6a6922f07b47",
       "file": "runs/captures/a11-sesame-learning-materials/rest/versions.json",
@@ -46,7 +47,7 @@
       "url": "https://api.figma.com/v1/images/UBr399hnydpNF9P5Jb2vfx?ids=116%3A19049&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 381,
+      "ms": 365,
       "bytes": 132,
       "sha256": "41298b39266866b1fc663bfb1f6dc14aa73b5b3d4b2e6097b7fa6c959b8519ae",
       "file": "runs/captures/a11-sesame-learning-materials/rest/images-116-19049.json",
@@ -57,7 +58,7 @@
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/48a9ba13-13e3-44da-8a00-fd8e9429cd58",
       "status": 200,
       "ok": true,
-      "ms": 477,
+      "ms": 1080,
       "bytes": 168341,
       "sha256": "1b28c2859ed2d525bef68ca580ac09a126428ae9173bbf2634b70a211c25cecb",
       "file": "runs/captures/a11-sesame-learning-materials/assets/116-19049.png",
@@ -100,6 +101,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

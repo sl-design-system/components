@@ -3,7 +3,8 @@
   "rootNodeId": "2095:44291",
   "fileKey": "sSrpLCZm302ces3khoBGls",
   "source": "link",
-  "capturedAt": "2026-10-06T00:12:18.088Z",
+  "rootSource": "index",
+  "capturedAt": "2026-10-06T08:36:24.311Z",
   "identity": {
     "name": "NS fundaments",
     "lastModified": "2026-09-16T14:04:56Z",
@@ -24,7 +25,7 @@
       "url": "https://api.figma.com/v1/files/sSrpLCZm302ces3khoBGls/nodes?ids=2095%3A44291",
       "status": 200,
       "ok": true,
-      "ms": 1598,
+      "ms": 1753,
       "bytes": 754519,
       "sha256": "da86eed6c13b87b04b1c1ec3795bb671d54b14b4782139e3ecf67fdbf9b3a7f9",
       "file": "runs/captures/b-nsp-home/rest/nodes-2095-44291.json",
@@ -35,7 +36,7 @@
       "url": "https://api.figma.com/v1/files/sSrpLCZm302ces3khoBGls/versions",
       "status": 200,
       "ok": true,
-      "ms": 372,
+      "ms": 402,
       "bytes": 22943,
       "sha256": "d1698299685e93fd8ef04092694e20ee19e5cb7c9be15472ce627a59c0407c34",
       "file": "runs/captures/b-nsp-home/rest/versions.json",
@@ -46,7 +47,7 @@
       "url": "https://api.figma.com/v1/images/sSrpLCZm302ces3khoBGls?ids=2095%3A44291&format=png&scale=2",
       "status": 200,
       "ok": true,
-      "ms": 453,
+      "ms": 440,
       "bytes": 133,
       "sha256": "16a14e7563f16ea18ddad7eec7d3677a4c4b44d04f20c63150bd8d5a0313f2b6",
       "file": "runs/captures/b-nsp-home/rest/images-2095-44291.json",
@@ -57,7 +58,7 @@
       "url": "https://api.figma.com/v1/files/sSrpLCZm302ces3khoBGls/nodes?ids=2095%3A44292",
       "status": 200,
       "ok": true,
-      "ms": 551,
+      "ms": 602,
       "bytes": 264040,
       "sha256": "238c056b28f026f395d43e331d58410c6d2e211d91db61615137d4078ad0243b",
       "file": "runs/captures/b-nsp-home/rest/nodes-extra.json",
@@ -68,7 +69,7 @@
       "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/5ecb7edc-7e7f-4b3c-8689-421b495b5374",
       "status": 200,
       "ok": true,
-      "ms": 1057,
+      "ms": 1144,
       "bytes": 104148,
       "sha256": "4a0a709a7a04f24b1bab88fa67f87db7d1cb5c3eee6bd42bd49fbce8a4dbad92",
       "file": "runs/captures/b-nsp-home/assets/2095-44291.png",
@@ -111,6 +112,10 @@
     "determinism": {
       "status": "skipped",
       "detail": "this design was captured once"
+    },
+    "budget": {
+      "status": "green",
+      "detail": "no budget set"
     }
   },
   "complete": true,

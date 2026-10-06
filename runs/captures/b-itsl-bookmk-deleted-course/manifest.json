@@ -1,0 +1,173 @@
+{
+  "run": "b-itsl-bookmk-deleted-course",
+  "rootNodeId": "4549:8339",
+  "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "Bookmarks",
+    "lastModified": "2026-05-07T07:37:44Z",
+    "version": "2350738904761603312",
+    "frameNodes": 885,
+    "nodeCount": 916,
+    "nestedIds": 782,
+    "withComponentId": 392,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/ya00uFyX1rjxYWF0dlOsoT/nodes?ids=4549%3A8339",
+      "status": 200,
+      "ok": true,
+      "ms": 2993,
+      "bytes": 1319675,
+      "sha256": "d0e80c8c36657e5679aca6ebd40dc18440d3ec6a47a26d2609f239ddd376a6a2",
+      "file": "runs/captures/b-itsl-bookmk-deleted-course/rest/nodes-4549-8339.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/ya00uFyX1rjxYWF0dlOsoT/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 799,
+      "bytes": 23083,
+      "sha256": "fa39e5d51ab7a9e627a0b651c9f8265523a64bcce9176b9ada5b68689c11fb0d",
+      "file": "runs/captures/b-itsl-bookmk-deleted-course/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/ya00uFyX1rjxYWF0dlOsoT?ids=4549%3A8339&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 6019,
+      "bytes": 132,
+      "sha256": "a100de0571e080f1a2f06c94f197c3cd66326701958fdef596c1773dbd85589b",
+      "file": "runs/captures/b-itsl-bookmk-deleted-course/rest/images-4549-8339.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/ya00uFyX1rjxYWF0dlOsoT/nodes?ids=4680%3A14010",
+      "status": 200,
+      "ok": true,
+      "ms": 1377,
+      "bytes": 2134,
+      "sha256": "1df25be1d44a7ff7c09ce7281fd2757637592d2836c06e31a4c7497a476f40f4",
+      "file": "runs/captures/b-itsl-bookmk-deleted-course/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/c397249f-b037-4eea-afb0-c8c6331df533",
+      "status": 200,
+      "ok": true,
+      "ms": 273,
+      "bytes": 195068,
+      "sha256": "27b4aff3a9f1afd7bd2dfebe8696abc4464f3137dbe5d4536fc9be5cdaf30396",
+      "file": "runs/captures/b-itsl-bookmk-deleted-course/assets/4549-8339.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 916,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 916,
+      "metadata": 103,
+      "designContext": 248,
+      "onlyRest": 675,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": [
+        "I4016:6648;11704:5608",
+        "I4016:6648;11704:5609",
+        "I4016:6648;11704:5609;13157:8017",
+        "I4016:6648;11704:5609;13157:8020",
+        "I4016:6648;11704:5609;13157:8022",
+        "I4016:6648;11704:5609;13157:8022;1902:2742",
+        "I4016:6648;11704:5609;13211:9102",
+        "I4016:6648;11704:5609;17089:13616",
+        "I4016:6648;13432:5117",
+        "I4016:6648;13432:5117;9976:10576",
+        "I4016:6648;15220:17430",
+        "I4016:6648;15220:17430;9976:10576",
+        "I4016:6648;9976:10621",
+        "I4016:6648;9976:10622",
+        "I4016:6648;9976:10623",
+        "I4016:6648;9976:10624",
+        "I4016:6648;9976:10624;9976:10576",
+        "I4016:6648;9976:10626",
+        "I4016:6648;9976:10626;9976:10576",
+        "I4016:6648;9976:10627",
+        "I4016:6648;9976:10627;9976:10576",
+        "I4016:6648;9976:10630",
+        "I4016:6648;9976:10631",
+        "I4016:6648;9976:10631;9976:10604",
+        "I4016:6648;9976:10635",
+        "I4016:6648;9976:10635;9976:10604",
+        "I4016:6648;9976:10636",
+        "I4016:6654;9976:10576",
+        "I4016:6655;9976:10576",
+        "I4016:6655;9976:10581",
+        "I4571:16763;19393:6514;663:3904",
+        "I4571:16773;19393:6514;663:3904",
+        "I4571:16779;19393:6514;663:3904",
+        "I4571:16787;19393:6514;663:3904",
+        "I4571:16808;19393:6514;663:3904",
+        "I4571:16814;19393:6514;663:3904",
+        "I4571:16829;19393:6514;663:3904",
+        "I4571:16841;19393:6514;663:3904",
+        "I4675:10165;3977:5193",
+        "I4675:10422;3977:5193",
+        "I4680:14013;1902:2859",
+        "I4680:14014;4997:6344",
+        "I4680:14015;4997:6338",
+        "I4680:14016;4997:6338",
+        "I4680:14017;4997:6338",
+        "I4680:14018;4997:6338",
+        "I4680:14019;1902:2850",
+        "I4680:14022;1429:2756",
+        "I4680:14022;29:7275",
+        "I4680:14022;29:7276"
+      ]
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 960,
+      "uncovered": 64,
+      "ratio": 0.9375,
+      "outside": 7,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

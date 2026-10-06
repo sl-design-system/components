@@ -1,0 +1,61 @@
+{
+  "name": "Editorial Suite designs",
+  "lastModified": "2026-10-05T15:01:50Z",
+  "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/f7eaadad-1604-49ac-8dcd-35916f658742?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCQPXYJSOJ%2F20261004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20261004T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=a7e57172e6c0852c65516298811e67384dd5a96f5bf688e8940cee63ee0d5e56",
+  "version": "2406894558453122256",
+  "role": "viewer",
+  "editorType": "figma",
+  "linkAccess": "inherit",
+  "nodes": {
+    "33130:92564": {
+      "document": {
+        "id": "33130:92564",
+        "name": "Rectangle 1",
+        "type": "RECTANGLE",
+        "scrollBehavior": "SCROLLS",
+        "boundVariables": {
+          "size": {
+            "x": {
+              "type": "VARIABLE_ALIAS",
+              "id": "VariableID:40e8c2770658a7489573169cd0f3780885c57028/7906:759"
+            },
+            "y": {
+              "type": "VARIABLE_ALIAS",
+              "id": "VariableID:99c12f764dc80065f9bd2f4f8b1b374feecb218a/9983:147"
+            }
+          }
+        },
+        "blendMode": "PASS_THROUGH",
+        "fills": [
+          {
+            "blendMode": "NORMAL",
+            "type": "SOLID",
+            "color": {
+              "r": 0.85098040103912354,
+              "g": 0.85098040103912354,
+              "b": 0.85098040103912354,
+              "a": 1.0
+            }
+          }
+        ],
+        "strokes": [],
+        "strokeWeight": 1.0,
+        "strokeAlign": "INSIDE",
+        "absoluteBoundingBox": { "x": 3332.0, "y": 603.0, "width": 1.0, "height": 24.0 },
+        "absoluteRenderBounds": { "x": 3332.0, "y": 603.0, "width": 1.0, "height": 24.0 },
+        "constraints": { "vertical": "TOP", "horizontal": "LEFT" },
+        "layoutAlign": "INHERIT",
+        "layoutGrow": 0.0,
+        "layoutSizingHorizontal": "FIXED",
+        "layoutSizingVertical": "FIXED",
+        "effects": [],
+        "interactions": [],
+        "complexStrokeProperties": { "strokeType": "BASIC" }
+      },
+      "components": {},
+      "componentSets": {},
+      "schemaVersion": 0,
+      "styles": {}
+    }
+  }
+}

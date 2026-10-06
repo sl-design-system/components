@@ -1,0 +1,127 @@
+{
+  "run": "a4-sesame-my-groups",
+  "rootNodeId": "2847:14994",
+  "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "MySesame Redesign",
+    "lastModified": "2026-10-05T11:40:30Z",
+    "version": "2406839797078826876",
+    "frameNodes": 822,
+    "nodeCount": 842,
+    "nestedIds": 371,
+    "withComponentId": 271,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=2847%3A14994",
+      "status": 200,
+      "ok": true,
+      "ms": 6567,
+      "bytes": 1051720,
+      "sha256": "ceac4e202f33dcdb48fe34419159de458540f7b1dfe496ded2484f3842cb494a",
+      "file": "runs/captures/a4-sesame-my-groups/rest/nodes-2847-14994.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 438,
+      "bytes": 24977,
+      "sha256": "cf8cb7dc6f928b074585bbb8cd8f27ded4755a7776837dae2c1c6a6922f07b47",
+      "file": "runs/captures/a4-sesame-my-groups/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/UBr399hnydpNF9P5Jb2vfx?ids=2847%3A14994&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 15767,
+      "bytes": 133,
+      "sha256": "6d06d3a1b85a48639c32cb70d69e3d9172400fbeab53281c6bef012f06dee585",
+      "file": "runs/captures/a4-sesame-my-groups/rest/images-2847-14994.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=2%3A70426%2C2847%3A14995%2C2847%3A15077%2C2847%3A15083%2C2847%3A15089%2C2847%3A15152%2C2847%3A15242%2C2847%3A15245%2C2847%3A15358%2C2847%3A15379%2C2847%3A15395%2C2847%3A15427%2C2847%3A15709%2C772%3A26895",
+      "status": 200,
+      "ok": true,
+      "ms": 8328,
+      "bytes": 324216,
+      "sha256": "0dc9c323b830b1a6e306e331a78d42f18824b740ef784a263c10ed3f182876a4",
+      "file": "runs/captures/a4-sesame-my-groups/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/9d98d383-c2a6-4554-95fa-0971e2a533b6",
+      "status": 200,
+      "ok": true,
+      "ms": 296,
+      "bytes": 341818,
+      "sha256": "e134889e0ff5aba2b90ee6047e1ee5e3215ab564df1f34d7cb27e4b68e9c9b31",
+      "file": "runs/captures/a4-sesame-my-groups/assets/2847-14994.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 842,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 842,
+      "metadata": 420,
+      "designContext": 220,
+      "onlyRest": 316,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": [
+        "I2:70483;2678:143004",
+        "I2:70484;2678:143004",
+        "I2:70485;2678:143004",
+        "I2:70486;2678:143004"
+      ]
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 753,
+      "uncovered": 271,
+      "ratio": 0.7353515625,
+      "outside": 2,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

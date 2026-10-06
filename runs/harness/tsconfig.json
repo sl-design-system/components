@@ -27,6 +27,8 @@
   // consumer is now in; `check-tokens.mjs`, `shoot.mjs`, `link-workspaces.mjs` and
   // `typecheck.mjs` are not, and join when a task makes them type-clean.
   "include": [
+    "capture.mjs",
+    "capture.test.mjs",
     "classify-unresolved.mjs",
     "classify-unresolved.test.mjs",
     "mcp.mjs",
@@ -35,6 +37,8 @@
     "normalise-captures.mjs",
     "normalise-captures.test.mjs",
     "render-design.mjs",
+    "rest.mjs",
+    "rest.test.mjs",
     "render-design.test.mjs",
     "theme-match.mjs",
     "theme-match.test.mjs",

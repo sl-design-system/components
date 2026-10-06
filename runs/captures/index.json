@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "source": "https://api.figma.com/v1",
+  "note": "Verbatim REST captures. Nothing here was read by anything that could summarise it; every byte is as api.figma.com sent it.",
+  "designs": [
+    {
+      "run": "a1-kampus-subchapter-feed",
+      "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+      "rootNodeId": "5311:37116",
+      "source": "link",
+      "identity": {
+        "name": "🌁 New content view (blended)",
+        "lastModified": "2026-10-05T15:26:24Z",
+        "version": "2406897384547070779",
+        "frameNodes": 1803,
+        "nodeCount": 1812,
+        "nestedIds": 1767,
+        "withComponentId": 705,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a10-etsl-fam-users",
+      "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+      "rootNodeId": "17264:29098",
+      "source": "link",
+      "identity": {
+        "name": "Editorial Suite designs",
+        "lastModified": "2026-10-05T15:01:50Z",
+        "version": "2406894558453122256",
+        "frameNodes": 1512,
+        "nodeCount": 1514,
+        "nestedIds": 1442,
+        "withComponentId": 604,
+        "absentFromFile": ["123:456"]
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a11-sesame-learning-materials",
+      "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+      "rootNodeId": "116:19049",
+      "source": "link",
+      "identity": {
+        "name": "MySesame Redesign",
+        "lastModified": "2026-10-05T11:40:30Z",
+        "version": "2406839797078826876",
+        "frameNodes": 395,
+        "nodeCount": 395,
+        "nestedIds": 116,
+        "withComponentId": 32,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a2-nsp-class-overview",
+      "fileKey": "sSrpLCZm302ces3khoBGls",
+      "rootNodeId": "2422:87039",
+      "source": "link",
+      "identity": {
+        "name": "NS fundaments",
+        "lastModified": "2026-09-16T14:04:56Z",
+        "version": "2399823633000696951",
+        "frameNodes": 10936,
+        "nodeCount": 10987,
+        "nestedIds": 10918,
+        "withComponentId": 3735,
+        "absentFromFile": ["1:2"]
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a3-myportal-digital-exercises",
+      "fileKey": "1yroCKkROktqhRCP2wwlzB",
+      "rootNodeId": "25124:56828",
+      "source": "link",
+      "identity": {
+        "name": "MyPortal – Designs 2025",
+        "lastModified": "2026-09-09T07:47:41Z",
+        "version": "2397136105027161313",
+        "frameNodes": 2147,
+        "nodeCount": 2151,
+        "nestedIds": 1784,
+        "withComponentId": 806,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a4-sesame-my-groups",
+      "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+      "rootNodeId": "2847:14994",
+      "source": "link",
+      "identity": {
+        "name": "MySesame Redesign",
+        "lastModified": "2026-10-05T11:40:30Z",
+        "version": "2406839797078826876",
+        "frameNodes": 822,
+        "nodeCount": 842,
+        "nestedIds": 371,
+        "withComponentId": 271,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a6-itsl-collab-shared-folder",
+      "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+      "rootNodeId": "4200:13792",
+      "source": "link",
+      "identity": {
+        "name": "Collaboration folder",
+        "lastModified": "2026-05-26T11:09:59Z",
+        "version": "2348155400322132136",
+        "frameNodes": 859,
+        "nodeCount": 887,
+        "nestedIds": 801,
+        "withComponentId": 334,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a7-myportal-materials-overviews",
+      "fileKey": "1yroCKkROktqhRCP2wwlzB",
+      "rootNodeId": "15878:180439",
+      "source": "link",
+      "identity": {
+        "name": "MyPortal – Designs 2025",
+        "lastModified": "2026-09-09T07:47:41Z",
+        "version": "2397136105027161313",
+        "frameNodes": 974,
+        "nodeCount": 974,
+        "nestedIds": 617,
+        "withComponentId": 351,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a8-nsp-group-list",
+      "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
+      "rootNodeId": "334:20573",
+      "source": "index+link",
+      "identity": {
+        "name": "New Secondary",
+        "lastModified": "2026-09-23T14:00:01Z",
+        "version": "2402425610621681042",
+        "frameNodes": 620,
+        "nodeCount": 620,
+        "nestedIds": 504,
+        "withComponentId": 252,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "a9-sanna-login",
+      "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+      "rootNodeId": "71:13345",
+      "source": "link",
+      "identity": {
+        "name": "SANNA - Ready for Development",
+        "lastModified": "2026-10-01T23:21:51Z",
+        "version": "2405525755598286025",
+        "frameNodes": 894,
+        "nodeCount": 904,
+        "nestedIds": 879,
+        "withComponentId": 318,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-itsl-bookmk-course-files",
+      "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+      "rootNodeId": "4886:12955",
+      "source": "link",
+      "identity": {
+        "name": "Bookmarks",
+        "lastModified": "2026-05-07T07:37:44Z",
+        "version": "2350738904761603312",
+        "frameNodes": 478,
+        "nodeCount": 481,
+        "nestedIds": 461,
+        "withComponentId": 195,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-itsl-bookmk-deleted-course",
+      "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+      "rootNodeId": "4549:8339",
+      "source": "link",
+      "identity": {
+        "name": "Bookmarks",
+        "lastModified": "2026-05-07T07:37:44Z",
+        "version": "2350738904761603312",
+        "frameNodes": 885,
+        "nodeCount": 916,
+        "nestedIds": 782,
+        "withComponentId": 392,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-itsl-collab-add-element",
+      "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+      "rootNodeId": "5006:43051",
+      "source": "link",
+      "identity": {
+        "name": "Collaboration folder",
+        "lastModified": "2026-05-26T11:09:59Z",
+        "version": "2348155400322132136",
+        "frameNodes": 458,
+        "nodeCount": 460,
+        "nestedIds": 364,
+        "withComponentId": 120,
+        "absentFromFile": ["123:456"]
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-itsl-course-course-files",
+      "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
+      "rootNodeId": "4007:3161",
+      "source": "index+link",
+      "identity": {
+        "name": "Course files",
+        "lastModified": "2026-07-14T10:45:23Z",
+        "version": "2376040852377765273",
+        "frameNodes": 519,
+        "nodeCount": 534,
+        "nestedIds": 501,
+        "withComponentId": 214,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-kampus-notes-panel",
+      "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+      "rootNodeId": "5308:32158",
+      "source": "index+link",
+      "identity": {
+        "name": "🌁 New content view (blended)",
+        "lastModified": "2026-10-05T15:26:24Z",
+        "version": "2406897384547070779",
+        "frameNodes": 1038,
+        "nodeCount": 1052,
+        "nestedIds": 1011,
+        "withComponentId": 385,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-nsp-home",
+      "fileKey": "sSrpLCZm302ces3khoBGls",
+      "rootNodeId": "2095:44291",
+      "source": "link",
+      "identity": {
+        "name": "NS fundaments",
+        "lastModified": "2026-09-16T14:04:56Z",
+        "version": "2399823633000696951",
+        "frameNodes": 464,
+        "nodeCount": 464,
+        "nestedIds": 406,
+        "withComponentId": 190,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-sanna-account-creation",
+      "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+      "rootNodeId": "174:232051",
+      "source": "link",
+      "identity": {
+        "name": "SANNA - Ready for Development",
+        "lastModified": "2026-10-01T23:21:51Z",
+        "version": "2405525755598286025",
+        "frameNodes": 506,
+        "nodeCount": 516,
+        "nestedIds": 479,
+        "withComponentId": 186,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    },
+    {
+      "run": "b-sesame-group-details",
+      "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+      "rootNodeId": "2142:48093",
+      "source": "link",
+      "identity": {
+        "name": "MySesame Redesign",
+        "lastModified": "2026-10-05T11:40:30Z",
+        "version": "2406839797078826876",
+        "frameNodes": 950,
+        "nodeCount": 957,
+        "nestedIds": 545,
+        "withComponentId": 352,
+        "absentFromFile": []
+      },
+      "complete": true,
+      "reasons": []
+    }
+  ],
+  "unidentified": [
+    {
+      "run": "a5-etsl-metadata-usage-widget",
+      "reason": "the run records no root node id"
+    }
+  ]
+}

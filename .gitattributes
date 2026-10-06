@@ -3,3 +3,8 @@
 package.json text eol=lf
 package-lock.json text eol=lf
 CHANGELOG.md eol=lf
+
+# Verbatim Figma REST captures (T-NOJIRA-figma-ingestion-06). These are responses as the API
+# sent them, byte for byte, with a sha256 in each design's manifest.json. They are evidence, not
+# source: a diff of them says nothing a reader can act on, and a 14 MB one swamps the review.
+runs/captures/** -diff linguist-generated

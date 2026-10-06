@@ -1,0 +1,122 @@
+{
+  "run": "b-kampus-notes-panel",
+  "rootNodeId": "5308:32158",
+  "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+  "source": "index+link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "🌁 New content view (blended)",
+    "lastModified": "2026-10-05T15:26:24Z",
+    "version": "2406897384547070779",
+    "frameNodes": 1038,
+    "nodeCount": 1052,
+    "nestedIds": 1011,
+    "withComponentId": 385,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32158",
+      "status": 200,
+      "ok": true,
+      "ms": 6060,
+      "bytes": 1058030,
+      "sha256": "3b19fd4dc094948009505e1e63a798c320f3713af8ddeed831600f502d31a72c",
+      "file": "runs/captures/b-kampus-notes-panel/rest/nodes-5308-32158.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 927,
+      "bytes": 23142,
+      "sha256": "2447145b505fad5f6c4c20892bf3910dd9ceec967f7bc5dc59b5ee1753342f65",
+      "file": "runs/captures/b-kampus-notes-panel/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/73YHtIYl0UHXH8ST4J7VKI?ids=5308%3A32158&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 14140,
+      "bytes": 133,
+      "sha256": "41f87cbcf53d414424c6e11d37af71eccce8f76046d5497be781bcd693944c71",
+      "file": "runs/captures/b-kampus-notes-panel/rest/images-5308-32158.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/73YHtIYl0UHXH8ST4J7VKI/nodes?ids=5308%3A32159%2C5308%3A32162%2C5308%3A32163%2C5308%3A32182%2C5308%3A32183",
+      "status": 200,
+      "ok": true,
+      "ms": 6705,
+      "bytes": 733849,
+      "sha256": "1f40340f71b7dacbabeddf89ff644b7c4843c7c9f7a8d79866e8a40fd75a7f21",
+      "file": "runs/captures/b-kampus-notes-panel/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/ce8a2d20-5c9b-442a-a61f-33f5e26d8337",
+      "status": 200,
+      "ok": true,
+      "ms": 399,
+      "bytes": 2834945,
+      "sha256": "84be0ff49dc9b093e03477c33a172a7f5063893f80fc3f6fb2c6a48e11e0c8b6",
+      "file": "runs/captures/b-kampus-notes-panel/assets/5308-32158.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 1052,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 1052,
+      "metadata": 39,
+      "designContext": 196,
+      "onlyRest": 849,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": ["I12545:192803;192:2472"]
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 1024,
+      "uncovered": 0,
+      "ratio": 1,
+      "outside": 265,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

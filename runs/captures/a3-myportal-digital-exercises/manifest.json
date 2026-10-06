@@ -1,0 +1,135 @@
+{
+  "run": "a3-myportal-digital-exercises",
+  "rootNodeId": "25124:56828",
+  "fileKey": "1yroCKkROktqhRCP2wwlzB",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "MyPortal – Designs 2025",
+    "lastModified": "2026-09-09T07:47:41Z",
+    "version": "2397136105027161313",
+    "frameNodes": 2147,
+    "nodeCount": 2151,
+    "nestedIds": 1784,
+    "withComponentId": 806,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/nodes?ids=25124%3A56828",
+      "status": 200,
+      "ok": true,
+      "ms": 7243,
+      "bytes": 2888609,
+      "sha256": "301dc2c8bee5ebab23f70fc51fd2f6ca3de4fc80fcbc29dc2521a5d41e9bf88c",
+      "file": "runs/captures/a3-myportal-digital-exercises/rest/nodes-25124-56828.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 588,
+      "bytes": 24748,
+      "sha256": "b73ef0d3e4205168213174f6e6b4f54f37cbac56abfc8283429edecaee3672a2",
+      "file": "runs/captures/a3-myportal-digital-exercises/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/1yroCKkROktqhRCP2wwlzB?ids=25124%3A56828&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 9336,
+      "bytes": 134,
+      "sha256": "6d36bafc58c947352a69a76f2e43325c50f976ffe18bfb6f7474a507223ba357",
+      "file": "runs/captures/a3-myportal-digital-exercises/rest/images-25124-56828.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/1yroCKkROktqhRCP2wwlzB/nodes?ids=25124%3A56831%2C25124%3A56833%2C25124%3A56868%2C25124%3A57138%2C25124%3A57173%2C8300%3A30408",
+      "status": 200,
+      "ok": true,
+      "ms": 5584,
+      "bytes": 846830,
+      "sha256": "0031262742731f4f52f13f0b739cf78ce83265afda1b1b3720fbd7eb0e37d5c3",
+      "file": "runs/captures/a3-myportal-digital-exercises/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/7b2f2d57-f02d-4ed4-9500-0104dc02185e",
+      "status": 200,
+      "ok": true,
+      "ms": 276,
+      "bytes": 576019,
+      "sha256": "e52fd0cd723264b3908339a2c76205f67175f847ebfa95ef69b290429cc6ea3d",
+      "file": "runs/captures/a3-myportal-digital-exercises/assets/25124-56828.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 2151,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 2151,
+      "metadata": 358,
+      "designContext": 609,
+      "onlyRest": 1534,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": [
+        "I12220:175344;2603:4611",
+        "I12220:175344;2603:4611;2121:28942",
+        "I12220:175344;2603:4611;915:4412",
+        "I12220:175344;2603:4611;915:4413",
+        "I12220:175344;2603:4611;915:4413;404:33",
+        "I12220:175344;2603:4611;915:4413;404:33;802:2162",
+        "I8300:30422;2603:4611",
+        "I8300:30422;2603:4611;2121:28942",
+        "I8300:30422;2603:4611;915:4412",
+        "I8300:30422;2603:4611;915:4413",
+        "I8300:30422;2603:4611;915:4413;404:33",
+        "I8300:30422;2603:4611;915:4413;404:33;802:2162"
+      ]
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 1024,
+      "uncovered": 0,
+      "ratio": 1,
+      "outside": 203,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

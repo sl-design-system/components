@@ -1,0 +1,122 @@
+{
+  "run": "a8-nsp-group-list",
+  "rootNodeId": "334:20573",
+  "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
+  "source": "index+link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "New Secondary",
+    "lastModified": "2026-09-23T14:00:01Z",
+    "version": "2402425610621681042",
+    "frameNodes": 620,
+    "nodeCount": 620,
+    "nestedIds": 504,
+    "withComponentId": 252,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/nodes?ids=334%3A20573",
+      "status": 200,
+      "ok": true,
+      "ms": 1853,
+      "bytes": 915428,
+      "sha256": "a696e6f38f1533300a63875d143adfc8400368d3acede54140678090701dbbaa",
+      "file": "runs/captures/a8-nsp-group-list/rest/nodes-334-20573.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 379,
+      "bytes": 24136,
+      "sha256": "d89c0de2918a3d3297c4dc25aa188d213f9d2a4d05a694b17b1ade90bed57545",
+      "file": "runs/captures/a8-nsp-group-list/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/4TdMrcnIVOn3Hrfj2OpVZU?ids=334%3A20573&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 9935,
+      "bytes": 132,
+      "sha256": "09de937284b36756676b72783ea006fc18a11de5dfe12d8ed3624d4f7363226d",
+      "file": "runs/captures/a8-nsp-group-list/rest/images-334-20573.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/4TdMrcnIVOn3Hrfj2OpVZU/nodes?ids=334%3A20574%2C334%3A20578%2C334%3A20684%2C334%3A20678",
+      "status": 200,
+      "ok": true,
+      "ms": 3069,
+      "bytes": 989091,
+      "sha256": "31263dc1d56427555314fc344cdb783b539cef140032a706da7011acadbdff2b",
+      "file": "runs/captures/a8-nsp-group-list/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/6b6526b2-b2a7-42e5-aaa8-97901d5fe4b9",
+      "status": 200,
+      "ok": true,
+      "ms": 541,
+      "bytes": 795527,
+      "sha256": "025f34bbb40bc08e82054867a52b3f80b5d16e56ac631b1a4814074135195e42",
+      "file": "runs/captures/a8-nsp-group-list/assets/334-20573.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 620,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 620,
+      "metadata": 98,
+      "designContext": 176,
+      "onlyRest": 412,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": []
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 871,
+      "uncovered": 153,
+      "ratio": 0.8505859375,
+      "outside": 30,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

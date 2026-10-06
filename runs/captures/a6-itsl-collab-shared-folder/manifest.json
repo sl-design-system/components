@@ -1,0 +1,156 @@
+{
+  "run": "a6-itsl-collab-shared-folder",
+  "rootNodeId": "4200:13792",
+  "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "Collaboration folder",
+    "lastModified": "2026-05-26T11:09:59Z",
+    "version": "2348155400322132136",
+    "frameNodes": 859,
+    "nodeCount": 887,
+    "nestedIds": 801,
+    "withComponentId": 334,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/nodes?ids=4200%3A13792",
+      "status": 200,
+      "ok": true,
+      "ms": 2170,
+      "bytes": 1208659,
+      "sha256": "6371201b5f981548abe8e539420b2287394aa7c8bd335e64824982c9936db9b4",
+      "file": "runs/captures/a6-itsl-collab-shared-folder/rest/nodes-4200-13792.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 531,
+      "bytes": 23026,
+      "sha256": "ac5d5d01d1ec123059ec1e770e456b6c29137fafc48b354a8bed8aa9f5ce3ca4",
+      "file": "runs/captures/a6-itsl-collab-shared-folder/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/Q3gzx1pCseyKnFNDUOOjCw?ids=4200%3A13792&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 5268,
+      "bytes": 133,
+      "sha256": "9123a99d485d5678fea52924a927f1e40ef9d01e4c312f1e5e4b9c0f1deefef5",
+      "file": "runs/captures/a6-itsl-collab-shared-folder/rest/images-4200-13792.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/nodes?ids=4994%3A14459",
+      "status": 200,
+      "ok": true,
+      "ms": 2179,
+      "bytes": 9323,
+      "sha256": "7283ca30d3956d458d6285c94302ec6d5d79d75e5d3d10d69614c49f13c1fec1",
+      "file": "runs/captures/a6-itsl-collab-shared-folder/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/22538492-a9f1-43aa-b213-445917f4cfb3",
+      "status": 200,
+      "ok": true,
+      "ms": 250,
+      "bytes": 294886,
+      "sha256": "4c48a1940e78cb6c39fac66e98794a24a960624c226500247b89a71c21740417",
+      "file": "runs/captures/a6-itsl-collab-shared-folder/assets/4200-13792.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 887,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 887,
+      "metadata": 58,
+      "designContext": 314,
+      "onlyRest": 588,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": [
+        "I4411:11855;4088:16272;19393:6514;663:3904",
+        "I4411:11856;4088:16272;19393:6514;663:3904",
+        "I4411:11857;4088:16272;19393:6514;663:3904",
+        "I4411:11858;4088:16272;19393:6514;663:3904",
+        "I4411:11859;4088:16272;19393:6514;663:3904",
+        "I4411:11860;4088:16272;19393:6514;663:3904",
+        "I4411:11861;4088:16272;19393:6514;663:3904",
+        "I4411:11862;4088:16272;19393:6514;663:3904",
+        "I5483:11344;19853:6315",
+        "I5483:11345;19853:6313",
+        "I5483:11345;19853:6314",
+        "I5483:11345;19853:6315",
+        "I5483:11346;19853:6313",
+        "I5483:11346;19853:6314",
+        "I5483:11346;19853:6315",
+        "I5483:11347;19853:6313",
+        "I5483:11347;19853:6314",
+        "I5483:11347;19853:6315",
+        "I5483:11348;19853:6317",
+        "I5483:11348;19853:6318",
+        "I5483:11348;19853:6319",
+        "I5483:11348;22038:9460",
+        "I5483:11348;22038:9461",
+        "I5512:7938;1902:2859",
+        "I5512:7939;4997:6344",
+        "I5512:7940;4997:6338",
+        "I5512:7941;4997:6338",
+        "I5512:7942;4997:6338",
+        "I5512:7943;4997:6338",
+        "I5512:7944;1902:2850",
+        "I5512:7947;1429:2756",
+        "I5512:7947;29:7275",
+        "I5512:7947;29:7276"
+      ]
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 1024,
+      "uncovered": 0,
+      "ratio": 1,
+      "outside": 6,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

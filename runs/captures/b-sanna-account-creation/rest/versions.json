@@ -1,0 +1,368 @@
+{
+  "versions": [
+    {
+      "id": "2405525755598286025",
+      "created_at": "2026-10-01T23:21:49Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/f5557806-9b0e-418f-8af3-03044a722754?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YBcWExdriaM1Y~4UY4mbSEy02M~ZQypEZDCSnw~9pnlqmMU386jZU4iI9lzbTJupka1SI5pa0wVAgKSmTG1175M9~45mSq0xvUnnIGCk~KWVT2yG~1Fz7R2Mls48OiyKM433HPWyGA0zqzZquRkjDkdJKYN~2aLVsUneWrAx7riTd5yIX4ymYs~3UNvMNIKaBe4oB9sJWCB1F8BA5QKpbs~QVO0lm4P-nxYQ1veXNUrnymecRV~zptrCfml7ZR~LY74Zdte4yh4ozpjjfI0ifQxaOvwXRLNz9aoSb2RMBXH6HJNoMz~N0WJD3neMVHZrb7ryxmb6WoKI6bQc7dJXNA__"
+    },
+    {
+      "id": "2405523848651549380",
+      "created_at": "2026-10-01T23:08:11Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/45bde1ef-60c4-4bd7-8e3d-0a3633b7e6c7?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=H~vecNbR8VWevnsoTy4POHfx0433snBPKvQhChV8-DUcFNMrzJaGH44~FZ80j02xK9Vrr--XkN2EJEDDbRRwMtDoXj2ZqMUX5mN6Gf4nN1oEHVdpb0tKHEGYp-JsZArsiMdISBMTknVRU9J7O8-MCQo0k2FF-4VuYPW6u3gE-AgiaZf7oPT-x6~-nShZLrlODHExlXtXECIPnAjOkkMnQs6oBgzL1re5jJHbq7TMLrjVCl18Et9RYBRHCc~INkfINHx1shxUAhS~Ye973YeonmJvDim2a7o2kHFT9vN8fK8Yl04DAOlSUJUqVxafYLiTk9Vf-UvJRGcr2amvBAGVlA__"
+    },
+    {
+      "id": "2405530309348084347",
+      "created_at": "2026-10-01T23:07:19Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/45d94dfd-4511-45b1-9ab7-460bfe0d2699?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fGZSmYPlxd21X6A0G~w6cI9dTAy~nYZGCE-wMM5DFxX00jgjpnbYk7-AMlOCkYdWLRNQWrzCCVorj3d5q95LH4OzRLvA8Dl8kuOFu13LmmQtoD1Q4BXOvtVUZQ2OAMmcVtMpl83bEtaVG7NZZ-eF4K1yfMBlwyLyUU4OkbVpzlfWc5y8AZOM9sVZlRfeNDS3UVMrIEyo5AfugzuT0RvD6ip8J~gjIhvx0~lPQ70SeQh9zMgSQBWMvPtzyMN4nDxX7Cy~SFpgDaWCyfuIAO~HFAzV17FXdkmXt5KsejoYx~c1XChhXNUOuebrsI1EkrihCtNkhq1PUZF-HYK4oSv65Q__"
+    },
+    {
+      "id": "2405506128178148516",
+      "created_at": "2026-10-01T20:59:29Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Figma",
+        "img_url": "https://www.gravatar.com/avatar/b41ea5bb2cbd89cf1620699952746936?size=240&default=https%3A%2F%2Fs3-alpha.figma.com%2Fstatic%2Fuser_f_v2.png",
+        "id": "183317509314044055"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/b7c7118e-0c2b-4988-88ac-34ff96ff7dbb?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=An69llTh8OSPbv~IkVTzrnf80cWQ~zWJf8nUM7F0JLS-raS-Ef9-l-KrZ2JJ53XXoSjC7mLLu-I-7obhIpFG-jNscLjxNQUV2LXlL~FLFocv9qDpVi~2rOD45TjWyZIwPxmgXHv8Pf4LPtcAxUlObt5uaTPMPLYmRqbx-j6hn~OJdhJfQ4542JHxIWB4EILXXjBCA0pwuSuxG43-sPQCD~Jprb63BIqpI5IXWNTD0hXpnmjLNsUtUl1xROEebFSkpSc7u2g2XWHpfu3yW9YuQ691EEXgfWtjVsReMm-h2ifJZgeG0WeFhCY-CdwoPMjtxdTQqcODu-buZlVc~iGOrA__"
+    },
+    {
+      "id": "2405402705850819681",
+      "created_at": "2026-10-01T14:29:04Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/defb8874-8802-4767-9215-7834ceb497d2?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=K1H0NbgthYFIPWZYImOCssLySTerVKRXUnfvVgNGJPeBwbSvuWJgoRbMPz1NB5yc57t-enau4GSnBwJ5gq5HuTz86HDrben5wDNXusGXQC~4lWdnHHpsWm2BDPhj2MUrrOnUPhPni4mN-ztRaAlNloBqpQKSmyWdBq7jATTG8lR2GmUN0E98H7WJdy9aFvoAvz34iWVKdyXTU42WOoak4KiwNqFdKZ77too6wTEt5Bceim83H6Icd-tLsBEkp3IMaU8gQIZqB1ebXTvQ4UkvQIbRUW00c-D7SEInw8Mn4~nmnE5ReWedqHW6ldKBX8kCEOCHJDoKrznqMTUH5WdrJQ__"
+    },
+    {
+      "id": "2405374392906428422",
+      "created_at": "2026-10-01T12:50:47Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/68b3d36b-996d-4442-b73f-0379f6a6cd33?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OkFQ4HW3ILQdsBTX-9PULOrnBIqTMtuSrPHgmbUC7R~RXc6DKNRwaY4Slmi0Oj88yhDhoMuQPARRcC6TzQYe91cAPdsWH1jbfaznNkRjqD2F4bVH8OASJZxDY7q9XOFSz8hSqV8a7lyzc4gCeljXBlXZ1mDPQRJj~a9UF2hfWAzpSoF68073VLihu-hdPx4CYCgrey8WFJ8AzMQE3WvFdb9TsTOK2KEjatIZLylmpMdLROxXiOQmBUYhCUOG7iTd4v2644iVkAaCv3VFom~kHcJ05fRcRkxTMfLHV95asUC~HCVUjNibsTQfH8OlLzD5huZdZr~fRSW6okL5P3xHqQ__"
+    },
+    {
+      "id": "2405372193893017065",
+      "created_at": "2026-10-01T12:40:40Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/66b42e15-9493-4a48-8b74-2face70490df?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=nh4b5piFDyXKxvssPBIfou9LBCjnShI2JqU6fuyzLCi9b6cjAKxHaShCoCrvEZFnYij5-tBSJqhCjVwMtMdtIRSGWgYEPd4OdIXmsqDA7w4yPFzfLclagoJ1YIHIe6HqoVtkR~qjgeT3VtnQfF6xWbcm5f7-aI1H6mSPLLL3ydr20R0AAs-jBh2cH3HPPGKx~SPjbZUwzw4oJNgPrchT0qtlPvWRwIE5t649m3pnHI81Jf5blOaDGXeG8PUmjasCS4zEB9Vt2JCUdN1hty2~8xU5Gs96zJ30IkJfuNw1Or7FEpmFcNbgzE-DK7YgK-j9F3HiVMJf~R829YaFG2ye2A__"
+    },
+    {
+      "id": "2405316020544230913",
+      "created_at": "2026-10-01T08:57:40Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/2b755e67-7775-4e07-9944-651c08ec2992?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=He~2a2Pac5wEjk~wnYROSXZDPgLUFUYmWbYknKfKhCgXgjmUg0D78xpNqecTcXvHebK-IOD72-L9IzoVOdCHPYZZon9cQz9yXKcwMPaRxwg~4F9MxPqge4Q2EVrkd2~T4sJMzwNCZHg2hHqIABOQBazHwa72PUiXP6MLl4MFiq28cG3-2-VPPjc7Io2nRFDVZbwRPHF8xLhuqCrXYbCw1PLtTyiFL~hZ5JbKNnIYxd4F7K6vPZHoY2iwepqLKQ-mOuZ1du3oVOw6pYSfFjL2gAMsOCVPi8V0zYg9xY1OwLTz3uwkifQYvjgLr3fePkXc0yvi1Ojfsp0gH0iJ3GtN2g__"
+    },
+    {
+      "id": "2405304861688714034",
+      "created_at": "2026-10-01T08:10:02Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/2e00b78a-50e9-4957-8c75-c5e573827501?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=D2o9FQvsIHpT8hSDr~X2EAcOVhAeHh88lCSvGLj5hNMCeYY1XJJ6Mdfgg5Jj-EFvFuh3ETCgWvcyAXH9HkWN8OH1sGqjo6CzKDj1Te~k4o2fboHEzrCsj5Hu32BNl51DvMzWTAmnqVVJfayjtjOBYr84G77baKl4fc6pAcvU3oZ3p6fHzFE7Lwx98jqTctNe4SS1GCdOGaNoG9OmQASofxS9XX2M1jcUJw1x~OU2P0NRuY5Y4qHgTXx1ROuMzIghWJf8Th8ecchF3dTShFLQUIC2i2A8uMvU7jiN7ESs-gOqQEBOkO412dj0LB-4pEXwF2lDjGQjM2rTZ78YHpVEWw__"
+    },
+    {
+      "id": "2405293616934804839",
+      "created_at": "2026-10-01T07:38:04Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/5b8fc4b9-bb26-4e1b-b00c-a6c71b57911e?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=UCb05DfXOkSBxHrYRBIXhPUJkEW-y~jzWJw-Py6tjBDKxx~vRRj6LW3pWHAyVyVDStB1HokU0sW~s4udgrDEyoFG7cZi28tZux~w2M7M3356HvOypaS2tp9CWz1DbuKxWUQelvrTFjWCwS8h~Om8ckoKLrL8n~XX-8fdO4CdNSBgyhFAT3NcbePPMnEibJt1KMs221v0U-1po5zVTzCuH534cMyNfrKZSwyUZ0zEZzCfdnKdki2motG288oeeVm6i5G3Jr7MmDk6pDLJ3-1b8uiQQ4iKAN1fjALXjhE1vN5XMdRvaKOVyDW9BEJVKNIiHl8DhqgB4uqej1ZzoWl6CQ__"
+    },
+    {
+      "id": "2405290160539730648",
+      "created_at": "2026-10-01T07:19:32Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/db74fa99-1826-42fb-bf54-65ff08ba1eff?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=k2LaI0nTx3PJBpxyeZDVJaQ36REUbH3grrte0T296~hdJe0BHUNX6l-A3l5Tg9-MH6xaBFFXVANVKqfrF8DUz2Pf2Kq4dSr1kD0PLL-Vx7YkHZkRq3Lkw3B18VNKftTFwuuL10TRvL80fURovd3Rcc1e-YGTfLIvKvq-ttpItOaX3xGWQgPErUOLaLiH76Lif-VOmTq0dLlPH~5ofHKZYYPOxeUfH9PTRdFai46eMmrq--IK2EhYVL6Ile3ti3HngDWhNr8xxRKnAxU3-QiEkkNLJRkNqzrTbz~fJiDyKB8FEbKlvDGRTYHY8McdOJNMdnsP25Mj~trY-~eDI0heNw__"
+    },
+    {
+      "id": "2405276149834189490",
+      "created_at": "2026-10-01T06:35:49Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Figma",
+        "img_url": "https://www.gravatar.com/avatar/b41ea5bb2cbd89cf1620699952746936?size=240&default=https%3A%2F%2Fs3-alpha.figma.com%2Fstatic%2Fuser_f_v2.png",
+        "id": "183317509314044055"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/fb5f9cf4-ff16-4886-a667-32150301eb5d?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YQus58cJvaRAhgKqLK~dWwWX9z6ZFE9iWgl4jZPVwYucrSzQBAMl0SM-ayiu972IzjG2VczITGNTgE9dcc~4yoA3OIepFzxriapxY968-4F1UjaS2X3gS3JCCNwPchxbeB9F9ThN32xfoHReCwDv2IcTHLg5vyq1xALO9dtoqFOg2697ns3hbNmek6NosnlOgGIs4Nu56VIIDX42jUv-si3QS0xe7~FlKIC65tn58ae9p9pJvtx501OF2pdJOqpAaOFzaWHgr~wYi46vUgByJ~gIbdDDWZgQWHOGsRXv3FJHpj8GQ2sfg15h8tVXnDObYBNooXYqQCoOh0b2ddSbGg__"
+    },
+    {
+      "id": "2405013713887507258",
+      "created_at": "2026-09-30T13:18:32Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/3a9dcf4b-7e79-4fcd-8808-d188230662df?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=lhLQTTe9Ee0wqEHJmcF9glYZr2qS3-a4B8TarQU5RXsuxCPeuNh6UuljKFhKNGaxaMJ336v4GZbahnFlUR1Ekdx-PIElpPEwz1CoIrQ8mLQAfZAgta2O3evORMgd3v3V16K1Gu5lu2zj2hF5CEkobJZmoPlMnc8uMfIktkIP3zU4LXgaU6JGT4qqv8JRT53eWHGChyi8HBx6~1i0-W-tYM1bdSwbD5C1Mxjqh9-MQz2owGde-~XMAreso1LwlfThh4aBN65ZsZ29JEGdjwjsEQPtkgG4HdPrg63wxAycn8DxhGXtdMAepIgKTui8m6ALOmmiIuUXyrQbQ~bFPnPilw__"
+    },
+    {
+      "id": "2405004433022411136",
+      "created_at": "2026-09-30T12:45:13Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/4f4a9126-d5af-4e56-a404-cfafbb05d6b2?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=GLdnB5B7dwQQqRtTxgNIEoWeoWB2wl~oZoCMlOSsCZegUuH6-AoIiMeUVBO4RiYGWXEMIYCpMTWwDsySyJZeTxJuwXTl~Kiiz~6r8ZHQUHk-tgtO1UxEs9dXkbBWw2sTP0n3ckhP426BGZxZNhPbGC8bRWDnCZqB7eI5a4Qe09Uf6pSpdWVRMSCgWz8JYSHbfrnt--kOAwoPk0pT6RugDboXDWK8E0kHUhnI8B4tmbBfEEAqDCpOPdJrsnnVZL4T3m3~EE66IlUvIETgedOEmGLUZhB6kBDyMSIyaGRVuegfvYSP~pnoMgBVe7SZRyUY2BfwkUxY0oUmwiPk4py9hw__"
+    },
+    {
+      "id": "2405001177449430388",
+      "created_at": "2026-09-30T12:35:21Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/4b88e20f-8865-45e6-8694-26ce680f0719?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=LE6cchFaNuOKQl1eIw~nSo~ZiivAMga5900g~-G8gnA~yGRohGP~Nt4EL0FnltB03kfVIB70khgpYZ6BqvSeHg6ky2LQFPPi-Jkjp1THQJyUxXYkOZUYTvWol-qIpEsE14mPf89-k6EDmqeU7B9rV0DE0mm95feTObaPxkyTto2kAYREMUgTvAuOjKvc5x5ZPkkEpSGqaOiIidBmbADsm3iwyoC8KwXIwLdi6N1yVd9JhDVWf8s8-6j5K88TqdXsM4Jnz4jkfbRj6rOW7chHkD5XoNN1eGbMhib1CrEGQpkIBW0o-la3BEBXsXEwjWoBMy7PxWPpgr2-OaBxDvJqHw__"
+    },
+    {
+      "id": "2404977915353053226",
+      "created_at": "2026-09-30T11:01:34Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/9eaeb82f-309b-4a0a-9561-393ae05d669d?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=mla8JQj~PNiXlwrub~iAJx2dm4S8D0p4gyVpHiSauYvZExYTNQjMgZXRSrB9LVMxdT0WyqxfhxWJizgj6G5q6~tBV91KMlnGWvQodVrr3lZrqovWxw6uW5O34KXTx3FfxeEq8DCvbV0V-doBV9b9r4mIMwqAyuyYPcgve2vkHK3ZG6iSHUcRkbYbCFUvIMsIvLqH8WV6x6AOxOrq2ofa2iRQ9d0zTNg4wCKmz2yThQvEot-CATvPXGKWj17cgItjXAFkIziy~KvlUfWzlCdPIADuN2nIWNqHNZwWh3BWTfqrKUyyYwOIAjaZSVvji-yxHEuKRpgdFOn1lDPwms75LA__"
+    },
+    {
+      "id": "2404963880479675529",
+      "created_at": "2026-09-30T10:10:04Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/95dcb061-3bb9-4cce-89f7-de4b7e2d343c?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=dBQvTL2oBBokaK~IC6JOckByIB9EKj1GXhZ30E7jAsVOZ8e8eclikSdlZ~JSLbBXTepMutg65xmJnNA5GHUatT3HukJG-ySdpfgCoiYzOTCYmK9iEo3smUh6U-yEcV8KGRLdtNgVlfL8FL6qPzSYt5EsfFeqndD7QZ7vC-eYQ-4m9cCVJlaCXqFSLhX~f6tP9fIMoyjMCtVreYhdPi-es8pQVxVsBIuwPWJMUY4cwwtB4qKu0aL5p8dMwhkGiGosaBB0sFGor0sbF3DI3MmV9yHS7y7zkuLAZ08gyTClYmAeM~EJx6HQzHxwKGpKlF0xJ4m4Xu-ey2ByGOpuBo41ew__"
+    },
+    {
+      "id": "2404963879392497255",
+      "created_at": "2026-09-30T10:03:43Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/b806e1bd-1fe0-4135-b297-87e3c9b7bc96?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=biVUVz-qk~nyLPOVivkf1MTKWjRYptPHHiP8ct547immspJrPlUUYG1-elsfdujfbh9QzE~rpEyU8S65rwswW-teh5txQ~igjSq4KFIQBdhbaCyvri0qnxAfP1HN46bsTieA1sH7i1LR~M6VNEuxqUvl7Am8gxL5ND9Rzc-bSR5s51BHU0P55WGnQxZ1htu9ET7C5qs9WL71jQm-2LGEwG~hhyFbJ4VsjhYxUWrqVGkIirNNATeQS9U~qHMj~WGpXtIF6NuxEIC06mWBfMmKZFV1g7osPAZclSrPcY-oN0YX4M0PZp5dcMMroT~XmI4Et~ZnLzkdh3-jICsGPwtDtg__"
+    },
+    {
+      "id": "2404914896387809939",
+      "created_at": "2026-09-30T07:06:54Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/b4407dda-b35c-4077-922b-441c835eb3d4?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=r3ZfhZbnqVWhjGvlx6S0vh5UfW8CTPmhkklXWZYiNlucx2FimhZuV-4WbUMjYp99Q0ef2XkA2YO8bFbI8t89iL8wjkhgCam8vunFzWJ8BgcoOo9xkFHex2NCl9mYmKDUBeSgpjR20nn23FON3p1nf9Pt6J1X1JNRTOPXQUJ80aQDIjO3Ruq4hZ0vNzHVdaREuMzY4vnaiUnr1hwMe9GuWV8CEAEnYunN8bqEhTrDhPXs46QkoQ5d3zKntu4d8CYcBwBse4GAQ0AkSHTVhUgY1tOcQUZwReqcXxfiwjNgZP6sx0nlZXvy~H7va2NlgtCWw649CNKhC9R7A5yMPWOLvw__"
+    },
+    {
+      "id": "2404904621737206440",
+      "created_at": "2026-09-30T06:28:02Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/17ad1be8-2a8c-4c80-b797-7721d479f6d2?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=rZ1oQl77cl48jLsU0nz6rNmUco2xV5V1Dy7IkZ~qfcBz2woLT3tEsVTzXYd~-L7cebSQqtEI8yDQyzUtteYUN52iJUDqZjz42jokNybHiBSCGuGot1cnO7cMCnHPCeaGsdfAks8AkNLzDdJg4FKTdJv8cBzpKajvqOXPJZVxumhaEn2xmweuvYVb0xM3Vzk0pjkK2NUYNFtI~E51Iu7Y0llSWHMt0dE05Uc5d7pw3aGJ2j642pcyyGQ~fQya9im0I3hwk0oXOhVGS8P2LSUEm5miC85MHM09~mJTLMKCVoQhaNsR8Rvw01uGVkmTvL-ECTxuVdsQ4wr2Asmd9rY4cg__"
+    },
+    {
+      "id": "2404751961966318794",
+      "created_at": "2026-09-29T20:24:49Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/778eae19-60b2-4e00-94d1-f6977afa5913?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=W1~vfZ-hRLxW5FNYvaQrpl-lGBpXuMdEPPorPX2GZRPSvV84ChzHG6~dq3NQ3fNdqMrLvHbveSvR3cF6xvy8Fx1Td81SFnRCIkqCzt-vN~5D7NM9HF2CsOz19aLRdB49nCYx-uciCPZB6N11XorOk3ppa7-RBNar3SHTmWL2WM5p0gm3UN9i~oMVkmrbAtaAwAsZ2swv9veqXeMTbM5QzMh0xyxUzcmQYC8BGtQHwOh~6~Gy30MjvbpMv2VW9KvkKpDK-uSnNCW2-3HX0lkDpOJxlM5coL3JLq4qScdrCQwBMoANlZJkzBsWHB4yY1a66LnIBTnWyqsbZ7VYeOUe9w__"
+    },
+    {
+      "id": "2404684583092178493",
+      "created_at": "2026-09-29T16:10:55Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/453c1591-e7ce-4acb-8dcd-391cf435f0ce?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fqjb~yyXlqiMFmo8Sq5G1E~6qF5Jnmrd9Z1V-accgigk2GMpcMtSnGChpAH9XJqkfQHiHf4J8e4fSjZU7Nq0tpqMVABGMqKZP2Tbtp7C26P-DgKKF4WA~4GvoLR59GwbCXFnVVGw4poGzZANiyorJDTtBPb2LNHgbiMuulFPqvl~pnMF1C3ANs94AZMkmJiA6hQkRKrtMRIXFi6nf6F9-L4hFYbfDIO7amFEyhSKXgQCFLg8cLGHcoJLOzCgNIMQSkK38z5pmTuvV4GOn0cFCYuMM9bbrzbnG3B~o8a17xtgrsHlhoVVcbOvuodJm3Ks5xGHPA-ZxQct7kWd7PZOMw__"
+    },
+    {
+      "id": "2404593430398107379",
+      "created_at": "2026-09-29T10:05:27Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/19ce6474-8c5d-4f55-ac12-9ebff4407233?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=iKCLwXxJpNCEkSn9dslUzfmbc-8BSAvfqa2RH150HGPs7VwPxViSpsKNAMyYQT7Z3dkhMii13E4F-7-yolP0QO9dZscPMA7sDU1zvIo9Ay-XyePQsDKlZK41NiMsHqlZ6W~~aJaWJLjGogS5hmc80-shZV9ggNGCp-s-nbdAXFFbUPMMvwL4VcqCPxNnY6uyqUt6M8XlHEJpjlozVXZW-grJEJaNGEjf8GAKjG0x68~NxqmNw4dFRezRupEHtrtK7a61jDMDwlz2WvHmaJQPXz5ycf9~Mwvh6ctDdjEm725dSuatdL8JYI0o1le5K~0gNsFqCoj4tgsbBjphPsh5HQ__"
+    },
+    {
+      "id": "2404584033053037742",
+      "created_at": "2026-09-29T09:27:34Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/8b106794-0734-4b69-90f3-921b456ab32f?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=YIFtEeyXbtzTIgdNw4JeubBw96lycIz0rMmg7Yi~B-reVcHZYnbT6IWLZbSVS28opqW4jZAhbcoKc2SA0SQaIuKruq4tyZ8S-WDMaRzG9Ga20u3719IzKP1lgb8-8KyJlNWxIBTFqyPXeWpuB2cI0rIhLzS4yrzhWVmpIXPGwIasem~GeOVRGIM-sxiLbAHTWryU7ykpky95Mm72uPwlePRflKeshyj7BBjjm3WHhSGvXrRQEwriMFRLTDSydp1TExRm9tKquNCQYOKJQSakLdlFBj64HxOXm0ZXaY8s-V6JQVwPXryjjYXiCE1wC8hU655y7oIvmQ~PJ5XfR9z00w__"
+    },
+    {
+      "id": "2404573536682037331",
+      "created_at": "2026-09-29T08:43:42Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/ec29173e-7715-47a9-bb3d-2c19c7fb98b4?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=onYD1QMTMGcfMP9oRb43l9MZeOANZI2xEzykB-O5NyvpaAZCUqCA-65XCSnZlOYDvohHe4DEd9Fbot2mWwjTxVcOnhyoKTlEKD4to0lJhkxjazE2Zkj4t1KTEHw8IEz1nHbPvObWQ32HazdAPY0vTLV2zQQinhvbQQ-T1HBJcMs8VKMp0tJXLzdKsA03leCsnVP~untHcsKlFSx36PFYTWgBBTIlCG3te2FYS7spSSxbS-CWVQ9X63~NqxYkL7m4VnqzJq~iaIY3l5HmclvJQHpvRFWqqOnfITOGV0cvfLHGVg3nDEXspYf-q3xlxw-i7IE4jNYv6GqVqZNv~7ITyA__"
+    },
+    {
+      "id": "2404568326878395556",
+      "created_at": "2026-09-29T08:35:31Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/ed70870b-fd9b-46f4-a960-5dc9de346385?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=k66n~pegLCWbsyvKMYdGKbOiT6EdpnBuh8H09btoJ5xBiDrNSLqHgsPZWL4rP4axlMKhSCL2M1YH1Mf2VEXPMupoPiBeBKdKhLqrvP7VQxUEDItD9RMOuxr~kW8hVDzop0culnccU97QzFLO65lFS5~Qbjq0na3dyAMrR2UG4mWBrBebNtiE0XgCNeblDFhwgiS0nifSJmZnAnBmKgU67p5NTDvlYhYmK7FDW8ZITpvFiRQRKLPkGPyIg2v7cmHCfXBYmhYoqsD6tO1b40XLsbCYIm5dDsClO2U8Dd50euQsFcxANMRo3p-Sk6Fk8yVqGsQ7tDHCgVsugwkTwzzrZg__"
+    },
+    {
+      "id": "2404376564686080405",
+      "created_at": "2026-09-28T20:16:46Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/1f050c4b-326e-4859-969a-0c419f54c541?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=N-zPv5uN1Xirm-H7L7nw1tJSh~nZQDchwZcoufxWv4JEVmg0CnQiWRmXPeqyeUjDjP4owqSocVnWjAGJogHLJUKiZcSuLgQTyepbwDH05mBYR8XJcC29aBHxSk3mrp1o~CCmdcI502z39VAncrpzIPYP0MYM8f~rrCwZ7gu~5l9KN-1oFjcQXxaw-RtzCooi9VSnQjHgD4hUJkzZ1eXW39oDs0Doca-lvn2v4fjznISFdkQgVHrfp67S3P4j-IkELCS8wj66AI~ftKrp0CXEBkkRb7BMciZsT4-A-BxOpMrhB3XVCTi-PptmWp2JbnUANVG0fOleo8XabFpfzxXpAQ__"
+    },
+    {
+      "id": "2404373601731524692",
+      "created_at": "2026-09-28T19:46:17Z",
+      "label": "Ready for dev",
+      "description": "",
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/b2b78f94-daa9-47c6-a7a2-632182e7bcdd?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=WQgUi7htCeCOgTjuugyMFE37q-ac-K4An~vOtPHnRECIJyVCzYXss1UHNxZswTbtCJiPEeNFt4syd-26~0TEbEVgAKKi0mF8NzuwDEbE2fcGRFopRiya1-oE1m9nxgxQACD6IF6Giplj5KDxs8ca1brhEnmpU1kt9TeZmY~hsou7l6IKj0RPlW9FSg2mUPUtQ4PzcNPqXFBbcS3vdi1J6I1R19VQkplj25dDpTOsvvSnfh9COIDZU9hUnJMv5X10JYNT7XhCF3GXxpIQ-ZQH5sJviuDnJ02InBrlRbsM1SEIBDT4IF555Bh9SNU6dSaRBt~JNrk5HdTeNbFMA8kwdA__"
+    },
+    {
+      "id": "2404368232946743905",
+      "created_at": "2026-09-28T19:14:22Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/eede1080-da9e-4442-839b-86e6c7f5e5ac?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=EbjoALWL1WIWBEGfAq7NxWaQApIv9O1uiwiBy0uon0vF9dDYLLNzZaXnLp44wEqpwjwJuMTgZHvVX3m0lPmMaDgHpfK36dds-kL7mh-25YwA9LV-pBD-NQ1OmgduRziV2xiA5sqH1oK5CO9mtNa5-SH3Xd~BnM362UHKE9U6bfA6B0htVEdIWypN8D-GPHE59HYJFM9fJOJURkR0ASw6kSDWA6idjr1oqOSU9ogWSuUtnxhxBp7KVtgItCZcfTXIFZSvf2AIrKl0i2ih1N3whMeSxXxDr9UaNliQAGUS0jDXdpnGpyWgTV6-y7TlShdb~xDhDzYEK9CS2HikmNzprA__"
+    },
+    {
+      "id": "2404285120485508805",
+      "created_at": "2026-09-28T14:09:36Z",
+      "label": null,
+      "description": null,
+      "user": {
+        "handle": "Claudia Canales",
+        "img_url": "https://s3-alpha.figma.com/profile/4b809b78-a032-46bc-b50f-bf3705b46dbb",
+        "id": "1257997343647336861"
+      },
+      "thumbnail_url": "https://s3-alpha-sig.figma.com/thumbnails/f02f2703-45d5-4a79-b7a6-cc3a7a9dd5fd?Expires=1792368000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=RwTKby9VVBwf24BW9Wl3Jx30Qfx~jv6F1C8HkRKTOneA3tPyNMa-H7HOvfR9kJv6sSwstVVlewB6C7wDpRWL0omrOTPMJ21UhiPgdBrjvrNYtP5jfED47vImOb9AC-ggD8P2se9IS147DKeNf1L1QDv-raIZGu2WuPcd-zmaX~PGK5sxUhQzg0uFELIteE-f~i5HnE2VM997RXZFtDlRHLd3zVn9fWpIHf07DK0K16r77TUS6O9WjtcV-VbSrIdj4fbghMeE4FbNoUl8vXQLa2ngWifJYHLe94-a0hEXmdy5-gLAu3S6QcDAm2u19d2vBH0rhr3JpyYBiM7CuQUykA__"
+    }
+  ],
+  "pagination": {
+    "next_page": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/versions?page_size=30&column=date&secondary_column=default&after=2026-09-28 14:09:36 UTC&secondary_after=2404285120485508805",
+    "prev_page": "https://api.figma.com/v1/files/Mzc8BuOvMxOJGAQtv0h64M/versions?page_size=30&column=date&secondary_column=default&before=2026-10-01 23:21:49 UTC&secondary_before=2405525755598286025"
+  }
+}

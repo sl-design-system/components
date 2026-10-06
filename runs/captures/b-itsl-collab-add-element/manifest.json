@@ -1,0 +1,122 @@
+{
+  "run": "b-itsl-collab-add-element",
+  "rootNodeId": "5006:43051",
+  "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "Collaboration folder",
+    "lastModified": "2026-05-26T11:09:59Z",
+    "version": "2348155400322132136",
+    "frameNodes": 458,
+    "nodeCount": 460,
+    "nestedIds": 364,
+    "withComponentId": 120,
+    "absentFromFile": ["123:456"]
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/nodes?ids=5006%3A43051",
+      "status": 200,
+      "ok": true,
+      "ms": 2949,
+      "bytes": 572825,
+      "sha256": "f7862abbd82189a95ee7582617365d2039edac01075201cdd8027bb5d5caafd9",
+      "file": "runs/captures/b-itsl-collab-add-element/rest/nodes-5006-43051.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 547,
+      "bytes": 23026,
+      "sha256": "ac5d5d01d1ec123059ec1e770e456b6c29137fafc48b354a8bed8aa9f5ce3ca4",
+      "file": "runs/captures/b-itsl-collab-add-element/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/Q3gzx1pCseyKnFNDUOOjCw?ids=5006%3A43051&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 4470,
+      "bytes": 133,
+      "sha256": "7d50f6dc88fe4ca218f4ebb101292f2259d75cd9cd2251d96a78c9975f33be70",
+      "file": "runs/captures/b-itsl-collab-add-element/rest/images-5006-43051.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/Q3gzx1pCseyKnFNDUOOjCw/nodes?ids=2275%3A4904%2C123%3A456",
+      "status": 200,
+      "ok": true,
+      "ms": 1496,
+      "bytes": 1974,
+      "sha256": "cbf9f68217f36fa733e973c05b44f28436d482628972d96afc94764255e20067",
+      "file": "runs/captures/b-itsl-collab-add-element/rest/nodes-extra.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/d9653a69-99df-4437-b9c5-ea103a4aa076",
+      "status": 200,
+      "ok": true,
+      "ms": 301,
+      "bytes": 101466,
+      "sha256": "80d7e93d740d8e4162dadebeebf46faf293aa608d02caa8a47a6f657f20b52a6",
+      "file": "runs/captures/b-itsl-collab-add-element/assets/5006-43051.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 460,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 460,
+      "metadata": 121,
+      "designContext": 99,
+      "onlyRest": 283,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": []
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 1004,
+      "uncovered": 20,
+      "ratio": 0.98046875,
+      "outside": 12,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

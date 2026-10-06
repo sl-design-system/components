@@ -1,0 +1,51 @@
+{
+  "name": "Bookmarks",
+  "lastModified": "2026-05-07T07:37:44Z",
+  "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/0cdce654-c9ad-4307-869b-48f211bef852?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCQPXYJSOJ%2F20261004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20261004T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=91e3761818378550f6aef19e8799d2b061a889e05f5cb3a44a1333cc7119573f",
+  "version": "2350738904761603312",
+  "role": "viewer",
+  "editorType": "figma",
+  "linkAccess": "org_view",
+  "nodes": {
+    "4016:6593": {
+      "document": {
+        "id": "4016:6593",
+        "name": "your-files",
+        "type": "COMPONENT",
+        "scrollBehavior": "SCROLLS",
+        "children": [],
+        "blendMode": "PASS_THROUGH",
+        "clipsContent": true,
+        "background": [],
+        "fills": [],
+        "strokes": [],
+        "cornerRadius": 2.5,
+        "cornerSmoothing": 0.0,
+        "strokeWeight": 1.0,
+        "strokeAlign": "INSIDE",
+        "backgroundColor": { "r": 0.0, "g": 0.0, "b": 0.0, "a": 0.0 },
+        "absoluteBoundingBox": { "x": 0.0, "y": 0.0, "width": 32.0, "height": 32.0 },
+        "absoluteRenderBounds": { "x": 0.0, "y": 0.0, "width": 32.0, "height": 32.0 },
+        "constraints": { "vertical": "TOP", "horizontal": "LEFT" },
+        "exportSettings": [
+          { "suffix": "", "format": "SVG", "constraint": { "type": "SCALE", "value": 1.0 } }
+        ],
+        "effects": [],
+        "interactions": [],
+        "complexStrokeProperties": { "strokeType": "BASIC" }
+      },
+      "components": {
+        "4016:6593": {
+          "key": "677a55be67ce6c81d2e1f9e4bebf9f0135000293",
+          "name": "your-files",
+          "description": "",
+          "remote": true,
+          "documentationLinks": []
+        }
+      },
+      "componentSets": {},
+      "schemaVersion": 0,
+      "styles": {}
+    }
+  }
+}

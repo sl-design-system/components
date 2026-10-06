@@ -1,0 +1,110 @@
+{
+  "run": "a11-sesame-learning-materials",
+  "rootNodeId": "116:19049",
+  "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+  "source": "link",
+  "capturedAt": "2026-10-06T00:06:14.134Z",
+  "identity": {
+    "name": "MySesame Redesign",
+    "lastModified": "2026-10-05T11:40:30Z",
+    "version": "2406839797078826876",
+    "frameNodes": 395,
+    "nodeCount": 395,
+    "nestedIds": 116,
+    "withComponentId": 32,
+    "absentFromFile": []
+  },
+  "reach": {
+    "files": 200,
+    "versions": 200,
+    "me": 403
+  },
+  "records": [
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/nodes?ids=116%3A19049",
+      "status": 200,
+      "ok": true,
+      "ms": 7723,
+      "bytes": 320297,
+      "sha256": "71877e0e684173386dfd4916cc0e204c418c7d5d96be5ad9528465c98b5db49e",
+      "file": "runs/captures/a11-sesame-learning-materials/rest/nodes-116-19049.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/files/UBr399hnydpNF9P5Jb2vfx/versions",
+      "status": 200,
+      "ok": true,
+      "ms": 367,
+      "bytes": 24977,
+      "sha256": "cf8cb7dc6f928b074585bbb8cd8f27ded4755a7776837dae2c1c6a6922f07b47",
+      "file": "runs/captures/a11-sesame-learning-materials/rest/versions.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://api.figma.com/v1/images/UBr399hnydpNF9P5Jb2vfx?ids=116%3A19049&format=png&scale=2",
+      "status": 200,
+      "ok": true,
+      "ms": 9704,
+      "bytes": 132,
+      "sha256": "41298b39266866b1fc663bfb1f6dc14aa73b5b3d4b2e6097b7fa6c959b8519ae",
+      "file": "runs/captures/a11-sesame-learning-materials/rest/images-116-19049.json",
+      "retryAfter": null,
+      "error": null,
+      "reused": true
+    },
+    {
+      "url": "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/48a9ba13-13e3-44da-8a00-fd8e9429cd58",
+      "status": 200,
+      "ok": true,
+      "ms": 262,
+      "bytes": 168341,
+      "sha256": "1b28c2859ed2d525bef68ca580ac09a126428ae9173bbf2634b70a211c25cecb",
+      "file": "runs/captures/a11-sesame-learning-materials/assets/116-19049.png",
+      "retryAfter": null,
+      "error": null
+    }
+  ],
+  "schemaVersion": 1,
+  "checks": {
+    "closure": {
+      "status": "green",
+      "entered": 395,
+      "withoutDisposition": [],
+      "unknownDisposition": [],
+      "claimedButAbsent": []
+    },
+    "truncation": {
+      "status": "green",
+      "signals": []
+    },
+    "reconciliation": {
+      "status": "green",
+      "rest": 395,
+      "metadata": 120,
+      "designContext": 0,
+      "onlyRest": 275,
+      "onlyMetadata": [],
+      "onlyDesignContext": [],
+      "nested": []
+    },
+    "coverage": {
+      "status": "green",
+      "cells": 1024,
+      "covered": 848,
+      "uncovered": 176,
+      "ratio": 0.828125,
+      "outside": 0,
+      "baseline": null
+    },
+    "determinism": {
+      "status": "skipped",
+      "detail": "this design was captured once"
+    }
+  },
+  "complete": true,
+  "reasons": []
+}

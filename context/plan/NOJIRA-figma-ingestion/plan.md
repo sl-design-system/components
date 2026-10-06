@@ -97,6 +97,9 @@ agent; growing Code Connect coverage, which is design system team work this plan
 - `T-NOJIRA-figma-ingestion-06` — **Capture what Figma actually returns, by script.** Added
   after 03; see Amendment 2. Three runs of nineteen carry verbatim captures and Code Connect is
   the tool's own output in eight; every plan in this slice rests on agents' summaries of the data
+- `T-NOJIRA-figma-ingestion-07` — **The nineteenth design, and the budget the capture does not
+  have.** Added after 06; see Amendment 3. a5 was reported unidentifiable while its root node id
+  sat in its own capture and a link in this repository named it
 - `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
   today. A third of the cost of the full control, and it can falsify this plan on its own
 
@@ -109,6 +112,7 @@ good ideas indistinguishable from its bad ones:
 | 02    | **the fourteen-case probe.** If none converts, stop        | 14 halts                          |
 | 05    | `334:20594` stops being reported as unmapped               | the live walk, before the fix     |
 | 06    | runs whose captures are verbatim and hashed                | **3 of 19**                       |
+| 07    | designs captured, and unidentified                         | **18 of 19**, one unidentified    |
 | 03    | is the cause stable across two passes of one design?       | counts that moved up to threefold |
 | 04    | completions **and** recorded conformance                   | 5 of 38                           |
 
@@ -243,6 +247,45 @@ plan. It sits here because this plan already owns the Figma calls and the traver
 leaving 04 to run while the corpus underneath it is 3-of-19 verbatim means the next person to
 question a figure has to do this work anyway, with less context. Reverting costs one task; the
 measurement stands either way.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-10-06
+
+### Amendment 3 — 2026-10-06, after approval
+
+**What changed.** A third task added, `T-NOJIRA-figma-ingestion-07`, after 06 and before 04.
+
+`T-NOJIRA-figma-ingestion-06` captured 18 of 19 designs and reported the nineteenth,
+a5-etsl-metadata-usage-widget, as unidentifiable. **It was identifiable.** Its root node id sits
+in its own metadata capture, `<frame id="17214:103584" name="Metadata usage widget">`, and a link
+already in this repository names that node in a file the token reaches with a 200. The resolver
+pairs a run with a file only through the `rootNodeId` recorded in `captures/index.json`, and a5
+is the one run of nineteen where that field is `null`.
+
+This matters beyond one design. 06's Result offered a5 as F10 — _Figma does not identify the
+design, the operator does_ — arriving in operational form. It is not that. The operator did
+record it; the reader did not look. **The corpus's only genuine identity gap was a reader
+defect**, and the contract finding it was offered as evidence for stands on one fewer case.
+
+The same task carries a second omission, named rather than left: step 8 of 06 asked for a
+per-design call and byte budget and it was not delivered, so 06's criterion _"a design that could
+not be captured whole says so, with which budget or cap stopped it"_ passes vacuously.
+a2-nsp-class-overview pulled 28 MB in one call with nothing able to stop it.
+
+**A correction to Amendment 2, which is left standing as written.** That amendment records
+_"a personal access token is a supported scheme and no OAuth dance is needed"_. It is not: with a
+real token `mcp.figma.com` answers **401** whatever the token's scopes, and only `api.figma.com`
+answers 200. 06 was rebuilt REST-first on that measurement before it ran. The amendment is a
+record of what was believed on the day and is not rewritten; this is where it is corrected.
+
+**What did not change.** The goal, the approach, the five causes, the stopping rule, the halt
+policy and the acceptance criteria. 07 fixes a reader and adds a budget; it decides nothing this
+plan already decided, and 04 does not depend on it.
+
+**Judgement to be aware of.** 07 could be skipped: eighteen designs is enough corpus for 04, and
+a5 is one of the fourteen halts only by name. It is here because the write-up of 06 put a wrong
+sentence into the record — that a design could not be counted — and the cheapest moment to
+correct a wrong sentence is before anything is built on it.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-10-06

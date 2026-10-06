@@ -160,3 +160,50 @@ and refuses it anyway. The scopes are not the problem; the credential class is.
 
 So the line is **REST against MCP**, not token against no token. The same token that captured
 twenty-eight thousand nodes cannot ask one Code Connect question.
+
+## Can a script hold the credential? No — and the reason is not scopes
+
+Asked and answered 2026-10-06, by probe and then by Figma's own documentation.
+
+**What the server demands**, from its own `WWW-Authenticate` header and the two metadata
+documents it points at:
+
+| | |
+| - | - |
+| scope | `mcp:connect` — and it is **not in the personal access token scope list** |
+| authorization_endpoint | `https://www.figma.com/oauth/mcp` |
+| token_endpoint | `https://api.figma.com/v1/oauth/token` |
+| registration_endpoint | `https://api.figma.com/v1/oauth/mcp/register` |
+| grant types | `authorization_code`, `refresh_token`, `jwt-bearer` |
+
+Dynamic client registration is advertised, so it was tried with a well-formed RFC 7591 body:
+
+```
+403 Forbidden        POST /v1/oauth/mcp/register      (plain text, no JSON)
+404 {"status":404}   GET  /v1/oauth/mcp/register      (the API's own 404 shape)
+400 {"error":"Client ID is required"}  POST /v1/oauth/token
+```
+
+The token endpoint shapes its errors as JSON and the register endpoint does not, so the 403 is a
+gate in front of the handler rather than the handler's own refusal. Four header variants, same
+answer.
+
+**Figma's documentation says why.** From the MCP server docs: _"Only clients listed in the Figma
+MCP Catalog can connect to the Figma MCP Server."_ The catalog page adds: _"you can apply to
+register your client for remote access, please reach out to your account team."_ There is no
+self-service path.
+
+**Claude and Claude Code are both in that catalog**, which is why this session's calls work and
+a script's do not. The gate is **client allow-listing**, not credentials and not scopes — so an
+OAuth app registered in Figma's developer settings would be refused for the same reason, and so
+would the enterprise `jwt-bearer` profile.
+
+### A correction to what this task said earlier
+
+`T-NOJIRA-figma-ingestion-04` recorded that the measurement is _"blocked on that credential and
+on nothing else"_, which reads as though minting one were an errand. **It is not obtainable by
+us.** Either the remaining calls run through a catalogued client — which is what an agent
+session is — or somebody asks Sanoma's Figma account team to register one.
+
+That also means the agent-driven path is the **supported** one rather than a workaround, and the
+683 calls are a cost rather than a symptom.

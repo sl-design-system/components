@@ -10,7 +10,7 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-06T15:00:00Z
+updated: 2026-10-06T16:00:00Z
 tags: [measurement, baseline, control]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: [T-NOJIRA-figma-ingestion-09]

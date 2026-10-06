@@ -6,14 +6,15 @@ title: A node inside a resolved instance is not an unresolved node
 description: 'The traversal records that the enclosing instance answered; the classifier files the children as pipeline bugs anyway, and the CLI halts on them'
 jira: null
 resource: null
-status: todo
+status: done
 independent: false
 owner: marcin.ludwig
 created: 2026-10-06T00:00:00Z
-updated: 2026-10-06T00:00:00Z
+updated: 2026-10-06T11:00:00Z
 tags: [figma, code-connect, classification, defect]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: [T-NOJIRA-figma-ingestion-05]
+commit: cbd556b40
 ---
 
 # A node inside a resolved instance is not an unresolved node
@@ -101,3 +102,66 @@ unresolved nodes instead of two owned by the pipeline.
 
 Then re-run `walk-five-causes.json` and report the new distribution against `{ A: 1, B: 1, D: 2,
 E: 2 }`, naming the entry that left and why.
+
+## Result
+
+`runs/harness/traverse.mjs` and `runs/harness/classify-unresolved.mjs`, modified in place. The
+harness gate is **490 tests** and `tsc --noEmit` over seventeen files. **11 mutations, 0
+survivors.**
+
+On the exact shape `T-NOJIRA-figma-ingestion-04`'s Phase A recorded, with the Code Connect
+response the remote server really sent:
+
+|        | Unresolved | Causes                      |  Exit |
+| ------ | ---------: | --------------------------- | ----: |
+| before |          2 | B ×2, owner **pipeline**    | **6** |
+| after  |      **0** | — , `coveredByEnclosing: 2` | **0** |
+
+### The five criteria
+
+| Criterion                                                                                               | How it is shown                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| A nested node under a **resolved** instance is not unresolved, and the walk still records what answered | `enclosingOutcome: 'resolved'`, `probedAs: 334:20593`, and the node absent from the list                                                     |
+| A nested node under a **mapped** instance is treated the same                                           | `ANSWERED` holds both, and a mutation removing either is caught                                                                              |
+| A nested node under an instance that did **not** answer is still cause B                                | the control keeps it, with owner `pipeline`; a second control keeps one from a walk recorded before this task, which carries no field at all |
+| The classifier reads a field, not the prose                                                             | the detail is replaced with _"the enclosing instance exploded"_ and the verdict does not move                                                |
+| A walk whose only nested nodes sit inside instances that answered **exits 0**                           | asserted through the CLI, not through the function                                                                                           |
+
+### One number moved, and it was the defect
+
+`walk-five-causes.json` holds one nested node inside `334:20668`, which resolved with a snippet.
+`T-NOJIRA-figma-ingestion-03`'s test asserted `{ A: 1, B: 1, D: 2, E: 2 }`. **That `B: 1` was
+this defect, written into an expectation** — and the fixture is a real shape, so the fixture
+stays and the expectation moved. Unresolved on that walk is **5, not 6**.
+
+The CLI control that exits 6 _"when anything on the list is our own bug"_ now reports
+`pipeline: 1` rather than 2, and still exits 6 — on cause A, a map that genuinely could not be
+read. The control survived the fix, which is what it is there for.
+
+### What was removed rather than added
+
+The exclusion was first written as `disposition === 'nested' && ANSWERED.has(…)`, duplicated
+between the filter and the count. A mutation stripping the disposition guard **survived**,
+because only nested nodes carry `enclosingOutcome` and the guard was therefore dead. Both are
+now one predicate, written in terms of the field rather than the disposition, so the two cannot
+drift and the rule keeps meaning the same thing if the field ever travels further.
+
+### The thing worth more than this fix
+
+**Three defects of one shape in three consecutive tasks** — a successful answer read as a
+failure:
+
+| Task | The answer                                     | What it was read as                                |
+| ---- | ---------------------------------------------- | -------------------------------------------------- |
+| 05   | the map answered about descendants             | `genuinely-unmapped` → cause E, design system team |
+| 05   | `hasTemplate: true` with no snippet            | `map-unreadable` → cause A, the pipeline           |
+| 08   | the enclosing instance resolved with a snippet | `nested-id-rejected` → cause B, the pipeline       |
+
+Every one was found by running the instrument against a server that **answers**. Against the Dev
+Mode server — 31 seconds and `{}` for every node — and against the recorded corpus, where
+`walk-live-sticky-toc.json` has fifteen nested nodes and not one of them under something that
+resolved, all three are invisible. **No test written against this corpus could have caught any of
+them**, and the corpus is what every earlier task was tested on.
+
+That is the argument for `T-NOJIRA-figma-ingestion-04` running against the remote server rather
+than against recordings, and it is now evidence rather than a preference.

@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-06T09:00:00Z
+updated: 2026-10-06T10:00:00Z
 tags: [measurement, baseline, control]
 source_plan: P-NOJIRA-figma-ingestion
-depends_on: [T-NOJIRA-figma-ingestion-05]
+depends_on: [T-NOJIRA-figma-ingestion-08]
 ---
 
 # The fourteen-case probe
@@ -178,3 +178,53 @@ Compare against the control report in `runs/control/_reports-2026-10-04/`; the s
 Then re-run the replay that found the fix inert — the old reader against the new over the
 captured responses. **It must now differ**, on at least the nodes whose maps answered about a
 subtree, or the two defects were fixed against shapes the server does not send.
+
+## Phase A, run 2026-10-06 and not finished
+
+The evidence is in `runs/probe-04/` — **29 Code Connect responses, verbatim, with hashes** —
+and summarised in its README. The claim was released unfinished because Phase A found an
+instrument defect, which is what Phase A is for.
+
+### What it established
+
+**All fourteen roots answer `{}`.** Thirteen bare, one — a2 — with the server's own
+`Note: the Code Connect lookup timed out`.
+
+**Three of those empty roots are false.** Asked one level down:
+
+| Design                        | Below the root                                                | The root's `{}` |
+| ----------------------------- | ------------------------------------------------------------- | --------------- |
+| a8-nsp-group-list             | `334:20578` → **14 entries, 5 snippets**                      | false           |
+| a10-etsl-fam-users            | `17264:29106` → **6 entries, 5 snippets**                     | false           |
+| a5-etsl-metadata-usage-widget | `17214:103593` → **10 entries, 5 snippets**                   | false           |
+| a4-sesame-my-groups           | `{}`, and the `sl-button` instance asked directly is `{}` too | **true**        |
+| b-sesame-group-details        | `{}`                                                          | true so far     |
+| a2-nsp-class-overview         | `{}` with the timeout note again                              | a timeout       |
+
+Thirty mapped nodes and fifteen snippets hidden behind three empty roots. Sesame's is real —
+`sl-button` carries `componentId: 2:48281`, outside the mapped library. **One halt message, at
+least three situations**, which is this plan's thesis measured.
+
+**The scope is not a node count.** 468 nodes answer fourteen entries; 620 answer nothing, twice,
+in both id spellings. Asking at the node in the design's URL is the one way to get nothing — and
+that is the node an agent is handed.
+
+**One mode decided end to end.** `b-itsl-course-course-files` → `as-is`, _"no sl-\* externals;
+depends on .Main menu, .Navigation item, Cell"_. Cause C. It converts. One of the predicted
+eight, confirmed through `mode-decision.mjs` rather than by reading the components.
+
+### What stopped it
+
+`classify` files **every** nested node as cause B, owner pipeline, including the two inside an
+`sl-avatar` that resolved with a snippet — and the CLI exits non-zero on any pipeline-owned
+node. No design can convert through that. `T-NOJIRA-figma-ingestion-08` fixes it, and this task
+now depends on it.
+
+### What remains when it resumes
+
+- eight mode decisions, one per remaining file, through `list_file_components_for_code_connect`
+- Phase A per design with 08 in place, for the conversion count
+- Phase B, conformance, **only** for whatever Phase A converted
+
+**Nothing here has been read against the prediction.** Eight and six is still unexamined, and
+should stay that way until Phase A produces a count.

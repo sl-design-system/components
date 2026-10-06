@@ -100,6 +100,9 @@ agent; growing Code Connect coverage, which is design system team work this plan
 - `T-NOJIRA-figma-ingestion-07` — **The nineteenth design, and the budget the capture does not
   have.** Added after 06; see Amendment 3. a5 was reported unidentifiable while its root node id
   sat in its own capture and a link in this repository named it
+- `T-NOJIRA-figma-ingestion-08` — **A node inside a resolved instance is not unresolved.** Added
+  after 04's Phase A; see Amendment 4. The third reader defect of the same family, and the one
+  that decides whether any of the fourteen can convert
 - `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
   today. A third of the cost of the full control, and it can falsify this plan on its own
 
@@ -286,6 +289,43 @@ plan already decided, and 04 does not depend on it.
 a5 is one of the fourteen halts only by name. It is here because the write-up of 06 put a wrong
 sentence into the record — that a design could not be counted — and the cheapest moment to
 correct a wrong sentence is before anything is built on it.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-10-06
+
+### Amendment 4 — 2026-10-06, after approval
+
+**What changed.** A fourth task added, `T-NOJIRA-figma-ingestion-08`, after 05 and before 04.
+`T-NOJIRA-figma-ingestion-04` is claimed, its Phase A has run, and the claim is released
+unfinished because Phase A found an instrument defect — which is what Phase A is for.
+
+**Phase A's result, which stands whatever happens to the count.** All fourteen halting cases
+return an **empty Code Connect map at the design's root node**. Asked one level down, three of
+them — a8, a10 and a5 — return **thirty mapped nodes and fifteen snippets** between them. Two
+are genuinely empty: Sesame's `sl-button` carries `componentId: 2:48281`, a component outside
+the mapped library, and asking that instance directly still returns `{}`. One, a2, is a timeout
+that declares itself. **The halt the control recorded is one message for at least three
+situations**, which is this plan's thesis measured rather than argued.
+
+The scope of a map response is not a node count: 468 nodes answer fourteen entries and 620
+answer nothing, twice, in both id spellings. **Asking at the node in the design's URL is the one
+way to get nothing** — and that is the node an agent is given.
+
+**What blocks the count.** `classify` files every nested node as cause B, owner pipeline, even
+when the traversal recorded that the enclosing instance resolved with a snippet. The CLI exits
+non-zero on any pipeline-owned node, so a design cannot convert while a single resolved instance
+contains nested children. The defect was invisible until now for the same reason 05's two were:
+against the servers used so far, nothing had ever resolved.
+
+**What did not change.** The goal, the approach, the five causes, the stopping rule, the halt
+policy, the acceptance criteria, and 04's own prediction of eight and six, which is recorded and
+dated and has not been read against any result.
+
+**Judgement to be aware of.** This is the third defect of one shape — a successful answer read
+as a failure — found in three consecutive tasks. Each was found by running the instrument
+against a server that answers rather than one that times out. That is worth more than any of the
+three fixes: **the corpus could not have found any of them**, and neither could any test written
+against it.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-10-06

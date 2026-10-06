@@ -1,0 +1,1 @@
+{"17266:31419":{"source":"","version":"unknown","label":"SL Design System","hasTemplate":true,"snippetImports":[],"snippetNestedFunctions":[],"snippet":"\n    <sl-button\n      \n      \n      \n      \n      \n      \n      variant=\"primary\"\n    >\n      <!-- Code Connect Logic Instance -->\n      Add new user\n      \n    </sl-button>\n  "}}

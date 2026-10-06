@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "rootId": "334:20573",
+  "mode": "strict",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 6,
+    "coveredByEnclosing": 6,
+    "nestedWithEnclosing": 18,
+    "byCause": {
+      "D no-mapping-written": 1,
+      "E mapping-stale": 5
+    },
+    "byOwner": {
+      "design-system-team": 6
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "334:20678",
+      "name": "sl-card Actionable",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "card.figma.ts publishes a mapping for sl-card (matched by exact) and this node did not resolve",
+      "match": {
+        "component": "sl-card",
+        "how": "exact",
+        "state": "published",
+        "file": "card.figma.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "334:20679",
+      "name": "sl-card Actionable",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "card.figma.ts publishes a mapping for sl-card (matched by exact) and this node did not resolve",
+      "match": {
+        "component": "sl-card",
+        "how": "exact",
+        "state": "published",
+        "file": "card.figma.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "334:20680",
+      "name": "sl-card Actionable",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "card.figma.ts publishes a mapping for sl-card (matched by exact) and this node did not resolve",
+      "match": {
+        "component": "sl-card",
+        "how": "exact",
+        "state": "published",
+        "file": "card.figma.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "334:20681",
+      "name": "sl-card Actionable",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "card.figma.ts publishes a mapping for sl-card (matched by exact) and this node did not resolve",
+      "match": {
+        "component": "sl-card",
+        "how": "exact",
+        "state": "published",
+        "file": "card.figma.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "334:20682",
+      "name": "sl-card Actionable",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "card.figma.ts publishes a mapping for sl-card (matched by exact) and this node did not resolve",
+      "match": {
+        "component": "sl-card",
+        "how": "exact",
+        "state": "published",
+        "file": "card.figma.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "334:20685",
+      "name": "Frame 26",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for frame",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 7
+    }
+  ]
+}

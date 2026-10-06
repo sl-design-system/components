@@ -1,0 +1,1 @@
+{"334:20593":{"source":"","version":"unknown","label":"SL Design System","hasTemplate":true,"snippetImports":[],"snippetNestedFunctions":[],"snippet":"\n    <sl-avatar\n      color=\"primary\"\n      emphasis=\"bold\"\n      display-name=\"7 students already joined  \"\n      display-initials=\"JV\"\n      \n      \n      \n    >\n      Class\n      \n    </sl-avatar>\n  "}}

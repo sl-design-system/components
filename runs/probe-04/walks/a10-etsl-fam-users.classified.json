@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 1,
+  "rootId": "17264:29098",
+  "mode": "strict",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 36,
+    "coveredByEnclosing": 0,
+    "nestedWithEnclosing": 52,
+    "byCause": {
+      "D no-mapping-written": 35,
+      "E mapping-stale": 1
+    },
+    "byOwner": {
+      "design-system-team": 36
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "17264:29099",
+      "name": "top nav bar",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for top",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 5
+    },
+    {
+      "id": "17264:29105",
+      "name": "tabbar-horizontal",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for tabbar-horizontal",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 6
+    },
+    {
+      "id": "17266:31414",
+      "name": "sl-searchfield",
+      "cause": "mapping-stale",
+      "letter": "E",
+      "owner": "design-system-team",
+      "remedy": "a mapping is published for this component and did not resolve — republish or re-point it",
+      "evidence": "search-field.figma.batch.ts publishes a mapping for sl-search-field (matched by hyphenation) and this node did not resolve",
+      "match": {
+        "component": "sl-search-field",
+        "how": "hyphenation",
+        "state": "published",
+        "file": "search-field.figma.batch.ts"
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29115",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29116",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29117",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29118",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29122",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29123",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29124",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29125",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29129",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29130",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29131",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29132",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29136",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29137",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29138",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29139",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29141",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29142",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29143",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29144",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29146",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29147",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29148",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29149",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29151",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29152",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29153",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29154",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29156",
+      "name": "th-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for th-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 1
+    },
+    {
+      "id": "17264:29157",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 2
+    },
+    {
+      "id": "17264:29158",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 2
+    },
+    {
+      "id": "17264:29159",
+      "name": "td-text-start",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for td-text-start",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 2
+    },
+    {
+      "id": "17264:29167",
+      "name": "mat-data-footer",
+      "cause": "no-mapping-written",
+      "letter": "D",
+      "owner": "design-system-team",
+      "remedy": "write the mapping",
+      "evidence": "no mapping file stands for mat-data-footer",
+      "match": {
+        "component": null,
+        "how": "none",
+        "state": "absent",
+        "file": null
+      },
+      "nestedBelow": 5
+    }
+  ]
+}

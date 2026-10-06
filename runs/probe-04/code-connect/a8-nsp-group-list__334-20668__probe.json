@@ -1,0 +1,1 @@
+{"334:20668":{"source":"","version":"unknown","label":"SL Design System","hasTemplate":true,"snippetImports":[],"snippetNestedFunctions":[],"snippet":"\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      variant=\"primary\"\n    >\n      \n      Join live lesson\n      \n    </sl-button>\n  "}}

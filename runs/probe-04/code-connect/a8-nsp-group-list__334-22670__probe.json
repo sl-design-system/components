@@ -1,0 +1,1 @@
+{"334:22670":{"source":"","version":"unknown","label":"SL Design System","hasTemplate":true,"snippetImports":[],"snippetNestedFunctions":[],"snippet":"\n    <sl-badge\n       color=\"red\"\n       emphasis=\"bold\"\n       size=\"sm\"\n      \n    >\n      \n      Status\n    </sl-badge>\n  "}}

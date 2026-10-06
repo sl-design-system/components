@@ -259,3 +259,74 @@ Seven designs, roughly 600 calls at the outermost-instance estimate: a6 (25),
 b-itsl-bookmk-deleted-course (81), b-sesame-group-details (107), a4-sesame-my-groups (152),
 a5-etsl-metadata-usage-widget (158), a8-nsp-group-list (27), a10-etsl-fam-users (50). The walk
 prunes, so the real number is lower — the seven above were estimated at 113 and cost 89.
+
+## Ten of fourteen walked — the mode decides, cleanly
+
+167 live Code Connect calls, 1 468 nodes, every response in `code-connect/` with its hash.
+
+| Design | Mode | Nodes | Calls | Resolved | Mapped | Unresolved | Nested | Causes | Exit |
+| ------ | ---- | ----: | ----: | -------: | -----: | ---------: | -----: | ------ | ---: |
+| `a11-sesame-learning-materials` | as-is | 365 | 19 | 0 | 0 | 19 | 58 | C ×19 | **0** |
+| `a1-kampus-subchapter-feed` | as-is | 274 | 23 | 0 | 0 | 23 | **213** | C ×23 | **0** |
+| `a6-itsl-collab-shared-folder` | as-is | 159 | 20 | 0 | 0 | 20 | 98 | C ×20 | **0** |
+| `b-kampus-notes-panel` | as-is | 95 | 16 | 0 | 0 | 16 | 58 | C ×16 | **0** |
+| `b-itsl-course-course-files` | as-is | 89 | 9 | 0 | 0 | 9 | 51 | C ×9 | **0** |
+| `b-itsl-collab-add-element` | as-is | 88 | 8 | 0 | 0 | 8 | 43 | C ×8 | **0** |
+| `b-itsl-bookmk-course-files` | as-is | 77 | 8 | 0 | 0 | 8 | 40 | C ×8 | **0** |
+| `a10-etsl-fam-users` | strict | 134 | 38 | 2 | 0 | 36 | 52 | D ×35, E ×1 | 5 |
+| `a8-nsp-group-list` | strict | 123 | 20 | 5 | **9** | 6 | 18 | D ×1, E ×5 | 5 |
+| `a2-nsp-class-overview` | strict | 64 | 6 | 4 | 0 | 2 | 34 | A ×1, D ×1 | 6 |
+
+**Seven as-is, seven conversions. Three strict, none.** The split is exactly the mode, with no
+exceptions in either direction — and the mode was decided from the dependency graph before any
+of these walks ran.
+
+### a8 is the inversion this plan was written for
+
+`T-NOJIRA-figma-ingestion-03` measured this same design and reported **28 unresolved nodes,
+every one cause A or B, every one ours, exit 6** — _"not a single node routed to the design
+system team"_.
+
+It now reports **5 resolved with snippets, 9 mapped, 18 nested covered, and 6 findings — all
+six the design system team's**, exit 5. The same design, the same tool, the opposite answer:
+from twenty-eight complaints about our own pipeline to six things somebody can actually fix.
+
+a10 says the same in a louder voice: **35 components with no mapping written**, one stale, and
+nothing owned by the pipeline.
+
+### 665 nested nodes
+
+Across the ten, **665 ids the server emits and refuses** — 213 in a1-kampus alone. Before
+`T-NOJIRA-figma-ingestion-09` each was a separate pipeline-owned finding, and one is enough to
+exit 6. Every conversion here, and both exit-5 results, depend on those having stopped being
+findings about nothing.
+
+### The delegation, and how it was checked
+
+Seven of the ten were probed by subagents working from an explicit node list. **Their reports
+were not taken as evidence.** Each set was checked here for: the ids actually asked for, no
+extra and no missing files, parseability, and byte size. Three snippet-bearing responses were
+then checked against bytes captured independently hours earlier:
+
+| | |
+| - | - |
+| `334:20593`, 377 B | **byte-identical** to `fixtures/code-connect-remote-snippet.json` |
+| `334:20605`, 141 B | **byte-identical** to `fixtures/code-connect-snippetless.json` |
+| `17557:100187` | entry **identical**, snippet included, to the Phase A subtree response |
+
+Delegating capture to agents is the move that failed the first time and produced this whole
+slice of work. It held here, and it held because it was checked, not because it was trusted.
+
+### Rate limiting, which the remaining work will meet
+
+One call came back `Rate limit exceeded. Please try again later.` The agent wrote no file and
+retried, which is the correct behaviour — but at 167 calls we have already met the limit once.
+The remaining four designs are estimated at ~500 calls, so they need backoff rather than
+throughput.
+
+### What is left
+
+Four designs: `b-itsl-bookmk-deleted-course` (81), `b-sesame-group-details` (107),
+`a4-sesame-my-groups` (152), `a5-etsl-metadata-usage-widget` (158), at the outermost-instance
+estimate. **Two of them are the ones that most test the prediction**: b-sesame and a4 are as-is
+by mode while holding 63 and 24 instances *named* `sl-*`.

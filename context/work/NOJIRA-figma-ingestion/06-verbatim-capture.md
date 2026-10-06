@@ -6,14 +6,15 @@ title: Capture what Figma actually returns, by script, over the whole tree
 description: "Three of nineteen runs carry verbatim captures; every plan here rests on agents' summaries of the data rather than the data"
 jira: null
 resource: null
-status: todo
+status: done
 independent: false
 owner: marcin.ludwig
 created: 2026-10-06T00:00:00Z
-updated: 2026-10-06T00:00:00Z
+updated: 2026-10-06T03:30:00Z
 tags: [figma, capture, provenance, contract]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: [T-NOJIRA-figma-ingestion-05]
+commit: dc100e98a
 ---
 
 # Capture what Figma actually returns, by script, over the whole tree
@@ -247,3 +248,118 @@ evidence behind it.
 
 The sharpest single check: **`get_metadata` reported 98 nodes for a8's frame and REST reports 620.** Any capture that does not reconcile those two numbers, or explain the difference node by
 node, has not understood what it captured.
+
+## Result
+
+`runs/harness/rest.mjs` and `runs/harness/capture.mjs`, with 64 tests across `rest.test.mjs` and
+`capture.test.mjs`. The harness gate is **431 tests** and `tsc --noEmit` over seventeen files.
+**32 mutations, 0 survivors.**
+
+**18 of 19 designs captured: 26 466 nodes, 103 stored responses, 67 MB raw.** Every one of the
+five closure checks is green on every design, and `capture.mjs --verify` re-hashes all 103
+against their records on demand.
+
+### The dependency, taken as soft
+
+`T-NOJIRA-figma-ingestion-05` is `todo`. It fixes two defects in **`classifyMap`** and makes the
+endpoint an explicit choice. This task writes bytes to disk and reads none of them through that
+path — a capture that passed a response through a reader able to summarise it would violate its
+own first acceptance criterion. Same shape as `T-02`'s soft dependency on `T-01`, and named here
+rather than worked around quietly. 05 is still before 04.
+
+### The eight criteria
+
+| Criterion                                              | How it is shown                                                                                                                           |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Every stored response carries its call record and hash | 103 records, each with URL, status, elapsed time, bytes and sha256; `--verify` re-derives them                                            |
+| No file is written by any path that could summarise it | `getTo` streams to disk and returns a record whose **key set is asserted closed**, so a later edit cannot add a field carrying a body out |
+| The capture covers the whole tree                      | **26 260 frame nodes against the corpus's 98-for-620**; every id `get_metadata` and `get_design_context` emit is held, on all eighteen    |
+| Assets are on disk with truncation recorded            | 18 renders downloaded, because `/v1/images` answers with a **short-lived S3 URL**; the MCP asset half is unreachable and says so          |
+| A design that could not be captured whole says so      | `complete: false` with the reason; a5 is `unidentified` with the reason and the CLI exits 5                                               |
+| Re-running one design produces the same hashes         | a8 and b-nsp-home re-captured into a scratch tree: **5 records each, every hash identical**, the render included                          |
+| `tools/list` for the token is stored with the run      | REST publishes none, so each manifest carries `reach` — `files: 200, versions: 200, me: 403`                                              |
+| The file's real version is recorded                    | all 18 carry `name`, `lastModified` and a real `version`; **none is `unknown`**                                                           |
+
+### The five checks, and the control
+
+| #   | Check                              | On the corpus                    |
+| --- | ---------------------------------- | -------------------------------- |
+| 1   | frontier closure                   | green ×18                        |
+| 2   | nothing declared itself incomplete | green ×18                        |
+| 3   | cross-tool reconciliation          | green ×18 — **after two passes** |
+| 4   | geometry witness                   | green ×18, reported not gated    |
+| 5   | re-run determinism                 | green on the two re-run          |
+
+**The deletion control shows three going red**, and bounds the fourth. Removing `334:20578` —
+468 of a8's 620 nodes — turns checks 1, 3 and 4 red. Removing `334:20585`, an interior frame
+holding **220 nodes**, turns 1 and 3 red and leaves **coverage completely unchanged**. A check
+nobody has seen fail is decoration; a check nobody has seen fail _to_ fail is worse.
+
+### Check 3 did not pass. It converged.
+
+The first pass left **163 ids** that `get_design_context` named and the capture did not hold.
+Rather than classify them by heuristic, the capture **asks Figma**. All 49 of a2's resolved:
+`COMPONENT` definitions and their internals, living on another page of the same file, outside
+the design frame. So the capture now runs two passes — fetch, reconcile, fetch what was named,
+reconcile again — and an id that comes back `null` is Figma saying it is not in this file, which
+is an answer too.
+
+Two corpus runs hold a `123-456.txt`: a prose probe log an agent named after the server's own
+error message template, `Node ID must be in the format "123:456"`. REST's `null` is what settles
+that, not a guess about filenames.
+
+### Four faults the data caught before they were believed
+
+This is the fourth task in a row where the instrument was wrong in the same direction, so they
+are listed rather than quietly fixed.
+
+| Fault                                      | How it showed                                   | What it would have cost                                                                                                                                                                          |
+| ------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`outside > 0` read as an error**         | fired on 14 of 18 healthy designs               | a1-kampus has **920** nodes outside its frame because the frame is `clipsContent: true` and 720px tall while its table of contents runs past 11443. Every one is real and deliberately invisible |
+| **`data-node-id="1:2"` counted as a node** | the same phantom id in four unrelated files     | it is the example in `get_design_context`'s **own preamble**: _"Node ids have been added to the code as data attributes, e.g. `data-node-id="1:2"`."_ Documentation counted as design data       |
+| **The CLI forked its readers**             | the preamble fix did not change the output      | the two id regexes were inlined in the CLI instead of calling the tested functions. The tested code and the running code had diverged                                                            |
+| **The formatter rewrote the evidence**     | 71 of 71 stored captures, on their first commit | `oxfmt` pretty-printed every JSON response. Nothing looked wrong; only the hashes did. `runs/captures` now sits in `ignorePatterns`, and `--verify` exists because of this                       |
+
+The last one is the first acceptance criterion of this task firing on this task, within minutes
+of it being written. It is also why `verifyStored` is a function with a negative control rather
+than a line in a runbook.
+
+### The four findings, re-derived
+
+|         | `A-NOJIRA-figma-metadata-contract` said | What the captures say                                                                                                                                                                                                                                                                                                                        |
+| ------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **F10** | the design is unidentified              | **contradicted.** 18 of 18 carry `name`, `lastModified` and a real `version`; none is `unknown`. `mode-decision.mjs`'s `<key>@unknown` cache key can become a key                                                                                                                                                                            |
+| **F12** | variable modes are invisible            | **contradicted, and by a better field than the one predicted.** `explicitVariableModes` is on **8 nodes**, not on each canvas — a frame fetch does not include its page. What REST does carry is `boundVariables` on **19 521 of 42 568 nodes**, naming the variable id per bound property, which is what resolves a token name to one value |
+| **F14** | the raster is distorted                 | **contradicted.** Every render is exactly 2× its frame, which is the scale that was asked for. The six that read 2.02-2.73 render _more_ than the frame, which is the same out-of-frame content check 4 counts                                                                                                                               |
+| **F16** | assets                                  | **partly contradicted.** All 18 render URLs resolved and the renders are on disk. The raw images and SVGs come from `download_assets`, which a token cannot reach                                                                                                                                                                            |
+
+Three of four contradicted on real data. The contract leaves `draft` with evidence behind it —
+but **not by this task**, which measured four of its findings and not the rest.
+
+### What a capture still cannot see
+
+Said plainly so the five checks are not read as a guarantee:
+
+- A node Figma never mentions in any tool's output and which covers no visible pixels is
+  invisible to all five.
+- **Check 4 is blind to 220 nodes vanishing**, measured above.
+- The MCP half — `get_design_context`'s markup, Code Connect's snippets, `download_assets` — is
+  not captured here. `mcp.figma.com` refuses a personal access token with a 401 whatever its
+  scopes. The corpus's existing MCP captures are what this reconciles against, and they are the
+  ones `T-NOJIRA-corpus-census-02` is normalising.
+- **a5-etsl-metadata-usage-widget was not captured.** Its run records no root node id and no link
+  anywhere in the repository names one. It is the nineteenth design and it is not here. That is
+  F10 in its operational form: the identity was the operator's to record and for one design
+  nobody did.
+
+### The gate before a push, restated because it is now larger
+
+67 MB over 122 files, roughly 13.6 MB of git objects, largest single file 14 MB — against a
+`.git` already at 112 MB and GitHub's 100 MB per-file limit. The estimate in step 9 said ~28 MB
+raw and under 2 MB of objects; it was taken from four designs before the extra roots, the named
+nodes and the renders existed. **The real number is a little over twice that**, and it is still
+not the reason to hesitate.
+
+The reason to hesitate is unchanged and now concerns more bytes: this repository is **public**,
+the branch is **not pushed**, and a REST capture is the complete design — every string, every
+layer name, every unreleased screen. Committing is safe and reversible. Pushing is neither.

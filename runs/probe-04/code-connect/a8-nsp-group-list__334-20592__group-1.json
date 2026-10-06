@@ -1,0 +1,86 @@
+{
+  "334:20593": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-avatar\n      color=\"primary\"\n      emphasis=\"bold\"\n      display-name=\"7 students already joined  \"\n      display-initials=\"JV\"\n      \n      \n      \n    >\n      Class\n      \n    </sl-avatar>\n  "
+  },
+  "334:20605": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20610": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20629": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20634": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20653": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20658": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20609": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20633": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20657": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  }
+}

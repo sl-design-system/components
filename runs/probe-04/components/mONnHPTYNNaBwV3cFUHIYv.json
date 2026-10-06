@@ -1,0 +1,127 @@
+[
+  {
+    "name": "row-private files",
+    "nodeId": "5037:10462",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "f0655400aa338bed9757ab119a1ecc68b303d10b"
+  },
+  {
+    "name": "assesment rubric",
+    "nodeId": "5565:2030",
+    "type": "COMPONENT",
+    "dependencies": [],
+    "assetKey": "43431c4ede522cb3ee879c9e00e1a8e12b8c0cb9"
+  },
+  {
+    "name": "courses ",
+    "nodeId": "4008:8814",
+    "type": "COMPONENT_SET",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "045aa03197b311d96bec072e739e62afcba14c23"
+  },
+  {
+    "name": "content",
+    "nodeId": "4019:5542",
+    "type": "COMPONENT_SET",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "88b0e0aaace589520895b050c2fbc35f91ff6d50"
+  },
+  {
+    "name": "assignment",
+    "nodeId": "4025:3841",
+    "type": "COMPONENT_SET",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "141d680aa56e32574a2c422012a7984a3b51356e"
+  },
+  {
+    "name": "wp",
+    "nodeId": "4036:6293",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "fad31a2e912e4c8d6f310181427df9505b3f0d73"
+  },
+  {
+    "name": "Navigation",
+    "nodeId": "4461:5786",
+    "type": "COMPONENT",
+    "dependencies": [
+      {
+        "name": ".Main menu",
+        "external": true,
+        "assetKey": "f0cfd602f08fb43c23b4e694ece2c239cef9aca6"
+      },
+      {
+        "name": "your-files",
+        "external": true,
+        "assetKey": "677a55be67ce6c81d2e1f9e4bebf9f0135000293"
+      },
+      {
+        "name": ".Navigation item",
+        "external": true,
+        "assetKey": "54ee6b59be026413fd0f3ded396fba1ee8941cb2"
+      }
+    ],
+    "assetKey": "e99c35ca823fe67be2b60ecd4aee797a3d6c46db"
+  },
+  {
+    "name": "content",
+    "nodeId": "4873:7204",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "f68c7a11e782eee89f99ef8d274fac69128c2c32"
+  },
+  {
+    "name": "assignment",
+    "nodeId": "4860:6321",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "8515d9822d2053be825c5a9bcef048af4d8ef479"
+  },
+  {
+    "name": "sh-folder",
+    "nodeId": "4873:11853",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "5cc495c3015ea7cb2b03081ea5773724613b407a"
+  },
+  {
+    "name": "work-port",
+    "nodeId": "4873:23397",
+    "type": "COMPONENT",
+    "dependencies": [
+      { "name": "Cell", "external": true, "assetKey": "a6113bed5e37881ccfef065f580569bb2800e2c2" }
+    ],
+    "assetKey": "deb118897652b4158a2c3b0d7ad75a51ee9c4b97"
+  },
+  {
+    "name": "file-lock",
+    "nodeId": "5037:10913",
+    "type": "COMPONENT",
+    "dependencies": [],
+    "assetKey": "2cd50919ab437c59031a738d4d3df281af265cc4"
+  },
+  {
+    "name": "shield",
+    "nodeId": "5037:10909",
+    "type": "COMPONENT",
+    "dependencies": [],
+    "assetKey": "2902757a3e2bf7c3bd2a93d94e88044540fe5d90"
+  }
+]

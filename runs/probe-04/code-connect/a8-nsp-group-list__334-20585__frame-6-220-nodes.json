@@ -1,0 +1,113 @@
+{
+  "334:20593": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-avatar\n      color=\"primary\"\n      emphasis=\"bold\"\n      display-name=\"7 students already joined  \"\n      display-initials=\"JV\"\n      \n      \n      \n    >\n      Class\n      \n    </sl-avatar>\n  "
+  },
+  "334:20668": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      variant=\"primary\"\n    >\n      \n      Join live lesson\n      \n    </sl-button>\n  "
+  },
+  "334:20669": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      \n    >\n      \n      Use lesson code\n      \n    </sl-button>\n  "
+  },
+  "364:19522": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"ghost\"\n      shape=\"pill\"\n      \n      \n      \n    >\n      \n      Open e-book\n      \n    </sl-button>\n  "
+  },
+  "334:20605": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20610": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20629": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20634": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20653": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20658": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20609": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20633": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  },
+  "334:20657": {
+    "componentName": "Icon",
+    "source": "packages/components/icon/src/icon.ts",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": []
+  }
+}

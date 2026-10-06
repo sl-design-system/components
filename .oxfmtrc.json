@@ -9,7 +9,8 @@
     "packages/components/shared/src/vendor",
     "website",
     "runs/harness/fixtures",
-    "runs/captures"
+    "runs/captures",
+    "runs/probe-04"
   ],
   "insertFinalNewline": true,
   "jsdoc": true,

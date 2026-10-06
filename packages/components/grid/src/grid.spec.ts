@@ -212,6 +212,42 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('column group with filter columns', () => {
+    it('should keep the surviving filter registered after removing the first column', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
+            <sl-grid-filter-column path="lastName"></sl-grid-filter-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      grid.querySelector('sl-grid-filter-column')!.remove();
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await grid.updateComplete;
+
+      const column = grid.querySelector('sl-grid-filter-column')!,
+        filterElement = column.filterElement!;
+
+      expect(filterElement.isConnected).to.be.true;
+
+      filterElement.value = 'Doe';
+      filterElement.filterChangeEvent.emit({ column, value: 'Doe' });
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(grid.dataSource?.items).to.have.length(1);
+    });
+  });
+
   describe('multiple select', () => {
     beforeEach(async () => {
       await mountMultipleSelectGrid();

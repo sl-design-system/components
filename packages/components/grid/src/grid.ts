@@ -38,6 +38,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -603,7 +604,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
           <tr aria-rowindex=${rowIndex + 1} role="row">
-            ${columns.map(col => col.renderHeaderRow(rowIndex))}
+            ${repeat(
+              columns,
+              col => col,
+              col => col.renderHeaderRow(rowIndex)
+            )}
           </tr>
         `
       )}

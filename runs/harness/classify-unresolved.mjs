@@ -436,12 +436,42 @@ export const classify = ({ walk, mode, modeSource, inventory, suggestions = null
    */
   const answeredByEnclosing = node => ANSWERED.has(node.enclosingOutcome ?? '');
 
+  /**
+   * A nested node **with an enclosing instance at all** is not a finding either, whatever that
+   * instance's outcome was.
+   *
+   * Each of the five outcomes already produces a finding about the enclosing instance, and each
+   * covers the child: resolved and mapped deliver it, unreadable says we could not look, another
+   * library says reproduce it as-is, a missing mapping says write one. The child's own remedy —
+   * _ask the enclosing instance_ — is the thing that was already done.
+   *
+   * An absent `enclosingOutcome` means the walk met a `;` id and found no parent for it. That is an
+   * orphan, a real hole in the traversal, and it stays cause B.
+   *
+   * Written in terms of the field alone, as `answeredByEnclosing` is: only nested nodes carry
+   * `enclosingOutcome`, so naming the disposition as well would be a guard with no behaviour behind
+   * it — and a mutation stripping it survived, which is how that was found.
+   *
+   * @param {{ enclosingOutcome?: string | null }} node
+   */
+  const enclosedNested = node => (node.enclosingOutcome ?? null) !== null;
+
   // Counted rather than dropped: a number that disappears is how a count stops meaning anything.
-  const covered = parsed.nodes.filter(answeredByEnclosing);
+  // `covered` keeps `T-NOJIRA-figma-ingestion-08`'s meaning — the subset the enclosing instance
+  // actually answered — and `enclosed` is everything `-09` excludes.
+  const covered = parsed.nodes.filter(answeredByEnclosing),
+    enclosed = parsed.nodes.filter(enclosedNested);
+
+  /** How many unaskable ids sat below each node that is about to be reported. */
+  /** @type {Map<string, number>} */
+  const nestedBelow = new Map();
+
+  for (const node of enclosed)
+    if (node.probedAs) nestedBelow.set(node.probedAs, (nestedBelow.get(node.probedAs) ?? 0) + 1);
 
   const unresolved = parsed.nodes
     .filter(node => node.disposition === 'descended' || node.disposition === 'nested')
-    .filter(node => !answeredByEnclosing(node))
+    .filter(node => !enclosedNested(node))
     .map(node => {
       const diagnosis = diagnose(node, { mode, inventory });
 
@@ -453,7 +483,10 @@ export const classify = ({ walk, mode, modeSource, inventory, suggestions = null
         owner: CAUSES[diagnosis.cause].owner,
         remedy: CAUSES[diagnosis.cause].remedy,
         evidence: diagnosis.evidence,
-        match: diagnosis.match
+        match: diagnosis.match,
+        // The unaskable ids this finding speaks for. Zero is written rather than omitted, so a
+        // reader never has to wonder whether the field was absent or the count was none.
+        nestedBelow: nestedBelow.get(node.id) ?? 0
       };
     });
 
@@ -483,6 +516,7 @@ export const classify = ({ walk, mode, modeSource, inventory, suggestions = null
     counts: {
       unresolved: unresolved.length,
       coveredByEnclosing: covered.length,
+      nestedWithEnclosing: enclosed.length,
       byCause: tally(unresolved.map(one => `${CAUSES[one.cause].letter} ${one.cause}`)),
       byOwner: tally(unresolved.map(one => one.owner))
     },

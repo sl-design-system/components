@@ -321,6 +321,159 @@ describe('parseSuggestions — the payload, and the prompt wrapped around it', (
 
 // =============================================================================================
 
+describe('a nested node is never its own finding', () => {
+  /**
+   * One enclosing instance and `count` nested children below it.
+   *
+   * @param {{
+   *   outcome: string | null;
+   *   disposition: string;
+   *   reason: string | null;
+   *   count?: number;
+   *   name?: string;
+   * }} input
+   */
+  const walkOf = ({ outcome, disposition, reason, count = 1, name = 'Cell' }) => ({
+    rootId: '1:1',
+    nodes: [
+      { id: '1:1', name: 'root', disposition: 'root', reason: null, probedAs: null },
+      { id: '2:2', name, disposition, reason, probedAs: '2:2' },
+      ...Array.from({ length: count }, (_, i) => ({
+        id: `I2:2;3:${i}`,
+        name: 'Label',
+        disposition: 'nested',
+        reason: 'nested-id-not-probeable',
+        probedAs: '2:2',
+        detail: outcome === null ? null : `answered by 2:2: ${outcome}`,
+        ...(outcome === null ? {} : { enclosingOutcome: outcome })
+      }))
+    ]
+  });
+
+  /** @param {object} walk @param {string} [mode] */
+  const run = (walk, mode = 'as-is') => classify({ walk, mode, modeSource: 'flag', inventory });
+
+  it('is absent when its enclosing instance is another library', () => {
+    const report = run(
+      walkOf({ outcome: 'empty', disposition: 'descended', reason: 'genuinely-unmapped' })
+    );
+
+    assert.deepEqual(report.counts.byCause, { 'C another-library': 1 });
+    assert.deepEqual(report.counts.byOwner, { nobody: 1 });
+  });
+
+  it('is absent when its enclosing instance could not be read', () => {
+    const report = run(
+      walkOf({ outcome: 'unreadable', disposition: 'descended', reason: 'map-unreadable' })
+    );
+
+    assert.deepEqual(report.counts.byCause, { 'A retrieval-failed': 1 });
+  });
+
+  it('is absent when its enclosing instance is a missing mapping', () => {
+    const report = run(
+      walkOf({
+        outcome: 'empty',
+        disposition: 'descended',
+        reason: 'genuinely-unmapped',
+        name: 'sl-tree'
+      }),
+      'strict'
+    );
+
+    assert.deepEqual(report.counts.byOwner, { 'design-system-team': 1 });
+  });
+
+  it('tells the enclosing finding how many sat beneath it', () => {
+    const report = run(
+      walkOf({ outcome: 'empty', disposition: 'descended', reason: 'genuinely-unmapped', count: 3 })
+    );
+
+    assert.equal(report.unresolved[0].nestedBelow, 3);
+    assert.equal(report.counts.nestedWithEnclosing, 3);
+  });
+
+  it("leaves T-08's count meaning what it meant — only what answered", () => {
+    const answered = run(
+        walkOf({ outcome: 'resolved', disposition: 'resolved', reason: null, count: 2 })
+      ),
+      unanswered = run(
+        walkOf({
+          outcome: 'empty',
+          disposition: 'descended',
+          reason: 'genuinely-unmapped',
+          count: 2
+        })
+      );
+
+    assert.equal(answered.counts.coveredByEnclosing, 2);
+    assert.equal(unanswered.counts.coveredByEnclosing, 0);
+    assert.equal(unanswered.counts.nestedWithEnclosing, 2);
+  });
+
+  it('attributes the count to the node it sat below, not to a node that names it', () => {
+    // An orphan's `probedAs` is its own outermost segment, so it can collide with a real node's
+    // id. Keying the count by `probedAs` instead of `id` gives the orphan a count that belongs
+    // to somebody else.
+    const walk = {
+        rootId: '1:1',
+        nodes: [
+          { id: '1:1', name: 'root', disposition: 'root', reason: null, probedAs: null },
+          {
+            id: '9:9',
+            name: 'Cell',
+            disposition: 'descended',
+            reason: 'genuinely-unmapped',
+            probedAs: '9:9'
+          },
+          {
+            id: 'I9:9;7:7',
+            name: 'Label',
+            disposition: 'nested',
+            reason: 'nested-id-not-probeable',
+            probedAs: '9:9',
+            detail: 'answered by 9:9: empty',
+            enclosingOutcome: 'empty'
+          },
+          // an orphan whose outermost segment happens to be the same node
+          {
+            id: 'I9:9;8:8',
+            name: 'Stray',
+            disposition: 'nested',
+            reason: 'nested-id-not-probeable',
+            probedAs: '9:9',
+            detail: null
+          }
+        ]
+      },
+      report = run(walk);
+
+    assert.equal(report.unresolved.find(node => node.id === '9:9')?.nestedBelow, 1);
+    assert.equal(report.unresolved.find(node => node.id === 'I9:9;8:8')?.nestedBelow, 0);
+  });
+
+  describe('NEGATIVE CONTROL: an orphan is still ours, and still halts', () => {
+    it('keeps cause B for a nested id the walk found no parent for', () => {
+      const report = run(
+          walkOf({ outcome: null, disposition: 'descended', reason: 'genuinely-unmapped' })
+        ),
+        hit = report.unresolved.find(node => node.id === 'I2:2;3:0');
+
+      assert.equal(hit?.letter, 'B');
+      assert.equal(hit?.owner, 'pipeline');
+    });
+
+    it('and the enclosing finding does not claim it', () => {
+      const report = run(
+        walkOf({ outcome: null, disposition: 'descended', reason: 'genuinely-unmapped' })
+      );
+
+      assert.equal(report.counts.nestedWithEnclosing, 0);
+      assert.equal(report.unresolved.find(node => node.id === '2:2')?.nestedBelow, 0);
+    });
+  });
+});
+
 describe('a node inside an instance that answered is not unresolved', () => {
   /** @param {string} enclosingOutcome @param {string} [detail] */
   const walkWithNested = (enclosingOutcome, detail = `answered by 2:2: ${enclosingOutcome}`) => ({
@@ -380,13 +533,20 @@ describe('a node inside an instance that answered is not unresolved', () => {
   });
 
   describe('NEGATIVE CONTROL: cause B survives for the case it was written for', () => {
-    it('keeps a nested node whose enclosing instance did not answer', () => {
-      const report = run(walkWithNested('empty')),
-        hit = report.unresolved.find(node => node.id === 'I2:2;3:3');
+    it('does not cover a nested node whose enclosing instance answered nothing', () => {
+      // **This asserted cause B until `T-NOJIRA-figma-ingestion-09`.** That task narrowed cause
+      // B to the orphan: an instance that answered `{}` has a finding of its own — here cause
+      // C, another library — and its child is counted against that finding rather than given a
+      // second one with a different owner. What this control still proves is that `empty` is
+      // not an *answer*: `coveredByEnclosing` stays at zero.
+      const report = run(walkWithNested('empty'));
 
-      assert.equal(hit?.letter, 'B');
-      assert.equal(hit?.owner, 'pipeline');
       assert.equal(report.counts.coveredByEnclosing, 0);
+      assert.equal(report.counts.nestedWithEnclosing, 1);
+      assert.equal(
+        report.unresolved.some(node => node.id === 'I2:2;3:3'),
+        false
+      );
     });
 
     it('keeps one with no enclosing outcome recorded at all — an older walk', () => {
@@ -601,6 +761,41 @@ describe('NEGATIVE CONTROL: the CLI leaves by a non-zero exit when it does not k
 
     assert.equal(code, 6);
     assert.equal(JSON.parse(stdout).counts.byOwner.pipeline, 1);
+  });
+
+  it('exits 0 on an as-is walk of another library and the nested ids beneath it', async () => {
+    const walk = {
+        rootId: '1:1',
+        nodes: [
+          { id: '1:1', name: 'root', disposition: 'root', reason: null, probedAs: null },
+          {
+            id: '2:2',
+            name: 'Cell',
+            disposition: 'descended',
+            reason: 'genuinely-unmapped',
+            probedAs: '2:2'
+          },
+          {
+            id: 'I2:2;3:3',
+            name: 'Label',
+            disposition: 'nested',
+            reason: 'nested-id-not-probeable',
+            probedAs: '2:2',
+            detail: 'answered by 2:2: empty',
+            enclosingOutcome: 'empty'
+          }
+        ]
+      },
+      path = join(mkdtempSync(join(tmpdir(), 'slds-asis-')), 'walk.json');
+
+    writeFileSync(path, JSON.stringify(walk));
+
+    const { code, stdout } = await run(
+      [path ? '--walk' : '', path, '--mode', 'as-is'].filter(Boolean)
+    );
+
+    assert.equal(code, 0);
+    assert.deepEqual(JSON.parse(stdout).counts.byOwner, { nobody: 1 });
   });
 
   it('exits 0 on a walk whose only nested nodes sit inside instances that answered', async () => {

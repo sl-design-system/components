@@ -103,6 +103,9 @@ agent; growing Code Connect coverage, which is design system team work this plan
 - `T-NOJIRA-figma-ingestion-08` — **A node inside a resolved instance is not unresolved.** Added
   after 04's Phase A; see Amendment 4. The third reader defect of the same family, and the one
   that decides whether any of the fourteen can convert
+- `T-NOJIRA-figma-ingestion-09` — **A nested node is never its own finding.** Added after 04's
+  Phase A resumed; see Amendment 5. The fourth defect of one shape, and the last thing between
+  the ten as-is designs and a conversion count
 - `T-NOJIRA-figma-ingestion-04` — **The fourteen-case probe.** Re-run only the cases that halt
   today. A third of the cost of the full control, and it can falsify this plan on its own
 
@@ -326,6 +329,46 @@ as a failure — found in three consecutive tasks. Each was found by running the
 against a server that answers rather than one that times out. That is worth more than any of the
 three fixes: **the corpus could not have found any of them**, and neither could any test written
 against it.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-10-06
+
+### Amendment 5 — 2026-10-06, after approval
+
+**What changed.** A fifth task added, `T-NOJIRA-figma-ingestion-09`, after 08 and before 04.
+
+**Phase A resumed and decided the mode of all fourteen: ten as-is, four strict.** Every verdict
+came from `mode-decision.mjs`, stored with the hash of the component listing it rests on. Ten of
+the fourteen therefore have no mapping gap to report to anyone — their unresolved nodes are
+cause C, owner nobody.
+
+**The prediction was read for the first time, and it agrees on twelve of fourteen.** It was
+recorded and dated in `T-NOJIRA-figma-ingestion-05` before any of this ran. The two it misses
+are `a4-sesame-my-groups` and `b-sesame-group-details`: **24 and 63 instances named `sl-*` in a
+file with zero `sl-*` externals**, because MySesame names its own local components `sl-*`.
+**Naming is not dependency**, and the prediction used the weaker of the two signals — which is
+exactly what a prediction is for.
+
+Phase A had already shown the same thing from the other direction without anyone connecting it:
+the instance named `sl-button`, asked directly, returns `{}` because its `componentId` points
+outside the mapped library. The empty map was true, and why it was true is why the mode is
+as-is.
+
+**What 09 is for.** A nested node whose enclosing instance did not answer is still cause B,
+owner pipeline, and still exits 6 — in an as-is design whose parent is already diagnosed cause
+C. Two findings about one situation, two owners, two remedies, and the child's remedy is _ask
+the enclosing instance_, which was done. In an as-is design A and B are the only causes that can
+halt and A is a genuine retrieval failure, so this is the last thing between the ten and a
+count.
+
+**What did not change.** The goal, the approach, the five causes, the stopping rule, the halt
+policy and the acceptance criteria. 09 narrows one cause; it adds none and removes none.
+
+**Judgement to be aware of.** This is the fourth defect of one shape in five tasks, and the
+chain is a fair thing to be uneasy about. What bounds it: in an as-is design only two causes can
+halt, and the other one is a real failure. The claim that 09 is the last blocker for the ten is
+written into its Objective **before** it is tested, so the next amendment can say plainly if it
+was wrong.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-10-06

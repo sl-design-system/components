@@ -133,3 +133,30 @@ those 91 stopped being findings about nothing.
 
 The measurement is not blocked on anything but that credential. Everything else — the tree, the
 mode, the classifier, the five causes — is on disk and tested.
+
+## The token, re-tested 2026-10-06 because the question was asked again
+
+`FIGMA_READ_TOKEN` in `.env` **is** in use and does work: all **108 responses in
+`runs/captures/`** were fetched with it, and `--verify` re-hashes them on demand. What it does
+not reach is the MCP endpoint, and that was re-measured rather than recalled:
+
+| Header | Endpoint | |
+| ------ | -------- | - |
+| `X-Figma-Token` | `mcp.figma.com/mcp` | **401 Unauthorized** |
+| `X-Figma-Token` | `api.figma.com/mcp` | **401 Unauthorized** |
+| `Authorization: Bearer` | either | **401** — _"figd_ tokens must be passed via X-Figma-Token header, not Authorization"_ |
+
+The server names the correct header when given the wrong one, so it recognises the token type
+and refuses it anyway. The scopes are not the problem; the credential class is.
+
+**And REST has no Code Connect endpoint**, probed the same day:
+
+| | |
+| - | - |
+| `/v1/files/:key/code_connect` | **404** |
+| `/v1/code_connect/:key` | **404** |
+| `/v1/files/:key/dev_resources` | 403, and dev resources are links rather than mappings |
+| `/v1/files/:key/components` | 200, and **empty** — this file publishes no library |
+
+So the line is **REST against MCP**, not token against no token. The same token that captured
+twenty-eight thousand nodes cannot ask one Code Connect question.

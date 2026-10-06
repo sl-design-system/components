@@ -56,13 +56,11 @@ function getExample() {
   let icon;
   if (iconStart || iconEnd) {
     const iconInstance = checkInstance(
-        buttonBase.findInstance('Base/Icon', { traverseInstances: true }),
-        'Base/Icon'
-      ),
-      iconName = checkStringProperty(iconInstance.getString('icon-name'), 'icon-name'),
-      iconVariant = iconInstance.getEnum('variant', { outline: 'far', solid: 'fas' });
+      buttonBase.findInstance('Icon', { traverseInstances: true }),
+      'Icon'
+    );
 
-    icon = figma.code`<sl-icon name="${iconVariant ? `${iconVariant}-` : ''}${iconName}"></sl-icon>`;
+    icon = iconInstance.executeTemplate().example;
   }
 
   return figma.code`

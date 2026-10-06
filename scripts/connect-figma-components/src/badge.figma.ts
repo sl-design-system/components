@@ -5,7 +5,7 @@ import { checkInstance, checkStringProperty } from './_shared/figma-assertions.j
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const color = instance.getString('accent') ?? 'grey',
+  const color = instance.getString('color') ?? 'grey',
     emphasis = instance.getString('emphasis') ?? 'subtle',
     size = instance.getString('size') ?? 'md',
     slot = instance.getString('slot');
@@ -15,7 +15,7 @@ function getExample() {
     `badge-base-${size}`
   );
 
-  const icon = badgeBase.findInstance('Base/Icon', { traverseInstances: true }),
+  const icon = badgeBase.findInstance('Icon', { traverseInstances: true }),
     label = checkStringProperty(badgeBase.getString('Text'), 'Text');
 
   return figma.code`

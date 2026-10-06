@@ -817,8 +817,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // When the contents of a column group change, the flattened header rows and the
     // accessibility metadata (group header ids, column indexes) need to be rebuilt.
     if (event.target instanceof GridColumnGroup && this.#columnDefinitions.length) {
-      this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
-      this.#setColumnAccessibility(this.#columnDefinitions);
+      this.#updateColumns(this.#columnDefinitions);
       this.requestUpdate();
 
       // Refresh the row width, scrollbar measurements and auto-width columns for the new layout
@@ -1351,16 +1350,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // needs time for the slotchange event to fire.
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
-    // Cleanup any columns that are no longer in the slot
-    this.#columnDefinitions.forEach(col => {
-      if (!columns.includes(col)) {
-        this.#removeColumn(col);
-      }
-    });
-
-    this.#columnDefinitions = columns;
-    this.#headerRows = this.#flattenColumnGroups(columns);
-    this.#setColumnAccessibility(columns);
+    // Cleanup any columns that are no longer in the slot, and rebuild the header rows
+    this.#updateColumns(columns);
 
     // Recalculate the column widths
     await this.recalculateColumnWidths();
@@ -1585,6 +1576,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return col.width || 100;
   }
 
+  /** Applies new column definitions and cleans up the sort/filter state of removed columns. */
+  #updateColumns(columns: Array<GridColumn<T>>): void {
+    const previous = this.#headerRows.at(-1) ?? [];
+
+    this.#columnDefinitions = columns;
+    this.#headerRows = this.#flattenColumnGroups(columns);
+    this.#setColumnAccessibility(columns);
+
+    const current = this.#headerRows.at(-1) ?? [],
+      removed = previous.filter(col => !current.includes(col));
+
+    if (removed.length) {
+      removed.forEach(col => this.#removeColumn(col));
+      this.dataSource?.update();
+      this.stateChangeEvent.emit({ grid: this });
+    }
+  }
+
   #removeColumn(col: GridColumn): void {
     if (col instanceof GridSortColumn) {
       if (col.direction) {
@@ -1597,6 +1606,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
+
+      // Otherwise an active filter keeps hiding rows after its control is gone
+      this.dataSource?.removeFilter(col.id);
     }
   }
 

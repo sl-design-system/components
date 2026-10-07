@@ -637,7 +637,7 @@
   --sl-brand-text-new-input-md-lineHeight: 24px;
   --sl-brand-text-new-typeset-fontFamily-body: 'Open Sans';
   --sl-brand-text-new-typeset-fontFamily-heading: Montserrat;
-  --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-typeset-fontFamily-icon: var(--sl-icon-typeset-fontFamily-classic);
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
   --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
   --sl-caption-fontFamily: 'Open Sans';

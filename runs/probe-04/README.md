@@ -388,3 +388,21 @@ components with no mapping written** and nothing owned by the pipeline.
 Two designs: `a4-sesame-my-groups` and `a5-etsl-metadata-usage-widget`. a4 is the second and
 last test of the naming-against-dependency divergence — as-is by mode, 24 instances named
 `sl-*`.
+
+## Interrupted at twelve, and the client that resumed cannot see Code Connect — 2026-10-07
+
+The walk stopped at twelve of fourteen on 2026-10-06 when the Claude Code session hit its weekly
+limit; the next morning the organisation disabled Claude Code. The resume was attempted from
+GitHub Copilot CLI with the same Figma user and the same remote MCP server.
+
+Replaying a recorded call that had returned a mapping the day before —
+`a10-etsl-fam-users`, node `17264:29106`, 1907 bytes with `sl-select` resolved — now returns `{}`,
+while `get_metadata` and `get_design_context` on the same nodes answer in full. Code Connect is
+not served to this client. Details, the exact calls and the two documented constraints (client
+catalogue; 200 calls per day on a Dev seat) are in
+[`client-reachability-2026-10-07.md`](client-reachability-2026-10-07.md).
+
+Consequence: `a4-sesame-my-groups` and `a5-etsl-metadata-usage-widget` cannot be walked from
+Copilot CLI with the same instrument as the first twelve. They remain open until a client that
+receives Code Connect data is available, and even then the ~500 calls span at least three days of
+the daily budget.

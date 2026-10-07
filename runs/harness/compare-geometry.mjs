@@ -48,6 +48,14 @@ import { parseBoxes, resolveFrame } from './render-design.mjs';
 /** Raised when the comparator refuses to measure. The CLI turns it into a non-zero exit. */
 export class GeometryRefusal extends Error {}
 
+/**
+ * The measurement rule's version; bumped whenever that rule — or how the declared side is read —
+ * changes, so figures from different versions are never compared silently. v2: `parseBoxes` keeps
+ * the first declaration of a re-listed instance instead of letting the `(0, 0)` re-listing clobber
+ * it, and the probe document no longer lets an unboxed region's margin collapse through `body`.
+ */
+export const COMPARATOR_VERSION = 2;
+
 /** @typedef {{ x: number; y: number; width: number; height: number }} Rect */
 
 /**
@@ -193,6 +201,7 @@ const RectSchema = z.object({
 
 export const GeometryReport = z.object({
   generatedBy: z.literal('runs/harness/compare-geometry.mjs'),
+  comparatorVersion: z.literal(2),
   frame: z.object({
     id: z.string().optional(),
     width: z.number(),
@@ -201,6 +210,7 @@ export const GeometryReport = z.object({
   frameDeclared: z.boolean(),
   placedWrappers: z.number(),
   duplicateIds: z.array(z.string()),
+  unplacedIds: z.array(z.string()),
   compared: z.array(
     z.object({
       id: z.string(),
@@ -237,13 +247,16 @@ export const GeometryReport = z.object({
  * are made document-relative by adding the scroll offset, so they do not drift with the viewport.
  * An id that appears on more than one element is ambiguous — the first occurrence is measured and
  * the id is listed in `duplicateIds`, so the collision is counted rather than resolved by whichever
- * element happened to come last.
+ * element happened to come last. Elements inside a `data-unplaced` wrapper — a region the probe
+ * dropped into flow because its node has no metadata box — are not measured: their position is the
+ * probe's fallback, not Figma's, so they are listed in `unplacedIds` and kept out of the join.
  *
  * @param {import('playwright').Page} page
  * @returns {Promise<{
  *   rendered: Map<string, Rect>;
  *   placedWrappers: number;
  *   duplicateIds: string[];
+ *   unplacedIds: string[];
  * }>}
  */
 export const measureRendered = async page => {
@@ -253,6 +266,8 @@ export const measureRendered = async page => {
     /** @type {any} */ const dom = globalThis;
     /** @type {{ id: string; x: number; y: number; width: number; height: number }[]} */
     const rects = [];
+    /** @type {string[]} */
+    const unplaced = [];
     let placedWrappers = 0;
 
     for (const element of dom.document.querySelectorAll('[data-node-id]')) {
@@ -262,6 +277,11 @@ export const measureRendered = async page => {
 
       if (element.hasAttribute('data-region')) {
         placedWrappers += 1;
+        continue;
+      }
+
+      if (element.closest('[data-unplaced]')) {
+        unplaced.push(id);
         continue;
       }
 
@@ -276,7 +296,7 @@ export const measureRendered = async page => {
       });
     }
 
-    return { rects, placedWrappers };
+    return { rects, placedWrappers, unplaced };
   });
 
   /** @type {Map<string, Rect>} */
@@ -300,7 +320,8 @@ export const measureRendered = async page => {
   return {
     rendered,
     placedWrappers: measured.placedWrappers,
-    duplicateIds: [...duplicateIds].sort()
+    duplicateIds: [...duplicateIds].sort(),
+    unplacedIds: [...new Set(measured.unplaced)].sort()
   };
 };
 
@@ -338,11 +359,13 @@ export const compareDocument = async ({ html, url, metadataText, viewport }) => 
     if (html) await page.setContent(html, { waitUntil: 'load' });
     else await page.goto(/** @type {string} */ (url), { waitUntil: 'load' });
 
-    const { rendered, placedWrappers, duplicateIds } = await measureRendered(page),
-      join = joinGeometry(declared.boxes, rendered);
+    const { rendered, placedWrappers, duplicateIds, unplacedIds } = await measureRendered(page),
+      anchored = new Map([...declared.boxes].filter(([id]) => !unplacedIds.includes(id))),
+      join = joinGeometry(anchored, rendered);
 
     return {
       generatedBy: 'runs/harness/compare-geometry.mjs',
+      comparatorVersion: COMPARATOR_VERSION,
       frame: {
         ...(declared.frame.id ? { id: declared.frame.id } : {}),
         width: declared.frame.width,
@@ -351,6 +374,7 @@ export const compareDocument = async ({ html, url, metadataText, viewport }) => 
       frameDeclared: declared.declared,
       placedWrappers,
       duplicateIds,
+      unplacedIds,
       compared: join.compared,
       declaredOnly: join.declaredOnly,
       renderedOnly: join.renderedOnly,

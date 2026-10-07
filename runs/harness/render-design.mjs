@@ -426,6 +426,13 @@ export const readRegions = (run, indexDir = 'captures') => {
  * therefore means walking its ancestor chain and summing offsets, which needs the tree rather than
  * a flat scan. Reading the numbers without the nesting put the sidebar at a negative x.
  *
+ * A metadata file may also **re-list every instance as a root** after the frame tree closes, at
+ * `x="0" y="0"`, with its `I…;…` children expanded beneath it. The first, in-tree declaration is
+ * the one with a position; the re-listing is only there for the children. So a node already seen
+ * keeps its box, and its re-declaration is stacked at that known absolute so the children it
+ * expands resolve into the frame rather than onto the canvas origin — which is where
+ * `b-itsl-collab-add-element`'s `PageHeader` ended up, 3732 px left of its own frame.
+ *
  * @param {string} text
  * @returns {Map<string, Box>}
  */
@@ -443,9 +450,14 @@ export const parseBoxes = text => {
     if (tag) {
       const [, , id, x, y, width, height] = tag,
         parent = stack[stack.length - 1],
-        absolute = { x: (parent?.x ?? 0) + +x, y: (parent?.y ?? 0) + +y };
+        known = boxes.get(id),
+        absolute = known
+          ? { x: known.x, y: known.y }
+          : { x: (parent?.x ?? 0) + +x, y: (parent?.y ?? 0) + +y };
 
-      boxes.set(id, { ...absolute, width: +width, height: +height, relative: { x: +x, y: +y } });
+      if (!known) {
+        boxes.set(id, { ...absolute, width: +width, height: +height, relative: { x: +x, y: +y } });
+      }
 
       if (!line.trimEnd().endsWith('/>')) stack.push({ id, ...absolute });
     }
@@ -671,6 +683,10 @@ export const placeRegion = (region, index, boxes, frame) => {
 };
 
 /**
+ * A region whose node has no box in the metadata is marked `data-unplaced`: the probe put it in
+ * flow because it had nowhere to put it, so nothing inside it has a position Figma vouched for. The
+ * geometry comparator reads the marker and counts those nodes apart instead of scoring them.
+ *
  * @param {{ label: string; nodeId?: string; html?: string; error?: string }[]} rendered
  * @param {Map<string, Box>} boxes
  * @param {{ x?: number; y?: number }} frame
@@ -679,13 +695,19 @@ export const buildBody = (rendered, boxes, frame) =>
   rendered
     .map(
       (region, index) =>
-        `<div data-region="${escape(region.label)}" data-node-id="${escape(region.nodeId ?? '')}" style="${placeRegion(region, index, boxes, frame)}">` +
+        `<div data-region="${escape(region.label)}" data-node-id="${escape(region.nodeId ?? '')}"` +
+        (region.nodeId && boxes.has(region.nodeId) ? '' : ' data-unplaced=""') +
+        ` style="${placeRegion(region, index, boxes, frame)}">` +
         (region.error ? `<pre class="probe-error">${escape(region.error)}</pre>` : region.html) +
         `</div>`
     )
     .join('\n');
 
 /**
+ * `body` is `display:flow-root` so that an unboxed region's fallback margin (see `placeRegion`)
+ * cannot collapse through it: when it did, every absolutely-placed region moved down 8 px and the
+ * geometry comparator read a constant (0, +8) on seven of nine runs.
+ *
  * @param {{
  *   run: string;
  *   frame: { width: number; height: number };
@@ -699,7 +721,7 @@ export const buildDocument = ({ run, frame, body, stylesheet }) =>
 <title>Design reconstruction — ${escape(run)}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;font:inherit}
-body{width:${frame.width}px;height:${frame.height}px;position:relative;background:#fff;
+body{width:${frame.width}px;height:${frame.height}px;position:relative;display:flow-root;background:#fff;
      font-family:system-ui,sans-serif;font-size:14px;color:#111}
 img{max-width:100%;display:block}
 .probe-error{background:#fdecea;color:#8b1a10;padding:8px;font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}

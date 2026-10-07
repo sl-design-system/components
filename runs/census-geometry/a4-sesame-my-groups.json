@@ -1,0 +1,2406 @@
+{
+  "generatedBy": "runs/harness/compare-geometry.mjs",
+  "comparatorVersion": 2,
+  "frame": {
+    "id": "2847:14994",
+    "width": 1280,
+    "height": 1796
+  },
+  "frameDeclared": true,
+  "placedWrappers": 14,
+  "duplicateIds": [],
+  "unplacedIds": [
+    "2847:15003",
+    "2847:15005",
+    "2847:15006",
+    "2847:15007",
+    "2847:15010",
+    "2847:15011",
+    "2847:15019",
+    "2847:15055",
+    "2847:15059",
+    "2847:15061",
+    "2847:15062",
+    "2847:15063",
+    "2847:15064",
+    "2847:15065",
+    "2847:15066",
+    "2847:15067",
+    "2847:15068",
+    "2847:15069",
+    "2847:15070",
+    "2847:15071",
+    "2847:15074",
+    "2847:15075",
+    "2:70415",
+    "2:70416",
+    "2:70426",
+    "2:70427",
+    "2:70428",
+    "2:70431",
+    "2:70432",
+    "2:70434",
+    "2:70476",
+    "2:70477",
+    "2:70478",
+    "2:70479",
+    "2:70480",
+    "2:70481",
+    "2:70483",
+    "2:70484",
+    "2:70485",
+    "2:70486",
+    "772:26891",
+    "772:26895",
+    "I2847:15061;772:26885",
+    "I2847:15061;772:26886",
+    "I2847:15062;772:26891",
+    "I2847:15063;772:26891",
+    "I2847:15065;775:12268",
+    "I2847:15065;775:12269",
+    "I2847:15065;775:12270",
+    "I2847:15065;775:12271",
+    "I2847:15065;775:12272",
+    "I2847:15065;775:12273",
+    "I2847:15065;775:12281",
+    "I2847:15065;775:12282",
+    "I2847:15065;775:12283",
+    "I2847:15065;775:12283;2801:8913",
+    "I2847:15065;775:12284",
+    "I2847:15065;775:12286",
+    "I2847:15075;2123:33965",
+    "I2847:15075;915:4408",
+    "I2:70483;2678:143004",
+    "I2:70484;2678:143004",
+    "I2:70485;2678:143004",
+    "I2:70486;2678:143004"
+  ],
+  "compared": [
+    {
+      "id": "2847:14995",
+      "declared": {
+        "x": 128,
+        "y": 152,
+        "width": 1013,
+        "height": 40
+      },
+      "rendered": {
+        "x": 128,
+        "y": 152,
+        "width": 1013,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:14996",
+      "declared": {
+        "x": 128,
+        "y": 152,
+        "width": 352,
+        "height": 40
+      },
+      "rendered": {
+        "x": 128,
+        "y": 152,
+        "width": 352,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:14997",
+      "declared": {
+        "x": 682,
+        "y": 152,
+        "width": 459,
+        "height": 40
+      },
+      "rendered": {
+        "x": 682,
+        "y": 152,
+        "width": 459,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:14998",
+      "declared": {
+        "x": 353,
+        "y": 152,
+        "width": 221,
+        "height": 40
+      },
+      "rendered": {
+        "x": 412.8,
+        "y": 152,
+        "width": 200.45,
+        "height": 40
+      },
+      "delta": {
+        "dx": 59.8,
+        "dy": 0,
+        "dwidth": -20.55,
+        "dheight": 0
+      },
+      "distance": 59.8
+    },
+    {
+      "id": "2847:14999",
+      "declared": {
+        "x": 590,
+        "y": 152,
+        "width": 195,
+        "height": 40
+      },
+      "rendered": {
+        "x": 629.25,
+        "y": 152,
+        "width": 177.17,
+        "height": 40
+      },
+      "delta": {
+        "dx": 39.25,
+        "dy": 0,
+        "dwidth": -17.83,
+        "dheight": 0
+      },
+      "distance": 39.25
+    },
+    {
+      "id": "2847:15000",
+      "declared": {
+        "x": 801,
+        "y": 152,
+        "width": 174,
+        "height": 40
+      },
+      "rendered": {
+        "x": 822.42,
+        "y": 152,
+        "width": 160.06,
+        "height": 40
+      },
+      "delta": {
+        "dx": 21.42,
+        "dy": 0,
+        "dwidth": -13.94,
+        "dheight": 0
+      },
+      "distance": 21.42
+    },
+    {
+      "id": "2847:15001",
+      "declared": {
+        "x": 991,
+        "y": 152,
+        "width": 150,
+        "height": 40
+      },
+      "rendered": {
+        "x": 998.48,
+        "y": 152,
+        "width": 142.52,
+        "height": 40
+      },
+      "delta": {
+        "dx": 7.48,
+        "dy": 0,
+        "dwidth": -7.48,
+        "dheight": 0
+      },
+      "distance": 7.48
+    },
+    {
+      "id": "2847:15002",
+      "declared": {
+        "x": 991,
+        "y": 152,
+        "width": 150,
+        "height": 40
+      },
+      "rendered": {
+        "x": 998.48,
+        "y": 152,
+        "width": 142.52,
+        "height": 40
+      },
+      "delta": {
+        "dx": 7.48,
+        "dy": 0,
+        "dwidth": -7.48,
+        "dheight": 0
+      },
+      "distance": 7.48
+    },
+    {
+      "id": "2847:15077",
+      "declared": {
+        "x": 125,
+        "y": 232,
+        "width": 1028,
+        "height": 25
+      },
+      "rendered": {
+        "x": 125,
+        "y": 232,
+        "width": 1028,
+        "height": 25
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15078",
+      "declared": {
+        "x": 125,
+        "y": 232,
+        "width": 187,
+        "height": 25
+      },
+      "rendered": {
+        "x": 125,
+        "y": 232,
+        "width": 196.08,
+        "height": 22
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 9.08,
+        "dheight": -3
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15079",
+      "declared": {
+        "x": 1003,
+        "y": 232,
+        "width": 150,
+        "height": 40
+      },
+      "rendered": {
+        "x": 1003,
+        "y": 232,
+        "width": 150,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15083",
+      "declared": {
+        "x": 128,
+        "y": 578,
+        "width": 369,
+        "height": 48
+      },
+      "rendered": {
+        "x": 128,
+        "y": 578,
+        "width": 369,
+        "height": 48
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15084",
+      "declared": {
+        "x": 144,
+        "y": 586,
+        "width": 32,
+        "height": 32
+      },
+      "rendered": {
+        "x": 144,
+        "y": 586,
+        "width": 32,
+        "height": 32
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15085",
+      "declared": {
+        "x": 151,
+        "y": 593,
+        "width": 18,
+        "height": 18
+      },
+      "rendered": {
+        "x": 151,
+        "y": 593,
+        "width": 18,
+        "height": 18
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15086",
+      "declared": {
+        "x": 152,
+        "y": 594,
+        "width": 16,
+        "height": 16
+      },
+      "rendered": {
+        "x": 152,
+        "y": 594,
+        "width": 16,
+        "height": 16
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15087",
+      "declared": {
+        "x": 153.5,
+        "y": 594,
+        "width": 13,
+        "height": 16
+      },
+      "rendered": {
+        "x": 142.89,
+        "y": 594,
+        "width": 34.23,
+        "height": 16
+      },
+      "delta": {
+        "dx": -10.61,
+        "dy": 0,
+        "dwidth": 21.23,
+        "dheight": 0
+      },
+      "distance": 10.61
+    },
+    {
+      "id": "2847:15088",
+      "declared": {
+        "x": 186,
+        "y": 592,
+        "width": 44,
+        "height": 20
+      },
+      "rendered": {
+        "x": 186,
+        "y": 592,
+        "width": 36.59,
+        "height": 20
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": -7.41,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15089",
+      "declared": {
+        "x": 128,
+        "y": 626,
+        "width": 369,
+        "height": 48
+      },
+      "rendered": {
+        "x": 128,
+        "y": 626,
+        "width": 369,
+        "height": 48
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15090",
+      "declared": {
+        "x": 144,
+        "y": 634,
+        "width": 32,
+        "height": 32
+      },
+      "rendered": {
+        "x": 144,
+        "y": 633.5,
+        "width": 32,
+        "height": 32
+      },
+      "delta": {
+        "dx": 0,
+        "dy": -0.5,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0.5
+    },
+    {
+      "id": "2847:15091",
+      "declared": {
+        "x": 186,
+        "y": 636,
+        "width": 295,
+        "height": 28
+      },
+      "rendered": {
+        "x": 186,
+        "y": 636,
+        "width": 295,
+        "height": 27
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": -1
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15152",
+      "declared": {
+        "x": 497,
+        "y": 626,
+        "width": 141,
+        "height": 48
+      },
+      "rendered": {
+        "x": 497,
+        "y": 626,
+        "width": 141,
+        "height": 48
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15242",
+      "declared": {
+        "x": 1036,
+        "y": 578,
+        "width": 116,
+        "height": 48
+      },
+      "rendered": {
+        "x": 1036,
+        "y": 578,
+        "width": 116,
+        "height": 48
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15243",
+      "declared": {
+        "x": 1070,
+        "y": 592,
+        "width": 48,
+        "height": 20
+      },
+      "rendered": {
+        "x": 1072.97,
+        "y": 592,
+        "width": 42.06,
+        "height": 20
+      },
+      "delta": {
+        "dx": 2.97,
+        "dy": 0,
+        "dwidth": -5.94,
+        "dheight": 0
+      },
+      "distance": 2.97
+    },
+    {
+      "id": "2847:15245",
+      "declared": {
+        "x": 1036,
+        "y": 626,
+        "width": 116,
+        "height": 48
+      },
+      "rendered": {
+        "x": 1036,
+        "y": 626,
+        "width": 116,
+        "height": 48
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15246",
+      "declared": {
+        "x": 1074,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "rendered": {
+        "x": 1074,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15247",
+      "declared": {
+        "x": 1074,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "rendered": {
+        "x": 1074,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15248",
+      "declared": {
+        "x": 1074.5,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "rendered": {
+        "x": 1074.5,
+        "y": 630,
+        "width": 40,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15358",
+      "declared": {
+        "x": 875,
+        "y": 1102.453125,
+        "width": 237,
+        "height": 184
+      },
+      "rendered": {
+        "x": 875,
+        "y": 1102.45,
+        "width": 237,
+        "height": 184
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15362",
+      "declared": {
+        "x": 887,
+        "y": 1114.453125,
+        "width": 213,
+        "height": 40
+      },
+      "rendered": {
+        "x": 888,
+        "y": 1115.45,
+        "width": 211,
+        "height": 40
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": -2,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15363",
+      "declared": {
+        "x": 893,
+        "y": 1116.453125,
+        "width": 29,
+        "height": 36
+      },
+      "rendered": {
+        "x": 894,
+        "y": 1117.45,
+        "width": 29,
+        "height": 36
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15364",
+      "declared": {
+        "x": 925,
+        "y": 1122.453125,
+        "width": 128,
+        "height": 24
+      },
+      "rendered": {
+        "x": 926,
+        "y": 1123.45,
+        "width": 128,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15365",
+      "declared": {
+        "x": 899.5,
+        "y": 1122.453125,
+        "width": 16,
+        "height": 24
+      },
+      "rendered": {
+        "x": 898.78,
+        "y": 1123.45,
+        "width": 19.44,
+        "height": 24
+      },
+      "delta": {
+        "dx": -0.72,
+        "dy": 1,
+        "dwidth": 3.44,
+        "dheight": 0
+      },
+      "distance": 1.23
+    },
+    {
+      "id": "2847:15366",
+      "declared": {
+        "x": 887,
+        "y": 1154.453125,
+        "width": 213,
+        "height": 40
+      },
+      "rendered": {
+        "x": 888,
+        "y": 1155.45,
+        "width": 211,
+        "height": 40
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": -2,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15367",
+      "declared": {
+        "x": 893,
+        "y": 1156.453125,
+        "width": 29,
+        "height": 36
+      },
+      "rendered": {
+        "x": 894,
+        "y": 1157.45,
+        "width": 45.22,
+        "height": 36
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 16.22,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15369",
+      "declared": {
+        "x": 901,
+        "y": 1164.453125,
+        "width": 13,
+        "height": 20
+      },
+      "rendered": {
+        "x": 902,
+        "y": 1165.45,
+        "width": 29.22,
+        "height": 20
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 16.22,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15370",
+      "declared": {
+        "x": 922,
+        "y": 1162.453125,
+        "width": 141,
+        "height": 24
+      },
+      "rendered": {
+        "x": 939.22,
+        "y": 1163.45,
+        "width": 141,
+        "height": 24
+      },
+      "delta": {
+        "dx": 17.22,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 17.25
+    },
+    {
+      "id": "2847:15371",
+      "declared": {
+        "x": 887,
+        "y": 1194.453125,
+        "width": 213,
+        "height": 40
+      },
+      "rendered": {
+        "x": 888,
+        "y": 1195.45,
+        "width": 211,
+        "height": 40
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": -2,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15372",
+      "declared": {
+        "x": 893,
+        "y": 1194.453125,
+        "width": 29,
+        "height": 40
+      },
+      "rendered": {
+        "x": 894,
+        "y": 1195.45,
+        "width": 29,
+        "height": 40
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15373",
+      "declared": {
+        "x": 899.5,
+        "y": 1204.453125,
+        "width": 16,
+        "height": 20
+      },
+      "rendered": {
+        "x": 868.92,
+        "y": 1205.45,
+        "width": 79.16,
+        "height": 20
+      },
+      "delta": {
+        "dx": -30.58,
+        "dy": 1,
+        "dwidth": 63.16,
+        "dheight": 0
+      },
+      "distance": 30.6
+    },
+    {
+      "id": "2847:15374",
+      "declared": {
+        "x": 925,
+        "y": 1200.453125,
+        "width": 128,
+        "height": 24
+      },
+      "rendered": {
+        "x": 926,
+        "y": 1201.45,
+        "width": 128,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15375",
+      "declared": {
+        "x": 887,
+        "y": 1234.453125,
+        "width": 213,
+        "height": 40
+      },
+      "rendered": {
+        "x": 888,
+        "y": 1235.45,
+        "width": 211,
+        "height": 40
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": -2,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15376",
+      "declared": {
+        "x": 893,
+        "y": 1236.453125,
+        "width": 29,
+        "height": 36
+      },
+      "rendered": {
+        "x": 894,
+        "y": 1237.45,
+        "width": 29,
+        "height": 36
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15377",
+      "declared": {
+        "x": 898.5,
+        "y": 1242.453125,
+        "width": 18,
+        "height": 24
+      },
+      "rendered": {
+        "x": 867.67,
+        "y": 1243.45,
+        "width": 81.66,
+        "height": 24
+      },
+      "delta": {
+        "dx": -30.83,
+        "dy": 1,
+        "dwidth": 63.66,
+        "dheight": 0
+      },
+      "distance": 30.85
+    },
+    {
+      "id": "2847:15378",
+      "declared": {
+        "x": 925,
+        "y": 1242.453125,
+        "width": 128,
+        "height": 24
+      },
+      "rendered": {
+        "x": 926,
+        "y": 1243.45,
+        "width": 128,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 1,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 1.41
+    },
+    {
+      "id": "2847:15379",
+      "declared": {
+        "x": 370,
+        "y": 1466,
+        "width": 540,
+        "height": 56
+      },
+      "rendered": {
+        "x": 370,
+        "y": 1466,
+        "width": 540,
+        "height": 56
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15380",
+      "declared": {
+        "x": 386,
+        "y": 1482,
+        "width": 516,
+        "height": 24
+      },
+      "rendered": {
+        "x": 386,
+        "y": 1482,
+        "width": 470.25,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": -45.75,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15381",
+      "declared": {
+        "x": 386,
+        "y": 1484,
+        "width": 20,
+        "height": 20
+      },
+      "rendered": {
+        "x": 386,
+        "y": 1484,
+        "width": 20,
+        "height": 20
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15382",
+      "declared": {
+        "x": 422,
+        "y": 1482,
+        "width": 480,
+        "height": 24
+      },
+      "rendered": {
+        "x": 422,
+        "y": 1482,
+        "width": 434.25,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": -45.75,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15383",
+      "declared": {
+        "x": 422,
+        "y": 1483.5,
+        "width": 128,
+        "height": 21
+      },
+      "rendered": {
+        "x": 422,
+        "y": 1483.5,
+        "width": 107.78,
+        "height": 21
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": -20.22,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15384",
+      "declared": {
+        "x": 422,
+        "y": 1483.5,
+        "width": 9,
+        "height": 21
+      },
+      "rendered": {
+        "x": 422,
+        "y": 1483.5,
+        "width": 8.64,
+        "height": 21
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": -0.36,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15385",
+      "declared": {
+        "x": 433,
+        "y": 1483.5,
+        "width": 117,
+        "height": 21
+      },
+      "rendered": {
+        "x": 430.64,
+        "y": 1483.5,
+        "width": 99.14,
+        "height": 21
+      },
+      "delta": {
+        "dx": -2.36,
+        "dy": 0,
+        "dwidth": -17.86,
+        "dheight": 0
+      },
+      "distance": 2.36
+    },
+    {
+      "id": "2847:15386",
+      "declared": {
+        "x": 574,
+        "y": 1482,
+        "width": 328,
+        "height": 24
+      },
+      "rendered": {
+        "x": 553.78,
+        "y": 1482,
+        "width": 302.47,
+        "height": 24
+      },
+      "delta": {
+        "dx": -20.22,
+        "dy": 0,
+        "dwidth": -25.53,
+        "dheight": 0
+      },
+      "distance": 20.22
+    },
+    {
+      "id": "2847:15388",
+      "declared": {
+        "x": 584,
+        "y": 1482,
+        "width": 318,
+        "height": 24
+      },
+      "rendered": {
+        "x": 564.78,
+        "y": 1482,
+        "width": 291.47,
+        "height": 24
+      },
+      "delta": {
+        "dx": -19.22,
+        "dy": 0,
+        "dwidth": -26.53,
+        "dheight": 0
+      },
+      "distance": 19.22
+    },
+    {
+      "id": "2847:15389",
+      "declared": {
+        "x": 584,
+        "y": 1482,
+        "width": 94,
+        "height": 24
+      },
+      "rendered": {
+        "x": 564.78,
+        "y": 1482,
+        "width": 85.31,
+        "height": 24
+      },
+      "delta": {
+        "dx": -19.22,
+        "dy": 0,
+        "dwidth": -8.69,
+        "dheight": 0
+      },
+      "distance": 19.22
+    },
+    {
+      "id": "2847:15390",
+      "declared": {
+        "x": 678,
+        "y": 1482,
+        "width": 123,
+        "height": 24
+      },
+      "rendered": {
+        "x": 650.09,
+        "y": 1482,
+        "width": 110.97,
+        "height": 24
+      },
+      "delta": {
+        "dx": -27.91,
+        "dy": 0,
+        "dwidth": -12.03,
+        "dheight": 0
+      },
+      "distance": 27.91
+    },
+    {
+      "id": "2847:15391",
+      "declared": {
+        "x": 801,
+        "y": 1482,
+        "width": 101,
+        "height": 24
+      },
+      "rendered": {
+        "x": 761.06,
+        "y": 1482,
+        "width": 95.19,
+        "height": 24
+      },
+      "delta": {
+        "dx": -39.94,
+        "dy": 0,
+        "dwidth": -5.81,
+        "dheight": 0
+      },
+      "distance": 39.94
+    },
+    {
+      "id": "2847:15395",
+      "declared": {
+        "x": 128,
+        "y": 297.453125,
+        "width": 1023,
+        "height": 180
+      },
+      "rendered": {
+        "x": 128,
+        "y": 297.45,
+        "width": 1023,
+        "height": 180
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15396",
+      "declared": {
+        "x": 152,
+        "y": 321.453125,
+        "width": 975,
+        "height": 40
+      },
+      "rendered": {
+        "x": 152,
+        "y": 321.45,
+        "width": 975,
+        "height": 42
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 2
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15397",
+      "declared": {
+        "x": 152,
+        "y": 321.453125,
+        "width": 629,
+        "height": 40
+      },
+      "rendered": {
+        "x": 152,
+        "y": 321.45,
+        "width": 629,
+        "height": 42
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 2
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15398",
+      "declared": {
+        "x": 152,
+        "y": 385.453125,
+        "width": 975,
+        "height": 68
+      },
+      "rendered": {
+        "x": 152,
+        "y": 387.45,
+        "width": 975,
+        "height": 68
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15399",
+      "declared": {
+        "x": 152,
+        "y": 385.453125,
+        "width": 632,
+        "height": 68
+      },
+      "rendered": {
+        "x": 152,
+        "y": 387.45,
+        "width": 632,
+        "height": 68
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15400",
+      "declared": {
+        "x": 152,
+        "y": 385.453125,
+        "width": 200,
+        "height": 68
+      },
+      "rendered": {
+        "x": 152,
+        "y": 387.45,
+        "width": 200,
+        "height": 68
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15401",
+      "declared": {
+        "x": 152,
+        "y": 385.453125,
+        "width": 200,
+        "height": 24
+      },
+      "rendered": {
+        "x": 152,
+        "y": 387.45,
+        "width": 200,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15402",
+      "declared": {
+        "x": 152,
+        "y": 413.453125,
+        "width": 200,
+        "height": 40
+      },
+      "rendered": {
+        "x": 152,
+        "y": 415.45,
+        "width": 200,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15403",
+      "declared": {
+        "x": 168,
+        "y": 421.453125,
+        "width": 45,
+        "height": 24
+      },
+      "rendered": {
+        "x": 169,
+        "y": 423.45,
+        "width": 42.66,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 2,
+        "dwidth": -2.34,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15404",
+      "declared": {
+        "x": 324,
+        "y": 427.453125,
+        "width": 12,
+        "height": 12
+      },
+      "rendered": {
+        "x": 323,
+        "y": 429.45,
+        "width": 12,
+        "height": 12
+      },
+      "delta": {
+        "dx": -1,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15406",
+      "declared": {
+        "x": 368,
+        "y": 385.453125,
+        "width": 200,
+        "height": 68
+      },
+      "rendered": {
+        "x": 368,
+        "y": 387.45,
+        "width": 200,
+        "height": 68
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15407",
+      "declared": {
+        "x": 368,
+        "y": 385.453125,
+        "width": 200,
+        "height": 24
+      },
+      "rendered": {
+        "x": 368,
+        "y": 387.45,
+        "width": 200,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15408",
+      "declared": {
+        "x": 368,
+        "y": 413.453125,
+        "width": 200,
+        "height": 40
+      },
+      "rendered": {
+        "x": 368,
+        "y": 415.45,
+        "width": 200,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15409",
+      "declared": {
+        "x": 384,
+        "y": 421.453125,
+        "width": 28,
+        "height": 24
+      },
+      "rendered": {
+        "x": 385,
+        "y": 423.45,
+        "width": 27.56,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 2,
+        "dwidth": -0.44,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15410",
+      "declared": {
+        "x": 540,
+        "y": 427.453125,
+        "width": 12,
+        "height": 12
+      },
+      "rendered": {
+        "x": 539,
+        "y": 429.45,
+        "width": 12,
+        "height": 12
+      },
+      "delta": {
+        "dx": -1,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15412",
+      "declared": {
+        "x": 584,
+        "y": 385.453125,
+        "width": 200,
+        "height": 68
+      },
+      "rendered": {
+        "x": 584,
+        "y": 387.45,
+        "width": 200,
+        "height": 68
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15413",
+      "declared": {
+        "x": 584,
+        "y": 385.453125,
+        "width": 200,
+        "height": 24
+      },
+      "rendered": {
+        "x": 584,
+        "y": 387.45,
+        "width": 200,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15414",
+      "declared": {
+        "x": 584,
+        "y": 413.453125,
+        "width": 200,
+        "height": 40
+      },
+      "rendered": {
+        "x": 584,
+        "y": 415.45,
+        "width": 200,
+        "height": 40
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2
+    },
+    {
+      "id": "2847:15415",
+      "declared": {
+        "x": 600,
+        "y": 421.453125,
+        "width": 28,
+        "height": 24
+      },
+      "rendered": {
+        "x": 601,
+        "y": 423.45,
+        "width": 27.56,
+        "height": 24
+      },
+      "delta": {
+        "dx": 1,
+        "dy": 2,
+        "dwidth": -0.44,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15416",
+      "declared": {
+        "x": 756,
+        "y": 427.453125,
+        "width": 12,
+        "height": 12
+      },
+      "rendered": {
+        "x": 755,
+        "y": 429.45,
+        "width": 12,
+        "height": 12
+      },
+      "delta": {
+        "dx": -1,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 2.24
+    },
+    {
+      "id": "2847:15418",
+      "declared": {
+        "x": 886,
+        "y": 413.453125,
+        "width": 241,
+        "height": 40
+      },
+      "rendered": {
+        "x": 784,
+        "y": 415.45,
+        "width": 353.83,
+        "height": 40
+      },
+      "delta": {
+        "dx": -102,
+        "dy": 2,
+        "dwidth": 112.83,
+        "dheight": 0
+      },
+      "distance": 102.02
+    },
+    {
+      "id": "2847:15419",
+      "declared": {
+        "x": 886,
+        "y": 421.453125,
+        "width": 97,
+        "height": 24
+      },
+      "rendered": {
+        "x": 784,
+        "y": 423.45,
+        "width": 121.77,
+        "height": 24
+      },
+      "delta": {
+        "dx": -102,
+        "dy": 2,
+        "dwidth": 24.77,
+        "dheight": 0
+      },
+      "distance": 102.02
+    },
+    {
+      "id": "2847:15420",
+      "declared": {
+        "x": 886,
+        "y": 421.453125,
+        "width": 11,
+        "height": 24
+      },
+      "rendered": {
+        "x": 784,
+        "y": 423.45,
+        "width": 35.77,
+        "height": 24
+      },
+      "delta": {
+        "dx": -102,
+        "dy": 2,
+        "dwidth": 24.77,
+        "dheight": 0
+      },
+      "distance": 102.02
+    },
+    {
+      "id": "2847:15421",
+      "declared": {
+        "x": 905,
+        "y": 421.453125,
+        "width": 78,
+        "height": 24
+      },
+      "rendered": {
+        "x": 827.77,
+        "y": 423.45,
+        "width": 78,
+        "height": 24
+      },
+      "delta": {
+        "dx": -77.23,
+        "dy": 2,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 77.26
+    },
+    {
+      "id": "2847:15422",
+      "declared": {
+        "x": 905,
+        "y": 421.453125,
+        "width": 78,
+        "height": 24
+      },
+      "rendered": {
+        "x": 827.77,
+        "y": 423.45,
+        "width": 70.91,
+        "height": 24
+      },
+      "delta": {
+        "dx": -77.23,
+        "dy": 2,
+        "dwidth": -7.09,
+        "dheight": 0
+      },
+      "distance": 77.26
+    },
+    {
+      "id": "2847:15423",
+      "declared": {
+        "x": 1007,
+        "y": 413.453125,
+        "width": 120,
+        "height": 40
+      },
+      "rendered": {
+        "x": 929.77,
+        "y": 415.45,
+        "width": 208.06,
+        "height": 40
+      },
+      "delta": {
+        "dx": -77.23,
+        "dy": 2,
+        "dwidth": 88.06,
+        "dheight": 0
+      },
+      "distance": 77.26
+    },
+    {
+      "id": "2847:15424",
+      "declared": {
+        "x": 1031,
+        "y": 425.453125,
+        "width": 16,
+        "height": 16
+      },
+      "rendered": {
+        "x": 953.77,
+        "y": 426.45,
+        "width": 111.09,
+        "height": 18
+      },
+      "delta": {
+        "dx": -77.23,
+        "dy": 1,
+        "dwidth": 95.09,
+        "dheight": 2
+      },
+      "distance": 77.24
+    },
+    {
+      "id": "2847:15425",
+      "declared": {
+        "x": 1055,
+        "y": 421.453125,
+        "width": 48,
+        "height": 24
+      },
+      "rendered": {
+        "x": 1072.86,
+        "y": 423.45,
+        "width": 40.97,
+        "height": 24
+      },
+      "delta": {
+        "dx": 17.86,
+        "dy": 2,
+        "dwidth": -7.03,
+        "dheight": 0
+      },
+      "distance": 17.97
+    },
+    {
+      "id": "2847:15427",
+      "declared": {
+        "x": 128,
+        "y": 518,
+        "width": 84,
+        "height": 24
+      },
+      "rendered": {
+        "x": 128,
+        "y": 518,
+        "width": 84,
+        "height": 24
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    },
+    {
+      "id": "2847:15428",
+      "declared": {
+        "x": 128,
+        "y": 520,
+        "width": 72,
+        "height": 20
+      },
+      "rendered": {
+        "x": 113.67,
+        "y": 520,
+        "width": 62.33,
+        "height": 20
+      },
+      "delta": {
+        "dx": -14.33,
+        "dy": 0,
+        "dwidth": -9.67,
+        "dheight": 0
+      },
+      "distance": 14.33
+    },
+    {
+      "id": "2847:15429",
+      "declared": {
+        "x": 212,
+        "y": 518,
+        "width": 0,
+        "height": 24
+      },
+      "rendered": {
+        "x": 188,
+        "y": 518,
+        "width": 24,
+        "height": 24
+      },
+      "delta": {
+        "dx": -24,
+        "dy": 0,
+        "dwidth": 24,
+        "dheight": 0
+      },
+      "distance": 24
+    },
+    {
+      "id": "2847:15709",
+      "declared": {
+        "x": 128,
+        "y": 550,
+        "width": 83,
+        "height": 20
+      },
+      "rendered": {
+        "x": 128,
+        "y": 550,
+        "width": 83,
+        "height": 20
+      },
+      "delta": {
+        "dx": 0,
+        "dy": 0,
+        "dwidth": 0,
+        "dheight": 0
+      },
+      "distance": 0
+    }
+  ],
+  "declaredOnly": [
+    "2847:15008",
+    "2847:15036",
+    "2847:15037",
+    "2847:15038",
+    "2847:15039",
+    "2847:15040",
+    "2847:15041",
+    "2847:15042",
+    "2847:15043",
+    "2847:15044",
+    "2847:15045",
+    "2847:15046",
+    "2847:15047",
+    "2847:15048",
+    "2847:15049",
+    "2847:15050",
+    "2847:15051",
+    "2847:15052",
+    "2847:15053",
+    "2847:15054",
+    "2847:15060",
+    "2847:15072",
+    "2847:15076",
+    "2847:15080",
+    "2847:15081",
+    "2847:15082",
+    "2847:15092",
+    "2847:15093",
+    "2847:15094",
+    "2847:15095",
+    "2847:15096",
+    "2847:15097",
+    "2847:15098",
+    "2847:15099",
+    "2847:15100",
+    "2847:15101",
+    "2847:15102",
+    "2847:15103",
+    "2847:15104",
+    "2847:15105",
+    "2847:15106",
+    "2847:15107",
+    "2847:15108",
+    "2847:15109",
+    "2847:15110",
+    "2847:15111",
+    "2847:15112",
+    "2847:15113",
+    "2847:15114",
+    "2847:15115",
+    "2847:15116",
+    "2847:15117",
+    "2847:15118",
+    "2847:15119",
+    "2847:15120",
+    "2847:15121",
+    "2847:15122",
+    "2847:15123",
+    "2847:15124",
+    "2847:15125",
+    "2847:15126",
+    "2847:15127",
+    "2847:15128",
+    "2847:15129",
+    "2847:15130",
+    "2847:15131",
+    "2847:15132",
+    "2847:15133",
+    "2847:15134",
+    "2847:15135",
+    "2847:15136",
+    "2847:15137",
+    "2847:15138",
+    "2847:15139",
+    "2847:15140",
+    "2847:15141",
+    "2847:15142",
+    "2847:15143",
+    "2847:15144",
+    "2847:15145",
+    "2847:15146",
+    "2847:15147",
+    "2847:15148",
+    "2847:15149",
+    "2847:15150",
+    "2847:15151",
+    "2847:15153",
+    "2847:15154",
+    "2847:15155",
+    "2847:15156",
+    "2847:15157",
+    "2847:15158",
+    "2847:15159",
+    "2847:15160",
+    "2847:15161",
+    "2847:15162",
+    "2847:15163",
+    "2847:15164",
+    "2847:15165",
+    "2847:15166",
+    "2847:15167",
+    "2847:15168",
+    "2847:15169",
+    "2847:15170",
+    "2847:15171",
+    "2847:15172",
+    "2847:15173",
+    "2847:15174",
+    "2847:15175",
+    "2847:15176",
+    "2847:15177",
+    "2847:15178",
+    "2847:15179",
+    "2847:15180",
+    "2847:15181",
+    "2847:15182",
+    "2847:15183",
+    "2847:15184",
+    "2847:15185",
+    "2847:15186",
+    "2847:15187",
+    "2847:15188",
+    "2847:15189",
+    "2847:15190",
+    "2847:15191",
+    "2847:15192",
+    "2847:15193",
+    "2847:15194",
+    "2847:15195",
+    "2847:15196",
+    "2847:15197",
+    "2847:15198",
+    "2847:15199",
+    "2847:15200",
+    "2847:15201",
+    "2847:15202",
+    "2847:15203",
+    "2847:15204",
+    "2847:15205",
+    "2847:15206",
+    "2847:15207",
+    "2847:15208",
+    "2847:15209",
+    "2847:15210",
+    "2847:15211",
+    "2847:15212",
+    "2847:15213",
+    "2847:15214",
+    "2847:15215",
+    "2847:15216",
+    "2847:15217",
+    "2847:15218",
+    "2847:15219",
+    "2847:15220",
+    "2847:15221",
+    "2847:15222",
+    "2847:15223",
+    "2847:15224",
+    "2847:15225",
+    "2847:15226",
+    "2847:15227",
+    "2847:15228",
+    "2847:15229",
+    "2847:15230",
+    "2847:15231",
+    "2847:15232",
+    "2847:15233",
+    "2847:15234",
+    "2847:15235",
+    "2847:15236",
+    "2847:15237",
+    "2847:15238",
+    "2847:15239",
+    "2847:15240",
+    "2847:15241",
+    "2847:15244",
+    "2847:15249",
+    "2847:15250",
+    "2847:15251",
+    "2847:15252",
+    "2847:15253",
+    "2847:15254",
+    "2847:15255",
+    "2847:15256",
+    "2847:15257",
+    "2847:15258",
+    "2847:15259",
+    "2847:15260",
+    "2847:15261",
+    "2847:15262",
+    "2847:15263",
+    "2847:15264",
+    "2847:15265",
+    "2847:15266",
+    "2847:15267",
+    "2847:15268",
+    "2847:15269",
+    "2847:15270",
+    "2847:15271",
+    "2847:15272",
+    "2847:15273",
+    "2847:15274",
+    "2847:15275",
+    "2847:15276",
+    "2847:15277",
+    "2847:15278",
+    "2847:15279",
+    "2847:15280",
+    "2847:15281",
+    "2847:15282",
+    "2847:15283",
+    "2847:15284",
+    "2847:15285",
+    "2847:15286",
+    "2847:15287",
+    "2847:15288",
+    "2847:15289",
+    "2847:15290",
+    "2847:15291",
+    "2847:15292",
+    "2847:15293",
+    "2847:15294",
+    "2847:15295",
+    "2847:15296",
+    "2847:15297",
+    "2847:15298",
+    "2847:15299",
+    "2847:15300",
+    "2847:15301",
+    "2847:15302",
+    "2847:15303",
+    "2847:15304",
+    "2847:15305",
+    "2847:15306",
+    "2847:15307",
+    "2847:15308",
+    "2847:15309",
+    "2847:15310",
+    "2847:15311",
+    "2847:15312",
+    "2847:15313",
+    "2847:15314",
+    "2847:15315",
+    "2847:15316",
+    "2847:15317",
+    "2847:15318",
+    "2847:15319",
+    "2847:15320",
+    "2847:15321",
+    "2847:15322",
+    "2847:15323",
+    "2847:15324",
+    "2847:15325",
+    "2847:15326",
+    "2847:15327",
+    "2847:15328",
+    "2847:15329",
+    "2847:15330",
+    "2847:15331",
+    "2847:15332",
+    "2847:15333",
+    "2847:15334",
+    "2847:15335",
+    "2847:15336",
+    "2847:15337",
+    "2847:15338",
+    "2847:15339",
+    "2847:15340",
+    "2847:15341",
+    "2847:15342",
+    "2847:15343",
+    "2847:15344",
+    "2847:15345",
+    "2847:15346",
+    "2847:15347",
+    "2847:15348",
+    "2847:15349",
+    "2847:15350",
+    "2847:15351",
+    "2847:15352",
+    "2847:15353",
+    "2847:15354",
+    "2847:15355",
+    "2847:15356",
+    "2847:15357",
+    "2847:15359",
+    "2847:15360",
+    "2847:15361",
+    "2847:15368",
+    "2847:15387",
+    "2847:15392",
+    "2847:15393",
+    "2847:15394",
+    "2847:15426",
+    "2847:15708",
+    "2847:15744",
+    "2847:15745",
+    "2847:15746",
+    "2847:15747",
+    "2847:15748",
+    "2847:15749",
+    "2847:15750",
+    "2847:15751",
+    "2847:15752",
+    "2847:15753",
+    "2847:15754",
+    "2847:15755",
+    "2847:15756",
+    "2847:15757"
+  ],
+  "renderedOnly": [
+    "I2847:14998;2798:30776",
+    "I2847:14998;2798:30776;2798:29666",
+    "I2847:14998;2798:30776;2798:29666;2123:30628",
+    "I2847:14998;2798:30776;2798:29666;915:4542",
+    "I2847:14998;2798:30776;2798:29666;915:4543",
+    "I2847:14998;2798:30776;2798:29666;915:4543;404:33",
+    "I2847:14998;2798:30776;2798:29666;915:4543;404:33;802:2162",
+    "I2847:14998;2798:30776;2798:29666;915:4544",
+    "I2847:14999;2798:30776",
+    "I2847:14999;2798:30776;2798:29666",
+    "I2847:14999;2798:30776;2798:29666;2123:30628",
+    "I2847:14999;2798:30776;2798:29666;915:4542",
+    "I2847:14999;2798:30776;2798:29666;915:4543",
+    "I2847:14999;2798:30776;2798:29666;915:4543;404:33",
+    "I2847:14999;2798:30776;2798:29666;915:4543;404:33;802:2162",
+    "I2847:14999;2798:30776;2798:29666;915:4544",
+    "I2847:15000;2798:30776",
+    "I2847:15000;2798:30776;2798:29666",
+    "I2847:15000;2798:30776;2798:29666;2123:30628",
+    "I2847:15000;2798:30776;2798:29666;915:4542",
+    "I2847:15000;2798:30776;2798:29666;915:4543",
+    "I2847:15000;2798:30776;2798:29666;915:4543;404:33",
+    "I2847:15000;2798:30776;2798:29666;915:4543;404:33;802:2162",
+    "I2847:15000;2798:30776;2798:29666;915:4544",
+    "I2847:15002;3:1423",
+    "I2847:15002;3:1424",
+    "I2847:15090;58:540",
+    "I2847:15152;72:383",
+    "I2847:15248;192:2740",
+    "I2847:15389;2798:30776",
+    "I2847:15389;2798:30776;2798:29038",
+    "I2847:15389;2798:30776;2798:29038;2123:33965",
+    "I2847:15389;2798:30776;2798:29038;915:4406",
+    "I2847:15389;2798:30776;2798:29038;915:4407",
+    "I2847:15389;2798:30776;2798:29038;915:4407;404:33",
+    "I2847:15389;2798:30776;2798:29038;915:4407;404:33;802:2162",
+    "I2847:15389;2798:30776;2798:29038;915:4408",
+    "I2847:15390;2798:30776",
+    "I2847:15390;2798:30776;2798:29158",
+    "I2847:15390;2798:30776;2798:29158;2123:33965",
+    "I2847:15390;2798:30776;2798:29158;915:4406",
+    "I2847:15390;2798:30776;2798:29158;915:4407",
+    "I2847:15390;2798:30776;2798:29158;915:4407;404:33",
+    "I2847:15390;2798:30776;2798:29158;915:4407;404:33;802:2162",
+    "I2847:15390;2798:30776;2798:29158;915:4408",
+    "I2847:15391;2798:30776",
+    "I2847:15391;2798:30776;2798:29038",
+    "I2847:15391;2798:30776;2798:29038;2123:33965",
+    "I2847:15391;2798:30776;2798:29038;915:4406",
+    "I2847:15391;2798:30776;2798:29038;915:4407",
+    "I2847:15391;2798:30776;2798:29038;915:4407;404:33",
+    "I2847:15391;2798:30776;2798:29038;915:4407;404:33;802:2162",
+    "I2847:15391;2798:30776;2798:29038;915:4408",
+    "I2847:15397;6128:2229",
+    "I2847:15397;6128:2229;6128:2182",
+    "I2847:15397;6128:2229;6128:2182;6670:1937",
+    "I2847:15397;6128:2229;6128:2182;6670:1939",
+    "I2847:15397;6128:2229;6128:2182;6670:1939;399:65",
+    "I2847:15397;6128:2229;6128:2182;6670:1939;399:65;5555:15890",
+    "I2847:15397;6128:2229;6128:2182;6676:5614",
+    "I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575",
+    "I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65",
+    "I2847:15397;6128:2229;6128:2182;6676:5614;6676:5575;399:65;1765:11246",
+    "I2847:15709;2711:11206",
+    "I2847:15709;2711:11206;1165:4968",
+    "I2847:15709;2711:11206;1165:4968;399:65",
+    "I2847:15709;2711:11206;1165:4968;399:65;668:2526",
+    "I2847:15709;2711:11206;1165:4969"
+  ],
+  "summary": {
+    "compared": 88,
+    "declaredOnly": 309,
+    "renderedOnly": 68,
+    "maxDistance": 102.02,
+    "meanDistance": 12.3,
+    "within1px": 32,
+    "within4px": 64
+  }
+}

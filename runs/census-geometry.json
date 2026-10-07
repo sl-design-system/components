@@ -1,0 +1,297 @@
+{
+  "generatedBy": "runs/harness/census-geometry.mjs",
+  "censusVersion": 1,
+  "index": "captures-v2",
+  "comparatorVersion": 2,
+  "admissionRule": "A run is admitted iff its provenance is figma-bytes, it renders, and its frame is declared; the reference-screenshot state does not gate admission because the geometry comparator uses no raster.",
+  "admitted": [
+    "a10-etsl-fam-users",
+    "a2-nsp-class-overview",
+    "a3-myportal-digital-exercises",
+    "a4-sesame-my-groups",
+    "a7-myportal-materials-overviews",
+    "b-itsl-bookmk-deleted-course",
+    "b-itsl-collab-add-element",
+    "b-sanna-account-creation",
+    "b-sesame-group-details"
+  ],
+  "excluded": [
+    {
+      "run": "a1-kampus-subchapter-feed",
+      "reason": "provenance agent-prose: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "a11-sesame-learning-materials",
+      "reason": "provenance agent-prose: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "a5-etsl-metadata-usage-widget",
+      "reason": "provenance summarised: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "a6-itsl-collab-shared-folder",
+      "reason": "no rendered boxes to measure"
+    },
+    {
+      "run": "a8-nsp-group-list",
+      "reason": "provenance hand-backfilled: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "a9-sanna-login",
+      "reason": "provenance agent-prose: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "b-itsl-bookmk-course-files",
+      "reason": "provenance agent-prose: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "b-itsl-course-course-files",
+      "reason": "provenance hand-backfilled: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "b-kampus-notes-panel",
+      "reason": "provenance hand-backfilled: not Figma output, a geometry delta would measure the agent, not the layout"
+    },
+    {
+      "run": "b-nsp-home",
+      "reason": "no rendered boxes to measure"
+    }
+  ],
+  "runs": [
+    {
+      "run": "a10-etsl-fam-users",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "exact"
+      },
+      "frame": {
+        "id": "17264:29098",
+        "width": 1440,
+        "height": 837
+      },
+      "summary": {
+        "compared": 0,
+        "declaredOnly": 13,
+        "renderedOnly": 0,
+        "maxDistance": 0,
+        "meanDistance": 0,
+        "within1px": 0,
+        "within4px": 0
+      },
+      "placedWrappers": 2,
+      "duplicateIds": [],
+      "unplacedNodes": 205
+    },
+    {
+      "run": "a2-nsp-class-overview",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "exact"
+      },
+      "frame": {
+        "id": "2422:87039",
+        "width": 1280,
+        "height": 1003
+      },
+      "summary": {
+        "compared": 10,
+        "declaredOnly": 6,
+        "renderedOnly": 0,
+        "maxDistance": 163,
+        "meanDistance": 40.9,
+        "within1px": 6,
+        "within4px": 6
+      },
+      "placedWrappers": 7,
+      "duplicateIds": [
+        "2422:87812"
+      ],
+      "unplacedNodes": 156
+    },
+    {
+      "run": "a3-myportal-digital-exercises",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "channel-halved"
+      },
+      "frame": {
+        "id": "25124:56828",
+        "width": 1440,
+        "height": 1024
+      },
+      "summary": {
+        "compared": 205,
+        "declaredOnly": 15,
+        "renderedOnly": 226,
+        "maxDistance": 34.96,
+        "meanDistance": 11.66,
+        "within1px": 47,
+        "within4px": 66
+      },
+      "placedWrappers": 6,
+      "duplicateIds": [],
+      "unplacedNodes": 170
+    },
+    {
+      "run": "a4-sesame-my-groups",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "downscaled"
+      },
+      "frame": {
+        "id": "2847:14994",
+        "width": 1280,
+        "height": 1796
+      },
+      "summary": {
+        "compared": 88,
+        "declaredOnly": 309,
+        "renderedOnly": 68,
+        "maxDistance": 102.02,
+        "meanDistance": 12.3,
+        "within1px": 32,
+        "within4px": 64
+      },
+      "placedWrappers": 14,
+      "duplicateIds": [],
+      "unplacedNodes": 64
+    },
+    {
+      "run": "a7-myportal-materials-overviews",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "exact"
+      },
+      "frame": {
+        "id": "15878:180439",
+        "width": 1440,
+        "height": 1890
+      },
+      "summary": {
+        "compared": 331,
+        "declaredOnly": 19,
+        "renderedOnly": 237,
+        "maxDistance": 157.28,
+        "meanDistance": 21.65,
+        "within1px": 46,
+        "within4px": 93
+      },
+      "placedWrappers": 6,
+      "duplicateIds": [],
+      "unplacedNodes": 0
+    },
+    {
+      "run": "b-itsl-bookmk-deleted-course",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "mismatched"
+      },
+      "frame": {
+        "id": "4549:8339",
+        "width": 1280,
+        "height": 1082
+      },
+      "summary": {
+        "compared": 0,
+        "declaredOnly": 43,
+        "renderedOnly": 0,
+        "maxDistance": 0,
+        "meanDistance": 0,
+        "within1px": 0,
+        "within4px": 0
+      },
+      "placedWrappers": 1,
+      "duplicateIds": [],
+      "unplacedNodes": 239
+    },
+    {
+      "run": "b-itsl-collab-add-element",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "exact"
+      },
+      "frame": {
+        "id": "5006:43051",
+        "width": 1280,
+        "height": 768
+      },
+      "summary": {
+        "compared": 0,
+        "declaredOnly": 75,
+        "renderedOnly": 0,
+        "maxDistance": 0,
+        "meanDistance": 0,
+        "within1px": 0,
+        "within4px": 0
+      },
+      "placedWrappers": 1,
+      "duplicateIds": [],
+      "unplacedNodes": 99
+    },
+    {
+      "run": "b-sanna-account-creation",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "downscaled"
+      },
+      "frame": {
+        "id": "174:232051",
+        "width": 1512,
+        "height": 982
+      },
+      "summary": {
+        "compared": 0,
+        "declaredOnly": 3,
+        "renderedOnly": 0,
+        "maxDistance": 0,
+        "meanDistance": 0,
+        "within1px": 0,
+        "within4px": 0
+      },
+      "placedWrappers": 1,
+      "duplicateIds": [],
+      "unplacedNodes": 32
+    },
+    {
+      "run": "b-sesame-group-details",
+      "provenance": "figma-bytes",
+      "reference": {
+        "state": "exact"
+      },
+      "frame": {
+        "id": "2142:48093",
+        "width": 1280,
+        "height": 2392
+      },
+      "summary": {
+        "compared": 38,
+        "declaredOnly": 235,
+        "renderedOnly": 10,
+        "maxDistance": 961,
+        "meanDistance": 224.32,
+        "within1px": 20,
+        "within4px": 20
+      },
+      "placedWrappers": 7,
+      "duplicateIds": [],
+      "unplacedNodes": 223
+    }
+  ],
+  "summary": {
+    "n": 9,
+    "nWithOverlap": 5,
+    "totalCompared": 672,
+    "totalDeclaredOnly": 718,
+    "totalRenderedOnly": 541,
+    "maxDistance": 961,
+    "meanDistanceWeighted": 29.13,
+    "within1px": 151,
+    "within4px": 249,
+    "zeroOverlap": [
+      "a10-etsl-fam-users",
+      "b-itsl-bookmk-deleted-course",
+      "b-itsl-collab-add-element",
+      "b-sanna-account-creation"
+    ]
+  }
+}

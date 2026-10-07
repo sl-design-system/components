@@ -39,6 +39,7 @@ import {
   measureRendered,
   summarise
 } from './compare-geometry.mjs';
+import { buildBody, buildDocument } from './render-design.mjs';
 
 const execFileAsync = promisify(execFile),
   here = fileURLToPath(new URL('.', import.meta.url)),
@@ -230,8 +231,10 @@ describe('measureRendered + compareDocument (browser)', () => {
     assert.deepEqual(report.renderedOnly, ['9:9']);
     assert.equal(report.placedWrappers, 1);
     assert.deepEqual(report.duplicateIds, []);
+    assert.deepEqual(report.unplacedIds, []);
     assert.equal(report.frameDeclared, true);
     assert.equal(report.frame.id, '1:1');
+    assert.equal(report.comparatorVersion, 2);
   });
 
   it('refuses rather than measuring against a fabricated frame', async () => {
@@ -243,6 +246,70 @@ describe('measureRendered + compareDocument (browser)', () => {
         }),
       GeometryRefusal
     );
+  });
+
+  it('is not shifted by a region that has no box and falls back to flow with a margin', async () => {
+    // Seven of the nine admitted runs carry one region with no metadata box; placeRegion gives it
+    // `position:relative; margin:8px 0`. That top margin collapsed through <body> and moved every
+    // absolutely-placed region down 8 px — a constant (0, +8) on hundreds of nodes, scoring the
+    // probe's own fallback styling rather than the layout. The boxed region must measure at its
+    // declared position regardless of what its unboxed neighbour does.
+    const boxes = new Map([
+        ['b:1', { x: 100, y: 200, width: 50, height: 20, relative: { x: 100, y: 200 } }]
+      ]),
+      frame = { x: 0, y: 0, width: 400, height: 300 },
+      body = buildBody(
+        [
+          { label: 'unboxed', nodeId: 'u:1', html: '<div data-node-id="u:1">loose</div>' },
+          {
+            label: 'boxed',
+            nodeId: 'b:1',
+            html: '<div data-node-id="b:1" style="width:50px;height:20px"></div>'
+          }
+        ],
+        boxes,
+        frame
+      ),
+      html = buildDocument({ run: 'fixture', frame, body, stylesheet: '' }),
+      page = await browser.newPage({ viewport: { width: 400, height: 300 } });
+
+    await page.setContent(html, { waitUntil: 'load' });
+
+    const { rendered, unplacedIds } = await measureRendered(page);
+    await page.close();
+
+    assert.deepEqual(rendered.get('b:1'), { x: 100, y: 200, width: 50, height: 20 });
+    // The loose region's node sits wherever flow put it — the probe's choice, not Figma's — so it
+    // is counted apart rather than measured.
+    assert.deepEqual(unplacedIds, ['u:1']);
+    assert.equal(rendered.has('u:1'), false);
+  });
+
+  it('keeps an unplaced node out of the join on both sides', async () => {
+    // Declared AND rendered, but rendered inside an unplaced region: neither compared (no anchor)
+    // nor declaredOnly (it did render) — it is its own count.
+    const boxes = new Map([
+        ['u:1', { x: 5, y: 5, width: 10, height: 10, relative: { x: 5, y: 5 } }]
+      ]),
+      frame = { x: 0, y: 0, width: 400, height: 300 },
+      body = buildBody(
+        [{ label: 'unboxed', nodeId: 'r:0', html: '<div data-node-id="u:1">loose</div>' }],
+        boxes,
+        frame
+      ),
+      html = buildDocument({ run: 'fixture', frame, body, stylesheet: '' }),
+      report = await compareDocument({
+        html,
+        metadataText:
+          '<frame id="0:0" x="0" y="0" width="400" height="300">\n' +
+          '  <rect id="u:1" x="5" y="5" width="10" height="10"/>\n' +
+          '</frame>\n'
+      });
+
+    assert.deepEqual(report.unplacedIds, ['u:1']);
+    assert.deepEqual(report.compared, []);
+    assert.deepEqual(report.declaredOnly, []);
+    assert.deepEqual(report.renderedOnly, []);
   });
 });
 

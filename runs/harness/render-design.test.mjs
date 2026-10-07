@@ -261,6 +261,33 @@ describe('parseBoxes — coordinates are relative to the parent, so the chain mu
     });
   });
 
+  describe('a metadata file re-lists each instance as a root, expanding its children', () => {
+    // The shape of `b-itsl-collab-add-element/figma-metadata.txt`: the frame tree closes, then every
+    // instance appears again at x="0" y="0" with its `I…;…` children. Letting that second
+    // declaration win put `PageHeader` at canvas (0, 0) — 3732 px left of its own frame.
+    const expanded = parseBoxes(fixture('metadata-expanded-instances.txt'));
+
+    it('keeps the first, in-tree declaration of a re-listed instance', () => {
+      assert.deepEqual(expanded.get('1:2'), {
+        x: 3780,
+        y: 5316,
+        width: 1184,
+        height: 117,
+        relative: { x: 48, y: 0 }
+      });
+    });
+
+    it('resolves the expanded children against the in-tree position, not the re-listed (0, 0)', () => {
+      assert.deepEqual(expanded.get('I1:2;9:1'), {
+        x: 3780,
+        y: 5336,
+        width: 1184,
+        height: 37,
+        relative: { x: 0, y: 20 }
+      });
+    });
+  });
+
   it('pops the stack at a closing tag, so a later sibling is not nested under the one before it', () => {
     assert.deepEqual(boxes.get('1:4'), {
       x: 100,

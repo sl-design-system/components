@@ -29,6 +29,8 @@
   "include": [
     "capture.mjs",
     "capture.test.mjs",
+    "census-geometry.mjs",
+    "census-geometry.test.mjs",
     "census.mjs",
     "census.test.mjs",
     "classify-unresolved.mjs",

@@ -11,7 +11,9 @@
     "runs/harness/fixtures",
     "runs/captures",
     "runs/probe-04",
-    "runs/census.json"
+    "runs/census.json",
+    "runs/census-geometry.json",
+    "runs/census-geometry"
   ],
   "insertFinalNewline": true,
   "jsdoc": true,

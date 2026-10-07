@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-10-05T00:00:00Z
+updated: 2026-10-07T00:00:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -23,6 +23,15 @@ actually broken, not from what we guess today. Planning them now would repeat th
 analysis documents.
 
 ## Read this first
+
+**Status as of 2026-10-07.** The fourteen-case probe (`T-NOJIRA-figma-ingestion-04`) is 12 of 14
+designs walked — 9/9 as-is designs convert, 3/3 strict designs halt correctly, mode prediction
+11/12 — with two designs left: `a4-sesame-my-groups` (as-is) and `a5-etsl-metadata-usage-widget`
+(strict); evidence in [`runs/probe-04/README.md`](../../runs/probe-04/README.md).
+`P-NOJIRA-harness-quality` is done (4/4). `P-NOJIRA-corpus-census` is 1/4. `P-NOJIRA-html-contract`,
+`P-NOJIRA-html-artifacts` and `P-NOJIRA-ingestion-hardening` are approved with no task files yet.
+The only shipped code is the harness scripts in `../../runs/harness/`; no design has gone Figma → HTML
+through the new path.
 
 **Two structures, two jobs.** Plans are **executable units** — each runs start to finish and
 depends only on _other plans being finished_, never on a task inside one. Epics are a **grouping
@@ -62,16 +71,17 @@ owns nine of the ten; the harness owns none of them.
 
 ## Plans, and what each waits for
 
-| Plan                           | Epic | Depends on                          | Can start                                                 |
-| ------------------------------ | ---- | ----------------------------------- | --------------------------------------------------------- |
-| `P-NOJIRA-corpus-census`       | E1   | —                                   | **now**                                                   |
-| `P-NOJIRA-figma-ingestion`     | E2   | —                                   | **now, in parallel**                                      |
-| `P-NOJIRA-html-contract`       | E3   | corpus-census                       | after E1                                                  |
-| `P-NOJIRA-html-artifacts`      | E3   | html-contract                       | after the contract is agreed                              |
-| `P-NOJIRA-mapping-adapters`    | E2   | figma-ingestion                     | after E2's first plan lands                               |
-| `P-NOJIRA-ingestion-hardening` | E2   | figma-ingestion, html-artifacts     | after the traversal exists and the closure check is built |
-| `P-NOJIRA-figma-to-code`       | E4   | html-artifacts, ingestion-hardening | last                                                      |
-| `P-NOJIRA-requirement-triage`  | E5   | —                                   | anytime; documents only                                   |
+| Plan                           | Epic | Depends on                          | Can start                                                 | Status (2026-10-07)                                 |
+| ------------------------------ | ---- | ----------------------------------- | --------------------------------------------------------- | --------------------------------------------------- |
+| `P-NOJIRA-corpus-census`       | E1   | —                                   | **now**                                                   | approved · tasks 1/4 done                           |
+| `P-NOJIRA-figma-ingestion`     | E2   | —                                   | **now, in parallel**                                      | approved · tasks 8/9 done                           |
+| `P-NOJIRA-harness-quality`     | E4   | —                                   | **now**                                                   | approved · tasks 4/4 done · 4 use cases passing     |
+| `P-NOJIRA-html-contract`       | E3   | corpus-census                       | after E1                                                  | approved · no task files yet                        |
+| `P-NOJIRA-html-artifacts`      | E3   | html-contract                       | after the contract is agreed                              | approved · no task files yet                        |
+| `P-NOJIRA-mapping-adapters`    | E2   | figma-ingestion                     | after E2's first plan lands                               | `conceptual` / `proposed` — not yet approved        |
+| `P-NOJIRA-ingestion-hardening` | E2   | figma-ingestion, html-artifacts     | after the traversal exists and the closure check is built | approved · no task files yet                        |
+| `P-NOJIRA-figma-to-code`       | E4   | html-artifacts, ingestion-hardening | last                                                      | approved · 16 tasks: 7 todo, 8 blocked, 1 cancelled |
+| `P-NOJIRA-requirement-triage`  | E5   | —                                   | anytime; documents only                                   | approved · tasks 0/6 done                           |
 
 **Two plans can start today and they are independent of each other.** That is the point of the
 re-cut: before it, nothing could be run to completion without waiting on a task inside another
@@ -95,20 +105,20 @@ than its own coverage.
 
 The slice numbering predates the plan re-cut and the epics. It is kept only because earlier
 documents cite slice numbers; **where it disagrees with the Epics and Plans tables, those win.**
-Three tables describing one body of work is two too many, and this is the one to retire once
-nothing cites it.
+This is a bare number → plan → phrase mapping; the scope prose that used to live here is now in the
+plans themselves.
 
-| #   | Slice                                       | Plan                                                             | Status                       | One-line scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| --- | ------------------------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | Corpus census                               | [P-NOJIRA-corpus-census](NOJIRA-corpus-census/plan.md)           | approved · `phase: approved` | **Days, and it gates the rest.** Two plans were approved assuming nineteen usable runs; nine render. Repair the one splitter bug that accounts for six of the ten failures, inventory every run's provenance and reference state, build the geometry comparator, and publish the first fidelity figure in the effort with its N beside it. No Figma call, no schema. Ends with an explicit full-scope-or-narrow recommendation for slice 2.                                                                                                                                                                                                                           |
-| 1   | Measurement layer                           | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md)           | approved · `phase: approved` | `tools/sl-bench` — coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, comparison across configurations and over time, design intake report, published baseline. Pipeline **behaviour** unchanged — Amendment 6 restates this: marking is allowed, generation logic is not, and the unmarked 38-run control is what keeps the claim checkable. The bench serves **both** halves of the pipeline, which is why its name and its result schema are stage-neutral.                                                                                                                                                                       |
-| 1b  | Requirement triage                          | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | approved · `phase: approved` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order.                                                                                                                                                                                                                                                                                          |
-| 2   | Stage split and the intermediate artifact   | [P-NOJIRA-html-contract](NOJIRA-html-contract/plan.md)           | approved · `phase: approved` | **Now planned, and narrowed by what the batch found.** The intermediate artifact is three script-generated HTML files — the design, a per-element overlay, an optional progress view — built from a schema-validated common format (JSON Schema normative, `zod` derived) produced by an adapter over the captures. Built first over the **nineteen runs already on disk, with no Figma calls**, because there is still no comparable number for any run and this is the apparatus that makes one. A script has no judgement, so two runs produce identical bytes: the design system team's repeatability goal satisfied by construction and checkable as a checksum. |
-| 2b  | Ingestion quality                           | [P-NOJIRA-figma-ingestion](NOJIRA-figma-ingestion/plan.md)       | approved · `phase: approved` | **New, and the one with a measured baseline to move: 5 of 38 control runs produced code.** Code Connect becomes the traversal's stopping rule rather than a verification step; the empty map is classified into five causes with owners instead of halting; assets are captured before their URLs expire; eight checks run at the schema boundary; a ledger makes every call's cost and flakiness countable. Depends on slice 2 for anything fidelity-shaped, except the 14-case halt probe, which needs no fidelity figure.                                                                                                                                          |
-| 3   | Stage two — fitting HTML to the application | not written yet                                                  | —                            | Map the artifact onto the application's architecture, detect whether a similar design already exists in code and diff against it, build fresh where it does not. Much of the "does this already exist?" capability is a second consumer of slice 1's comparison machinery rather than new work. This is where the architecture review gate belongs.                                                                                                                                                                                                                                                                                                                   |
-| 3b  | Accessibility — research then plan          | not written yet                                                  | —                            | **Owner-assigned 2026-10-05 as its own plan, preceded by research.** The control shipped two WCAG 2.1 AA failures invisible to every gate — `autocomplete` suppressed on a name/email form, and a `100vh`/`overflow:hidden` clip putting actions out of reach of mouse and keyboard. The research question is which defects a static generated artifact can catch and which need the running component; those two fall on opposite sides of it. Remediation may defer; detection must not.                                                                                                                                                                            |
-| 4   | The remaining open requirements             | not written yet                                                  | —                            | The eight that survive triage, admitted one at a time and only with a corpus case attached.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| 5   | Caching and change detection                | not written yet                                                  | —                            | Skip unchanged designs, diff against the previous run. Deferred on two grounds: efficiency before correctness hides variance, and it is not buildable at all until the node-id join key from slice 2 exists — regenerating only what changed requires knowing which output came from which node.                                                                                                                                                                                                                                                                                                                                                                      |
+| #   | Plan                                                             | One phrase                                      |
+| --- | ---------------------------------------------------------------- | ----------------------------------------------- |
+| 0   | [P-NOJIRA-corpus-census](NOJIRA-corpus-census/plan.md)           | corpus census and the first fidelity figure     |
+| 1   | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md)           | the measurement bench                           |
+| 1b  | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | requirement triage, documents only              |
+| 2   | [P-NOJIRA-html-contract](NOJIRA-html-contract/plan.md)           | the intermediate HTML artifact and its schema   |
+| 2b  | [P-NOJIRA-figma-ingestion](NOJIRA-figma-ingestion/plan.md)       | ingestion quality; depends on nothing by design |
+| 3   | not written yet                                                  | stage two — fitting HTML to the application     |
+| 3b  | not written yet                                                  | accessibility — research then plan              |
+| 4   | not written yet                                                  | the remaining open requirements                 |
+| 5   | not written yet                                                  | caching and change detection                    |
 
 ## Second track — the designer handover contract
 
@@ -133,23 +143,25 @@ runs identically every time, costs no tokens, and is testable. A skill is for th
 judgement is genuinely needed, or where the entry point has to be conversational — and a skill
 should be a thin orchestrator over scripts rather than a place where work happens.
 
-| Track             | Produces                                                                                                                    | Kind                                                                                         |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| 1 — measurement   | `tools/sl-bench` — one CLI with `list` / `run` / `compare` / `test`, and the metrics beneath it                             | tool (scripts)                                                                               |
-|                   | the design intake report                                                                                                    | **1 skill** — a developer or designer points it at a Figma URL                               |
-|                   | corpus registry, requirement registry, published baseline                                                                   | artifacts                                                                                    |
-| 1b — triage       | nine confirmations, three deferral records, an accessibility handoff, five registry entries, one ADR, one published backlog | documents only, no code                                                                      |
-| 2 — stage split   | Figma → structured artifact                                                                                                 | **1 skill** (extraction; orchestrates scripts, judgement only where the source is ambiguous) |
-|                   | structured artifact → HTML                                                                                                  | **library, no skill** — a pure function, so it is code and tested with fixtures              |
-|                   | the package schemas                                                                                                         | schema files + fixtures                                                                      |
-| 3 — stage two     | package → application code: architecture mapping, reuse detection, diff against what exists                                 | **1 skill** + scripts for the comparison, which reuses the bench's machinery                 |
-| 3 — HTML → Figma  | improvements to the existing `sl-ds-html-to-figma`                                                                          | existing skill, extended                                                                     |
-| 4 — accessibility | validation of the produced HTML; design-time guidance                                                                       | script (the check) + **1 skill** (the guidance)                                              |
-| 5 — conformance   | classification and routing of unresolved nodes; the detached-instance signature matcher                                     | scripts, most likely extending the intake skill rather than a new one                        |
+| Track             | Produces                                                                                                                                                                                                 | Kind                                                                                         |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1 — measurement   | `tools/sl-bench` — one CLI with `list` / `run` / `compare` / `test`, and the metrics beneath it (the scripts live in `runs/harness/` today; `tools/sl-bench` is the intended packaging, not yet created) | tool (scripts)                                                                               |
+|                   | the design intake report                                                                                                                                                                                 | **1 skill** — a developer or designer points it at a Figma URL                               |
+|                   | corpus registry, requirement registry, published baseline                                                                                                                                                | artifacts                                                                                    |
+| 1b — triage       | nine confirmations, three deferral records, an accessibility handoff, five registry entries, one ADR, one published backlog                                                                              | documents only, no code                                                                      |
+| 2 — stage split   | Figma → structured artifact                                                                                                                                                                              | **1 skill** (extraction; orchestrates scripts, judgement only where the source is ambiguous) |
+|                   | structured artifact → HTML                                                                                                                                                                               | **library, no skill** — a pure function, so it is code and tested with fixtures              |
+|                   | the package schemas                                                                                                                                                                                      | schema files + fixtures                                                                      |
+| 3 — stage two     | package → application code: architecture mapping, reuse detection, diff against what exists                                                                                                              | **1 skill** + scripts for the comparison, which reuses the bench's machinery                 |
+| 3 — HTML → Figma  | improvements to the existing `sl-ds-html-to-figma`                                                                                                                                                       | existing skill, extended                                                                     |
+| 4 — accessibility | validation of the produced HTML; design-time guidance                                                                                                                                                    | script (the check) + **1 skill** (the guidance)                                              |
+| 5 — conformance   | classification and routing of unresolved nodes; the detached-instance signature matcher                                                                                                                  | scripts, most likely extending the intake skill rather than a new one                        |
 
-Roughly **four new skills across the whole programme**, and one existing one extended. Everything
-else is scripts, schemas and documents. If that count grows, it is worth asking what judgement the
-new skill is supposed to supply that a script could not.
+Roughly **four new skills across the whole programme** is the intended ceiling for conversational
+entry points, and one existing one extended. **Zero skills have been built so far — everything
+shipped is scripts** (the harness in `runs/harness/`). Everything else is scripts, schemas and
+documents. If that count grows, it is worth asking what judgement the new skill is supposed to
+supply that a script could not.
 
 ## The working rhythm
 
@@ -264,6 +276,10 @@ track has something to work with when it starts.
 
 Not planned yet, and deliberately not started.
 
+**Caching and change detection** (slice 5) sits in the same drawer, deferred on two grounds:
+efficiency before correctness hides variance, and regenerating only what changed needs the node-id
+join key that the HTML contract introduces — it is not buildable before that exists.
+
 ## Fifth track — design-system conformance of a design
 
 [A-NOJIRA-ds-conformance](../analyzes/NOJIRA-ds-conformance/analysis.md). "Unresolved by Code
@@ -284,7 +300,12 @@ gate.
 ## Fourth track — accessibility
 
 Its own plan, dependent on the HTML stage but not part of it. See _Not a slice, but decided_ below
-for why the three pieces of accessibility work are kept apart.
+for why the three pieces of accessibility work are kept apart. Owner-assigned 2026-10-05, preceded
+by research: the control shipped two WCAG 2.1 AA failures invisible to every gate — `autocomplete`
+suppressed on a name/email form, and a `100vh` / `overflow: hidden` clip putting actions out of
+reach ([`control-runs.md`](../analyzes/NOJIRA-figma-to-code/control-runs.md)). The research
+question is which defects a static generated artifact can catch and which need the running
+component; those two fall on opposite sides of it. Remediation may defer; detection must not.
 
 ## Third track — HTML back to Figma
 

@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-05T00:00:00Z
+updated: 2026-10-06T00:00:00Z
 tags: [figma, design-to-code, ingestion, determinism, instrumentation]
 source_analysis: A-NOJIRA-ds-conformance
 slice: halt-diagnosis

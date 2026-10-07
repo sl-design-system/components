@@ -6,7 +6,7 @@
   color: var(--_color, var(--sl-color-foreground-accent-grey-bold));
   display: inline-flex;
   font-size: 0.857em;
-  gap: var(--sl-size-025);
+  gap: var(--sl-size-050);
   justify-content: center;
   line-height: 0.8lh;
   min-inline-size: 1lh;

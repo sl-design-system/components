@@ -2,6 +2,6 @@
 '@sl-design-system/badge': patch
 ---
 
-Increase the inline padding of the `md` `<sl-badge>` from `--sl-size-050` to `--sl-size-075`.
+Increase the gap and inline padding inside the `md` `<sl-badge>`.
 
-This can change the layout slightly: badges with text can be 2px wider on each side.
+This updates the gap from `--sl-size-025` to `--sl-size-050` and the inline padding from `--sl-size-050` to `--sl-size-075`, which can make badges slightly wider and change the layout a bit.

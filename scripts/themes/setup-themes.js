@@ -1,5 +1,6 @@
 import fg from 'fast-glob';
-import { copyFile, readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
+import { existsSync } from 'fs';
 import { join } from 'path';
 
 const cwd = new URL('.', import.meta.url).pathname;
@@ -25,6 +26,24 @@ const setupTheme = async (theme, globalCss, typographyCss) => {
     `./export/core-css/system/default.css`,
     `./export/core-css/brand/${themeName}.css`
   ];
+
+  // If the theme has its own override folder in export/core-css, add its files (in alphabetical
+  // order) right after the brand css file, so the theme can override the core-css files.
+  const subthemesFolder = `./export/core-css/${themeName}-subthemes`;
+  console.log(
+    `🖍️ 🔎 ${subthemesFolder}`,
+    existsSync(join(cwd, subthemesFolder)) ? '🟢 found' : '⚪️ not found'
+  );
+  if (existsSync(join(cwd, subthemesFolder))) {
+    const themeOverrideFiles = (await fg('*.css', { cwd: join(cwd, subthemesFolder) })).sort();
+
+    const brandIndex = sourceThemeFiles.findIndex(file => file.includes(`${themeName}.css`));
+    sourceThemeFiles.splice(
+      brandIndex + 1,
+      0,
+      ...themeOverrideFiles.map(file => `${subthemesFolder}/${file}`)
+    );
+  }
 
   try {
     const parts = await Promise.all(

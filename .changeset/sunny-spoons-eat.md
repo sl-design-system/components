@@ -12,7 +12,7 @@
 '@sl-design-system/sanoma-learning': patch
 '@sl-design-system/sanoma-pro': patch
 '@sl-design-system/sanoma-utbildning': patch
-'@sl-design-system/teacher-assistant': patch
+'@sl-design-system/sl-ecosystem': patch
 '@sl-design-system/teas': patch
 '@sl-design-system/tig': patch
 ---

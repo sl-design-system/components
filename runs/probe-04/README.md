@@ -466,3 +466,65 @@ Why the snippet-bearing population is volatile, and where it comes from if not f
 repository's published templates. Nothing here distinguishes a Figma-side cache, a per-session
 scope, or a change made in the file between the two days. That is one question, it is now
 precisely posed, and it is bigger than `T-NOJIRA-figma-ingestion-04`.
+
+## Thirteen of fourteen — ten convert, and the drift is bounded
+
+`a4-sesame-my-groups` walked 2026-10-07: **605 nodes, 141 calls, every response exactly `{}`,
+141 findings all cause C, 167 nested ids covered, EXIT 0.** Not one response carried the
+timeout-note shape, which is the only answer that could have given this design a
+pipeline-owned finding.
+
+| Design | Date | Mode | Nodes | Calls | Unresolved | Nested | Causes | Exit | Predicted |
+| ------ | ---- | ---- | ----: | ----: | ---------: | -----: | ------ | ---: | --------- |
+| `a4-sesame-my-groups` | 10-07 | as-is | 605 | 141 | 141 | 167 | C ×141 | **0** | does not — **MISS** |
+| `a11-sesame-learning-materials` | 10-06 | as-is | 365 | 19 | 19 | 58 | C ×19 | **0** | converts ✓ |
+| `b-sesame-group-details` | 10-06 | as-is | 277 | 36 | 36 | 63 | C ×36 | **0** | does not — **MISS** |
+| `a1-kampus-subchapter-feed` | 10-06 | as-is | 274 | 23 | 23 | **213** | C ×23 | **0** | converts ✓ |
+| `b-itsl-bookmk-deleted-course` | 10-06 | as-is | 238 | 52 | 52 | 109 | C ×52 | **0** | converts ✓ |
+| `a6-itsl-collab-shared-folder` | 10-06 | as-is | 159 | 20 | 20 | 98 | C ×20 | **0** | converts ✓ |
+| `b-kampus-notes-panel` | 10-06 | as-is | 95 | 16 | 16 | 58 | C ×16 | **0** | converts ✓ |
+| `b-itsl-course-course-files` | 10-06 | as-is | 89 | 9 | 9 | 51 | C ×9 | **0** | converts ✓ |
+| `b-itsl-collab-add-element` | 10-06 | as-is | 88 | 8 | 8 | 43 | C ×8 | **0** | converts ✓ |
+| `b-itsl-bookmk-course-files` | 10-06 | as-is | 77 | 8 | 8 | 40 | C ×8 | **0** | converts ✓ |
+| `a10-etsl-fam-users` | 10-06 | strict | 134 | 38 | 36 | 52 | D ×35, E ×1 | 5 | does not ✓ |
+| `a8-nsp-group-list` | 10-06 | strict | 123 | 20 | 6 | 18 | D ×1, E ×5 | 5 | does not ✓ |
+| `a2-nsp-class-overview` | 10-06 | strict | 64 | 6 | 2 | 34 | A ×1, D ×1 | 6 | does not ✓ |
+
+**Ten conversions, ten as-is designs. Three strict, none.** The split is the mode, with no
+exception in either direction, across two days and two instrument states.
+
+### The drift, measured on both classes
+
+Before adding a design from a second day, both classes were re-taken 24 hours apart:
+
+| Re-walked | Responses changed | Verdict |
+| --------- | ----------------: | ------- |
+| `a8-nsp-group-list` (strict) | **12 of 20** — resolved 5→1, unresolved 6→16 | 5 → **5** |
+| `b-itsl-bookmk-course-files` (as-is) | **0 of 8** — byte-identical, no timeout notes | 0 → **0** |
+
+**The drift is asymmetric and it spares the thing being counted.** An as-is design's answers are
+empty maps, and an empty map cannot degrade; a strict design lives off the volatile
+snippet-bearing population, so its numbers move while its verdict does not.
+
+So the **conversion count is summable across the two days**; the per-design statistics are not,
+and each row carries its date for that reason.
+
+### The prediction: eleven of thirteen, and both misses are one mistake
+
+`T-NOJIRA-figma-ingestion-05`, dated 2026-10-06 and written before `T-08` and `T-09` existed —
+before any design could convert at all — named **eight designs that would convert**. All eight
+are walked and **all eight converted.**
+
+Both misses are `b-sesame-group-details` and `a4-sesame-my-groups`: **63 and 24 instances named
+`sl-*`, in a file with zero `sl-*` externals.** The same file, the same cause. MySesame names
+its own local components `sl-*`; `2142:48182`, an instance named `sl-text_input` with
+`componentId: 7:35563`, answers `{}` when asked directly.
+
+**Naming is not dependency.** Two misses in one place, from one wrong signal, is worth more than
+thirteen hits — it says exactly which input to replace.
+
+### One design left
+
+`a5-etsl-metadata-usage-widget`, 124 calls, strict, in the Editorial-Suite file that carries 21
+`sl-*` externals. The Dev seat allows 200 calls a day and 172 are spent, so it is tomorrow's
+work.

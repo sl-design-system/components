@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "rootId": "4886:12955",
+  "mode": "as-is",
+  "modeSource": "verdict",
+  "counts": {
+    "unresolved": 8,
+    "coveredByEnclosing": 0,
+    "nestedWithEnclosing": 40,
+    "byCause": {
+      "C another-library": 8
+    },
+    "byOwner": {
+      "nobody": 8
+    }
+  },
+  "suggestions": null,
+  "notes": {
+    "F3b": "carried, not detected. An overridden instance resolves normally and emits a clean snippet, so it cannot appear in this list at all. Probed: get_code_connect_suggestions returns a Properties object per node, so an override of a *declared component property* is visible in the fetched data; an override of a fill, a hidden layer or retyped text inside an instance is not. The pixel diff stays the only detector for the dangerous half.",
+    "F4": "rejected here. \"Could have used a design system component and did not\" has no structural signature, and this task is accepted on the count being stable across two passes. An inference layer cannot carry that, and the analysis says it must never gate. It belongs in a report of its own, with its uncertainty on the face of it."
+  },
+  "unresolved": [
+    {
+      "id": "4886:12956",
+      "name": "Navigation",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 8
+    },
+    {
+      "id": "4886:12960",
+      "name": "PageHeader",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "4886:12963",
+      "name": "Banner",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 6
+    },
+    {
+      "id": "4886:12966",
+      "name": "courses ",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    },
+    {
+      "id": "4886:12968",
+      "name": "courses ",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    },
+    {
+      "id": "4886:12969",
+      "name": "courses ",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    },
+    {
+      "id": "4886:12971",
+      "name": "courses ",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    },
+    {
+      "id": "4886:12973",
+      "name": "courses ",
+      "cause": "another-library",
+      "letter": "C",
+      "owner": "nobody",
+      "remedy": "none — reproduce it as-is and count it in the non-design-system fraction",
+      "evidence": "the file's own components depend on no sl-*, so the mode is as-is",
+      "match": null,
+      "nestedBelow": 4
+    }
+  ]
+}

@@ -33,6 +33,8 @@
     "census.test.mjs",
     "classify-unresolved.mjs",
     "classify-unresolved.test.mjs",
+    "compare-geometry.mjs",
+    "compare-geometry.test.mjs",
     "mcp.mjs",
     "mode-decision.mjs",
     "mode-decision.test.mjs",

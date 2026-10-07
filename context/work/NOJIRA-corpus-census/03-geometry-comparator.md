@@ -6,14 +6,15 @@ title: The geometry comparator
 description: Figma declared geometry against the rendered box, with no reference image involved
 jira: null
 resource: null
-status: in-progress
+status: done
 independent: true
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-07T13:20:00Z
+updated: 2026-10-07T13:24:00Z
 tags: [fidelity, geometry, measurement]
 source_plan: P-NOJIRA-corpus-census
 depends_on: []
+commit: bf0b6ca1eed883f13f8a71d26c357905eae4b5c3
 ---
 
 # The geometry comparator

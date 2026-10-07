@@ -406,3 +406,63 @@ Consequence: `a4-sesame-my-groups` and `a5-etsl-metadata-usage-widget` cannot be
 Copilot CLI with the same instrument as the first twelve. They remain open until a client that
 receives Code Connect data is available, and even then the ~500 calls span at least three days of
 the daily budget.
+
+## The instrument moved overnight — 2026-10-07
+
+The walk stopped at twelve on 2026-10-06. Before resuming with `a4` and `a5`, the same twenty
+calls that produced the `a8` result were re-taken from the same client, 24 hours later, into
+`code-connect-2026-10-07/` so the originals stay untouched.
+
+**Twelve of the twenty responses changed.**
+
+| `a8-nsp-group-list` | 2026-10-06 | 2026-10-07 |
+| ------------------- | ---------: | ---------: |
+| nodes walked | 123 | 145 |
+| resolved (snippet taken) | 5 | **1** |
+| mapped (no snippet) | 9 | **3** |
+| unresolved | 6 | **16** |
+| nested covered | 18 | 37 |
+| causes | D ×1, E ×5 | **D ×10, E ×6** |
+| **exit** | **5** | **5** |
+
+The walk saw *more* nodes because fewer resolved, so fewer subtrees were pruned — the stopping
+rule behaving as designed on worse input.
+
+### Which entries moved, and which did not
+
+| 2026-10-06 `source` | After 24 hours |
+| ------------------- | -------------- |
+| `packages/components/icon/src/icon.ts` (3 entries) | **byte-identical** |
+| `""` (9 entries, and **every one that carried a snippet**) | **all changed** |
+| no entry at all (5 responses) | 4 unchanged; `334:20685` went from `{}` to 1 151 bytes with 5 entries |
+
+**Every entry pointing at a real path in this repository survived. Every entry with an empty
+`source` moved, and those are exactly the ones that carried snippets.**
+
+So Code Connect's answers come from two populations:
+
+1. **the mappings this repository publishes** from `scripts/connect-figma-components` — they
+   carry a `source`, carry no snippet, and are stable;
+2. **snippet-bearing entries with no source** — which is what made designs resolve, and which
+   are not stable day to day and do not come from here.
+
+### What this costs the measurement
+
+**The qualitative answer held.** a8 is strict, every finding belongs to the design system team,
+exit 5 — the same conclusion as yesterday, which is what the five causes are for.
+
+**Every number moved.** Resolved fell from 5 to 1, unresolved rose from 6 to 16. So the twelve
+walks are a snapshot of **2026-10-06**, not a standing measurement, and `a4` and `a5` walked
+today would not belong to the same measurement as the other twelve.
+
+A human check in Dev Mode on 2026-10-07 13:21 had already confirmed `334:20593` as
+**"Connected"** with the `sl-avatar` snippet — while the MCP tool for that same node now returns
+an `Icon` entry for `0:18` and no avatar at all. The mapping exists; the tool stopped reporting
+it.
+
+### What this does not explain
+
+Why the snippet-bearing population is volatile, and where it comes from if not from this
+repository's published templates. Nothing here distinguishes a Figma-side cache, a per-session
+scope, or a change made in the file between the two days. That is one question, it is now
+precisely posed, and it is bigger than `T-NOJIRA-figma-ingestion-04`.

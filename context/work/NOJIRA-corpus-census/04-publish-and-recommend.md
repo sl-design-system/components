@@ -6,14 +6,15 @@ title: Publish the figures, and recommend full scope or narrowed
 description: Two fidelity numbers with their N, and the decision the downstream plan depends on
 jira: null
 resource: null
-status: in-progress
+status: done
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-07T14:05:00Z
+updated: 2026-10-07T14:12:00Z
 tags: [measurement, reporting, decision]
 source_plan: P-NOJIRA-corpus-census
 depends_on: [T-NOJIRA-corpus-census-02, T-NOJIRA-corpus-census-03]
+commit: cabd2aa45358059df38b232349730244eda52e91
 ---
 
 # Publish the figures, and recommend full scope or narrowed

@@ -6,14 +6,15 @@ title: The census, and reference integrity enforced rather than recorded
 description: 'Per run: provenance class, whether it renders, and a reference state that is refused when it is corrupt'
 jira: null
 resource: null
-status: in-progress
+status: done
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-07T12:15:00Z
+updated: 2026-10-07T12:25:00Z
 tags: [corpus, provenance, reference]
 source_plan: P-NOJIRA-corpus-census
 depends_on: [T-NOJIRA-corpus-census-01]
+commit: 7d71496b6cf048721aae5405a749d6b115b54eea
 ---
 
 # The census, and reference integrity enforced rather than recorded

@@ -422,6 +422,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #selectRangeDate(date: Date): void {
     if (!this.rangeStart) {
+      // Keep the parent month in sync with the month currently shown by sl-select-day. Otherwise,
+      // this update would pass a stale month back to the child and jump away from the selected day.
+      this.month = new Date(date);
       this.rangeStart = new Date(date);
       announce(
         msg(

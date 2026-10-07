@@ -279,6 +279,45 @@ describe('sl-calendar', () => {
       expect(callCount).to.equal(0);
     });
 
+    it('should remain on the navigated month after selecting a new range start', async () => {
+      el.range = [new Date(2025, 8, 10), new Date(2025, 8, 15)];
+      await el.updateComplete;
+
+      const novemberDate = new Date(2025, 10, 12);
+      selectDay.month = novemberDate;
+      await selectDay.updateComplete;
+
+      monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      getDayButton(novemberDate)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(novemberDate);
+      expect(el.month).to.equalDate(novemberDate);
+      expect(selectDay.month).to.equalDate(novemberDate);
+    });
+
+    it('should remain on the navigated month after the range is cleared externally', async () => {
+      el.range = [new Date(2025, 8, 10), new Date(2025, 8, 15)];
+      await el.updateComplete;
+
+      el.range = [];
+      await el.updateComplete;
+
+      const novemberDate = new Date(2025, 10, 12);
+      selectDay.month = novemberDate;
+      await selectDay.updateComplete;
+
+      monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      getDayButton(novemberDate)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(novemberDate);
+      expect(el.month).to.equalDate(novemberDate);
+      expect(selectDay.month).to.equalDate(novemberDate);
+    });
+
     it('should select and emit a chronological range regardless of click order', async () => {
       let selectedRange: Date[] | undefined;
       el.addEventListener('sl-change', (event: SlChangeEvent<Date | Date[]>) => {

@@ -112,6 +112,11 @@ button {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
+  &:not([part~='selected'], [part~='range-start'], [part~='range-end']):active {
+    --_bg-color: var(--sl-color-background-primary-subtlest);
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+  }
+
   &:is(:focus, :focus-visible) span {
     outline-color: var(--sl-color-border-focused);
   }
@@ -161,6 +166,13 @@ button {
   span {
     transition: none;
   }
+}
+
+[part~='range-preview'][aria-pressed='false']:is([part~='range-start'], [part~='range-end']) {
+  --_bg-color: var(--sl-color-background-primary-subtlest);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+
+  color: var(--sl-color-foreground-plain);
 }
 
 [part~='range-start']::before,

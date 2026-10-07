@@ -539,6 +539,21 @@ describe('sl-month-view', () => {
       expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
     });
 
+    it('should mark the prospective second selection when previewing backwards', async () => {
+      const initialSelection = getDayButton(new Date(2023, 2, 22))!,
+        previewEnd = getDayButton(new Date(2023, 2, 17))!;
+
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+      await userEvent.hover(previewEnd);
+      await el.updateComplete;
+
+      expect(previewEnd).to.have.attribute('part').that.contains('range-start');
+      expect(previewEnd).to.have.attribute('aria-pressed', 'false');
+      expect(initialSelection).to.have.attribute('part').that.contains('range-end');
+      expect(initialSelection).to.have.attribute('aria-pressed', 'true');
+    });
+
     it('should restore the focused preview after a pointer preview ends', async () => {
       el.rangeStart = new Date(2023, 2, 17);
       await el.updateComplete;

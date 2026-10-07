@@ -10,7 +10,7 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-06T16:00:00Z
+updated: 2026-10-07T18:00:00Z
 tags: [measurement, baseline, control]
 source_plan: P-NOJIRA-figma-ingestion
 depends_on: [T-NOJIRA-figma-ingestion-09]
@@ -276,51 +276,81 @@ In an as-is design, **A and B are the only two causes that can halt**, and A is 
 retrieval failure. So this is plausibly the last thing between the ten as-is designs and a
 conversion count — but that is a prediction, and it is written here before it is tested.
 
-### Phase A walked — three of fourteen, 2026-10-06
+### Phase A walked — thirteen of fourteen, 2026-10-06 and 2026-10-07
 
-With 09 in place. The tree comes from the REST captures through the new
-`runs/harness/rest-metadata.mjs`, validated against the live tool: **every one of the 98 ids
-`get_metadata` returned for a8 is present** in the 116 it produces, so a replay can see more of
-a design than the live tool did and under-report nothing. The map is live, one call per
-outermost instance, every response in `runs/probe-04/code-connect/` with its hash.
+Full evidence, per-design tables and every call record in
+[`runs/probe-04/README.md`](../../../runs/probe-04/README.md); 491 stored responses with hashes.
 
-| Design                       | Mode   | Map calls | Resolved | Unresolved | Nested covered | Causes     |  Exit |
-| ---------------------------- | ------ | --------: | -------: | ---------: | -------------: | ---------- | ----: |
-| `b-itsl-bookmk-course-files` | as-is  |         8 |        0 |          8 |             40 | C ×8       | **0** |
-| `b-itsl-course-course-files` | as-is  |         9 |        0 |          9 |             51 | C ×9       | **0** |
-| `a2-nsp-class-overview`      | strict |         6 |        4 |          2 |             34 | A ×1, D ×1 | **6** |
+**Ten conversions, and they are exactly the ten as-is designs.** Three strict designs, none.
+The split is the mode, with no exception in either direction, and every mode was decided from
+the dependency graph before a single walk ran.
 
-**Two of three converted.** Both are designs the control halted on with _publish mappings and
-re-run_; what they say now is that eight and nine components come from another library, owner
-nobody, reproduce them as-is.
+|  Exit | Designs                                                                                                                                                                                                                                                                    |
+| ----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **0** | a4-sesame-my-groups, a11-sesame-learning-materials, b-sesame-group-details, a1-kampus-subchapter-feed, b-itsl-bookmk-deleted-course, a6-itsl-collab-shared-folder, b-kampus-notes-panel, b-itsl-course-course-files, b-itsl-collab-add-element, b-itsl-bookmk-course-files |
+|     5 | a10-etsl-fam-users (D ×35, E ×1), a8-nsp-group-list (D ×1, E ×5)                                                                                                                                                                                                           |
+|     6 | a2-nsp-class-overview (A ×1, D ×1)                                                                                                                                                                                                                                         |
 
-**The third did not, and should not.** a2 is strict and halts for two reasons that are both
-real: one map **timed out and said so**, and one component genuinely has no mapping. One message
-has become two, with two owners and two remedies — which is this plan's thesis, measured.
+**The thesis, measured.** `a8-nsp-group-list` was reported by `T-NOJIRA-figma-ingestion-03` as
+**28 unresolved, every one ours, exit 6** — _"not a single node routed to the design system
+team"_. It now reports **6 findings, every one the design system team's, exit 5**.
+`a10-etsl-fam-users` reports **35 components with no mapping written** and nothing owned by the
+pipeline. One halt message has become three different answers with three different owners.
 
-**125 nested nodes across the three.** Before `T-NOJIRA-figma-ingestion-09` each was a separate
-pipeline-owned finding and any one of them exits 6. Both conversions are conversions because 91
-of them stopped being findings about nothing. 09's prediction about itself — that it was the
-last blocker for an as-is design — **held on the two tested**, and is still untested on eight.
+**837 nested ids** across the walks were accounted for rather than reported — 213 in a1-kampus
+alone. Before `T-NOJIRA-figma-ingestion-09` each was a pipeline-owned finding and one is enough
+to halt.
 
-### What remains: 683 map calls and a credential
+### The instrument moves, and the drift is bounded
 
-Eleven designs, one call per outermost instance, and nothing else. The tree, the mode, the
-classifier and the five causes are on disk and tested.
+The walk was interrupted at twelve on 2026-10-06. Before adding a thirteenth from a second day,
+both classes of design were re-taken 24 hours apart:
 
-| Transport                                  |                                                                                             |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `capture.mjs` with a personal access token | **cannot** — `mcp.figma.com` answers `figd_` with 401                                       |
-| the Dev Mode server                        | ~31 s per call, one file at a time: **six hours** plus switching the tab across eight files |
-| an agent, as here                          | 683 calls one at a time                                                                     |
-| **a script with OAuth `mcp:connect`**      | minutes, unattended                                                                         |
+| Re-walked                            |                            Responses changed | Verdict   |
+| ------------------------------------ | -------------------------------------------: | --------- |
+| `a8-nsp-group-list` (strict)         | **12 of 20** — resolved 5→1, unresolved 6→16 | 5 → **5** |
+| `b-itsl-bookmk-course-files` (as-is) |                   **0 of 8**, byte-identical | 0 → **0** |
 
-**The measurement is blocked on that credential and on nothing else.** That is the one thing to
-take from this attempt that is not already in the numbers.
+The split is clean: **every entry pointing at a real path in this repository is byte-identical
+after 24 hours; every entry with `source: ""` moved, and those are exactly the ones carrying
+snippets.** So Code Connect answers from two populations — the mappings this repository
+publishes, which are stable, and snippet-bearing entries with no source, which are what made
+designs resolve and are not stable day to day.
 
-### Phase B is not started
+An empty map cannot degrade, so an as-is verdict is stable; a strict design lives off the
+volatile population, so its numbers move and its verdict does not. **The conversion count is
+therefore summable across the two days**, and the per-design statistics are not — each row in
+the evidence carries its date.
 
-Conformance, for whatever converts. Two designs now qualify and neither has been run through
-`implement-design`. Criterion two of this task is therefore **unmet**, and the two conversions
-above must not be read as success until it is: _fourteen low-fidelity ports with invented
-content would satisfy a conversion count and be worse than halting._
+### The prediction: eleven of thirteen, and both misses are one mistake
+
+`T-NOJIRA-figma-ingestion-05` recorded eight designs by name, dated 2026-10-06 and written
+before `T-08` and `T-09` existed — therefore before any design could convert at all. **All
+eight are walked and all eight converted.**
+
+Both misses are `b-sesame-group-details` and `a4-sesame-my-groups`: **63 and 24 instances named
+`sl-*` in a file with zero `sl-*` externals.** MySesame names its own local components `sl-*`,
+and `2142:48182` — an instance named `sl-text_input`, `componentId: 7:35563` — answers `{}` when
+asked directly. **Naming is not dependency.** Two misses in one place from one wrong signal says
+which input to replace; thirteen hits would not have.
+
+### What remains
+
+- **`a5-etsl-metadata-usage-widget`**, 124 calls, strict. The Dev seat allows **200 Code Connect
+  calls a day and 20 a minute**; 172 were spent on 2026-10-07.
+- **Phase B is not started.** Conformance, for the ten that converted, through
+  `implement-design`. Criterion two of this task is **unmet**, and until it is, ten conversions
+  are not success: _fourteen low-fidelity ports with invented content would satisfy a conversion
+  count and be worse than halting._
+- **Where the snippet-bearing entries come from**, given they are not this repository's
+  published templates and do not survive a day, while Dev Mode still shows the component as
+  "Connected". That question is bigger than this task and is not answered here.
+
+### Transport, settled
+
+Code Connect is served **per OAuth client**. A personal access token is refused outright; GitHub
+Copilot CLI connects, gets metadata and design context in full, and receives **no Code Connect
+data at all** — verified against a node whose mapping a human confirmed in Dev Mode the same
+day. Figma's own documentation: _"Only clients listed in the Figma MCP Catalog can connect"_,
+and registration is _"reach out to your account team"_. See
+[`runs/probe-04/client-reachability-2026-10-07.md`](../../../runs/probe-04/client-reachability-2026-10-07.md).

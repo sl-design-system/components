@@ -56,8 +56,8 @@ function getExample() {
   let icon;
   if (iconStart || iconEnd) {
     const iconInstance = checkInstance(
-      buttonBase.findInstance('Icon', { traverseInstances: true }),
-      'Icon'
+      buttonBase.findInstance('SL-icon Size', { traverseInstances: true }),
+      'SL-icon Size'
     );
 
     icon = iconInstance.executeTemplate().example;

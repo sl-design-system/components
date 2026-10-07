@@ -15,8 +15,16 @@ function getExample() {
     `badge-base-${size}`
   );
 
-  const icon = badgeBase.findInstance('Icon', { traverseInstances: true }),
-    label = checkStringProperty(badgeBase.getString('Text'), 'Text');
+  let icon;
+  if (size === 'lg') {
+    const iconInstance = checkInstance(
+      badgeBase.findInstance('sl-icon', { traverseInstances: true }),
+      'sl-icon'
+    );
+    icon = iconInstance.executeTemplate().example;
+  }
+
+  const label = checkStringProperty(badgeBase.getString('Text'), 'Text');
 
   return figma.code`
     <sl-badge
@@ -25,7 +33,7 @@ function getExample() {
       ${size !== 'md' ? ` size="${size}"` : ''}
       ${typeof slot === 'string' ? ` slot="${slot}"` : ''}
     >
-      ${icon?.type !== 'ERROR' ? icon?.executeTemplate().example : ''}
+      ${icon ?? ''}
       ${label}
     </sl-badge>
   `;

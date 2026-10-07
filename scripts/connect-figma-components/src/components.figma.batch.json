@@ -25,7 +25,8 @@
     "components": [
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-54273",
-        "id": "button"
+        "id": "button",
+        "shape": "rect"
       },
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-54346",

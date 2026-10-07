@@ -352,7 +352,7 @@ describe('sl-calendar', () => {
       expect(el.range?.[1]).to.equalDate(date);
     });
 
-    it('should abort an unfinished range with Escape', async () => {
+    it('should set range to undefined when selection is aborted with Escape', async () => {
       const button = getDayButton(new Date(2023, 2, 17));
 
       button?.click();

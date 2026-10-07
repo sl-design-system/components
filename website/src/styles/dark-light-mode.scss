@@ -109,8 +109,8 @@ body {
   --danger-color: var(--ds-color-danger);
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgb(34 34 34 / 12%);
-  --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
-  --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
+  --focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
+  --navigation-focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
   --heading-background: var(--ds-color-blue);
@@ -195,8 +195,8 @@ body {
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgb(34 34 34 / 64%);
-    --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
-    --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 64%);
+    --focus-box-shadow: 0 0 0 2px var(--ds-color-baby-blue);
+    --navigation-focus-box-shadow: 0 0 0 2px var(--ds-color-baby-blue);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
     --heading-background: var(--ds-color-blueberry);

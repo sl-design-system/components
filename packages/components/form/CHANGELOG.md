@@ -1,5 +1,20 @@
 # @sl-design-system/form
 
+## 1.7.0
+
+### Minor Changes
+
+- [#3683](https://github.com/sl-design-system/components/pull/3683) [`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031) - Add `announce-errors` to `<sl-form>` to control automatic screen reader announcements for individual field validation errors when they are shown.
+
+  `announce-errors` is enabled by default. Set `announce-errors="false"` when you show aggregated error messaging instead (for example a single `<sl-inline-message>` with all errors), otherwise screen readers can announce both the field error and the aggregated summary. Form-field level announcement control is internal.
+
+### Patch Changes
+
+- [#3683](https://github.com/sl-design-system/components/pull/3683) [`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031) - Improve `<sl-form-validation-errors>` so validation errors are announced in a more accessible way after replacing the previous list with links to invalid fields, which was not accessible, with cleaner comma spacing between multiple invalid field labels.
+
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+
 ## 1.6.0
 
 ### Minor Changes

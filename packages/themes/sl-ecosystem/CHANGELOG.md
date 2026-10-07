@@ -1,8 +1,16 @@
-# @sl-design-system/sanoma-pro
+# @sl-design-system/sl-ecosystem
 
 ## 1.0.0
 
 ### Major Changes
+
+- [#3749](https://github.com/sl-design-system/components/pull/3749) [`0110da7`](https://github.com/sl-design-system/components/commit/0110da7f9018fcaf261ec92b21d084bd111c53ba) - Rename the Teacher Assistant theme to SL Ecosystem. The package `@sl-design-system/teacher-assistant` is now published as `@sl-design-system/sl-ecosystem`.
+
+  To migrate:
+
+  - Replace the `@sl-design-system/teacher-assistant` dependency with `@sl-design-system/sl-ecosystem`
+  - Update all JS and CSS imports from `@sl-design-system/teacher-assistant/...` to `@sl-design-system/sl-ecosystem/...`
+  - Replace the `data-teacher-assistant-subthemes` attribute with `data-sl-ecosystem-subthemes`
 
 - [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - The main css file has changed name, which means this release will be a BREAKING CHANGE; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
   The `light-deprecated.css` and `dark-deprecated.css` files remain unchanged.
@@ -17,45 +25,27 @@
 - Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
   - @sl-design-system/icon@1.4.6
 
-## 0.0.7
+This package was previously published as `@sl-design-system/teacher-assistant`.
+
+## 0.0.4
 
 ### Patch Changes
 
 - Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
   - @sl-design-system/icon@1.4.5
 
-## 0.0.6
+## 0.0.3
 
 ### Patch Changes
 
 - Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
   - @sl-design-system/icon@1.4.4
 
-## 0.0.5
-
-### Patch Changes
-
-- [#3495](https://github.com/sl-design-system/components/pull/3495) [`4ce1186`](https://github.com/sl-design-system/components/commit/4ce1186f7bcafc04f78e91491d29a29c77b6e31a) - Up to date tokens.
-
-- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Fixed typo in license in package.json
-
-- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
-  - @sl-design-system/icon@1.4.3
-
-## 0.0.4
-
-### Patch Changes
-
-- [#3359](https://github.com/sl-design-system/components/pull/3359) [`1dac781`](https://github.com/sl-design-system/components/commit/1dac78183220216dce0c7c8a2e2d36c6e4c7ebb8) - Fixes an issue where line-height variables had a duplicate unit (pxpx)
-
-## 0.0.3
-
-### Patch Changes
-
-- [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Added new `octagon-xmark-solid` icon for use in Callout, Inline message, and Progress bar. Make sure to update your theme if you updated those components
-
 ## 0.0.2
 
 ### Patch Changes
 
-- [#3136](https://github.com/sl-design-system/components/pull/3136) [`9fac43a`](https://github.com/sl-design-system/components/commit/9fac43a268c0d1c3de7a137a3b1ee695f8533e4c) - Theme added
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - First version of the Teacher Assistant theme
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3

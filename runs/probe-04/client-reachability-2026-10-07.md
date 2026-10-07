@@ -35,3 +35,11 @@ Same user, same remote server, same node as the a8 walk of 2026-10-06 and the ca
 | `list_file_components_for_code_connect CHpKrPIdXdbV2u7X8vizKI` | — | 425 components, 969 KB (works) |
 
 So Code Connect data is withheld from this client across **every** tool that would carry it, not only `get_code_connect_map`; non-Code-Connect data is complete. The Figma MCP Catalog page lists "GitHub Copilot CLI" as a client, yet this session's registration is a dynamically registered OAuth client (`isStatic: false`, clientId `2MRhh…`, registered through the toolkit plugin's `.mcp.json`), so whatever Figma keys the Code Connect gate on is not satisfied by it. Nothing in the user's control (seat, PAT scopes, plugin, subagent vs main agent) changed any result.
+
+## Decided: the mappings exist, the client is gated — 2026-10-07 13:21
+
+After a fresh OAuth login from Copilot CLI (new dynamically registered client, `client_name: "GitHub Copilot CLI"` — the only registration mode in the CLI bundle), `get_code_connect_map 4TdMrcnIVOn3Hrfj2OpVZU/334:20593` is still `{}`, with and without `codeConnectLabel: "SL Design System"`. Yet the same client's `get_code_connect_suggestions` on `334:20592` lists only `avatar-header` (`10:682`) as unconnected — so the server knows `sl-avatar` is mapped.
+
+Human check in the web app (Dev Mode, Inspect → Code Connect, node `334:20593`, 2026-10-07 13:21): **"Connected"**, snippet `<sl-avatar color="primary" emphasis="bold" display-name="7 students already joined  " display-initials="JV">Class</sl-avatar>` — identical to the 2026-10-06 Claude Code capture. No publish workflow exists in CI and no `connect:unpublish` was run.
+
+Conclusion: Code Connect payloads are withheld per OAuth client. Claude Code receives them; Copilot CLI (dynamic registration) does not. The remaining two walks (a4, a5) must be run from a client that receives Code Connect.

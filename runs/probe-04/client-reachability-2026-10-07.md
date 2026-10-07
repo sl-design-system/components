@@ -23,3 +23,15 @@ Conclusion: file access and design context work; Code Connect data is not served
 ## Replay from a Copilot CLI subagent — 12:37 CEST
 
 Yesterday's twelve designs were walked by Claude Code subagents, one per design, so the same shape was tried here: a Copilot CLI subagent (separate context, same MCP connection) called `whoami` and then `get_code_connect_map` on `S5QgDy8X9eqhvECPANSZMM/17264:29106`, `CHpKrPIdXdbV2u7X8vizKI/1514:156507` (the `sl-select` component set in the Components 2.0 library, whose mapping is published from `scripts/connect-figma-components`) and `S5QgDy8X9eqhvECPANSZMM/17557:100187`. All three returned `{}`; `whoami` matched. Main agent, subagent and script differ in nothing that Figma sees — the client is Copilot CLI in all three cases. The 2026-10-06 results came from a different client (Claude Code), and that is the variable.
+
+## Cross-check on a node with a known-good capture — 2026-10-07, later
+
+Same user, same remote server, same node as the a8 walk of 2026-10-06 and the capture of 2026-10-01.
+
+| Call | Claude Code (recorded) | Copilot CLI (now) |
+|---|---|---|
+| `get_code_connect_map 4TdMrcnIVOn3Hrfj2OpVZU/334:20592` | 2270 B, `334:20593` → `<sl-avatar color="primary" …>` with snippet (`runs/probe-04/code-connect/a8-nsp-group-list__334-20592__group-1.json`) | `{}` |
+| `get_design_context 4TdMrcnIVOn3Hrfj2OpVZU/334:2059x` | 10 `<sl-avatar …>` occurrences injected into the React output (`runs/2026-10-01-a8-nsp-group-list/captures/design-context/334-20578.txt`) | zero `<sl-*>`; raw `div` tree with `data-name="sl-avatar"` only |
+| `list_file_components_for_code_connect CHpKrPIdXdbV2u7X8vizKI` | — | 425 components, 969 KB (works) |
+
+So Code Connect data is withheld from this client across **every** tool that would carry it, not only `get_code_connect_map`; non-Code-Connect data is complete. The Figma MCP Catalog page lists "GitHub Copilot CLI" as a client, yet this session's registration is a dynamically registered OAuth client (`isStatic: false`, clientId `2MRhh…`, registered through the toolkit plugin's `.mcp.json`), so whatever Figma keys the Code Connect gate on is not satisfied by it. Nothing in the user's control (seat, PAT scopes, plugin, subagent vs main agent) changed any result.

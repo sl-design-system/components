@@ -1,5 +1,22 @@
 # @sl-design-system/my-digital-book
 
+## 2.0.0
+
+### Major Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - The main css file has changed name, which means this release will be a BREAKING CHANGE; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
+  The `light-deprecated.css` and `dark-deprecated.css` files remain unchanged.
+  Additionally a new `typography.css` has been added, that contains styles for body text, headers, label, captions etc. It is optional to use this for the time being.
+
+### Patch Changes
+
+- [#3768](https://github.com/sl-design-system/components/pull/3768) [`bbd090d`](https://github.com/sl-design-system/components/commit/bbd090d1d41e73b6d6c75dfccda7b0b5b965f6d8) - Removed theme switching based on user preference from global.css because this would break in themes without dark mode and was a possible unwanted change in strategy for other themes.
+
+- [#3754](https://github.com/sl-design-system/components/pull/3754) [`0963f3b`](https://github.com/sl-design-system/components/commit/0963f3b7a79d5b5a48da5d36e0c97a2607b347f0) - Fix missing TypeScript declarations (`index.d.ts`) in the published theme packages and expose them via the `types` export condition
+
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+
 ## 1.1.6
 
 ### Patch Changes

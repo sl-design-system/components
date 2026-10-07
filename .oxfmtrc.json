@@ -10,7 +10,8 @@
     "website",
     "runs/harness/fixtures",
     "runs/captures",
-    "runs/probe-04"
+    "runs/probe-04",
+    "runs/census.json"
   ],
   "insertFinalNewline": true,
   "jsdoc": true,

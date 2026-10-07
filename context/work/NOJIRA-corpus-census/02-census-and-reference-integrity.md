@@ -6,11 +6,11 @@ title: The census, and reference integrity enforced rather than recorded
 description: 'Per run: provenance class, whether it renders, and a reference state that is refused when it is corrupt'
 jira: null
 resource: null
-status: todo
+status: in-progress
 independent: false
 owner: marcin.ludwig
 created: 2026-10-05T00:00:00Z
-updated: 2026-10-05T00:00:00Z
+updated: 2026-10-07T12:15:00Z
 tags: [corpus, provenance, reference]
 source_plan: P-NOJIRA-corpus-census
 depends_on: [T-NOJIRA-corpus-census-01]
@@ -62,3 +62,65 @@ it, another still required it, no task held it.
 ## Verification
 
 Read `census.json` against the measurements in `sequencing.md`; the known-bad cases — `a1` prose, `a3` channel-halved, `a9`/`b-nsp-home` prose-headed metadata — must each appear with the right class.
+
+## Result
+
+`runs/census.json`, produced by `runs/harness/census.mjs` (36 unit tests in `census.test.mjs`,
+every detector pinned against the runs `render-failure-taxonomy.md` names). Deterministic: two
+consecutive runs are byte-identical; there is no generation timestamp.
+
+```
+node runs/harness/census.mjs --runs runs --index captures-v2 --out runs/census.json
+```
+
+### The counts
+
+Nineteen runs, **no `unknown` provenance**. Provenance classifies the committed `captures/` source,
+so the class describes the artifact as it was captured, not the repaired copy.
+
+| Provenance        | Runs | Which                                                                     |
+| ----------------- | ---- | ------------------------------------------------------------------------- |
+| `figma-bytes`     | 11   | real `get_design_context` output, `data-node-id` on its elements          |
+| `agent-prose`     | 4    | `a1` (`{ ... }`), `a9` (`<!--`), `a11`, `b-itsl-bookmk-course-files`      |
+| `hand-backfilled` | 3    | `a8`, `b-itsl-course-course-files`, `b-kampus-notes-panel`                |
+| `summarised`      | 1    | `a5-etsl-metadata-usage-widget` — under 10 KB and under ¼ of its metadata |
+
+**9 of 19 render** against `captures-v2`, reproducing the figure task 01 measured — the probe is
+`render-design.mjs`'s own, not a reimplementation. `a1` is recorded as the taxonomy warned: seven of
+ten regions render, so `renders: false` with `regionsRendered: 7` is the honest shape of it.
+
+| Reference        | Runs | Note                                                                                               |
+| ---------------- | ---- | -------------------------------------------------------------------------------------------------- |
+| `exact`          | 10   | within one pixel of the declared frame on both axes                                                |
+| `downscaled`     | 6    | strictly smaller on both axes; factor recorded (0.891, 0.8, 0.8, 0.788, 0.677, 0.677)              |
+| `mismatched`     | 2    | `b-itsl-bookmk-deleted-course` 1280×1073 vs 1280×1082; `b-kampus-notes-panel` 1280×727 vs 1280×720 |
+| `channel-halved` | 1    | `a3-myportal-digital-exercises`, brightest channel 128 — **refused**                               |
+
+Frame declared **19 of 19**, undeclared 0 — recorded from `render-design.mjs`'s own resolution, as
+the step says, not re-derived. `capturedAt` across the sixteen non-backfilled runs spans **70 ms**,
+so `capturedAtIsNormalisationTime: true`: the field records when the index was built, not when
+Figma was read.
+
+### What changed against `sequencing.md`
+
+`sequencing.md` counted **seven** downscaled references. The census finds six, plus two it names
+`mismatched`: width equal to the frame, height short by nine and seven rows. The first draft of
+the classifier called both of those _exact_ under a 1 % ratio tolerance — a percentage quietly
+absorbs a reference cropped by a few rows, which is the kind of thing this census exists to name.
+The tolerance is now one pixel, absolute, and a test pins the `1280×1073` case so it cannot
+regress to exact. Which of the two `sequencing.md` had counted as the seventh downscale is not
+recoverable from its text and does not matter: both are now named with both sizes, and
+`T-NOJIRA-corpus-census-04` decides what a mismatch admits.
+
+### Reading it against the verification list
+
+`a1` — `agent-prose`, evidence `{ ... }`. `a3` — `channel-halved`, refused. `a9` — `agent-prose`,
+evidence `<!--`. `b-nsp-home` — its design context is `figma-bytes` and fails on an unclosed
+element, exactly as `render-failure-taxonomy.md` line 63 has it; the prose that heads its
+_metadata_ capture is on the metadata axis, which this census does not classify.
+
+### Out-of-scope edits, surfaced
+
+`runs/harness/pngjs.d.ts` (new) and the include register in `runs/harness/tsconfig.json`: `pngjs`
+ships no types and the harness typechecks with `--noEmit -p runs/harness`, so the module needed a
+declaration to keep `tsc` clean. Nothing under `runs/2026-10-01-*` was modified.

@@ -1,0 +1,481 @@
+{
+  "summary": {
+    "generatedBy": "runs/harness/census.mjs",
+    "censusVersion": 1,
+    "index": "captures-v2",
+    "runs": 19,
+    "renders": 9,
+    "byProvenance": {
+      "agent-prose": 4,
+      "figma-bytes": 11,
+      "hand-backfilled": 3,
+      "summarised": 1
+    },
+    "byReference": {
+      "channel-halved": 1,
+      "downscaled": 6,
+      "exact": 10,
+      "mismatched": 2
+    },
+    "refused": [
+      "a3-myportal-digital-exercises"
+    ],
+    "frameDeclared": 19,
+    "frameUndeclared": 0,
+    "capturedAtSpreadMs": 70,
+    "capturedAtIsNormalisationTime": true
+  },
+  "runs": [
+    {
+      "run": "a1-kampus-subchapter-feed",
+      "provenance": "agent-prose",
+      "provenanceEvidence": "ellipsis-param: \"{ ... }\"",
+      "renders": false,
+      "regionsTotal": 10,
+      "regionsRendered": 7,
+      "renderError": "Transform failed with 1 error:\n<stdin>:2:26: ERROR: Expected identifier but found \"}\"",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 720
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 720,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.096Z"
+    },
+    {
+      "run": "a10-etsl-fam-users",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 2,
+      "regionsRendered": 2,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1440,
+        "height": 837
+      },
+      "reference": {
+        "state": "exact",
+        "file": "reference-normalised.png",
+        "width": 1440,
+        "height": 837,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.101Z"
+    },
+    {
+      "run": "a11-sesame-learning-materials",
+      "provenance": "agent-prose",
+      "provenanceEvidence": "transcript-pointer: \"See conversation transcript\"",
+      "renders": false,
+      "regionsTotal": 1,
+      "regionsRendered": 0,
+      "renderError": "Transform failed with 1 error:\n<stdin>:30:5: ERROR: Expected \")\" but found \"conversation\"",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 360,
+        "height": 1871
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 361,
+        "height": 1871,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.105Z"
+    },
+    {
+      "run": "a2-nsp-class-overview",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 8,
+      "regionsRendered": 8,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 1003
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 1003,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.110Z"
+    },
+    {
+      "run": "a3-myportal-digital-exercises",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 6,
+      "regionsRendered": 6,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1440,
+        "height": 1024
+      },
+      "reference": {
+        "state": "channel-halved",
+        "file": "screenshot.png",
+        "width": 1440,
+        "height": 1024,
+        "maxChannel": 128,
+        "refused": true,
+        "reason": "brightest channel 128 ≤ 128: the reference is channel-halved, which is lossy and not invertible — refused"
+      },
+      "capturedAt": "2026-10-01T16:18:26.115Z"
+    },
+    {
+      "run": "a4-sesame-my-groups",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 14,
+      "regionsRendered": 14,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 1796
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1141,
+        "height": 1600,
+        "factor": 0.891,
+        "uniform": true,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.122Z"
+    },
+    {
+      "run": "a5-etsl-metadata-usage-widget",
+      "provenance": "summarised",
+      "provenanceEvidence": "design-context 3133 B is 0.053 of metadata 59075 B — a summary, not the bytes",
+      "renders": false,
+      "regionsTotal": 8,
+      "regionsRendered": 6,
+      "renderError": "Transform failed with 1 error:\n<stdin>:1:130: ERROR: Expected \">\" but found \"↕\"",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1440,
+        "height": 2032
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1135,
+        "height": 1600,
+        "factor": 0.788,
+        "uniform": true,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.127Z"
+    },
+    {
+      "run": "a6-itsl-collab-shared-folder",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": false,
+      "regionsTotal": 3,
+      "regionsRendered": 0,
+      "renderError": "Transform failed with 1 error:\n<stdin>:448:0: ERROR: Unexpected end of file before a closing \"div\" tag",
+      "truncated": true,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 1335
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 1335,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.131Z"
+    },
+    {
+      "run": "a7-myportal-materials-overviews",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 6,
+      "regionsRendered": 6,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1440,
+        "height": 1890
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1440,
+        "height": 1890,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.135Z"
+    },
+    {
+      "run": "a8-nsp-group-list",
+      "provenance": "hand-backfilled",
+      "provenanceEvidence": "3 committed design-context region(s) that re-normalisation (captures-v2) does not reproduce — written by a backfill agent",
+      "renders": false,
+      "regionsTotal": 0,
+      "regionsRendered": 0,
+      "renderError": "no fenced design-context blocks found in runs/2026-10-01-a8-nsp-group-list",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 1024
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1024,
+        "height": 820,
+        "factor": 0.8,
+        "uniform": true,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.138Z"
+    },
+    {
+      "run": "a9-sanna-login",
+      "provenance": "agent-prose",
+      "provenanceEvidence": "html-placeholder: \"<!--\"",
+      "renders": false,
+      "regionsTotal": 1,
+      "regionsRendered": 0,
+      "renderError": "Transform failed with 1 error:\n<stdin>:39:9: ERROR: Expected identifier but found \"!\"",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1512,
+        "height": 982
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1024,
+        "height": 715,
+        "factor": 0.677,
+        "uniform": false,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.141Z"
+    },
+    {
+      "run": "b-itsl-bookmk-course-files",
+      "provenance": "agent-prose",
+      "provenanceEvidence": "html-placeholder: \"<!--\"",
+      "renders": false,
+      "regionsTotal": 1,
+      "regionsRendered": 0,
+      "renderError": "Transform failed with 1 error:\n<stdin>:173:19: ERROR: Expected identifier but found \"!\"",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 768
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 768,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.145Z"
+    },
+    {
+      "run": "b-itsl-bookmk-deleted-course",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 1,
+      "regionsRendered": 1,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 1082
+      },
+      "reference": {
+        "state": "mismatched",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 1073,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.148Z"
+    },
+    {
+      "run": "b-itsl-collab-add-element",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 1,
+      "regionsRendered": 1,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 768
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 768,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.152Z"
+    },
+    {
+      "run": "b-itsl-course-course-files",
+      "provenance": "hand-backfilled",
+      "provenanceEvidence": "5 committed design-context region(s) that re-normalisation (captures-v2) does not reproduce — written by a backfill agent",
+      "renders": false,
+      "regionsTotal": 0,
+      "regionsRendered": 0,
+      "renderError": "no fenced design-context blocks found in runs/2026-10-01-b-itsl-course-course-files",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 768
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1024,
+        "height": 615,
+        "factor": 0.8,
+        "uniform": true,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.154Z"
+    },
+    {
+      "run": "b-kampus-notes-panel",
+      "provenance": "hand-backfilled",
+      "provenanceEvidence": "5 committed design-context region(s) that re-normalisation (captures-v2) does not reproduce — written by a backfill agent",
+      "renders": false,
+      "regionsTotal": 0,
+      "regionsRendered": 0,
+      "renderError": "no fenced design-context blocks found in runs/2026-10-01-b-kampus-notes-panel",
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 720
+      },
+      "reference": {
+        "state": "mismatched",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 727,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.157Z"
+    },
+    {
+      "run": "b-nsp-home",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": false,
+      "regionsTotal": 1,
+      "regionsRendered": 0,
+      "renderError": "Transform failed with 2 errors:\n<stdin>:47:0: ERROR: The character \"}\" is not valid inside a JSX element\n<stdin>:48:0: ERROR: Unexpected end of file before a closing \"div\" tag",
+      "truncated": true,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 877
+      },
+      "reference": {
+        "state": "exact",
+        "file": "screenshot.png",
+        "width": 1280,
+        "height": 877,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.160Z"
+    },
+    {
+      "run": "b-sanna-account-creation",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 1,
+      "regionsRendered": 1,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1512,
+        "height": 982
+      },
+      "reference": {
+        "state": "downscaled",
+        "file": "screenshot.png",
+        "width": 1024,
+        "height": 715,
+        "factor": 0.677,
+        "uniform": false,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.163Z"
+    },
+    {
+      "run": "b-sesame-group-details",
+      "provenance": "figma-bytes",
+      "provenanceEvidence": "data-node-id on elements — real get_design_context output",
+      "renders": true,
+      "regionsTotal": 7,
+      "regionsRendered": 7,
+      "renderError": null,
+      "truncated": false,
+      "frameDeclared": true,
+      "frame": {
+        "width": 1280,
+        "height": 2392
+      },
+      "reference": {
+        "state": "exact",
+        "file": "reference-normalised.png",
+        "width": 1280,
+        "height": 2392,
+        "maxChannel": 255
+      },
+      "capturedAt": "2026-10-01T16:18:26.166Z"
+    }
+  ]
+}

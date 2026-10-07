@@ -29,6 +29,8 @@
   "include": [
     "capture.mjs",
     "capture.test.mjs",
+    "census.mjs",
+    "census.test.mjs",
     "classify-unresolved.mjs",
     "classify-unresolved.test.mjs",
     "mcp.mjs",
@@ -36,6 +38,7 @@
     "mode-decision.test.mjs",
     "normalise-captures.mjs",
     "normalise-captures.test.mjs",
+    "pngjs.d.ts",
     "render-design.mjs",
     "rest-metadata.mjs",
     "rest-metadata.test.mjs",

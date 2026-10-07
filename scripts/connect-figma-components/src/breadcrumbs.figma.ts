@@ -1,18 +1,26 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7476-189273
 import figma from 'figma';
+import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const inverted = instance.getBoolean('Inverted');
+  const inverted = checkBooleanProperty(instance.getBoolean('Inverted'), 'Inverted');
 
-  const container = instance.findInstance(`SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`);
-  if (container.type === 'ERROR') return null;
+  const container = checkInstance(
+    instance.findInstance(`SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`),
+    `SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`
+  );
 
-  const homeBreadcrumb = container.findInstance('breadcrumb-home');
-  if (homeBreadcrumb.type === 'ERROR') return null;
+  const homeBreadcrumb = checkInstance(
+    container.findInstance('breadcrumb-home'),
+    'breadcrumb-home'
+  );
 
-  const hideHomeLabel = !homeBreadcrumb.getBoolean('Show label');
+  const hideHomeLabel = !checkBooleanProperty(
+    homeBreadcrumb.getBoolean('Show label'),
+    'Show label'
+  );
 
   const crumbs = container
     .findConnectedInstances(node => node.codeConnectId() === 'breadcrumb')

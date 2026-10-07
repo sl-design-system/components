@@ -1,25 +1,31 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10106-702411
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const variants = instance.findInstance('sl-date_field-variants', { traverseInstances: true });
-  if (variants.type === 'ERROR') return null;
+  const variants = checkInstance(
+    instance.findInstance('sl-date_field-variants', { traverseInstances: true }),
+    'sl-date_field-variants'
+  );
 
-  const disabled = variants.getString('Variant') === 'Disabled',
-    hasLabel = variants.getBoolean('Label'),
+  const disabled = checkStringProperty(variants.getString('Variant'), 'Variant') === 'Disabled',
+    hasLabel = checkBooleanProperty(variants.getBoolean('Label'), 'Label'),
     placeholder = variants.getString('Placeholder text'),
     value = variants.getString('Text');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = instance.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    const labelBase = checkInstance(variants.findInstance('sl-base-label'), 'sl-base-label');
 
-    label = labelBase.getString('Label');
-    required = labelBase.getBoolean('Required');
+    label = checkStringProperty(labelBase.getString('Label'), 'Label');
+    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');
   }
 
   return figma.code`

@@ -1,22 +1,24 @@
 import figma from 'figma';
+import { checkBooleanProperty, checkEnum, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const collapsible = figma.batch.collapsible,
-    border = instance.getBoolean('Border'),
-    divider = instance.getBoolean('Divider'),
+    border = checkBooleanProperty(instance.getBoolean('Border'), 'Border'),
+    divider = checkBooleanProperty(instance.getBoolean('Divider'), 'Divider'),
     elevationRaw = instance.getString('Elevation') || 'none',
-    shadow = instance.getBoolean('Shadow');
+    shadow = checkBooleanProperty(instance.getBoolean('Shadow'), 'Shadow');
 
-  const density =
+  const density = checkEnum(
     instance.getEnum('Density', {
       Default: 'default',
       Relaxed: 'relaxed'
-    }) ?? 'default';
+    }) ?? 'default'
+  );
 
   const togglePlacement = collapsible
-    ? (instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
+    ? checkEnum(instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
   const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;
@@ -30,17 +32,20 @@ function getExample() {
     elevation = 'none';
   }
 
-  const header = collapsible
-    ? instance.findInstance('sl-panel-header-collapsable')
-    : instance.findInstance('sl-panel-header-default');
-  if (header.type === 'ERROR') return null;
+  const header = checkInstance(
+    collapsible
+      ? instance.findInstance('sl-panel-header-collapsable')
+      : instance.findInstance('sl-panel-header-default'),
+    collapsible ? 'sl-panel-header-collapsable' : 'sl-panel-header-default'
+  );
 
-  const hasActions = collapsible ? false : header.getBoolean('Actions'),
-    hasPrefix = header.getBoolean('Prefix'),
-    hasSuffix = header.getBoolean('Suffix');
+  const hasActions = collapsible
+      ? false
+      : checkBooleanProperty(header.getBoolean('Actions'), 'Actions'),
+    hasPrefix = checkBooleanProperty(header.getBoolean('Prefix'), 'Prefix'),
+    hasSuffix = checkBooleanProperty(header.getBoolean('Suffix'), 'Suffix');
 
-  const heading = header.findText('title');
-  if (heading.type === 'ERROR') return null;
+  const heading = checkInstance(header.findText('title'), 'title');
 
   let actions;
   if (hasActions) {
@@ -60,7 +65,9 @@ function getExample() {
   let prefix;
   if (hasPrefix) {
     const prefixInstance = header.getInstanceSwap('Prefix instance');
-    if (!prefixInstance || prefixInstance.type === 'ERROR') return null;
+    if (!prefixInstance || prefixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: Prefix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     prefixInstance.properties.slot = { value: 'prefix' };
@@ -71,7 +78,9 @@ function getExample() {
   let suffix;
   if (hasSuffix) {
     const suffixInstance = header.getInstanceSwap('Suffix instance');
-    if (!suffixInstance || suffixInstance.type === 'ERROR') return null;
+    if (!suffixInstance || suffixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: Suffix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     suffixInstance.properties.slot = { value: 'suffix' };

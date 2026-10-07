@@ -1,26 +1,35 @@
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkEnum,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const fill =
+  const fill = checkEnum(
     instance.getEnum('Type', {
       Outline: 'outline',
       Ghost: 'ghost',
       Link: 'link'
-    }) || 'solid';
+    }) || 'solid'
+  );
 
-  const icon = instance.findInstance('Base/Icon', { traverseInstances: true });
-  if (icon.type === 'ERROR') return null;
+  const icon = checkInstance(
+    instance.findInstance('Base/Icon', { traverseInstances: true }),
+    'Base/Icon'
+  );
 
-  const name = icon.getString('𝐓 - FontAwesome'),
+  const name = checkStringProperty(icon.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
     variant = icon.getEnum('Variant', { Outline: 'far', Solid: 'fas' });
 
-  const selected = instance.getBoolean('Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
 
-  const size = instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md';
+  const size = checkEnum(instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md');
 
   return figma.code`
     <sl-toggle-button

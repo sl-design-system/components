@@ -1,18 +1,22 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-66298
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const labelBase = instance.findInstance('sl-base-label');
-  if (labelBase.type === 'ERROR') return null;
+  const labelBase = checkInstance(instance.findInstance('sl-base-label'), 'sl-base-label');
 
   const hint = labelBase.getString('Hint'),
-    label = labelBase.getString('Label'),
-    required = labelBase.getBoolean('Required'),
-    showHint = labelBase.getBoolean('Show Hint');
+    label = checkStringProperty(labelBase.getString('Label'), 'Label'),
+    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required'),
+    showHint = checkBooleanProperty(labelBase.getBoolean('Show Hint'), 'Show Hint');
 
   const checkboxes = instance
     .findConnectedInstances(node => node.codeConnectId() === 'checkbox')

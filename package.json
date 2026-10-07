@@ -15,9 +15,9 @@
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
-    "packages/tokens",
     "scripts",
     "scripts/connect-figma-components",
+    "scripts/themes",
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",
@@ -30,6 +30,7 @@
   "scripts": {
     "build": "wireit",
     "check-package-exports": "node scripts/check-package-exports.js",
+    "check-theme-package-types": "node scripts/check-theme-package-types.js",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
@@ -88,13 +89,15 @@
       "dependencies": [
         "build:themes:setup",
         "build:themes:code",
-        "build:themes:styles"
+        "build:themes:styles",
+        "build:themes:types"
       ]
     },
     "build:themes:code": {
       "command": "node scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
+        "scripts/build-packages.js",
         "packages/themes/**/*.ts",
         "!packages/themes/**/*.d.ts"
       ],
@@ -104,24 +107,51 @@
       ]
     },
     "build:themes:setup": {
-      "command": "node scripts/setup-themes.js",
+      "command": "node scripts/themes/setup-themes.js",
       "clean": false,
       "files": [
-        "scripts/setup-themes.js",
-        "packages/themes/core/global.css"
+        "scripts/themes/setup-themes.js",
+        "packages/themes/core/global.css",
+        "packages/themes/core/icons.json",
+        "packages/themes/core/typography.css",
+        "scripts/themes/export/core-css/**/*.css"
+      ],
+      "output": [
+        "packages/themes/*/theme.css",
+        "packages/themes/*/global.css",
+        "packages/themes/*/typography.css"
       ]
     },
     "build:themes:styles": {
-      "command": "node scripts/build-themes.js --studio",
+      "command": "node scripts/themes/build-themes.js --studio",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-themes.js",
-        "packages/tokens/src/**/*.json"
+        "scripts/themes/build-themes.js",
+        "scripts/themes/export/slds-legacy/**/*.json"
       ],
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/global.css",
-        "!packages/themes/*/fonts.css"
+        "!packages/themes/*/typography.css",
+        "!packages/themes/*/fonts.css",
+        "!packages/themes/*/theme.css"
+      ]
+    },
+    "build:themes:types": {
+      "command": "tsgo -p packages/themes/tsconfig.json",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:components"
+      ],
+      "files": [
+        "tsconfig.base.json",
+        "packages/themes/**/tsconfig.json",
+        "packages/themes/**/*.ts",
+        "!packages/themes/**/*.d.ts"
+      ],
+      "output": [
+        "packages/themes/**/*.d.ts",
+        "packages/themes/tsconfig.tsbuildinfo"
       ]
     },
     "dist": {
@@ -130,6 +160,7 @@
         "build:locales",
         "build:themes:setup",
         "build:themes:code",
+        "build:themes:types",
         "dist:angular",
         "dist:components",
         "dist:themes"
@@ -153,21 +184,24 @@
       ]
     },
     "dist:themes": {
-      "command": "node scripts/build-themes.js --studio --production",
+      "command": "node scripts/themes/build-themes.js --studio --production",
       "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",
-        "!packages/themes/*/global.css"
+        "!packages/themes/*/global.css",
+        "!packages/themes/*/icons.json",
+        "!packages/themes/*/typography.css",
+        "!packages/themes/*/theme.css"
       ]
     },
     "import-icons": {
-      "command": "node scripts/import-icons.js",
+      "command": "node scripts/build-icons.js",
       "clean": false,
       "files": [
-        "scripts/import-icons.js",
-        "packages/tokens/src/tokens/core.json",
-        "packages/tokens/src/tokens/*/base.json"
+        "scripts/build-icons.js",
+        "scripts/themes/export/slds-legacy/core.json",
+        "scripts/themes/export/slds-legacy/*/base.json"
       ],
       "output": [
         "packages/themes/*/icons.ts",

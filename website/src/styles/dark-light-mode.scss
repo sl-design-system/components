@@ -79,7 +79,8 @@
 
 /* stylelint-disable color-no-hex */
 
-:root {
+body {
+  --color-scheme: light;
   --angle: url('../assets/icons/angle-right-black.svg');
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
@@ -161,6 +162,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --color-scheme: dark;
+  }
+
+  body {
     --angle: url('../assets/icons/angle-right.svg');
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);

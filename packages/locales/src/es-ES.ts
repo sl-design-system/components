@@ -140,6 +140,8 @@ export const templates = {
   'sl.timeField.toggleDropdown': 'Selecciona una hora',
   'sl.timeField.typeMismatch': 'Introduce una hora válida.',
   'sl.timeField.valueMissing': 'Introduce una hora.',
+  'sl.toggleGroup.selectOne': 'Selecciona una opción.',
+  'sl.toggleGroup.selectOneOrMore': 'Selecciona una o más opciones.',
   'sl.toolBar.showMore': 'Mostrar más',
   'sl.tree.loadingMessage': 'Cargando'
 };

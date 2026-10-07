@@ -1,5 +1,5 @@
 {
   "breadcrumb-separator": {
-    "$value": "chevron-right"
+    "fa-icon": "chevron-right"
   }
 }

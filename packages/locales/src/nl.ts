@@ -140,6 +140,8 @@ export const templates = {
   'sl.timeField.toggleDropdown': 'Selecteer tijd',
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
+  'sl.toggleGroup.selectOne': 'Selecteer één optie.',
+  'sl.toggleGroup.selectOneOrMore': 'Selecteer één of meer opties.',
   'sl.toolBar.showMore': 'Meer tonen',
   'sl.tree.loadingMessage': 'Laden'
 };

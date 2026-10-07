@@ -7,6 +7,7 @@ import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
 import {
   type ToolBarItemButton,
+  type ToolBarItemMenu,
   mapButtonToItem,
   mapElementsToItems,
   mapMenuButtonToItem,
@@ -103,6 +104,78 @@ describe('mapMenuButtonToItem', () => {
     expect((item.menuItems[0] as ToolBarItemButton).label).to.equal('Cut');
     expect((item.menuItems[1] as ToolBarItemButton).label).to.equal('Copy');
     expect((item.menuItems[2] as ToolBarItemButton).label).to.equal('Paste');
+  });
+
+  it('should keep menu items with a submenu nested instead of flattening them', async () => {
+    const el = await fixture<MenuButton>(html`
+      <sl-menu-button>
+        <span slot="button">More</span>
+        <sl-menu-item>Duplicate</sl-menu-item>
+        <sl-menu-item>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>North</sl-menu-item>
+            <sl-menu-item>Middle</sl-menu-item>
+            <sl-menu-item>South</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+      </sl-menu-button>
+    `);
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.menuItems).to.have.length(2);
+    expect((item.menuItems[0] as ToolBarItemButton).label).to.equal('Duplicate');
+
+    const submenuItem = item.menuItems[1] as ToolBarItemMenu;
+
+    expect(submenuItem.type).to.equal('menu');
+    expect(submenuItem.label).to.equal('Add holidays');
+    expect(submenuItem.menuItems).to.have.length(3);
+    expect((submenuItem.menuItems[0] as ToolBarItemButton).label).to.equal('North');
+    expect((submenuItem.menuItems[1] as ToolBarItemButton).label).to.equal('Middle');
+    expect((submenuItem.menuItems[2] as ToolBarItemButton).label).to.equal('South');
+  });
+
+  it('should keep a submenu item with its own nested submenu intact', async () => {
+    const el = await fixture<MenuButton>(html`
+      <sl-menu-button>
+        <span slot="button">More</span>
+        <sl-menu-item>
+          <sl-icon name="far-paste"></sl-icon>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>North</sl-menu-item>
+            <sl-menu-item>
+              South
+              <sl-menu slot="submenu">
+                <sl-menu-item>Noord-Brabant</sl-menu-item>
+                <sl-menu-item>Limburg</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+      </sl-menu-button>
+    `);
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.menuItems).to.have.length(1);
+
+    const addHolidays = item.menuItems[0] as ToolBarItemMenu;
+
+    expect(addHolidays.type).to.equal('menu');
+    expect(addHolidays.label).to.equal('Add holidays');
+    expect(addHolidays.menuItems).to.have.length(2);
+    expect((addHolidays.menuItems[0] as ToolBarItemButton).label).to.equal('North');
+
+    const south = addHolidays.menuItems[1] as ToolBarItemMenu;
+
+    expect(south.type).to.equal('menu');
+    expect(south.label).to.equal('South');
+    expect(south.menuItems).to.have.length(2);
+    expect((south.menuItems[0] as ToolBarItemButton).label).to.equal('Noord-Brabant');
+    expect((south.menuItems[1] as ToolBarItemButton).label).to.equal('Limburg');
   });
 
   it('should map a disabled menu button', async () => {
@@ -214,6 +287,58 @@ describe('mapMenuItemToItem', () => {
       item = mapMenuItemToItem(el);
 
     expect(item.click).to.be.a('function');
+  });
+
+  it('should map a menu item with a submenu as a menu type without flattening its children', async () => {
+    const el = await fixture<MenuItem>(html`
+        <sl-menu-item>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>North</sl-menu-item>
+            <sl-menu-item>Middle</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+      `),
+      item = mapMenuItemToItem(el) as ToolBarItemMenu;
+
+    expect(item.type).to.equal('menu');
+    expect(item.label).to.equal('Add holidays');
+    expect(item.menuItems).to.have.length(2);
+    expect((item.menuItems[0] as ToolBarItemButton).label).to.equal('North');
+    expect((item.menuItems[1] as ToolBarItemButton).label).to.equal('Middle');
+  });
+
+  it('should keep multiple levels of nested submenus intact', async () => {
+    const el = await fixture<MenuItem>(html`
+        <sl-menu-item>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>
+              North
+              <sl-menu slot="submenu">
+                <sl-menu-item>Groningen</sl-menu-item>
+                <sl-menu-item>Friesland</sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+            <sl-menu-item>Middle</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+      `),
+      item = mapMenuItemToItem(el) as ToolBarItemMenu;
+
+    expect(item.type).to.equal('menu');
+    expect(item.label).to.equal('Add holidays');
+    expect(item.menuItems).to.have.length(2);
+
+    const north = item.menuItems[0] as ToolBarItemMenu;
+
+    expect(north.type).to.equal('menu');
+    expect(north.label).to.equal('North');
+    expect(north.menuItems).to.have.length(2);
+    expect((north.menuItems[0] as ToolBarItemButton).label).to.equal('Groningen');
+    expect((north.menuItems[1] as ToolBarItemButton).label).to.equal('Friesland');
+
+    expect((item.menuItems[1] as ToolBarItemButton).label).to.equal('Middle');
   });
 });
 

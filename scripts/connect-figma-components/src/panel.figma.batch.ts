@@ -1,5 +1,5 @@
-import figma from 'figma';
-import { checkBooleanProperty, checkEnum, checkInstance } from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle, type TextHandle } from 'figma';
+import { checkBooleanProperty, checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -32,12 +32,11 @@ function getExample() {
     elevation = 'none';
   }
 
-  const header = checkInstance(
+  const header = (
     collapsible
       ? instance.findInstance('sl-panel-header-collapsable')
-      : instance.findInstance('sl-panel-header-default'),
-    collapsible ? 'sl-panel-header-collapsable' : 'sl-panel-header-default'
-  );
+      : instance.findInstance('sl-panel-header-default')
+  ) as InstanceHandle;
 
   const hasActions = collapsible
       ? false
@@ -45,7 +44,7 @@ function getExample() {
     hasPrefix = checkBooleanProperty(header.getBoolean('Prefix'), 'Prefix'),
     hasSuffix = checkBooleanProperty(header.getBoolean('Suffix'), 'Suffix');
 
-  const heading = checkInstance(header.findText('title'), 'title');
+  const heading = header.findText('title') as TextHandle;
 
   let actions;
   if (hasActions) {

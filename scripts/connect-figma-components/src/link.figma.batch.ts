@@ -1,23 +1,16 @@
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const variants = checkInstance(
-    instance.findInstance('StandaloneLink-Variants'),
-    'StandaloneLink-Variants'
-  );
+  const variants = instance.findInstance('StandaloneLink-Variants') as InstanceHandle;
 
-  const link = checkInstance(
-    variants.findInstance('sl-link-base', { traverseInstances: true }),
-    'sl-link-base'
-  );
+  const link = variants.findInstance('sl-link-base', { traverseInstances: true }) as InstanceHandle;
 
   const fill = checkEnum(variants.getEnum('fill', { outline: 'outline' }) ?? 'solid'),
     variant = checkEnum(variants.getEnum('variant', { primary: 'primary' }) ?? 'secondary'),

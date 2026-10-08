@@ -1,9 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=935-17454
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -13,10 +12,7 @@ function getExample() {
   const checked = checkBooleanProperty(instance.getBoolean('Checked'), 'Checked'),
     disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const radiobuttonBase = checkInstance(
-    instance.findInstance('radiobutton-base'),
-    'radiobutton-base'
-  );
+  const radiobuttonBase = instance.findInstance('radiobutton-base') as InstanceHandle;
 
   const label = checkStringProperty(radiobuttonBase.getString('Label text'), 'Label text');
 

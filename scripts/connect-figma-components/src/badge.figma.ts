@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1870-150559
-import figma from 'figma';
-import { checkInstance, checkStringProperty } from './_shared/figma-assertions.js';
+// source=packages/components/badge/src/badge.ts
+// component=Badge
+import figma, { type InstanceHandle } from 'figma';
+import { checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -10,19 +12,10 @@ function getExample() {
     size = instance.getString('size') ?? 'md',
     slot = instance.getString('slot');
 
-  const badgeBase = checkInstance(
-    instance.findInstance(`badge-base-${size}`),
-    `badge-base-${size}`
-  );
+  const badgeBase = instance.findInstance(`badge-base-${size}`) as InstanceHandle;
 
-  let icon;
-  if (size === 'lg') {
-    const iconInstance = checkInstance(
-      badgeBase.findInstance('sl-icon', { traverseInstances: true }),
-      'sl-icon'
-    );
+  const iconInstance = badgeBase.findInstance('sl-icon', { traverseInstances: true }),
     icon = iconInstance.executeTemplate().example;
-  }
 
   const label = checkStringProperty(badgeBase.getString('Text'), 'Text');
 
@@ -41,5 +34,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'badge'
+  id: 'Badge'
 };

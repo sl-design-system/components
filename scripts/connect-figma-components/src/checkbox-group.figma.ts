@@ -1,17 +1,13 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-66298
-import figma from 'figma';
-import {
-  checkBooleanProperty,
-  checkInstance,
-  checkStringProperty
-} from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const labelBase = checkInstance(instance.findInstance('sl-base-label'), 'sl-base-label');
+  const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
   const hint = labelBase.getString('Hint'),
     label = checkStringProperty(labelBase.getString('Label'), 'Label'),

@@ -1,9 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=892-255678
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -15,7 +14,7 @@ function getExample() {
     indeterminate = checkBooleanProperty(instance.getBoolean('Intermediate'), 'Intermediate'),
     hasLabel = checkBooleanProperty(instance.getBoolean('Label'), 'Label');
 
-  const checkboxBase = checkInstance(instance.findInstance('checkbox-base'), 'checkbox-base');
+  const checkboxBase = instance.findInstance('checkbox-base') as InstanceHandle;
 
   // The default size is "md".
   const size = checkEnum(

@@ -1,8 +1,7 @@
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -19,10 +18,7 @@ function getExample() {
     }) || 'solid'
   );
 
-  const icon = checkInstance(
-    instance.findInstance('Base/Icon', { traverseInstances: true }),
-    'Base/Icon'
-  );
+  const icon = instance.findInstance('Base/Icon', { traverseInstances: true }) as InstanceHandle;
 
   const name = checkStringProperty(icon.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
     variant = icon.getEnum('Variant', { Outline: 'far', Solid: 'fas' });

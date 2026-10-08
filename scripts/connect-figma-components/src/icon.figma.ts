@@ -1,8 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-41090
 // source=packages/components/icon/src/icon.ts
 // component=Icon
-import figma from 'figma';
-import { checkEnum, checkInstance, checkStringProperty } from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -17,10 +17,9 @@ function getExample() {
     size = checkEnum<(typeof supportedSizes)[number]>(
       supportedSizes.find(candidate => candidate === requestedSize) ?? 'md'
     ),
-    baseIcon = checkInstance(
-      sizeInstance.findInstance('Base/Icon', { traverseInstances: true }),
-      'Base/Icon'
-    ),
+    baseIcon = sizeInstance.findInstance('Base/Icon', {
+      traverseInstances: true
+    }) as InstanceHandle,
     name = checkStringProperty(baseIcon.getString('icon-name'), 'icon-name'),
     variant = checkEnum(
       baseIcon.getEnum('variant', {

@@ -1,9 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3572-168559
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -41,26 +40,21 @@ function getExample() {
       }) || 'default'
     );
 
-  const optionalLabel = checkInstance(
-      instance.findInstance('sl-base-label-optional'),
-      'sl-base-label-optional'
-    ),
+  const optionalLabel = instance.findInstance('sl-base-label-optional') as InstanceHandle,
     showLabel = checkBooleanProperty(
       optionalLabel.getBoolean('Label', { true: true, false: false }),
       'Label'
     ),
-    labelBase = checkInstance(
-      optionalLabel.findInstance('sl-base-label', { traverseInstances: true }),
-      'sl-base-label'
-    ),
+    labelBase = optionalLabel.findInstance('sl-base-label', {
+      traverseInstances: true
+    }) as InstanceHandle,
     label = checkStringProperty(labelBase.getString('Label'), 'Label');
 
   let errorMessage = '';
   if (state === 'negative') {
-    const validationMessage = checkInstance(
-      instance.findInstance('sl-base-validation-message', { traverseInstances: true }),
-      'sl-base-validation-message'
-    );
+    const validationMessage = instance.findInstance('sl-base-validation-message', {
+      traverseInstances: true
+    }) as InstanceHandle;
     errorMessage = checkStringProperty(validationMessage.getString('Message'), 'Message');
   }
 

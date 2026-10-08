@@ -1,18 +1,14 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17355-98183
-import figma from 'figma';
-import { checkInstance, checkEnum } from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const button = checkInstance(
-      instance.findInstance('sl-button-rectangular', { traverseInstances: true }),
-      'sl-button-rectangular'
-    ),
-    buttonBase = checkInstance(
-      button.findInstance('Button-Base', { traverseInstances: true }),
-      'Button-Base'
-    );
+  const button = instance.findInstance('sl-button-rectangular', {
+      traverseInstances: true
+    }) as InstanceHandle,
+    buttonBase = button.findInstance('Button-Base', { traverseInstances: true }) as InstanceHandle;
 
   const size = checkEnum(
     buttonBase.getEnum('↕️ - Size', {

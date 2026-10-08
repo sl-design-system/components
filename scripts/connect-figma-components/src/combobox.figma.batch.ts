@@ -1,9 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6745-531516
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 import { getMenuItems } from './_shared/figma-menu.js';
@@ -13,10 +12,9 @@ const instance = figma.selectedInstance;
 const id = figma.batch.id as string;
 
 function getExample() {
-  const baseCombobox = checkInstance(
-    instance.findInstance('sl-base-combobox', { traverseInstances: true }),
-    'sl-base-combobox'
-  );
+  const baseCombobox = instance.findInstance('sl-base-combobox', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
   const hasTags = checkBooleanProperty(baseCombobox.getBoolean('Tags'), 'Tags'),
     inputText = checkStringProperty(baseCombobox.getString('Input Text'), 'Input Text'),

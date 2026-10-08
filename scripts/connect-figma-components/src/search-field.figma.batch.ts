@@ -1,9 +1,5 @@
-import figma from 'figma';
-import {
-  checkBooleanProperty,
-  checkInstance,
-  checkStringProperty
-} from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -16,7 +12,7 @@ function getExample() {
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = checkInstance(instance.findInstance('sl-base-label'), 'sl-base-label');
+    const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
     label = checkStringProperty(labelBase.getString('Label'), 'Label');
     required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');

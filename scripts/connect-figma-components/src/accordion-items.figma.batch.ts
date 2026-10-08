@@ -1,24 +1,16 @@
-import figma from 'figma';
-import {
-  checkBooleanProperty,
-  checkInstance,
-  checkStringProperty
-} from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const open = checkBooleanProperty(instance.getBoolean('Open'), 'Open');
 
-  const header = checkInstance(
-    instance.findInstance('Accordion Header/Plus'),
-    'Accordion Header/Plus'
-  );
+  const header = instance.findInstance('Accordion Header/Plus') as InstanceHandle;
 
-  const title = checkInstance(
-    header.findInstance('accordion-summary', { traverseInstances: true }),
-    'accordion-summary'
-  );
+  const title = header.findInstance('accordion-summary', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
   const summary = checkStringProperty(title.getString('summary'), 'summary');
 

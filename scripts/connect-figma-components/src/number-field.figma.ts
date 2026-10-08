@@ -1,20 +1,13 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9016-82058
-import figma from 'figma';
-import {
-  checkBooleanProperty,
-  checkInstance,
-  checkStringProperty
-} from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const disabled = checkStringProperty(instance.getString('Variant'), 'Variant') === 'Disabled';
 
-  const baseNumberField = checkInstance(
-    instance.findInstance('base number field'),
-    'base number field'
-  );
+  const baseNumberField = instance.findInstance('base number field') as InstanceHandle;
 
   const hasLabel = checkBooleanProperty(baseNumberField.getBoolean('Label'), 'Label'),
     placeholder = baseNumberField.getString('Placeholder'),
@@ -24,7 +17,7 @@ function getExample() {
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = checkInstance(baseNumberField.findInstance('sl-base-label'), 'sl-base-label');
+    const labelBase = baseNumberField.findInstance('sl-base-label') as InstanceHandle;
 
     label = checkStringProperty(labelBase.getString('Label'), 'Label');
     required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');

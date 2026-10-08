@@ -1,25 +1,23 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6013-90927
-import figma from 'figma';
-import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle, type TextHandle } from 'figma';
+import { checkBooleanProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const cardContent = checkInstance(
-    instance.findInstance('Card Content', { traverseInstances: true }),
-    'Card Content'
-  );
+  const cardContent = instance.findInstance('Card Content', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
   checkBooleanProperty(cardContent.getBoolean('Show more button'), 'Show more button');
 
-  const cardHeader = checkInstance(
-    cardContent.findInstance('card-header', { traverseInstances: true }),
-    'card-header'
-  );
+  const cardHeader = cardContent.findInstance('card-header', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
-  const cardTitle = checkInstance(cardHeader.findInstance('card-title'), 'card-title');
+  const cardTitle = cardHeader.findInstance('card-title') as InstanceHandle;
 
-  const title = checkInstance(cardTitle.findText('Title'), 'Title');
+  const title = cardTitle.findText('Title') as TextHandle;
 
   const cardSlotHeader = cardHeader.findInstance('card-slot-header');
 

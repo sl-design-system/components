@@ -1,9 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7401-934
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -40,7 +39,7 @@ function getExample() {
     }) ?? 'md'
   );
 
-  const header = checkInstance(instance.findInstance('avatar-header'), 'avatar-header');
+  const header = instance.findInstance('avatar-header') as InstanceHandle;
 
   const displayName = checkStringProperty(header.getString('display-name'), 'display-name'),
     subheading = checkStringProperty(header.getString('subheading'), 'subheading'),

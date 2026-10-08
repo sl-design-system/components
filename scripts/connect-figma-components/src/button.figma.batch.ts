@@ -1,8 +1,7 @@
-import figma from 'figma';
+import figma, { type InstanceHandle } from 'figma';
 import {
   checkBooleanProperty,
   checkEnum,
-  checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -11,7 +10,7 @@ const instance = figma.selectedInstance;
 function getExample() {
   const slot = instance.getString('slot');
 
-  const buttonVariants = checkInstance(instance.findInstance('button-variants'), 'button-variants');
+  const buttonVariants = instance.findInstance('button-variants') as InstanceHandle;
 
   // The default fill is "solid".
   const fill = checkEnum(
@@ -35,7 +34,7 @@ function getExample() {
     }) || 'secondary'
   );
 
-  const buttonBase = checkInstance(buttonVariants.findInstance('button-base'), 'button-base');
+  const buttonBase = buttonVariants.findInstance('button-base') as InstanceHandle;
 
   const iconOnly = checkBooleanProperty(buttonBase.getBoolean('icon-only'), 'icon-only'),
     iconStart = checkBooleanProperty(
@@ -55,10 +54,7 @@ function getExample() {
 
   let icon;
   if (iconStart || iconEnd) {
-    const iconInstance = checkInstance(
-      buttonBase.findInstance('SL-icon Size', { traverseInstances: true }),
-      'SL-icon Size'
-    );
+    const iconInstance = buttonBase.findInstance('SL-icon Size', { traverseInstances: true });
 
     icon = iconInstance.executeTemplate().example;
   }

@@ -1,21 +1,17 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7476-189273
-import figma from 'figma';
-import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
+import figma, { type InstanceHandle } from 'figma';
+import { checkBooleanProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const inverted = checkBooleanProperty(instance.getBoolean('Inverted'), 'Inverted');
 
-  const container = checkInstance(
-    instance.findInstance(`SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`),
+  const container = instance.findInstance(
     `SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`
-  );
+  ) as InstanceHandle;
 
-  const homeBreadcrumb = checkInstance(
-    container.findInstance('breadcrumb-home'),
-    'breadcrumb-home'
-  );
+  const homeBreadcrumb = container.findInstance('breadcrumb-home') as InstanceHandle;
 
   const hideHomeLabel = !checkBooleanProperty(
     homeBreadcrumb.getBoolean('Show label'),

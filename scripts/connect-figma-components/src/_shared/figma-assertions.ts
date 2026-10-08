@@ -25,15 +25,6 @@ export function checkEnum<T extends string>(property: T | Array<{ message: strin
   return property;
 }
 
-export function checkInstance<T extends { type: string }>(
-  handle: T,
-  name: string
-): Exclude<T, { type: 'ERROR' }> {
-  if (handle.type === 'ERROR') throw new Error(`Missing Figma instance: ${name}`);
-
-  return handle as Exclude<T, { type: 'ERROR' }>;
-}
-
 export function checkStringProperty(
   property: string | Array<{ message: string }>,
   name: string

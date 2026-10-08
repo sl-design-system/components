@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2924-285265
-import figma from 'figma';
-import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
+import figma, { type TextHandle } from 'figma';
+import { checkBooleanProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -8,7 +8,7 @@ function getExample() {
   const content = instance.getSlot('Slot'),
     closeButton = checkBooleanProperty(instance.getBoolean('Show Close'), 'Show Close');
 
-  const heading = checkInstance(instance.findText('Heading'), 'Heading');
+  const heading = instance.findText('Heading') as TextHandle;
 
   const footer = instance
     .findConnectedInstances(() => true, { path: ['Dialog', 'Footer'] })

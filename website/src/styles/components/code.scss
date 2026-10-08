@@ -12,6 +12,10 @@
   }
 }
 
+pre:focus-visible {
+  outline: none;
+}
+
 .ds-code__copy-button {
   inset-block-start: 1.6rem;
   inset-inline-end: 1.6rem;
@@ -88,6 +92,10 @@ code {
   font-size: 1.2rem;
   line-height: 1rem;
   padding: 0.2rem 0.8rem;
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 code[class*='language-'] {

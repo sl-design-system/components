@@ -337,27 +337,35 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ${repeat(
             this.calendar?.weeks ?? [],
             week => week.days[0].date.toISOString(),
-            week => html`
-              <tr class="days" role="row">
-                ${
-                  this.showWeekNumbers
-                    ? html`
-                        <td
-                          aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
-                          part="week-number"
-                          role="rowheader">
-                          ${week.number}
-                        </td>
-                      `
-                    : nothing
-                }
-                ${repeat(
-                  week.days,
-                  day => day.date.toISOString(),
-                  day => this.renderDay(day)
-                )}
-              </tr>
-            `
+            week => {
+              const hasVisibleDay = week.days.some(day => !day.previousMonth && !day.nextMonth);
+
+              return html`
+                <tr class="days" role="row">
+                  ${
+                    this.showWeekNumbers
+                      ? this.hideDaysOtherMonths && !hasVisibleDay
+                        ? html`<td part="week-number" role="rowheader"></td>`
+                        : html`
+                            <td
+                              aria-label=${msg(str`Week ${week.number}`, {
+                                id: 'sl.monthView.week'
+                              })}
+                              part="week-number"
+                              role="rowheader">
+                              ${week.number}
+                            </td>
+                          `
+                      : nothing
+                  }
+                  ${repeat(
+                    week.days,
+                    day => day.date.toISOString(),
+                    day => this.renderDay(day)
+                  )}
+                </tr>
+              `;
+            }
           )}
         </tbody>
       </table>

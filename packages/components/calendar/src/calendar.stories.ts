@@ -16,6 +16,7 @@ type Props = Pick<
   | 'min'
   | 'mode'
   | 'month'
+  | 'numberOfMonths'
   | 'range'
   | 'readonly'
   | 'selected'
@@ -51,6 +52,7 @@ export default {
   args: {
     readonly: false,
     mode: 'single',
+    numberOfMonths: 1,
     showToday: false,
     showWeekNumbers: false
   },
@@ -82,6 +84,10 @@ export default {
     month: {
       control: 'date'
     },
+    numberOfMonths: {
+      control: 'inline-radio',
+      options: [1, 2]
+    },
     range: {
       control: 'object'
     },
@@ -98,6 +104,7 @@ export default {
     min,
     mode,
     month,
+    numberOfMonths,
     range,
     readonly,
     selected,
@@ -147,6 +154,7 @@ export default {
         min=${ifDefined(parseDate(min)?.toISOString())}
         mode=${ifDefined(mode)}
         month=${ifDefined(parseDate(month)?.toISOString())}
+        number-of-months=${ifDefined(numberOfMonths)}
         .range=${range?.map(date => parseDate(date)).filter(date => date !== undefined)}
         selected=${ifDefined(parseDate(selected)?.toISOString())}></sl-calendar>
     `;
@@ -201,6 +209,7 @@ export const Range: Story = {
   args: {
     mode: 'range',
     month: new Date(2025, 8, 1),
+    numberOfMonths: 2,
     range: [new Date(2025, 8, 17), new Date(2025, 8, 22)],
     showWeekNumbers: true
   }

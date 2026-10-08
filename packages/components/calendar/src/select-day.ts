@@ -76,12 +76,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
 
+  /** Animation frame used to update the responsive month count outside ResizeObserver delivery. */
+  #resizeFrame?: number;
+
   /**
    * Use a resize observer as a cross browser solution to know when to initialize the intersection
    * observer and also to know when to center the current month in the scroller during
    * initialization.
    */
-  #resizeObserver = new ResizeObserver(async () => {
+  #resizeObserver = new ResizeObserver(() => {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
@@ -103,8 +106,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
-      await this.#updateMonthViews();
+      void this.#updateMonthViews();
     }
+
+    if (this.#resizeFrame) {
+      cancelAnimationFrame(this.#resizeFrame);
+    }
+    this.#resizeFrame = requestAnimationFrame(() => {
+      this.#resizeFrame = undefined;
+      this.#updateVisibleMonthCount();
+    });
   });
 
   /** The list of dates that should be set as disabled. */
@@ -146,11 +157,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The month that is shown. */
   @property({ converter: dateConverter }) month = new Date();
 
+  /** The preferred number of consecutive months to show. Collapses to one when space is limited. */
+  @property({ type: Number, reflect: true, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 =
+    1;
+
   /** @internal The next month in the calendar. */
   @state() nextMonth?: Date;
 
   /** @internal The previous month in the calendar. */
   @state() previousMonth?: Date;
+
+  /** @internal The number of months that currently fit in the available space. */
+  @state() visibleMonthCount: 1 | 2 = 1;
 
   /** Will disable selecting a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
@@ -195,6 +213,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
 
+    if (this.#resizeFrame) {
+      cancelAnimationFrame(this.#resizeFrame);
+      this.#resizeFrame = undefined;
+    }
+
     this.#intersectionObserver?.disconnect();
     this.#intersectionObserver = undefined;
 
@@ -230,7 +253,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('month') ||
+      changes.has('numberOfMonths') ||
+      changes.has('visibleMonthCount')
+    ) {
       this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
       this.#observedMonths = undefined;
     }
@@ -254,7 +283,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       requestAnimationFrame(() => this.#scrollToMonth(0));
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('month') ||
+      changes.has('numberOfMonths') ||
+      changes.has('visibleMonthCount')
+    ) {
       void this.#updateMonthViews();
     }
   }
@@ -262,6 +297,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     const canSelectNextMonth = this.#canSelectNextMonth(),
       canSelectPreviousMonth = this.#canSelectPreviousMonth(),
+      showTwoMonths = this.visibleMonthCount === 2 && canSelectNextMonth,
+      followingMonth = this.nextMonth
+        ? new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth() + 1)
+        : undefined,
+      canRenderFollowingMonth = showTwoMonths && this.#isMonthWithinBounds(followingMonth),
       canSelectNextYear = this.displayMonth
         ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
         : false,
@@ -331,6 +371,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 </span>
               `
         }
+        ${
+          showTwoMonths
+            ? html`
+                <span class="following-month-label">
+                  <sl-format-date
+                    .date=${this.nextMonth}
+                    locale=${ifDefined(this.locale)}
+                    month="long"
+                    year="numeric"></sl-format-date>
+                </span>
+              `
+            : nothing
+        }
 
         <sl-button
           @click=${this.#onPrevious}
@@ -358,27 +411,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </sl-button>
       </header>
 
-      <div class="days-of-week" role="list">
-        ${
-          this.showWeekNumbers
-            ? html`
-                <span
-                  aria-label=${msg('Week', { id: 'sl.calendar.week' })}
-                  class="week-number"
-                  role="listitem">
-                  ${this.localizedWeekOfYear}
-                </span>
-              `
-            : nothing
-        }
-        ${this.weekDays.map(
-          day => html`
-            <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
-          `
-        )}
+      <div class="weekdays ${showTwoMonths ? '' : 'single-month'}">
+        ${Array.from({ length: showTwoMonths ? 2 : 1 }, () => this.#renderDaysOfWeek())}
       </div>
 
-      <div @scrollend=${this.#onScrollEnd} class="scroller" tabindex="-1">
+      <div
+        @scrollend=${this.#onScrollEnd}
+        class="scroller ${showTwoMonths ? '' : 'single-month'}"
+        tabindex="-1">
         ${
           canSelectPreviousMonth
             ? html`
@@ -414,6 +454,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .rangeSelection=${this.rangeSelection}
           .rangeStart=${this.rangeStart}
           autofocus
+          ?hide-days-other-months=${showTwoMonths}
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
@@ -422,6 +463,32 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
         ${
           canSelectNextMonth
+            ? html`
+                <sl-month-view
+                  @sl-change=${this.#onChange}
+                  @sl-select=${this.#onSelect}
+                  ?readonly=${this.readonly}
+                  ?show-today=${this.showToday}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
+                  .disabledDates=${this.disabledDates}
+                  .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
+                  aria-hidden=${ifDefined(showTwoMonths ? undefined : 'true')}
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  ?inert=${!showTwoMonths}
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.nextMonth?.toISOString())}
+                  selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+              `
+            : nothing
+        }
+        ${
+          canRenderFollowingMonth
             ? html`
                 <sl-month-view
                   ?readonly=${this.readonly}
@@ -438,7 +505,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   locale=${ifDefined(this.locale)}
                   max=${ifDefined(this.max?.toISOString())}
                   min=${ifDefined(this.min?.toISOString())}
-                  month=${ifDefined(this.nextMonth?.toISOString())}
+                  month=${ifDefined(followingMonth?.toISOString())}
                   selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
               `
             : nothing
@@ -469,6 +536,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
     }
 
+    const visibleMonthView = Array.from(
+      this.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+    ).find(monthView =>
+      isSameDate(new Date(monthView.month.getFullYear(), monthView.month.getMonth()), newMonth)
+    );
+
+    if (visibleMonthView) {
+      visibleMonthView.focus(event.detail);
+      return;
+    }
+
     this.month = newMonth;
 
     // Wait until the new month has rendered before focusing the month view
@@ -488,16 +566,23 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   async #onScrollEnd(): Promise<void> {
-    if (!this.displayMonth || isSameDate(this.month, this.displayMonth)) {
+    const monthViews = Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view')),
+      monthIndex = Math.round((this.scroller?.scrollLeft ?? 0) / this.#getMonthStep()),
+      firstVisibleMonth = monthViews.at(monthIndex)?.month,
+      displayMonth = firstVisibleMonth ? normalizeDateTime(firstVisibleMonth) : this.displayMonth;
+
+    if (!displayMonth || isSameDate(this.month, displayMonth)) {
       return;
     }
+
+    this.displayMonth = displayMonth;
 
     // Stop observing month views while we adjust the scroll position
     this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
     this.#observedMonths = undefined;
 
     // Update the month, so it rerenders the month-views
-    this.month = normalizeDateTime(this.displayMonth);
+    this.month = displayMonth;
 
     if ('onscrollend' in this.scroller!) {
       await this.updateComplete;
@@ -588,7 +673,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const { width } = this.scroller.getBoundingClientRect(),
+    const step = this.#getMonthStep(),
       canSelectPrevious = this.#canSelectPreviousMonth(),
       canSelectNext = this.#canSelectNextMonth();
 
@@ -604,21 +689,84 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (month === 1) {
       // Scroll to next month
       if (canSelectPrevious && canSelectNext) {
-        left = width * 2; // position 2
+        left = step * 2; // position 2
       } else if (canSelectNext) {
-        left = width; // position 1
+        left = step; // position 1
       } else {
-        left = width * currentMonthPosition; // stay at current
+        left = step * currentMonthPosition; // stay at current
       }
     } else {
       // month === 0, scroll to current month
-      left = width * currentMonthPosition;
+      left = step * currentMonthPosition;
     }
 
     if (smooth) {
       this.scroller.scrollTo({ left, behavior: 'smooth' });
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
+    }
+  }
+
+  #getMonthStep(): number {
+    const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
+      width =
+        monthView?.getBoundingClientRect().width ??
+        this.scroller?.getBoundingClientRect().width ??
+        0,
+      gap = Number.parseFloat(getComputedStyle(this.scroller!).columnGap) || 0;
+
+    return width + gap;
+  }
+
+  #isMonthWithinBounds(month?: Date): boolean {
+    if (!month) {
+      return false;
+    }
+
+    const normalized = new Date(month.getFullYear(), month.getMonth());
+
+    return (
+      (!this.min || normalized >= new Date(this.min.getFullYear(), this.min.getMonth())) &&
+      (!this.max || normalized <= new Date(this.max.getFullYear(), this.max.getMonth()))
+    );
+  }
+
+  #renderDaysOfWeek(): TemplateResult {
+    return html`
+      <div class="days-of-week" role="list">
+        ${
+          this.showWeekNumbers
+            ? html`
+                <span
+                  aria-label=${msg('Week', { id: 'sl.calendar.week' })}
+                  class="week-number"
+                  role="listitem">
+                  ${this.localizedWeekOfYear}
+                </span>
+              `
+            : nothing
+        }
+        ${this.weekDays.map(
+          day => html`
+            <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
+          `
+        )}
+      </div>
+    `;
+  }
+
+  #updateVisibleMonthCount(): void {
+    const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
+      availableWidth = this.getBoundingClientRect().width,
+      monthWidth = monthView?.getBoundingClientRect().width ?? 0,
+      gap = this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).columnGap) || 0 : 0,
+      nextCount =
+        this.numberOfMonths === 2 && monthWidth > 0 && availableWidth >= monthWidth * 2 + gap
+          ? 2
+          : 1;
+
+    if (this.visibleMonthCount !== nextCount) {
+      this.visibleMonthCount = nextCount;
     }
   }
 
@@ -649,6 +797,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   async #updateMonthViews(): Promise<void> {
     // Make sure the scroller and month views elements have been updated
     await new Promise(requestAnimationFrame);
+
+    this.#updateVisibleMonthCount();
     await new Promise(requestAnimationFrame);
 
     // Center the current month initially

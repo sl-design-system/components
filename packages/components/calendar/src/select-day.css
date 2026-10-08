@@ -2,26 +2,33 @@
   --_days-in-week: 7;
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   --_focus-offset: var(--sl-size-outlineOffset-default);
+  --_month-gap: 0px;
+  --_month-inline-size: calc(var(--_days-in-week) * var(--_cell-size));
   --_week-number-column-size: var(--sl-size-450);
   --_week-number-column-padding-inline: var(--sl-size-025);
 
   display: inline-flex;
   flex-direction: column;
-  max-inline-size: fit-content;
+  inline-size: var(--_month-inline-size);
+  max-inline-size: 100%;
+}
+
+:host([number-of-months='2']) {
+  --_month-gap: var(--sl-size-200);
+
+  inline-size: calc(2 * var(--_month-inline-size) + var(--_month-gap));
 }
 
 :host([show-week-numbers]) {
+  --_month-inline-size: calc(
+    var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size)
+  );
+
   .days-of-week {
     grid-template-columns: var(--_week-number-column-size) repeat(
         var(--_days-in-week),
         var(--_cell-size)
       );
-  }
-
-  .scroller {
-    max-inline-size: calc(
-      var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size)
-    );
   }
 
   sl-month-view::part(week-number) {
@@ -56,13 +63,30 @@ sl-button {
   margin-inline-start: var(--sl-size-100);
 }
 
+.following-month-label {
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  margin-inline-start: var(--_month-gap);
+}
+
 .previous-month {
   margin-inline-start: auto;
+}
+
+.weekdays {
+  display: flex;
+  gap: var(--_month-gap);
+  overflow: hidden;
+}
+
+.weekdays.single-month,
+.scroller.single-month {
+  inline-size: var(--_month-inline-size);
 }
 
 .days-of-week {
   color: var(--sl-color-foreground-subtlest);
   display: grid;
+  flex: 0 0 var(--_month-inline-size);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   grid-template-columns: repeat(var(--_days-in-week), var(--_cell-size));
   line-height: calc((24 / 14) * 1em);
@@ -95,9 +119,10 @@ sl-button {
 
 .scroller {
   align-items: start;
+  column-gap: var(--_month-gap);
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(var(--_days-in-week) * var(--_cell-size));
+  inline-size: 100%;
   outline: none;
   overflow: scroll hidden;
   overscroll-behavior-x: contain;
@@ -107,7 +132,7 @@ sl-button {
 }
 
 sl-month-view {
-  flex-shrink: 0;
+  flex: 0 0 var(--_month-inline-size);
   padding-inline: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;

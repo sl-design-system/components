@@ -116,6 +116,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Determines whether the calendar selects a single date or a date range. */
   @property() mode: 'single' | 'range' = 'single';
 
+  /** The preferred number of consecutive months to show. Collapses to one when space is limited. */
+  @property({ type: Number, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 = 1;
+
   /** @internal The view the calendar is currently showing. */
   @state() view: 'day' | 'month' | 'year' = 'day';
 
@@ -177,6 +180,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .disabledDates=${this.disabledDates}
         .indicatorDates=${this.indicatorDates}
         .month=${this.month}
+        .numberOfMonths=${this.numberOfMonths}
         .range=${this.range}
         .rangeSelection=${this.mode === 'range'}
         .rangeStart=${this.rangeStart}
@@ -421,10 +425,13 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #selectRangeDate(date: Date): void {
+    const selectDay = this.renderRoot.querySelector<SelectDay>('sl-select-day'),
+      month = selectDay?.visibleMonthCount === 2 ? selectDay.month : date;
+
     if (!this.rangeStart) {
       // Keep the parent month in sync with the month currently shown by sl-select-day. Otherwise,
       // this update would pass a stale month back to the child and jump away from the selected day.
-      this.month = new Date(date);
+      this.month = new Date(month);
       this.rangeStart = new Date(date);
       announce(
         msg(
@@ -439,7 +446,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const range = this.#normalizeRange([this.rangeStart, date]);
     this.#rangeChangedInternally = true;
     this.range = range;
-    this.month = new Date(date);
+    this.month = new Date(month);
     this.rangeStart = undefined;
     this.changeEvent.emit(range);
     announce(

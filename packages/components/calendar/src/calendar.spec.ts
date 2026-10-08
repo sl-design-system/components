@@ -156,6 +156,18 @@ describe('sl-calendar', () => {
       expect(selectDay?.showWeekNumbers).to.be.true;
     });
 
+    it('should show one month by default and pass numberOfMonths to select-day', async () => {
+      const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day');
+
+      expect(el.numberOfMonths).to.equal(1);
+      expect(selectDay?.numberOfMonths).to.equal(1);
+
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(selectDay?.numberOfMonths).to.equal(2);
+    });
+
     it('should pass firstDayOfWeek to select-day', async () => {
       el.firstDayOfWeek = 0;
       await el.updateComplete;
@@ -277,6 +289,28 @@ describe('sl-calendar', () => {
       expect(el.rangeStart).to.equalDate(new Date(2023, 2, 17));
       expect(el.range).to.be.undefined;
       expect(callCount).to.equal(0);
+    });
+
+    it('should keep the first visible month when selecting a range across two months', async () => {
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const visibleMonths = Array.from(
+          selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        april = visibleMonths[1],
+        aprilDate = new Date(2023, 3, 3),
+        aprilButton = april.renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${aprilDate.toISOString()}"] button`
+        );
+
+      aprilButton?.click();
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(aprilDate);
+      expect(el.month).to.equalDate(new Date(2023, 2, 14));
+      expect(selectDay.month).to.equalDate(new Date(2023, 2, 14));
     });
 
     it('should remain on the navigated month after selecting a new range start', async () => {

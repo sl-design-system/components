@@ -193,6 +193,19 @@ describe('sl-month-view', () => {
 
       expect(daysFromOtherMonths).to.have.length(0);
     });
+
+    it('should hide the week number for a row without visible days', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const lastWeekNumber = Array.from(
+        el.renderRoot.querySelectorAll<HTMLElement>('td[part~="week-number"]')
+      ).at(-1);
+
+      expect(lastWeekNumber).to.have.trimmed.text('');
+      expect(lastWeekNumber).not.to.have.attribute('aria-label');
+    });
   });
 
   describe('custom renderer', () => {

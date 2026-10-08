@@ -1,5 +1,13 @@
 # @sl-design-system/toggle-group
 
+## 1.1.0
+
+### Minor Changes
+
+- [#3756](https://github.com/sl-design-system/components/pull/3756) [`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a) - Add new `chips` property to render toggle buttons with spacing between them when enabled.
+
+  Add `aria-description` (via elementInternals) to improve accessibility for screen reader users by announcing "Select one" (single-select) or "Select one or more" (multiple-select).
+
 ## 1.0.1
 
 ### Patch Changes

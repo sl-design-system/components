@@ -35,9 +35,6 @@ Icon.register(faBurst, faTrash);
 
 export default {
   title: 'Overlay/Dialog',
-  parameters: {
-    viewport: { disable: true }
-  },
   args: {
     closeButton: false,
     disableCancel: false,

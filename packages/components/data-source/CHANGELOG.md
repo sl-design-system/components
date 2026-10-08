@@ -1,5 +1,11 @@
 # @sl-design-system/data-source
 
+## 0.4.5
+
+### Patch Changes
+
+- [#3723](https://github.com/sl-design-system/components/pull/3723) [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15) - Fix grouped selection state when selecting filtered rows or groups and clearing filters.
+
 ## 0.4.4
 
 ### Patch Changes

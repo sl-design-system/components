@@ -440,14 +440,12 @@ describe('sl-select-day', () => {
     });
 
     it('should advance the two-month window by one month', async () => {
-      const scrollendPromise = new Promise<void>(resolve => {
-        el.scroller?.addEventListener('scrollend', () => resolve(), { once: true });
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)), {
+        timeout: 2000
       });
 
-      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
-      await scrollendPromise;
-
-      expect(el.month).to.equalDate(new Date(2023, 3, 1));
       expect(el.nextMonth).to.equalDate(new Date(2023, 4, 1));
     });
   });

@@ -210,8 +210,14 @@ export const Range: Story = {
     mode: 'range',
     month: new Date(2025, 8, 1),
     numberOfMonths: 2,
-    range: [new Date(2025, 8, 17), new Date(2025, 8, 22)],
     showWeekNumbers: true
+  }
+};
+
+export const SelectedRange: Story = {
+  args: {
+    ...Range.args,
+    range: [new Date(2025, 8, 17), new Date(2025, 9, 8)]
   }
 };
 

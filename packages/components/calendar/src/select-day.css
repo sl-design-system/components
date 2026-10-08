@@ -44,6 +44,7 @@ header {
   margin-block-end: var(--sl-size-050);
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
+  position: relative;
 
   .next-month {
     margin-inline-start: calc(-1 * var(--sl-size-050));
@@ -65,7 +66,8 @@ sl-button {
 
 .following-month-label {
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  margin-inline-start: var(--_month-gap);
+  inset-inline-start: calc(var(--_month-inline-size) + var(--_month-gap) + var(--sl-size-050));
+  position: absolute;
 }
 
 .previous-month {

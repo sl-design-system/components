@@ -193,6 +193,26 @@ button {
   inset-inline: calc(-1 * var(--sl-size-010));
 }
 
+[part~='range-row-start']::before {
+  border-end-start-radius: var(--sl-size-borderRadius-default);
+  border-start-start-radius: var(--sl-size-borderRadius-default);
+  inset-inline-start: 0;
+}
+
+[part~='range-row-end']::before {
+  border-end-end-radius: var(--sl-size-borderRadius-default);
+  border-start-end-radius: var(--sl-size-borderRadius-default);
+  inset-inline-end: 0;
+}
+
+[part~='range-month-start']::before {
+  background: linear-gradient(to right, transparent, var(--sl-color-background-selected-subtle));
+}
+
+[part~='range-month-end']::before {
+  background: linear-gradient(to right, var(--sl-color-background-selected-subtle), transparent);
+}
+
 [part~='range-start'][part~='range-end']::before {
   content: none;
 }

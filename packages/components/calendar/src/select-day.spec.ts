@@ -368,6 +368,36 @@ describe('sl-select-day', () => {
       expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
     });
 
+    it('should share a pointer range preview between both visible months', async () => {
+      el.rangeSelection = true;
+      el.rangeStart = new Date(2023, 2, 26);
+      await el.updateComplete;
+
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        previewDate = new Date(2023, 3, 5),
+        previewButton = monthViews[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${previewDate.toISOString()}"] button`
+        );
+
+      previewButton?.dispatchEvent(new PointerEvent('pointerenter'));
+      await el.updateComplete;
+      await Promise.all(monthViews.map(monthView => monthView.updateComplete));
+
+      const marchEnd = monthViews[0].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 2, 31).toISOString()}"] button`
+        ),
+        aprilStart = monthViews[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 3, 1).toISOString()}"] button`
+        );
+
+      expect(el.rangePreview).to.equalDate(previewDate);
+      expect(marchEnd).to.have.attribute('part').that.contains('range-month-end');
+      expect(aprilStart).to.have.attribute('part').that.contains('range-month-start');
+      expect(previewButton).to.have.attribute('part').that.contains('range-end');
+    });
+
     it('should advance the two-month window by one month', async () => {
       const scrollendPromise = new Promise<void>(resolve => {
         el.scroller?.addEventListener('scrollend', () => resolve(), { once: true });

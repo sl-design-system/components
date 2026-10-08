@@ -58,7 +58,11 @@ const DAYS_IN_WEEK = 7;
  * @csspart out-of-range - The day button for a date outside the min/max range.
  * @csspart previous-month - The day button for a day in the previous month.
  * @csspart range-end - The last day in a selected range.
+ * @csspart range-month-end - A range bridge fading out at the end of a month.
+ * @csspart range-month-start - A range bridge fading in at the start of a month.
  * @csspart range-preview - A day shown while previewing an unfinished range.
+ * @csspart range-row-end - A range bridge ending at the edge of a week row.
+ * @csspart range-row-start - A range bridge starting at the edge of a week row.
  * @csspart range-start - The first day in a selected range.
  * @csspart in-range - A day between the start and end of a selected range.
  * @csspart selected - The day button for the selected date.
@@ -215,6 +219,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The selected date range. */
   @property({ attribute: false }) range?: Date[];
+
+  /** The temporary end date while composing a range across calendar views. */
+  @property({ attribute: false }) rangePreview?: Date;
 
   /** Whether selecting a range is enabled. */
   @property({ attribute: false }) rangeSelection?: boolean;
@@ -486,7 +493,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return [];
     }
 
-    const previewDate = this.hoveredDate ?? this.focusedDate,
+    const previewDate = this.rangePreview ?? this.hoveredDate ?? this.focusedDate,
       activeRange =
         this.rangeStart && previewDate
           ? [this.rangeStart, previewDate]
@@ -513,6 +520,26 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
     if (!isSameDate(date, start) && !isSameDate(date, end) && date > start && date < end) {
       parts.push('in-range');
+    }
+
+    const dayColumn = (date.getDay() - this.firstDayOfWeek + DAYS_IN_WEEK) % DAYS_IN_WEEK,
+      hasLeadingBridge = date > start && date <= end,
+      hasTrailingBridge = date >= start && date < end,
+      isFirstDayOfMonth = date.getDate() === 1,
+      isLastDayOfMonth =
+        new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() === date.getDate();
+
+    if (dayColumn === 0 && hasLeadingBridge) {
+      parts.push('range-row-start');
+    }
+    if (dayColumn === DAYS_IN_WEEK - 1 && hasTrailingBridge) {
+      parts.push('range-row-end');
+    }
+    if (isFirstDayOfMonth && hasLeadingBridge) {
+      parts.push('range-month-start');
+    }
+    if (isLastDayOfMonth && hasTrailingBridge) {
+      parts.push('range-month-end');
     }
     if (this.rangeStart && parts.length) {
       parts.push('range-preview');
@@ -554,21 +581,33 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #setFocusedRangePreview(day: Day): void {
     if (this.rangeStart && !this.readonly) {
       this.focusedDate = day.date;
+      this.#emitRangePreview();
     }
   }
 
   #setHoveredRangePreview(day: Day): void {
     if (this.rangeStart && !this.readonly) {
       this.hoveredDate = day.date;
+      this.#emitRangePreview();
     }
   }
 
   #clearFocusedRangePreview(): void {
     this.focusedDate = undefined;
+    this.#emitRangePreview();
   }
 
   #clearHoveredRangePreview(): void {
     this.hoveredDate = undefined;
+    this.#emitRangePreview();
+  }
+
+  #emitRangePreview(): void {
+    this.dispatchEvent(
+      new CustomEvent<Date | undefined>('sl-range-preview', {
+        detail: this.hoveredDate ?? this.focusedDate
+      })
+    );
   }
 
   /** @internal */
@@ -663,9 +702,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.preventDefault();
       event.stopPropagation();
 
+      const completesRange = this.rangeSelection && this.rangeStart;
       this.selectEvent.emit(day.date);
       if (!this.rangeSelection) {
         this.selected = day.date;
+      } else if (completesRange) {
+        (event.target as HTMLButtonElement).blur();
       }
     }
   }

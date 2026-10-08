@@ -176,6 +176,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The selected date range. */
   @property({ attribute: false }) range?: Date[];
 
+  /** @internal The shared preview endpoint for all visible month views. */
+  @state() rangePreview?: Date;
+
   /** Whether selecting a range is enabled. */
   @property({ attribute: false }) rangeSelection?: boolean;
 
@@ -251,6 +254,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.displayMonth = new Date(this.month.getFullYear(), this.month.getMonth());
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
+    }
+
+    if (changes.has('rangeStart') && !this.rangeStart) {
+      this.rangePreview = undefined;
     }
 
     if (
@@ -378,8 +385,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   <sl-format-date
                     .date=${this.nextMonth}
                     locale=${ifDefined(this.locale)}
-                    month="long"
-                    year="numeric"></sl-format-date>
+                    month="long"></sl-format-date>
                 </span>
               `
             : nothing
@@ -429,6 +435,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
+                  .rangePreview=${this.rangePreview}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
@@ -444,6 +451,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         }
         <sl-month-view
           @sl-change=${this.#onChange}
+          @sl-range-preview=${this.#onRangePreview}
           @sl-select=${this.#onSelect}
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
@@ -451,6 +459,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .disabledDates=${this.disabledDates}
           .indicatorDates=${this.indicatorDates}
           .range=${this.range}
+          .rangePreview=${this.rangePreview}
           .rangeSelection=${this.rangeSelection}
           .rangeStart=${this.rangeStart}
           autofocus
@@ -466,6 +475,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ? html`
                 <sl-month-view
                   @sl-change=${this.#onChange}
+                  @sl-range-preview=${this.#onRangePreview}
                   @sl-select=${this.#onSelect}
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
@@ -474,6 +484,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
+                  .rangePreview=${this.rangePreview}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden=${ifDefined(showTwoMonths ? undefined : 'true')}
@@ -497,6 +508,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
+                  .rangePreview=${this.rangePreview}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
@@ -605,6 +617,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.selectEvent.emit(event.detail);
+  }
+
+  #onRangePreview(event: CustomEvent<Date | undefined>): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.rangePreview = event.detail;
   }
 
   #onToggleMonthSelect(): void {

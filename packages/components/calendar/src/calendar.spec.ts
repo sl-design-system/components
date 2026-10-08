@@ -291,6 +291,17 @@ describe('sl-calendar', () => {
       expect(callCount).to.equal(0);
     });
 
+    it('should clear a completed range when starting a new one', async () => {
+      el.range = [new Date(2023, 2, 10), new Date(2023, 2, 12)];
+      await el.updateComplete;
+
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      expect(el.range).to.be.undefined;
+      expect(el.rangeStart).to.equalDate(new Date(2023, 2, 17));
+    });
+
     it('should keep the first visible month when selecting a range across two months', async () => {
       el.numberOfMonths = 2;
       await el.updateComplete;
@@ -311,6 +322,31 @@ describe('sl-calendar', () => {
       expect(el.rangeStart).to.equalDate(aprilDate);
       expect(el.month).to.equalDate(new Date(2023, 2, 14));
       expect(selectDay.month).to.equalDate(new Date(2023, 2, 14));
+    });
+
+    it('should complete a range in the second visible month', async () => {
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const start = new Date(2023, 2, 26),
+        end = new Date(2023, 3, 5),
+        visibleMonths = Array.from(
+          selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        endButton = visibleMonths[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${end.toISOString()}"] button`
+        );
+
+      monthView = visibleMonths[0];
+      getDayButton(start)?.click();
+      await el.updateComplete;
+      endButton?.click();
+      await el.updateComplete;
+
+      expect(el.range?.[0]).to.equalDate(start);
+      expect(el.range?.[1]).to.equalDate(end);
+      expect(el.rangeStart).to.be.undefined;
     });
 
     it('should remain on the navigated month after selecting a new range start', async () => {

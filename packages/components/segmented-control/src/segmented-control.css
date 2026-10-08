@@ -1,0 +1,130 @@
+:host {
+  --_background: transparent;
+  --_border-color: var(--sl-color-border-neutral-plain);
+  --_border-radius: var(--sl-size-borderRadius-default);
+  --_border-width: var(--sl-size-borderWidth-subtle);
+  --_color: var(--sl-color-foreground-neutral-plain);
+  --_item-padding-block: var(--sl-size-100);
+  --_item-padding-inline: var(--sl-size-150);
+  --_selected-bg-color: var(--sl-color-background-selected-subtle);
+  --_selected-bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+  --_selected-color: var(--sl-color-foreground-neutral-plain);
+
+  display: inline-block;
+}
+
+:host([emphasis='bold']) {
+  --_color: var(--sl-color-foreground-neutral-bold);
+  --_selected-bg-color: var(--sl-color-background-selected-bold);
+  --_selected-bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_selected-color: var(--sl-color-foreground-selected-onBold);
+}
+
+:host([size='lg']) {
+  --_item-padding-block: var(--sl-size-150);
+  --_item-padding-inline: var(--sl-size-200);
+}
+
+:host([shape='pill']) {
+  --_border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([shape='pill']) ul {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+/* Solid: grey track without a border */
+:host(:not([fill='outline'])) {
+  --_background: var(--sl-color-background-neutral-subtle);
+  --_border-width: 0px;
+}
+
+ul {
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--sl-size-borderRadius-lg);
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: var(--sl-size-050);
+}
+
+li {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
+  align-items: center;
+  appearance: none;
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border: 0;
+  border-radius: var(--_border-radius);
+  color: var(--_color);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: var(--sl-size-075);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--_item-padding-block) var(--_item-padding-inline);
+  position: relative;
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+    z-index: 1;
+  }
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  &[aria-current='true'] {
+    --_bg-color: var(--_selected-bg-color);
+    --_bg-mix-color: var(--_selected-bg-mix-color);
+
+    color: var(--_selected-color);
+  }
+
+  &:disabled {
+    --_bg-mix-color: transparent;
+
+    color: var(--sl-color-foreground-disabled);
+    cursor: default;
+  }
+}
+
+/* Subtle (default): an underline below the content of the selected option */
+:host(:not([emphasis='bold'])) button[aria-current='true']::after {
+  background: var(--sl-color-foreground-selected-bold);
+  block-size: 3px; /* Should be hardcoded, there is no such token for 3px and this value should not change per different user groups */
+  border-radius: var(--sl-size-borderRadius-full);
+  content: '';
+  inline-size: 50%;
+  inset-block-end: var(--sl-size-050);
+  inset-inline-start: 25%;
+  position: absolute;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button:where(:active, :focus-visible, :hover) {
+    transition-duration: var(--sl-animation-button-duration);
+    transition-property: background, color, outline-color;
+    transition-timing-function: var(--sl-animation-button-easing);
+  }
+}

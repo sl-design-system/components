@@ -223,6 +223,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The temporary end date while composing a range across calendar views. */
   @property({ attribute: false }) rangePreview?: Date;
 
+  /** @internal Reports a local range preview so sibling month views can stay in sync. */
+  protected rangePreviewChange?: (date?: Date) => void;
+
   /** Whether selecting a range is enabled. */
   @property({ attribute: false }) rangeSelection?: boolean;
 
@@ -603,11 +606,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #emitRangePreview(): void {
-    this.dispatchEvent(
-      new CustomEvent<Date | undefined>('sl-range-preview', {
-        detail: this.hoveredDate ?? this.focusedDate
-      })
-    );
+    this.rangePreviewChange?.(this.hoveredDate ?? this.focusedDate);
   }
 
   /** @internal */

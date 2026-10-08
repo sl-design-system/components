@@ -451,7 +451,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         }
         <sl-month-view
           @sl-change=${this.#onChange}
-          @sl-range-preview=${this.#onRangePreview}
           @sl-select=${this.#onSelect}
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
@@ -460,6 +459,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .indicatorDates=${this.indicatorDates}
           .range=${this.range}
           .rangePreview=${this.rangePreview}
+          .rangePreviewChange=${this.#onRangePreview}
           .rangeSelection=${this.rangeSelection}
           .rangeStart=${this.rangeStart}
           autofocus
@@ -475,7 +475,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ? html`
                 <sl-month-view
                   @sl-change=${this.#onChange}
-                  @sl-range-preview=${this.#onRangePreview}
                   @sl-select=${this.#onSelect}
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
@@ -485,6 +484,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
                   .rangePreview=${this.rangePreview}
+                  .rangePreviewChange=${this.#onRangePreview}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden=${ifDefined(showTwoMonths ? undefined : 'true')}
@@ -619,11 +619,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.selectEvent.emit(event.detail);
   }
 
-  #onRangePreview(event: CustomEvent<Date | undefined>): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.rangePreview = event.detail;
-  }
+  #onRangePreview = (date?: Date): void => {
+    this.rangePreview = date;
+  };
 
   #onToggleMonthSelect(): void {
     this.toggleEvent.emit('month');

@@ -22,7 +22,7 @@ same date can be selected twice for a one-day range.
 ```html
 <sl-calendar
   mode="range"
-  range="2025-09-17T00:00:00.000Z,2025-09-22T00:00:00.000Z"></sl-calendar>
+  range="2025-09-17T00:00:00,2025-09-22T00:00:00"></sl-calendar>
 ```
 
 After choosing the first date, moving the pointer or keyboard focus across the calendar previews

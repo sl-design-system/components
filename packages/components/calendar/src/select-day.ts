@@ -302,13 +302,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
-    const canSelectNextMonth = this.#canSelectNextMonth(),
+    const canShowNextMonth = this.#isMonthAtOrBeforeMax(this.nextMonth),
       canSelectPreviousMonth = this.#canSelectPreviousMonth(),
-      showTwoMonths = this.visibleMonthCount === 2 && canSelectNextMonth,
+      showTwoMonths = this.visibleMonthCount === 2 && canShowNextMonth,
       followingMonth = this.nextMonth
         ? new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth() + 1)
         : undefined,
-      canRenderFollowingMonth = showTwoMonths && this.#isMonthWithinBounds(followingMonth),
+      canRenderFollowingMonth = showTwoMonths && this.#isMonthAtOrBeforeMax(followingMonth),
+      canSelectNextMonth = canShowNextMonth && (!showTwoMonths || canRenderFollowingMonth),
       canSelectNextYear = this.displayMonth
         ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
         : false,
@@ -319,7 +320,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <header>
         ${
-          canSelectPreviousMonth || canSelectNextMonth
+          canSelectPreviousMonth || canShowNextMonth
             ? html`
                 <sl-button
                   @click=${this.#onToggleMonthSelect}
@@ -439,6 +440,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert
                   locale=${ifDefined(this.locale)}
@@ -464,6 +466,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .rangeStart=${this.rangeStart}
           autofocus
           ?hide-days-other-months=${showTwoMonths}
+          exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
@@ -471,7 +474,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           month=${ifDefined(this.month?.toISOString())}
           selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
         ${
-          canSelectNextMonth
+          canShowNextMonth
             ? html`
                 <sl-month-view
                   @sl-change=${this.#onChange}
@@ -488,6 +491,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden=${ifDefined(showTwoMonths ? undefined : 'true')}
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   ?inert=${!showTwoMonths}
                   locale=${ifDefined(this.locale)}
@@ -512,6 +516,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert
                   locale=${ifDefined(this.locale)}
@@ -652,18 +657,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #canSelectNextMonth(): boolean {
-    if (!this.nextMonth) {
+    if (!this.#isMonthAtOrBeforeMax(this.nextMonth)) {
       return false;
     }
 
-    if (!this.max) {
+    if (this.visibleMonthCount === 1) {
       return true;
     }
 
-    const nextMonthNormalized = new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth()),
-      maxMonthNormalized = new Date(this.max.getFullYear(), this.max.getMonth());
+    const followingMonth = new Date(this.nextMonth!.getFullYear(), this.nextMonth!.getMonth() + 1);
 
-    return nextMonthNormalized <= maxMonthNormalized;
+    return this.#isMonthAtOrBeforeMax(followingMonth);
   }
 
   #canSelectPreviousMonth(): boolean {
@@ -734,17 +738,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return width + gap;
   }
 
-  #isMonthWithinBounds(month?: Date): boolean {
+  #isMonthAtOrBeforeMax(month?: Date): boolean {
     if (!month) {
       return false;
     }
 
     const normalized = new Date(month.getFullYear(), month.getMonth());
 
-    return (
-      (!this.min || normalized >= new Date(this.min.getFullYear(), this.min.getMonth())) &&
-      (!this.max || normalized <= new Date(this.max.getFullYear(), this.max.getMonth()))
-    );
+    return !this.max || normalized <= new Date(this.max.getFullYear(), this.max.getMonth());
   }
 
   #renderDaysOfWeek(): TemplateResult {

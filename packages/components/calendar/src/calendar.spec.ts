@@ -44,6 +44,17 @@ describe('sl-calendar', () => {
       expect(selectDay).not.to.have.attribute('inert');
     });
 
+    it('should forward range CSS parts from select-day', () => {
+      const selectDay = el.renderRoot.querySelector('sl-select-day');
+
+      expect(selectDay)
+        .to.have.attribute('exportparts')
+        .that.contains('range-start')
+        .and.contains('range-end')
+        .and.contains('in-range')
+        .and.contains('range-preview');
+    });
+
     it('should not render month or year selectors', () => {
       const selectMonth = el.renderRoot.querySelector('sl-select-month'),
         selectYear = el.renderRoot.querySelector('sl-select-year');
@@ -300,6 +311,31 @@ describe('sl-calendar', () => {
 
       expect(el.range).to.be.undefined;
       expect(el.rangeStart).to.equalDate(new Date(2023, 2, 17));
+    });
+
+    it('should cancel an unfinished selection when the range is set externally', async () => {
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      el.range = [new Date(2023, 2, 20), new Date(2023, 2, 22)];
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.be.undefined;
+      expect(selectDay.rangeStart).to.be.undefined;
+      expect(el.range?.[0]).to.equalDate(new Date(2023, 2, 20));
+      expect(el.range?.[1]).to.equalDate(new Date(2023, 2, 22));
+    });
+
+    it('should cancel an unfinished selection when the range is cleared externally', async () => {
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      el.range = [];
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.be.undefined;
+      expect(selectDay.rangeStart).to.be.undefined;
+      expect(el.range).to.be.empty;
     });
 
     it('should keep the first visible month when selecting a range across two months', async () => {

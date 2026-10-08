@@ -38,7 +38,18 @@ declare global {
   }
 }
 
-/** A calendar component for displaying and selecting dates. */
+/**
+ * A calendar component for displaying and selecting dates.
+ *
+ * @csspart in-range - A day between the start and end of a selected range.
+ * @csspart range-end - The last day in a selected range.
+ * @csspart range-month-end - A range bridge fading out at the end of a month.
+ * @csspart range-month-start - A range bridge fading in at the start of a month.
+ * @csspart range-preview - A day shown while previewing an unfinished range.
+ * @csspart range-row-end - A range bridge ending at the edge of a week row.
+ * @csspart range-row-start - A range bridge starting at the edge of a week row.
+ * @csspart range-start - The first day in a selected range.
+ */
 @localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -147,6 +158,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.rangeStart = undefined;
     }
 
+    if (changes.has('range') && !this.#rangeChangedInternally) {
+      this.rangeStart = undefined;
+    }
+
     if (changes.has('selected') && this.selected && this.mode !== 'range') {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
@@ -186,6 +201,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .rangeStart=${this.rangeStart}
         .selected=${this.mode === 'range' ? undefined : this.selected}
         aria-hidden=${ifDefined(this.view !== 'day' ? 'true' : undefined)}
+        exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
@@ -432,6 +448,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // Keep the parent month in sync with the month currently shown by sl-select-day. Otherwise,
       // this update would pass a stale month back to the child and jump away from the selected day.
       this.month = new Date(month);
+      this.#rangeChangedInternally = true;
       this.range = undefined;
       this.rangeStart = new Date(date);
       announce(

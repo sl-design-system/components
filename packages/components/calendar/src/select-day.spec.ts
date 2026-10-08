@@ -262,6 +262,15 @@ describe('sl-select-day', () => {
       expect(nextButton).to.match(':disabled');
     });
 
+    it('should allow navigating forward when the current month is before min', async () => {
+      el.min = new Date(2023, 5, 1);
+      await el.updateComplete;
+
+      const nextButton = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(nextButton).not.to.match(':disabled');
+    });
+
     it('should render only two month views when at min boundary', async () => {
       el.min = new Date(2023, 2, 1);
       await el.updateComplete;
@@ -337,6 +346,38 @@ describe('sl-select-day', () => {
       expect(monthViews[0].month).to.equalDate(new Date(2023, 2, 14));
       expect(monthViews[1].month).to.equalDate(new Date(2023, 3, 1));
       expect(monthViews.every(monthView => monthView.hideDaysOtherMonths)).to.be.true;
+    });
+
+    it('should forward range CSS parts from the month views', () => {
+      const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
+
+      expect(monthViews).not.to.be.empty;
+      expect(
+        monthViews.every(monthView => {
+          const parts = monthView.getAttribute('exportparts') ?? '';
+
+          return (
+            parts.includes('range-start') &&
+            parts.includes('range-end') &&
+            parts.includes('in-range') &&
+            parts.includes('range-preview')
+          );
+        })
+      ).to.be.true;
+    });
+
+    it('should disable next when the final month is already visible', async () => {
+      el.max = new Date(2023, 3, 30);
+      await el.updateComplete;
+
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        nextButton = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(monthViews).to.have.lengthOf(2);
+      expect(monthViews[1].month).to.equalDate(new Date(2023, 3, 1));
+      expect(nextButton).to.match(':disabled');
     });
 
     it('should render weekday headings for both visible months', () => {

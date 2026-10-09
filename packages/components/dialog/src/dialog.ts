@@ -152,7 +152,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disableBodyAnimation') && this.dialog?.open) {
+    if (
+      changes.has('disableBodyAnimation') &&
+      this.dialog?.open &&
+      !this.dialog.classList.contains('closing')
+    ) {
       this.#leaveAnimationAbort?.abort();
       document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.toggle('sl-dialog-enter', !this.disableBodyAnimation);

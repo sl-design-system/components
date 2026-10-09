@@ -642,6 +642,34 @@ describe('sl-dialog', () => {
         expect(document.documentElement.style.overflow).to.equal('hidden');
       });
 
+      it('should ignore pending body animation updates during fallback closing', async () => {
+        const supports = stub(CSS, 'supports').callThrough();
+        supports.withArgs('overlay', 'auto').returns(false);
+
+        try {
+          el.showModal();
+
+          const closed = oneEvent(el, 'sl-close');
+          el.disableBodyAnimation = false;
+          el.close();
+          await el.updateComplete;
+
+          expect(dialog.open).to.be.true;
+          expect(dialog).to.have.class('closing');
+          expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+          expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+
+          await closed;
+
+          expect(dialog.open).to.be.false;
+          expect(document.documentElement.style.overflow).to.equal('');
+          expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+          expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+        } finally {
+          supports.restore();
+        }
+      });
+
       it('should restore scrolling when an open dialog is disconnected', () => {
         el.showModal();
         el.remove();

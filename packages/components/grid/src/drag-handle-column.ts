@@ -3,6 +3,7 @@ import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -39,10 +40,25 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeaderRow(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult {
+    // Only the first header row gets the stable id and the label; other rows
+    // (e.g. when a filter column adds a second header row) are empty placeholders.
+    const first = index === 0;
+
     return html`
-      <th part="header drag-handle" role="columnheader">
-        <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
+      <th
+        aria-colindex=${String(this.columnIndex)}
+        id=${ifDefined(first ? this.headerCellId : undefined)}
+        part="header drag-handle"
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
+        ${
+          first
+            ? html`
+                <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
+              `
+            : nothing
+        }
       </th>
     `;
   }
@@ -62,7 +78,15 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
           this.#onStartDrag(event, item.data)}
         @touchstart=${(event: Event & { target: HTMLElement }) =>
           this.#onStartDrag(event, item.data)}
-        part="data drag-handle ${draggable ? '' : 'fixed'}">
+        aria-labelledby=${ifDefined(
+          // The cell has no text, so name it by its group header(s) and the "Reorder" header
+          this.groupHeaderIds.length > 0
+            ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+            : undefined
+        )}
+        headers=${this.headerIds}
+        part="data drag-handle ${draggable ? '' : 'fixed'}"
+        role="cell">
         ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}
       </td>
     `;

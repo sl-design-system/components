@@ -57,9 +57,12 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
       return html`
         <th
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
+          id=${this.headerCellId}
           part="header selection"
-          role="columnheader">
+          role=${this.headerRole}
+          scope=${ifDefined(this.headerScope)}>
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
@@ -74,9 +77,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
       return html`
         <th
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           part="header selection-placeholder"
-          role="columnheader"></th>
+          role=${this.headerRole}
+          scope=${ifDefined(this.headerScope)}></th>
       `;
     }
   }
@@ -87,8 +92,14 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <td
         @click=${this.#onClick}
+        aria-labelledby=${ifDefined(
+          // Only the group header(s); the leaf header contains the "Select all rows" checkbox
+          this.groupHeaderIds.length > 0 ? this.groupHeaderIds.join(' ') : undefined
+        )}
         class=${ifDefined(classes.join(' ') || undefined)}
-        part="data selection">
+        headers=${this.headerIds}
+        part="data selection"
+        role="cell">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}

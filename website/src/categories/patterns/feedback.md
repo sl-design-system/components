@@ -1,24 +1,23 @@
 ---
 title: Feedback
+description: How do you communicate feedback and status in a consistent, predictable and reassuring way across your application.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Patterns
   key: Feedback
 ---
 
-<header class="ds-tokens__main-heading">
-<div class="ds-tokens__heading-wrapper">
-  <h1 class="ds-heading-1">{{title}}</h1>
-  <p class="ds-tokens__heading-description">
-    How do you communicate feedback and status in a consistent, predictable and reassuring way across your application.
-  </p>
-</div>
-</header>
+<section>
 
-<section class="ds-subpage-section">
+## A11y - Inline message
 
-<div class="ds-subpage-section__wrapper">
+...
+
+</section>
 
 <section>
+
+## Pictography
 
 Using pictography you can instantly make clear what a message means to the user, independent of layout or component. Multiple components can reuse the same icons to ensure consistent understanding and predictable behaviour.
 This pattern establishes a fixed mapping between meaning, icon, and usage across components.
@@ -106,9 +105,5 @@ Warn users about destructive or irreversible actions.
 - [Inline message](/categories/components/inline-message/): Event-driven feedback that appears after a user or system action
 - [Form field](/categories/components/form-field/): Provides validation feedback for form controls
 - [Progress bar](/categories/components/progress-bar/): Shows task progress and can display success or failure states
-
-</section>
-
-</div>
 
 </section>

@@ -30,6 +30,14 @@ const iconOnlyItems: SegmentedControlItem[] = iconItems.map(item => ({
   hideLabel: true
 }));
 
+const fillWidthItems: SegmentedControlItem[] = [
+  { icon: 'far-list', label: 'Label', value: 'label-1' },
+  { icon: 'far-list', label: 'Label', value: 'label-2' },
+  { icon: 'far-list', label: 'Label', value: 'label-3' },
+  { icon: 'far-list', label: 'Label', value: 'label-4' },
+  { icon: 'far-list', label: 'Label', value: 'label-5' }
+];
+
 export default {
   title: 'Actions/Segmented control',
   tags: ['draft'],
@@ -72,6 +80,52 @@ export const Large: Story = { args: { size: 'lg' } };
 export const IconAndText: Story = { args: { items: iconItems } };
 
 export const IconOnly: Story = { args: { items: iconOnlyItems } };
+
+export const FillWidth: Story = {
+  args: {
+    items: fillWidthItems
+  },
+  render: ({ ariaLabel, emphasis, fill, items, shape, size, value }): TemplateResult => html`
+    <style>
+      .fill-width-demo {
+        background: var(--sl-color-background-neutral-subtle);
+        display: grid;
+        gap: var(--sl-size-200);
+        max-inline-size: 900px;
+        padding: var(--sl-size-400);
+      }
+
+      .fill-width-demo__eyebrow {
+        color: var(--sl-color-foreground-neutral-weakest);
+        font: var(--sl-text-label-lg);
+      }
+
+      .fill-width-demo__label {
+        color: var(--sl-color-foreground-neutral-plain);
+        font: var(--sl-text-body-default-bold);
+      }
+
+      .fill-width-demo sl-segmented-control {
+        display: block;
+        inline-size: 100%;
+      }
+    </style>
+
+    <div class="fill-width-demo">
+      <div class="fill-width-demo__eyebrow">Parent container</div>
+      <div class="fill-width-demo__label">fill width</div>
+      <sl-segmented-control
+        .items=${items}
+        .value=${value}
+        aria-label=${ariaLabel}
+        emphasis=${emphasis}
+        fill=${fill}
+        shape=${shape}
+        size=${size}
+        style="width: 100%"></sl-segmented-control>
+    </div>
+  `
+};
 
 export const All: Story = {
   render: (): TemplateResult => {

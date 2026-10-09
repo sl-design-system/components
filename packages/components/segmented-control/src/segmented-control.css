@@ -21,8 +21,8 @@
 }
 
 :host([size='lg']) {
-  --_item-padding-block: var(--sl-size-150);
-  --_item-padding-inline: var(--sl-size-200);
+  --_item-padding-block: var(--sl-size-175);
+  --_item-padding-inline: var(--sl-size-250);
 }
 
 :host([shape='pill']) {
@@ -52,6 +52,7 @@ ul {
 
 li {
   display: flex;
+  flex: 1 0 auto;
   margin: 0;
   padding: 0;
 }
@@ -75,6 +76,9 @@ button {
   display: inline-flex;
   font: inherit;
   gap: var(--sl-size-075);
+  inline-size: 100%;
+  justify-content: center;
+  line-height: var(--sl-size-lineHeight-250);
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: var(--_item-padding-block) var(--_item-padding-inline);
@@ -119,6 +123,10 @@ button {
   inset-block-end: var(--sl-size-050);
   inset-inline-start: 25%;
   position: absolute;
+}
+
+:host([size='lg']:not([emphasis='bold'])) button[aria-current='true']::after {
+  inset-block-end: var(--sl-size-075);
 }
 
 @media (prefers-reduced-motion: no-preference) {

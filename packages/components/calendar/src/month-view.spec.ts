@@ -192,6 +192,14 @@ describe('sl-month-view', () => {
       );
 
       expect(daysFromOtherMonths).to.have.length(0);
+
+      const emptyCells = Array.from(el.renderRoot.querySelectorAll('td[role="gridcell"]')).filter(
+        cell => !cell.querySelector('button')
+      );
+
+      expect(emptyCells.length).to.be.greaterThan(0);
+      expect(emptyCells.every(cell => cell.getAttribute('aria-hidden') === 'true')).to.be.true;
+      expect(el.renderRoot.querySelector('td[data-date]')).not.to.have.attribute('aria-hidden');
     });
 
     it('should hide the week number for a row without visible days', async () => {
@@ -205,6 +213,7 @@ describe('sl-month-view', () => {
 
       expect(lastWeekNumber).to.have.trimmed.text('');
       expect(lastWeekNumber).not.to.have.attribute('aria-label');
+      expect(lastWeekNumber).to.have.attribute('aria-hidden', 'true');
     });
   });
 
@@ -634,6 +643,8 @@ describe('sl-month-view', () => {
       expect(end?.ariaDescribedByElements).to.include(endDescription);
       expect(startDescription).to.have.trimmed.text('Start of range');
       expect(endDescription).to.have.trimmed.text('End of range');
+      expect(startDescription).to.have.attribute('aria-hidden', 'true');
+      expect(endDescription).to.have.attribute('aria-hidden', 'true');
     });
   });
 

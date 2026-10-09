@@ -329,10 +329,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const ariaHidden = this.getAttribute('aria-hidden') === 'true' ? 'true' : undefined;
 
     return html`
-      <span class="visually-hidden" id="range-start-description">
+      <span aria-hidden="true" class="visually-hidden" id="range-start-description">
         ${msg('Start of range', { id: 'sl.calendar.rangeStart' })}
       </span>
-      <span class="visually-hidden" id="range-end-description">
+      <span aria-hidden="true" class="visually-hidden" id="range-end-description">
         ${msg('End of range', { id: 'sl.calendar.rangeEnd' })}
       </span>
       <table
@@ -355,7 +355,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ${
                     this.showWeekNumbers
                       ? this.hideDaysOtherMonths && !hasVisibleDay
-                        ? html`<td part="week-number" role="rowheader"></td>`
+                        ? html`<td aria-hidden="true" part="week-number" role="rowheader"></td>`
                         : html`
                             <td
                               aria-label=${msg(str`Week ${week.number}`, {
@@ -411,7 +411,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
-      return html`<td role="gridcell"></td>`;
+      return html`<td aria-hidden="true" role="gridcell"></td>`;
     }
 
     const parts = this.getDayParts(day),

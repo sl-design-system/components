@@ -19,7 +19,7 @@ import { userEvent, within } from 'storybook/test';
 import { type Dialog } from './dialog.js';
 import './register.js';
 
-type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
+type Props = Pick<Dialog, 'closeButton' | 'disableBodyAnimation' | 'disableCancel'> & {
   body?(): string | TemplateResult;
   footerButtons?(props: Props): TemplateResult;
   headerButtons?(props: Props): TemplateResult;
@@ -37,6 +37,7 @@ export default {
   title: 'Overlay/Dialog',
   args: {
     closeButton: false,
+    disableBodyAnimation: false,
     disableCancel: false,
     title: 'Title'
   },
@@ -44,6 +45,7 @@ export default {
     const {
       body,
       closeButton,
+      disableBodyAnimation,
       disableCancel,
       footerButtons,
       headerButtons,
@@ -71,7 +73,10 @@ export default {
           : nothing
       }
       <sl-button @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
+      <sl-dialog
+        ?close-button=${closeButton}
+        ?disable-body-animation=${disableBodyAnimation}
+        ?disable-cancel=${disableCancel}>
         <h1 slot="title">${title}</h1>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body?.()}
         ${headerButtons ? headerButtons(args) : nothing}
@@ -193,6 +198,16 @@ export const Mobile: Story = {
     ...Basic.args,
     body: () =>
       'The dialog behaves differently on mobile. It will animate in from the bottom of the screen. The contents behind the dialog will scale down to give the appearance if the dialog being on top.'
+  }
+};
+
+export const MobileWithoutBodyAnimation: Story = {
+  ...Mobile,
+  args: {
+    ...Mobile.args,
+    disableBodyAnimation: true,
+    body: () =>
+      'The dialog animates in from the bottom of the screen while the contents behind it remain unchanged. Use disable-body-animation in hybrid mobile apps to avoid scaling the web UI independently of the native UI.'
   }
 };
 

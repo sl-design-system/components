@@ -140,6 +140,12 @@ sl-month-view {
   scroll-snap-stop: always;
 
   &::part(header) {
-    display: none;
+    /* Keep each month's weekday headers before its dates in the accessibility tree. */
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
   }
 }

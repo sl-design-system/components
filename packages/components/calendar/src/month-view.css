@@ -189,6 +189,15 @@ button {
   inset-inline: calc(-1 * var(--sl-size-010)) 50%;
 }
 
+/* Stop the bridge at the preview tile so its translucent background stays uniform. */
+[part~='range-preview'][aria-pressed='false'][part~='range-start']::before {
+  inset-inline-start: calc(50% + var(--sl-size-300) / 2);
+}
+
+[part~='range-preview'][aria-pressed='false'][part~='range-end']::before {
+  inset-inline-end: calc(50% + var(--sl-size-300) / 2);
+}
+
 [part~='in-range']::before {
   inset-inline: calc(-1 * var(--sl-size-010));
 }

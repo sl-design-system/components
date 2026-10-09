@@ -184,12 +184,14 @@ describe('sl-select-day', () => {
         expect(dayElements.every(d => d.getAttribute('role') === 'listitem')).to.be.true;
       });
 
-      it('should not render the days of the week in the month-view', () => {
+      it('should visually hide month headers while keeping them accessible', () => {
         const monthView = el.renderRoot.querySelector<LitElement>('sl-month-view:not([inert])'),
           header = monthView?.renderRoot.querySelector('[part="header"]');
 
         expect(header).to.exist;
-        expect(header).to.have.style('display', 'none');
+        expect(header).not.to.have.style('display', 'none');
+        expect(header).to.have.style('clip-path', 'inset(50%)');
+        expect(el.renderRoot.querySelector('.weekdays')).to.have.attribute('aria-hidden', 'true');
       });
 
       it('should start on Sunday when the first day of the week is 0', async () => {
@@ -383,6 +385,34 @@ describe('sl-select-day', () => {
     it('should render weekday headings for both visible months', () => {
       expect(el.renderRoot.querySelectorAll('.days-of-week')).to.have.lengthOf(2);
       expect(el.renderRoot.querySelectorAll('.day-of-week')).to.have.lengthOf(14);
+    });
+
+    it('should hide the second month label from screen readers', () => {
+      expect(el.renderRoot.querySelector('.following-month-label')).to.have.attribute(
+        'aria-hidden',
+        'true'
+      );
+    });
+
+    it('should expose weekday headers before the dates in each visible month', () => {
+      const months = Array.from(
+        el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+      );
+
+      expect(months).to.have.lengthOf(2);
+      expect(el.renderRoot.querySelector('.weekdays')).to.have.attribute('aria-hidden', 'true');
+
+      for (const month of months) {
+        const header = month.renderRoot.querySelector('thead')!,
+          dates = month.renderRoot.querySelector('tbody')!;
+
+        expect(header.querySelectorAll('th[part="week-day"]')).to.have.lengthOf(7);
+        expect(header).not.to.have.style('display', 'none');
+        expect(header.closest('[aria-hidden="true"]')).to.be.null;
+        expect(
+          header.compareDocumentPosition(dates) & Node.DOCUMENT_POSITION_FOLLOWING
+        ).not.to.equal(0);
+      }
     });
 
     it('should collapse to one active month when the available width is too small', async () => {

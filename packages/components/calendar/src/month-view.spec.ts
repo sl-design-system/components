@@ -567,6 +567,36 @@ describe('sl-month-view', () => {
       expect(initialSelection).to.have.attribute('aria-pressed', 'true');
     });
 
+    for (const interaction of ['hover', 'focus'] as const) {
+      for (const backwards of [false, true]) {
+        it(`should keep the range bridge outside the ${interaction} preview tile when selecting ${backwards ? 'backwards' : 'forwards'}`, async () => {
+          el.rangeStart = new Date(2023, 2, backwards ? 22 : 17);
+          await el.updateComplete;
+
+          const endpoint = getDayButton(new Date(2023, 2, backwards ? 17 : 22))!;
+          if (interaction === 'hover') {
+            await userEvent.hover(endpoint);
+          } else {
+            endpoint.focus();
+          }
+          await el.updateComplete;
+
+          const bridge = getComputedStyle(endpoint, '::before'),
+            buttonBounds = endpoint.getBoundingClientRect(),
+            tileBounds = endpoint.querySelector('span')!.getBoundingClientRect();
+
+          expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+          if (backwards) {
+            const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
+            expect(bridgeStart).to.be.at.least(tileBounds.right);
+          } else {
+            const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
+            expect(bridgeEnd).to.be.at.most(tileBounds.left);
+          }
+        });
+      }
+    }
+
     it('should restore the focused preview after a pointer preview ends', async () => {
       el.rangeStart = new Date(2023, 2, 17);
       await el.updateComplete;

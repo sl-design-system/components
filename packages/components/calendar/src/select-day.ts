@@ -382,7 +382,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ${
           showTwoMonths
             ? html`
-                <span class="following-month-label">
+                <span aria-hidden="true" class="following-month-label">
                   <sl-format-date
                     .date=${this.nextMonth}
                     locale=${ifDefined(this.locale)}
@@ -418,7 +418,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </sl-button>
       </header>
 
-      <div class="weekdays ${showTwoMonths ? '' : 'single-month'}">
+      <div aria-hidden="true" class="weekdays ${showTwoMonths ? '' : 'single-month'}">
         ${Array.from({ length: showTwoMonths ? 2 : 1 }, () => this.#renderDaysOfWeek())}
       </div>
 

@@ -1,6 +1,16 @@
-import { faGrid2, faList, faTable } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faBookOpen,
+  faCalendarDays,
+  faChartLine,
+  faClipboardList,
+  faGraduationCap,
+  faGrid2,
+  faList,
+  faTable
+} from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/panel/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import './register.js';
@@ -11,7 +21,16 @@ type Props = Pick<SegmentedControl, 'emphasis' | 'fill' | 'items' | 'shape' | 's
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faGrid2, faList, faTable);
+Icon.register(
+  faBookOpen,
+  faCalendarDays,
+  faChartLine,
+  faClipboardList,
+  faGraduationCap,
+  faGrid2,
+  faList,
+  faTable
+);
 
 const items: SegmentedControlItem[] = [
   { label: 'List', value: 'list' },
@@ -30,12 +49,20 @@ const iconOnlyItems: SegmentedControlItem[] = iconItems.map(item => ({
   hideLabel: true
 }));
 
+const disabledItems: SegmentedControlItem[] = [
+  { disabled: true, icon: 'far-book-open', label: 'Lessons', value: 'lessons' },
+  { disabled: true, icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
+  { icon: 'far-chart-line', label: 'Progress', value: 'progress' },
+  { icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' },
+  { icon: 'far-graduation-cap', label: 'Resources', value: 'resources' }
+];
+
 const fillWidthItems: SegmentedControlItem[] = [
-  { icon: 'far-list', label: 'Label', value: 'label-1' },
-  { icon: 'far-list', label: 'Label', value: 'label-2' },
-  { icon: 'far-list', label: 'Label', value: 'label-3' },
-  { icon: 'far-list', label: 'Label', value: 'label-4' },
-  { icon: 'far-list', label: 'Label', value: 'label-5' }
+  { icon: 'far-list', label: 'Overview', value: 'overview' },
+  { icon: 'far-grid-2', label: 'Modules', value: 'modules' },
+  { icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
+  { icon: 'far-chart-line', label: 'Progress', value: 'progress' },
+  { icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' }
 ];
 
 export default {
@@ -81,17 +108,22 @@ export const IconAndText: Story = { args: { items: iconItems } };
 
 export const IconOnly: Story = { args: { items: iconOnlyItems } };
 
+export const Disabled: Story = { args: { items: disabledItems } };
+
 export const FillWidth: Story = {
   args: {
     items: fillWidthItems
   },
   render: ({ ariaLabel, emphasis, fill, items, shape, size, value }): TemplateResult => html`
     <style>
-      .fill-width-demo {
-        background: var(--sl-color-background-neutral-subtle);
+      sl-panel.fill-width-demo {
+        inline-size: 100%;
+        max-inline-size: 1200px;
+      }
+
+      sl-panel.fill-width-demo::part(content) {
         display: grid;
         gap: var(--sl-size-200);
-        max-inline-size: 900px;
         padding: var(--sl-size-400);
       }
 
@@ -104,16 +136,11 @@ export const FillWidth: Story = {
         color: var(--sl-color-foreground-neutral-plain);
         font: var(--sl-text-body-default-bold);
       }
-
-      .fill-width-demo sl-segmented-control {
-        display: block;
-        inline-size: 100%;
-      }
     </style>
 
-    <div class="fill-width-demo">
-      <div class="fill-width-demo__eyebrow">Parent container</div>
-      <div class="fill-width-demo__label">fill width</div>
+    <sl-panel class="fill-width-demo">
+      <div class="fill-width-demo__eyebrow">Course navigation</div>
+      <div class="fill-width-demo__label">Select a course section</div>
       <sl-segmented-control
         .items=${items}
         .value=${value}
@@ -123,7 +150,7 @@ export const FillWidth: Story = {
         shape=${shape}
         size=${size}
         style="width: 100%"></sl-segmented-control>
-    </div>
+    </sl-panel>
   `
 };
 

@@ -134,6 +134,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       this.#rovingTabindexController.clearElementCache();
+      this.#equalizeButtonWidths();
     }
   }
 
@@ -174,6 +175,28 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     this.value = item.value;
     this.changeEvent.emit(item.value);
+  }
+
+  /** Measure all buttons and set them to the same width as the longest button. */
+  #equalizeButtonWidths(): void {
+    const buttons = Array.from(this.renderRoot?.querySelectorAll('button') ?? []);
+
+    if (!buttons.length) {
+      return;
+    }
+
+    // Force a reflow to ensure accurate measurements
+    const maxWidth = Math.max(
+      ...buttons.map(btn => {
+        btn.style.width = '';
+        return btn.offsetWidth;
+      })
+    );
+
+    // Set all buttons to the max width
+    buttons.forEach(btn => {
+      btn.style.width = `${maxWidth}px`;
+    });
   }
 
   /**

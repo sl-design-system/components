@@ -23,6 +23,16 @@ table {
   border-collapse: collapse;
 }
 
+.visually-hidden {
+  block-size: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
 td,
 th {
   padding: var(--sl-size-010);
@@ -81,6 +91,13 @@ button {
   font: inherit;
   outline: none;
   padding: var(--sl-size-050);
+  position: relative;
+
+  &::before {
+    content: '';
+    inset-block: var(--sl-size-050);
+    position: absolute;
+  }
 
   &:disabled {
     cursor: default;
@@ -93,6 +110,11 @@ button {
 
   &:active {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  &:not([part~='selected'], [part~='range-start'], [part~='range-end']):active {
+    --_bg-color: var(--sl-color-background-primary-subtlest);
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
   }
 
   &:is(:focus, :focus-visible) span {
@@ -112,6 +134,8 @@ button {
     outline: transparent solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-size-outlineOffset-default);
     place-items: center;
+    position: relative;
+    z-index: 1;
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 0.2s ease-in-out;
@@ -130,6 +154,76 @@ button {
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
   color: var(--sl-color-foreground-selected-onBold);
+}
+
+[part~='range-start'],
+[part~='range-end'] {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+
+  color: var(--sl-color-foreground-selected-onBold);
+
+  span {
+    transition: none;
+  }
+}
+
+[part~='range-preview'][aria-pressed='false']:is([part~='range-start'], [part~='range-end']) {
+  --_bg-color: var(--sl-color-background-primary-subtlest);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+
+  color: var(--sl-color-foreground-plain);
+}
+
+[part~='range-start']::before,
+[part~='range-end']::before,
+[part~='in-range']::before {
+  background: var(--sl-color-background-selected-subtle);
+}
+
+[part~='range-start']::before {
+  inset-inline: 50% calc(-1 * var(--sl-size-010));
+}
+
+[part~='range-end']::before {
+  inset-inline: calc(-1 * var(--sl-size-010)) 50%;
+}
+
+/* Stop the bridge at the preview tile so its translucent background stays uniform. */
+[part~='range-preview'][aria-pressed='false'][part~='range-start']::before {
+  inset-inline-start: calc(50% + var(--sl-size-300) / 2);
+}
+
+[part~='range-preview'][aria-pressed='false'][part~='range-end']::before {
+  inset-inline-end: calc(50% + var(--sl-size-300) / 2);
+}
+
+[part~='in-range']::before {
+  inset-inline: calc(-1 * var(--sl-size-010));
+}
+
+[part~='range-row-start']::before {
+  border-end-start-radius: var(--sl-size-borderRadius-default);
+  border-start-start-radius: var(--sl-size-borderRadius-default);
+  inset-inline-start: 0;
+}
+
+[part~='range-row-end']::before {
+  border-end-end-radius: var(--sl-size-borderRadius-default);
+  border-start-end-radius: var(--sl-size-borderRadius-default);
+  inset-inline-end: 0;
+}
+
+[part~='range-month-start']::before {
+  background: linear-gradient(to right, transparent, var(--sl-color-background-selected-subtle));
+}
+
+[part~='range-month-end']::before {
+  background: linear-gradient(to right, var(--sl-color-background-selected-subtle), transparent);
+}
+
+[part~='range-start'][part~='range-end']::before {
+  content: none;
 }
 
 [part~='disabled'],

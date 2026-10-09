@@ -31,8 +31,9 @@ describe('sl-calendar', () => {
       el = await fixture(html`<sl-calendar></sl-calendar>`);
     });
 
-    it('should use day mode', () => {
-      expect(el.mode).to.equal('day');
+    it('should use single selection mode and the day view', () => {
+      expect(el.mode).to.equal('single');
+      expect(el.view).to.equal('day');
     });
 
     it('should render sl-select-day component', () => {
@@ -41,6 +42,17 @@ describe('sl-calendar', () => {
       expect(selectDay).to.exist;
       expect(selectDay).not.to.have.attribute('aria-hidden');
       expect(selectDay).not.to.have.attribute('inert');
+    });
+
+    it('should forward range CSS parts from select-day', () => {
+      const selectDay = el.renderRoot.querySelector('sl-select-day');
+
+      expect(selectDay)
+        .to.have.attribute('exportparts')
+        .that.contains('range-start')
+        .and.contains('range-end')
+        .and.contains('in-range')
+        .and.contains('range-preview');
     });
 
     it('should not render month or year selectors', () => {
@@ -155,6 +167,18 @@ describe('sl-calendar', () => {
       expect(selectDay?.showWeekNumbers).to.be.true;
     });
 
+    it('should show one month by default and pass numberOfMonths to select-day', async () => {
+      const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day');
+
+      expect(el.numberOfMonths).to.equal(1);
+      expect(selectDay?.numberOfMonths).to.equal(1);
+
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(selectDay?.numberOfMonths).to.equal(2);
+    });
+
     it('should pass firstDayOfWeek to select-day', async () => {
       el.firstDayOfWeek = 0;
       await el.updateComplete;
@@ -227,6 +251,288 @@ describe('sl-calendar', () => {
     });
   });
 
+  describe('range selection', () => {
+    let selectDay: SelectDay, monthView: MonthView;
+
+    const getDayButton = (date: Date): HTMLButtonElement | null =>
+      monthView.renderRoot.querySelector(`td[data-date="${date.toISOString()}"] button`);
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-calendar mode="range"></sl-calendar>`);
+      selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+      monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+    });
+
+    it('should use range mode when set through the attribute', () => {
+      expect(el.mode).to.equal('range');
+      expect(el.range).to.be.undefined;
+    });
+
+    it('should show the start month when the range is updated', async () => {
+      el.range = [new Date(2024, 5, 22), new Date(2024, 5, 17)];
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2024, 5, 17));
+    });
+
+    it('should show the start month when switching to range mode', async () => {
+      el.mode = 'single';
+      await el.updateComplete;
+
+      el.range = [new Date(2024, 5, 22), new Date(2024, 5, 17)];
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2023, 2, 14));
+
+      el.mode = 'range';
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2024, 5, 17));
+    });
+
+    it('should wait for a second date before changing the range', async () => {
+      let callCount = 0;
+      el.addEventListener('sl-change', () => callCount++);
+
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(new Date(2023, 2, 17));
+      expect(el.range).to.be.undefined;
+      expect(callCount).to.equal(0);
+    });
+
+    it('should clear a completed range when starting a new one', async () => {
+      el.range = [new Date(2023, 2, 10), new Date(2023, 2, 12)];
+      await el.updateComplete;
+
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      expect(el.range).to.be.undefined;
+      expect(el.rangeStart).to.equalDate(new Date(2023, 2, 17));
+    });
+
+    it('should cancel an unfinished selection when the range is set externally', async () => {
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      el.range = [new Date(2023, 2, 20), new Date(2023, 2, 22)];
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.be.undefined;
+      expect(selectDay.rangeStart).to.be.undefined;
+      expect(el.range?.[0]).to.equalDate(new Date(2023, 2, 20));
+      expect(el.range?.[1]).to.equalDate(new Date(2023, 2, 22));
+    });
+
+    it('should cancel an unfinished selection when the range is cleared externally', async () => {
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      el.range = [];
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.be.undefined;
+      expect(selectDay.rangeStart).to.be.undefined;
+      expect(el.range).to.be.empty;
+    });
+
+    it('should keep the first visible month when selecting a range across two months', async () => {
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const visibleMonths = Array.from(
+          selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        april = visibleMonths[1],
+        aprilDate = new Date(2023, 3, 3),
+        aprilButton = april.renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${aprilDate.toISOString()}"] button`
+        );
+
+      aprilButton?.click();
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(aprilDate);
+      expect(el.month).to.equalDate(new Date(2023, 2, 14));
+      expect(selectDay.month).to.equalDate(new Date(2023, 2, 14));
+    });
+
+    it('should complete a range in the second visible month', async () => {
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const start = new Date(2023, 2, 26),
+        end = new Date(2023, 3, 5),
+        visibleMonths = Array.from(
+          selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        endButton = visibleMonths[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${end.toISOString()}"] button`
+        );
+
+      monthView = visibleMonths[0];
+      getDayButton(start)?.click();
+      await el.updateComplete;
+      endButton?.click();
+      await el.updateComplete;
+
+      expect(el.range?.[0]).to.equalDate(start);
+      expect(el.range?.[1]).to.equalDate(end);
+      expect(el.rangeStart).to.be.undefined;
+    });
+
+    it('should remain on the navigated month after selecting a new range start', async () => {
+      el.range = [new Date(2025, 8, 10), new Date(2025, 8, 15)];
+      await el.updateComplete;
+
+      const novemberDate = new Date(2025, 10, 12);
+      selectDay.month = novemberDate;
+      await selectDay.updateComplete;
+
+      monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      getDayButton(novemberDate)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(novemberDate);
+      expect(el.month).to.equalDate(novemberDate);
+      expect(selectDay.month).to.equalDate(novemberDate);
+    });
+
+    it('should remain on the navigated month after the range is cleared externally', async () => {
+      el.range = [new Date(2025, 8, 10), new Date(2025, 8, 15)];
+      await el.updateComplete;
+
+      el.range = [];
+      await el.updateComplete;
+
+      const novemberDate = new Date(2025, 10, 12);
+      selectDay.month = novemberDate;
+      await selectDay.updateComplete;
+
+      monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      getDayButton(novemberDate)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+
+      expect(el.rangeStart).to.equalDate(novemberDate);
+      expect(el.month).to.equalDate(novemberDate);
+      expect(selectDay.month).to.equalDate(novemberDate);
+    });
+
+    it('should select and emit a chronological range regardless of click order', async () => {
+      let selectedRange: Date[] | undefined;
+      el.addEventListener('sl-change', (event: SlChangeEvent<Date | Date[]>) => {
+        selectedRange = Array.isArray(event.detail) ? event.detail : undefined;
+      });
+
+      getDayButton(new Date(2023, 2, 22))?.click();
+      await el.updateComplete;
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+
+      expect(el.range).to.have.lengthOf(2);
+      expect(el.range?.[0]).to.equalDate(new Date(2023, 2, 17));
+      expect(el.range?.[1]).to.equalDate(new Date(2023, 2, 22));
+      expect(selectedRange?.[0]).to.equalDate(new Date(2023, 2, 17));
+      expect(selectedRange?.[1]).to.equalDate(new Date(2023, 2, 22));
+      expect(el.rangeStart).to.be.undefined;
+    });
+
+    it('should remain on the month containing the second selected date', async () => {
+      const start = new Date(2023, 2, 31),
+        end = new Date(2023, 3, 2);
+
+      getDayButton(start)?.click();
+      await el.updateComplete;
+      getDayButton(end)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.month).to.equalDate(end);
+      expect(selectDay.month.getFullYear()).to.equal(end.getFullYear());
+      expect(selectDay.month.getMonth()).to.equal(end.getMonth());
+
+      const activeButton = selectDay.renderRoot.querySelector<MonthView>(
+          'sl-month-view:not([inert])'
+        )?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeCell = activeButton?.closest<HTMLElement>('td[data-date]');
+
+      expect(activeCell?.dataset.date).to.equal(end.toISOString());
+    });
+
+    it('should announce both steps of the range selection', async () => {
+      const messages: string[] = [],
+        onAnnounce = (event: Event) =>
+          messages.push((event as CustomEvent<{ message: string }>).detail.message);
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      getDayButton(new Date(2023, 2, 17))?.click();
+      await el.updateComplete;
+      getDayButton(new Date(2023, 2, 22))?.click();
+      await el.updateComplete;
+      document.body.removeEventListener('sl-announce', onAnnounce);
+
+      expect(messages).to.have.lengthOf(2);
+      expect(messages[0]).to.contain('selected. Select second date.');
+      expect(messages[1]).to.contain('You selected range from');
+      expect(messages[1]).to.contain('to');
+    });
+
+    it('should allow a one-day range', async () => {
+      const date = new Date(2023, 2, 17);
+
+      getDayButton(date)?.click();
+      await el.updateComplete;
+      getDayButton(date)?.click();
+      await el.updateComplete;
+
+      expect(el.range).to.have.lengthOf(2);
+      expect(el.range?.[0]).to.equalDate(date);
+      expect(el.range?.[1]).to.equalDate(date);
+    });
+
+    it('should set range to undefined when selection is aborted with Escape', async () => {
+      const button = getDayButton(new Date(2023, 2, 17));
+
+      button?.click();
+      await el.updateComplete;
+      button?.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          composed: true,
+          key: 'Escape'
+        })
+      );
+      await el.updateComplete;
+
+      expect(el.rangeStart).to.be.undefined;
+      expect(el.range).to.be.undefined;
+    });
+
+    it('should describe only the start and end buttons of a completed range', async () => {
+      el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      await monthView.updateComplete;
+
+      const start = getDayButton(new Date(2023, 2, 17)),
+        middle = getDayButton(new Date(2023, 2, 18)),
+        end = getDayButton(new Date(2023, 2, 22)),
+        startDescription = monthView.renderRoot.querySelector('#range-start-description'),
+        endDescription = monthView.renderRoot.querySelector('#range-end-description');
+
+      expect(start?.ariaDescribedByElements).to.include(startDescription);
+      expect(middle?.ariaDescribedByElements ?? []).to.be.empty;
+      expect(end?.ariaDescribedByElements).to.include(endDescription);
+    });
+  });
+
   describe('mode switching', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-calendar></sl-calendar>`);
@@ -239,7 +545,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('month');
+      expect(el.view).to.equal('month');
       expect(el.renderRoot.querySelector('sl-select-month')).to.exist;
     });
 
@@ -250,7 +556,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('year');
+      expect(el.view).to.equal('year');
       expect(el.renderRoot.querySelector('sl-select-year')).to.exist;
     });
 
@@ -289,7 +595,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('day');
+      expect(el.view).to.equal('day');
     });
 
     it('should update month when a month is selected', async () => {
@@ -331,7 +637,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('day');
+      expect(el.view).to.equal('day');
     });
 
     it('should update month year when a year is selected', async () => {
@@ -371,7 +677,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('year');
+      expect(el.view).to.equal('year');
 
       // Select a year - should return to month mode
       el.renderRoot
@@ -380,7 +686,7 @@ describe('sl-calendar', () => {
         ?.click();
       await el.updateComplete;
 
-      expect(el.mode).to.equal('month');
+      expect(el.view).to.equal('month');
     });
 
     it('should focus select-month after returning from year selector to month mode', async () => {
@@ -415,7 +721,7 @@ describe('sl-calendar', () => {
       );
       expect(firstSelectableMonth).to.exist;
 
-      expect(el.mode).to.equal('month');
+      expect(el.view).to.equal('month');
       expect(el.shadowRoot?.activeElement).to.match('sl-select-month');
       expect(selectMonth!.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
     });

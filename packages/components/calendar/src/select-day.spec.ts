@@ -184,12 +184,14 @@ describe('sl-select-day', () => {
         expect(dayElements.every(d => d.getAttribute('role') === 'listitem')).to.be.true;
       });
 
-      it('should not render the days of the week in the month-view', () => {
+      it('should visually hide month headers while keeping them accessible', () => {
         const monthView = el.renderRoot.querySelector<LitElement>('sl-month-view:not([inert])'),
           header = monthView?.renderRoot.querySelector('[part="header"]');
 
         expect(header).to.exist;
-        expect(header).to.have.style('display', 'none');
+        expect(header).not.to.have.style('display', 'none');
+        expect(header).to.have.style('clip-path', 'inset(50%)');
+        expect(el.renderRoot.querySelector('.weekdays')).to.have.attribute('aria-hidden', 'true');
       });
 
       it('should start on Sunday when the first day of the week is 0', async () => {
@@ -262,6 +264,15 @@ describe('sl-select-day', () => {
       expect(nextButton).to.match(':disabled');
     });
 
+    it('should allow navigating forward when the current month is before min', async () => {
+      el.min = new Date(2023, 5, 1);
+      await el.updateComplete;
+
+      const nextButton = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(nextButton).not.to.match(':disabled');
+    });
+
     it('should render only two month views when at min boundary', async () => {
       el.min = new Date(2023, 2, 1);
       await el.updateComplete;
@@ -316,6 +327,156 @@ describe('sl-select-day', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(el.month).to.equalDate(originalMonth);
+    });
+  });
+
+  describe('multiple months', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-select-day number-of-months="2"></sl-select-day>`);
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+    });
+
+    it('should show two consecutive active month views when enough space is available', () => {
+      const monthViews = Array.from(
+        el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+      );
+
+      expect(el.numberOfMonths).to.equal(2);
+      expect(el.visibleMonthCount).to.equal(2);
+      expect(monthViews).to.have.lengthOf(2);
+      expect(monthViews[0].month).to.equalDate(new Date(2023, 2, 14));
+      expect(monthViews[1].month).to.equalDate(new Date(2023, 3, 1));
+      expect(monthViews.every(monthView => monthView.hideDaysOtherMonths)).to.be.true;
+    });
+
+    it('should forward range CSS parts from the month views', () => {
+      const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
+
+      expect(monthViews).not.to.be.empty;
+      expect(
+        monthViews.every(monthView => {
+          const parts = monthView.getAttribute('exportparts') ?? '';
+
+          return (
+            parts.includes('range-start') &&
+            parts.includes('range-end') &&
+            parts.includes('in-range') &&
+            parts.includes('range-preview')
+          );
+        })
+      ).to.be.true;
+    });
+
+    it('should disable next when the final month is already visible', async () => {
+      el.max = new Date(2023, 3, 30);
+      await el.updateComplete;
+
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        nextButton = el.renderRoot.querySelector('sl-button.next-month');
+
+      expect(monthViews).to.have.lengthOf(2);
+      expect(monthViews[1].month).to.equalDate(new Date(2023, 3, 1));
+      expect(nextButton).to.match(':disabled');
+    });
+
+    it('should render weekday headings for both visible months', () => {
+      expect(el.renderRoot.querySelectorAll('.days-of-week')).to.have.lengthOf(2);
+      expect(el.renderRoot.querySelectorAll('.day-of-week')).to.have.lengthOf(14);
+    });
+
+    it('should hide the second month label from screen readers', () => {
+      expect(el.renderRoot.querySelector('.following-month-label')).to.have.attribute(
+        'aria-hidden',
+        'true'
+      );
+    });
+
+    it('should expose weekday headers before the dates in each visible month', () => {
+      const months = Array.from(
+        el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+      );
+
+      expect(months).to.have.lengthOf(2);
+      expect(el.renderRoot.querySelector('.weekdays')).to.have.attribute('aria-hidden', 'true');
+
+      for (const month of months) {
+        const header = month.renderRoot.querySelector('thead')!,
+          dates = month.renderRoot.querySelector('tbody')!;
+
+        expect(header.querySelectorAll('th[part="week-day"]')).to.have.lengthOf(7);
+        expect(header).not.to.have.style('display', 'none');
+        expect(header.closest('[aria-hidden="true"]')).to.be.null;
+        expect(
+          header.compareDocumentPosition(dates) & Node.DOCUMENT_POSITION_FOLLOWING
+        ).not.to.equal(0);
+      }
+    });
+
+    it('should collapse to one active month when the available width is too small', async () => {
+      el.style.maxInlineSize = '238px';
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      expect(el.visibleMonthCount).to.equal(1);
+      expect(el.renderRoot.querySelectorAll('sl-month-view:not([inert])')).to.have.lengthOf(1);
+      expect(el.renderRoot.querySelectorAll('.days-of-week')).to.have.lengthOf(1);
+    });
+
+    it('should move keyboard focus to the already visible next month without paging', async () => {
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        originalMonth = el.month;
+
+      monthViews[0].focus(new Date(2023, 2, 31));
+      await userEvent.keyboard('{ArrowRight}');
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.month).to.equalDate(originalMonth);
+      expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
+    });
+
+    it('should share a pointer range preview between both visible months', async () => {
+      el.rangeSelection = true;
+      el.rangeStart = new Date(2023, 2, 26);
+      await el.updateComplete;
+
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        previewDate = new Date(2023, 3, 5),
+        previewButton = monthViews[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${previewDate.toISOString()}"] button`
+        );
+
+      previewButton?.dispatchEvent(new PointerEvent('pointerenter'));
+      await el.updateComplete;
+      await Promise.all(monthViews.map(monthView => monthView.updateComplete));
+
+      const marchEnd = monthViews[0].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 2, 31).toISOString()}"] button`
+        ),
+        aprilStart = monthViews[1].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 3, 1).toISOString()}"] button`
+        );
+
+      expect(el.rangePreview).to.equalDate(previewDate);
+      expect(marchEnd).to.have.attribute('part').that.contains('range-month-end');
+      expect(aprilStart).to.have.attribute('part').that.contains('range-month-start');
+      expect(previewButton).to.have.attribute('part').that.contains('range-end');
+    });
+
+    it('should advance the two-month window by one month', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
+
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)), {
+        timeout: 2000
+      });
+
+      expect(el.nextMonth).to.equalDate(new Date(2023, 4, 1));
     });
   });
 

@@ -3,6 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -37,7 +38,18 @@ declare global {
   }
 }
 
-/** A calendar component for displaying and selecting dates. */
+/**
+ * A calendar component for displaying and selecting dates.
+ *
+ * @csspart in-range - A day between the start and end of a selected range.
+ * @csspart range-end - The last day in a selected range.
+ * @csspart range-month-end - A range bridge fading out at the end of a month.
+ * @csspart range-month-start - A range bridge fading in at the start of a month.
+ * @csspart range-preview - A day shown while previewing an unfinished range.
+ * @csspart range-row-end - A range bridge ending at the edge of a week row.
+ * @csspart range-row-start - A range bridge starting at the edge of a week row.
+ * @csspart range-start - The first day in a selected range.
+ */
 @localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -62,17 +74,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Events controller. */
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    focusin: this.#onFocusIn
+    focusin: this.#onFocusIn,
+    keydown: this.#onKeydown
   });
 
   /**
    * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the component can
    * restore the correct view when closing or switching between month and year views.
    */
-  #previousMode: 'day' | 'month' | 'year' = 'day';
+  #previousView: 'day' | 'month' | 'year' = 'day';
+
+  /** Whether the current range update was caused by the user completing a selection. */
+  #rangeChangedInternally = false;
+
+  /** The first date selected while composing a range. */
+  @state() rangeStart?: Date;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | Date[]>>;
 
   /** The list of dates that should be set as disabled. */
   @property({ attribute: 'disabled-dates', converter: dateListConverter }) disabledDates?: Date[];
@@ -105,14 +124,23 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
-  /** @internal The mode the calendar is currently in. */
-  @state() mode: 'day' | 'month' | 'year' = 'day';
+  /** Determines whether the calendar selects a single date or a date range. */
+  @property() mode: 'single' | 'range' = 'single';
+
+  /** The preferred number of consecutive months to show. Collapses to one when space is limited. */
+  @property({ type: Number, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 = 1;
+
+  /** @internal The view the calendar is currently showing. */
+  @state() view: 'day' | 'month' | 'year' = 'day';
 
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
 
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
+
+  /** The selected date range. The order of the dates does not matter. */
+  @property({ converter: dateListConverter }) range?: Date[];
 
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
@@ -126,14 +154,31 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('selected') && this.selected) {
+    if (changes.has('mode') && this.mode !== 'range') {
+      this.rangeStart = undefined;
+    }
+
+    if (changes.has('range') && !this.#rangeChangedInternally) {
+      this.rangeStart = undefined;
+    }
+
+    if (changes.has('selected') && this.selected && this.mode !== 'range') {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
       this.month = this.selected;
+    } else if (
+      (changes.has('range') || (changes.has('mode') && this.mode === 'range')) &&
+      this.range?.length &&
+      this.mode === 'range' &&
+      !this.#rangeChangedInternally
+    ) {
+      this.month = this.#normalizeRange(this.range)[0];
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
     }
+
+    this.#rangeChangedInternally = false;
   }
 
   override render(): TemplateResult {
@@ -142,22 +187,27 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         @sl-change=${this.#onChange}
         @sl-select=${this.#onSelect}
         @sl-toggle=${this.#onToggleMonthYear}
-        ?autofocus=${this.mode === 'day'}
-        ?inert=${this.mode !== 'day'}
+        ?autofocus=${this.view === 'day'}
+        ?inert=${this.view !== 'day'}
         ?readonly=${this.readonly}
         ?show-today=${this.showToday}
         ?show-week-numbers=${this.showWeekNumbers}
         .disabledDates=${this.disabledDates}
         .indicatorDates=${this.indicatorDates}
         .month=${this.month}
-        .selected=${this.selected}
-        aria-hidden=${ifDefined(this.mode !== 'day' ? 'true' : undefined)}
+        .numberOfMonths=${this.numberOfMonths}
+        .range=${this.range}
+        .rangeSelection=${this.mode === 'range'}
+        .rangeStart=${this.rangeStart}
+        .selected=${this.mode === 'range' ? undefined : this.selected}
+        aria-hidden=${ifDefined(this.view !== 'day' ? 'true' : undefined)}
+        exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
-      ${choose(this.mode, [
+        style=${ifDefined(this.view === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
+      ${choose(this.view, [
         [
           'month',
           () => html`
@@ -282,7 +332,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (!this.selected || !isSameDate(this.selected, event.detail)) {
+    if (this.mode === 'range') {
+      this.#selectRangeDate(event.detail);
+    } else if (!this.selected || !isSameDate(this.selected, event.detail)) {
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }
@@ -297,7 +349,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.detail.getMonth(),
       this.month!.getDate()
     );
-    this.mode = 'day';
+    this.view = 'day';
 
     requestAnimationFrame(() => {
       this.renderRoot.querySelector('sl-select-day')?.focus();
@@ -313,7 +365,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.month!.getMonth(),
       this.month!.getDate()
     );
-    this.mode = this.#previousMode ?? 'day';
+    this.view = this.#previousView ?? 'day';
 
     requestAnimationFrame(() => {
       this.#focusActiveMode();
@@ -324,8 +376,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.#previousMode = this.mode;
-    this.mode = event.detail;
+    this.#previousView = this.view;
+    this.view = event.detail;
 
     // Wait until the new mode has rendered before focusing the correct element
     requestAnimationFrame(() => {
@@ -367,9 +419,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #focusActiveMode(): void {
     const selector =
-        this.mode === 'month'
+        this.view === 'month'
           ? 'sl-select-month'
-          : this.mode === 'year'
+          : this.view === 'year'
             ? 'sl-select-year'
             : 'sl-select-day',
       subComponent = this.renderRoot.querySelector(selector);
@@ -378,5 +430,55 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       subComponent.focus();
       this.#setHelperTextOnFirstButton(subComponent);
     }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.mode === 'range' && this.rangeStart) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.rangeStart = undefined;
+    }
+  }
+
+  #selectRangeDate(date: Date): void {
+    const selectDay = this.renderRoot.querySelector<SelectDay>('sl-select-day'),
+      month = selectDay?.visibleMonthCount === 2 ? selectDay.month : date;
+
+    if (!this.rangeStart) {
+      // Keep the parent month in sync with the month currently shown by sl-select-day. Otherwise,
+      // this update would pass a stale month back to the child and jump away from the selected day.
+      this.month = new Date(month);
+      this.#rangeChangedInternally = true;
+      this.range = undefined;
+      this.rangeStart = new Date(date);
+      announce(
+        msg(
+          str`${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })} selected. Select second date.`,
+          { id: 'sl.calendar.rangeStartSelected' }
+        ),
+        'polite'
+      );
+      return;
+    }
+
+    const range = this.#normalizeRange([this.rangeStart, date]);
+    this.#rangeChangedInternally = true;
+    this.range = range;
+    this.month = new Date(month);
+    this.rangeStart = undefined;
+    this.changeEvent.emit(range);
+    announce(
+      msg(
+        str`You selected range from ${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })} to ${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}.`,
+        { id: 'sl.calendar.rangeSelected' }
+      ),
+      'polite'
+    );
+  }
+
+  #normalizeRange(range: Date[]): [Date, Date] {
+    const [first, second = first] = range;
+
+    return first.getTime() <= second.getTime() ? [first, second] : [second, first];
   }
 }

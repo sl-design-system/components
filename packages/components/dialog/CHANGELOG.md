@@ -1,5 +1,11 @@
 # @sl-design-system/dialog
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3774](https://github.com/sl-design-system/components/pull/3774) [`21b7197`](https://github.com/sl-design-system/components/commit/21b7197e59184feeac60ad1b68c7d63f3d1f8414) - Add `disable-body-animation` to opt out of the body scale and translate animation on mobile, for example in hybrid apps. The dialog still animates and retains modal behavior and scroll locking.
+
 ## 2.1.4
 
 ### Patch Changes

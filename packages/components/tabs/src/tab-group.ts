@@ -292,7 +292,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div class="fade fade-end"></div>
             <div
               @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)}
-              part="scroller">
+              part="scroller"
+              tabindex="-1">
               <div
                 @click=${this.#onClick}
                 @focusin=${this.#onFocusin}

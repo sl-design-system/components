@@ -4,7 +4,8 @@ import { type DataSourceFilter } from './data-source.js';
 import {
   FetchListDataSource,
   type FetchListDataSourceCallback,
-  type FetchListDataSourceCallbackOptions
+  type FetchListDataSourceCallbackOptions,
+  type FetchListDataSourceCallbackResult
 } from './fetch-list-data-source.js';
 import {
   type ListDataSourceDataItem,
@@ -15,6 +16,192 @@ import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
+
+  it.each([false, true])(
+    'should reuse a pending page request across updates (pagination: %s)',
+    async pagination => {
+      const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+      const fetchPage = spy(() => request.promise);
+      ds = new FetchListDataSource({ fetchPage, pageSize: 2, pagination });
+
+      void ds.items[0];
+      ds.update();
+      ds.update();
+      void ds.items[0];
+      void ds.items[1];
+      expect(fetchPage).to.have.been.calledOnce;
+
+      request.resolve({ items: people.slice(0, 2), totalItems: people.length });
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+      expect((ds.items[1] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+
+      // A completed request must still be invalidated by an explicit update.
+      ds.update();
+      void ds.items[0];
+      expect(fetchPage).to.have.been.calledTwice;
+      await new Promise(resolve => setTimeout(resolve));
+    }
+  );
+
+  it.each(['filter', 'sort', 'pageSize', 'callback', 'custom option'])(
+    'should ignore an outdated response after changing the %s',
+    async change => {
+      const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+      const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+      let calls = 0;
+      const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+      ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+      void ds.items[0];
+
+      switch (change) {
+        case 'filter':
+          ds.addFilter('firstName', 'firstName', 'xyz');
+          break;
+        case 'sort':
+          ds.setSort('firstName', 'desc');
+          break;
+        case 'pageSize':
+          ds.setPageSize(3);
+          break;
+        case 'callback':
+          ds.fetchPage = () => current.promise;
+          break;
+        case 'custom option': {
+          const getFetchOptions = ds.getFetchOptions.bind(ds);
+          ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query: 'changed' });
+          break;
+        }
+      }
+
+      ds.update();
+      void ds.items[0];
+      current.resolve({ items: [people[1]], totalItems: 1 });
+      await new Promise(resolve => setTimeout(resolve));
+
+      const onUpdate = spy();
+      ds.addEventListener('sl-update', onUpdate);
+      previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(ds.size).to.equal(1);
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+      expect(onUpdate).not.to.have.been.called;
+    }
+  );
+
+  it('should keep pending requests independent across data source instances', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    const sources = [
+      new FetchListDataSource({ fetchPage, pageSize: 30 }),
+      new FetchListDataSource({ fetchPage, pageSize: 30 })
+    ];
+
+    for (const source of sources) {
+      void source.items[0];
+      source.update();
+      void source.items[0];
+    }
+
+    expect(fetchPage).to.have.been.calledTwice;
+    request.resolve({ items: people, totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    for (const source of sources) {
+      expect((source.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+    }
+  });
+
+  it('should reuse a pending request when an equivalent filter is reapplied', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    ds.addFilter('firstName', 'firstName', 'John');
+    void ds.items[0];
+    ds.addFilter('firstName', 'firstName', 'John');
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledOnce;
+    request.resolve({ items: [people[0]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should reuse a pending refetch after clearing an empty filter result', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters }) =>
+      filters?.length ? Promise.resolve({ items: [], totalItems: 0 }) : request.promise
+    );
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.removeFilter('firstName');
+    ds.update();
+    ds.update();
+    expect(fetchPage).to.have.been.calledTwice;
+
+    request.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+    expect(ds.size).to.equal(people.length);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it.each([
+    { pagination: false, filteredSize: 0 },
+    { pagination: true, filteredSize: 0 },
+    { pagination: false, filteredSize: 1 },
+    { pagination: true, filteredSize: 1 }
+  ])(
+    'should refetch after removing a filter with $filteredSize results (pagination: $pagination)',
+    async ({ pagination, filteredSize }) => {
+      const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters, page, pageSize }) => {
+        const items = filters?.length ? people.slice(0, filteredSize) : people;
+
+        return Promise.resolve({
+          items: items.slice(page * pageSize, (page + 1) * pageSize),
+          totalItems: items.length
+        });
+      });
+
+      ds = new FetchListDataSource<Person>({ fetchPage, pageSize: 2, pagination });
+
+      void ds.items[0];
+      await new Promise(resolve => setTimeout(resolve));
+
+      ds.addFilter('firstName', 'firstName', 'xyz');
+      ds.update();
+      void ds.items[0];
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(ds.size).to.equal(filteredSize);
+      expect(ds.items.length).to.equal(filteredSize);
+
+      ds.removeFilter('firstName');
+      ds.update();
+
+      if (filteredSize === 0) {
+        expect(fetchPage).to.have.been.calledThrice;
+      }
+
+      void ds.items[0];
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(fetchPage).to.have.been.calledThrice;
+      expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
+      expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
+      expect(ds.size).to.equal(people.length);
+      expect(ds.items.length).to.equal(pagination ? ds.pageSize : people.length);
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
+    }
+  );
 
   it('should provide typed filter options to the fetchPage callback', () => {
     const fetchPage: FetchListDataSourceCallback<Person> = options => {

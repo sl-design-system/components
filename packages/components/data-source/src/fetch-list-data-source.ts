@@ -85,6 +85,12 @@ export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceho
 /** Symbol used as the ID for the dummy group when no groups are provided */
 const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
 
+interface PendingFetch<T> {
+  callback: FetchListDataSourceCallback<T>;
+  options: FetchListDataSourceCallbackOptions<T>;
+  promise: Promise<void>;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The default size of the item collection if not explicitly set. */
@@ -101,6 +107,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   /** Proxy of the items array. */
   #proxy: Array<ListDataSourceItem<T>> = [];
+
+  /** In-flight requests that can be reused while their fetch options remain unchanged. */
+  #pending = new WeakMap<FetchListDataSourceGroupItem<T>, Map<number, PendingFetch<T>>>();
 
   /** The total number of items in the data source. */
   #totalSize: number;
@@ -196,12 +205,31 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.#groups.forEach(group => {
       group.members = undefined;
       group.pages = {};
+
+      this.#pending.get(group)?.forEach((request, page) => {
+        const options = this.getFetchOptions(group, page, this.pageSize);
+
+        if (
+          request.callback === this.fetchPage &&
+          this.#areFetchOptionsEqual(request.options, options)
+        ) {
+          group.pages[page] = request.promise;
+        } else {
+          this.#pending.get(group)!.delete(page);
+        }
+      });
     });
 
     this.#items = this.#createItemsArray();
     this.#proxy = this.#createProxy(this.#items);
 
     if (emitEvent) {
+      // An empty list has no items to access, so it cannot trigger a lazy fetch.
+      // Refetch the current page explicitly to discover items after an update.
+      if (this.#groups.has(FetchListDataSourceDummyGroup) && this.#items.length === 0) {
+        this.#requestFetch(0);
+      }
+
       this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
     }
   }
@@ -351,47 +379,76 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       page = this.pagination ? this.page : Math.floor((n - (group.startIndex ?? 0)) / pageSize);
 
     if (!group.pages[page]) {
-      group.pages[page] = (async () => {
-        const options = this.getFetchOptions(group, page, pageSize),
-          res = await this.fetchPage(options);
+      const options = this.getFetchOptions(group, page, pageSize),
+        callback = this.fetchPage;
 
-        // If the size of the group changes, or pagination is enabled, we need to
-        // recreate the proxy to ensure that the array with items is up to date.
-        let recreateProxy = this.pagination;
+      let pending = this.#pending.get(group);
+      if (!pending) {
+        pending = new Map();
+        this.#pending.set(group, pending);
+      }
 
-        if (res.totalItems !== undefined) {
-          group.size = Number(res.totalItems);
+      const request = (async () => await callback.call(this, options))()
+        .finally(() => {
+          if (pending.get(page)?.promise === request) {
+            pending.delete(page);
+          }
+        })
+        .then(res => {
+          // An update with different options invalidates this response, even if it
+          // arrives after the replacement request has completed.
+          if (group.pages[page] !== request) {
+            return;
+          }
 
-          if (group.size !== group.members?.length) {
-            recreateProxy = true;
+          // If the size of the group changes, or pagination is enabled, we need to
+          // recreate the proxy to ensure that the array with items is up to date.
+          let recreateProxy = this.pagination;
 
-            const members = group.members ?? [];
-            group.members = Array.from({ length: group.size });
+          if (res.totalItems !== undefined) {
+            group.size = Number(res.totalItems);
 
-            for (let i = 0; i < group.size; i++) {
-              group.members[i] = members[i];
+            if (group.size !== group.members?.length) {
+              recreateProxy = true;
+
+              const members = group.members ?? [];
+              group.members = Array.from({ length: group.size });
+
+              for (let i = 0; i < group.size; i++) {
+                group.members[i] = members[i];
+              }
             }
           }
-        }
 
-        for (let i = 0; i < res.items.length; i++) {
-          const index = pageSize * page + i,
-            item = res.items[i];
+          for (let i = 0; i < res.items.length; i++) {
+            const index = pageSize * page + i,
+              item = res.items[i];
 
-          group.members![index] = {
-            id: this.#mapping.getId!(item),
-            type: 'data',
-            data: item
-          };
-        }
+            group.members![index] = {
+              id: this.#mapping.getId!(item),
+              type: 'data',
+              data: item
+            };
+          }
 
-        if (recreateProxy) {
-          this.#items = this.#createItemsArray();
-          this.#proxy = this.#createProxy(this.#items);
-        }
+          if (recreateProxy) {
+            this.#items = this.#createItemsArray();
+            this.#proxy = this.#createProxy(this.#items);
+          }
 
-        this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
-      })();
+          this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+        });
+
+      group.pages[page] = request;
+      pending.set(page, {
+        callback,
+        options: {
+          ...options,
+          filters: options.filters?.map(filter => ({ ...filter })),
+          sort: options.sort ? { ...options.sort } : undefined
+        },
+        promise: request
+      });
     }
 
     return {
@@ -399,5 +456,31 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       type: 'data',
       data: ListDataSourcePlaceholder
     } as ListDataSourceDataItem<T>;
+  }
+
+  #areFetchOptionsEqual(
+    previous: FetchListDataSourceCallbackOptions<T>,
+    current: FetchListDataSourceCallbackOptions<T>
+  ): boolean {
+    const { filters: previousFilters = [], sort: previousSort, ...previousOptions } = previous,
+      { filters: currentFilters = [], sort: currentSort, ...currentOptions } = current;
+
+    return (
+      Object.keys(previousOptions).length === Object.keys(currentOptions).length &&
+      Object.keys(previousOptions).every(
+        key =>
+          Object.hasOwn(currentOptions, key) && Object.is(previousOptions[key], currentOptions[key])
+      ) &&
+      previousSort?.by === currentSort?.by &&
+      previousSort?.direction === currentSort?.direction &&
+      previousFilters.length === currentFilters.length &&
+      previousFilters.every((filter, index) => {
+        const other = currentFilters[index];
+
+        return (
+          filter.id === other.id && filter.by === other.by && Object.is(filter.value, other.value)
+        );
+      })
+    );
   }
 }

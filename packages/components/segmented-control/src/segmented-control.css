@@ -11,6 +11,17 @@
   --_selected-color: var(--sl-color-foreground-neutral-plain);
 
   display: inline-block;
+  max-inline-size: 100%;
+}
+
+/*
+ * When the buttons don't fit and the select is shown, take up all available width. This never
+ * makes the buttons come back too early: the buttons are only shown again once the available
+ * width is at least the width they need.
+ */
+:host(:state(overflow)) {
+  display: block;
+  inline-size: 100%;
 }
 
 :host([emphasis='bold']) {
@@ -60,6 +71,47 @@ ul {
   list-style: none;
   margin: 0;
   padding: var(--sl-size-050);
+}
+
+/*
+ * Off-screen copy of the buttons, used to measure the width the buttons need. The wrapper has no
+ * size so it never causes scrollbars; the list inside is laid out at its natural (max-content) width.
+ */
+.measure {
+  block-size: 0;
+  inline-size: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+ul[data-measurement] {
+  inline-size: max-content;
+}
+
+/*
+ * Invisible element that determines the intrinsic width of the host: its max-content width equals
+ * the width the buttons need, but it can wrap (and shrink) when there is less space. This way the
+ * host asks for enough space for the buttons, even while the select is shown, so containers that
+ * size to their content (table cells, flex items, inline-block) give it room again when available.
+ */
+.sizer {
+  block-size: 0;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  visibility: hidden;
+
+  span {
+    flex: none;
+    inline-size: var(--_segment-size, 0);
+  }
+}
+
+/* The visible content (buttons or select) must not influence the width of the host. */
+.content {
+  contain: inline-size;
 }
 
 li {
@@ -153,6 +205,11 @@ button {
   button[aria-current='true'][aria-label]:not([aria-label=''])::after {
   inline-size: var(--sl-size-200);
   inset-inline-start: calc(50% - (var(--sl-size-200) / 2));
+}
+
+sl-select {
+  display: flex;
+  inline-size: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {

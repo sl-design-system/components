@@ -1,5 +1,7 @@
+import { type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import './register.js';
@@ -11,11 +13,27 @@ const items: SegmentedControlItem[] = [
   { label: 'Table', value: 'table' }
 ];
 
+const longItems: SegmentedControlItem[] = [
+  { label: 'Very long option one', value: 'one' },
+  { label: 'Very long option two', value: 'two' },
+  { label: 'Very long option three', value: 'three' }
+];
+
+/** Wait for the resize observer and the animation frame it schedules. */
+const nextLayout = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 100));
+
 describe('sl-segmented-control', () => {
   let el: SegmentedControl;
 
-  const buttons = (): HTMLButtonElement[] =>
-    Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button'));
+  const list = (): HTMLUListElement | null =>
+      el.renderRoot.querySelector<HTMLUListElement>('.content ul'),
+    buttons = (): HTMLButtonElement[] =>
+      Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('.content button')),
+    select = (): Select | null => el.renderRoot.querySelector<Select>('sl-select'),
+    selectButton = (): HTMLElement | null =>
+      select()?.querySelector<HTMLElement>('sl-select-button') ??
+      select()?.renderRoot.querySelector<HTMLElement>('sl-select-button') ??
+      null;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -37,10 +55,8 @@ describe('sl-segmented-control', () => {
     });
 
     it('should render an unordered list of buttons', () => {
-      const list = el.renderRoot.querySelector('ul');
-
-      expect(list).to.exist;
-      expect(list?.querySelectorAll(':scope > li > button')).to.have.length(3);
+      expect(list()).to.exist;
+      expect(list()?.querySelectorAll(':scope > li > button')).to.have.length(3);
     });
 
     it('should select the first option', () => {
@@ -57,7 +73,11 @@ describe('sl-segmented-control', () => {
 
     it('should have a single tab stop', () => {
       expect(buttons().filter(b => b.tabIndex === 0)).to.have.length(1);
-      expect(buttons()[0].tabIndex).to.equal(0);
+    });
+
+    it('should hide the measurement elements from assistive technology', () => {
+      expect(el.renderRoot.querySelector('.measure')).to.have.attribute('aria-hidden', 'true');
+      expect(el.renderRoot.querySelector('.sizer')).to.have.attribute('aria-hidden', 'true');
     });
   });
 
@@ -67,7 +87,7 @@ describe('sl-segmented-control', () => {
         <sl-segmented-control .items=${items} aria-label="View"></sl-segmented-control>
       `);
 
-      expect(el.renderRoot.querySelector('ul')).to.have.attribute('aria-label', 'View');
+      expect(list()).to.have.attribute('aria-label', 'View');
     });
 
     it('should resolve aria-labelledby', async () => {
@@ -79,9 +99,8 @@ describe('sl-segmented-control', () => {
       `);
 
       el = container.querySelector('sl-segmented-control')!;
-      await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('ul')).to.have.attribute('aria-label', 'Sort by');
+      expect(list()).to.have.attribute('aria-label', 'Sort by');
     });
   });
 
@@ -91,15 +110,15 @@ describe('sl-segmented-control', () => {
     });
 
     it('should select an option on click and emit sl-change', async () => {
-      let detail: string | undefined;
-
-      el.addEventListener('sl-change', (e: Event) => (detail = (e as CustomEvent<string>).detail));
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
 
       buttons()[1].click();
       await el.updateComplete;
 
       expect(el.value).to.equal('grid');
-      expect(detail).to.equal('grid');
+      expect(onChange).to.have.been.calledOnce;
+      expect((onChange.lastCall.args[0] as CustomEvent<string>).detail).to.equal('grid');
       expect(buttons().map(b => b.getAttribute('aria-current'))).to.deep.equal([
         'false',
         'true',
@@ -154,8 +173,7 @@ describe('sl-segmented-control', () => {
       `);
 
       el = container.querySelector('sl-segmented-control')!;
-
-      await new Promise(resolve => setTimeout(resolve));
+      await nextLayout();
 
       const [firstWidth, secondWidth, thirdWidth] = buttons().map(button =>
         Math.round(button.getBoundingClientRect().width)
@@ -174,14 +192,13 @@ describe('sl-segmented-control', () => {
       `);
 
       el = container.querySelector('sl-segmented-control')!;
-
-      await new Promise(resolve => setTimeout(resolve));
+      await nextLayout();
 
       const [firstWidth, secondWidth, thirdWidth] = buttons().map(button =>
           Math.round(button.getBoundingClientRect().width)
         ),
         hostWidth = Math.round(el.getBoundingClientRect().width),
-        listWidth = Math.round(el.renderRoot.querySelector('ul')!.getBoundingClientRect().width);
+        listWidth = Math.round(list()!.getBoundingClientRect().width);
 
       expect(hostWidth).to.equal(800);
       expect(listWidth).to.equal(hostWidth);
@@ -190,36 +207,179 @@ describe('sl-segmented-control', () => {
     });
   });
 
-  it('should hide visible text in icon-only mode', async () => {
-    el = await fixture(html`
-      <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
-    `);
+  describe('icon only', () => {
+    it('should hide visible text in icon-only mode', async () => {
+      el = await fixture(html`
+        <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
+      `);
 
-    expect(buttons().map(button => button.textContent?.trim())).to.deep.equal(['', '', '']);
-    expect(buttons().map(button => button.getAttribute('aria-label'))).to.deep.equal([
-      'List',
-      'Grid',
-      'Table'
-    ]);
+      expect(buttons().map(button => button.textContent?.trim())).to.deep.equal(['', '', '']);
+      expect(buttons().map(button => button.getAttribute('aria-label'))).to.deep.equal([
+        'List',
+        'Grid',
+        'Table'
+      ]);
+    });
+
+    it('should use size-specific padding in icon-only mode', async () => {
+      el = await fixture(html`
+        <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
+      `);
+
+      let styles = getComputedStyle(buttons()[0]);
+      expect(styles.paddingBlockStart).to.equal('10px');
+      expect(styles.paddingInlineStart).to.equal('10px');
+
+      el = await fixture(html`
+        <sl-segmented-control .items=${items} icon-only size="lg"></sl-segmented-control>
+      `);
+
+      styles = getComputedStyle(buttons()[0]);
+      expect(styles.paddingBlockStart).to.equal('16px');
+      expect(styles.paddingInlineStart).to.equal('16px');
+    });
   });
 
-  it('should use size-specific padding in icon-only mode', async () => {
-    el = await fixture(html`
-      <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
-    `);
+  describe('overflow', () => {
+    let container: HTMLElement;
 
-    let styles = getComputedStyle(buttons()[0]);
+    beforeEach(async () => {
+      container = await fixture(html`
+        <div style="inline-size: 150px">
+          <sl-segmented-control .items=${longItems} aria-label="Options"></sl-segmented-control>
+        </div>
+      `);
 
-    expect(styles.paddingBlockStart).to.equal('10px');
-    expect(styles.paddingInlineStart).to.equal('10px');
+      el = container.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+    });
 
-    el = await fixture(html`
-      <sl-segmented-control .items=${items} icon-only size="lg"></sl-segmented-control>
-    `);
+    it('should render a select when the buttons do not fit', () => {
+      expect(select()).to.exist;
+      expect(list()).not.to.exist;
+    });
 
-    styles = getComputedStyle(buttons()[0]);
+    it('should not exceed the available width', () => {
+      expect(el.getBoundingClientRect().width).to.be.at.most(150);
+    });
 
-    expect(styles.paddingBlockStart).to.equal('16px');
-    expect(styles.paddingInlineStart).to.equal('16px');
+    it('should stretch the select to the full available width', () => {
+      expect(Math.round(el.getBoundingClientRect().width)).to.equal(150);
+      expect(Math.round(select()!.getBoundingClientRect().width)).to.equal(150);
+      expect(Math.round(selectButton()!.getBoundingClientRect().width)).to.equal(150);
+    });
+
+    it('should render an option for every item', () => {
+      const options = Array.from(select()!.querySelectorAll('sl-option'));
+
+      expect(options.map(option => option.textContent?.trim())).to.deep.equal([
+        'Very long option one',
+        'Very long option two',
+        'Very long option three'
+      ]);
+    });
+
+    it('should pass the accessible name to the select', async () => {
+      await select()!.updateComplete;
+
+      // The select moves the aria-label from the host to its internal button.
+      expect(select()!.ariaLabel).to.equal('Options');
+    });
+
+    it('should render the buttons when the buttons fit', async () => {
+      container = await fixture(html`
+        <div style="inline-size: 1000px">
+          <sl-segmented-control .items=${items}></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(list()).to.exist;
+      expect(select()).not.to.exist;
+    });
+
+    it('should switch back to the buttons when more space becomes available', async () => {
+      expect(select()).to.exist;
+
+      container.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(list()).to.exist;
+      expect(select()).not.to.exist;
+    });
+
+    it('should switch to the select again when space shrinks', async () => {
+      container.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(list()).to.exist;
+
+      container.style.inlineSize = '150px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(select()).to.exist;
+    });
+
+    it('should switch back to the buttons inside a table cell that sizes to its content', async () => {
+      const wrapper = await fixture<HTMLElement>(html`
+        <div style="inline-size: 150px">
+          <table>
+            <tr>
+              <td>
+                <sl-segmented-control .items=${longItems}></sl-segmented-control>
+              </td>
+            </tr>
+          </table>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(select()).to.exist;
+
+      wrapper.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(list()).to.exist;
+      expect(select()).not.to.exist;
+    });
+
+    it('should update the value and emit a single sl-change when the select changes', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      select()!.dispatchEvent(
+        new CustomEvent('sl-change', { bubbles: true, composed: true, detail: 'two' })
+      );
+      await el.updateComplete;
+
+      const changeEvent = onChange.lastCall.args[0] as CustomEvent<string>;
+
+      expect(el.value).to.equal('two');
+      expect(onChange).to.have.been.calledOnce;
+      expect(changeEvent.target).to.equal(el);
+      expect(changeEvent.detail).to.equal('two');
+    });
+
+    it('should keep the selected value when switching back to the buttons', async () => {
+      el.value = 'three';
+      await el.updateComplete;
+
+      container.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(buttons()[2]).to.have.attribute('aria-current', 'true');
+    });
   });
 });

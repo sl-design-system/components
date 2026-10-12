@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=935-17454
-import figma, { type InstanceHandle } from 'figma';
+import figma from 'figma';
 import {
+  type InstanceHandle,
   checkBooleanProperty,
   checkEnum,
   checkStringProperty

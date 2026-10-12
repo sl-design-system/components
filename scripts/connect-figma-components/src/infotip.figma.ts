@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17355-98183
-import figma, { type InstanceHandle } from 'figma';
-import { checkEnum } from './_shared/figma-assertions.js';
+import figma from 'figma';
+import { type InstanceHandle, checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 

@@ -1,5 +1,6 @@
-import figma, { type InstanceHandle } from 'figma';
+import figma from 'figma';
 import {
+  type InstanceHandle,
   checkBooleanProperty,
   checkEnum,
   checkStringProperty

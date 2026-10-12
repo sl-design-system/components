@@ -1,3 +1,5 @@
+export type { InstanceHandle, TextHandle } from 'figma';
+
 export function checkBooleanProperty(
   property: boolean | Array<{ message: string }>,
   name: string

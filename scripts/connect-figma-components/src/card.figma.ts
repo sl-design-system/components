@@ -1,6 +1,10 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6013-90927
-import figma, { type InstanceHandle, type TextHandle } from 'figma';
-import { checkBooleanProperty } from './_shared/figma-assertions.js';
+import figma from 'figma';
+import {
+  type InstanceHandle,
+  type TextHandle,
+  checkBooleanProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 

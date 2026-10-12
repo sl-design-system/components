@@ -1,5 +1,10 @@
-import figma, { type InstanceHandle, type TextHandle } from 'figma';
-import { checkBooleanProperty, checkEnum } from './_shared/figma-assertions.js';
+import figma from 'figma';
+import {
+  type InstanceHandle,
+  type TextHandle,
+  checkBooleanProperty,
+  checkEnum
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 

@@ -1,5 +1,9 @@
-import figma, { type InstanceHandle } from 'figma';
-import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
+import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 

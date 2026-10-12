@@ -1,8 +1,8 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-41090
 // source=packages/components/icon/src/icon.ts
 // component=Icon
-import figma, { type InstanceHandle } from 'figma';
-import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
+import figma from 'figma';
+import { type InstanceHandle, checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 

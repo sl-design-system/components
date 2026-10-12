@@ -409,16 +409,22 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);
+          } else if (res.items.length > 0) {
+            // Without a total, fetched items establish a lower bound for the size.
+            group.size = Math.max(
+              group.size ?? group.members?.length ?? 0,
+              page * pageSize + res.items.length
+            );
+          }
 
-            if (group.size !== group.members?.length) {
-              recreateProxy = true;
+          if (group.size !== undefined && group.size !== group.members?.length) {
+            recreateProxy = true;
 
-              const members = group.members ?? [];
-              group.members = Array.from({ length: group.size });
+            const members = group.members ?? [];
+            group.members = Array.from({ length: group.size });
 
-              for (let i = 0; i < group.size; i++) {
-                group.members[i] = members[i];
-              }
+            for (let i = 0; i < group.size; i++) {
+              group.members[i] = members[i];
             }
           }
 

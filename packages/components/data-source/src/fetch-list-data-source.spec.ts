@@ -17,6 +17,57 @@ import { type Person, people } from './list-data-source.spec.js';
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
 
+  it.each([false, true])(
+    'should recover from empty results when refetch omits totalItems (pagination: %s)',
+    async pagination => {
+      ds = new FetchListDataSource({
+        pageSize: 2,
+        pagination,
+        fetchPage: ({ filters }) =>
+          Promise.resolve(
+            filters?.length ? { items: [], totalItems: 0 } : { items: people.slice(0, 2) }
+          )
+      });
+
+      ds.addFilter('firstName', 'firstName', 'xyz');
+      void ds.items[0];
+      await new Promise(resolve => setTimeout(resolve));
+      expect(ds.size).to.equal(0);
+
+      ds.removeFilter('firstName');
+      ds.update();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(ds.size).to.equal(2);
+      expect(ds.items.length).to.equal(2);
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+    }
+  );
+
+  it.each([
+    { size: 1, page: 1, expectedSize: 4 },
+    { size: 10, page: 1, expectedSize: 10 }
+  ])(
+    'should infer at least the fetched page extent without reducing a known size ($size)',
+    async ({ size, page, expectedSize }) => {
+      ds = new FetchListDataSource({
+        size,
+        pageSize: 2,
+        pagination: true,
+        fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+      });
+
+      ds.setPage(page);
+      ds.update();
+      void ds.items[0];
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(ds.size).to.equal(expectedSize);
+      expect(ds.items.length).to.equal(2);
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
+    }
+  );
+
   it('should reuse unchanged nested options, cycles and function-based filters and sorting', async () => {
     const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
     const fetchPage = spy(() => request.promise);

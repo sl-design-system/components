@@ -1,5 +1,18 @@
 # @sl-design-system/grid
 
+## 0.8.4
+
+### Patch Changes
+
+- [#3723](https://github.com/sl-design-system/components/pull/3723) [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15) - Fix grouped selection state when selecting filtered rows or groups and clearing filters.
+
+- Updated dependencies [[`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a), [`b6659cc`](https://github.com/sl-design-system/components/commit/b6659cc21b5bc6810722dad18a7c265a2487b377), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/toggle-group@1.1.0
+  - @sl-design-system/tool-bar@0.4.2
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/data-source@0.4.5
+  - @sl-design-system/button@2.3.2
+
 ## 0.8.3
 
 ### Patch Changes

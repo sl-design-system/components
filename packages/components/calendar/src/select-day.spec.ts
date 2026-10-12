@@ -439,6 +439,56 @@ describe('sl-select-day', () => {
       expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
     });
 
+    for (const monthIndex of [0, 1]) {
+      it(`should leave both calendars with Tab from month ${monthIndex + 1} and re-enter with Shift+Tab`, async () => {
+        const monthViews = Array.from(
+            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+          ),
+          after = document.createElement('button');
+
+        after.textContent = 'After calendar';
+        el.after(after);
+        monthViews[monthIndex].focus(new Date(2023, 2 + monthIndex, 15));
+        await el.updateComplete;
+
+        await userEvent.keyboard('{Tab}');
+        expect(document.activeElement).to.equal(after);
+
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(monthViews[monthIndex].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+        expect(monthViews[1 - monthIndex].shadowRoot?.activeElement).to.be.null;
+      });
+    }
+
+    it('should leave the dates with Tab after navigating into the second month with arrows', async () => {
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
+
+      after.textContent = 'After calendar';
+      el.after(after);
+      monthViews[0].focus(new Date(2023, 2, 31));
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
+      await userEvent.keyboard('{Tab}');
+      expect(document.activeElement).to.equal(after);
+    });
+
+    it('should tab into only the first month from the calendar controls', async () => {
+      const monthViews = Array.from(
+        el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+      );
+
+      el.renderRoot.querySelector<HTMLElement>('.next-month')!.focus();
+      await userEvent.keyboard('{Tab}');
+
+      expect(monthViews[0].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(monthViews[1].shadowRoot?.activeElement).to.be.null;
+    });
+
     it('should share a pointer range preview between both visible months', async () => {
       el.rangeSelection = true;
       el.rangeStart = new Date(2023, 2, 26);

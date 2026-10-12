@@ -124,6 +124,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
 
+  /** @internal The month containing the most recently focused day. */
+  @state() focusedMonth?: Date;
+
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
@@ -305,6 +308,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const canShowNextMonth = this.#isMonthAtOrBeforeMax(this.nextMonth),
       canSelectPreviousMonth = this.#canSelectPreviousMonth(),
       showTwoMonths = this.visibleMonthCount === 2 && canShowNextMonth,
+      isSecondMonthFocused =
+        showTwoMonths && !!this.focusedMonth && isSameDate(this.focusedMonth, this.nextMonth),
       followingMonth = this.nextMonth
         ? new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth() + 1)
         : undefined,
@@ -423,6 +428,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       </div>
 
       <div
+        @focusin=${this.#onMonthFocusIn}
         @scrollend=${this.#onScrollEnd}
         class="scroller ${showTwoMonths ? '' : 'single-month'}"
         tabindex="-1">
@@ -472,7 +478,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
-          selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+          selected=${ifDefined(this.selected?.toISOString())}
+          tabindex=${ifDefined(isSecondMonthFocused ? '-1' : undefined)}></sl-month-view>
         ${
           canShowNextMonth
             ? html`
@@ -498,7 +505,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   max=${ifDefined(this.max?.toISOString())}
                   min=${ifDefined(this.min?.toISOString())}
                   month=${ifDefined(this.nextMonth?.toISOString())}
-                  selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+                  selected=${ifDefined(this.selected?.toISOString())}
+                  tabindex=${ifDefined(isSecondMonthFocused ? undefined : '-1')}></sl-month-view>
               `
             : nothing
         }
@@ -529,6 +537,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         }
       </div>
     `;
+  }
+
+  #onMonthFocusIn(event: FocusEvent): void {
+    const monthView = event.composedPath().find(target => target instanceof MonthView);
+
+    if (monthView instanceof MonthView) {
+      const focusedMonth = new Date(monthView.month.getFullYear(), monthView.month.getMonth());
+
+      if (!isSameDate(this.focusedMonth, focusedMonth)) {
+        this.focusedMonth = focusedMonth;
+      }
+    }
   }
 
   #onChange(event: SlChangeEvent<Date>): void {

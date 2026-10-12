@@ -578,7 +578,7 @@ describe('sl-month-view', () => {
 
     for (const interaction of ['hover', 'focus'] as const) {
       for (const backwards of [false, true]) {
-        it(`should keep the range bridge outside the ${interaction} preview tile when selecting ${backwards ? 'backwards' : 'forwards'}`, async () => {
+        it(`should connect the range bridge under the ${interaction} preview tile when selecting ${backwards ? 'backwards' : 'forwards'}`, async () => {
           el.rangeStart = new Date(2023, 2, backwards ? 22 : 17);
           await el.updateComplete;
 
@@ -592,15 +592,19 @@ describe('sl-month-view', () => {
 
           const bridge = getComputedStyle(endpoint, '::before'),
             buttonBounds = endpoint.getBoundingClientRect(),
-            tileBounds = endpoint.querySelector('span')!.getBoundingClientRect();
+            tile = endpoint.querySelector('span')!,
+            tileBounds = tile.getBoundingClientRect(),
+            tileStyle = getComputedStyle(tile);
 
           expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+          expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+          expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
           if (backwards) {
             const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
-            expect(bridgeStart).to.be.at.least(tileBounds.right);
+            expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
           } else {
             const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
-            expect(bridgeEnd).to.be.at.most(tileBounds.left);
+            expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
           }
         });
       }

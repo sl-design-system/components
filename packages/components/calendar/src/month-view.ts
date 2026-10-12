@@ -736,12 +736,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.preventDefault();
       event.stopPropagation();
 
-      const completesRange = this.rangeSelection && this.rangeStart;
       this.selectEvent.emit(day.date);
       if (!this.rangeSelection) {
         this.selected = day.date;
-      } else if (completesRange) {
-        (event.target as HTMLButtonElement).blur();
       }
     }
   }

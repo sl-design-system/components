@@ -814,7 +814,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       monthWidth = monthView?.getBoundingClientRect().width ?? 0,
       gap = this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).columnGap) || 0 : 0,
       nextCount =
-        this.numberOfMonths === 2 && monthWidth > 0 && availableWidth >= monthWidth * 2 + gap
+        this.numberOfMonths === 2 &&
+        this.#isMonthAtOrBeforeMax(this.nextMonth) &&
+        monthWidth > 0 &&
+        availableWidth >= monthWidth * 2 + gap
           ? 2
           : 1;
 

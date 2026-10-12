@@ -360,6 +360,47 @@ describe('sl-calendar', () => {
       expect(el.month).to.equalDate(new Date(2024, 5, 17));
     });
 
+    it('should show the selected month when switching back to single mode', async () => {
+      const selected = new Date(2023, 2, 17);
+
+      el.mode = 'single';
+      el.selected = selected;
+      await el.updateComplete;
+
+      el.range = [new Date(2024, 5, 17), new Date(2024, 5, 22)];
+      el.mode = 'range';
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2024, 5, 17));
+
+      el.mode = 'single';
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(selected);
+    });
+
+    for (const key of ['{Enter}', ' '] as const) {
+      it(`should preserve endpoint focus after completing a range with ${key === ' ' ? 'Space' : 'Enter'}`, async () => {
+        const start = new Date(2023, 2, 17),
+          end = new Date(2023, 2, 18);
+
+        monthView.focus(start);
+        await userEvent.keyboard('{Enter}{ArrowRight}');
+
+        const endpoint = monthView.renderRoot.activeElement as HTMLButtonElement | null;
+        expect(endpoint).to.equal(getDayButton(end));
+
+        await userEvent.keyboard(key);
+        await el.updateComplete;
+        await selectDay.updateComplete;
+        await monthView.updateComplete;
+
+        expect(el.range?.[0]).to.equalDate(start);
+        expect(el.range?.[1]).to.equalDate(end);
+        expect(monthView.renderRoot.activeElement).to.equal(endpoint);
+      });
+    }
+
     it('should wait for a second date before changing the range', async () => {
       let callCount = 0;
       el.addEventListener('sl-change', () => callCount++);

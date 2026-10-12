@@ -382,6 +382,17 @@ describe('sl-select-day', () => {
       expect(nextButton).to.match(':disabled');
     });
 
+    it('should count only months that can be rendered before max', async () => {
+      el.max = new Date(2023, 2, 31);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(el.visibleMonthCount).to.equal(1);
+      expect(el.renderRoot.querySelectorAll('sl-month-view:not([inert])')).to.have.lengthOf(1);
+    });
+
     it('should render weekday headings for both visible months', () => {
       expect(el.renderRoot.querySelectorAll('.days-of-week')).to.have.lengthOf(2);
       expect(el.renderRoot.querySelectorAll('.day-of-week')).to.have.lengthOf(14);

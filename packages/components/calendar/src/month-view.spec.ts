@@ -3,6 +3,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
+import axe from 'axe-core';
 import { type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -215,6 +216,39 @@ describe('sl-month-view', () => {
       expect(lastWeekNumber).not.to.have.attribute('aria-label');
       expect(lastWeekNumber).to.have.attribute('aria-hidden', 'true');
     });
+
+    it('should expose rows only when they contain visible days', async () => {
+      el.hideDaysOtherMonths = true;
+      await el.updateComplete;
+
+      const rows = Array.from(el.renderRoot.querySelectorAll('tr.days')),
+        emptyRows = rows.filter(row => !row.querySelector('button')),
+        visibleRows = rows.filter(row => row.querySelector('button'));
+
+      expect(emptyRows).not.to.be.empty;
+      expect(emptyRows.every(row => row.getAttribute('aria-hidden') === 'true')).to.be.true;
+      expect(visibleRows.every(row => !row.hasAttribute('aria-hidden'))).to.be.true;
+
+      el.hideDaysOtherMonths = false;
+      await el.updateComplete;
+
+      expect(rows.every(row => !row.hasAttribute('aria-hidden'))).to.be.true;
+    });
+
+    for (const showWeekNumbers of [false, true]) {
+      it(`should satisfy aria-required-children with hidden dates ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
+        el.hideDaysOtherMonths = true;
+        el.showWeekNumbers = showWeekNumbers;
+        await el.updateComplete;
+
+        const results = await axe.run(el, {
+          runOnly: { type: 'rule', values: ['aria-required-children'] }
+        });
+
+        expect(results.violations).to.be.empty;
+        expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
+      });
+    }
   });
 
   describe('custom renderer', () => {
@@ -609,6 +643,27 @@ describe('sl-month-view', () => {
         });
       }
     }
+
+    it('should ignore hover after keyboard navigation takes over a pointer preview', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const focused = getDayButton(new Date(2023, 2, 20))!,
+        hovered = getDayButton(new Date(2023, 2, 24))!;
+
+      focused.focus();
+      await userEvent.hover(hovered);
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      await userEvent.unhover(hovered);
+      await userEvent.hover(hovered);
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 21)))
+        .to.have.attribute('part')
+        .that.contains('range-end');
+      expect(hovered).to.have.attribute('part').that.does.not.contain('range-preview');
+    });
 
     it('should restore the focused preview after a pointer preview ends', async () => {
       el.rangeStart = new Date(2023, 2, 17);

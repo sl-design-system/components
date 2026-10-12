@@ -26,7 +26,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { MonthView } from './month-view.js';
+import { MonthView, type RangePreviewSource } from './month-view.js';
 import styles from './select-day.css' with { type: 'css' };
 import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
 
@@ -182,6 +182,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The shared preview endpoint for all visible month views. */
   @state() rangePreview?: Date;
 
+  /** @internal Whether keyboard input controls the preview across both months. */
+  @state() keyboardRangeSelection = false;
+
   /** Whether selecting a range is enabled. */
   @property({ attribute: false }) rangeSelection?: boolean;
 
@@ -261,6 +264,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     if (changes.has('rangeStart') && !this.rangeStart) {
       this.rangePreview = undefined;
+      this.keyboardRangeSelection = false;
     }
 
     if (
@@ -443,6 +447,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
                   .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
@@ -467,6 +472,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .indicatorDates=${this.indicatorDates}
           .range=${this.range}
           .rangePreview=${this.rangePreview}
+          .keyboardRangeSelection=${this.keyboardRangeSelection}
           .rangePreviewChange=${this.#onRangePreview}
           .rangeSelection=${this.rangeSelection}
           .rangeStart=${this.rangeStart}
@@ -494,6 +500,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
                   .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
                   .rangePreviewChange=${this.#onRangePreview}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
@@ -521,6 +528,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
                   .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
                   .rangeSelection=${this.rangeSelection}
                   .rangeStart=${this.rangeStart}
                   aria-hidden="true"
@@ -644,7 +652,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.selectEvent.emit(event.detail);
   }
 
-  #onRangePreview = (date?: Date): void => {
+  #onRangePreview = (date: Date | undefined, source: RangePreviewSource): void => {
+    if (source === 'keyboard') {
+      this.keyboardRangeSelection = true;
+    } else if (source === 'pointer') {
+      this.keyboardRangeSelection = false;
+    } else if (source === 'hover' && this.keyboardRangeSelection) {
+      return;
+    }
+
     this.rangePreview = date;
   };
 

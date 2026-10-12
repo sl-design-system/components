@@ -32,6 +32,8 @@ import {
   indicatorConverter
 } from './utils.js';
 
+export type RangePreviewSource = 'keyboard' | 'pointer' | 'focus' | 'hover';
+
 declare global {
   interface HTMLElementTagNameMap {
     'sl-month-view': MonthView;
@@ -223,8 +225,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The temporary end date while composing a range across calendar views. */
   @property({ attribute: false }) rangePreview?: Date;
 
+  /** @internal Whether keyboard input controls the current range preview. */
+  @property({ attribute: false }) keyboardRangeSelection = false;
+
   /** @internal Reports a local range preview so sibling month views can stay in sync. */
-  protected rangePreviewChange?: (date?: Date) => void;
+  protected rangePreviewChange?: (date: Date | undefined, source: RangePreviewSource) => void;
 
   /** Whether selecting a range is enabled. */
   @property({ attribute: false }) rangeSelection?: boolean;
@@ -280,6 +285,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('rangeStart') && !this.rangeStart) {
+      this.keyboardRangeSelection = false;
+      this.focusedDate = undefined;
+      this.hoveredDate = undefined;
+    }
 
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
@@ -351,7 +362,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               const hasVisibleDay = week.days.some(day => !day.previousMonth && !day.nextMonth);
 
               return html`
-                <tr class="days" role="row">
+                <tr
+                  aria-hidden=${ifDefined(this.hideDaysOtherMonths && !hasVisibleDay ? 'true' : undefined)}
+                  class="days"
+                  role="row">
                   ${
                     this.showWeekNumbers
                       ? this.hideDaysOtherMonths && !hasVisibleDay
@@ -496,7 +510,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return [];
     }
 
-    const previewDate = this.rangePreview ?? this.hoveredDate ?? this.focusedDate,
+    const previewDate =
+        this.rangePreview ??
+        (this.keyboardRangeSelection ? this.focusedDate : (this.hoveredDate ?? this.focusedDate)),
       activeRange =
         this.rangeStart && previewDate
           ? [this.rangeStart, previewDate]
@@ -584,29 +600,32 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #setFocusedRangePreview(day: Day): void {
     if (this.rangeStart && !this.readonly) {
       this.focusedDate = day.date;
-      this.#emitRangePreview();
+      this.#emitRangePreview('focus');
     }
   }
 
   #setHoveredRangePreview(day: Day): void {
-    if (this.rangeStart && !this.readonly) {
+    if (this.rangeStart && !this.readonly && !this.keyboardRangeSelection) {
       this.hoveredDate = day.date;
-      this.#emitRangePreview();
+      this.#emitRangePreview('hover');
     }
   }
 
   #clearFocusedRangePreview(): void {
     this.focusedDate = undefined;
-    this.#emitRangePreview();
+    this.#emitRangePreview('focus');
   }
 
   #clearHoveredRangePreview(): void {
     this.hoveredDate = undefined;
-    this.#emitRangePreview();
+    this.#emitRangePreview('hover');
   }
 
-  #emitRangePreview(): void {
-    this.rangePreviewChange?.(this.hoveredDate ?? this.focusedDate);
+  #emitRangePreview(source: RangePreviewSource): void {
+    this.rangePreviewChange?.(
+      this.keyboardRangeSelection ? this.focusedDate : (this.hoveredDate ?? this.focusedDate),
+      source
+    );
   }
 
   /** @internal */
@@ -631,6 +650,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const button = event.target.closest('button');
 
     if (!button?.disabled) {
+      if (this.rangeSelection) {
+        this.keyboardRangeSelection = false;
+        this.hoveredDate = day.date;
+        this.rangePreviewChange?.(day.date, 'pointer');
+      }
+
       const isAlreadySelected = this.selected && isSameDate(day.date, this.selected);
 
       if (!isAlreadySelected || this.rangeSelection) {
@@ -649,6 +674,16 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
+    if (
+      this.rangeSelection &&
+      (event.key.startsWith('Arrow') || ['Home', 'End', 'Enter', ' '].includes(event.key))
+    ) {
+      this.keyboardRangeSelection = true;
+      this.hoveredDate = undefined;
+      this.focusedDate = day.date;
+      this.rangePreviewChange?.(day.date, 'keyboard');
+    }
+
     if (event.key === 'ArrowLeft' && day.firstActiveDayOfMonth) {
       event.preventDefault();
       event.stopPropagation();

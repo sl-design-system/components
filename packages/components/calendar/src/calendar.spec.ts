@@ -2,6 +2,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { Calendar } from './calendar.js';
 import { type MonthView } from './month-view.js';
 import './register.js';
@@ -261,6 +262,75 @@ describe('sl-calendar', () => {
       el = await fixture(html`<sl-calendar mode="range"></sl-calendar>`);
       selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
       monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+    });
+
+    for (const backwards of [false, true]) {
+      it(`should ignore incidental hover during keyboard range selection across months ${backwards ? 'backwards' : 'forwards'}`, async () => {
+        el.numberOfMonths = 2;
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        const months = Array.from(
+            selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+          ),
+          start = backwards ? new Date(2023, 3, 1) : new Date(2023, 2, 31),
+          end = backwards ? new Date(2023, 2, 31) : new Date(2023, 3, 1),
+          startMonth = months[backwards ? 1 : 0],
+          endMonth = months[backwards ? 0 : 1],
+          hoveredButton = endMonth.renderRoot.querySelector<HTMLButtonElement>(
+            `td[data-date="${new Date(2023, backwards ? 2 : 3, 15).toISOString()}"] button`
+          )!;
+
+        expect(months).to.have.lengthOf(2);
+        startMonth.focus(start);
+        await userEvent.keyboard(backwards ? ' ' : '{Enter}');
+        await el.updateComplete;
+        await selectDay.updateComplete;
+
+        expect(el.rangeStart).to.equalDate(start);
+        await userEvent.hover(hoveredButton);
+        expect(selectDay.rangePreview).to.equalDate(start);
+
+        await userEvent.keyboard(backwards ? '{ArrowLeft}' : '{ArrowRight}');
+        await selectDay.updateComplete;
+        await endMonth.updateComplete;
+
+        expect(selectDay.rangePreview).to.equalDate(end);
+        expect(endMonth.shadowRoot?.activeElement)
+          .to.have.attribute('part')
+          .that.contains(backwards ? 'range-start' : 'range-end');
+
+        await userEvent.unhover(hoveredButton);
+        await userEvent.hover(hoveredButton);
+        expect(selectDay.rangePreview).to.equalDate(end);
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+
+        expect(el.range?.[0]).to.equalDate(backwards ? end : start);
+        expect(el.range?.[1]).to.equalDate(backwards ? start : end);
+      });
+    }
+
+    it('should allow pointer previews for a new range after completing a keyboard range', async () => {
+      const start = getDayButton(new Date(2023, 2, 17))!,
+        hovered = getDayButton(new Date(2023, 2, 22))!;
+
+      start.focus();
+      await userEvent.keyboard('{Enter}{ArrowRight}{Enter}');
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      expect(el.range).to.have.lengthOf(2);
+
+      await userEvent.click(start);
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      await monthView.updateComplete;
+      await userEvent.hover(hovered);
+      await selectDay.updateComplete;
+
+      expect(selectDay.keyboardRangeSelection).to.be.false;
+      expect(selectDay.rangePreview).to.equalDate(new Date(2023, 2, 22));
     });
 
     it('should use range mode when set through the attribute', () => {

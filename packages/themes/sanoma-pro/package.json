@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/sanoma-pro",
   "description": "Sanoma Pro theme for the SL Design System",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -16,7 +16,11 @@
   "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
     "./package.json": "./package.json",
     "./global.css": "./global.css",
     "./theme.css": "./theme.css",
@@ -35,6 +39,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.4.5"
+    "@sl-design-system/icon": "1.4.6"
   }
 }

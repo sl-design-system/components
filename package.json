@@ -30,6 +30,7 @@
   "scripts": {
     "build": "wireit",
     "check-package-exports": "node scripts/check-package-exports.js",
+    "check-theme-package-types": "node scripts/check-theme-package-types.js",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
@@ -88,13 +89,15 @@
       "dependencies": [
         "build:themes:setup",
         "build:themes:code",
-        "build:themes:styles"
+        "build:themes:styles",
+        "build:themes:types"
       ]
     },
     "build:themes:code": {
       "command": "node scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
+        "scripts/build-packages.js",
         "packages/themes/**/*.ts",
         "!packages/themes/**/*.d.ts"
       ],
@@ -134,12 +137,30 @@
         "!packages/themes/*/theme.css"
       ]
     },
+    "build:themes:types": {
+      "command": "tsgo -p packages/themes/tsconfig.json",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:components"
+      ],
+      "files": [
+        "tsconfig.base.json",
+        "packages/themes/**/tsconfig.json",
+        "packages/themes/**/*.ts",
+        "!packages/themes/**/*.d.ts"
+      ],
+      "output": [
+        "packages/themes/**/*.d.ts",
+        "packages/themes/tsconfig.tsbuildinfo"
+      ]
+    },
     "dist": {
       "dependencies": [
         "build:components",
         "build:locales",
         "build:themes:setup",
         "build:themes:code",
+        "build:themes:types",
         "dist:angular",
         "dist:components",
         "dist:themes"

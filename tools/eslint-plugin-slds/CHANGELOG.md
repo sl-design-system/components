@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-plugin-slds
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - Fix `checkbox-has-label` rule reporting a false positive when the checkbox's label is provided via a tooltip
+
 ## 0.2.0
 
 ### Minor Changes

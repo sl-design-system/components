@@ -135,6 +135,8 @@ export const templates = {
   'sl.timeField.toggleDropdown': 'Seleziona orario',
   'sl.timeField.typeMismatch': 'Inserisci un orario valido.',
   'sl.timeField.valueMissing': 'Inserisci un orario.',
+  'sl.toggleGroup.selectOne': 'Seleziona una voce.',
+  'sl.toggleGroup.selectOneOrMore': 'Seleziona una o più voci.',
   'sl.toolBar.showMore': 'Mostra altro',
   'sl.tree.loadingMessage': 'Caricamento'
 };

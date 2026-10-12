@@ -1,4 +1,5 @@
 import '@sl-design-system/icon/register.js';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -39,11 +40,23 @@ describe('sl-toggle-group', () => {
       expect(el.disabled).not.to.be.true;
     });
 
+    it('should not use chips by default', () => {
+      expect(el).not.to.have.attribute('chips');
+      expect(el.chips).not.to.be.true;
+    });
+
     it('should be disabled when set', async () => {
       el.disabled = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+    });
+
+    it('should enable chips when set', async () => {
+      el.chips = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('chips');
     });
 
     it('should not have a size', () => {
@@ -54,6 +67,10 @@ describe('sl-toggle-group', () => {
     it('should have group semantics', () => {
       expect(el).not.to.have.attribute('role');
       expect(el.internals.role).to.equal('group');
+    });
+
+    it('should describe single selection with aria-description', () => {
+      expect(el.internals.ariaDescription).to.equal('Select one');
     });
 
     it('should not override an explicit role', async () => {
@@ -73,8 +90,31 @@ describe('sl-toggle-group', () => {
       expect(el.internals.role).to.equal('group');
     });
 
+    it('should not override an explicit aria-description attribute', async () => {
+      el = await fixture(
+        html`<sl-toggle-group aria-description="Custom description"></sl-toggle-group>`
+      );
+
+      expect(el).to.have.attribute('aria-description', 'Custom description');
+      expect(el.internals.ariaDescription).to.equal('Select one');
+    });
+
+    it('should preserve explicit aria-description when properties change', async () => {
+      el = await fixture(
+        html`<sl-toggle-group aria-description="Custom description"></sl-toggle-group>`
+      );
+
+      el.multiple = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-description', 'Custom description');
+      expect(el.internals.ariaDescription).to.equal('Select one or more');
+    });
+
     it('should propagate disabled to the buttons', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       el.disabled = true;
       await el.updateComplete;
@@ -90,7 +130,9 @@ describe('sl-toggle-group', () => {
     });
 
     it('should propagate size to the buttons', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       el.size = 'lg';
       await el.updateComplete;
@@ -99,7 +141,9 @@ describe('sl-toggle-group', () => {
     });
 
     it('should only allow one button to be pressed at a time', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       await userEvent.click(buttons[0]);
       await el.updateComplete;
@@ -141,8 +185,14 @@ describe('sl-toggle-group', () => {
       expect(el.multiple).to.be.true;
     });
 
+    it('should describe multiple selection with aria-description', () => {
+      expect(el.internals.ariaDescription).to.equal('Select one or more');
+    });
+
     it('should allow multiple buttons to be pressed at the same time', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       await userEvent.click(buttons[0]);
       await el.updateComplete;

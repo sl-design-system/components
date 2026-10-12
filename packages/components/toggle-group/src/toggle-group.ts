@@ -1,3 +1,4 @@
+import { localized, msg } from '@lit/localize';
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToggleButton } from '@sl-design-system/toggle-button';
@@ -29,6 +30,7 @@ export type ToggleGroupSize = 'sm' | 'md' | 'lg';
  * @slot default - The default slot for toggle buttons.
  * For toggle group there is a possibility to use toggle buttons with text only.
  */
+@localized()
 export class ToggleGroup extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -59,6 +61,13 @@ export class ToggleGroup extends LitElement {
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * If set, the toggle buttons are rendered with spacing between them.
+   *
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) chips?: boolean;
 
   /**
    * By default, only a single toggle button inside the group can be active. This means that the
@@ -97,6 +106,7 @@ export class ToggleGroup extends LitElement {
     super.connectedCallback();
 
     this.internals.role = 'group';
+    this.#updateAriaDescription();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -105,6 +115,8 @@ export class ToggleGroup extends LitElement {
     if (changes.has('disabled') || changes.has('fill') || changes.has('size')) {
       this.#updateButtonProperties();
     }
+
+    this.#updateAriaDescription();
   }
 
   override render(): TemplateResult {
@@ -136,5 +148,11 @@ export class ToggleGroup extends LitElement {
         button.size = this.size;
       }
     });
+  }
+
+  #updateAriaDescription(): void {
+    this.internals.ariaDescription = this.multiple
+      ? msg('Select one or more', { id: 'sl.toggleGroup.selectOneOrMore' })
+      : msg('Select one', { id: 'sl.toggleGroup.selectOne' });
   }
 }

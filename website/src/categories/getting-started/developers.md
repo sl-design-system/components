@@ -122,11 +122,13 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 
 The theme packages also support package exports, meaning you can import the stylesheet directly from the package (if your build system supports it):
 
+<div class="ds-code">
+
 ```scss
 @import '@sl-design-system/sanoma-learning/theme.css';
 ```
 
-If your theme has a dark mode version both the tokens for light and dark mode are in this file. You can switch the mode based on the user preference (this is by default). Or you can set `style="--color-scheme: light;"` or `style="--color-scheme: dark;"` on the HTML tag of your page to force a certain color mode.
+</div>
 
 If you are working in an Angular application you can do this by adding the theme stylesheet in your `angular.json`, as explained [in the official Angular documentation](https://angular.io/guide/workspace-config#styles-and-scripts-configuration).
 
@@ -143,6 +145,36 @@ To initialize the theme you need to run theme's `setup` function in a global JS 
 </div>
 
 When you're using Angular this can be done in `main.ts` in the root folder of your application for example.
+
+### Dark mode
+If your theme has a dark mode version both the tokens for light and dark mode are in the theme.css file. You can set `style="--color-scheme: light;"` or `style="--color-scheme: dark;"` on the HTML tag of your page to force a certain color mode.
+
+<div class="ds-code">
+
+```html
+<html style="--color-scheme: dark;">
+
+```
+
+</div>
+
+If you want the theme in your application to follow the user preference, simply add this in your global style sheet:
+
+<div class="ds-code">
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-scheme: dark;
+    color-scheme: dark;
+  }
+}
+```
+
+</div>
+
+This can also be used in addition to setting the `--color-scheme` on the root, for example if you want your page to follow the user preference by default but still want to offer them the option to change the mode in your application.
+
 
 ### Deprecated tokens
 
@@ -263,16 +295,6 @@ When you still encounter problems with the loading and using of your fonts you c
 
 Please make sure you have added the `setup()` method as described in the [Setup a theme](#setup-a-theme) section. This method also initializes the icon set.
 
-### How do I use the dark mode of the theme?
-
-This only applies to themes that support dark mode.
-The `theme.css` file includes both light and dark mode tokens.
-
-To control the mode yourself, set `--color-scheme` to `light` or `dark` on the body element of your application. For example, to force dark mode:
-
-```html
-<html style="--color-scheme: dark;">
-```
 
 ### How do I setup my Bitbucket pipeline to work with the SLDS packages?
 

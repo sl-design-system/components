@@ -1187,8 +1187,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters(true);
   }
 
-  #onGroupSelect(_event: SlSelectEvent<boolean>, item: ListDataSourceItem<T>): void {
-    this.dataSource?.toggle(item);
+  #onGroupSelect(event: SlSelectEvent<boolean>, item: ListDataSourceItem<T>): void {
+    if (event.detail) {
+      this.dataSource?.select(item);
+    } else {
+      this.dataSource?.deselect(item);
+    }
+
     this.dataSource?.update();
   }
 

@@ -16,7 +16,10 @@ import { type TemplateResult, html } from 'lit';
 import './register.js';
 import { type SegmentedControl, type SegmentedControlItem } from './segmented-control.js';
 
-type Props = Pick<SegmentedControl, 'emphasis' | 'fill' | 'items' | 'shape' | 'size' | 'value'> & {
+type Props = Pick<
+  SegmentedControl,
+  'emphasis' | 'fill' | 'iconOnly' | 'items' | 'shape' | 'size' | 'value'
+> & {
   ariaLabel?: string;
 };
 type Story = StoryObj<Props>;
@@ -44,16 +47,13 @@ const iconItems: SegmentedControlItem[] = [
   { icon: 'far-table', label: 'Table', value: 'table' }
 ];
 
-const iconOnlyItems: SegmentedControlItem[] = iconItems.map(item => ({
-  ...item,
-  hideLabel: true
-}));
+const iconOnlyItems: SegmentedControlItem[] = iconItems;
 
 const disabledItems: SegmentedControlItem[] = [
   { disabled: true, icon: 'far-book-open', label: 'Lessons', value: 'lessons' },
-  { disabled: true, icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
+  { icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
   { icon: 'far-chart-line', label: 'Progress', value: 'progress' },
-  { icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' },
+  { disabled: true, icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' },
   { icon: 'far-graduation-cap', label: 'Resources', value: 'resources' }
 ];
 
@@ -82,8 +82,9 @@ export default {
     shape: { control: 'inline-radio', options: ['rect', 'pill'] },
     size: { control: 'inline-radio', options: ['md', 'lg'] }
   },
-  render: ({ ariaLabel, emphasis, fill, items, shape, size, value }) => html`
+  render: ({ ariaLabel, emphasis, fill, iconOnly, items, shape, size, value }) => html`
     <sl-segmented-control
+      .iconOnly=${iconOnly}
       .items=${items}
       .value=${value}
       aria-label=${ariaLabel}
@@ -106,7 +107,9 @@ export const Large: Story = { args: { size: 'lg' } };
 
 export const IconAndText: Story = { args: { items: iconItems } };
 
-export const IconOnly: Story = { args: { items: iconOnlyItems } };
+export const IconOnly: Story = {
+  args: { iconOnly: true, items: iconOnlyItems }
+};
 
 export const Disabled: Story = { args: { items: disabledItems } };
 
@@ -118,7 +121,7 @@ export const FillWidth: Story = {
     <style>
       sl-panel.fill-width-demo {
         inline-size: 100%;
-        max-inline-size: 1200px;
+        max-inline-size: 1000px;
       }
 
       sl-panel.fill-width-demo::part(content) {

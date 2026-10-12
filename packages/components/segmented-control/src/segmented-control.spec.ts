@@ -138,4 +138,88 @@ describe('sl-segmented-control', () => {
       expect(el.shadowRoot?.activeElement).to.equal(buttons()[0]);
     });
   });
+
+  describe('layout', () => {
+    const layoutItems: SegmentedControlItem[] = [
+      { label: 'One', value: 'one' },
+      { label: 'Much longer label', value: 'two' },
+      { label: 'Three', value: 'three' }
+    ];
+
+    it('should size all buttons to the width of the widest option by default', async () => {
+      const container = await fixture(html`
+        <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
+          <sl-segmented-control .items=${layoutItems}></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      const [firstWidth, secondWidth, thirdWidth] = buttons().map(button =>
+        Math.round(button.getBoundingClientRect().width)
+      );
+
+      expect(firstWidth).to.equal(secondWidth);
+      expect(thirdWidth).to.equal(secondWidth);
+      expect(Math.round(el.getBoundingClientRect().width)).to.be.lessThan(800);
+    });
+
+    it('should keep distributing the buttons evenly when stretched to full width', async () => {
+      const container = await fixture(html`
+        <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
+          <sl-segmented-control .items=${layoutItems} style="width: 100%"></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      const [firstWidth, secondWidth, thirdWidth] = buttons().map(button =>
+          Math.round(button.getBoundingClientRect().width)
+        ),
+        hostWidth = Math.round(el.getBoundingClientRect().width),
+        listWidth = Math.round(el.renderRoot.querySelector('ul')!.getBoundingClientRect().width);
+
+      expect(hostWidth).to.equal(800);
+      expect(listWidth).to.equal(hostWidth);
+      expect(firstWidth).to.equal(secondWidth);
+      expect(thirdWidth).to.equal(secondWidth);
+    });
+  });
+
+  it('should hide visible text in icon-only mode', async () => {
+    el = await fixture(html`
+      <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
+    `);
+
+    expect(buttons().map(button => button.textContent?.trim())).to.deep.equal(['', '', '']);
+    expect(buttons().map(button => button.getAttribute('aria-label'))).to.deep.equal([
+      'List',
+      'Grid',
+      'Table'
+    ]);
+  });
+
+  it('should use size-specific padding in icon-only mode', async () => {
+    el = await fixture(html`
+      <sl-segmented-control .items=${items} icon-only></sl-segmented-control>
+    `);
+
+    let styles = getComputedStyle(buttons()[0]);
+
+    expect(styles.paddingBlockStart).to.equal('10px');
+    expect(styles.paddingInlineStart).to.equal('10px');
+
+    el = await fixture(html`
+      <sl-segmented-control .items=${items} icon-only size="lg"></sl-segmented-control>
+    `);
+
+    styles = getComputedStyle(buttons()[0]);
+
+    expect(styles.paddingBlockStart).to.equal('16px');
+    expect(styles.paddingInlineStart).to.equal('16px');
+  });
 });

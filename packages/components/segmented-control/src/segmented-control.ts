@@ -34,12 +34,6 @@ export interface SegmentedControlItem {
   /** Disables this option. */
   disabled?: boolean;
 
-  /**
-   * Hides the visible text so only the icon is shown (requires `icon`). The label is still used as
-   * the accessible name of the button.
-   */
-  hideLabel?: boolean;
-
   /** Optional name of an icon to show before the label. */
   icon?: string;
 
@@ -70,12 +64,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Manage keyboard navigation between the buttons. */
-  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
-    direction: 'horizontal',
-    elements: () => Array.from(this.renderRoot?.querySelectorAll('button') ?? []),
-    focusInIndex: (elements: HTMLButtonElement[]) => elements.findIndex(el => !el.disabled),
-    isFocusableElement: (el: HTMLButtonElement) => !el.disabled
-  });
+  #rovingTabindexController: RovingTabindexController<HTMLButtonElement> =
+    new RovingTabindexController<HTMLButtonElement>(this, {
+      direction: 'horizontal',
+      elements: (): HTMLButtonElement[] =>
+        Array.from(this.renderRoot?.querySelectorAll('button') ?? []),
+      focusInIndex: (elements: HTMLButtonElement[]) => elements.findIndex(el => !el.disabled),
+      isFocusableElement: (el: HTMLButtonElement) => !el.disabled
+    });
 
   /** The accessible name resolved from `aria-labelledby`, if set. */
   @state() labelFromReference?: string;
@@ -101,6 +97,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
   /** The options to show. */
   @property({ attribute: false }) items: SegmentedControlItem[] = [];
+
+  /** Whether the segmented control should hide option labels and render only icons. */
+  @property({ attribute: 'icon-only', type: Boolean, reflect: true }) iconOnly = false;
 
   /**
    * The shape of the control.
@@ -134,7 +133,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       this.#rovingTabindexController.clearElementCache();
-      this.#equalizeButtonWidths();
     }
   }
 
@@ -152,10 +150,10 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                 @click=${() => this.#onClick(item)}
                 ?disabled=${item.disabled}
                 aria-current=${item.value === this.value ? 'true' : 'false'}
-                aria-label=${ifDefined(item.hideLabel ? item.label : undefined)}
+                aria-label=${ifDefined(this.iconOnly ? item.label : undefined)}
                 type="button">
                 ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing}
-                ${item.hideLabel ? nothing : item.label}
+                ${this.iconOnly ? nothing : item.label}
               </button>
             </li>
           `
@@ -175,28 +173,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     this.value = item.value;
     this.changeEvent.emit(item.value);
-  }
-
-  /** Measure all buttons and set them to the same width as the longest button. */
-  #equalizeButtonWidths(): void {
-    const buttons = Array.from(this.renderRoot?.querySelectorAll('button') ?? []);
-
-    if (!buttons.length) {
-      return;
-    }
-
-    // Force a reflow to ensure accurate measurements
-    const maxWidth = Math.max(
-      ...buttons.map(btn => {
-        btn.style.width = '';
-        return btn.offsetWidth;
-      })
-    );
-
-    // Set all buttons to the max width
-    buttons.forEach(btn => {
-      btn.style.width = `${maxWidth}px`;
-    });
   }
 
   /**

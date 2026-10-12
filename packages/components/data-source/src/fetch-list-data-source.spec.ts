@@ -17,6 +17,61 @@ import { type Person, people } from './list-data-source.spec.js';
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
 
+  it('should reuse unchanged nested options, cycles and function-based filters and sorting', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    const query: { values: string[]; self?: unknown } = { values: ['Regular'] };
+    query.self = query;
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+    const getFetchOptions = ds.getFetchOptions.bind(ds);
+    ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query });
+    ds.addFilter('membership', person => person.membership === 'Regular', ['Regular']);
+    ds.setSort((a, b) => a.firstName.localeCompare(b.firstName), 'asc');
+
+    void ds.items[0];
+    ds.update();
+    void ds.items[0];
+    expect(fetchPage).to.have.been.calledOnce;
+
+    request.resolve({ items: [people[0]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it.each(['array filter', 'nested custom option'])(
+    'should invalidate a pending request after mutating an %s in place',
+    async kind => {
+      const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+      const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+      let calls = 0;
+      const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+      const values = ['Regular'];
+      const query = { membership: { values } };
+      ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+      if (kind === 'array filter') {
+        ds.addFilter('membership', 'membership', values);
+      } else {
+        const getFetchOptions = ds.getFetchOptions.bind(ds);
+        ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query });
+      }
+
+      void ds.items[0];
+      values.push('Premium');
+      ds.update();
+      void ds.items[0];
+      expect(fetchPage).to.have.been.calledTwice;
+
+      current.resolve({ items: [people[1]], totalItems: 1 });
+      await new Promise(resolve => setTimeout(resolve));
+      previous.resolve({ items: people, totalItems: people.length });
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(ds.size).to.equal(1);
+      expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    }
+  );
+
   it.each([false, true])(
     'should reuse a pending page request across updates (pagination: %s)',
     async pagination => {

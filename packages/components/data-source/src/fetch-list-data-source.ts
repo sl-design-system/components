@@ -87,7 +87,7 @@ const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
 
 interface PendingFetch<T> {
   callback: FetchListDataSourceCallback<T>;
-  options: FetchListDataSourceCallbackOptions<T>;
+  key: readonly unknown[];
   promise: Promise<void>;
 }
 
@@ -207,11 +207,12 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       group.pages = {};
 
       this.#pending.get(group)?.forEach((request, page) => {
-        const options = this.getFetchOptions(group, page, this.pageSize);
+        const key = this.#getFetchOptionsKey(this.getFetchOptions(group, page, this.pageSize));
 
         if (
           request.callback === this.fetchPage &&
-          this.#areFetchOptionsEqual(request.options, options)
+          request.key.length === key.length &&
+          request.key.every((value, index) => Object.is(value, key[index]))
         ) {
           group.pages[page] = request.promise;
         } else {
@@ -380,7 +381,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
     if (!group.pages[page]) {
       const options = this.getFetchOptions(group, page, pageSize),
-        callback = this.fetchPage;
+        callback = this.fetchPage,
+        key = this.#getFetchOptionsKey(options);
 
       let pending = this.#pending.get(group);
       if (!pending) {
@@ -442,11 +444,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       group.pages[page] = request;
       pending.set(page, {
         callback,
-        options: {
-          ...options,
-          filters: options.filters?.map(filter => ({ ...filter })),
-          sort: options.sort ? { ...options.sort } : undefined
-        },
+        key,
         promise: request
       });
     }
@@ -458,29 +456,57 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     } as ListDataSourceDataItem<T>;
   }
 
-  #areFetchOptionsEqual(
-    previous: FetchListDataSourceCallbackOptions<T>,
-    current: FetchListDataSourceCallbackOptions<T>
-  ): boolean {
-    const { filters: previousFilters = [], sort: previousSort, ...previousOptions } = previous,
-      { filters: currentFilters = [], sort: currentSort, ...currentOptions } = current;
+  /**
+   * Capture array and plain-object contents without retaining mutable references. Functions and
+   * symbols keep their identity. Unsupported objects and accessors conservatively prevent request
+   * reuse rather than risk accepting stale data.
+   */
+  #getFetchOptionsKey(options: FetchListDataSourceCallbackOptions<T>): readonly unknown[] {
+    const key: unknown[] = [],
+      seen = new Map<object, number>();
 
-    return (
-      Object.keys(previousOptions).length === Object.keys(currentOptions).length &&
-      Object.keys(previousOptions).every(
-        key =>
-          Object.hasOwn(currentOptions, key) && Object.is(previousOptions[key], currentOptions[key])
-      ) &&
-      previousSort?.by === currentSort?.by &&
-      previousSort?.direction === currentSort?.direction &&
-      previousFilters.length === currentFilters.length &&
-      previousFilters.every((filter, index) => {
-        const other = currentFilters[index];
+    const visit = (value: unknown): void => {
+      if (value === null || typeof value !== 'object') {
+        key.push(typeof value, value);
+        return;
+      }
 
-        return (
-          filter.id === other.id && filter.by === other.by && Object.is(filter.value, other.value)
-        );
-      })
-    );
+      if (seen.has(value)) {
+        key.push('reference', seen.get(value));
+        return;
+      }
+
+      seen.set(value, seen.size);
+      const prototype: unknown = Object.getPrototypeOf(value);
+
+      if (Array.isArray(value)) {
+        key.push('array', value.length);
+      } else if (value instanceof Date) {
+        key.push('date', value.getTime());
+      } else if (prototype === Object.prototype || prototype === null) {
+        key.push('object', prototype);
+      } else {
+        key.push('unsupported', Symbol());
+        return;
+      }
+
+      const properties = Reflect.ownKeys(value).filter(
+        property => Object.getOwnPropertyDescriptor(value, property)?.enumerable
+      );
+      key.push(properties.length);
+
+      for (const property of properties) {
+        const descriptor = Object.getOwnPropertyDescriptor(value, property)!;
+        key.push(property);
+        if ('value' in descriptor) {
+          visit(descriptor.value);
+        } else {
+          key.push('accessor', Symbol());
+        }
+      }
+    };
+
+    visit(options);
+    return key;
   }
 }

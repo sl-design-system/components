@@ -1014,32 +1014,33 @@
 
 ### Methods
 
-| Name                 | Privacy | Description                                                                                                                                        | Parameters                                                                                        | Return    | Inherited From |
-| -------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | --------- | -------------- |
-| `addFilter`          |         | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added. | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`                      | `void`    | DataSource     |
-| `areAllSelected`     |         | Returns whether all items are selected.                                                                                                            |                                                                                                   | `boolean` | ListDataSource |
-| `areSomeSelected`    |         | Returns whether some items are selected.                                                                                                           |                                                                                                   | `boolean` | ListDataSource |
-| `collapseGroup`      |         | Collapses the group with the given id.                                                                                                             | `id: unknown`                                                                                     | `void`    | ListDataSource |
-| `deselect`           |         | Deselects the item.                                                                                                                                | `item: ListDataSourceItemBase, update`                                                            | `void`    | ListDataSource |
-| `deselectAll`        |         | Deselects all items in the data source.                                                                                                            | `update`                                                                                          | `void`    | ListDataSource |
-| `expandGroup`        |         | Expands the group with the given id.                                                                                                               | `id: unknown`                                                                                     | `void`    | ListDataSource |
-| `getSelectedItems`   |         | Returns the selected data objects (raw T items).                                                                                                   |                                                                                                   | `T[]`     |                |
-| `isGroupCollapsed`   |         | Returns whether the group with the given id is collapsed.                                                                                          | `id: unknown`                                                                                     | `boolean` | ListDataSource |
-| `isSelectAllToggled` |         | Returns whether the "select all" state is active.                                                                                                  |                                                                                                   | `boolean` | ListDataSource |
-| `isSelected`         |         | Returns whether the item is selected.                                                                                                              | `item: ListDataSourceItemBase`                                                                    | `boolean` | ListDataSource |
-| `removeFilter`       |         | Removes a filter from this data source.                                                                                                            | `id: string`                                                                                      | `void`    | DataSource     |
-| `removeGroupBy`      |         | Removes the grouping from the list.                                                                                                                |                                                                                                   | `void`    | ListDataSource |
-| `removeSort`         |         | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                |                                                                                                   | `void`    | DataSource     |
-| `reorder`            |         | Reorder the item in the data source.                                                                                                               | `item: ListDataSourceItem<T>, relativeItem: ListDataSourceItem<T>, position: 'before' \| 'after'` | `void`    | ListDataSource |
-| `select`             |         | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.               | `item: ListDataSourceItemBase, update`                                                            | `void`    | ListDataSource |
-| `selectAll`          |         | Selects all items in the data source.                                                                                                              | `update`                                                                                          | `void`    | ListDataSource |
-| `setData`            |         | Update the data source with a new array of items.                                                                                                  | `items: T[]`                                                                                      | `void`    |                |
-| `setGroupBy`         |         | Groups the items in the data source by the specified property path.                                                                                | `path: PathKeys<T>, labelPath: PathKeys<T>`                                                       | `void`    | ListDataSource |
-| `setPage`            |         | Sets the current page.                                                                                                                             | `page: number`                                                                                    | `void`    | ListDataSource |
-| `setPageSize`        |         | Sets the number of items that are shown on a page.                                                                                                 | `pageSize: number`                                                                                | `void`    | ListDataSource |
-| `setSort`            |         | Sets a sort configuration for this data source.                                                                                                    | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection`                | `void`    | DataSource     |
-| `toggle`             |         | Toggles the selection state of an item.                                                                                                            | `item: ListDataSourceItemBase, force: boolean, update: boolean`                                   | `void`    | ListDataSource |
-| `toggleGroup`        |         | Toggles the expansion state of the group with the given id.                                                                                        | `id: unknown, force: boolean`                                                                     | `void`    | ListDataSource |
+| Name                         | Privacy   | Description                                                                                                                                        | Parameters                                                                                        | Return    | Inherited From |
+| ---------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | --------- | -------------- |
+| `addFilter`                  |           | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added. | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`                      | `void`    | DataSource     |
+| `areAllGroupMembersSelected` | protected | Returns whether all members in the provided group are selected.&#xA;&#xA;Subclasses can override this to evaluate unfiltered group membership.     | `group: ListDataSourceGroupItem<T>`                                                               | `boolean` | ListDataSource |
+| `areAllSelected`             |           | Returns whether all items are selected.                                                                                                            |                                                                                                   | `boolean` | ListDataSource |
+| `areSomeSelected`            |           | Returns whether some items are selected.                                                                                                           |                                                                                                   | `boolean` | ListDataSource |
+| `collapseGroup`              |           | Collapses the group with the given id.                                                                                                             | `id: unknown`                                                                                     | `void`    | ListDataSource |
+| `deselect`                   |           | Deselects the item.                                                                                                                                | `item: ListDataSourceItemBase, update`                                                            | `void`    | ListDataSource |
+| `deselectAll`                |           | Deselects all items in the data source.                                                                                                            | `update`                                                                                          | `void`    | ListDataSource |
+| `expandGroup`                |           | Expands the group with the given id.                                                                                                               | `id: unknown`                                                                                     | `void`    | ListDataSource |
+| `getSelectedItems`           |           | Returns the selected data objects (raw T items).                                                                                                   |                                                                                                   | `T[]`     |                |
+| `isGroupCollapsed`           |           | Returns whether the group with the given id is collapsed.                                                                                          | `id: unknown`                                                                                     | `boolean` | ListDataSource |
+| `isSelectAllToggled`         |           | Returns whether the "select all" state is active.                                                                                                  |                                                                                                   | `boolean` | ListDataSource |
+| `isSelected`                 |           | Returns whether the item is selected.                                                                                                              | `item: ListDataSourceItemBase`                                                                    | `boolean` | ListDataSource |
+| `removeFilter`               |           | Removes a filter from this data source.                                                                                                            | `id: string`                                                                                      | `void`    | DataSource     |
+| `removeGroupBy`              |           | Removes the grouping from the list.                                                                                                                |                                                                                                   | `void`    | ListDataSource |
+| `removeSort`                 |           | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                |                                                                                                   | `void`    | DataSource     |
+| `reorder`                    |           | Reorder the item in the data source.                                                                                                               | `item: ListDataSourceItem<T>, relativeItem: ListDataSourceItem<T>, position: 'before' \| 'after'` | `void`    | ListDataSource |
+| `select`                     |           | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.               | `item: ListDataSourceItemBase, update`                                                            | `void`    | ListDataSource |
+| `selectAll`                  |           | Selects all items in the data source.                                                                                                              | `update`                                                                                          | `void`    | ListDataSource |
+| `setData`                    |           | Update the data source with a new array of items.                                                                                                  | `items: T[]`                                                                                      | `void`    |                |
+| `setGroupBy`                 |           | Groups the items in the data source by the specified property path.                                                                                | `path: PathKeys<T>, labelPath: PathKeys<T>`                                                       | `void`    | ListDataSource |
+| `setPage`                    |           | Sets the current page.                                                                                                                             | `page: number`                                                                                    | `void`    | ListDataSource |
+| `setPageSize`                |           | Sets the number of items that are shown on a page.                                                                                                 | `pageSize: number`                                                                                | `void`    | ListDataSource |
+| `setSort`                    |           | Sets a sort configuration for this data source.                                                                                                    | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection`                | `void`    | DataSource     |
+| `toggle`                     |           | Toggles the selection state of an item.                                                                                                            | `item: ListDataSourceItemBase, force: boolean, update: boolean`                                   | `void`    | ListDataSource |
+| `toggleGroup`                |           | Toggles the expansion state of the group with the given id.                                                                                        | `id: unknown, force: boolean`                                                                     | `void`    | ListDataSource |
 
 ### Events
 
@@ -1095,31 +1096,32 @@
 
 ### Methods
 
-| Name                 | Privacy | Description                                                                                                                                                | Parameters                                                                                           | Return                                  | Inherited From |
-| -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------- |
-| `addFilter`          |         | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added.         | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`                         | `void`                                  | DataSource     |
-| `areAllSelected`     |         | Returns whether all items are selected.                                                                                                                    |                                                                                                      | `boolean`                               | ListDataSource |
-| `areSomeSelected`    |         | Returns whether some items are selected.                                                                                                                   |                                                                                                      | `boolean`                               | ListDataSource |
-| `collapseGroup`      |         | Collapses the group with the given id.                                                                                                                     | `id: unknown`                                                                                        | `void`                                  | ListDataSource |
-| `deselect`           |         | Deselects the item.                                                                                                                                        | `item: ListDataSourceItemBase, update`                                                               | `void`                                  | ListDataSource |
-| `deselectAll`        |         | Deselects all items in the data source.                                                                                                                    | `update`                                                                                             | `void`                                  | ListDataSource |
-| `expandGroup`        |         | Expands the group with the given id.                                                                                                                       | `id: unknown`                                                                                        | `void`                                  | ListDataSource |
-| `getFetchOptions`    |         | Override this function if you are extending the `FetchListDataSource` class to provide any&#xA;additional options you may need when `fetchPage` is called. | `group: FetchListDataSourceGroupItem<T>, page: number, pageSize: number`                             | `FetchListDataSourceCallbackOptions<T>` |                |
-| `isGroupCollapsed`   |         | Returns whether the group with the given id is collapsed.                                                                                                  | `id: unknown`                                                                                        | `boolean`                               | ListDataSource |
-| `isSelectAllToggled` |         | Returns whether the "select all" state is active.                                                                                                          |                                                                                                      | `boolean`                               | ListDataSource |
-| `isSelected`         |         | Returns whether the item is selected.                                                                                                                      | `item: ListDataSourceItemBase`                                                                       | `boolean`                               | ListDataSource |
-| `removeFilter`       |         | Removes a filter from this data source.                                                                                                                    | `id: string`                                                                                         | `void`                                  | DataSource     |
-| `removeGroupBy`      |         | Removes the grouping from the list.                                                                                                                        |                                                                                                      | `void`                                  | ListDataSource |
-| `removeSort`         |         | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                        |                                                                                                      | `void`                                  | DataSource     |
-| `reorder`            |         | Reorder the item in the data source.                                                                                                                       | `_item: ListDataSourceItem<T>, _relativeItem: ListDataSourceItem<T>, _position: 'before' \| 'after'` | `void`                                  | ListDataSource |
-| `select`             |         | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.                       | `item: ListDataSourceItemBase, update`                                                               | `void`                                  | ListDataSource |
-| `selectAll`          |         | Selects all items in the data source.                                                                                                                      | `update`                                                                                             | `void`                                  | ListDataSource |
-| `setGroupBy`         |         | Groups the items in the data source by the specified property path.                                                                                        | `path: PathKeys<T>, labelPath: PathKeys<T>`                                                          | `void`                                  | ListDataSource |
-| `setPage`            |         | Sets the current page.                                                                                                                                     | `page: number`                                                                                       | `void`                                  | ListDataSource |
-| `setPageSize`        |         | Sets the number of items that are shown on a page.                                                                                                         | `pageSize: number`                                                                                   | `void`                                  | ListDataSource |
-| `setSort`            |         | Sets a sort configuration for this data source.                                                                                                            | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection`                   | `void`                                  | DataSource     |
-| `toggle`             |         | Toggles the selection state of an item.                                                                                                                    | `item: ListDataSourceItemBase, force: boolean, update: boolean`                                      | `void`                                  | ListDataSource |
-| `toggleGroup`        |         | Toggles the expansion state of the group with the given id.                                                                                                | `id: unknown, force: boolean`                                                                        | `void`                                  | ListDataSource |
+| Name                         | Privacy   | Description                                                                                                                                                | Parameters                                                                                           | Return                                  | Inherited From |
+| ---------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------- |
+| `addFilter`                  |           | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added.         | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`                         | `void`                                  | DataSource     |
+| `areAllGroupMembersSelected` | protected | Returns whether all members in the provided group are selected.&#xA;&#xA;Subclasses can override this to evaluate unfiltered group membership.             | `group: ListDataSourceGroupItem<T>`                                                                  | `boolean`                               | ListDataSource |
+| `areAllSelected`             |           | Returns whether all items are selected.                                                                                                                    |                                                                                                      | `boolean`                               | ListDataSource |
+| `areSomeSelected`            |           | Returns whether some items are selected.                                                                                                                   |                                                                                                      | `boolean`                               | ListDataSource |
+| `collapseGroup`              |           | Collapses the group with the given id.                                                                                                                     | `id: unknown`                                                                                        | `void`                                  | ListDataSource |
+| `deselect`                   |           | Deselects the item.                                                                                                                                        | `item: ListDataSourceItemBase, update`                                                               | `void`                                  | ListDataSource |
+| `deselectAll`                |           | Deselects all items in the data source.                                                                                                                    | `update`                                                                                             | `void`                                  | ListDataSource |
+| `expandGroup`                |           | Expands the group with the given id.                                                                                                                       | `id: unknown`                                                                                        | `void`                                  | ListDataSource |
+| `getFetchOptions`            |           | Override this function if you are extending the `FetchListDataSource` class to provide any&#xA;additional options you may need when `fetchPage` is called. | `group: FetchListDataSourceGroupItem<T>, page: number, pageSize: number`                             | `FetchListDataSourceCallbackOptions<T>` |                |
+| `isGroupCollapsed`           |           | Returns whether the group with the given id is collapsed.                                                                                                  | `id: unknown`                                                                                        | `boolean`                               | ListDataSource |
+| `isSelectAllToggled`         |           | Returns whether the "select all" state is active.                                                                                                          |                                                                                                      | `boolean`                               | ListDataSource |
+| `isSelected`                 |           | Returns whether the item is selected.                                                                                                                      | `item: ListDataSourceItemBase`                                                                       | `boolean`                               | ListDataSource |
+| `removeFilter`               |           | Removes a filter from this data source.                                                                                                                    | `id: string`                                                                                         | `void`                                  | DataSource     |
+| `removeGroupBy`              |           | Removes the grouping from the list.                                                                                                                        |                                                                                                      | `void`                                  | ListDataSource |
+| `removeSort`                 |           | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                        |                                                                                                      | `void`                                  | DataSource     |
+| `reorder`                    |           | Reorder the item in the data source.                                                                                                                       | `_item: ListDataSourceItem<T>, _relativeItem: ListDataSourceItem<T>, _position: 'before' \| 'after'` | `void`                                  | ListDataSource |
+| `select`                     |           | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.                       | `item: ListDataSourceItemBase, update`                                                               | `void`                                  | ListDataSource |
+| `selectAll`                  |           | Selects all items in the data source.                                                                                                                      | `update`                                                                                             | `void`                                  | ListDataSource |
+| `setGroupBy`                 |           | Groups the items in the data source by the specified property path.                                                                                        | `path: PathKeys<T>, labelPath: PathKeys<T>`                                                          | `void`                                  | ListDataSource |
+| `setPage`                    |           | Sets the current page.                                                                                                                                     | `page: number`                                                                                       | `void`                                  | ListDataSource |
+| `setPageSize`                |           | Sets the number of items that are shown on a page.                                                                                                         | `pageSize: number`                                                                                   | `void`                                  | ListDataSource |
+| `setSort`                    |           | Sets a sort configuration for this data source.                                                                                                            | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection`                   | `void`                                  | DataSource     |
+| `toggle`                     |           | Toggles the selection state of an item.                                                                                                                    | `item: ListDataSourceItemBase, force: boolean, update: boolean`                                      | `void`                                  | ListDataSource |
+| `toggleGroup`                |           | Toggles the expansion state of the group with the given id.                                                                                                | `id: unknown, force: boolean`                                                                        | `void`                                  | ListDataSource |
 
 ### Events
 
@@ -1207,38 +1209,38 @@
 
 ### Fields
 
-| Name                  | Privacy | Type                                         | Default     | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
-| --------------------- | ------- | -------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `calendar`            |         | `Calendar \| null`                           |             | The calendar element. This will return an instance of the calendar when the dialog is shown or&#xA;always when the calendar is slotted. Otherwise it will return undefined.                                                                                                                                                                             |                  |
-| `customValidity`      |         | `string \| undefined`                        |             | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
-| `dirty`               |         | `boolean`                                    | `false`     | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                       |             | Whether the date field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
-| `firstDayOfWeek`      |         | `number \| undefined`                        | `1`         | The first day of the week; 0 for Sunday, 1 for Monday.                                                                                                                                                                                                                                                                                                  |                  |
-| `form`                |         | `HTMLFormElement \| null`                    |             | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
-| `formValue`           |         | `unknown`                                    |             | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
-| `labels`              |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |             | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
-| `locale`              |         | `string`                                     |             | The component's locale.                                                                                                                                                                                                                                                                                                                                 | LocaleMixin      |
-| `max`                 |         | `Date \| undefined`                          | `undefined` | The maximum date selectable in the calendar.                                                                                                                                                                                                                                                                                                            |                  |
-| `min`                 |         | `Date \| undefined`                          | `undefined` | The minimum date selectable in the calendar.                                                                                                                                                                                                                                                                                                            |                  |
-| `month`               |         | `Date \| undefined`                          |             | The current month to display.                                                                                                                                                                                                                                                                                                                           |                  |
-| `name`                |         | `string \| undefined`                        |             | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
-| `nativeFormValue`     |         | `FormValue`                                  |             | Returns the form value as used in a native `<form>`. This is always a string, File, FormData&#xA;or null.                                                                                                                                                                                                                                               | FormControlMixin |
-| `placeholder`         |         | `string \| undefined`                        | `undefined` | Placeholder text shown when there is no value and the field is not focused.                                                                                                                                                                                                                                                                             |                  |
-| `readonly`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is readonly.                                                                                                                                                                                                                                                                                                                     |                  |
-| `requireConfirmation` |         | `boolean \| undefined`                       |             | When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to&#xA;confirm their date selection.                                                                                                                                                                                                                       |                  |
-| `required`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
-| `selectOnly`          |         | `boolean \| undefined`                       | `false`     | Whether the component is select only. This means you cannot type in the inputs, but you can&#xA;still pick a date via the dialog.                                                                                                                                                                                                                       |                  |
-| `shape`               |         | `DateFieldShape \| undefined`                | `'rect'`    | The shape of the date field.                                                                                                                                                                                                                                                                                                                            |                  |
-| `showValid`           |         | `boolean`                                    | `false`     | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
-| `showValidity`        |         | `'valid' \| 'invalid' \| undefined`          |             | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `showWeekNumbers`     |         | `boolean \| undefined`                       | `false`     | Shows the week numbers.                                                                                                                                                                                                                                                                                                                                 |                  |
-| `size`                |         | `DateFieldSize \| undefined`                 | `'md'`      | The size of the date field.                                                                                                                                                                                                                                                                                                                             |                  |
-| `touched`             |         | `boolean`                                    | `false`     | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
-| `valid`               |         | `boolean`                                    |             | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage`   |         | `string`                                     |             | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
-| `validity`            |         | `ValidityState`                              |             | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
-| `validityState`       |         | `'valid' \| 'invalid' \| 'pending'`          |             | Returns the current validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `value`               |         | `unknown \| undefined`                       |             | The selected date in the calendar.                                                                                                                                                                                                                                                                                                                      | FormControlMixin |
+| Name                  | Privacy | Type                                         | Default     | Description                                                                                                                                                                                                                                                                                                                                                 | Inherited From   |
+| --------------------- | ------- | -------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `calendar`            |         | `Calendar \| null`                           |             | The calendar element. This will return an instance of the calendar when the dialog is shown or&#xA;always when the calendar is slotted. Otherwise it will return undefined.                                                                                                                                                                                 |                  |
+| `customValidity`      |         | `string \| undefined`                        |             | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `dirty`               |         | `boolean`                                    | `false`     | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                             | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                       |             | Whether the date field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                    |                  |
+| `firstDayOfWeek`      |         | `number \| undefined`                        | `1`         | The first day of the week; 0 for Sunday, 1 for Monday.                                                                                                                                                                                                                                                                                                      |                  |
+| `form`                |         | `HTMLFormElement \| null`                    |             | The form associated with the control.                                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `formValue`           |         | `unknown`                                    |             | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                    | FormControlMixin |
+| `labels`              |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |             | The labels associated with the control.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `locale`              |         | `string`                                     |             | The component's locale.                                                                                                                                                                                                                                                                                                                                     | LocaleMixin      |
+| `max`                 |         | `Date \| undefined`                          | `undefined` | The maximum date selectable in the calendar.                                                                                                                                                                                                                                                                                                                |                  |
+| `min`                 |         | `Date \| undefined`                          | `undefined` | The minimum date selectable in the calendar.                                                                                                                                                                                                                                                                                                                |                  |
+| `month`               |         | `Date \| undefined`                          |             | The current month to display.                                                                                                                                                                                                                                                                                                                               |                  |
+| `name`                |         | `string \| undefined`                        |             | The name of the form control.                                                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `nativeFormValue`     |         | `FormValue`                                  |             | Returns the form value as used in a native `<form>`. This is always a string, File, FormData&#xA;or null.                                                                                                                                                                                                                                                   | FormControlMixin |
+| `placeholder`         |         | `string \| undefined`                        | `undefined` | Placeholder text shown when there is no value and the field is not focused.                                                                                                                                                                                                                                                                                 |                  |
+| `readonly`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is readonly.                                                                                                                                                                                                                                                                                                                         |                  |
+| `requireConfirmation` |         | `boolean \| undefined`                       |             | When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to&#xA;confirm their date selection before it is applied. Custom action controls can still close the&#xA;picker with `hide-picker`. If such an action should also commit a value without using&#xA;"Confirm", its click handler needs to set the value itself. |                  |
+| `required`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is a required field.                                                                                                                                                                                                                                                                                                                 |                  |
+| `selectOnly`          |         | `boolean \| undefined`                       | `false`     | Whether the component is select only. This means you cannot type in the inputs, but you can&#xA;still pick a date via the dialog.                                                                                                                                                                                                                           |                  |
+| `shape`               |         | `DateFieldShape \| undefined`                | `'rect'`    | The shape of the date field.                                                                                                                                                                                                                                                                                                                                |                  |
+| `showValid`           |         | `boolean`                                    | `false`     | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                              | FormControlMixin |
+| `showValidity`        |         | `'valid' \| 'invalid' \| undefined`          |             | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                         | FormControlMixin |
+| `showWeekNumbers`     |         | `boolean \| undefined`                       | `false`     | Shows the week numbers.                                                                                                                                                                                                                                                                                                                                     |                  |
+| `size`                |         | `DateFieldSize \| undefined`                 | `'md'`      | The size of the date field.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `touched`             |         | `boolean`                                    | `false`     | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `valid`               |         | `boolean`                                    |             | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `validationMessage`   |         | `string`                                     |             | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead.     | FormControlMixin |
+| `validity`            |         | `ValidityState`                              |             | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `validityState`       |         | `'valid' \| 'invalid' \| 'pending'`          |             | Returns the current validity state.                                                                                                                                                                                                                                                                                                                         | FormControlMixin |
+| `value`               |         | `unknown \| undefined`                       |             | The selected date in the calendar.                                                                                                                                                                                                                                                                                                                          | FormControlMixin |
 
 ### Methods
 
@@ -1285,6 +1287,13 @@
 | `name`                 | name                | FormControlMixin |
 | `show-validity`        | showValidity        | FormControlMixin |
 
+### Slots
+
+| Name       | Description                                                                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|            | Optional action controls rendered below the calendar. Add `hide-picker` to a control to close the picker automatically after it is clicked. |
+| `calendar` | Optional custom calendar content.                                                                                                           |
+
 <hr/>
 
 ## Exports
@@ -1327,11 +1336,12 @@
 
 ### Fields
 
-| Name            | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                                                   | Inherited From |
-| --------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `closeButton`   |         | `boolean \| undefined`      | `false`    | Determines whether a close button should be shown in the top right corner.                                                                                                                                                                                                    |                |
-| `dialogRole`    |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The role for the dialog element.                                                                                                                                                                                                                                              |                |
-| `disableCancel` |         | `boolean \| undefined`      | `false`    | Disables the ability to cancel the dialog by pressing the Escape key or clicking on the&#xA;backdrop. We recommend setting this to true when the dialog contains a form that must be&#xA;submitted or cancelled, to prevent accidental closing when clicking on the backdrop. |                |
+| Name                   | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                                                   | Inherited From |
+| ---------------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `closeButton`          |         | `boolean \| undefined`      | `false`    | Determines whether a close button should be shown in the top right corner.                                                                                                                                                                                                    |                |
+| `dialogRole`           |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The role for the dialog element.                                                                                                                                                                                                                                              |                |
+| `disableBodyAnimation` |         | `boolean`                   | `false`    | Disables the body scale and translate animation on mobile. The dialog itself still animates and&#xA;scrolling remains disabled while it is open.                                                                                                                              |                |
+| `disableCancel`        |         | `boolean \| undefined`      | `false`    | Disables the ability to cancel the dialog by pressing the Escape key or clicking on the&#xA;backdrop. We recommend setting this to true when the dialog contains a form that must be&#xA;submitted or cancelled, to prevent accidental closing when clicking on the backdrop. |                |
 
 ### Methods
 
@@ -1356,11 +1366,12 @@
 
 ### Attributes
 
-| Name             | Field         | Inherited From |
-| ---------------- | ------------- | -------------- |
-| `close-button`   | closeButton   |                |
-| `dialog-role`    | dialogRole    |                |
-| `disable-cancel` | disableCancel |                |
+| Name                     | Field                | Inherited From |
+| ------------------------ | -------------------- | -------------- |
+| `close-button`           | closeButton          |                |
+| `dialog-role`            | dialogRole           |                |
+| `disable-body-animation` | disableBodyAnimation |                |
+| `disable-cancel`         | disableCancel        |                |
 
 ### CSS Parts
 
@@ -3233,7 +3244,7 @@
 | --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-virtual-list` | VirtualList | /packages/components/virtual-list/src/virtual-list.js |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.ts`:
 
 ## class: `Accordion`, `sl-accordion`
 
@@ -3274,11 +3285,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Accordion` | Accordion   | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Accordion` | Accordion   | /Users/anna.sobczak/IdeaProjects/components/packages/components/accordion/src/accordion.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.ts`:
 
 ## class: `MonthView`, `sl-month-view`
 
@@ -3373,11 +3384,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MonthView` | MonthView   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `MonthView` | MonthView   | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/month-view.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.ts`:
 
 ## class: `SelectDay`
 
@@ -3437,11 +3448,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectDay` | SelectDay   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SelectDay` | SelectDay   | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-day.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.ts`:
 
 ## class: `SelectMonth`
 
@@ -3499,11 +3510,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                        | Package |
-| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectMonth` | SelectMonth | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts |         |
+| Kind | Name          | Declaration | Module                                                                                       | Package |
+| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectMonth` | SelectMonth | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-month.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.ts`:
 
 ## class: `SelectYear`
 
@@ -3557,11 +3568,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                       | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectYear` | SelectYear  | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts |         |
+| Kind | Name         | Declaration | Module                                                                                      | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectYear` | SelectYear  | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/select-year.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts`:
 
 ## Variables
 
@@ -3620,18 +3631,18 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                 | Package |
-| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `getWeekdayNames`    | getWeekdayNames    | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `getWeekNumber`      | getWeekNumber      | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createCalendar`     | createCalendar     | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createPeriod`       | createPeriod       | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createMonth`        | createMonth        | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createWeek`         | createWeek         | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `createDay`          | createDay          | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
-| `js` | `indicatorConverter` | indicatorConverter | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `getWeekdayNames`    | getWeekdayNames    | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `getWeekNumber`      | getWeekNumber      | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createCalendar`     | createCalendar     | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createPeriod`       | createPeriod       | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createMonth`        | createMonth        | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createWeek`         | createWeek         | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `createDay`          | createDay          | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
+| `js` | `indicatorConverter` | indicatorConverter | /Users/anna.sobczak/IdeaProjects/components/packages/components/calendar/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -3743,11 +3754,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/anna.sobczak/IdeaProjects/components/packages/components/checkbox/src/checkbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.ts`:
 
 ## class: `CreateCustomOption`
 
@@ -3785,11 +3796,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                                | Package |
-| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CreateCustomOption` | CreateCustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                               | Package |
+| ---- | -------------------- | ------------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CreateCustomOption` | CreateCustomOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/create-custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.ts`:
 
 ## class: `CustomOption`
 
@@ -3827,11 +3838,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                         | Package |
-| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CustomOption` | CustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CustomOption` | CustomOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.ts`:
 
 ## class: `GroupedOption`
 
@@ -3871,11 +3882,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GroupedOption` | GroupedOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GroupedOption` | GroupedOption | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/grouped-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.ts`:
 
 ## class: `NoMatch`
 
@@ -3901,11 +3912,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `NoMatch` | NoMatch     | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `NoMatch` | NoMatch     | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/no-match.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.ts`:
 
 ## class: `SelectedGroup`
 
@@ -3946,19 +3957,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectedGroup` | SelectedGroup | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectedGroup` | SelectedGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/combobox/src/selected-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                                                          | Package |
-| ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Name          | Module                                                                                         | Package |
+| ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
 
 ### Fields
 
@@ -3982,20 +3993,20 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
-| `js` | `DataSource`            | DataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                         | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
+| `js` | `DataSource`            | DataSource            | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts`:
 
 ## class: `ListDataSource`
 
 ### Superclass
 
-| Name         | Module                                                                                           | Package |
-| ------------ | ------------------------------------------------------------------------------------------------ | ------- |
-| `DataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.js |         |
+| Name         | Module                                                                                          | Package |
+| ------------ | ----------------------------------------------------------------------------------------------- | ------- |
+| `DataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/data-source.js |         |
 
 ### Fields
 
@@ -4018,30 +4029,31 @@
 
 ### Methods
 
-| Name                 | Privacy | Description                                                                                                                                        | Parameters                                                                         | Return    | Inherited From |
-| -------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------- | -------------- |
-| `addFilter`          |         | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added. | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`       | `void`    | DataSource     |
-| `areAllSelected`     |         | Returns whether all items are selected.                                                                                                            |                                                                                    | `boolean` |                |
-| `areSomeSelected`    |         | Returns whether some items are selected.                                                                                                           |                                                                                    | `boolean` |                |
-| `collapseGroup`      |         | Collapses the group with the given id.                                                                                                             | `id: unknown`                                                                      | `void`    |                |
-| `deselect`           |         | Deselects the item.                                                                                                                                | `item: ListDataSourceItemBase, update`                                             | `void`    |                |
-| `deselectAll`        |         | Deselects all items in the data source.                                                                                                            | `update`                                                                           | `void`    |                |
-| `expandGroup`        |         | Expands the group with the given id.                                                                                                               | `id: unknown`                                                                      | `void`    |                |
-| `isGroupCollapsed`   |         | Returns whether the group with the given id is collapsed.                                                                                          | `id: unknown`                                                                      | `boolean` |                |
-| `isSelectAllToggled` |         | Returns whether the "select all" state is active.                                                                                                  |                                                                                    | `boolean` |                |
-| `isSelected`         |         | Returns whether the item is selected.                                                                                                              | `item: ListDataSourceItemBase`                                                     | `boolean` |                |
-| `removeFilter`       |         | Removes a filter from this data source.                                                                                                            | `id: string`                                                                       | `void`    | DataSource     |
-| `removeGroupBy`      |         | Removes the grouping from the list.                                                                                                                |                                                                                    | `void`    |                |
-| `removeSort`         |         | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                |                                                                                    | `void`    | DataSource     |
-| `reorder`            |         | Reorder the item in the data source.                                                                                                               | `item: U, relativeItem: U, position: 'before' \| 'after'`                          |           |                |
-| `select`             |         | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.               | `item: ListDataSourceItemBase, update`                                             | `void`    |                |
-| `selectAll`          |         | Selects all items in the data source.                                                                                                              | `update`                                                                           | `void`    |                |
-| `setGroupBy`         |         | Groups the items in the data source by the specified property path.                                                                                | `path: PathKeys<T>, labelPath: PathKeys<T>`                                        | `void`    |                |
-| `setPage`            |         | Sets the current page.                                                                                                                             | `page: number`                                                                     | `void`    |                |
-| `setPageSize`        |         | Sets the number of items that are shown on a page.                                                                                                 | `pageSize: number`                                                                 | `void`    |                |
-| `setSort`            |         | Sets a sort configuration for this data source.                                                                                                    | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void`    | DataSource     |
-| `toggle`             |         | Toggles the selection state of an item.                                                                                                            | `item: ListDataSourceItemBase, force: boolean, update: boolean`                    | `void`    |                |
-| `toggleGroup`        |         | Toggles the expansion state of the group with the given id.                                                                                        | `id: unknown, force: boolean`                                                      | `void`    |                |
+| Name                         | Privacy   | Description                                                                                                                                        | Parameters                                                                         | Return    | Inherited From |
+| ---------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------- | -------------- |
+| `addFilter`                  |           | Adds a filter to this data source. Filters can be used to filter the data in the data source.&#xA;Filters are applied in the order they are added. | `id: string, by: PathKeys<T> \| DataSourceFilterFunction<T>, value: unknown`       | `void`    | DataSource     |
+| `areAllGroupMembersSelected` | protected | Returns whether all members in the provided group are selected.&#xA;&#xA;Subclasses can override this to evaluate unfiltered group membership.     | `group: ListDataSourceGroupItem<T>`                                                | `boolean` |                |
+| `areAllSelected`             |           | Returns whether all items are selected.                                                                                                            |                                                                                    | `boolean` |                |
+| `areSomeSelected`            |           | Returns whether some items are selected.                                                                                                           |                                                                                    | `boolean` |                |
+| `collapseGroup`              |           | Collapses the group with the given id.                                                                                                             | `id: unknown`                                                                      | `void`    |                |
+| `deselect`                   |           | Deselects the item.                                                                                                                                | `item: ListDataSourceItemBase, update`                                             | `void`    |                |
+| `deselectAll`                |           | Deselects all items in the data source.                                                                                                            | `update`                                                                           | `void`    |                |
+| `expandGroup`                |           | Expands the group with the given id.                                                                                                               | `id: unknown`                                                                      | `void`    |                |
+| `isGroupCollapsed`           |           | Returns whether the group with the given id is collapsed.                                                                                          | `id: unknown`                                                                      | `boolean` |                |
+| `isSelectAllToggled`         |           | Returns whether the "select all" state is active.                                                                                                  |                                                                                    | `boolean` |                |
+| `isSelected`                 |           | Returns whether the item is selected.                                                                                                              | `item: ListDataSourceItemBase`                                                     | `boolean` |                |
+| `removeFilter`               |           | Removes a filter from this data source.                                                                                                            | `id: string`                                                                       | `void`    | DataSource     |
+| `removeGroupBy`              |           | Removes the grouping from the list.                                                                                                                |                                                                                    | `void`    |                |
+| `removeSort`                 |           | Removes the current sort configuration. This will clear any existing sort settings, allowing&#xA;for unsorted data.                                |                                                                                    | `void`    | DataSource     |
+| `reorder`                    |           | Reorder the item in the data source.                                                                                                               | `item: U, relativeItem: U, position: 'before' \| 'after'`                          |           |                |
+| `select`                     |           | Selects the item. Whether it is added to the selection or replaces any previously selected item&#xA;is based on the `selects` value.               | `item: ListDataSourceItemBase, update`                                             | `void`    |                |
+| `selectAll`                  |           | Selects all items in the data source.                                                                                                              | `update`                                                                           | `void`    |                |
+| `setGroupBy`                 |           | Groups the items in the data source by the specified property path.                                                                                | `path: PathKeys<T>, labelPath: PathKeys<T>`                                        | `void`    |                |
+| `setPage`                    |           | Sets the current page.                                                                                                                             | `page: number`                                                                     | `void`    |                |
+| `setPageSize`                |           | Sets the number of items that are shown on a page.                                                                                                 | `pageSize: number`                                                                 | `void`    |                |
+| `setSort`                    |           | Sets a sort configuration for this data source.                                                                                                    | `by: PathKeys<T> \| DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void`    | DataSource     |
+| `toggle`                     |           | Toggles the selection state of an item.                                                                                                            | `item: ListDataSourceItemBase, force: boolean, update: boolean`                    | `void`    |                |
+| `toggleGroup`                |           | Toggles the expansion state of the group with the given id.                                                                                        | `id: unknown, force: boolean`                                                      | `void`    |                |
 
 ### Events
 
@@ -4071,15 +4083,15 @@
 
 ## Exports
 
-| Kind | Name                                 | Declaration                        | Module                                                                                               | Package |
-| ---- | ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSource`                     | ListDataSource                     | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| Kind | Name                                 | Declaration                        | Module                                                                                              | Package |
+| ---- | ------------------------------------ | ---------------------------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSource`                     | ListDataSource                     | /Users/anna.sobczak/IdeaProjects/components/packages/components/data-source/src/list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts`:
 
 ## Functions
 
@@ -4096,16 +4108,16 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                   | Package |
-| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `getDateFormat`     | getDateFormat     | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateUnitName`   | getDateUnitName   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateUnitLetter` | getDateUnitLetter | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateTemplate`   | getDateTemplate   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
-| `js` | `getMonthName`      | getMonthName      | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
-| `js` | `parseDateString`   | parseDateString   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                  | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `getDateFormat`     | getDateFormat     | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateUnitName`   | getDateUnitName   | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateUnitLetter` | getDateUnitLetter | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateTemplate`   | getDateTemplate   | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
+| `js` | `getMonthName`      | getMonthName      | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
+| `js` | `parseDateString`   | parseDateString   | /Users/anna.sobczak/IdeaProjects/components/packages/components/date-field/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -4118,12 +4130,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                               | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/keymap.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -4148,24 +4160,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                    | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                   | Package |
+| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/list-utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -4189,16 +4201,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                               | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/schema.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -4211,12 +4223,12 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                               | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                              | Package |
+| ---- | ------------------- | ----------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/anna.sobczak/IdeaProjects/components/packages/components/editor/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-service.ts`:
 
 ## class: `EmojiService`
 
@@ -4233,11 +4245,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiService` | EmojiService | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `EmojiService` | EmojiService | /Users/anna.sobczak/IdeaProjects/components/packages/components/emoji/src/emoji-service.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -4296,12 +4308,12 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                  | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
-| `js` | `FormField`        | FormField        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                 | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts |         |
+| `js` | `FormField`        | FormField        | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts`:
 
 ## class: `Form`, `sl-form`
 
@@ -4315,6 +4327,7 @@
 
 | Name             | Privacy | Type                               | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Inherited From |
 | ---------------- | ------- | ---------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `announceErrors` |         | `boolean`                          | `true`  | Whether field-level validation messages are announced via the live-region announcer.&#xA;&#xA;Enabled by default. When you use aggregated validation messaging (with `<sl-inline-message>`),&#xA;set `announce-errors="false"` to avoid duplicate screen reader announcements.                                                                                                                                                                                                                                                                                   |                |
 | `controls`       |         | `Array<HTMLElement & FormControl>` | `[]`    | The controls in the form; not necessarily the same amount as the fields.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
 | `dirty`          |         | `boolean`                          |         | A form is marked dirty when the user has modified a form control.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
 | `disabled`       |         | `boolean \| undefined`             |         | Will disable the entire form when true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                |
@@ -4350,19 +4363,20 @@
 | Name               | Field          | Inherited From |
 | ------------------ | -------------- | -------------- |
 | `disabled`         | disabled       |                |
+| `announce-errors`  | announceErrors |                |
 | `validate-on-blur` | validateOnBlur |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                            | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlResetEvent`  | SlResetEvent  | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `Form`          | Form          | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| Kind | Name            | Declaration   | Module                                                                           | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `SlResetEvent`  | SlResetEvent  | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
+| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
+| `js` | `Form`          | Form          | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/form.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -4394,11 +4408,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/hint.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -4437,11 +4451,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Label` | Label       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                            | Package |
+| ---- | ------- | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Label` | Label       | /Users/anna.sobczak/IdeaProjects/components/packages/components/form/src/label.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format.ts`:
 
 ## Functions
 
@@ -4453,11 +4467,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                     | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                    | Package |
+| ---- | -------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-date/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format.ts`:
 
 ## Functions
 
@@ -4469,11 +4483,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                       | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/anna.sobczak/IdeaProjects/components/packages/components/format-number/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -4547,20 +4561,20 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                              | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
-| `js` | `GridColumn`          | GridColumn          | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                             | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts |         |
+| `js` | `GridColumn`          | GridColumn          | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/drag-handle-column.ts`:
 
 ## class: `GridDragHandleColumn`, `sl-grid-drag-handle-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4626,19 +4640,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                          | Package |
-| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                         | Package |
+| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/drag-handle-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name             | Module                                                                                    | Package |
-| ---------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `GridSortColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.js |         |
+| Name             | Module                                                                                   | Package |
+| ---------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `GridSortColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.js |         |
 
 ### Fields
 
@@ -4719,11 +4733,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -4770,13 +4784,13 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                              | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `GridFilter`            | GridFilter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                             | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`            | GridFilter            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/filter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -4857,17 +4871,17 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                            | Package |
-| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDropEvent`            | SlDropEvent            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `Grid`                   | Grid                   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                           | Package |
+| ---- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDropEvent`            | SlDropEvent            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                   | Grid                   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/grid.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.ts`:
 
 ## class: `GridGroupHeader`
 
@@ -4914,19 +4928,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridGroupHeader` | GridGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/select-column.ts`:
 
 ## class: `GridSelectColumn`, `sl-grid-select-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4994,19 +5008,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridSelectColumn` | GridSelectColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectColumn` | GridSelectColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/select-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5074,19 +5088,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                        | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                       | Package |
+| ---- | --------------------- | ------------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/selection-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5156,11 +5170,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                   | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                  | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sort-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -5209,21 +5223,21 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                              | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `GridSorter`            | GridSorter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                             | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `GridSorter`            | GridSorter            | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/sorter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/text-field-column.ts`:
 
 ## class: `GridTextFieldColumn`, `sl-grid-text-field-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                              | Package |
+| ------------ | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5289,11 +5303,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                         | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                        | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/text-field-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts`:
 
 ## class: `GridViewModel`
 
@@ -5331,12 +5345,12 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                  | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
-| `js` | `GridViewModel`      | GridViewModel      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                 | Package |
+| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | /Users/anna.sobczak/IdeaProjects/components/packages/components/grid/src/view-model.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/infotip/src/infotip.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/infotip/src/infotip.ts`:
 
 ## class: `Infotip`, `sl-infotip`
 
@@ -5392,11 +5406,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Infotip` | Infotip     | /Users/diana.broeders/Projects/design-system/packages/components/infotip/src/infotip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Infotip` | Infotip     | /Users/anna.sobczak/IdeaProjects/components/packages/components/infotip/src/infotip.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -5446,12 +5460,12 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                                | Package |
-| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlDismissEvent` | SlDismissEvent | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
-| `js` | `InlineMessage`  | InlineMessage  | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                               | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlDismissEvent` | SlDismissEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts |         |
+| `js` | `InlineMessage`  | InlineMessage  | /Users/anna.sobczak/IdeaProjects/components/packages/components/inline-message/src/inline-message.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/link/src/link.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/link/src/link.ts`:
 
 ## class: `Link`, `sl-link`
 
@@ -5508,11 +5522,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Link` | Link        | /Users/diana.broeders/Projects/design-system/packages/components/link/src/link.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Link` | Link        | /Users/anna.sobczak/IdeaProjects/components/packages/components/link/src/link.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.ts`:
 
 ## class: `Listbox`, `sl-listbox`
 
@@ -5564,11 +5578,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Listbox` | Listbox     | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Listbox` | Listbox     | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/listbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.ts`:
 
 ## class: `OptionGroupHeader`
 
@@ -5594,11 +5608,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                              | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                             | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.ts`:
 
 ## class: `OptionGroup`, `sl-option-group`
 
@@ -5630,11 +5644,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                       | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroup` | OptionGroup | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                      | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroup` | OptionGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.ts`:
 
 ## class: `Option`, `sl-option`
 
@@ -5678,11 +5692,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                 | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `Option` | Option      | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Option` | Option      | /Users/anna.sobczak/IdeaProjects/components/packages/components/listbox/src/option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.ts`:
 
 ## class: `MenuButton`, `sl-menu-button`
 
@@ -5752,11 +5766,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                   | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts |         |
+| Kind | Name         | Declaration | Module                                                                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuButton` | MenuButton  | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.ts`:
 
 ## class: `MenuItemGroup`, `sl-menu-item-group`
 
@@ -5791,11 +5805,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItemGroup` | MenuItemGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.ts`:
 
 ## class: `MenuItem`, `sl-menu-item`
 
@@ -5854,11 +5868,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItem` | MenuItem    | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu-item.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.ts`:
 
 ## class: `Menu`, `sl-menu`
 
@@ -5908,11 +5922,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Menu` | Menu        | /Users/anna.sobczak/IdeaProjects/components/packages/components/menu/src/menu.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.ts`:
 
 ## class: `MessageDialog`, `sl-message-dialog`
 
@@ -5959,11 +5973,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MessageDialog` | MessageDialog | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                               | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | /Users/anna.sobczak/IdeaProjects/components/packages/components/message-dialog/src/message-dialog.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.ts`:
 
 ## class: `NumberField`, `sl-number-field`
 
@@ -6094,11 +6108,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberField` | NumberField | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `NumberField` | NumberField | /Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-parser.ts`:
 
 ## class: `NumberParser`
 
@@ -6121,11 +6135,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberParser` | NumberParser | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberParser` | NumberParser | /Users/anna.sobczak/IdeaProjects/components/packages/components/number-field/src/number-parser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.ts`:
 
 ## class: `PaginatorPageSize`, `sl-paginator-page-size`
 
@@ -6167,11 +6181,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                      | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                     | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/page-size.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.ts`:
 
 ## class: `Paginator`, `sl-paginator`
 
@@ -6220,11 +6234,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Paginator` | Paginator   | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Paginator` | Paginator   | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/paginator.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.ts`:
 
 ## class: `PaginatorStatus`, `sl-paginator-status`
 
@@ -6256,11 +6270,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                   | Package |
-| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorStatus` | PaginatorStatus | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                  | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorStatus` | PaginatorStatus | /Users/anna.sobczak/IdeaProjects/components/packages/components/paginator/src/status.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.ts`:
 
 ## class: `Panel`, `sl-panel`
 
@@ -6348,11 +6362,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Panel` | Panel       | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Panel` | Panel       | /Users/anna.sobczak/IdeaProjects/components/packages/components/panel/src/panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -6393,11 +6407,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/anna.sobczak/IdeaProjects/components/packages/components/popover/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.ts`:
 
 ## class: `ProgressBar`, `sl-progress-bar`
 
@@ -6450,11 +6464,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ProgressBar` | ProgressBar | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ProgressBar` | ProgressBar | /Users/anna.sobczak/IdeaProjects/components/packages/components/progress-bar/src/progress-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -6542,11 +6556,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                         | Package |
+| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -6619,11 +6633,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                   | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/anna.sobczak/IdeaProjects/components/packages/components/radio-group/src/radio.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.ts`:
 
 ## class: `Scrollbar`, `sl-scrollbar`
 
@@ -6664,11 +6678,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Scrollbar` | Scrollbar   | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                     | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `Scrollbar` | Scrollbar   | /Users/anna.sobczak/IdeaProjects/components/packages/components/scrollbar/src/scrollbar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts`:
 
 ## class: `SearchField`, `sl-search-field`
 
@@ -6782,12 +6796,12 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                            | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSearchEvent` | SlSearchEvent | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SearchField`   | SearchField   | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                           | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlSearchEvent` | SlSearchEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts |         |
+| `js` | `SearchField`   | SearchField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/search-field/src/search-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -6852,11 +6866,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                       | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                      | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -6965,11 +6979,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Select` | Select      | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Select` | Select      | /Users/anna.sobczak/IdeaProjects/components/packages/components/select/src/select.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -6995,11 +7009,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -7021,11 +7035,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `EventsController` | EventsController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/events.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -7076,11 +7090,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/media.ts`:
 
 ## class: `MediaController`
 
@@ -7105,11 +7119,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `MediaController` | MediaController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MediaController` | MediaController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/media.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/new-focus-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/new-focus-group.ts`:
 
 ## class: `NewFocusGroupController`
 
@@ -7146,19 +7160,19 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                                     | Package |
-| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NewFocusGroupController` | NewFocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/new-focus-group.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                                    | Package |
+| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NewFocusGroupController` | NewFocusGroupController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/new-focus-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                                                                  | Package |
-| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `FocusGroupController` | //Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                 | Package |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `FocusGroupController` | //Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -7208,11 +7222,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                    | Package |
+| ---- | -------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/shortcut.ts`:
 
 ## class: `ShortcutController`
 
@@ -7231,11 +7245,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                              | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                             | Package |
+| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ShortcutController` | ShortcutController | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/controllers/shortcut.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date-list.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date-list.ts`:
 
 ## Variables
 
@@ -7247,11 +7261,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                              | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `dateListConverter` | dateListConverter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date-list.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                             | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `dateListConverter` | dateListConverter | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date-list.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date.ts`:
 
 ## Variables
 
@@ -7263,11 +7277,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                         | Package |
-| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `dateConverter` | dateConverter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                        | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `dateConverter` | dateConverter | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/converters/date.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -7285,11 +7299,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                        | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/base.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -7319,12 +7333,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                          | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                         | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/event.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -7336,11 +7350,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `observe` | observe     | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/decorators/observe.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -7368,68 +7382,68 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/directives/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts`:
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                                                     | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `SlBlurEvent` | SlBlurEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/blur.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCancelEvent` | SlCancelEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts |         |
+| Kind | Name          | Declaration | Module                                                                                    | Package |
+| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlBlurEvent` | SlBlurEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/blur.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts`:
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlChangeEvent` | SlChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/cancel.ts`:
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlClearEvent` | SlClearEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlCancelEvent` | SlCancelEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/cancel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts`:
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFocusEvent` | SlFocusEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/change.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectEvent` | SlSelectEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlChangeEvent` | SlChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/change.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/clear.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlToggleEvent` | SlToggleEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlClearEvent` | SlClearEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/clear.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/focus.ts`:
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlFocusEvent` | SlFocusEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/focus.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/select.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSelectEvent` | SlSelectEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/select.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/toggle.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlToggleEvent` | SlToggleEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/events/toggle.ts |         |
+
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/element-internals.ts`:
 
 ## mixin: `ElementInternalsMixin`
 
@@ -7443,11 +7457,11 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                                  | Package |
-| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                                 | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/element-internals.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/forward-aria.ts`:
 
 ## mixin: `ForwardAriaMixin`
 
@@ -7468,11 +7482,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                             | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/mixins/forward-aria.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts`:
 
 ## Functions
 
@@ -7487,14 +7501,14 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                              | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `setValueByPath`  | setValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| Kind | Name              | Declaration     | Module                                                                             | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
+| `js` | `setValueByPath`  | setValueByPath  | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/path.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts`:
 
 ## Functions
 
@@ -7507,12 +7521,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                 | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover` | positionPopover | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover` | positionPopover | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -7532,19 +7546,19 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                | Package |
-| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `camelize`                 | camelize                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `capitalize`               | capitalize               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `classify`                 | classify                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`                | dasherize                | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `decamelize`               | decamelize               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `humanize`                 | humanize                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `underscore`               | underscore               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `getCharacterPluralSuffix` | getCharacterPluralSuffix | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `getPluralCategory`        | getPluralCategory        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                               | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `camelize`                 | camelize                 | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize`               | capitalize               | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `classify`                 | classify                 | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`                | dasherize                | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize`               | decamelize               | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`                 | humanize                 | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `underscore`               | underscore               | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `getCharacterPluralSuffix` | getCharacterPluralSuffix | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
+| `js` | `getPluralCategory`        | getPluralCategory        | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/string.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts`:
 
 ## Functions
 
@@ -7558,13 +7572,13 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                         | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                        | Package |
+| ---- | -------------------------- | ------------------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `parseKeybinding`          | parseKeybinding          | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `tinykeys`                 | tinykeys                 | /Users/anna.sobczak/IdeaProjects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -7592,11 +7606,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/anna.sobczak/IdeaProjects/components/packages/components/skeleton/src/skeleton.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.ts`:
 
 ## class: `Spinner`, `sl-spinner`
 
@@ -7628,11 +7642,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Spinner` | Spinner     | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/anna.sobczak/IdeaProjects/components/packages/components/spinner/src/spinner.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -7740,11 +7754,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                               | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Switch` | Switch      | /Users/anna.sobczak/IdeaProjects/components/packages/components/switch/src/switch.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -7810,12 +7824,12 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                 | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
-| `js` | `TabGroup`         | TabGroup         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts |         |
+| `js` | `TabGroup`         | TabGroup         | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -7835,11 +7849,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab-panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -7878,11 +7892,11 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                                                           | Package |
-| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                          | Package |
+| ---- | ----- | ----------- | ------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/anna.sobczak/IdeaProjects/components/packages/components/tabs/src/tab.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.ts`:
 
 ## class: `TagList`, `sl-tag-list`
 
@@ -7926,11 +7940,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `TagList` | TagList     | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts |         |
+| Kind | Name      | Declaration | Module                                                                              | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `TagList` | TagList     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag-list.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts`:
 
 ## class: `Tag`, `sl-tag`
 
@@ -7997,12 +8011,12 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                          | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
-| `js` | `Tag`           | Tag           | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
+| Kind | Name            | Declaration   | Module                                                                         | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------ | ------- |
+| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts |         |
+| `js` | `Tag`           | Tag           | /Users/anna.sobczak/IdeaProjects/components/packages/components/tag/src/tag.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.ts`:
 
 ## class: `TextArea`, `sl-text-area`
 
@@ -8107,11 +8121,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                      | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextArea` | TextArea    | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
+| Kind | Name       | Declaration | Module                                                                                     | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `TextArea` | TextArea    | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-area/src/text-area.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -8230,11 +8244,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/text-field/src/text-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/time-field/src/time-field.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/time-field.ts`:
 
 ## class: `TimeField`, `sl-time-field`
 
@@ -8343,11 +8357,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TimeField` | TimeField   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/time-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                       | Package |
+| ---- | ----------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TimeField` | TimeField   | /Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/time-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/utils.ts`:
 
 ## Functions
 
@@ -8362,14 +8376,14 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                   | Package |
-| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `getTimeFormat`     | getTimeFormat     | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeUnitName`   | getTimeUnitName   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeUnitLetter` | getTimeUnitLetter | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeTemplate`   | getTimeTemplate   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                  | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `getTimeFormat`     | getTimeFormat     | /Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeUnitName`   | getTimeUnitName   | /Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeUnitLetter` | getTimeUnitLetter | /Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeTemplate`   | getTimeTemplate   | /Users/anna.sobczak/IdeaProjects/components/packages/components/time-field/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.ts`:
 
 ## class: `ToggleButton`, `sl-toggle-button`
 
@@ -8439,11 +8453,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleButton` | ToggleButton | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleButton` | ToggleButton | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-button/src/toggle-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.ts`:
 
 ## class: `ToggleGroup`, `sl-toggle-group`
 
@@ -8457,6 +8471,7 @@
 
 | Name       | Privacy | Type                            | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
 | ---------- | ------- | ------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `chips`    |         | `boolean \| undefined`          | `false`   | If set, the toggle buttons are rendered with spacing between them.                                                                                                                                                                                                                                                                                                                                |                |
 | `disabled` |         | `boolean \| undefined`          | `false`   | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
 | `fill`     |         | `ToggleGroupFill \| undefined`  | `'solid'` | The fill of the group.                                                                                                                                                                                                                                                                                                                                                                            |                |
 | `multiple` |         | `boolean \| undefined`          | `false`   | By default, only a single toggle button inside the group can be active. This means that the&#xA;group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time. In this case the group does&#xA;nothing when a button is toggled. Use this mode if you want to handle the toggling of buttons&#xA;yourself. |                |
@@ -8468,6 +8483,7 @@
 | Name       | Field    | Inherited From |
 | ---------- | -------- | -------------- |
 | `disabled` | disabled |                |
+| `chips`    | chips    |                |
 | `multiple` | multiple |                |
 | `size`     | size     |                |
 | `shape`    | shape    |                |
@@ -8483,33 +8499,33 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleGroup` | ToggleGroup | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ToggleGroup` | ToggleGroup | /Users/anna.sobczak/IdeaProjects/components/packages/components/toggle-group/src/toggle-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/mapping.ts`:
 
 ## Functions
 
-| Name                  | Description | Parameters               | Return              |
-| --------------------- | ----------- | ------------------------ | ------------------- |
-| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton` |
-| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`     |
-| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`   |
-| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton` |
+| Name                  | Description | Parameters               | Return                                 |
+| --------------------- | ----------- | ------------------------ | -------------------------------------- |
+| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton`                    |
+| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`                        |
+| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`                      |
+| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton \| ToolBarItemMenu` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                   | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `mapButtonToItem`     | mapButtonToItem     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapMenuButtonToItem` | mapMenuButtonToItem | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapMenuItemToItem`   | mapMenuItemToItem   | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapElementsToItems`  | mapElementsToItems  | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                  | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `mapButtonToItem`     | mapButtonToItem     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapMenuButtonToItem` | mapMenuButtonToItem | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapMenuItemToItem`   | mapMenuItemToItem   | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapElementsToItems`  | mapElementsToItems  | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/mapping.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts`:
 
 ## Functions
 
@@ -8529,19 +8545,19 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                    | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `calculateVisibility`     | calculateVisibility     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `applyVisibility`         | applyVisibility         | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `revealAllItems`          | revealAllItems          | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureItemWidths`       | measureItemWidths       | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureMenuButtonWidth`  | measureMenuButtonWidth  | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureConstrainedWidth` | measureConstrainedWidth | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `getContentBoxWidth`      | getContentBoxWidth      | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `isFitContent`            | isFitContent            | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `hasWrapperOverflow`      | hasWrapperOverflow      | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                   | Package |
+| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `calculateVisibility`     | calculateVisibility     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `applyVisibility`         | applyVisibility         | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `revealAllItems`          | revealAllItems          | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureItemWidths`       | measureItemWidths       | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureMenuButtonWidth`  | measureMenuButtonWidth  | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureConstrainedWidth` | measureConstrainedWidth | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `getContentBoxWidth`      | getContentBoxWidth      | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `isFitContent`            | isFitContent            | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `hasWrapperOverflow`      | hasWrapperOverflow      | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/overflow.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.ts`:
 
 ## class: `ToolBarDivider`, `sl-tool-bar-divider`
 
@@ -8567,11 +8583,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                            | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBarDivider` | ToolBarDivider | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                           | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ToolBarDivider` | ToolBarDivider | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar-divider.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.ts`:
 
 ## class: `ToolBar`, `sl-tool-bar`
 
@@ -8632,11 +8648,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBar` | ToolBar     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBar` | ToolBar     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tool-bar/src/tool-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -8689,11 +8705,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/anna.sobczak/IdeaProjects/components/packages/components/tooltip/src/tooltip.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.ts`:
 
 ## class: `IndentGuides`
 
@@ -8727,19 +8743,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                     | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `IndentGuides` | IndentGuides | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                    | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `IndentGuides` | IndentGuides | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/indent-guides.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/nested-tree-data-source.ts`:
 
 ## class: `NestedTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                         | Package |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                        | Package |
+| ---------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `TreeDataSource` | //Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -8794,11 +8810,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                               | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                              | Package |
+| ---- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/nested-tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.ts`:
 
 ## class: `TreeDataSource`
 
@@ -8846,11 +8862,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                        | Package |
-| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeDataSource` | TreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                       | Package |
+| ---- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeDataSource` | TreeDataSource | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.ts`:
 
 ## class: `TreeNode`
 
@@ -8917,11 +8933,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeNode` | TreeNode    | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts |         |
+| Kind | Name       | Declaration | Module                                                                                | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeNode` | TreeNode    | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree-node.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.ts`:
 
 ## class: `Tree`, `sl-tree`
 
@@ -8963,11 +8979,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Tree` | Tree        | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts |         |
+| Kind | Name   | Declaration | Module                                                                           | Package |
+| ---- | ------ | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Tree` | Tree        | /Users/anna.sobczak/IdeaProjects/components/packages/components/tree/src/tree.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtual-list.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/virtual-list/src/virtual-list.ts`:
 
 ## class: `VirtualList`, `sl-virtual-list`
 
@@ -9022,11 +9038,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `VirtualList` | VirtualList | /Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtual-list.ts |         |
+| Kind | Name          | Declaration | Module                                                                                           | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `VirtualList` | VirtualList | /Users/anna.sobczak/IdeaProjects/components/packages/components/virtual-list/src/virtual-list.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtualizer-controller.ts`:
+# `/Users/anna.sobczak/IdeaProjects/components/packages/components/virtual-list/src/virtualizer-controller.ts`:
 
 ## class: `VirtualizerController`
 
@@ -9049,6 +9065,6 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                                      | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `VirtualizerController` | VirtualizerController | /Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtualizer-controller.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                                     | Package |
+| ---- | ----------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `VirtualizerController` | VirtualizerController | /Users/anna.sobczak/IdeaProjects/components/packages/components/virtual-list/src/virtualizer-controller.ts |         |

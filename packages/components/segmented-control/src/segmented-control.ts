@@ -84,9 +84,10 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
    * Observe the host (available width) and the measurement list (required width, which changes when
    * fonts load or the theme changes).
    */
-  #resizeObserver = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#updateLayoutMode());
-  });
+  #resizeObserver = new ResizeObserver(() => this.#scheduleLayoutUpdate());
+
+  /** The pending animation frame of the layout update, so at most one update runs per frame. */
+  #layoutFrame?: number;
 
   /** @internal Emits when the selected option changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
@@ -145,6 +146,11 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
 
+    if (this.#layoutFrame !== undefined) {
+      cancelAnimationFrame(this.#layoutFrame);
+      this.#layoutFrame = undefined;
+    }
+
     super.disconnectedCallback();
   }
 
@@ -174,7 +180,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       this.#rovingTabindexController.clearElementCache();
     }
 
-    this.#updateLayoutMode();
+    this.#scheduleLayoutUpdate();
   }
 
   override render(): TemplateResult {
@@ -196,7 +202,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                   @sl-form-control=${this.#onSelectFormControl}
                   .value=${this.value}
                   aria-label=${ifDefined(label ?? undefined)}
-                  part="select">
+                  part="select"
+                  shape=${this.shape}
+                  size=${this.size}>
                   ${this.#renderSelectOptions()}
                 </sl-select>
               `
@@ -275,6 +283,17 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
   }
 
+  #scheduleLayoutUpdate(): void {
+    if (this.#layoutFrame !== undefined) {
+      return;
+    }
+
+    this.#layoutFrame = requestAnimationFrame(() => {
+      this.#layoutFrame = undefined;
+      this.#updateLayoutMode();
+    });
+  }
+
   /**
    * Switch between the buttons and the select, depending on whether the buttons fit.
    *
@@ -288,18 +307,28 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
    * items, etc.) would never offer more space again.
    */
   #updateLayoutMode(): void {
-    const measurementList = this.renderRoot.querySelector<HTMLElement>('ul[data-measurement]'),
+    const content = this.renderRoot.querySelector<HTMLElement>('.content'),
+      measurementList = this.renderRoot.querySelector<HTMLElement>('ul[data-measurement]'),
       sizer = this.renderRoot.querySelector<HTMLElement>('.sizer');
 
-    if (!measurementList || !sizer || !this.items.length) {
+    if (!content || !measurementList || !sizer || !this.items.length) {
       return;
     }
 
-    const requiredWidth = measurementList.getBoundingClientRect().width,
+    const { height: requiredHeight, width: requiredWidth } =
+        measurementList.getBoundingClientRect(),
+      contentBlockSize = `${requiredHeight}px`,
       segmentSize = `${requiredWidth / this.items.length}px`;
 
     if (sizer.style.getPropertyValue('--_segment-size') !== segmentSize) {
       sizer.style.setProperty('--_segment-size', segmentSize);
+    }
+
+    // Keep the control the same height for the buttons and the select. Otherwise switching changes
+    // the height of the page, which can show or hide a scrollbar, which changes the available width,
+    // which makes the control switch back again: an endless loop that freezes the browser.
+    if (content.style.getPropertyValue('--_content-block-size') !== contentBlockSize) {
+      content.style.setProperty('--_content-block-size', contentBlockSize);
     }
 
     // Reading the width after updating the sizer forces a synchronous layout with the new value.

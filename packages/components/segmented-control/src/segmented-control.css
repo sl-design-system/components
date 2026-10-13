@@ -99,9 +99,22 @@ ul[data-measurement] {
   }
 }
 
-/* The visible content (buttons or select) must not influence the width of the host. */
+/*
+ * The visible content (buttons or select) must not influence the width of the host. The content
+ * also keeps the height of the buttons when the select is shown, so switching never changes the
+ * height of the page (which could toggle a scrollbar and cause the control to switch back and forth).
+ */
 .content {
+  align-items: start;
   contain: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-block-size: var(--_content-block-size, auto);
+
+  > ul {
+    align-self: stretch;
+  }
 }
 
 li {

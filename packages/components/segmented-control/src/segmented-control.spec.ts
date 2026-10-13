@@ -320,6 +320,26 @@ describe('sl-segmented-control', () => {
       expect(Math.round(selectButton()!.getBoundingClientRect().width)).to.equal(400);
     });
 
+    it('should keep the same height for the select as for the buttons', async () => {
+      const selectHeight = el.getBoundingClientRect().height;
+
+      container.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(list()).to.exist;
+      expect(el.getBoundingClientRect().height).to.equal(selectHeight);
+    });
+
+    it('should pass the size and shape to the select', async () => {
+      el.size = 'lg';
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(select()).to.have.attribute('size', 'lg');
+      expect(select()).to.have.attribute('shape', 'pill');
+    });
+
     it('should render an option for every item', () => {
       const options = Array.from(select()!.querySelectorAll('sl-option'));
 

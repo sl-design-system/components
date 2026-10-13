@@ -124,6 +124,11 @@ export const FillWidth: Story = {
         max-inline-size: 1000px;
       }
 
+      .fill-width-demo sl-segmented-control::part(select) {
+        display: flex;
+        inline-size: 100%;
+      }
+
       sl-panel.fill-width-demo::part(content) {
         display: grid;
         gap: var(--sl-size-200);

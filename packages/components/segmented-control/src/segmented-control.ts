@@ -57,6 +57,9 @@ export interface SegmentedControlItem {
  * The name should explain what the control changes, such as "View" or "Sort by".
  *
  * The control is a single tab stop; use the left and right arrow keys to move between options.
+ *
+ * @csspart select - The `sl-select` that is shown when the buttons don't fit. Use it to change the
+ *   width of the select, for example to let it fill the full width of the control.
  */
 export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -66,9 +69,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** The element internals, used for the `overflow` custom state. */
-  #internals = this.attachInternals();
 
   /** Manage keyboard navigation between the buttons. */
   #rovingTabindexController: RovingTabindexController<HTMLButtonElement> =
@@ -174,15 +174,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       this.#rovingTabindexController.clearElementCache();
     }
 
-    if (changes.has('useSelect')) {
-      // Lets the host (and the select) stretch to the full available width in the overflow state.
-      if (this.useSelect) {
-        this.#internals.states.add('overflow');
-      } else {
-        this.#internals.states.delete('overflow');
-      }
-    }
-
     this.#updateLayoutMode();
   }
 
@@ -204,7 +195,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                   @sl-change=${this.#onSelectChange}
                   @sl-form-control=${this.#onSelectFormControl}
                   .value=${this.value}
-                  aria-label=${ifDefined(label ?? undefined)}>
+                  aria-label=${ifDefined(label ?? undefined)}
+                  part="select">
                   ${this.#renderSelectOptions()}
                 </sl-select>
               `

@@ -14,16 +14,6 @@
   max-inline-size: 100%;
 }
 
-/*
- * When the buttons don't fit and the select is shown, take up all available width. This never
- * makes the buttons come back too early: the buttons are only shown again once the available
- * width is at least the width they need.
- */
-:host(:state(overflow)) {
-  display: block;
-  inline-size: 100%;
-}
-
 :host([emphasis='bold']) {
   --_color: var(--sl-color-foreground-neutral-bold);
   --_selected-bg-color: var(--sl-color-background-selected-bold);
@@ -205,11 +195,6 @@ button {
   button[aria-current='true'][aria-label]:not([aria-label=''])::after {
   inline-size: var(--sl-size-200);
   inset-inline-start: calc(50% - (var(--sl-size-200) / 2));
-}
-
-sl-select {
-  display: flex;
-  inline-size: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {

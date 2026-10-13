@@ -2,7 +2,7 @@ import { type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, onTestFinished } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import './register.js';
 import { type SegmentedControl, type SegmentedControlItem } from './segmented-control.js';
@@ -264,10 +264,60 @@ describe('sl-segmented-control', () => {
       expect(el.getBoundingClientRect().width).to.be.at.most(150);
     });
 
-    it('should stretch the select to the full available width', () => {
-      expect(Math.round(el.getBoundingClientRect().width)).to.equal(150);
-      expect(Math.round(select()!.getBoundingClientRect().width)).to.equal(150);
-      expect(Math.round(selectButton()!.getBoundingClientRect().width)).to.equal(150);
+    it('should keep the natural width of the select by default', async () => {
+      container = await fixture(html`
+        <div style="inline-size: 400px">
+          <sl-segmented-control .items=${longItems}></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(select()).to.exist;
+      expect(Math.round(select()!.getBoundingClientRect().width)).to.be.lessThan(400);
+    });
+
+    it('should keep the natural width of the select when the control fills the width', async () => {
+      container = await fixture(html`
+        <div style="inline-size: 400px">
+          <sl-segmented-control .items=${longItems} style="width: 100%"></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(select()).to.exist;
+      expect(Math.round(el.getBoundingClientRect().width)).to.equal(400);
+      expect(Math.round(select()!.getBoundingClientRect().width)).to.be.lessThan(400);
+    });
+
+    it('should let the select be stretched using the select part', async () => {
+      const style = document.createElement('style');
+      style.textContent = '.stretch::part(select) { display: flex; inline-size: 100%; }';
+      document.head.append(style);
+      onTestFinished(() => style.remove());
+
+      container = await fixture(html`
+        <div style="inline-size: 400px">
+          <sl-segmented-control
+            .items=${longItems}
+            class="stretch"
+            style="width: 100%"></sl-segmented-control>
+        </div>
+      `);
+
+      el = container.querySelector('sl-segmented-control')!;
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(select()).to.exist;
+      expect(Math.round(el.getBoundingClientRect().width)).to.equal(400);
+      expect(Math.round(select()!.getBoundingClientRect().width)).to.equal(400);
+      expect(Math.round(selectButton()!.getBoundingClientRect().width)).to.equal(400);
     });
 
     it('should render an option for every item', () => {

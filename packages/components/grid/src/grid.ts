@@ -175,9 +175,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The header rows for the grid. */
   #headerRows: Array<Array<GridColumn<T>>> = [];
 
-  /** Flag for calculating the column widths only once. */
-  #initialColumnWidthsCalculated = false;
-
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
 
@@ -190,12 +187,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
     this.#mutationObserver?.disconnect();
-
-    // Only recalculate the column widths if the grid has been rendered for the first time
-    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
-      this.#initialColumnWidthsCalculated = true;
-      void this.recalculateColumnWidths();
-    }
 
     // This is a workaround for the virtualizer not taking the border width into account
     // We convert the min-height to a CSS variable so we can use it in the styles and
@@ -492,7 +483,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
-        <tbody id="tbody" part="tbody">
+        <tbody id="tbody" part="tbody" @rangeChanged=${() => this.#recalculateColumnWidths(true)}>
           ${virtualize({
             items: this.dataSource?.items ?? [],
             renderItem: (item, index) => this.renderItem(item, index)
@@ -706,10 +697,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Updates the `width` of all columns which have `autoWidth` set to `true`. */
   async recalculateColumnWidths(): Promise<void> {
-    // Do not remove, this is needed; not sure why
+    await this.#recalculateColumnWidths();
+  }
+
+  async #recalculateColumnWidths(growOnly = false): Promise<void> {
+    // The virtualizer renders the new range asynchronously. Custom cell renderers
+    // must also finish rendering before their intrinsic sizes can be measured.
     await this.updateComplete;
+    await Promise.all(
+      Array.from(this.tbody.querySelectorAll('*'))
+        .filter((element): element is LitElement => element instanceof LitElement)
+        .map(element => element.updateComplete)
+    );
+    await document.fonts.ready;
 
     const rows = this.#headerRows;
+    if (!this.isConnected || !rows.length) {
+      return;
+    }
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
@@ -719,16 +724,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
           );
 
-        col.width = Array.from(cells).reduce((acc, cur) => {
-          cur.style.flexGrow = '0';
-          cur.style.width = 'auto';
+        col.width = Array.from(cells).reduce(
+          (acc, cur) => {
+            const { inlineSize, flexGrow } = cur.style;
+            cur.style.flexGrow = '0';
+            cur.style.inlineSize = 'max-content';
 
-          const { width } = cur.getBoundingClientRect();
+            const { width } = cur.getBoundingClientRect();
 
-          cur.style.flexGrow = cur.style.width = '';
+            cur.style.inlineSize = inlineSize;
+            cur.style.flexGrow = flexGrow;
 
-          return Math.max(acc, width);
-        }, 0);
+            return Math.max(acc, width);
+          },
+          growOnly ? (col.width ?? 0) : 0
+        );
       });
 
     const columns = this.#columnDefinitions.filter(col => !col.hidden);

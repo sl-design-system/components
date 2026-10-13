@@ -1,3 +1,4 @@
+import { Avatar } from '@sl-design-system/avatar';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import {
@@ -12,6 +13,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
 import './register.js';
@@ -104,6 +106,110 @@ describe('sl-grid', () => {
       rows.forEach(row => {
         expect(row).not.to.have.attribute('aria-selected');
       });
+    });
+  });
+
+  describe('automatic column widths', () => {
+    it('should fit custom cell content at 320px after rendering', async () => {
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 320px"
+          .items=${[{ firstName: 'Jacob van der Moore', lastName: 'Gymnasium Sankt Georg' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column ellipsize-text path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect
+        .poll(() => {
+          const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar');
+          const name = avatar?.renderRoot.querySelector<HTMLElement>('[part="name"]');
+          const slot = el.renderRoot
+            .querySelector('sl-ellipsize-text')
+            ?.shadowRoot?.querySelector('slot');
+          return (
+            !!name &&
+            !!slot &&
+            name.clientWidth >= name.scrollWidth &&
+            slot.clientWidth >= slot.scrollWidth
+          );
+        })
+        .toBe(true);
+    });
+
+    it('should grow when scrolling reveals longer content and retain the width on return', async () => {
+      const items = Array.from({ length: 200 }, (_, index) => ({
+        firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',
+        lastName: 'Smith'
+      }));
+      const scroller = await fixture<HTMLDivElement>(html`
+        <div style="block-size: 256px; inline-size: 320px; overflow: auto">
+          <sl-grid .items=${items}>
+            <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName" width="80"></sl-grid-column>
+          </sl-grid>
+        </div>
+      `);
+      el = scroller.querySelector<Grid<Person>>('sl-grid')!;
+      await waitForGridToRenderData(el);
+      const column = el.querySelector<GridColumn>('sl-grid-column')!;
+      await expect.poll(() => column.width).toBeGreaterThan(0);
+      const initialWidth = column.width!;
+      expect(el.renderRoot.textContent).not.to.contain(items[199].firstName);
+
+      scroller.scrollTop = scroller.scrollHeight;
+      await expect.poll(() => el.renderRoot.textContent).toContain(items[199].firstName);
+      await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+      const grownWidth = column.width;
+      await expect
+        .poll(() => {
+          const text = Array.from(el.renderRoot.querySelectorAll('sl-ellipsize-text')).find(
+            element => element.textContent === items[199].firstName
+          );
+          const slot = text?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      scroller.scrollTop = 0;
+      await expect.poll(() => el.renderRoot.textContent).not.toContain(items[199].firstName);
+      expect(column.width).to.equal(grownWidth);
+    });
+
+    it('should grow for newly rendered rows without shrinking or changing fixed columns', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName" width="80"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      const [auto, fixed] = el.querySelectorAll<GridColumn>('sl-grid-column');
+      await expect.poll(() => auto.width).toBeGreaterThan(0);
+      const initialWidth = auto.width!;
+
+      el.items = [
+        { firstName: 'A much longer name rendered later in the grid', lastName: 'Smith' }
+      ];
+      await expect.poll(() => auto.width).toBeGreaterThan(initialWidth);
+      const grownWidth = auto.width;
+      await expect
+        .poll(() => {
+          const slot = el.renderRoot
+            .querySelector('sl-ellipsize-text')
+            ?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      el.items = [{ firstName: 'Jane', lastName: 'Smith' }];
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      expect(auto.width).to.equal(grownWidth);
+      expect(fixed.width).to.equal(80);
     });
   });
 

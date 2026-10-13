@@ -4,7 +4,7 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
-# October 5, 2026
+# October 7, 2026
 
 ## Breaking changes
 
@@ -33,6 +33,10 @@ If you want the theme in your application to follow the user preference, simply 
   }
 }
 ```
+
+### Teacher Assistent -> SL Ecosystem
+
+We renamed the Teacher Assistent theme to "SL Ecosystem". This theme will become the default theme for new products and will support subthemes. With subthemes you will be able to easily switch the primary and secondary colors of the theme. You can use the `data-sl-ecosystem-subthemes` data attribute to set the color. Have a look at [Storybook](https://storybook.sanomalearning.design/?path=/story/actions-button--all&globals=theme:sl-ecosystem;subtheme:purple) to see the different colors. (there is a subtheme selector in the toolbar above the canvas)
 
 ## New features
 

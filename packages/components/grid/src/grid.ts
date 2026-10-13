@@ -739,13 +739,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // The virtualizer renders the new range asynchronously. Custom cell renderers
     // must also finish rendering before their intrinsic sizes can be measured.
     await this.updateComplete;
-    await Promise.all(
-      Array.from(this.tbody.querySelectorAll('*'))
-        .filter((element): element is LitElement => element instanceof LitElement)
-        .map(element => element.updateComplete)
-    );
-    await document.fonts.ready;
+    if (!this.isConnected || !this.#headerRows.length) {
+      return;
+    }
 
+    if (this.#headerRows.at(-1)!.some(col => !col.hidden && col.autoWidth)) {
+      await Promise.all(
+        Array.from(this.tbody.querySelectorAll('*'))
+          .filter((element): element is LitElement => element instanceof LitElement)
+          .map(element => element.updateComplete)
+      );
+      await document.fonts.ready;
+    }
+
+    // Column definitions may have changed while custom content or fonts were loading.
     const rows = this.#headerRows;
     if (!this.isConnected || !rows.length) {
       return;
@@ -917,6 +924,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onDataSourceUpdate = () => {
     this.requestUpdate();
+    // A data source can refresh existing rows while retaining its items array.
+    // In that case the virtualizer does not emit a rangeChanged event.
+    void this.#scheduleColumnWidthCalculation(true);
   };
 
   #onDragHandleStart = (event: MouseEvent | TouchEvent): void => {

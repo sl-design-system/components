@@ -222,6 +222,91 @@ describe('sl-grid', () => {
       expect(firstCell.style.flexGrow).to.equal('2');
     });
 
+    it('should skip custom content and font waits for fixed columns while updating their layout', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            sticky
+            width="220"
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column width="400" path="lastName"></sl-grid-column>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        fixedColumn = el.querySelector<GridColumn>('sl-grid-column')!,
+        cellUpdate = stub(avatar, 'updateComplete').get(() => {
+          throw new Error('Fixed columns must not wait for custom content');
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          throw new Error('Fixed columns must not wait for fonts');
+        });
+
+      try {
+        fixedColumn.width = 240;
+        await el.recalculateColumnWidths();
+        expect(el.style.getPropertyValue('--sl-grid-row-width')).to.equal('640px');
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-margin-inline')).to.equal(
+          '240px 0px'
+        );
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-inline-size')).to.equal(
+          'calc(var(--sl-grid-width) - 240px)'
+        );
+
+        // Range changes in a fixed-width grid must use the same fast path.
+        el.tbody.dispatchEvent(new Event('rangeChanged'));
+        await el.recalculateColumnWidths();
+      } finally {
+        cellUpdate.restore();
+        fontsReady.restore();
+      }
+    });
+
+    it('should grow when a data source refreshes rows without changing its items array or range', async () => {
+      const items = [{ firstName: 'Jane', lastName: 'Smith' }],
+        dataSource = new ArrayListDataSource(items);
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .dataSource=${dataSource}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column width="80" path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const column = el.querySelector<GridColumn>('sl-grid-column')!,
+        initialWidth = column.width!,
+        renderedItems = dataSource.items,
+        itemsGetter = stub(dataSource, 'items').get(() => renderedItems),
+        rangeChanges = spy();
+      el.tbody.addEventListener('rangeChanged', rangeChanges);
+
+      try {
+        items[0].firstName = 'A much longer name updated in the same existing row';
+        dataSource.update();
+        await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+        await expect
+          .poll(() => {
+            const text = el.renderRoot.querySelector('sl-ellipsize-text'),
+              slot = text?.shadowRoot?.querySelector('slot');
+            return (
+              text?.textContent === items[0].firstName &&
+              !!slot &&
+              slot.clientWidth >= slot.scrollWidth
+            );
+          })
+          .toBe(true);
+        expect(rangeChanges).not.to.have.been.called;
+      } finally {
+        el.tbody.removeEventListener('rangeChanged', rangeChanges);
+        itemsGetter.restore();
+      }
+    });
+
     it('should grow when scrolling reveals longer content and retain the width on return', async () => {
       const items = Array.from({ length: 200 }, (_, index) => ({
           firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',

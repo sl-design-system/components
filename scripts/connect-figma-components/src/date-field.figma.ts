@@ -13,18 +13,18 @@ function getExample() {
     traverseInstances: true
   }) as InstanceHandle;
 
-  const disabled = checkStringProperty(variants.getString('Variant'), 'Variant') === 'Disabled',
-    hasLabel = checkBooleanProperty(variants.getBoolean('Label'), 'Label'),
-    placeholder = variants.getString('Placeholder text'),
-    value = variants.getString('Text');
+  const disabled = checkStringProperty(variants.getString('state'), 'state') === 'Disabled',
+    hasLabel = checkBooleanProperty(variants.getBoolean('display-label'), 'display-label'),
+    placeholder = checkStringProperty(variants.getString('placeholder'), 'placeholder'),
+    value = checkStringProperty(variants.getString('value'), 'value');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
     const labelBase = variants.findInstance('sl-base-label') as InstanceHandle;
 
-    label = checkStringProperty(labelBase.getString('Label'), 'Label');
-    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
   }
 
   return figma.code`

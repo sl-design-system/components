@@ -6,14 +6,14 @@ import { getMenuItems } from './_shared/figma-menu.js';
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const multiSelect = checkBooleanProperty(instance.getBoolean('Multi select'), 'Multi select'),
+  const selectable = checkBooleanProperty(instance.getBoolean('selects'), 'selects'),
     emphasis = checkEnum(
-      instance.getEnum('Emphasis', { Muted: 'subtle', Bold: 'bold' }) ?? 'subtle'
+      instance.getEnum('emphasis', { Muted: 'subtle', Bold: 'bold' }) ?? 'subtle'
     ),
     items = getMenuItems(instance)
       .map(
         item => `
-          <sl-menu-item${item.selected ? ' selectable selected' : ''}>
+          <sl-menu-item ${item.selected ? 'selected' : ''} ${selectable ? 'selectable' : ''}>
             ${item.label}
           </sl-menu-item>`
       )
@@ -21,7 +21,7 @@ function getExample() {
 
   return figma.code`
     <sl-menu
-      ${multiSelect ? 'selects="multiple"' : ''}
+      ${selectable ? 'selects="multiple"' : ''}
       ${emphasis !== 'subtle' ? `emphasis="${emphasis}"` : ''}
     >
       ${items}

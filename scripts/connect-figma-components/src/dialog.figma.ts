@@ -6,7 +6,7 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const content = instance.getSlot('Slot'),
-    closeButton = checkBooleanProperty(instance.getBoolean('Show Close'), 'Show Close');
+    closeButton = checkBooleanProperty(instance.getBoolean('close-button'), 'close-button');
 
   const heading = instance.findText('Heading') as TextHandle;
 

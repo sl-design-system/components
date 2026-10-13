@@ -14,15 +14,14 @@ function getExample() {
   const fill = checkEnum(
     instance.getEnum('Type', {
       Outline: 'outline',
-      Ghost: 'ghost',
-      Link: 'link'
+      Solid: 'solid'
     }) || 'solid'
   );
 
   const icon = instance.findInstance('Base/Icon', { traverseInstances: true }) as InstanceHandle;
 
-  const name = checkStringProperty(icon.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
-    variant = icon.getEnum('Variant', { Outline: 'far', Solid: 'fas' });
+  const name = checkStringProperty(icon.getString('icon-name'), 'icon-name'),
+    variant = checkEnum(icon.getEnum('variant', { Outline: 'far', Solid: 'fas' }) || 'far');
 
   const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
 

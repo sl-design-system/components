@@ -16,7 +16,7 @@ export function getMenuItems(menuPanel: InstanceHandle): FigmaMenuItem[] {
     .flatMap(item => {
       const itemNumber = item.name.slice(5).padStart(2, '0'),
         visible = checkBooleanProperty(
-          menuPanel.getBoolean(`Item ${itemNumber}`),
+          menuPanel.getBoolean(`item ${itemNumber}`),
           `Item ${itemNumber}`
         );
       if (!visible) return [];
@@ -25,7 +25,7 @@ export function getMenuItems(menuPanel: InstanceHandle): FigmaMenuItem[] {
       if (menuBase.type === 'ERROR') return [];
 
       const label = menuBase.getString('label'),
-        selected = item.getString('Selected') === 'true';
+        selected = item.getString('selected') === 'true';
 
       return typeof label === 'string' ? [{ label, selected }] : [];
     });

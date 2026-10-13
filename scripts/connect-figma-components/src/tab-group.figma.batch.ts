@@ -5,7 +5,7 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const alignTabs = checkEnum(
-    instance.getEnum('Alignement', { Filled: 'stretch', Left: 'start' }) ?? 'start'
+    instance.getEnum('align-tabs', { Filled: 'stretch', Left: 'start' }) ?? 'start'
   );
 
   const tabs = instance

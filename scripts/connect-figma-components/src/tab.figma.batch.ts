@@ -8,7 +8,7 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const selected = checkStringProperty(instance.getString('State'), 'State') === 'selected';
+  const selected = checkStringProperty(instance.getString('state'), 'state') === 'selected';
 
   const tabBase = instance.findInstance('tab-base', { traverseInstances: true }) as InstanceHandle;
 

@@ -10,20 +10,22 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const collapsible = figma.batch.collapsible,
-    border = checkBooleanProperty(instance.getBoolean('Border'), 'Border'),
-    divider = checkBooleanProperty(instance.getBoolean('Divider'), 'Divider'),
-    elevationRaw = instance.getString('Elevation') || 'none',
-    shadow = checkBooleanProperty(instance.getBoolean('Shadow'), 'Shadow');
+    border = checkBooleanProperty(instance.getBoolean('display-border'), 'display-border'),
+    divider = checkBooleanProperty(instance.getBoolean('display-divider'), 'display-divider'),
+    elevationRaw = checkEnum(
+      instance.getEnum('elevation', { None: 'none', Raised: 'raised', Sunken: 'sunken' }) ?? 'none'
+    ),
+    shadow = checkBooleanProperty(instance.getBoolean('display-shadow'), 'display-shadow');
 
   const density = checkEnum(
-    instance.getEnum('Density', {
+    instance.getEnum('density', {
       Default: 'default',
       Relaxed: 'relaxed'
     }) ?? 'default'
   );
 
   const togglePlacement = collapsible
-    ? checkEnum(instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
+    ? checkEnum(instance.getEnum('toggle position', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
   const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;
@@ -68,9 +70,9 @@ function getExample() {
 
   let prefix;
   if (hasPrefix) {
-    const prefixInstance = header.getInstanceSwap('Prefix instance');
+    const prefixInstance = header.getInstanceSwap('prefix');
     if (!prefixInstance || prefixInstance.type === 'ERROR') {
-      throw new Error('Missing Figma instance swap: Prefix instance');
+      throw new Error('Missing Figma instance swap: prefix');
     }
 
     // Set the slot property to ensure the slot attribute is rendered
@@ -81,9 +83,9 @@ function getExample() {
 
   let suffix;
   if (hasSuffix) {
-    const suffixInstance = header.getInstanceSwap('Suffix instance');
+    const suffixInstance = header.getInstanceSwap('suffix');
     if (!suffixInstance || suffixInstance.type === 'ERROR') {
-      throw new Error('Missing Figma instance swap: Suffix instance');
+      throw new Error('Missing Figma instance swap: suffix');
     }
 
     // Set the slot property to ensure the slot attribute is rendered

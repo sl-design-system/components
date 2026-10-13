@@ -17,16 +17,16 @@ function getExample() {
     traverseInstances: true
   }) as InstanceHandle;
 
-  const hasTags = checkBooleanProperty(baseCombobox.getBoolean('Tags'), 'Tags'),
-    inputText = checkStringProperty(baseCombobox.getString('Input Text'), 'Input Text'),
-    hasPlaceholder = checkBooleanProperty(baseCombobox.getBoolean('Placeholder'), 'Placeholder'),
-    placeholder = checkStringProperty(
-      baseCombobox.getString('Placeholder Text'),
-      'Placeholder Text'
-    );
+  const multiple = checkBooleanProperty(baseCombobox.getBoolean('multiple'), 'multiple'),
+    value = checkStringProperty(baseCombobox.getString('value'), 'value'),
+    hasPlaceholder = checkBooleanProperty(
+      baseCombobox.getBoolean('display-placeholder'),
+      'display-placeholder'
+    ),
+    placeholder = checkStringProperty(baseCombobox.getString('placeholder'), 'placeholder');
 
   const size = checkEnum(
-    baseCombobox.getEnum('↕️ - Size', {
+    baseCombobox.getEnum('size', {
       MD: 'md',
       LG: 'lg'
     }) ?? 'md'
@@ -44,11 +44,11 @@ function getExample() {
   return figma.code`
     <sl-combobox
       aria-label="Choose an option"
-      ${hasTags ? 'multiple' : ''}
+      ${multiple ? 'multiple' : ''}
       ${hasPlaceholder && placeholder ? `placeholder="${placeholder}"` : ''}
       ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
-      ${inputText ? `value="${inputText}"` : ''}
+      ${value ? `value="${value}"` : ''}
     >
       ${options || '<!-- Insert options here -->'}
     </sl-combobox>

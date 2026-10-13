@@ -24,7 +24,7 @@ function getExample() {
       link.getBoolean('Internal arrow (end)'),
       'Internal arrow (end)'
     ),
-    size = checkEnum(link.getEnum('↕️ - Size', { SM: 'sm', MD: 'md' }) ?? 'md');
+    size = checkEnum(link.getEnum('size', { SM: 'sm', MD: 'md' }) ?? 'md');
 
   return figma.code`
 		<sl-link

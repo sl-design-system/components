@@ -9,10 +9,13 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const description = checkStringProperty(instance.getString('Description'), 'Description'),
-    showTitle = checkBooleanProperty(instance.getBoolean('Show Title'), 'Show Title'),
-    indismissible = !checkBooleanProperty(instance.getBoolean('Show close'), 'Show close'),
-    title = checkStringProperty(instance.getString('Text'), 'Text'),
+  const description = checkStringProperty(instance.getString('description'), 'description'),
+    showTitle = checkBooleanProperty(instance.getBoolean('display-title'), 'display-title'),
+    indismissible = !checkBooleanProperty(
+      instance.getBoolean('display-close-button'),
+      'display-close-button'
+    ),
+    title = checkStringProperty(instance.getString('title'), 'title'),
     variant = checkEnum(
       instance.getEnum('variant', {
         info: 'info',

@@ -11,18 +11,18 @@ const instance = figma.selectedInstance;
 function getExample() {
   const timePicker = instance.findInstance('time_picker') as InstanceHandle;
 
-  const disabled = checkStringProperty(timePicker.getString('State'), 'State') === 'Disabled',
-    hasLabel = checkBooleanProperty(timePicker.getBoolean('Label'), 'Label'),
-    placeholder = timePicker.getString('Placeholder text'),
-    value = timePicker.getString('Text');
+  const disabled = checkStringProperty(timePicker.getString('state'), 'state') === 'disabled',
+    hasLabel = checkBooleanProperty(timePicker.getBoolean('display-label'), 'display-label'),
+    placeholder = timePicker.getString('placeholder'),
+    value = timePicker.getString('value');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
     const labelBase = timePicker.findInstance('sl-base-label') as InstanceHandle;
 
-    label = checkStringProperty(labelBase.getString('Label'), 'Label');
-    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
   }
 
   return figma.code`

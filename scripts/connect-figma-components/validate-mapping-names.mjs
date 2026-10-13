@@ -6,7 +6,8 @@ const allowedNameMappings = [
   'label -> aria-label',
   'header-position -> vertical',
   'text -> aria-label',
-  'icon-name -> name'
+  'icon-name -> name',
+  ''
 ];
 
 function normalizeName(name) {
@@ -47,6 +48,16 @@ function getStringLiteralValue(node) {
 function getIdentifierName(node) {
   if (ts.isIdentifier(node)) return node.text;
   if (ts.isPrefixUnaryExpression(node) && ts.isIdentifier(node.operand)) return node.operand.text;
+}
+
+function getIdentifierNames(node) {
+  if (ts.isIdentifier(node)) return [node.text];
+  if (ts.isPrefixUnaryExpression(node)) return getIdentifierNames(node.operand);
+  if (ts.isBinaryExpression(node)) {
+    return [...getIdentifierNames(node.left), ...getIdentifierNames(node.right)];
+  }
+
+  return [];
 }
 
 function getLookupName(node) {
@@ -142,7 +153,11 @@ function findAttributeUsages(source) {
 
     if (ts.isConditionalExpression(node)) {
       const usage = getTemplateAttributeUsage(node.whenTrue),
-        variable = usage?.variable ?? getIdentifierName(node.condition);
+        conditionVariables = getIdentifierNames(node.condition),
+        variable =
+          usage?.variable ??
+          conditionVariables.find(name => name === usage?.attribute) ??
+          (conditionVariables.length === 1 ? conditionVariables[0] : undefined);
 
       if (usage?.attribute && variable) usages.push({ variable, attribute: usage.attribute });
     }

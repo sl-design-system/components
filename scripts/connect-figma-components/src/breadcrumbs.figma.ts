@@ -11,7 +11,9 @@ function getExample() {
     `SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`
   ) as InstanceHandle;
 
-  const homeBreadcrumb = container.findInstance('breadcrumb-home') as InstanceHandle;
+  const homeBreadcrumb = (
+    inverted ? container.findInstance('breadcrumb-home') : container.findInstance('breadcrumb/home')
+  ) as InstanceHandle;
 
   const hideHomeLabel = !checkBooleanProperty(
     homeBreadcrumb.getBoolean('Show label'),
@@ -19,7 +21,10 @@ function getExample() {
   );
 
   const crumbs = container
-    .findConnectedInstances(node => node.codeConnectId() === 'breadcrumb')
+    .findConnectedInstances(
+      node => node.type === 'INSTANCE' && node.codeConnectId() === 'breadcrumb'
+    )
+    .filter(child => child.type === 'INSTANCE')
     .map(child => child.executeTemplate().example)
     .flatMap(results => results.find(r => r.type === 'CODE'))
     .map(result => result?.code)

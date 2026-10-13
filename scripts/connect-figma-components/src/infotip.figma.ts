@@ -8,10 +8,10 @@ function getExample() {
   const button = instance.findInstance('sl-button-rectangular', {
       traverseInstances: true
     }) as InstanceHandle,
-    buttonBase = button.findInstance('Button-Base', { traverseInstances: true }) as InstanceHandle;
+    buttonBase = button.findInstance('button-base', { traverseInstances: true }) as InstanceHandle;
 
   const size = checkEnum(
-    buttonBase.getEnum('↕️ - Size', {
+    buttonBase.getEnum('size', {
       SM: 'sm',
       MD: 'md',
       LG: 'lg'

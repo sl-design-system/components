@@ -96,7 +96,7 @@ function componentName(result, batchCase) {
 function previewWarnings(result) {
   return [...(result.snippet ?? '').matchAll(/<!--\s*(.*?)\s*-->/g)]
     .map(match => match[1])
-    .filter(Boolean);
+    .filter(warning => warning && warning !== 'Insert options here');
 }
 
 function mappingNameWarnings(result, batchCase) {

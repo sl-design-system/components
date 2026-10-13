@@ -10,16 +10,16 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = checkBooleanProperty(instance.getBoolean('Checked'), 'Checked'),
-    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled',
-    indeterminate = checkBooleanProperty(instance.getBoolean('Intermediate'), 'Intermediate'),
-    hasLabel = checkBooleanProperty(instance.getBoolean('Label'), 'Label');
+  const checked = checkBooleanProperty(instance.getBoolean('selected'), 'selected'),
+    disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled',
+    indeterminate = checkBooleanProperty(instance.getBoolean('intermediate'), 'intermediate'),
+    hasLabel = checkBooleanProperty(instance.getBoolean('label'), 'label');
 
   const checkboxBase = instance.findInstance('checkbox-base') as InstanceHandle;
 
   // The default size is "md".
   const size = checkEnum(
-    checkboxBase.getEnum('↕️ - Size', {
+    checkboxBase.getEnum('size', {
       SM: 'sm',
       LG: 'lg'
     }) || 'md'
@@ -27,7 +27,7 @@ function getExample() {
 
   let label;
   if (hasLabel) {
-    label = checkStringProperty(checkboxBase.getString('Label text'), 'Label text');
+    label = checkStringProperty(checkboxBase.getString('label'), 'label');
   }
 
   return figma.code`

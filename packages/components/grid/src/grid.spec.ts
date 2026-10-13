@@ -11,7 +11,7 @@ import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { type SinonSpy, spy } from 'sinon';
+import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
@@ -125,11 +125,11 @@ describe('sl-grid', () => {
 
       await expect
         .poll(() => {
-          const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar');
-          const name = avatar?.renderRoot.querySelector<HTMLElement>('[part="name"]');
-          const slot = el.renderRoot
-            .querySelector('sl-ellipsize-text')
-            ?.shadowRoot?.querySelector('slot');
+          const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar'),
+            name = avatar?.renderRoot.querySelector<HTMLElement>('[part="name"]'),
+            slot = el.renderRoot
+              .querySelector('sl-ellipsize-text')
+              ?.shadowRoot?.querySelector('slot');
           return (
             !!name &&
             !!slot &&
@@ -140,19 +140,101 @@ describe('sl-grid', () => {
         .toBe(true);
     });
 
+    it('should coalesce requests and remeasure a range changed while cells update', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        cell = el.renderRoot.querySelector<HTMLTableCellElement>('th')!,
+        measurement = spy(cell, 'getBoundingClientRect');
+      let releaseUpdate!: () => void;
+      const pendingUpdate = new Promise<boolean>(resolve => {
+          releaseUpdate = () => resolve(true);
+        }),
+        updateComplete = stub(avatar, 'updateComplete').get(() => pendingUpdate);
+
+      try {
+        const requests = [el.recalculateColumnWidths(), el.recalculateColumnWidths()];
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        expect(measurement).not.to.have.been.called;
+
+        // These requests arrive while the first pass is awaiting custom content.
+        for (let index = 0; index < 5; index++) {
+          el.tbody.dispatchEvent(new Event('rangeChanged'));
+        }
+        requests.push(el.recalculateColumnWidths());
+        releaseUpdate();
+        await Promise.all(requests);
+        expect(measurement).to.have.been.calledTwice;
+      } finally {
+        releaseUpdate();
+        updateComplete.restore();
+        measurement.restore();
+      }
+    });
+
+    it('should batch cell measurements and restore styles even if a measurement fails', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const cells = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('th, tbody td')),
+        firstCell = cells[0],
+        lastCell = cells[cells.length - 1],
+        getFirstRect = firstCell.getBoundingClientRect.bind(firstCell),
+        firstMeasurement = stub(firstCell, 'getBoundingClientRect').callsFake(() => {
+          expect(cells.every(cell => cell.style.inlineSize === 'max-content')).to.be.true;
+          expect(cells.every(cell => cell.style.flexGrow === '0')).to.be.true;
+          return getFirstRect();
+        }),
+        failedMeasurement = stub(lastCell, 'getBoundingClientRect').throws('Measurement failed');
+      firstCell.style.inlineSize = '150px';
+      firstCell.style.flexGrow = '2';
+
+      try {
+        await expect(el.recalculateColumnWidths()).rejects.toThrow('Measurement failed');
+        expect(firstMeasurement).to.have.been.calledOnce;
+        expect(firstCell.style.inlineSize).to.equal('150px');
+        expect(firstCell.style.flexGrow).to.equal('2');
+        expect(
+          cells.slice(1).every(cell => cell.style.inlineSize === '' && cell.style.flexGrow === '')
+        ).to.be.true;
+      } finally {
+        firstMeasurement.restore();
+        failedMeasurement.restore();
+      }
+
+      // A failed pass must not leave the scheduler stuck on a rejected task.
+      await el.recalculateColumnWidths();
+      expect(firstCell.style.inlineSize).to.equal('150px');
+      expect(firstCell.style.flexGrow).to.equal('2');
+    });
+
     it('should grow when scrolling reveals longer content and retain the width on return', async () => {
       const items = Array.from({ length: 200 }, (_, index) => ({
-        firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',
-        lastName: 'Smith'
-      }));
-      const scroller = await fixture<HTMLDivElement>(html`
-        <div style="block-size: 256px; inline-size: 320px; overflow: auto">
-          <sl-grid .items=${items}>
-            <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
-            <sl-grid-column path="lastName" width="80"></sl-grid-column>
-          </sl-grid>
-        </div>
-      `);
+          firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',
+          lastName: 'Smith'
+        })),
+        scroller = await fixture<HTMLDivElement>(html`
+          <div style="block-size: 256px; inline-size: 320px; overflow: auto">
+            <sl-grid .items=${items}>
+              <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+              <sl-grid-column path="lastName" width="80"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `);
       el = scroller.querySelector<Grid<Person>>('sl-grid')!;
       await waitForGridToRenderData(el);
       const column = el.querySelector<GridColumn>('sl-grid-column')!;
@@ -167,9 +249,9 @@ describe('sl-grid', () => {
       await expect
         .poll(() => {
           const text = Array.from(el.renderRoot.querySelectorAll('sl-ellipsize-text')).find(
-            element => element.textContent === items[199].firstName
-          );
-          const slot = text?.shadowRoot?.querySelector('slot');
+              element => element.textContent === items[199].firstName
+            ),
+            slot = text?.shadowRoot?.querySelector('slot');
           return !!slot && slot.clientWidth >= slot.scrollWidth;
         })
         .toBe(true);

@@ -148,6 +148,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-tool-bar')?.refresh()
   );
 
+  /** The active column sizing task, shared by automatic and manual requests. */
+  #columnWidthCalculation?: Promise<void>;
+
   /** The column definitions. */
   #columnDefinitions: Array<GridColumn<T>> = [];
 
@@ -180,6 +183,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The item after the dragged item when dragging started. */
   #itemAfterDragItem?: ListDataSourceItem<T>;
+
+  /** Pending sizing mode; a manual request also allows columns to shrink. */
+  #pendingColumnWidthsGrowOnly?: boolean;
 
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
@@ -483,7 +489,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
-        <tbody id="tbody" part="tbody" @rangeChanged=${() => this.#recalculateColumnWidths(true)}>
+        <tbody
+          id="tbody"
+          part="tbody"
+          @rangeChanged=${() => this.#scheduleColumnWidthCalculation(true)}>
           ${virtualize({
             items: this.dataSource?.items ?? [],
             renderItem: (item, index) => this.renderItem(item, index)
@@ -697,7 +706,33 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Updates the `width` of all columns which have `autoWidth` set to `true`. */
   async recalculateColumnWidths(): Promise<void> {
-    await this.#recalculateColumnWidths();
+    await this.#scheduleColumnWidthCalculation(false);
+  }
+
+  #scheduleColumnWidthCalculation(growOnly: boolean): Promise<void> {
+    if (!this.isConnected) {
+      return Promise.resolve();
+    }
+
+    // A manual recalculation takes precedence over automatic grow-only requests.
+    this.#pendingColumnWidthsGrowOnly = (this.#pendingColumnWidthsGrowOnly ?? true) && growOnly;
+    return (this.#columnWidthCalculation ??= this.#flushColumnWidthCalculations());
+  }
+
+  async #flushColumnWidthCalculations(): Promise<void> {
+    try {
+      while (this.isConnected && this.#pendingColumnWidthsGrowOnly !== undefined) {
+        // Combine range changes arriving within a frame into a single measurement.
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        const growOnly = this.#pendingColumnWidthsGrowOnly;
+        this.#pendingColumnWidthsGrowOnly = undefined;
+        await this.#recalculateColumnWidths(growOnly);
+        // Requests arriving while cells or fonts update are measured in the next pass.
+      }
+    } finally {
+      this.#columnWidthCalculation = undefined;
+      this.#pendingColumnWidthsGrowOnly = undefined;
+    }
   }
 
   async #recalculateColumnWidths(growOnly = false): Promise<void> {
@@ -716,30 +751,47 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    rows[rows.length - 1]
-      .filter(col => !col.hidden && col.autoWidth)
-      .forEach(col => {
-        const index = rows[rows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(
-            `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
-          );
+    const measurements = rows[rows.length - 1]
+        .filter(col => !col.hidden && col.autoWidth)
+        .map(col => {
+          const index = rows[rows.length - 1].indexOf(col),
+            cells = Array.from(
+              this.renderRoot.querySelectorAll<HTMLElement>(
+                `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
+              )
+            ).map(cell => ({
+              cell,
+              inlineSize: cell.style.inlineSize,
+              flexGrow: cell.style.flexGrow
+            }));
 
-        col.width = Array.from(cells).reduce(
-          (acc, cur) => {
-            const { inlineSize, flexGrow } = cur.style;
-            cur.style.flexGrow = '0';
-            cur.style.inlineSize = 'max-content';
+          return { col, cells, width: growOnly ? (col.width ?? 0) : 0 };
+        }),
+      cells = measurements.flatMap(measurement => measurement.cells);
 
-            const { width } = cur.getBoundingClientRect();
+    try {
+      // Batch all writes before reading any geometry to avoid layout per cell.
+      cells.forEach(({ cell }) => {
+        cell.style.flexGrow = '0';
+        cell.style.inlineSize = 'max-content';
+      });
 
-            cur.style.inlineSize = inlineSize;
-            cur.style.flexGrow = flexGrow;
-
-            return Math.max(acc, width);
-          },
-          growOnly ? (col.width ?? 0) : 0
+      measurements.forEach(measurement => {
+        measurement.width = measurement.cells.reduce(
+          (width, { cell }) => Math.max(width, cell.getBoundingClientRect().width),
+          measurement.width
         );
       });
+    } finally {
+      cells.forEach(({ cell, inlineSize, flexGrow }) => {
+        cell.style.inlineSize = inlineSize;
+        cell.style.flexGrow = flexGrow;
+      });
+    }
+
+    measurements.forEach(({ col, width }) => {
+      col.width = width;
+    });
 
     const columns = this.#columnDefinitions.filter(col => !col.hidden);
 
@@ -750,12 +802,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     const scrollbarMarginInlineStart = columns
-      .filter(col => col.stickyPosition === 'start')
-      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
-
-    const scrollbarMarginInlineEnd = columns
-      .filter(col => col.stickyPosition === 'end')
-      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+        .filter(col => col.stickyPosition === 'start')
+        .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0),
+      scrollbarMarginInlineEnd = columns
+        .filter(col => col.stickyPosition === 'end')
+        .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
 
     this.style.setProperty(
       '--sl-grid-scrollbar-margin-inline',

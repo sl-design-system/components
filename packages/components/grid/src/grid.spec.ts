@@ -140,6 +140,58 @@ describe('sl-grid', () => {
         .toBe(true);
     });
 
+    it('should wait for fonts before reading cell geometry', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      let resolveFonts!: (fonts: FontFaceSet) => void,
+        fontsRequested = false,
+        sizing: Promise<void> | undefined;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          fontsRequested = true;
+          return pendingFonts;
+        }),
+        measurement = spy(),
+        getRect = Element.prototype.getBoundingClientRect,
+        geometry = stub(Element.prototype, 'getBoundingClientRect').callsFake(
+          function (this: Element) {
+            if (this instanceof HTMLTableCellElement && this.getRootNode() === el.renderRoot) {
+              measurement();
+            }
+            return getRect.call(this);
+          }
+        );
+
+      try {
+        sizing = el.recalculateColumnWidths();
+        // Wait until the sizing pass reaches the controlled font-readiness promise.
+        await expect.poll(() => fontsRequested).toBe(true);
+        expect(measurement).not.to.have.been.called;
+
+        resolveFonts(document.fonts);
+        await sizing;
+        expect(measurement).to.have.been.called;
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(0);
+      } finally {
+        resolveFonts(document.fonts);
+        try {
+          await sizing;
+        } finally {
+          geometry.restore();
+          fontsReady.restore();
+        }
+      }
+    });
+
     it('should coalesce requests and remeasure a range changed while cells update', async () => {
       el = await fixture(html`
         <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>

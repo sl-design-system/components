@@ -87,6 +87,12 @@ export const componentStatusStyles = css`
     color: var(--link-hover-color);
     }
 
+    &:focus-visible {
+      border-radius: 0.2rem;
+      outline: 0.2rem solid var(--sl-color-border-focused);
+      outline-offset: 0.2rem;
+    }
+
     &.header-anchor {
       color: var(--font-color);
     }
@@ -139,7 +145,7 @@ export const componentStatusStyles = css`
 
     &:focus-visible {
       border-radius: 0.2rem;
-      outline: 0.2rem solid var(--control-color-focus-accent-focus);
+      outline: 0.2rem solid var(--sl-color-border-focused);
       outline-offset: 0.2rem;
     }
   }

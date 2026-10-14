@@ -42,6 +42,12 @@ export interface SegmentedControlItem {
   /** The visible text of the option. */
   label: string;
 
+  /**
+   * Optional name of the icon to show when the option is selected, usually the solid variant of
+   * `icon` (for example `far-list` and `fas-list`). Falls back to `icon`.
+   */
+  selectedIcon?: string;
+
   /** The unique value of the option. */
   value: string;
 }
@@ -84,7 +90,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Detects whether the buttons fit; if not, a select is shown instead. */
   #overflow = new OverflowController(this);
 
-  /** The previously selected value, used to animate the fill from the old to the new option. */
+  /** The previously selected value, so its fill can animate out. */
   #previousValue?: string;
 
   /** Whether the last render showed the select, to know when the buttons were (re)created. */
@@ -139,7 +145,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('value')) {
-      this.#previousValue = changes.get('value');
+      // Only animate the old fill out when the buttons are visible; otherwise newly rendered buttons
+      // would replay the animation of an old selection when switching back from the select.
+      this.#previousValue = this.#overflow.overflowing ? undefined : changes.get('value');
     }
 
     if (changes.has('items') && this.items.length && !this.#selectedValue) {
@@ -155,6 +163,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     if (changes.has('items') || this.#showsSelect !== this.#overflow.overflowing) {
       this.#showsSelect = this.#overflow.overflowing;
       this.#rovingTabindexController.clearElementCache();
+      if (this.#showsSelect) {
+        this.#previousValue = undefined;
+      }
     }
   }
 
@@ -203,17 +214,23 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
             <button
               @click=${() => this.#onClick(item)}
               ?disabled=${item.disabled}
-              class=${ifDefined(this.#animationFor(item))}
+              class=${ifDefined(this.#previousValue === item.value ? 'leaving' : undefined)}
               aria-current=${item.value === this.value ? 'true' : 'false'}
               aria-label=${ifDefined(this.iconOnly ? item.label : undefined)}
               type="button">
-              ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing}
-              ${this.iconOnly ? nothing : item.label}
+              <span class="fill"></span>
+              ${this.#renderIcon(item)} ${this.iconOnly ? nothing : item.label}
             </button>
           </li>
         `
       )}
     `;
+  }
+
+  #renderIcon(item: SegmentedControlItem): TemplateResult | typeof nothing {
+    const name = item.value === this.value ? (item.selectedIcon ?? item.icon) : item.icon;
+
+    return name ? html`<sl-icon .name=${name}></sl-icon>` : nothing;
   }
 
   #renderSelectOptions(): TemplateResult {
@@ -226,19 +243,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
         `
       )}
     `;
-  }
-
-  /** The fill animation of an option: grow in when it became selected, shrink out when it was. */
-  #animationFor(item: SegmentedControlItem): string | undefined {
-    if (this.#previousValue === undefined) {
-      return undefined;
-    } else if (item.value === this.value) {
-      return 'fill-in';
-    } else if (item.value === this.#previousValue) {
-      return 'fill-out';
-    }
-
-    return undefined;
   }
 
   get #selectedValue(): string | undefined {

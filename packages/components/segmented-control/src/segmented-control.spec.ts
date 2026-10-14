@@ -130,11 +130,20 @@ describe('sl-segmented-control', () => {
       expect(buttons().map(b => b.className)).to.deep.equal(['', '', '']);
     });
 
-    it('should animate the fill out of the old and into the new option', async () => {
+    it('should mark the previously selected option as leaving', async () => {
       buttons()[1].click();
       await el.updateComplete;
 
-      expect(buttons().map(b => b.className)).to.deep.equal(['fill-out', 'fill-in', '']);
+      expect(buttons().map(b => b.className)).to.deep.equal(['leaving', '', '']);
+
+      buttons()[2].click();
+      await el.updateComplete;
+
+      expect(buttons().map(b => b.className)).to.deep.equal(['', 'leaving', '']);
+    });
+
+    it('should render a fill in every option', () => {
+      expect(buttons().every(b => b.querySelector(':scope > .fill'))).to.be.true;
     });
 
     it('should honor an initial value', async () => {
@@ -215,6 +224,39 @@ describe('sl-segmented-control', () => {
       expect(listWidth).to.equal(hostWidth);
       expect(firstWidth).to.equal(secondWidth);
       expect(thirdWidth).to.equal(secondWidth);
+    });
+  });
+
+  describe('icons', () => {
+    const iconItems: SegmentedControlItem[] = [
+      { icon: 'far-list', label: 'List', selectedIcon: 'fas-list', value: 'list' },
+      { icon: 'far-grid-2', label: 'Grid', selectedIcon: 'fas-grid-2', value: 'grid' },
+      { icon: 'far-table', label: 'Table', value: 'table' }
+    ];
+
+    const iconNames = (): Array<string | undefined> =>
+      buttons().map(button => button.querySelector('sl-icon')?.name);
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-segmented-control .items=${iconItems}></sl-segmented-control>`);
+    });
+
+    it('should show the selected icon on the selected option', () => {
+      expect(iconNames()).to.deep.equal(['fas-list', 'far-grid-2', 'far-table']);
+    });
+
+    it('should swap the icons when the selection changes', async () => {
+      buttons()[1].click();
+      await el.updateComplete;
+
+      expect(iconNames()).to.deep.equal(['far-list', 'fas-grid-2', 'far-table']);
+    });
+
+    it('should fall back to the icon when there is no selected icon', async () => {
+      buttons()[2].click();
+      await el.updateComplete;
+
+      expect(iconNames()).to.deep.equal(['far-list', 'far-grid-2', 'far-table']);
     });
   });
 
@@ -450,6 +492,17 @@ describe('sl-segmented-control', () => {
       expect(onChange).to.have.been.calledOnce;
       expect(changeEvent.target).to.equal(el);
       expect(changeEvent.detail).to.equal('two');
+    });
+
+    it('should not replay the fill animation when switching back to the buttons', async () => {
+      el.value = 'three';
+      await el.updateComplete;
+
+      container.style.inlineSize = '1000px';
+      await nextLayout();
+      await el.updateComplete;
+
+      expect(buttons().map(b => b.className)).to.deep.equal(['', '', '']);
     });
 
     it('should keep the selected value when switching back to the buttons', async () => {

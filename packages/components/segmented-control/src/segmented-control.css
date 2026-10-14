@@ -141,21 +141,6 @@ button {
   position: relative;
   white-space: nowrap;
 
-  /* The fill of the selected option, on its own layer so it can be animated. */
-  &::before {
-    background: color-mix(
-      in srgb,
-      var(--_selected-bg-color),
-      var(--_selected-bg-mix-color) calc(100% * var(--_bg-opacity))
-    );
-    border-radius: inherit;
-    content: '';
-    inset: 0;
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-  }
-
   &:focus-visible {
     outline-color: var(--sl-color-border-focused);
     z-index: 1;
@@ -172,10 +157,6 @@ button {
   &[aria-current='true'] {
     background: transparent;
     color: var(--_selected-color);
-
-    &::before {
-      opacity: 1;
-    }
   }
 
   &:disabled {
@@ -186,8 +167,28 @@ button {
   }
 }
 
-/* Subtle (default): an underline below the content of the selected option */
-:host(:not([emphasis='bold'])) button[aria-current='true']::after {
+/* The fill of the selected option, on its own layer behind the content so it can be animated. */
+.fill {
+  background-color: color-mix(
+    in srgb,
+    var(--_selected-bg-color),
+    var(--_selected-bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border-radius: inherit;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  scale: 0.4;
+  z-index: -1;
+
+  [aria-current='true'] > & {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* Subtle (default): an underline inside the fill, so it scales and fades with the fill. */
+:host(:not([emphasis='bold'])) .fill::after {
   background: var(--sl-color-foreground-selected-bold);
   block-size: 3px; /* Should be hardcoded, there is no such token for 3px and this value should not change per different user groups */
   border-radius: var(--sl-size-borderRadius-full);
@@ -198,53 +199,61 @@ button {
   position: absolute;
 }
 
-:host([size='lg']:not([emphasis='bold'])) button[aria-current='true']::after {
+:host([size='lg']:not([emphasis='bold'])) .fill::after {
   inline-size: var(--sl-size-450);
   inset-block-end: var(--sl-size-075);
   inset-inline-start: calc(50% - (var(--sl-size-450) / 2));
 }
 
-:host(:not([emphasis='bold'])) button[aria-current='true'][aria-label]:not([aria-label=''])::after {
+:host([icon-only]:not([emphasis='bold'])) .fill::after {
   inline-size: var(--sl-size-150);
   inset-inline-start: calc(50% - (var(--sl-size-150) / 2));
 }
 
-:host([size='lg']:not([emphasis='bold']))
-  button[aria-current='true'][aria-label]:not([aria-label=''])::after {
+:host([icon-only][size='lg']:not([emphasis='bold'])) .fill::after {
   inline-size: var(--sl-size-200);
   inset-inline-start: calc(50% - (var(--sl-size-200) / 2));
 }
 
+/*
+ * Selection animation, 240ms in total: first the old fill shrinks to 75% and fades out (120ms
+ * ease-in), then the new fill grows from the centre from 40% to 100% (120ms ease-out, 120ms delay).
+ */
 @media (prefers-reduced-motion: no-preference) {
-  button:where(:active, :focus-visible, :hover) {
-    transition-duration: var(--sl-animation-button-duration);
-    transition-property: background, color, outline-color;
-    transition-timing-function: var(--sl-animation-button-easing);
+  button {
+    transition:
+      background-color 80ms ease,
+      color 120ms ease-out 120ms,
+      outline-color 80ms ease;
+
+    /* The hover tint stays visible until the new fill has landed. */
+    &[aria-current='true'] {
+      transition:
+        background-color 50ms ease-in-out 240ms,
+        color 120ms ease-out 120ms,
+        outline-color 80ms ease;
+    }
   }
 
-  /* Grow in after the outgoing fill is gone: hidden for 120ms, then scale 0.4 to 1 in 120ms. */
-  button.fill-in::before {
-    animation:
-      fill-hidden 120ms,
-      fill-in 120ms ease-out 120ms backwards;
+  .fill {
+    transition:
+      background-color 80ms ease,
+      opacity 120ms ease-out 120ms,
+      scale 120ms ease-out 120ms;
+
+    /* The old fill uses its own keyframes instead of reversing the transition. */
+    .leaving > & {
+      animation: fill-out 120ms ease-in;
+      transition: background-color 80ms ease;
+    }
   }
 
-  /* Shrink to 75% and fade out in 120ms. */
-  button.fill-out::before {
-    animation: fill-out 120ms ease-in;
+  sl-icon {
+    transition: scale 80ms ease;
   }
-}
 
-@keyframes fill-hidden {
-  from,
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes fill-in {
-  from {
-    scale: 0.4;
+  button:hover:not(:disabled) sl-icon {
+    scale: 1.15;
   }
 }
 

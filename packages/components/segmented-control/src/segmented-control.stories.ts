@@ -8,6 +8,16 @@ import {
   faList,
   faTable
 } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faBookOpen as fasBookOpen,
+  faCalendarDays as fasCalendarDays,
+  faChartLine as fasChartLine,
+  faClipboardList as fasClipboardList,
+  faGraduationCap as fasGraduationCap,
+  faGrid2 as fasGrid2,
+  faList as fasList,
+  faTable as fasTable
+} from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/panel/register.js';
@@ -32,7 +42,15 @@ Icon.register(
   faGraduationCap,
   faGrid2,
   faList,
-  faTable
+  faTable,
+  fasBookOpen,
+  fasCalendarDays,
+  fasChartLine,
+  fasClipboardList,
+  fasGraduationCap,
+  fasGrid2,
+  fasList,
+  fasTable
 );
 
 const items: SegmentedControlItem[] = [
@@ -42,27 +60,59 @@ const items: SegmentedControlItem[] = [
 ];
 
 const iconItems: SegmentedControlItem[] = [
-  { icon: 'far-list', label: 'List', value: 'list' },
-  { icon: 'far-grid-2', label: 'Grid', value: 'grid' },
-  { icon: 'far-table', label: 'Table', value: 'table' }
+  { icon: 'far-list', label: 'List', selectedIcon: 'fas-list', value: 'list' },
+  { icon: 'far-grid-2', label: 'Grid', selectedIcon: 'fas-grid-2', value: 'grid' },
+  { icon: 'far-table', label: 'Table', selectedIcon: 'fas-table', value: 'table' }
 ];
 
 const iconOnlyItems: SegmentedControlItem[] = iconItems;
 
 const disabledItems: SegmentedControlItem[] = [
-  { disabled: true, icon: 'far-book-open', label: 'Lessons', value: 'lessons' },
-  { icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
-  { icon: 'far-chart-line', label: 'Progress', value: 'progress' },
-  { disabled: true, icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' },
-  { icon: 'far-graduation-cap', label: 'Resources', value: 'resources' }
+  {
+    disabled: true,
+    icon: 'far-book-open',
+    label: 'Lessons',
+    selectedIcon: 'fas-book-open',
+    value: 'lessons'
+  },
+  {
+    icon: 'far-clipboard-list',
+    label: 'Assignments',
+    selectedIcon: 'fas-clipboard-list',
+    value: 'assignments'
+  },
+  { icon: 'far-chart-line', label: 'Progress', selectedIcon: 'fas-chart-line', value: 'progress' },
+  {
+    disabled: true,
+    icon: 'far-calendar-days',
+    label: 'Schedule',
+    selectedIcon: 'fas-calendar-days',
+    value: 'schedule'
+  },
+  {
+    icon: 'far-graduation-cap',
+    label: 'Resources',
+    selectedIcon: 'fas-graduation-cap',
+    value: 'resources'
+  }
 ];
 
 const fillWidthItems: SegmentedControlItem[] = [
-  { icon: 'far-list', label: 'Overview', value: 'overview' },
-  { icon: 'far-grid-2', label: 'Modules', value: 'modules' },
-  { icon: 'far-clipboard-list', label: 'Assignments', value: 'assignments' },
-  { icon: 'far-chart-line', label: 'Progress', value: 'progress' },
-  { icon: 'far-calendar-days', label: 'Schedule', value: 'schedule' }
+  { icon: 'far-list', label: 'Overview', selectedIcon: 'fas-list', value: 'overview' },
+  { icon: 'far-grid-2', label: 'Modules', selectedIcon: 'fas-grid-2', value: 'modules' },
+  {
+    icon: 'far-clipboard-list',
+    label: 'Assignments',
+    selectedIcon: 'fas-clipboard-list',
+    value: 'assignments'
+  },
+  { icon: 'far-chart-line', label: 'Progress', selectedIcon: 'fas-chart-line', value: 'progress' },
+  {
+    icon: 'far-calendar-days',
+    label: 'Schedule',
+    selectedIcon: 'fas-calendar-days',
+    value: 'schedule'
+  }
 ];
 
 export default {

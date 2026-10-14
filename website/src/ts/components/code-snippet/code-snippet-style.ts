@@ -23,6 +23,10 @@ export const codeSnippetStyles = css`
     margin: 0;
   }
 
+  pre:focus-visible {
+    outline: none;
+  }
+
   code {
     /* background-color: var(--table-code-background); */
     border-radius: 0.6rem;
@@ -33,6 +37,10 @@ export const codeSnippetStyles = css`
     font-size: 1.2rem;
     line-height: 1rem;
     padding: 0.2rem 0.8rem;
+  }
+
+  code:focus-visible {
+    outline: none;
   }
 
   code[class*='language-'] {

@@ -17,6 +17,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
+import { OverflowController } from './overflow-controller.js';
 import styles from './segmented-control.css' with { type: 'css' };
 
 declare global {
@@ -80,14 +81,11 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       isFocusableElement: (el: HTMLButtonElement) => !el.disabled
     });
 
-  /**
-   * Observe the host (available width) and the measurement list (required width, which changes when
-   * fonts load or the theme changes).
-   */
-  #resizeObserver = new ResizeObserver(() => this.#scheduleLayoutUpdate());
+  /** Detects whether the buttons fit; if not, a select is shown instead. */
+  #overflow = new OverflowController(this);
 
-  /** The pending animation frame of the layout update, so at most one update runs per frame. */
-  #layoutFrame?: number;
+  /** Whether the last render showed the select, to know when the buttons were (re)created. */
+  #showsSelect = false;
 
   /** @internal Emits when the selected option changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
@@ -131,28 +129,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) size: SegmentedControlSize = 'md';
 
-  /** @internal Whether there is not enough space for the buttons, so a select is shown instead. */
-  @state() useSelect = false;
-
   /** The value of the selected option. Defaults to the first option. */
   @property() value?: string;
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#resizeObserver.observe(this);
-  }
-
-  override disconnectedCallback(): void {
-    this.#resizeObserver.disconnect();
-
-    if (this.#layoutFrame !== undefined) {
-      cancelAnimationFrame(this.#layoutFrame);
-      this.#layoutFrame = undefined;
-    }
-
-    super.disconnectedCallback();
-  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -164,23 +142,13 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.#updateLabelReference();
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    const measurementList = this.renderRoot.querySelector('ul[data-measurement]');
-    if (measurementList) {
-      this.#resizeObserver.observe(measurementList);
-    }
-  }
-
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('items') || changes.has('useSelect')) {
+    if (changes.has('items') || this.#showsSelect !== this.#overflow.overflowing) {
+      this.#showsSelect = this.#overflow.overflowing;
       this.#rovingTabindexController.clearElementCache();
     }
-
-    this.#scheduleLayoutUpdate();
   }
 
   override render(): TemplateResult {
@@ -188,14 +156,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div aria-hidden="true" class="measure">
-        <ul data-measurement>
+        <ul>
           ${this.#renderOptions()}
         </ul>
       </div>
       <div aria-hidden="true" class="sizer">${this.items.map(() => html`<span></span>`)}</div>
       <div class="content">
         ${
-          this.useSelect
+          this.#overflow.overflowing
             ? html`
                 <sl-select
                   @sl-change=${this.#onSelectChange}
@@ -281,64 +249,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** The internal select is not a form control of the surrounding form, so stop it registering. */
   #onSelectFormControl(event: Event): void {
     event.stopPropagation();
-  }
-
-  #scheduleLayoutUpdate(): void {
-    if (this.#layoutFrame !== undefined) {
-      return;
-    }
-
-    this.#layoutFrame = requestAnimationFrame(() => {
-      this.#layoutFrame = undefined;
-      this.#updateLayoutMode();
-    });
-  }
-
-  /**
-   * Switch between the buttons and the select, depending on whether the buttons fit.
-   *
-   * The required width is measured using an off-screen copy of the buttons. That width is also
-   * applied to the (invisible) sizer, which makes the host _ask_ for that width. The host is then
-   * exactly as wide as the buttons need when there is enough space, and narrower when there isn't.
-   * Because the visible content never influences the width of the host (see `.content` in the CSS),
-   * the host keeps asking for the full width while the select is shown. That is what allows the
-   * control to switch back to buttons when more space becomes available; otherwise the host would
-   * shrink to the width of the select and containers sized to their content (table cells, flex
-   * items, etc.) would never offer more space again.
-   */
-  #updateLayoutMode(): void {
-    const content = this.renderRoot.querySelector<HTMLElement>('.content'),
-      measurementList = this.renderRoot.querySelector<HTMLElement>('ul[data-measurement]'),
-      sizer = this.renderRoot.querySelector<HTMLElement>('.sizer');
-
-    if (!content || !measurementList || !sizer || !this.items.length) {
-      return;
-    }
-
-    const { height: requiredHeight, width: requiredWidth } =
-        measurementList.getBoundingClientRect(),
-      contentBlockSize = `${requiredHeight}px`,
-      segmentSize = `${requiredWidth / this.items.length}px`;
-
-    if (sizer.style.getPropertyValue('--_segment-size') !== segmentSize) {
-      sizer.style.setProperty('--_segment-size', segmentSize);
-    }
-
-    // Keep the control the same height for the buttons and the select. Otherwise switching changes
-    // the height of the page, which can show or hide a scrollbar, which changes the available width,
-    // which makes the control switch back again: an endless loop that freezes the browser.
-    if (content.style.getPropertyValue('--_content-block-size') !== contentBlockSize) {
-      content.style.setProperty('--_content-block-size', contentBlockSize);
-    }
-
-    // Reading the width after updating the sizer forces a synchronous layout with the new value.
-    // Allow half a pixel of tolerance for sub-pixel rounding.
-    const availableWidth = this.getBoundingClientRect().width,
-      useSelect = requiredWidth > 0 && requiredWidth - availableWidth > 0.5;
-
-    if (useSelect !== this.useSelect) {
-      this.useSelect = useSelect;
-    }
   }
 
   /**

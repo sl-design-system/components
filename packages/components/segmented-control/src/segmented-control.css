@@ -63,29 +63,20 @@ ul {
   padding: var(--sl-size-050);
 }
 
-/*
- * Off-screen copy of the buttons, used to measure the width the buttons need. The wrapper has no
- * size so it never causes scrollbars; the list inside is laid out at its natural (max-content) width.
- */
+/* Hidden copy of the buttons at their natural width, used to measure the space they need. */
 .measure {
   block-size: 0;
   inline-size: 0;
   overflow: hidden;
-  pointer-events: none;
   position: absolute;
   visibility: hidden;
+
+  ul {
+    inline-size: max-content;
+  }
 }
 
-ul[data-measurement] {
-  inline-size: max-content;
-}
-
-/*
- * Invisible element that determines the intrinsic width of the host: its max-content width equals
- * the width the buttons need, but it can wrap (and shrink) when there is less space. This way the
- * host asks for enough space for the buttons, even while the select is shown, so containers that
- * size to their content (table cells, flex items, inline-block) give it room again when available.
- */
+/* Makes the host ask for the width of the buttons, while still allowing it to shrink. */
 .sizer {
   block-size: 0;
   display: flex;
@@ -99,11 +90,7 @@ ul[data-measurement] {
   }
 }
 
-/*
- * The visible content (buttons or select) must not influence the width of the host. The content
- * also keeps the height of the buttons when the select is shown, so switching never changes the
- * height of the page (which could toggle a scrollbar and cause the control to switch back and forth).
- */
+/* The visible buttons or select; never affects the width of the host and keeps the buttons' height. */
 .content {
   align-items: start;
   contain: inline-size;

@@ -22,15 +22,23 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/panel/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import './register.js';
-import { type SegmentedControl, type SegmentedControlItem } from './segmented-control.js';
+import { type SegmentedControl } from './segmented-control.js';
+
+interface Item {
+  disabled?: boolean;
+  icon?: string;
+  label: string;
+  value: string;
+}
 
 type Props = Pick<
   SegmentedControl,
-  'emphasis' | 'fill' | 'iconOnly' | 'items' | 'shape' | 'size' | 'value'
+  'emphasis' | 'fill' | 'iconOnly' | 'shape' | 'size' | 'value'
 > & {
   ariaLabel?: string;
+  items: Item[];
 };
 type Story = StoryObj<Props>;
 
@@ -53,67 +61,51 @@ Icon.register(
   fasTable
 );
 
-const items: SegmentedControlItem[] = [
+const items: Item[] = [
   { label: 'List', value: 'list' },
   { label: 'Grid', value: 'grid' },
   { label: 'Table', value: 'table' }
 ];
 
-const iconItems: SegmentedControlItem[] = [
-  { icon: 'far-list', label: 'List', selectedIcon: 'fas-list', value: 'list' },
-  { icon: 'far-grid-2', label: 'Grid', selectedIcon: 'fas-grid-2', value: 'grid' },
-  { icon: 'far-table', label: 'Table', selectedIcon: 'fas-table', value: 'table' }
+/** Icon names without the prefix; `far-` is used for the icon, `fas-` for the selected icon. */
+const iconItems: Item[] = [
+  { icon: 'list', label: 'List', value: 'list' },
+  { icon: 'grid-2', label: 'Grid', value: 'grid' },
+  { icon: 'table', label: 'Table', value: 'table' }
 ];
 
-const iconOnlyItems: SegmentedControlItem[] = iconItems;
-
-const disabledItems: SegmentedControlItem[] = [
-  {
-    disabled: true,
-    icon: 'far-book-open',
-    label: 'Lessons',
-    selectedIcon: 'fas-book-open',
-    value: 'lessons'
-  },
-  {
-    icon: 'far-clipboard-list',
-    label: 'Assignments',
-    selectedIcon: 'fas-clipboard-list',
-    value: 'assignments'
-  },
-  { icon: 'far-chart-line', label: 'Progress', selectedIcon: 'fas-chart-line', value: 'progress' },
-  {
-    disabled: true,
-    icon: 'far-calendar-days',
-    label: 'Schedule',
-    selectedIcon: 'fas-calendar-days',
-    value: 'schedule'
-  },
-  {
-    icon: 'far-graduation-cap',
-    label: 'Resources',
-    selectedIcon: 'fas-graduation-cap',
-    value: 'resources'
-  }
+const disabledItems: Item[] = [
+  { disabled: true, icon: 'book-open', label: 'Lessons', value: 'lessons' },
+  { icon: 'clipboard-list', label: 'Assignments', value: 'assignments' },
+  { icon: 'chart-line', label: 'Progress', value: 'progress' },
+  { disabled: true, icon: 'calendar-days', label: 'Schedule', value: 'schedule' },
+  { icon: 'graduation-cap', label: 'Resources', value: 'resources' }
 ];
 
-const fillWidthItems: SegmentedControlItem[] = [
-  { icon: 'far-list', label: 'Overview', selectedIcon: 'fas-list', value: 'overview' },
-  { icon: 'far-grid-2', label: 'Modules', selectedIcon: 'fas-grid-2', value: 'modules' },
-  {
-    icon: 'far-clipboard-list',
-    label: 'Assignments',
-    selectedIcon: 'fas-clipboard-list',
-    value: 'assignments'
-  },
-  { icon: 'far-chart-line', label: 'Progress', selectedIcon: 'fas-chart-line', value: 'progress' },
-  {
-    icon: 'far-calendar-days',
-    label: 'Schedule',
-    selectedIcon: 'fas-calendar-days',
-    value: 'schedule'
-  }
+const fillWidthItems: Item[] = [
+  { icon: 'list', label: 'Overview', value: 'overview' },
+  { icon: 'grid-2', label: 'Modules', value: 'modules' },
+  { icon: 'clipboard-list', label: 'Assignments', value: 'assignments' },
+  { icon: 'chart-line', label: 'Progress', value: 'progress' },
+  { icon: 'calendar-days', label: 'Schedule', value: 'schedule' }
 ];
+
+const renderItems = (items: Item[]): TemplateResult[] =>
+  items.map(
+    ({ disabled, icon, label, value }) => html`
+      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
+        ${
+          icon
+            ? html`
+                <sl-icon name="far-${icon}" slot="icon"></sl-icon>
+                <sl-icon name="fas-${icon}" slot="selected-icon"></sl-icon>
+              `
+            : nothing
+        }
+        ${label}
+      </sl-segmented-control-item>
+    `
+  );
 
 export default {
   title: 'Actions/Segmented control',
@@ -122,6 +114,7 @@ export default {
     ariaLabel: 'View',
     emphasis: 'subtle',
     fill: 'solid',
+    iconOnly: false,
     items,
     shape: 'rect',
     size: 'md'
@@ -129,19 +122,21 @@ export default {
   argTypes: {
     emphasis: { control: 'inline-radio', options: ['subtle', 'bold'] },
     fill: { control: 'inline-radio', options: ['solid', 'outline'] },
+    items: { table: { disable: true } },
     shape: { control: 'inline-radio', options: ['rect', 'pill'] },
     size: { control: 'inline-radio', options: ['md', 'lg'] }
   },
   render: ({ ariaLabel, emphasis, fill, iconOnly, items, shape, size, value }) => html`
     <sl-segmented-control
-      .iconOnly=${iconOnly}
-      .items=${items}
+      ?icon-only=${iconOnly}
       .value=${value}
       aria-label=${ariaLabel}
       emphasis=${emphasis}
       fill=${fill}
       shape=${shape}
-      size=${size}></sl-segmented-control>
+      size=${size}>
+      ${renderItems(items)}
+    </sl-segmented-control>
   `
 } satisfies Meta<Props>;
 
@@ -157,9 +152,7 @@ export const Large: Story = { args: { size: 'lg' } };
 
 export const IconAndText: Story = { args: { items: iconItems } };
 
-export const IconOnly: Story = {
-  args: { iconOnly: true, items: iconOnlyItems }
-};
+export const IconOnly: Story = { args: { iconOnly: true, items: iconItems } };
 
 export const Disabled: Story = { args: { items: disabledItems } };
 
@@ -200,14 +193,15 @@ export const FillWidth: Story = {
       <div class="fill-width-demo__eyebrow">Course navigation</div>
       <div class="fill-width-demo__label">Select a course section</div>
       <sl-segmented-control
-        .items=${items}
         .value=${value}
         aria-label=${ariaLabel}
         emphasis=${emphasis}
         fill=${fill}
         shape=${shape}
         size=${size}
-        style="width: 100%"></sl-segmented-control>
+        style="width: 100%">
+        ${renderItems(items)}
+      </sl-segmented-control>
     </sl-panel>
   `
 };
@@ -215,9 +209,9 @@ export const FillWidth: Story = {
 export const All: Story = {
   render: (): TemplateResult => {
     const content = [
-        { items, label: 'text only' },
-        { items: iconItems, label: 'icon + text' },
-        { iconOnly: true, items: iconOnlyItems, label: 'icon only' }
+        { iconOnly: false, items, label: 'text only' },
+        { iconOnly: false, items: iconItems, label: 'icon + text' },
+        { iconOnly: true, items: iconItems, label: 'icon only' }
       ],
       emphases = ['subtle', 'bold'] as const,
       fills = ['solid', 'outline'] as const,
@@ -260,12 +254,13 @@ export const All: Story = {
                         <td>
                           <sl-segmented-control
                             ?icon-only=${iconOnly}
-                            .items=${items}
                             aria-label="View"
                             emphasis=${emphasis}
                             fill=${fill}
                             shape=${shape}
-                            size=${size}></sl-segmented-control>
+                            size=${size}>
+                            ${renderItems(items)}
+                          </sl-segmented-control>
                         </td>
                       `
                     )

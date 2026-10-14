@@ -167,7 +167,7 @@ export const All: Story = {
     const content = [
         { items, label: 'text only' },
         { items: iconItems, label: 'icon + text' },
-        { items: iconOnlyItems, label: 'icon only' }
+        { iconOnly: true, items: iconOnlyItems, label: 'icon only' }
       ],
       emphases = ['subtle', 'bold'] as const,
       fills = ['solid', 'outline'] as const,
@@ -201,7 +201,7 @@ export const All: Story = {
         ${fills.flatMap(fill =>
           emphases.flatMap(emphasis =>
             content.map(
-              ({ items, label }) => html`
+              ({ iconOnly, items, label }) => html`
                 <tr>
                   <th>${fill}, ${emphasis}, ${label}</th>
                   ${sizes.flatMap(size =>
@@ -209,6 +209,7 @@ export const All: Story = {
                       shape => html`
                         <td>
                           <sl-segmented-control
+                            ?icon-only=${iconOnly}
                             .items=${items}
                             aria-label="View"
                             emphasis=${emphasis}

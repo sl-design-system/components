@@ -84,6 +84,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Detects whether the buttons fit; if not, a select is shown instead. */
   #overflow = new OverflowController(this);
 
+  /** The previously selected value, used to animate the fill from the old to the new option. */
+  #previousValue?: string;
+
   /** Whether the last render showed the select, to know when the buttons were (re)created. */
   #showsSelect = false;
 
@@ -134,6 +137,10 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('value')) {
+      this.#previousValue = changes.get('value');
+    }
 
     if (changes.has('items') && this.items.length && !this.#selectedValue) {
       this.value = this.items.find(item => !item.disabled)?.value ?? this.items[0].value;
@@ -196,6 +203,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
             <button
               @click=${() => this.#onClick(item)}
               ?disabled=${item.disabled}
+              class=${ifDefined(this.#animationFor(item))}
               aria-current=${item.value === this.value ? 'true' : 'false'}
               aria-label=${ifDefined(this.iconOnly ? item.label : undefined)}
               type="button">
@@ -218,6 +226,19 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
         `
       )}
     `;
+  }
+
+  /** The fill animation of an option: grow in when it became selected, shrink out when it was. */
+  #animationFor(item: SegmentedControlItem): string | undefined {
+    if (this.#previousValue === undefined) {
+      return undefined;
+    } else if (item.value === this.value) {
+      return 'fill-in';
+    } else if (item.value === this.#previousValue) {
+      return 'fill-out';
+    }
+
+    return undefined;
   }
 
   get #selectedValue(): string | undefined {

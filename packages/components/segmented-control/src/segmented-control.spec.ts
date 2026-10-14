@@ -126,6 +126,17 @@ describe('sl-segmented-control', () => {
       ]);
     });
 
+    it('should not animate the fill on the first render', () => {
+      expect(buttons().map(b => b.className)).to.deep.equal(['', '', '']);
+    });
+
+    it('should animate the fill out of the old and into the new option', async () => {
+      buttons()[1].click();
+      await el.updateComplete;
+
+      expect(buttons().map(b => b.className)).to.deep.equal(['fill-out', 'fill-in', '']);
+    });
+
     it('should honor an initial value', async () => {
       el = await fixture(html`
         <sl-segmented-control .items=${items} value="table"></sl-segmented-control>

@@ -132,6 +132,7 @@ button {
   font-weight: var(--sl-fontWeight-semiBold);
   gap: var(--sl-size-075);
   inline-size: 100%;
+  isolation: isolate;
   justify-content: center;
   line-height: var(--sl-size-lineHeight-250);
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
@@ -139,6 +140,21 @@ button {
   padding: var(--_item-padding-block) var(--_item-padding-inline);
   position: relative;
   white-space: nowrap;
+
+  /* The fill of the selected option, on its own layer so it can be animated. */
+  &::before {
+    background: color-mix(
+      in srgb,
+      var(--_selected-bg-color),
+      var(--_selected-bg-mix-color) calc(100% * var(--_bg-opacity))
+    );
+    border-radius: inherit;
+    content: '';
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
 
   &:focus-visible {
     outline-color: var(--sl-color-border-focused);
@@ -154,10 +170,12 @@ button {
   }
 
   &[aria-current='true'] {
-    --_bg-color: var(--_selected-bg-color);
-    --_bg-mix-color: var(--_selected-bg-mix-color);
-
+    background: transparent;
     color: var(--_selected-color);
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   &:disabled {
@@ -202,5 +220,42 @@ button {
     transition-duration: var(--sl-animation-button-duration);
     transition-property: background, color, outline-color;
     transition-timing-function: var(--sl-animation-button-easing);
+  }
+
+  /* Grow in after the outgoing fill is gone: hidden for 120ms, then scale 0.4 to 1 in 120ms. */
+  button.fill-in::before {
+    animation:
+      fill-hidden 120ms,
+      fill-in 120ms ease-out 120ms backwards;
+  }
+
+  /* Shrink to 75% and fade out in 120ms. */
+  button.fill-out::before {
+    animation: fill-out 120ms ease-in;
+  }
+}
+
+@keyframes fill-hidden {
+  from,
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    scale: 0.4;
+  }
+}
+
+@keyframes fill-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+
+  to {
+    opacity: 0;
+    scale: 0.75;
   }
 }

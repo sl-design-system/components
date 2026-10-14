@@ -10,8 +10,8 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const state = checkEnum(
-      instance.getEnum('State', {
+  const variant = checkEnum(
+      instance.getEnum('variant', {
         Default: 'default',
         Positive: 'positive',
         Negative: 'negative',
@@ -19,7 +19,7 @@ function getExample() {
       }) || 'default'
     ),
     progress = checkEnum(
-      instance.getEnum('Progress', {
+      instance.getEnum('progress', {
         '0%': '0%',
         '25%': '25%',
         '50%': '50%',
@@ -29,7 +29,7 @@ function getExample() {
       }) || '0%'
     ),
     color = checkEnum(
-      instance.getEnum('Color', {
+      instance.getEnum('color', {
         Default: 'default',
         Blue: 'blue',
         Green: 'green',
@@ -49,29 +49,21 @@ function getExample() {
     labelBase = optionalLabel.findInstance('sl-base-label', {
       traverseInstances: true
     }) as InstanceHandle,
-    label = checkStringProperty(labelBase.getString('Label'), 'Label');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
 
   let errorMessage = '';
-  if (state === 'negative') {
+  if (variant === 'negative') {
     const validationMessage = instance.findInstance('sl-base-validation-message', {
       traverseInstances: true
     }) as InstanceHandle;
-    errorMessage = checkStringProperty(validationMessage.getString('Message'), 'Message');
+    errorMessage = checkStringProperty(validationMessage.getString('message'), 'message');
   }
 
-  const value = progress === 'indeterminate' ? undefined : Number.parseInt(progress, 10),
-    variant =
-      state === 'positive'
-        ? 'success'
-        : state === 'negative'
-          ? 'error'
-          : state === 'caution'
-            ? 'warning'
-            : undefined;
+  const value = progress === 'indeterminate' ? undefined : Number.parseInt(progress, 10);
 
   return figma.code`
 		<sl-progress-bar
-			${variant ? `variant="${variant}"` : ''}
+			${variant && variant !== 'default' ? `variant="${variant}"` : ''}
 			${color !== 'default' ? `color="${color}"` : ''}
 			${value !== undefined ? `value="${value}"` : 'indeterminate'}
 			${showLabel ? `label="${label}"` : ''}

@@ -5,7 +5,7 @@ import { type InstanceHandle, checkBooleanProperty } from './_shared/figma-asser
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('selectable'), 'selectable');
 
   instance.findInstance('menu-base') as InstanceHandle;
 

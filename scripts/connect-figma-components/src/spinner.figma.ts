@@ -5,7 +5,7 @@ import { checkStringProperty } from './_shared/figma-assertions.js';
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const size = checkStringProperty(instance.getString('Size'), 'Size'),
+  const size = checkStringProperty(instance.getString('size'), 'size'),
     sizes = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
   if (!sizes.includes(size)) {

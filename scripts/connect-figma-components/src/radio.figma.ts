@@ -10,16 +10,16 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = checkBooleanProperty(instance.getBoolean('Checked'), 'Checked'),
-    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
+  const checked = checkBooleanProperty(instance.getBoolean('selected'), 'selected'),
+    disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled';
 
   const radiobuttonBase = instance.findInstance('radiobutton-base') as InstanceHandle;
 
-  const label = checkStringProperty(radiobuttonBase.getString('Label text'), 'Label text');
+  const label = checkStringProperty(radiobuttonBase.getString('label'), 'label');
 
   // The default size is "md".
   const size = checkEnum(
-    radiobuttonBase.getEnum('↕️ - Size', {
+    radiobuttonBase.getEnum('size', {
       SM: 'sm',
       LG: 'lg'
     }) || 'md'

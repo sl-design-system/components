@@ -9,25 +9,25 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const hasLabel = checkBooleanProperty(instance.getBoolean('Label'), 'Label');
+  const hasLabel = checkBooleanProperty(instance.getBoolean('display-label'), 'display-label');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
     const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-    label = checkStringProperty(labelBase.getString('Label'), 'Label');
-    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
   }
 
   const selectVariants = instance.findInstance('Select variations', {
     traverseInstances: true
   }) as InstanceHandle;
 
-  const clearable = checkBooleanProperty(selectVariants.getBoolean('Clear button'), 'Clear button'),
-    disabled = checkStringProperty(selectVariants.getString('Variant'), 'Variant') === 'Disabled',
-    placeholder = selectVariants.getString('Placeholder text'),
-    value = selectVariants.getString('Input value');
+  // const clearable = checkBooleanProperty(selectVariants.getBoolean('Clear button'), 'Clear button'),
+  const disabled = checkStringProperty(selectVariants.getString('state'), 'state') === 'Disabled',
+    placeholder = checkStringProperty(selectVariants.getString('placeholder'), 'placeholder'),
+    value = checkStringProperty(selectVariants.getString('value'), 'value');
 
   const menuPanel = instance.findInstance('sl-menu-panel', { traverseInstances: true });
 
@@ -39,10 +39,10 @@ function getExample() {
       .join('\n');
   }
 
+  //${clearable ? ' clearable' : ''}
   return figma.code`
     <sl-form-field${label ? ` label="${label}"` : ''}>
       <sl-select
-        ${clearable ? ' clearable' : ''}
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
         ${required ? ' required' : ''}

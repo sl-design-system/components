@@ -5,7 +5,7 @@ import { validateMappingNames } from './validate-mapping-names.mjs';
 import { validateSnippet } from './validate-snippet.mjs';
 
 const inputArgs = process.argv.slice(2),
-  showAll = inputArgs.includes('--all'),
+  showAll = inputArgs.includes('--all') || inputArgs.includes('--print-all'),
   summaryReportPath = getSummaryReportPath(inputArgs),
   reportPath = getReportPath(inputArgs),
   args = stripWrapperArgs(inputArgs),
@@ -35,6 +35,7 @@ function stripWrapperArgs(args) {
     const argument = args[index];
     if (
       argument === '--all' ||
+      argument === '--print-all' ||
       argument.startsWith('--report=') ||
       argument.startsWith('--report-summary=')
     )
@@ -96,7 +97,12 @@ function componentName(result, batchCase) {
 function previewWarnings(result) {
   return [...(result.snippet ?? '').matchAll(/<!--\s*(.*?)\s*-->/g)]
     .map(match => match[1])
-    .filter(warning => warning && warning !== 'Insert options here');
+    .filter(
+      warning =>
+        warning &&
+        warning !== 'Insert options here' &&
+        (showAll || !warning.includes('no Code Connect template found'))
+    );
 }
 
 function mappingNameWarnings(result, batchCase) {
@@ -143,15 +149,20 @@ function writeSummaryReport(filePath, annotated, failures) {
 }
 
 function writeReport(filePath, annotated, failures) {
-  const sorted = [...annotated].sort((a, b) =>
-      componentName(a.result, a.batchCase).localeCompare(
-        componentName(b.result, b.batchCase),
-        undefined,
-        {
-          sensitivity: 'base'
-        }
+  const sorted = annotated
+      .filter(
+        ({ result, warnings, invalidCode }) =>
+          showAll || !result.success || warnings.length > 0 || invalidCode.length > 0
       )
-    ),
+      .sort((a, b) =>
+        componentName(a.result, a.batchCase).localeCompare(
+          componentName(b.result, b.batchCase),
+          undefined,
+          {
+            sensitivity: 'base'
+          }
+        )
+      ),
     rows = sorted.map(({ batchCase, result, warnings, invalidCode }) => {
       const name = componentName(result, batchCase),
         status = result.success && invalidCode.length === 0 ? 'PASS' : 'FAIL',

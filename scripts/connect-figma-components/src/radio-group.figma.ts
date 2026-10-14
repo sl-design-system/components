@@ -9,14 +9,14 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled';
 
   const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
   const hint = labelBase.getString('Hint'),
-    label = checkStringProperty(labelBase.getString('Label'), 'Label'),
-    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required'),
-    showHint = checkBooleanProperty(labelBase.getBoolean('Show Hint'), 'Show Hint');
+    label = checkStringProperty(labelBase.getString('label'), 'label'),
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required'),
+    displayHint = checkBooleanProperty(labelBase.getBoolean('display-hint'), 'display-hint');
 
   const options = instance
     .findConnectedInstances(node => node.codeConnectId() === 'radio')
@@ -27,7 +27,7 @@ function getExample() {
 
   return figma.code`
     <sl-form-field
-      ${showHint && hint ? ` hint="${hint}"` : ''}
+      ${displayHint && hint ? ` hint="${hint}"` : ''}
       ${label ? ` label="${label}"` : ''}
     >
       <sl-radio-group

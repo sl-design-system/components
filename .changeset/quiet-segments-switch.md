@@ -11,13 +11,13 @@ Add new `<sl-segmented-control>` and `<sl-segmented-control-item>` components fo
     <sl-icon name="fas-list" slot="selected-icon"></sl-icon>
     List
   </sl-segmented-control-item>
-  <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
+  <sl-segmented-control-item selected value="grid">Grid</sl-segmented-control-item>
 </sl-segmented-control>
 ```
 
 - Supports `shape` (`rect`, `pill`), `size` (`md`, `lg`), `fill` (`solid`, `outline`) and `emphasis` (`subtle`, `bold`); defaults are `rect`, `md`, `solid` and `subtle`
-- Each `<sl-segmented-control-item>` has a `value` and can be `disabled`; put an icon in the `icon` slot, and optionally a different icon (for example the solid variant) in the `selected-icon` slot to show when the option is selected
-- `value` on the control selects an option; defaults to the first enabled option. Emits `sl-change` when the user selects another option
+- Each `<sl-segmented-control-item>` has a `value` and can be `selected` or `disabled`; put an icon in the `icon` slot, and optionally a different icon (for example the solid variant) in the `selected-icon` slot to show when the option is selected
+- Set `selected` on an item to select it; when no item is selected, the first enabled item is. Emits `sl-change` with the value of the item when the user selects another option
 - Selecting an option animates the fill: the old fill shrinks and fades out, then the new fill grows in (disabled when the user prefers reduced motion)
 - All options have the same width; stretch the control (for example `width: 100%`) to distribute the options evenly over the available space
 - Use the `icon-only` attribute to show only the icons; the labels are then used as accessible names

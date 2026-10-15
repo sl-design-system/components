@@ -3,7 +3,7 @@ import { type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type TemplateResult, html, nothing } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import './register.js';
 import { type SegmentedControlItem } from './segmented-control-item.js';
@@ -13,6 +13,7 @@ interface ItemData {
   disabled?: boolean;
   icon?: string;
   label: string;
+  selected?: boolean;
   selectedIcon?: string;
   value: string;
 }
@@ -35,8 +36,8 @@ const items: ItemData[] = [
 
 const renderItems = (data: ItemData[]): TemplateResult[] =>
   data.map(
-    ({ disabled, icon, label, selectedIcon, value }) => html`
-      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
+    ({ disabled, icon, label, selected, selectedIcon, value }) => html`
+      <sl-segmented-control-item ?disabled=${disabled} ?selected=${selected} value=${value}>
         ${icon ? html`<sl-icon name=${icon} slot="icon"></sl-icon>` : nothing}
         ${selectedIcon ? html`<sl-icon name=${selectedIcon} slot="selected-icon"></sl-icon>` : nothing}
         ${label}
@@ -76,6 +77,10 @@ describe('sl-segmented-control', () => {
       return root;
     };
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       await setup(html`<sl-segmented-control>${renderItems(items)}</sl-segmented-control>`);
@@ -102,7 +107,6 @@ describe('sl-segmented-control', () => {
     });
 
     it('should select the first option', () => {
-      expect(el.value).to.equal('list');
       expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
@@ -156,7 +160,7 @@ describe('sl-segmented-control', () => {
       buttons()[1].click();
       await settle();
 
-      expect(el.value).to.equal('grid');
+      expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(onChange).to.have.been.calledOnce;
       expect((onChange.lastCall.args[0] as CustomEvent<string>).detail).to.equal('grid');
       expect(buttons().map(b => b.getAttribute('aria-current'))).to.deep.equal([
@@ -173,7 +177,7 @@ describe('sl-segmented-control', () => {
       options()[2].click();
       await settle();
 
-      expect(el.value).to.equal('list');
+      expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
     it('should not mark any option as leaving on the first render', () => {
@@ -192,19 +196,87 @@ describe('sl-segmented-control', () => {
       expect(options().map(option => !!option.leaving)).to.deep.equal([false, true, false]);
     });
 
-    it('should honor an initial value', async () => {
+    it('should honor an initially selected option', async () => {
       await setup(html`
-        <sl-segmented-control value="table">${renderItems(items)}</sl-segmented-control>
+        <sl-segmented-control>
+          ${renderItems(items.map(item => ({ ...item, selected: item.value === 'table' })))}
+        </sl-segmented-control>
       `);
 
+      expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
       expect(buttons()[2]).to.have.attribute('aria-current', 'true');
     });
 
-    it('should select the value when set programmatically', async () => {
-      el.value = 'grid';
+    it('should select an option when selected is set programmatically', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      options()[1].selected = true;
       await settle();
 
       expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
+      expect(buttons()[1]).to.have.attribute('aria-current', 'true');
+      expect(onChange).not.to.have.been.called;
+    });
+
+    it('should select an option when the selected attribute is set', async () => {
+      options()[2].setAttribute('selected', '');
+      await settle();
+
+      expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
+    });
+  });
+
+  describe('dev-mode icon validation', () => {
+    it('should warn when an icon-only item has no icon', async () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+      await setup(html`
+        <sl-segmented-control icon-only>
+          <sl-segmented-control-item value="list">List</sl-segmented-control-item>
+        </sl-segmented-control>
+      `);
+
+      expect(consoleError.mock.calls).to.deep.equal([
+        ['There needs to be an sl-icon in the "icon" slot for an icon-only segmented control item.']
+      ]);
+    });
+
+    it('should warn when selected-icon is used without icon', async () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+      await setup(html`
+        <sl-segmented-control>
+          <sl-segmented-control-item value="list">
+            <sl-icon name="fas-list" slot="selected-icon"></sl-icon>
+            List
+          </sl-segmented-control-item>
+        </sl-segmented-control>
+      `);
+
+      expect(consoleError.mock.calls).to.deep.equal([
+        [
+          'Do not use an sl-icon in the "selected-icon" slot without also setting an sl-icon in the "icon" slot.'
+        ]
+      ]);
+    });
+
+    it('should warn when the icon and selected-icon are the same', async () => {
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+      await setup(html`
+        <sl-segmented-control>
+          <sl-segmented-control-item value="list">
+            <sl-icon name="far-list" slot="icon"></sl-icon>
+            <sl-icon name="far-list" slot="selected-icon"></sl-icon>
+            List
+          </sl-segmented-control-item>
+        </sl-segmented-control>
+      `);
+
+      expect(consoleError.mock.calls).to.deep.equal([
+        ['Do not use the same icon for both states of a segmented control item.']
+      ]);
     });
   });
 
@@ -560,14 +632,14 @@ describe('sl-segmented-control', () => {
 
       const changeEvent = onChange.lastCall.args[0] as CustomEvent<string>;
 
-      expect(el.value).to.equal('two');
+      expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(onChange).to.have.been.calledOnce;
       expect(changeEvent.target).to.equal(el);
       expect(changeEvent.detail).to.equal('two');
     });
 
     it('should keep the selected value and not animate when switching back to the options', async () => {
-      el.value = 'three';
+      options()[2].selected = true;
       await settle();
 
       container.style.inlineSize = '1000px';

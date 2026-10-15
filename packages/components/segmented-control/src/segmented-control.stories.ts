@@ -33,12 +33,12 @@ interface Item {
   value: string;
 }
 
-type Props = Pick<
-  SegmentedControl,
-  'emphasis' | 'fill' | 'iconOnly' | 'shape' | 'size' | 'value'
-> & {
+type Props = Pick<SegmentedControl, 'emphasis' | 'fill' | 'iconOnly' | 'shape' | 'size'> & {
   ariaLabel?: string;
+  description?: string;
   items: Item[];
+  /** The value of the item that should be selected. */
+  selected?: string;
 };
 type Story = StoryObj<Props>;
 
@@ -90,10 +90,13 @@ const fillWidthItems: Item[] = [
   { icon: 'calendar-days', label: 'Schedule', value: 'schedule' }
 ];
 
-const renderItems = (items: Item[]): TemplateResult[] =>
+const renderItems = (items: Item[], selected?: string): TemplateResult[] =>
   items.map(
     ({ disabled, icon, label, value }) => html`
-      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
+      <sl-segmented-control-item
+        ?disabled=${disabled}
+        ?selected=${value === selected}
+        value=${value}>
         ${
           icon
             ? html`
@@ -120,47 +123,116 @@ export default {
     size: 'md'
   },
   argTypes: {
+    description: { table: { disable: true } },
     emphasis: { control: 'inline-radio', options: ['subtle', 'bold'] },
     fill: { control: 'inline-radio', options: ['solid', 'outline'] },
     items: { table: { disable: true } },
+    selected: { table: { disable: true } },
     shape: { control: 'inline-radio', options: ['rect', 'pill'] },
     size: { control: 'inline-radio', options: ['md', 'lg'] }
   },
-  render: ({ ariaLabel, emphasis, fill, iconOnly, items, shape, size, value }) => html`
+  render: ({
+    ariaLabel,
+    description,
+    emphasis,
+    fill,
+    iconOnly,
+    items,
+    selected,
+    shape,
+    size
+  }) => html`
+    ${description ? html`<p>${description}</p>` : nothing}
     <sl-segmented-control
       ?icon-only=${iconOnly}
-      .value=${value}
       aria-label=${ariaLabel}
       emphasis=${emphasis}
       fill=${fill}
       shape=${shape}
       size=${size}>
-      ${renderItems(items)}
+      ${renderItems(items, selected)}
     </sl-segmented-control>
   `
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    description:
+      'Use a segmented control to switch between a few related options, for example different views of the same content. The options always have the same width.'
+  }
+};
 
-export const Bold: Story = { args: { emphasis: 'bold' } };
+export const Bold: Story = {
+  args: {
+    description:
+      'With bold emphasis, the selected option has a strong background and no line under it. Use it when the selected option needs to stand out more.',
+    emphasis: 'bold'
+  }
+};
 
-export const Outline: Story = { args: { fill: 'outline' } };
+export const Outline: Story = {
+  args: {
+    description: 'The outline version has a border instead of a grey background.',
+    fill: 'outline'
+  }
+};
 
-export const Pill: Story = { args: { shape: 'pill' } };
+export const Pill: Story = {
+  args: {
+    description: 'The pill shape has fully round corners.',
+    shape: 'pill'
+  }
+};
 
-export const Large: Story = { args: { size: 'lg' } };
+export const Large: Story = {
+  args: {
+    description: 'The large size has more space around the options.',
+    size: 'lg'
+  }
+};
 
-export const IconAndText: Story = { args: { items: iconItems } };
+export const IconAndText: Story = {
+  args: {
+    description:
+      'Options can have an icon before the label. The selected option shows a solid version of its icon.',
+    items: iconItems,
+    selected: 'grid'
+  }
+};
 
-export const IconOnly: Story = { args: { iconOnly: true, items: iconItems } };
+export const IconOnly: Story = {
+  args: {
+    description:
+      'Only the icons are shown. Screen readers still read the label of each option. Use icons that are easy to understand.',
+    iconOnly: true,
+    items: iconItems
+  }
+};
 
-export const Disabled: Story = { args: { items: disabledItems } };
+export const Disabled: Story = {
+  args: {
+    description:
+      'You can disable single options. A disabled option cannot be selected, and the arrow keys skip it.',
+    items: disabledItems
+  }
+};
 
 export const FillWidth: Story = {
   args: {
+    description:
+      'In this example, the whole control fills the available width. If there is not enough space, it switches to a full-width select. Resize the window to see it change.',
     items: fillWidthItems
   },
-  render: ({ ariaLabel, emphasis, fill, items, shape, size, value }): TemplateResult => html`
+  render: ({
+    ariaLabel,
+    description,
+    emphasis,
+    fill,
+    items,
+    selected,
+    shape,
+    size
+  }): TemplateResult => html`
     <style>
       sl-panel.fill-width-demo {
         inline-size: 100%;
@@ -177,37 +249,94 @@ export const FillWidth: Story = {
         gap: var(--sl-size-200);
         padding: var(--sl-size-400);
       }
-
-      .fill-width-demo__eyebrow {
-        color: var(--sl-color-foreground-neutral-weakest);
-        font: var(--sl-text-label-lg);
-      }
-
-      .fill-width-demo__label {
-        color: var(--sl-color-foreground-neutral-plain);
-        font: var(--sl-text-body-default-bold);
-      }
     </style>
 
+    <p>${description}</p>
     <sl-panel class="fill-width-demo">
-      <div class="fill-width-demo__eyebrow">Course navigation</div>
-      <div class="fill-width-demo__label">Select a course section</div>
+      <div>Course navigation</div>
+      <div>Select a course section</div>
       <sl-segmented-control
-        .value=${value}
         aria-label=${ariaLabel}
         emphasis=${emphasis}
         fill=${fill}
         shape=${shape}
         size=${size}
         style="width: 100%">
-        ${renderItems(items)}
+        ${renderItems(items, selected)}
       </sl-segmented-control>
     </sl-panel>
   `
 };
 
+export const InvalidIcons: Story = {
+  args: {
+    description:
+      'These examples use icons in the wrong way on purpose. In each example, all options are set up incorrectly. In development, they should show warnings in the browser console.'
+  },
+  render: ({ description }): TemplateResult => html`
+    <style>
+      .invalid-icons-demo {
+        display: grid;
+        gap: var(--sl-size-300);
+      }
+
+      .invalid-icons-demo__example {
+        display: grid;
+        gap: var(--sl-size-100);
+        justify-items: start;
+      }
+    </style>
+
+    <p>${description}</p>
+
+    <div class="invalid-icons-demo">
+      <div class="invalid-icons-demo__example">
+        <div class="invalid-icons-demo__label">Icon only without an icon</div>
+        <sl-segmented-control aria-label="View" icon-only>
+          <sl-segmented-control-item value="list">List</sl-segmented-control-item>
+          <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
+        </sl-segmented-control>
+      </div>
+
+      <div class="invalid-icons-demo__example">
+        <div class="invalid-icons-demo__label">Selected icon without a default icon</div>
+        <sl-segmented-control aria-label="View">
+          <sl-segmented-control-item selected value="schedule">
+            <sl-icon name="fas-calendar-days" slot="selected-icon"></sl-icon>
+            Schedule
+          </sl-segmented-control-item>
+          <sl-segmented-control-item value="progress">
+            <sl-icon name="fas-chart-line" slot="selected-icon"></sl-icon>
+            Progress
+          </sl-segmented-control-item>
+        </sl-segmented-control>
+      </div>
+
+      <div class="invalid-icons-demo__example">
+        <div class="invalid-icons-demo__label">The same icon in both slots</div>
+        <sl-segmented-control aria-label="View">
+          <sl-segmented-control-item selected value="resources">
+            <sl-icon name="far-graduation-cap" slot="icon"></sl-icon>
+            <sl-icon name="far-graduation-cap" slot="selected-icon"></sl-icon>
+            Resources
+          </sl-segmented-control-item>
+          <sl-segmented-control-item value="lessons">
+            <sl-icon name="far-book-open" slot="icon"></sl-icon>
+            <sl-icon name="far-book-open" slot="selected-icon"></sl-icon>
+            Lessons
+          </sl-segmented-control-item>
+        </sl-segmented-control>
+      </div>
+    </div>
+  `
+};
+
 export const All: Story = {
-  render: (): TemplateResult => {
+  args: {
+    description:
+      'All fills, emphases, shapes and sizes, with text only, icon and text, and icon only.'
+  },
+  render: ({ description }): TemplateResult => {
     const content = [
         { iconOnly: false, items, label: 'text only' },
         { iconOnly: false, items: iconItems, label: 'icon + text' },
@@ -237,6 +366,7 @@ export const All: Story = {
           padding-inline-end: 0;
         }
       </style>
+      <p>${description}</p>
       <table>
         <tr>
           <th>Options</th>

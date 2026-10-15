@@ -1,3 +1,4 @@
+import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import {
@@ -109,6 +110,77 @@ describe('sl-grid', () => {
   });
 
   describe('automatic column widths', () => {
+    it('should retry initial sizing when fonts finish while the grid is detached', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+
+      try {
+        el = await fixture(html`
+          <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+        // Let the initial virtualizer layout finish so sizing is awaiting fonts.
+        await (el.tbody as VirtualizerHostElement)[virtualizerRef]!.layoutComplete;
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        const parent = el.parentElement!;
+        el.remove();
+        resolveFonts(document.fonts);
+        // Allow the interrupted sizing pass to finish before reconnecting.
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        const measure = spy(el, 'recalculateColumnWidths');
+        try {
+          parent.append(el);
+          await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+          expect(measure).to.have.been.called;
+          expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+        } finally {
+          measure.restore();
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should ignore an interrupted layout from an earlier connection and retry sizing', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      let rejectLayout!: (reason: Error) => void,
+        layoutRequested = false;
+      const interruptedLayout = new Promise<void>((_, reject) => {
+          rejectLayout = reject;
+        }),
+        virtualizer = (el.tbody as VirtualizerHostElement)[virtualizerRef]!,
+        layoutComplete = stub(virtualizer, 'layoutComplete').get(() => {
+          layoutRequested = true;
+          return interruptedLayout;
+        });
+      try {
+        await expect.poll(() => layoutRequested).toBe(true);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+        const parent = el.parentElement!;
+        el.remove();
+        layoutComplete.restore();
+        parent.append(el);
+        // Rejection may arrive after reconnection; it belongs to the old attempt.
+        rejectLayout(new Error('Virtualizer disconnected'));
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+      } finally {
+        layoutComplete.restore();
+      }
+    });
+
     it('should reveal the initial table only after its automatic widths are ready', async () => {
       let resolveFonts!: (fonts: FontFaceSet) => void;
       const pendingFonts = new Promise<FontFaceSet>(resolve => {

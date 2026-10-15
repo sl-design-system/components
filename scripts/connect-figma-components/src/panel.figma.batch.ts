@@ -3,7 +3,8 @@ import {
   type InstanceHandle,
   type TextHandle,
   checkBooleanProperty,
-  checkEnum
+  checkEnum,
+  checkStringProperty
 } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
@@ -28,7 +29,9 @@ function getExample() {
     ? checkEnum(instance.getEnum('toggle position', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
-  const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;
+  const collapsed = collapsible
+    ? checkStringProperty(instance.getString('state'), 'state') === 'Collapsed'
+    : false;
 
   let elevation;
   if (elevationRaw === 'Raised' && shadow) {

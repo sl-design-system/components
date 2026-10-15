@@ -7,7 +7,7 @@ const allowedNameMappings = [
   'header-position -> vertical',
   'text -> aria-label',
   'icon-name -> name',
-  ''
+  'state -> disabled'
 ];
 
 function normalizeName(name) {

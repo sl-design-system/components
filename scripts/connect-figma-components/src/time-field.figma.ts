@@ -13,8 +13,8 @@ function getExample() {
 
   const disabled = checkStringProperty(timePicker.getString('state'), 'state') === 'disabled',
     hasLabel = checkBooleanProperty(timePicker.getBoolean('display-label'), 'display-label'),
-    placeholder = timePicker.getString('placeholder'),
-    value = timePicker.getString('value');
+    placeholder = checkStringProperty(timePicker.getString('placeholder'), 'placeholder'),
+    value = checkStringProperty(timePicker.getString('value'), 'value');
 
   let label = undefined,
     required = false;

@@ -11,8 +11,8 @@ const instance = figma.selectedInstance;
 function getExample() {
   const disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled',
     hasLabel = checkBooleanProperty(instance.getBoolean('display-label'), 'display-label'),
-    placeholder = instance.getString('placeholder'),
-    value = instance.getString('value');
+    placeholder = checkStringProperty(instance.getString('placeholder'), 'placeholder'),
+    value = checkStringProperty(instance.getString('value'), 'value');
 
   let label = undefined,
     required = false;

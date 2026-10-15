@@ -7,9 +7,9 @@ import { type InstanceHandle, checkStringProperty } from './_shared/figma-assert
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const color = instance.getString('color') ?? 'grey',
-    emphasis = instance.getString('emphasis') ?? 'subtle',
-    size = instance.getString('size') ?? 'md',
+  const color = checkStringProperty(instance.getString('color'), 'color') ?? 'grey',
+    emphasis = checkStringProperty(instance.getString('emphasis'), 'emphasis') ?? 'subtle',
+    size = checkStringProperty(instance.getString('size'), 'size') ?? 'md',
     slot = instance.getString('slot');
 
   const badgeBase = instance.findInstance(`badge-base-${size}`) as InstanceHandle;

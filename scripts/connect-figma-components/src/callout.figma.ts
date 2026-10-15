@@ -1,6 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10995-110181
 import figma from 'figma';
-import { checkEnum } from './_shared/figma-assertions.js';
+import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -12,9 +12,9 @@ function getExample() {
     }) ?? 'default'
   );
 
-  const description = instance.getString('Description'),
-    title = instance.getString('Title'),
-    variant = instance.getString('variant') ?? 'info';
+  const description = checkStringProperty(instance.getString('Description'), 'Description'),
+    title = checkStringProperty(instance.getString('Title'), 'Title'),
+    variant = checkStringProperty(instance.getString('variant'), 'variant') ?? 'info';
 
   const swapSlot = instance.getInstanceSwap('Swap Slot');
 

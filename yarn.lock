@@ -3484,9 +3484,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/code-connect@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@figma/code-connect@npm:2.0.1"
+"@figma/code-connect@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@figma/code-connect@npm:2.0.2"
   dependencies:
     boxen: "npm:5.1.1"
     chalk: "npm:^4.1.2"
@@ -3509,11 +3509,11 @@ __metadata:
     ts-morph: "npm:^27.0.0"
     typescript: "npm:6.0.3"
     undici: "npm:^7.19.1"
-    zod: "npm:3.25.58"
+    zod: "npm:3.25.76"
     zod-validation-error: "npm:^3.2.0"
   bin:
     figma: bin/figma
-  checksum: 10c0/00488f69f3eae708ef4e9f54a57bf8bbddfcdd9c14cc3c988b15069eb0bb8365234f374b36d0142728e319fad430c44fefb1fd685ad49e6b947004d41352011e
+  checksum: 10c0/95fec065a3af17faf4675b2f13e2e587cd102173c9ee5b13497bffbbeb7fd3a81542148f35147a9d409dacf0125becd383bc8797fa96ff6939c9309811570fce
   languageName: node
   linkType: hard
 
@@ -7499,7 +7499,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/connect-figma-components@workspace:scripts/connect-figma-components"
   dependencies:
-    "@figma/code-connect": "npm:^2.0.1"
+    "@figma/code-connect": "npm:^2.0.2"
     typescript: "npm:^6.0.3"
   languageName: unknown
   linkType: soft
@@ -28196,10 +28196,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.25.58":
-  version: 3.25.58
-  resolution: "zod@npm:3.25.58"
-  checksum: 10c0/3525e9104adcb84b48ff2c166a44175e2f4fd502bcab045bde7cb898097a3ff0cc8b03469d949f1c14455266fd9bedeea0b411ec624b42827db48ad942ffb3b1
+"zod@npm:3.25.76":
+  version: 3.25.76
+  resolution: "zod@npm:3.25.76"
+  checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
   languageName: node
   linkType: hard
 

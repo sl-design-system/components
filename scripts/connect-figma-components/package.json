@@ -12,7 +12,7 @@
     "connect:lint-names": "node lint-mapping-names.mjs"
   },
   "devDependencies": {
-    "@figma/code-connect": "^2.0.1",
+    "@figma/code-connect": "^2.0.2",
     "typescript": "^6.0.3"
   }
 }

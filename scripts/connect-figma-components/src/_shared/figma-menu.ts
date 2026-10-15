@@ -1,5 +1,5 @@
 import { type InstanceHandle } from 'figma';
-import { checkBooleanProperty } from './figma-assertions.js';
+import { checkBooleanProperty, checkStringProperty } from './figma-assertions.js';
 
 export type FigmaMenuItem = {
   label: string;
@@ -24,9 +24,11 @@ export function getMenuItems(menuPanel: InstanceHandle): FigmaMenuItem[] {
       const menuBase = item.findInstance('menu-base', { traverseInstances: true });
       if (menuBase.type === 'ERROR') return [];
 
-      const label = menuBase.getString('label'),
-        selected = item.getString('selected') === 'true';
+      const label = menuBase.findText('label');
+      if (label.type === 'ERROR') return [];
 
-      return typeof label === 'string' ? [{ label, selected }] : [];
+      const selected = checkStringProperty(item.getString('selectable'), 'selectable') === 'true';
+
+      return [{ label: label.textContent, selected }];
     });
 }

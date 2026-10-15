@@ -13,7 +13,7 @@ function getExample() {
 
   const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-  const hint = labelBase.getString('Hint'),
+  const hint = checkStringProperty(labelBase.getString('hint'), 'hint'),
     label = checkStringProperty(labelBase.getString('label'), 'label'),
     required = checkBooleanProperty(labelBase.getBoolean('required'), 'required'),
     displayHint = checkBooleanProperty(labelBase.getBoolean('display-hint'), 'display-hint');

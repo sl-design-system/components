@@ -1,11 +1,32 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2654-121519
-// import figma from 'figma';
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2640-93851
+// source=packages/components/paginator/src/page-size.ts
+// component=PaginatorPageSize
+import figma from 'figma';
+import { type InstanceHandle, checkStringProperty } from './_shared/figma-assertions.js';
 
-// const instance = figma.selectedInstance;
+const instance = figma.selectedInstance;
 
-// function getExample() {}
+function getExample() {
+  const itemLabel = checkStringProperty(instance.getString('Items Label'), 'Items Label'),
+    select = instance.findInstance('Pages Dropdown [sl-select]') as InstanceHandle,
+    selectedValue = Number(checkStringProperty(select.getString('value'), 'value')),
+    pageSize = Number.isInteger(selectedValue) && selectedValue > 0 ? selectedValue : 10,
+    pageSizes = [...new Set([10, 20, 50, pageSize])].sort((first, second) => first - second),
+    labelLiteral = JSON.stringify(itemLabel);
 
-// export default {
-//   example: getExample(),
-//   id: 'paginator'
-// };
+  return figma.code`
+    <sl-paginator-page-size
+      id="page-size"
+      page-size="${pageSize}"
+      page-sizes="${JSON.stringify(pageSizes)}"
+    ></sl-paginator-page-size>
+    <script>
+      document.getElementById('page-size').itemLabel = ${labelLiteral};
+    </script>
+  `;
+}
+
+export default {
+  example: getExample(),
+  id: 'paginator-page-size'
+};

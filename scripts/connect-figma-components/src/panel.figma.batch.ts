@@ -1,3 +1,5 @@
+// source=packages/components/panel/src/panel.ts
+// component=Panel
 import figma from 'figma';
 import {
   type InstanceHandle,

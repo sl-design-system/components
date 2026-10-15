@@ -1,3 +1,5 @@
+// source=packages/components/link/src/link.ts
+// component=Link
 import figma from 'figma';
 import {
   type InstanceHandle,

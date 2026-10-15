@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2654-121519
+// source=packages/components/paginator/src/paginator.ts
+// component=Paginator
 import figma from 'figma';
 import { checkBooleanProperty, checkEnum } from './_shared/figma-assertions.js';
 

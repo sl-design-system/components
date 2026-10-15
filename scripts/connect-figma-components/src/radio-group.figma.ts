@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-67272
+// source=packages/components/radio-group/src/radio-group.ts
+// component=RadioGroup
 import figma from 'figma';
 import {
   type InstanceHandle,

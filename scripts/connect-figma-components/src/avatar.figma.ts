@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7401-934
+// source=packages/components/avatar/src/avatar.ts
+// component=Avatar
 import figma from 'figma';
 import {
   type InstanceHandle,

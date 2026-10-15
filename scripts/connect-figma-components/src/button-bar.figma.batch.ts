@@ -1,3 +1,5 @@
+// source=packages/components/button-bar/src/button-bar.ts
+// component=ButtonBar
 import figma from 'figma';
 import { checkEnum } from './_shared/figma-assertions.js';
 

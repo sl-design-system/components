@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10106-702411
+// source=packages/components/date-field/src/date-field.ts
+// component=DateField
 import figma from 'figma';
 import {
   type InstanceHandle,

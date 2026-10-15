@@ -1,3 +1,5 @@
+// source=packages/components/button/src/button.ts
+// component=Button
 import figma from 'figma';
 import {
   type InstanceHandle,

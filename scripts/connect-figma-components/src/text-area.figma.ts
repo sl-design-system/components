@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1631-139565
+// source=packages/components/text-area/src/text-area.ts
+// component=TextArea
 import figma from 'figma';
 import {
   type InstanceHandle,

@@ -1,3 +1,5 @@
+// source=packages/components/tabs/src/tab.ts
+// component=Tab
 import figma from 'figma';
 import {
   type InstanceHandle,

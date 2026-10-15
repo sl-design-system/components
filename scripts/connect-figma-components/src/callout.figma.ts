@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10995-110181
+// source=packages/components/callout/src/callout.ts
+// component=Callout
 import figma from 'figma';
 import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
 

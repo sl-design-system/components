@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9135-381361
+// source=packages/components/time-field/src/time-field.ts
+// component=TimeField
 import figma from 'figma';
 import {
   type InstanceHandle,

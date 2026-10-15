@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1627-81163
+// source=packages/components/text-field/src/text-field.ts
+// component=TextField
 import figma from 'figma';
 import {
   type InstanceHandle,

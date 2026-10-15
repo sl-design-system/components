@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2924-285265
+// source=packages/components/dialog/src/dialog.ts
+// component=Dialog
 import figma from 'figma';
 import { type TextHandle, checkBooleanProperty } from './_shared/figma-assertions.js';
 

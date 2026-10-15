@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7689-21467
+// source=packages/components/accordion/src/accordion.ts
+// component=Accordion
 import figma from 'figma';
 import { checkEnum } from './_shared/figma-assertions.js';
 

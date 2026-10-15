@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7476-189273
+// source=packages/components/breadcrumbs/src/breadcrumbs.ts
+// component=Breadcrumbs
 import figma from 'figma';
 import { type InstanceHandle, checkBooleanProperty } from './_shared/figma-assertions.js';
 

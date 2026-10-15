@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3671-300714
+// source=packages/components/spinner/src/spinner.ts
+// component=Spinner
 import figma from 'figma';
 import { checkStringProperty } from './_shared/figma-assertions.js';
 

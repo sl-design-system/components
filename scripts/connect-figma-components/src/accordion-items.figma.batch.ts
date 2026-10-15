@@ -1,3 +1,5 @@
+// source=packages/components/accordion/src/accordion-item.ts
+// component=AccordionItem
 import figma from 'figma';
 import {
   type InstanceHandle,

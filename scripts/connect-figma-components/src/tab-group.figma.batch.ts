@@ -1,3 +1,5 @@
+// source=packages/components/tabs/src/tab-group.ts
+// component=TabGroup
 import figma from 'figma';
 import { checkEnum } from './_shared/figma-assertions.js';
 

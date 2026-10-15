@@ -1,3 +1,5 @@
+// source=packages/components/toggle-button/src/toggle-button.ts
+// component=ToggleButton
 import figma from 'figma';
 import {
   type InstanceHandle,

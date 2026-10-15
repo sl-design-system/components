@@ -1,3 +1,5 @@
+// source=packages/components/search-field/src/search-field.ts
+// component=SearchField
 import figma from 'figma';
 import {
   type InstanceHandle,

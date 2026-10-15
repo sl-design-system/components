@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1040-29501
+// source=packages/components/menu/src/menu.ts
+// component=Menu
 import figma from 'figma';
 import { checkBooleanProperty, checkEnum } from './_shared/figma-assertions.js';
 import { getMenuItems } from './_shared/figma-menu.js';

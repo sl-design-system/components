@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=20298-458431
+// source=packages/components/number-field/src/number-field.ts
+// component=NumberField
 import figma from 'figma';
 import {
   type InstanceHandle,

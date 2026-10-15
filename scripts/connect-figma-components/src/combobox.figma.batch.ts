@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6745-531516
+// source=packages/components/combobox/src/combobox.ts
+// component=Combobox
 import figma from 'figma';
 import {
   type InstanceHandle,

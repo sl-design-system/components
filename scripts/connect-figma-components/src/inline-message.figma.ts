@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2050-275668
+// source=packages/components/inline-message/src/inline-message.ts
+// component=InlineMessage
 import figma from 'figma';
 import {
   checkBooleanProperty,

@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17158-159747
+// source=packages/components/switch/src/switch.ts
+// component=Switch
 import figma from 'figma';
 import {
   checkBooleanProperty,

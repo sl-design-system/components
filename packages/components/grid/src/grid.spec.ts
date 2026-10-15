@@ -10,8 +10,9 @@ import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { type SinonSpy, spy } from 'sinon';
+import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
 import './register.js';
@@ -104,6 +105,57 @@ describe('sl-grid', () => {
       rows.forEach(row => {
         expect(row).not.to.have.attribute('aria-selected');
       });
+    });
+  });
+
+  describe('automatic column widths', () => {
+    it('should reveal the initial table only after its automatic widths are ready', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+
+      try {
+        el = await fixture(html`
+          <sl-grid
+            style="inline-size: 320px"
+            .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column grow="3" path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        resolveFonts(document.fonts);
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+        const widths = () =>
+            Array.from(el.thead.querySelectorAll('th')).map(
+              cell => cell.getBoundingClientRect().width
+            ),
+          initialWidths = widths();
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+        // Observe actual paints after reveal, including virtualizer range updates.
+        for (let frame = 0; frame < 10; frame++) {
+          await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+          expect(widths()).to.deep.equal(initialWidths);
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should reveal an empty grid without waiting for data to arrive', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await expect.poll(() => el.thead.querySelector('th')?.textContent?.trim()).toBe('First name');
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
     });
   });
 

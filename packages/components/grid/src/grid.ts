@@ -178,6 +178,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** Reveal auto-sized columns only after the initial virtualized range is measured. */
+  #initialColumnWidthsReady = false;
+
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
 
@@ -429,6 +432,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer = host[virtualizerRef];
     this.#virtualizer?.disconnected();
     this.#virtualizer?.connected();
+
+    try {
+      if (this.dataSource?.items.length) {
+        await this.#virtualizer?.layoutComplete;
+      }
+      await this.recalculateColumnWidths();
+      if (this.isConnected) {
+        this.#initialColumnWidthsReady = true;
+        this.requestUpdate();
+      }
+    } catch (error) {
+      // Disconnecting the virtualizer rejects its pending layout promise.
+      if (this.isConnected) throw error;
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -482,7 +499,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : nothing
       }
-      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
+      <table
+        part="table"
+        style=${
+          !this.#initialColumnWidthsReady &&
+          this.#headerRows.some(row => row.some(col => !col.hidden && col.autoWidth))
+            ? 'visibility: hidden'
+            : nothing
+        }
+        aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -709,7 +734,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
+    if (this.#headerRows.at(-1)?.some(col => !col.hidden && col.autoWidth)) {
+      await Promise.all(
+        Array.from(this.tbody.querySelectorAll('*'))
+          .filter((element): element is LitElement => element instanceof LitElement)
+          .map(element => element.updateComplete)
+      );
+      await document.fonts.ready;
+    }
+
     const rows = this.#headerRows;
+    if (!this.isConnected || !rows.length) return;
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)

@@ -67,6 +67,7 @@ describe('sl-grid', () => {
       const table = el.renderRoot.querySelector('table');
 
       expect(table).to.exist;
+      expect(table).to.have.attribute('role', 'table');
       expect(table).to.contain('thead');
       expect(table).to.contain('tbody');
     });
@@ -104,6 +105,177 @@ describe('sl-grid', () => {
       rows.forEach(row => {
         expect(row).not.to.have.attribute('aria-selected');
       });
+    });
+  });
+
+  describe('column groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            {
+              firstName: 'John',
+              lastName: 'Doe',
+              school: { name: 'Example School', city: 'Example City', country: 'Example Country' }
+            }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid-column-group>
+          <sl-grid-column-group header="School">
+            <sl-grid-column path="school.name"></sl-grid-column>
+            <sl-grid-column path="school.city"></sl-grid-column>
+            <sl-grid-column path="school.country"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should scope group headers and leaf headers correctly', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('role', 'cell');
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).to.have.attribute('role', 'cell');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+      headers.slice(2).forEach(header => {
+        expect(header).to.have.attribute('role', 'cell');
+      });
+
+      const firstNameHeaderId = headers[2].id,
+        lastNameHeaderId = headers[3].id,
+        schoolNameHeaderId = headers[4].id,
+        cityHeaderId = headers[5].id,
+        countryHeaderId = headers[6].id,
+        cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+
+      expect(headers[2]).to.have.attribute('aria-colindex', '1');
+      expect(headers[2]).not.to.have.attribute('headers');
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).not.to.have.attribute('aria-label');
+
+      expect(headers[3]).to.have.attribute('aria-colindex', '2');
+      expect(headers[3]).not.to.have.attribute('headers');
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).not.to.have.attribute('aria-label');
+
+      expect(headers[4]).to.have.attribute('aria-colindex', '3');
+      expect(headers[4]).not.to.have.attribute('headers');
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).not.to.have.attribute('aria-label');
+
+      expect(headers[5]).to.have.attribute('aria-colindex', '4');
+      expect(headers[5]).not.to.have.attribute('headers');
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).not.to.have.attribute('aria-label');
+
+      expect(headers[6]).to.have.attribute('aria-colindex', '5');
+      expect(headers[6]).not.to.have.attribute('headers');
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).not.to.have.attribute('aria-label');
+
+      expect(cells[0]).to.have.attribute('headers', `${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('headers', `${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('headers', `${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('headers', `${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('headers', `${countryHeaderId}`);
+
+      const nameGroupHeaderId = headers[0].id,
+        schoolGroupHeaderId = headers[1].id;
+
+      expect(cells[0]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${firstNameHeaderId}`
+      );
+      expect(cells[1]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${lastNameHeaderId}`
+      );
+      expect(cells[2]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${schoolNameHeaderId}`
+      );
+      expect(cells[3]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${cityHeaderId}`
+      );
+      expect(cells[4]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${countryHeaderId}`
+      );
+    });
+  });
+
+  describe('column group header changes', () => {
+    it('should update the group label of nested columns when the group header changes', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe' }]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      const column = grid.querySelector('sl-grid-column')!,
+        group = grid.querySelector('sl-grid-column-group')!;
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Name First name'
+      );
+
+      group.header = 'Person';
+
+      // No manual update of the grid: the group has to notify it
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Person First name'
+      );
+    });
+  });
+
+  describe('column group with filter columns', () => {
+    it('should keep the surviving filter registered after removing the first column', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
+            <sl-grid-filter-column path="lastName"></sl-grid-filter-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      grid.querySelector('sl-grid-filter-column')!.remove();
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await grid.updateComplete;
+
+      const column = grid.querySelector('sl-grid-filter-column')!,
+        filterElement = column.filterElement!;
+
+      expect(filterElement.isConnected).to.be.true;
+
+      filterElement.value = 'Doe';
+      filterElement.filterChangeEvent.emit({ column, value: 'Doe' });
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(grid.dataSource?.items).to.have.length(1);
     });
   });
 
@@ -1689,6 +1861,23 @@ describe('sl-grid', () => {
       );
     });
 
+    it('should count hidden columns in aria-colcount and column indices', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe', email: 'j@d.nl' }]}>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
+
+      expect(el.renderRoot.querySelector('table')).to.have.attribute('aria-colcount', '3');
+      expect(cells.map(cell => cell.getAttribute('aria-colindex'))).to.deep.equal(['1', '2', '3']);
+    });
+
     it('should use the sticky order from the last visible sticky start column', async () => {
       const dataSource = new ArrayListDataSource(
         [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
@@ -1834,6 +2023,7 @@ describe('sl-grid', () => {
       `);
 
       await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
       await el.updateComplete;
 
       const tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
@@ -1844,8 +2034,9 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(Math.ceil(tfoot!.getBoundingClientRect().top)).to.be.at.least(
-        Math.floor(row!.getBoundingClientRect().bottom)
+      // The scrollbar footer starts exactly where the last (group) row ends
+      expect(Math.round(tfoot!.getBoundingClientRect().top)).to.equal(
+        Math.round(row!.getBoundingClientRect().bottom)
       );
     });
   });

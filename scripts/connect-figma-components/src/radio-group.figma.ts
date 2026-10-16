@@ -1,18 +1,24 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-67272
+// source=packages/components/radio-group/src/radio-group.ts
+// component=RadioGroup
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled';
 
-  const labelBase = instance.findInstance('sl-base-label');
-  if (labelBase.type === 'ERROR') return null;
+  const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-  const hint = labelBase.getString('Hint'),
-    label = labelBase.getString('Label'),
-    required = labelBase.getBoolean('Required'),
-    showHint = labelBase.getBoolean('Show Hint');
+  const hint = checkStringProperty(labelBase.getString('hint'), 'hint'),
+    label = checkStringProperty(labelBase.getString('label'), 'label'),
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required'),
+    displayHint = checkBooleanProperty(labelBase.getBoolean('display-hint'), 'display-hint');
 
   const options = instance
     .findConnectedInstances(node => node.codeConnectId() === 'radio')
@@ -23,7 +29,7 @@ function getExample() {
 
   return figma.code`
     <sl-form-field
-      ${showHint && hint ? ` hint="${hint}"` : ''}
+      ${displayHint && hint ? ` hint="${hint}"` : ''}
       ${label ? ` label="${label}"` : ''}
     >
       <sl-radio-group

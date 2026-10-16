@@ -1,11 +1,15 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7689-21467
+// source=packages/components/accordion/src/accordion.ts
+// component=Accordion
 import figma from 'figma';
+import { checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const iconType =
-    instance.getEnum('Type', { Chevron: 'chevron', Plus: 'plusminus' }) ?? 'plusminus';
+  const iconType = checkEnum(
+    instance.getEnum('icon-type', { Chevron: 'chevron', Plus: 'plusminus' }) ?? 'plusminus'
+  );
 
   const items = instance
     .findConnectedInstances(node => node.codeConnectId() === 'accordion-item', {

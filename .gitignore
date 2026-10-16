@@ -32,6 +32,8 @@ scripts/studio-export
 *.tsbuildinfo
 .angular
 documentation.json
+figma-connect-summary-report.md
+figma-connect-full-report.md
 
 # Test files
 coverage

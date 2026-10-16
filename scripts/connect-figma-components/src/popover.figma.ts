@@ -1,4 +1,6 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2888-98096
+// source=packages/components/popover/src/popover.ts
+// component=Popover
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

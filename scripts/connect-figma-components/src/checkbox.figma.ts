@@ -1,27 +1,35 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=892-255678
+// source=packages/components/checkbox/src/checkbox.ts
+// component=Checkbox
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkEnum,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = instance.getBoolean('Checked'),
-    disabled = instance.getString('State') === 'Disabled',
-    indeterminate = instance.getBoolean('Intermediate'),
-    hasLabel = instance.getBoolean('Label');
+  const checked = checkBooleanProperty(instance.getBoolean('selected'), 'selected'),
+    disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled',
+    indeterminate = checkBooleanProperty(instance.getBoolean('intermediate'), 'intermediate'),
+    hasLabel = checkBooleanProperty(instance.getBoolean('label'), 'label');
 
-  const checkboxBase = instance.findInstance('checkbox-base');
-  if (checkboxBase.type === 'ERROR') return null;
+  const checkboxBase = instance.findInstance('checkbox-base') as InstanceHandle;
 
   // The default size is "md".
-  const size =
-    checkboxBase.getEnum('↕️ - Size', {
+  const size = checkEnum(
+    checkboxBase.getEnum('size', {
       SM: 'sm',
       LG: 'lg'
-    }) || 'md';
+    }) || 'md'
+  );
 
   let label;
   if (hasLabel) {
-    label = checkboxBase.getString('label text');
+    label = checkStringProperty(checkboxBase.getString('label'), 'label');
   }
 
   return figma.code`

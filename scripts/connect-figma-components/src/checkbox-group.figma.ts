@@ -1,18 +1,24 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-66298
+// source=packages/components/checkbox/src/checkbox-group.ts
+// component=CheckboxGroup
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled';
 
-  const labelBase = instance.findInstance('sl-base-label');
-  if (labelBase.type === 'ERROR') return null;
+  const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-  const hint = labelBase.getString('Hint'),
-    label = labelBase.getString('Label'),
-    required = labelBase.getBoolean('Required'),
-    showHint = labelBase.getBoolean('Show Hint');
+  const hint = checkStringProperty(labelBase.getString('hint'), 'hint'),
+    label = checkStringProperty(labelBase.getString('label'), 'label'),
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required'),
+    showHint = checkBooleanProperty(labelBase.getBoolean('display-hint'), 'display-hint');
 
   const checkboxes = instance
     .findConnectedInstances(node => node.codeConnectId() === 'checkbox')

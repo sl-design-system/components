@@ -1,27 +1,35 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9016-82058
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=20298-458431
+// source=packages/components/number-field/src/number-field.ts
+// component=NumberField
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty,
+  checkEnum
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('Variant') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'disabled';
 
-  const baseNumberField = instance.findInstance('base number field');
-  if (baseNumberField.type === 'ERROR') return null;
-
-  const hasLabel = baseNumberField.getBoolean('Label'),
-    placeholder = baseNumberField.getString('Placeholder'),
-    stepButtons = baseNumberField.getEnum('Steppers', { Edges: 'edges', End: 'end' }),
-    value = baseNumberField.getString('Input Text');
+  const hasLabel = checkBooleanProperty(instance.getBoolean('display-label'), 'display-label'),
+    placeholder = checkStringProperty(instance.getString('placeholder'), 'placeholder'),
+    stepButtons = checkEnum(
+      instance.getEnum('step-buttons', { edges: 'edges', end: 'end', none: '' }) ?? 'end'
+    ),
+    value = checkStringProperty(instance.getString('value'), 'value');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = baseNumberField.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-    label = labelBase.getString('Label');
-    required = labelBase.getBoolean('Required');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
+    required =
+      checkEnum(labelBase.getEnum('required', { true: 'true', false: 'false' }) ?? 'false') ===
+      'true';
   }
 
   return figma.code`

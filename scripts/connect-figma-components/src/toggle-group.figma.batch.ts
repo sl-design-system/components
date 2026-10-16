@@ -1,3 +1,5 @@
+// source=packages/components/toggle-group/src/toggle-group.ts
+// component=ToggleGroup
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

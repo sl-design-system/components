@@ -1,23 +1,31 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=935-17454
+// source=packages/components/radio-group/src/radio.ts
+// component=Radio
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkEnum,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = instance.getBoolean('Checked'),
-    disabled = instance.getString('State') === 'Disabled';
+  const checked = checkBooleanProperty(instance.getBoolean('selected'), 'selected'),
+    disabled = checkStringProperty(instance.getString('state'), 'state') === 'Disabled';
 
-  const radiobuttonBase = instance.findInstance('radiobutton-base');
-  if (radiobuttonBase.type === 'ERROR') return null;
+  const radiobuttonBase = instance.findInstance('radiobutton-base') as InstanceHandle;
 
-  const label = radiobuttonBase.getString('label text');
+  const label = checkStringProperty(radiobuttonBase.getString('label'), 'label');
 
   // The default size is "md".
-  const size =
-    radiobuttonBase.getEnum('↕️ - Size', {
+  const size = checkEnum(
+    radiobuttonBase.getEnum('size', {
       SM: 'sm',
       LG: 'lg'
-    }) || 'md';
+    }) || 'md'
+  );
 
   return figma.code`
     <sl-radio

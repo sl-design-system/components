@@ -1,25 +1,30 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9135-381361
+// source=packages/components/time-field/src/time-field.ts
+// component=TimeField
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const timePicker = instance.findInstance('time_picker');
-  if (timePicker.type === 'ERROR') return null;
+  const timePicker = instance.findInstance('time_picker') as InstanceHandle;
 
-  const disabled = timePicker.getString('Variant') === 'Disabled',
-    hasLabel = timePicker.getBoolean('Label'),
-    placeholder = timePicker.getString('Placeholder text'),
-    value = timePicker.getString('Text');
+  const disabled = checkStringProperty(timePicker.getString('state'), 'state') === 'disabled',
+    hasLabel = checkBooleanProperty(timePicker.getBoolean('display-label'), 'display-label'),
+    placeholder = checkStringProperty(timePicker.getString('placeholder'), 'placeholder'),
+    value = checkStringProperty(timePicker.getString('value'), 'value');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = timePicker.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    const labelBase = timePicker.findInstance('sl-base-label') as InstanceHandle;
 
-    label = labelBase.getString('Label');
-    required = labelBase.getBoolean('Required');
+    label = checkStringProperty(labelBase.getString('label'), 'label');
+    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
   }
 
   return figma.code`

@@ -1,13 +1,15 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1014-329272
+// source=packages/components/menu/src/menu-item.ts
+// component=MenuItem
 import figma from 'figma';
+import { type InstanceHandle, checkBooleanProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const selected = instance.getBoolean('Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('selectable'), 'selectable');
 
-  const menuBase = instance.findInstance('menu-base');
-  if (menuBase.type === 'ERROR') return null;
+  instance.findInstance('menu-base') as InstanceHandle;
 
   return figma.code`
     <sl-menu-item

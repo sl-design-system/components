@@ -1,34 +1,39 @@
+// source=packages/components/tabs/src/tab.ts
+// component=Tab
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  checkBooleanProperty,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const selected = instance.getString('State') === 'selected';
+  const selected = checkStringProperty(instance.getString('state'), 'state') === 'selected';
 
-  const tabBase = instance.findInstance('tab-base', { traverseInstances: true });
-  if (tabBase.type === 'ERROR') return null;
+  const tabBase = instance.findInstance('tab-base', { traverseInstances: true }) as InstanceHandle;
 
-  const title = tabBase.getString('𝑻 - Title');
+  const title = checkStringProperty(tabBase.getString('𝑻 - Title'), '𝑻 - Title');
 
-  const tabConfig = instance.findInstance('tab-config', { traverseInstances: true });
-  if (tabConfig.type === 'ERROR') return null;
+  const tabConfig = instance.findInstance('tab-config', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
-  const hasBadge = tabConfig.getBoolean('badge'),
-    hasIcon = tabConfig.getBoolean('icon'),
-    iconOnly = tabConfig.getBoolean('icon only');
+  const hasBadge = checkBooleanProperty(tabConfig.getBoolean('badge'), 'badge'),
+    hasIcon = checkBooleanProperty(tabConfig.getBoolean('icon'), 'icon'),
+    iconOnly = checkBooleanProperty(tabConfig.getBoolean('icon only'), 'icon only');
 
   let badge;
   if (hasBadge) {
-    badge = tabConfig.findInstance('sl-badge', { traverseInstances: true });
-    if (badge.type === 'ERROR') return null;
+    badge = tabConfig.findInstance('sl-badge', { traverseInstances: true }) as InstanceHandle;
 
     badge.properties.slot = { value: 'badge' };
   }
 
   let icon;
   if (hasIcon) {
-    icon = tabConfig.findInstance('Base/Icon', { traverseInstances: true });
-    if (icon.type === 'ERROR') return null;
+    icon = tabConfig.findInstance('Base/Icon', { traverseInstances: true }) as InstanceHandle;
 
     icon.properties.slot = { value: 'icon' };
   }

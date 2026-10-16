@@ -1,14 +1,16 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2924-285265
+// source=packages/components/dialog/src/dialog.ts
+// component=Dialog
 import figma from 'figma';
+import { type TextHandle, checkBooleanProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const content = instance.getSlot('Slot'),
-    closeButton = instance.getBoolean('Show Close');
+    closeButton = checkBooleanProperty(instance.getBoolean('close-button'), 'close-button');
 
-  const heading = instance.findText('Heading');
-  if (heading.type === 'ERROR') return null;
+  const heading = instance.findText('Heading') as TextHandle;
 
   const footer = instance
     .findConnectedInstances(() => true, { path: ['Dialog', 'Footer'] })

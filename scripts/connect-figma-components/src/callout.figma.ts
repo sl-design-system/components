@@ -1,18 +1,22 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10995-110181
+// source=packages/components/callout/src/callout.ts
+// component=Callout
 import figma from 'figma';
+import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const density =
+  const density = checkEnum(
     instance.getEnum('Density', {
       Default: 'default',
       Relaxed: 'relaxed'
-    }) ?? 'default';
+    }) ?? 'default'
+  );
 
-  const description = instance.getString('Description'),
-    title = instance.getString('Title'),
-    variant = instance.getString('variant') ?? 'info';
+  const description = checkStringProperty(instance.getString('Description'), 'Description'),
+    title = checkStringProperty(instance.getString('Title'), 'Title'),
+    variant = checkStringProperty(instance.getString('variant'), 'variant') ?? 'info';
 
   const swapSlot = instance.getInstanceSwap('Swap Slot');
 

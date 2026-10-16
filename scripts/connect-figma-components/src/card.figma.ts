@@ -1,22 +1,29 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6013-90927
+// source=packages/components/card/src/card.ts
+// component=Card
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  type TextHandle,
+  checkBooleanProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const cardContent = instance.findInstance('Card Content', { traverseInstances: true });
-  if (cardContent.type === 'ERROR') return null;
+  const cardContent = instance.findInstance('Card Content', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
-  const showMoreButton = cardContent.getBoolean('Show more button');
+  checkBooleanProperty(cardContent.getBoolean('Show more button'), 'Show more button');
 
-  const cardHeader = cardContent.findInstance('card-header', { traverseInstances: true });
-  if (cardHeader.type === 'ERROR') return null;
+  const cardHeader = cardContent.findInstance('card-header', {
+    traverseInstances: true
+  }) as InstanceHandle;
 
-  const cardTitle = cardHeader.findInstance('card-title');
-  if (cardTitle.type === 'ERROR') return null;
+  const cardTitle = cardHeader.findInstance('card-title') as InstanceHandle;
 
-  const title = cardTitle.findText('Title');
-  if (title.type === 'ERROR') return null;
+  const title = cardTitle.findText('Title') as TextHandle;
 
   const cardSlotHeader = cardHeader.findInstance('card-slot-header');
 

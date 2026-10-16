@@ -107,6 +107,75 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('variable row heights', () => {
+    it.each([1, 2])('should fit %i long rows after filtering', async count => {
+      const dataSource = new ArrayListDataSource<Person>([
+        ...Array.from({ length: 20 }, (_, index) => ({
+          firstName: `Short ${index}`,
+          lastName: 'Doe'
+        })),
+        ...Array.from({ length: count }, (_, index) => ({
+          firstName: 'This is a really long description of a profession '.repeat(8 - index * 3),
+          lastName: 'Long'
+        }))
+      ]);
+
+      el = await fixture(html`
+        <sl-grid style="width: 300px" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200" grow="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="100" grow="0"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const expectRowsToFit = async (length: number) => {
+        await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(length);
+        await expect
+          .poll(() => {
+            const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+                row.getBoundingClientRect()
+              ),
+              body = el.tbody.getBoundingClientRect();
+
+            // The body must fit the rows without clipping or stale estimated whitespace.
+            return Math.abs(body.height - rows.reduce((height, row) => height + row.height, 0));
+          })
+          .toBeLessThanOrEqual(2);
+        await expect
+          .poll(() => {
+            const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+              row.getBoundingClientRect()
+            );
+
+            // Consecutive rows must touch, even when they have different heights.
+            return rows.slice(1).every((row, index) => Math.abs(row.top - rows[index].bottom) <= 1);
+          })
+          .toBe(true);
+      };
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+      await expectRowsToFit(count);
+
+      dataSource.removeFilter('height');
+      dataSource.update();
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBeGreaterThan(count);
+
+      dataSource.addFilter('height', 'firstName', 'Short 0');
+      dataSource.update();
+      await expectRowsToFit(1);
+
+      dataSource.addFilter('height', 'lastName', 'Missing');
+      dataSource.update();
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(0);
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+      await expectRowsToFit(count);
+    });
+  });
+
   describe('multiple select', () => {
     beforeEach(async () => {
       await mountMultipleSelectGrid();

@@ -43,6 +43,7 @@ import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
+import { GridFlowLayout } from './flow-layout.js';
 import styles from './grid.css' with { type: 'css' };
 import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
@@ -494,7 +495,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </thead>
         <tbody id="tbody" part="tbody">
           ${virtualize({
-            items: this.dataSource?.items ?? [],
+            layout: { type: GridFlowLayout },
+            items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>

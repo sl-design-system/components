@@ -178,6 +178,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** Reveal auto-sized columns only after the initial virtualized range is measured. */
+  #initialColumnWidthsReady = false;
+
+  /** Invalidate pending initialization when the grid is disconnected. */
+  #initialColumnWidthsGeneration = 0;
+
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
 
@@ -386,9 +392,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#resizeObserver.observe(this);
+
+    if (this.hasUpdated && !this.#initialColumnWidthsReady) {
+      void this.#initializeColumnWidths();
+    }
   }
 
   override disconnectedCallback(): void {
+    this.#initialColumnWidthsGeneration++;
     this.#dataSource?.removeEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
 
@@ -422,13 +433,36 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });
     this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
 
+    await this.#initializeColumnWidths();
+  }
+
+  async #initializeColumnWidths(): Promise<void> {
+    const generation = this.#initialColumnWidthsGeneration,
+      isCurrent = () => this.isConnected && generation === this.#initialColumnWidthsGeneration;
+
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
+    if (!isCurrent()) return;
 
     const host = this.tbody as VirtualizerHostElement;
     this.#virtualizer = host[virtualizerRef];
     this.#virtualizer?.disconnected();
     this.#virtualizer?.connected();
+
+    try {
+      if (this.dataSource?.items.length) {
+        await this.#virtualizer?.layoutComplete;
+      }
+      if (!isCurrent()) return;
+      await this.recalculateColumnWidths();
+      if (isCurrent()) {
+        this.#initialColumnWidthsReady = true;
+        this.requestUpdate();
+      }
+    } catch (error) {
+      // Disconnecting the virtualizer rejects its pending layout promise.
+      if (isCurrent()) throw error;
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -482,7 +516,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : nothing
       }
-      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
+      <table
+        part="table"
+        style=${
+          !this.#initialColumnWidthsReady &&
+          this.#headerRows.some(row => row.some(col => !col.hidden && col.autoWidth))
+            ? 'visibility: hidden'
+            : nothing
+        }
+        aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -709,7 +751,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
+    if (this.#headerRows.at(-1)?.some(col => !col.hidden && col.autoWidth)) {
+      await Promise.all(
+        Array.from(this.tbody.querySelectorAll('*'))
+          .filter((element): element is LitElement => element instanceof LitElement)
+          .map(element => element.updateComplete)
+      );
+      await document.fonts.ready;
+    }
+
     const rows = this.#headerRows;
+    if (!this.isConnected || !rows.length) return;
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)

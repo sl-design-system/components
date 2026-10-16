@@ -21,24 +21,9 @@
   visibility: hidden;
 }
 
-/* Makes the host ask for the width of the options, while still allowing it to shrink. */
-.sizer {
-  block-size: 0;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  visibility: hidden;
-
-  span {
-    flex: none;
-    inline-size: var(--_segment-size, 0);
-  }
-}
-
 /* Never affects the width of the host, and keeps the height of the options when showing the select. */
 .content {
   align-content: center;
-  contain: inline-size;
   display: grid;
   justify-items: start;
   min-block-size: var(--_content-block-size, auto);
@@ -49,7 +34,7 @@
 }
 
 .list {
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-subtle);
   border-radius: var(--sl-size-borderRadius-lg);
   display: grid;
   gap: var(--sl-size-075);

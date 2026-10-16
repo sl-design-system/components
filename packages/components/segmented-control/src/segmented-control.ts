@@ -216,7 +216,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       overflowing = this.#overflow.overflowing;
 
     return html`
-      <div aria-hidden="true" class="sizer">${this.items.map(() => html`<span></span>`)}</div>
       <div class="content">
         <div class="track">
           <div

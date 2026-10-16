@@ -121,10 +121,6 @@ describe('sl-segmented-control', () => {
     it('should have a single tab stop', () => {
       expect(options().filter(option => option.tabIndex === 0)).to.have.length(1);
     });
-
-    it('should hide the sizer from assistive technology', () => {
-      expect(el.renderRoot.querySelector('.sizer')).to.have.attribute('aria-hidden', 'true');
-    });
   });
 
   describe('accessible name', () => {

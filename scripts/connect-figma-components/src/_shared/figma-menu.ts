@@ -27,7 +27,7 @@ export function getMenuItems(menuPanel: InstanceHandle): FigmaMenuItem[] {
       const label = menuBase.findText('label');
       if (label.type === 'ERROR') return [];
 
-      const selected = checkStringProperty(item.getString('selectable'), 'selectable') === 'true';
+      const selected = checkStringProperty(item.getString('selected'), 'selected') === 'true';
 
       return [{ label: label.textContent, selected }];
     });

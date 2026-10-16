@@ -14,7 +14,7 @@ function getExample() {
 
   const tabBase = instance.findInstance('tab-base', { traverseInstances: true }) as InstanceHandle;
 
-  const title = checkStringProperty(tabBase.getString('𝑻 - Title'), '𝑻 - Title');
+  const title = checkStringProperty(tabBase.getString('title'), 'itle');
 
   const tabConfig = instance.findInstance('tab-config', {
     traverseInstances: true

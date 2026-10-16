@@ -1,0 +1,115 @@
+[
+  {
+    "templateFile": "./color-mask.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7355-28689",
+        "id": "color-mask",
+        "color": "primary",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7355-28706",
+        "id": "color-mask",
+        "color": "neutral",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7355-28709",
+        "id": "color-mask",
+        "color": "teal",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4932",
+        "id": "color-mask",
+        "color": "blue",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4935",
+        "id": "color-mask",
+        "color": "purple",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4938",
+        "id": "color-mask",
+        "color": "red",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4941",
+        "id": "color-mask",
+        "color": "orange",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4944",
+        "id": "color-mask",
+        "color": "yellow",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4947",
+        "id": "color-mask",
+        "color": "green",
+        "emphasis": "bold"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7359-29375",
+        "id": "color-mask",
+        "color": "primary",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7359-29378",
+        "id": "color-mask",
+        "color": "neutral",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7359-29381",
+        "id": "color-mask",
+        "color": "teal",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4950",
+        "id": "color-mask",
+        "color": "blue",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4953",
+        "id": "color-mask",
+        "color": "purple",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4956",
+        "id": "color-mask",
+        "color": "red",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4959",
+        "id": "color-mask",
+        "color": "orange",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4962",
+        "id": "color-mask",
+        "color": "yellow",
+        "emphasis": "subtle"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7377-4965",
+        "id": "color-mask",
+        "color": "green",
+        "emphasis": "subtle"
+      }
+    ]
+  }
+]

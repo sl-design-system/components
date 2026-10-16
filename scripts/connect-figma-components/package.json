@@ -5,7 +5,7 @@
   "description": "Figma Code Connect mappings for SL Design System web components",
   "type": "module",
   "scripts": {
-    "connect:publish": "figma connect publish",
+    "connect:publish": "node publish-batches.mjs",
     "connect:unpublish": "figma connect unpublish",
     "connect:test": "node ../build-metadata.js && node preview-errors.mjs",
     "connect:test:report": "node preview-errors.mjs --report-summary figma-connect-summary-report.md --report figma-connect-full-report.md",

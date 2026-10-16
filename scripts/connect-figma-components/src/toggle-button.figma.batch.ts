@@ -11,10 +11,10 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'disabled';
 
   const fill = checkEnum(
-    instance.getEnum('Type', {
+    instance.getEnum('fill', {
       Outline: 'outline',
       Solid: 'solid'
     }) || 'solid'
@@ -25,9 +25,9 @@ function getExample() {
   const name = checkStringProperty(icon.getString('icon-name'), 'icon-name'),
     variant = checkEnum(icon.getEnum('variant', { Outline: 'far', Solid: 'fas' }) || 'far');
 
-  const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('selected'), 'selected');
 
-  const size = checkEnum(instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md');
+  const size = checkEnum(instance.getEnum('size', { SM: 'sm', LG: 'lg' }) || 'md');
 
   return figma.code`
     <sl-toggle-button

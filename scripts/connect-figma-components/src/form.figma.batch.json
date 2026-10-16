@@ -1,0 +1,128 @@
+[
+  {
+    "templateFile": "./combobox.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6745-531516",
+        "id": "combobox"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19711-75651",
+        "id": "combobox",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./search-field.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1631-82151",
+        "id": "search-field"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10099-668293",
+        "id": "search-field"
+      }
+    ]
+  },
+  {
+    "templateFile": "./checkbox-group.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-66298",
+        "id": "checkbox-group"
+      }
+    ]
+  },
+  {
+    "templateFile": "./checkbox.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=892-255678",
+        "id": "checkbox"
+      }
+    ]
+  },
+  {
+    "templateFile": "./date-field.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10106-702411",
+        "id": "date-field"
+      }
+    ]
+  },
+  {
+    "templateFile": "./number-field.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=20298-458431",
+        "id": "number-field"
+      }
+    ]
+  },
+  {
+    "templateFile": "./radio-group.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-67272",
+        "id": "radio-group"
+      }
+    ]
+  },
+  {
+    "templateFile": "./radio.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=935-17454",
+        "id": "radio"
+      }
+    ]
+  },
+  {
+    "templateFile": "./select.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1514-156507",
+        "id": "select"
+      }
+    ]
+  },
+  {
+    "templateFile": "./switch.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17158-159747",
+        "id": "switch"
+      }
+    ]
+  },
+  {
+    "templateFile": "./text-area.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1631-139565",
+        "id": "text-area"
+      }
+    ]
+  },
+  {
+    "templateFile": "./text-field.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1627-81163",
+        "id": "text-field"
+      }
+    ]
+  },
+  {
+    "templateFile": "./time-field.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9135-381361",
+        "id": "time-field"
+      }
+    ]
+  }
+]

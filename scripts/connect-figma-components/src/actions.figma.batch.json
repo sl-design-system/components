@@ -1,0 +1,77 @@
+[
+  {
+    "templateFile": "./button-bar.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=8244-315333",
+        "id": "button-bar"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=8281-56557",
+        "id": "button-bar",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./button.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-54273",
+        "id": "button",
+        "shape": "rect"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-54346",
+        "id": "button",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./toggle-button.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-119505",
+        "id": "toggle-button"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-123586",
+        "id": "toggle-button",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./toggle-group.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=699-52205",
+        "id": "toggle-group"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3572-155658",
+        "id": "toggle-group",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./menu-item.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1014-329272",
+        "id": "menu-item"
+      }
+    ]
+  },
+  {
+    "templateFile": "./menu.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1040-29501",
+        "id": "menu"
+      }
+    ]
+  }
+]

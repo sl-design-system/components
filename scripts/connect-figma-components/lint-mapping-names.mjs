@@ -5,7 +5,7 @@ import { validateMappingNames } from './validate-mapping-names.mjs';
 // Pure static analysis of local mapping source files. Never calls the Figma API and
 // never needs FIGMA_ACCESS_TOKEN, so this is safe to run against untrusted PR code
 // (e.g. from forks) in CI.
-const files = globSync(resolve(import.meta.dirname, 'src/**/*.figma.ts')).sort(),
+const files = globSync(resolve(import.meta.dirname, 'src/**/*.figma{,.batch}.ts')).sort(),
   results = files.map(file => ({ file, warnings: validateMappingNames(file) })),
   withWarnings = results.filter(({ warnings }) => warnings.length > 0);
 

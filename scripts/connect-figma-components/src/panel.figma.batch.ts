@@ -28,7 +28,7 @@ function getExample() {
   );
 
   const togglePlacement = collapsible
-    ? checkEnum(instance.getEnum('toggle position', { Start: 'start', End: 'end' }) ?? 'start')
+    ? checkEnum(instance.getEnum('toggle-placement', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
   const collapsed = collapsible
@@ -52,9 +52,9 @@ function getExample() {
 
   const hasActions = collapsible
       ? false
-      : checkBooleanProperty(header.getBoolean('Actions'), 'Actions'),
-    hasPrefix = checkBooleanProperty(header.getBoolean('Prefix'), 'Prefix'),
-    hasSuffix = checkBooleanProperty(header.getBoolean('Suffix'), 'Suffix');
+      : checkBooleanProperty(header.getBoolean('actions'), 'actions'),
+    hasPrefix = checkBooleanProperty(header.getBoolean('prefix'), 'prefix'),
+    hasSuffix = checkBooleanProperty(header.getBoolean('suffix'), 'suffix');
 
   const heading = header.findText('title') as TextHandle;
 

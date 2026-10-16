@@ -10,7 +10,8 @@ const inputArgs = process.argv.slice(2),
   reportPath = getReportPath(inputArgs),
   args = stripWrapperArgs(inputArgs),
   hyperlink = (label, url) => `\x1b]8;;${url}\x07${label}\x1b]8;;\x07`,
-  batchCases = new Map();
+  batchCases = new Map(),
+  loadedBatchManifests = new Set();
 
 function getSummaryReportPath(args) {
   const reportArg = args.find(argument => argument.startsWith('--report-summary='));
@@ -52,8 +53,12 @@ function stripWrapperArgs(args) {
 }
 
 function loadBatchManifest(filePath) {
+  const resolvedPath = resolve(process.cwd(), filePath);
+  if (loadedBatchManifests.has(resolvedPath)) return;
+
+  loadedBatchManifests.add(resolvedPath);
   try {
-    const manifest = JSON.parse(readFileSync(resolve(process.cwd(), filePath), 'utf8'));
+    const manifest = JSON.parse(readFileSync(resolvedPath, 'utf8'));
     for (const entry of manifest) {
       for (const component of entry.components ?? []) {
         const nodeId = new URL(component.url).searchParams.get('node-id')?.replace('-', ':');
@@ -69,7 +74,7 @@ function loadBatchManifest(filePath) {
 
 function getBatchCase(result) {
   if (result.filePath?.endsWith('.figma.batch.json')) {
-    if (!batchCases.size) loadBatchManifest(result.filePath);
+    loadBatchManifest(result.filePath);
     return batchCases.get(result.nodeId);
   }
 }

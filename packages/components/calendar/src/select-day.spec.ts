@@ -568,4 +568,45 @@ describe('sl-select-day', () => {
       expect(monthView).not.to.have.attribute('aria-hidden');
     });
   });
+
+  describe('header width alignment and navigation stability', () => {
+    it('should maintain consistent header width aligned with the scroller across all months', async () => {
+      const allMonths = Array.from({ length: 12 }, (_, i) => new Date(2023, i, 1));
+
+      for (const month of allMonths) {
+        el = await fixture<SelectDay>(html`<sl-select-day .month=${month}></sl-select-day>`);
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const header = el.renderRoot.querySelector('header')!;
+        const scroller = el.renderRoot.querySelector('.scroller')!;
+        const hostWidth = el.getBoundingClientRect().width;
+        const headerWidth = header.getBoundingClientRect().width;
+        const scrollerWidth = scroller.getBoundingClientRect().width;
+
+        expect(headerWidth).to.equal(scrollerWidth);
+        expect(hostWidth).to.equal(headerWidth);
+      }
+    });
+
+    it('should maintain stable navigation arrow positions across all months', async () => {
+      const allMonths = Array.from({ length: 12 }, (_, i) => new Date(2023, i, 1));
+
+      for (const month of allMonths) {
+        el = await fixture<SelectDay>(html`<sl-select-day .month=${month}></sl-select-day>`);
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        await el.updateComplete;
+
+        const header = el.renderRoot.querySelector('header')!;
+        const prevBtn = el.renderRoot.querySelector('.previous-month')!;
+        const nextBtn = el.renderRoot.querySelector('.next-month')!;
+
+        const prevLeft = prevBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+        const nextLeft = nextBtn.getBoundingClientRect().left - header.getBoundingClientRect().left;
+
+        expect(prevLeft).to.equal(160);
+        expect(nextLeft).to.equal(200);
+      }
+    });
+  });
 });

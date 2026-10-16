@@ -13,7 +13,6 @@ interface ItemData {
   disabled?: boolean;
   icon?: string;
   label: string;
-  selected?: boolean;
   selectedIcon?: string;
   value: string;
 }
@@ -36,8 +35,8 @@ const items: ItemData[] = [
 
 const renderItems = (data: ItemData[]): TemplateResult[] =>
   data.map(
-    ({ disabled, icon, label, selected, selectedIcon, value }) => html`
-      <sl-segmented-control-item ?disabled=${disabled} ?selected=${selected} value=${value}>
+    ({ disabled, icon, label, selectedIcon, value }) => html`
+      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
         ${icon ? html`<sl-icon name=${icon} slot="icon"></sl-icon>` : nothing}
         ${selectedIcon ? html`<sl-icon name=${selectedIcon} slot="selected-icon"></sl-icon>` : nothing}
         ${label}
@@ -69,9 +68,9 @@ describe('sl-segmented-control', () => {
     setup = async (template: TemplateResult): Promise<HTMLElement> => {
       const root = await fixture<HTMLElement>(template);
 
-      el = (
-        root.matches('sl-segmented-control') ? root : root.querySelector('sl-segmented-control')
-      )!;
+      el = root.matches('sl-segmented-control')
+        ? (root as unknown as SegmentedControl)
+        : (root.querySelector('sl-segmented-control') as unknown as SegmentedControl);
       await settle();
 
       return root;
@@ -107,6 +106,7 @@ describe('sl-segmented-control', () => {
     });
 
     it('should select the first option', () => {
+      expect(el.value).to.equal('list');
       expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
@@ -156,6 +156,7 @@ describe('sl-segmented-control', () => {
       buttons()[1].click();
       await settle();
 
+      expect(el.value).to.equal('grid');
       expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(onChange).to.have.been.calledOnce;
       expect((onChange.lastCall.args[0] as CustomEvent<string>).detail).to.equal('grid');
@@ -173,6 +174,7 @@ describe('sl-segmented-control', () => {
       options()[2].click();
       await settle();
 
+      expect(el.value).to.equal('list');
       expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
@@ -194,31 +196,32 @@ describe('sl-segmented-control', () => {
 
     it('should honor an initially selected option', async () => {
       await setup(html`
-        <sl-segmented-control>
-          ${renderItems(items.map(item => ({ ...item, selected: item.value === 'table' })))}
-        </sl-segmented-control>
+        <sl-segmented-control value="table">${renderItems(items)}</sl-segmented-control>
       `);
 
+      expect(el.value).to.equal('table');
       expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
       expect(buttons()[2]).to.have.attribute('aria-current', 'true');
     });
 
-    it('should select an option when selected is set programmatically', async () => {
+    it('should select an option when value is set programmatically', async () => {
       const onChange = spy();
       el.addEventListener('sl-change', onChange);
 
-      options()[1].selected = true;
+      el.value = 'grid';
       await settle();
 
+      expect(el.value).to.equal('grid');
       expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(buttons()[1]).to.have.attribute('aria-current', 'true');
       expect(onChange).not.to.have.been.called;
     });
 
-    it('should select an option when the selected attribute is set', async () => {
-      options()[2].setAttribute('selected', '');
+    it('should select an option when the value attribute is set', async () => {
+      el.setAttribute('value', 'table');
       await settle();
 
+      expect(el.value).to.equal('table');
       expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
     });
   });
@@ -635,13 +638,14 @@ describe('sl-segmented-control', () => {
     });
 
     it('should keep the selected value and not animate when switching back to the options', async () => {
-      options()[2].selected = true;
+      el.value = 'table';
       await settle();
 
       container.style.inlineSize = '1000px';
       await settle();
+      await settle();
 
-      expect(buttons()[2]).to.have.attribute('aria-current', 'true');
+      expect(el.value).to.equal('table');
       expect(options().map(option => !!option.leaving)).to.deep.equal([false, false, false]);
     });
   });

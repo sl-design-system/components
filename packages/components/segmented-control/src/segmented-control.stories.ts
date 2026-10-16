@@ -33,12 +33,13 @@ interface Item {
   value: string;
 }
 
-type Props = Pick<SegmentedControl, 'emphasis' | 'fill' | 'iconOnly' | 'shape' | 'size'> & {
+type Props = Pick<
+  SegmentedControl,
+  'emphasis' | 'fill' | 'iconOnly' | 'shape' | 'size' | 'value'
+> & {
   ariaLabel?: string;
   description?: string;
   items: Item[];
-  /** The value of the item that should be selected. */
-  selected?: string;
 };
 type Story = StoryObj<Props>;
 
@@ -90,13 +91,10 @@ const fillWidthItems: Item[] = [
   { icon: 'calendar-days', label: 'Schedule', value: 'schedule' }
 ];
 
-const renderItems = (items: Item[], selected?: string): TemplateResult[] =>
+const renderItems = (items: Item[]): TemplateResult[] =>
   items.map(
     ({ disabled, icon, label, value }) => html`
-      <sl-segmented-control-item
-        ?disabled=${disabled}
-        ?selected=${value === selected}
-        value=${value}>
+      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
         ${
           icon
             ? html`
@@ -127,30 +125,21 @@ export default {
     emphasis: { control: 'inline-radio', options: ['subtle', 'bold'] },
     fill: { control: 'inline-radio', options: ['solid', 'outline'] },
     items: { table: { disable: true } },
-    selected: { table: { disable: true } },
+    value: { control: 'text' },
     shape: { control: 'inline-radio', options: ['rect', 'pill'] },
     size: { control: 'inline-radio', options: ['md', 'lg'] }
   },
-  render: ({
-    ariaLabel,
-    description,
-    emphasis,
-    fill,
-    iconOnly,
-    items,
-    selected,
-    shape,
-    size
-  }) => html`
+  render: ({ ariaLabel, description, emphasis, fill, iconOnly, items, value, shape, size }) => html`
     ${description ? html`<p>${description}</p>` : nothing}
     <sl-segmented-control
       ?icon-only=${iconOnly}
       aria-label=${ariaLabel}
       emphasis=${emphasis}
       fill=${fill}
+      .value=${value}
       shape=${shape}
       size=${size}>
-      ${renderItems(items, selected)}
+      ${renderItems(items)}
     </sl-segmented-control>
   `
 } satisfies Meta<Props>;
@@ -196,7 +185,7 @@ export const IconAndText: Story = {
     description:
       'Options can have an icon before the label. The selected option shows a solid version of its icon.',
     items: iconItems,
-    selected: 'grid'
+    value: 'grid'
   }
 };
 
@@ -229,7 +218,7 @@ export const FillWidth: Story = {
     emphasis,
     fill,
     items,
-    selected,
+    value,
     shape,
     size
   }): TemplateResult => html`
@@ -259,10 +248,11 @@ export const FillWidth: Story = {
         aria-label=${ariaLabel}
         emphasis=${emphasis}
         fill=${fill}
+        .value=${value}
         shape=${shape}
         size=${size}
         style="width: 100%">
-        ${renderItems(items, selected)}
+        ${renderItems(items)}
       </sl-segmented-control>
     </sl-panel>
   `
@@ -300,8 +290,8 @@ export const InvalidIcons: Story = {
 
       <div class="invalid-icons-demo__example">
         <div class="invalid-icons-demo__label">Selected icon without a default icon</div>
-        <sl-segmented-control aria-label="View">
-          <sl-segmented-control-item selected value="schedule">
+        <sl-segmented-control aria-label="View" value="schedule">
+          <sl-segmented-control-item value="schedule">
             <sl-icon name="fas-calendar-days" slot="selected-icon"></sl-icon>
             Schedule
           </sl-segmented-control-item>
@@ -314,8 +304,8 @@ export const InvalidIcons: Story = {
 
       <div class="invalid-icons-demo__example">
         <div class="invalid-icons-demo__label">The same icon in both slots</div>
-        <sl-segmented-control aria-label="View">
-          <sl-segmented-control-item selected value="resources">
+        <sl-segmented-control aria-label="View" value="resources">
+          <sl-segmented-control-item value="resources">
             <sl-icon name="far-graduation-cap" slot="icon"></sl-icon>
             <sl-icon name="far-graduation-cap" slot="selected-icon"></sl-icon>
             Resources

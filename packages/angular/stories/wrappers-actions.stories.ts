@@ -71,8 +71,8 @@ export const SegmentedControl: StoryObj = {
     description:
       'A segmented control lets users switch between a small set of related options. The selected option is shown with a filled background.',
     template: `
-      <sl-segmented-control aria-label="View">
-        <sl-segmented-control-item selected value="list">List</sl-segmented-control-item>
+      <sl-segmented-control aria-label="View" value="list">
+        <sl-segmented-control-item value="list">List</sl-segmented-control-item>
         <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
         <sl-segmented-control-item value="table">Table</sl-segmented-control-item>
       </sl-segmented-control>

@@ -33,14 +33,14 @@ export type SegmentedControlSize = 'md' | 'lg';
 
 /**
  * A segmented control lets the user switch between a small number of related options, for example a
- * "List" and a "Grid" view. Each option is an `sl-segmented-control-item`. Set `selected` on the
- * option that should be selected; when no option is selected, the first enabled option is. The
- * selected option has `aria-current="true"`, all others `aria-current="false"`.
+ * "List" and a "Grid" view. Each option is an `sl-segmented-control-item`; give the control a
+ * `value` and it will select the matching option. When no value is set, the first enabled option is
+ * selected. The selected option has `aria-current="true"`, all others `aria-current="false"`.
  *
  * ```html
- * <sl-segmented-control aria-label="View">
+ * <sl-segmented-control aria-label="View" value="grid">
  *   <sl-segmented-control-item value="list">List</sl-segmented-control-item>
- *   <sl-segmented-control-item selected value="grid">Grid</sl-segmented-control-item>
+ *   <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
  * </sl-segmented-control>
  * ```
  *
@@ -71,25 +71,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Detects whether the options fit; if not, a select is shown instead. */
   #overflow = new OverflowController(this, this.#internals);
 
-  /** Picks up changes to the `selected` attribute of the options made outside the control. */
-  #observer = new MutationObserver(entries => {
-    const items = entries
-      .map(entry => entry.target)
-      .filter((el): el is SegmentedControlItem => this.items.includes(el as SegmentedControlItem));
-
-    // Ignore the changes the control made itself; those already match the selected option.
-    const selected = items.find(item => item.selected && item !== this.selectedItem),
-      deselected = items.find(item => !item.selected && item === this.selectedItem);
-
-    if (selected) {
-      this.#select(selected, false);
-    } else if (deselected) {
-      this.#select(undefined, false);
-    }
-  });
-
   /** The previously selected option, so its fill can animate out. */
   #previousItem?: SegmentedControlItem;
+
+  /** Retry selection reconciliation after leaving the select fallback. */
+  #selectionRetryFrame?: number;
+
+  /** How many times we've retried selection reconciliation after leaving the select fallback. */
+  #selectionRetryAttempts = 0;
 
   /** Manage keyboard navigation between the options. */
   #rovingTabindexController = new RovingTabindexController<SegmentedControlItem>(this, {
@@ -134,6 +123,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal The accessible name resolved from `aria-labelledby`, if set. */
   @state() labelFromReference?: string;
 
+  /** The value of the selected option. */
+  @property({ reflect: true }) value?: string;
+
   /** @internal The selected option. */
   @state() selectedItem?: SegmentedControlItem;
 
@@ -155,13 +147,16 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
-    this.#observer.observe(this, { attributeFilter: ['selected'], subtree: true });
   }
 
   override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
-    this.#observer.disconnect();
     this.#internals.states.delete('animated');
+
+    if (this.#selectionRetryFrame !== undefined) {
+      cancelAnimationFrame(this.#selectionRetryFrame);
+      this.#selectionRetryFrame = undefined;
+    }
 
     super.disconnectedCallback();
   }
@@ -169,9 +164,19 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('selectedItem')) {
-      // Only animate the old fill out when the options are visible.
-      this.#previousItem = this.#overflow.overflowing ? undefined : changes.get('selectedItem');
+    if (changes.has('value') || changes.has('items')) {
+      const value = this.#requestedValue(),
+        selectedItem = this.#resolveSelectedItem(value);
+
+      if (selectedItem !== this.selectedItem) {
+        // Only animate the old fill out when the options are visible.
+        this.#previousItem = this.#overflow.overflowing ? undefined : this.selectedItem;
+        this.selectedItem = selectedItem;
+      }
+
+      if (selectedItem && selectedItem.value !== this.value) {
+        this.value = selectedItem?.value;
+      }
     }
 
     this.#updateLabelReference();
@@ -185,6 +190,44 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
       if (this.#showsSelect) {
         this.#previousItem = undefined;
+      } else if (this.#selectionRetryFrame === undefined) {
+        this.#selectionRetryAttempts = 0;
+
+        const retry = (): void => {
+          this.#selectionRetryFrame = requestAnimationFrame(() => {
+            this.#selectionRetryFrame = undefined;
+
+            if (!this.isConnected || this.#overflow.overflowing) {
+              return;
+            }
+
+            const value = this.#requestedValue(),
+              selectedItem = this.#resolveSelectedItem(value);
+
+            if (selectedItem !== this.selectedItem) {
+              this.selectedItem = selectedItem;
+            }
+
+            if (
+              value !== undefined &&
+              selectedItem?.value !== value &&
+              this.#selectionRetryAttempts < 5
+            ) {
+              this.#selectionRetryAttempts += 1;
+              retry();
+            }
+          });
+        };
+
+        retry();
+      }
+    }
+
+    if (!this.#overflow.overflowing) {
+      const selectedItem = this.#resolveSelectedItem();
+
+      if (selectedItem !== this.selectedItem) {
+        this.selectedItem = selectedItem;
       }
     }
 
@@ -233,7 +276,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                 <sl-select
                   @sl-change=${this.#onSelectChange}
                   @sl-form-control=${this.#onSelectFormControl}
-                  .value=${this.selectedItem?.value}
+                  .value=${this.#requestedValue()}
                   aria-label=${ifDefined(label ?? undefined)}
                   part="select"
                   shape=${this.shape}
@@ -242,7 +285,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                     this.items,
                     item => item,
                     item => html`
-                      <sl-option .value=${item.value} ?disabled=${item.disabled}>
+                      <sl-option .value=${this.#itemValue(item)} ?disabled=${item.disabled}>
                         ${item.textContent?.trim()}
                       </sl-option>
                     `
@@ -264,17 +307,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.#select(item);
+    this.#select(item.value);
   };
 
   #onSelectChange(event: SlChangeEvent<string>): void {
     // Don't leak the event of the internal select; the control emits its own `sl-change` event.
     event.stopPropagation();
 
-    const item = this.items.find(i => i.value === event.detail);
-    if (item) {
-      this.#select(item);
-    }
+    this.#select(event.detail);
   }
 
   /** The internal select is not a form control of the surrounding form, so stop it registering. */
@@ -286,27 +326,35 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.items = event.target
       .assignedElements({ flatten: true })
       .filter((el): el is SegmentedControlItem => el instanceof SegmentedControlItem);
-
-    // Keep the current selection if it is still there, otherwise use the option marked as selected,
-    // or the first enabled option.
-    const selected = this.items.includes(this.selectedItem!)
-      ? this.selectedItem
-      : (this.items.find(item => item.selected) ??
-        this.items.find(item => !item.disabled) ??
-        this.items[0]);
-
-    this.#select(selected, false);
   }
 
-  #select(item?: SegmentedControlItem, emitEvent = true): void {
-    if (item === this.selectedItem) {
+  #requestedValue(): string | undefined {
+    return this.value || this.getAttribute('value') || undefined;
+  }
+
+  #resolveSelectedItem(value = this.#requestedValue()): SegmentedControlItem | undefined {
+    const selected = this.items.find(item => this.#itemValue(item) === value && !item.disabled);
+
+    if (value !== undefined) {
+      return selected;
+    }
+
+    return selected ?? this.items.find(item => !item.disabled) ?? this.items[0];
+  }
+
+  #itemValue(item: SegmentedControlItem): string {
+    return item.value || item.getAttribute('value') || '';
+  }
+
+  #select(value: string, emitEvent = true): void {
+    if (value === this.value) {
       return;
     }
 
-    this.selectedItem = item;
+    this.value = value;
 
-    if (emitEvent && item?.value !== undefined) {
-      this.changeEvent.emit(item.value);
+    if (emitEvent) {
+      this.changeEvent.emit(value);
     }
   }
 

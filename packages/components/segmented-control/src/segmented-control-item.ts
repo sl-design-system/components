@@ -22,11 +22,14 @@ declare global {
  * (usually the solid variant) when the option is selected, just like `sl-toggle-button`.
  *
  * ```html
- * <sl-segmented-control-item selected value="list">
- *   <sl-icon name="far-list" slot="icon"></sl-icon>
- *   <sl-icon name="fas-list" slot="selected-icon"></sl-icon>
- *   List
- * </sl-segmented-control-item>
+ * <sl-segmented-control value="list">
+ *   <sl-segmented-control-item value="list">
+ *     <sl-icon name="far-list" slot="icon"></sl-icon>
+ *     <sl-icon name="fas-list" slot="selected-icon"></sl-icon>
+ *     List
+ *   </sl-segmented-control-item>
+ *   <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
+ * </sl-segmented-control>
  * ```
  *
  * @slot default - The label of the option.
@@ -67,13 +70,8 @@ export class SegmentedControlItem extends LitElement {
   /** @internal Set by the segmented control on the previously selected option, to animate it out. */
   @property({ type: Boolean, reflect: true }) leaving?: boolean;
 
-  /**
-   * Whether the option is selected. Only one option in a segmented control can be selected; when no
-   * option is selected, the first enabled option is.
-   *
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true }) selected?: boolean;
+  /** @internal Whether the option is selected. Set by the segmented control. */
+  @state() selected = false;
 
   /** @internal Set by the segmented control. */
   @property({ reflect: true }) shape?: 'pill' | 'rect';
@@ -82,7 +80,7 @@ export class SegmentedControlItem extends LitElement {
   @property({ reflect: true }) size?: 'md' | 'lg';
 
   /** The value of the option. */
-  @property() value?: string;
+  @property({ reflect: true }) value!: string;
 
   override connectedCallback(): void {
     super.connectedCallback();

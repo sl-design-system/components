@@ -97,7 +97,7 @@ slot[name='selected-icon'] {
   display: none;
 }
 
-:host([selected]) .has-selected-icon {
+button[aria-current='true'].has-selected-icon {
   slot[name='icon'] {
     display: none;
   }

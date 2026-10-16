@@ -2,6 +2,7 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import {
   ArrayListDataSource,
+  FetchListDataSource,
   type ListDataSourceGroupItem,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
@@ -104,6 +105,147 @@ describe('sl-grid', () => {
       rows.forEach(row => {
         expect(row).not.to.have.attribute('aria-selected');
       });
+    });
+  });
+
+  describe('variable row heights', () => {
+    const expectRowsToFit = async (length: number) => {
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(length);
+
+      await expect
+        .poll(() => {
+          const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+              row.getBoundingClientRect()
+            ),
+            body = el.tbody.getBoundingClientRect();
+
+          // Include borders and pixel rounding, but no stale estimated whitespace.
+          return Math.abs(body.height - rows.reduce((height, row) => height + row.height, 0));
+        })
+        .toBeLessThanOrEqual(2);
+
+      await expect
+        .poll(() => {
+          const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+            row.getBoundingClientRect()
+          );
+
+          return rows.slice(1).every((row, index) => Math.abs(row.top - rows[index].bottom) <= 1);
+        })
+        .toBe(true);
+
+      await expect
+        .poll(() => {
+          const body = el.tbody.getBoundingClientRect(),
+            lastRow = el.tbody.querySelector('tr:last-of-type')!.getBoundingClientRect();
+
+          return Math.abs(body.bottom - lastRow.bottom);
+        })
+        .toBeLessThanOrEqual(2);
+    };
+
+    const checkFilteredRows = async (count: number) => {
+      const dataSource = new ArrayListDataSource<Person>([
+        ...Array.from({ length: 20 }, (_, index) => ({
+          firstName: `Short ${index}`,
+          lastName: 'Doe'
+        })),
+        ...Array.from({ length: count }, (_, index) => ({
+          firstName: 'This is a really long description of a profession '.repeat(8 - index * 3),
+          lastName: 'Long'
+        }))
+      ]);
+
+      el = await fixture(html`
+        <sl-grid style="width: 300px" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200" grow="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="100" grow="0"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+
+      await expectRowsToFit(count);
+
+      dataSource.removeFilter('height');
+      dataSource.update();
+
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBeGreaterThan(count);
+
+      dataSource.addFilter('height', 'firstName', 'Short 0');
+      dataSource.update();
+      await expectRowsToFit(1);
+
+      dataSource.addFilter('height', 'lastName', 'Missing');
+      dataSource.update();
+
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(0);
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+      await expectRowsToFit(count);
+    };
+
+    it('should fit one long row after filtering', async () => {
+      await checkFilteredRows(1);
+    });
+
+    it('should fit two long rows after filtering', async () => {
+      await checkFilteredRows(2);
+    });
+
+    it('should fit wrapped rows after replacing measured placeholders with a smaller fetched result', async () => {
+      let resolveFetch!: (result: { items: Person[]; totalItems: number }) => void;
+      const pendingFetch = new Promise<{ items: Person[]; totalItems: number }>(resolve => {
+          resolveFetch = resolve;
+        }),
+        dataSource = new FetchListDataSource<Person>({
+          pageSize: 20,
+          fetchPage: () => pendingFetch
+        }),
+        initialItems = dataSource.items,
+        items = [
+          {
+            firstName: 'This is a really long description of a profession '.repeat(8),
+            lastName: 'First'
+          },
+          {
+            firstName: 'This is a really long description of a profession '.repeat(5),
+            lastName: 'Second'
+          }
+        ];
+
+      el = await fixture(html`
+        <sl-grid style="width: 300px" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200" grow="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="100" grow="0"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(20);
+
+      // Do not resolve the fetch until the ten placeholder rows have actually
+      // been measured and positioned, so their indices populate the old cache.
+      await expectRowsToFit(10);
+      resolveFetch({ items, totalItems: items.length });
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(0);
+      await expect.poll(() => dataSource.size).toBe(2);
+      expect(dataSource.items).not.to.equal(initialItems);
+      await expectRowsToFit(2);
+
+      const rows = el.tbody.querySelectorAll('tr');
+
+      expect(rows[0].textContent).to.contain(items[0].firstName);
+      expect(rows[1].textContent).to.contain(items[1].firstName);
+      expect(rows[0].getBoundingClientRect().height).to.be.greaterThan(
+        rows[1].getBoundingClientRect().height
+      );
     });
   });
 

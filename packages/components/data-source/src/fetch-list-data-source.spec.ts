@@ -38,9 +38,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(2);
-
     expect(ds.items.length).to.equal(2);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
   });
 
@@ -65,9 +63,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(2);
-
     expect(ds.items.length).to.equal(2);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
   });
 
@@ -85,9 +81,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(4);
-
     expect(ds.items.length).to.equal(2);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
   });
 
@@ -105,9 +99,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(10);
-
     expect(ds.items.length).to.equal(2);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
   });
 
@@ -157,7 +149,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
   });
 
@@ -186,7 +177,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
   });
 
@@ -207,7 +197,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
-
     expect((ds.items[1] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
 
     // A completed request must still be invalidated by an explicit update.
@@ -235,7 +224,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
-
     expect((ds.items[1] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
 
     // A completed request must still be invalidated by an explicit update.
@@ -268,9 +256,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
-
     expect(onUpdate).not.to.have.been.called;
   });
 
@@ -296,9 +282,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
-
     expect(onUpdate).not.to.have.been.called;
   });
 
@@ -324,9 +308,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
-
     expect(onUpdate).not.to.have.been.called;
   });
 
@@ -352,9 +334,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
-
     expect(onUpdate).not.to.have.been.called;
   });
 
@@ -381,9 +361,7 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
-
     expect(onUpdate).not.to.have.been.called;
   });
 
@@ -406,7 +384,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect((sources[0].items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
-
     expect((sources[1].items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
   });
 
@@ -449,7 +426,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(people.length);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
   });
 
@@ -474,7 +450,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(0);
-
     expect(ds.items.length).to.equal(0);
 
     ds.removeFilter('firstName');
@@ -486,15 +461,10 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(fetchPage).to.have.been.calledThrice;
-
     expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
-
     expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
-
     expect(ds.size).to.equal(people.length);
-
     expect(ds.items.length).to.equal(people.length);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
   });
 
@@ -519,7 +489,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(0);
-
     expect(ds.items.length).to.equal(0);
 
     ds.removeFilter('firstName');
@@ -531,15 +500,10 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(fetchPage).to.have.been.calledThrice;
-
     expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
-
     expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
-
     expect(ds.size).to.equal(people.length);
-
     expect(ds.items.length).to.equal(ds.pageSize);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
   });
 
@@ -564,7 +528,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect(ds.items.length).to.equal(1);
 
     ds.removeFilter('firstName');
@@ -574,15 +537,10 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(fetchPage).to.have.been.calledThrice;
-
     expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
-
     expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
-
     expect(ds.size).to.equal(people.length);
-
     expect(ds.items.length).to.equal(people.length);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
   });
 
@@ -607,7 +565,6 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(ds.size).to.equal(1);
-
     expect(ds.items.length).to.equal(1);
 
     ds.removeFilter('firstName');
@@ -617,15 +574,10 @@ describe('FetchListDataSource', () => {
     await new Promise(resolve => setTimeout(resolve));
 
     expect(fetchPage).to.have.been.calledThrice;
-
     expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
-
     expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
-
     expect(ds.size).to.equal(people.length);
-
     expect(ds.items.length).to.equal(ds.pageSize);
-
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
   });
 

@@ -45,11 +45,9 @@ it('should not duplicate pending requests when two grids mount and rerender with
   await expect
     .poll(() => grids[0].renderRoot.querySelector('td')?.textContent?.trim())
     .to.equal('1');
-
   await expect
     .poll(() => grids[1].renderRoot.querySelector('td')?.textContent?.trim())
     .to.equal('1');
-
   expect(fetchPage.callCount).to.equal(2);
 });
 
@@ -89,10 +87,8 @@ it('should not duplicate pending requests when two grids mount and rerender with
   await expect
     .poll(() => grids[0].renderRoot.querySelector('td')?.textContent?.trim())
     .to.equal('1');
-
   await expect
     .poll(() => grids[1].renderRoot.querySelector('td')?.textContent?.trim())
     .to.equal('1');
-
   expect(fetchPage.callCount).to.equal(1);
 });

@@ -38,11 +38,11 @@ button {
     z-index: 1;
   }
 
-  &:hover {
+  &:hover:not([aria-disabled='true']) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
-  &:active {
+  &:active:not([aria-disabled='true']) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
@@ -50,11 +50,12 @@ button {
     background: transparent;
   }
 
-  &:disabled {
+  &[aria-disabled='true'] {
     --_bg-mix-color: transparent;
 
     color: var(--sl-color-foreground-disabled);
     cursor: default;
+    pointer-events: none;
   }
 }
 

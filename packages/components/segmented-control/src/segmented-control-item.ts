@@ -8,6 +8,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './segmented-control-item.css' with { type: 'css' };
 
 declare global {
@@ -20,6 +21,9 @@ declare global {
  * A single option in an `sl-segmented-control`. Put an `sl-icon` in the `icon` slot to show an icon
  * before the label. Put a second `sl-icon` in the `selected-icon` slot to show a different icon
  * (usually the solid variant) when the option is selected, just like `sl-toggle-button`.
+ *
+ * Use `aria-disabled="true"` to make an option unavailable while keeping it focusable for screen
+ * reader users.
  *
  * ```html
  * <sl-segmented-control value="list">
@@ -49,8 +53,8 @@ export class SegmentedControlItem extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether the option is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  /** Whether the option is aria-disabled. When set, the option stays focusable but is inactive. */
+  @property({ attribute: 'aria-disabled', reflect: true }) ariaDisabledState?: string;
 
   /** @internal Whether there is an icon in the `icon` slot. */
   @state() hasIcon = false;
@@ -108,7 +112,11 @@ export class SegmentedControlItem extends LitElement {
   override render(): TemplateResult {
     return html`
       <button
-        ?disabled=${this.disabled}
+        aria-disabled=${ifDefined(
+          this.ariaDisabledState !== undefined && this.ariaDisabledState !== 'false'
+            ? 'true'
+            : undefined
+        )}
         aria-current=${this.selected ? 'true' : 'false'}
         aria-label=${this.iconOnly && this.label ? this.label : nothing}
         class=${this.hasSelectedIcon ? 'has-selected-icon' : nothing}

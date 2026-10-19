@@ -10,7 +10,7 @@ import { type SegmentedControlItem } from './segmented-control-item.js';
 import { type SegmentedControl } from './segmented-control.js';
 
 interface ItemData {
-  disabled?: boolean;
+  ariaDisabled?: boolean;
   icon?: string;
   label: string;
   selectedIcon?: string;
@@ -35,8 +35,8 @@ const items: ItemData[] = [
 
 const renderItems = (data: ItemData[]): TemplateResult[] =>
   data.map(
-    ({ disabled, icon, label, selectedIcon, value }) => html`
-      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
+    ({ ariaDisabled, icon, label, selectedIcon, value }) => html`
+      <sl-segmented-control-item aria-disabled=${ariaDisabled ? 'true' : nothing} value=${value}>
         ${icon ? html`<sl-icon name=${icon} slot="icon"></sl-icon>` : nothing}
         ${selectedIcon ? html`<sl-icon name=${selectedIcon} slot="selected-icon"></sl-icon>` : nothing}
         ${label}
@@ -167,14 +167,23 @@ describe('sl-segmented-control', () => {
       ]);
     });
 
-    it('should not select a disabled option', async () => {
-      options()[2].disabled = true;
-      await settle();
+    it('should not select an aria-disabled option', async () => {
+      await setup(html`
+        <sl-segmented-control>
+          <sl-segmented-control-item value="list">List</sl-segmented-control-item>
+          <sl-segmented-control-item aria-disabled="true" value="grid"
+            >Grid</sl-segmented-control-item
+          >
+          <sl-segmented-control-item value="table">Table</sl-segmented-control-item>
+        </sl-segmented-control>
+      `);
 
-      options()[2].click();
+      buttons()[1].click();
       await settle();
 
       expect(el.value).to.equal('list');
+      expect(buttons()[1]).to.have.attribute('aria-disabled', 'true');
+      expect(buttons()[1]).not.to.have.attribute('disabled');
       expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
@@ -299,6 +308,22 @@ describe('sl-segmented-control', () => {
       await userEvent.keyboard('{ArrowLeft}');
 
       expect(document.activeElement).to.equal(options()[0]);
+    });
+
+    it('should allow keyboard focus on an aria-disabled option', async () => {
+      await setup(html`
+        <sl-segmented-control>
+          <sl-segmented-control-item value="list">List</sl-segmented-control-item>
+          <sl-segmented-control-item aria-disabled="true" value="grid"
+            >Grid</sl-segmented-control-item
+          >
+          <sl-segmented-control-item value="table">Table</sl-segmented-control-item>
+        </sl-segmented-control>
+      `);
+
+      options()[1].focus();
+      expect(document.activeElement).to.equal(options()[1]);
+      expect(buttons()[1]).to.have.attribute('aria-disabled', 'true');
     });
   });
 

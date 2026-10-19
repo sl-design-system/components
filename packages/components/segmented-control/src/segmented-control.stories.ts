@@ -27,7 +27,7 @@ import './register.js';
 import { type SegmentedControl } from './segmented-control.js';
 
 interface Item {
-  disabled?: boolean;
+  ariaDisabled?: boolean;
   icon?: string;
   label: string;
   value: string;
@@ -75,11 +75,11 @@ const iconItems: Item[] = [
   { icon: 'table', label: 'Table', value: 'table' }
 ];
 
-const disabledItems: Item[] = [
-  { disabled: true, icon: 'book-open', label: 'Lessons', value: 'lessons' },
+const ariaDisabledItems: Item[] = [
+  { ariaDisabled: true, icon: 'book-open', label: 'Lessons', value: 'lessons' },
   { icon: 'clipboard-list', label: 'Assignments', value: 'assignments' },
   { icon: 'chart-line', label: 'Progress', value: 'progress' },
-  { disabled: true, icon: 'calendar-days', label: 'Schedule', value: 'schedule' },
+  { ariaDisabled: true, icon: 'calendar-days', label: 'Schedule', value: 'schedule' },
   { icon: 'graduation-cap', label: 'Resources', value: 'resources' }
 ];
 
@@ -93,8 +93,8 @@ const fillWidthItems: Item[] = [
 
 const renderItems = (items: Item[]): TemplateResult[] =>
   items.map(
-    ({ disabled, icon, label, value }) => html`
-      <sl-segmented-control-item ?disabled=${disabled} value=${value}>
+    ({ ariaDisabled, icon, label, value }) => html`
+      <sl-segmented-control-item aria-disabled=${ariaDisabled ? 'true' : nothing} value=${value}>
         ${
           icon
             ? html`
@@ -201,8 +201,8 @@ export const IconOnly: Story = {
 export const Disabled: Story = {
   args: {
     description:
-      'You can disable single options. A disabled option cannot be selected, and the arrow keys skip it.',
-    items: disabledItems
+      'You can mark single options as aria-disabled (for disabled options). They cannot be selected, but they stay focusable due to accessibility reasons.',
+    items: ariaDisabledItems
   }
 };
 

@@ -34,8 +34,11 @@ export type SegmentedControlSize = 'md' | 'lg';
 /**
  * A segmented control lets the user switch between a small number of related options, for example a
  * "List" and a "Grid" view. Each option is an `sl-segmented-control-item`; give the control a
- * `value` and it will select the matching option. When no value is set, the first enabled option is
- * selected. The selected option has `aria-current="true"`, all others `aria-current="false"`.
+ * `value` and it will select the matching option. When no value is set, the first option that is
+ * not `aria-disabled` is selected. The selected option has `aria-current="true"`, all others
+ * `aria-current="false"`.
+ *
+ * Use `aria-disabled="true"` on an item to make it unavailable while keeping it focusable.
  *
  * ```html
  * <sl-segmented-control aria-label="View" value="grid">
@@ -88,11 +91,11 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     direction: 'horizontal',
     elements: () => this.items,
     focusInIndex: (elements: SegmentedControlItem[]) => {
-      const selected = elements.findIndex(el => el.selected && !el.disabled);
+      const selected = elements.findIndex(el => el.selected);
 
-      return selected === -1 ? elements.findIndex(el => !el.disabled) : selected;
+      return selected === -1 ? elements.findIndex(() => true) : selected;
     },
-    isFocusableElement: (el: SegmentedControlItem) => !el.disabled
+    isFocusableElement: () => true
   });
 
   /** Whether the last render showed the select. */
@@ -288,7 +291,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                     this.items,
                     item => item,
                     item => html`
-                      <sl-option .value=${this.#itemValue(item)} ?disabled=${item.disabled}>
+                      <sl-option
+                        .value=${this.#itemValue(item)}
+                        ?disabled=${this.#isAriaDisabled(item)}>
                         ${item.textContent?.trim()}
                       </sl-option>
                     `
@@ -306,7 +311,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       .composedPath()
       .find((el): el is SegmentedControlItem => el instanceof SegmentedControlItem);
 
-    if (!item || item.disabled || !this.items.includes(item)) {
+    if (!item || this.#isAriaDisabled(item) || !this.items.includes(item)) {
       return;
     }
 
@@ -336,17 +341,23 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   #resolveSelectedItem(value = this.#requestedValue()): SegmentedControlItem | undefined {
-    const selected = this.items.find(item => this.#itemValue(item) === value && !item.disabled);
+    const selected = this.items.find(item => this.#itemValue(item) === value);
 
     if (value !== undefined) {
       return selected;
     }
 
-    return selected ?? this.items.find(item => !item.disabled) ?? this.items[0];
+    return selected ?? this.items.find(item => !this.#isAriaDisabled(item)) ?? this.items[0];
   }
 
   #itemValue(item: SegmentedControlItem): string {
     return item.value || item.getAttribute('value') || '';
+  }
+
+  #isAriaDisabled(item: SegmentedControlItem): boolean {
+    const ariaDisabled = item.ariaDisabledState;
+
+    return ariaDisabled !== undefined && ariaDisabled !== 'false';
   }
 
   /** Update the selected value and optionally emit `sl-change` for user-driven changes. */

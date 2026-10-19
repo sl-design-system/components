@@ -28,7 +28,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView, type RangePreviewSource } from './month-view.js';
 import styles from './select-day.css' with { type: 'css' };
-import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
+import { Indicator, createCalendar, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -312,8 +312,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const canShowNextMonth = this.#isMonthAtOrBeforeMax(this.nextMonth),
       canSelectPreviousMonth = this.#canSelectPreviousMonth(),
       showTwoMonths = this.visibleMonthCount === 2 && canShowNextMonth,
-      isSecondMonthFocused =
-        showTwoMonths && !!this.focusedMonth && isSameDate(this.focusedMonth, this.nextMonth),
+      isSecondMonthTabbable =
+        showTwoMonths &&
+        this.#hasEnabledDates(this.nextMonth) &&
+        (isSameDate(this.focusedMonth, this.nextMonth) || !this.#hasEnabledDates(this.month)),
       followingMonth = this.nextMonth
         ? new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth() + 1)
         : undefined,
@@ -485,7 +487,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
           selected=${ifDefined(this.selected?.toISOString())}
-          tabindex=${ifDefined(isSecondMonthFocused ? '-1' : undefined)}></sl-month-view>
+          tabindex=${ifDefined(isSecondMonthTabbable ? '-1' : undefined)}></sl-month-view>
         ${
           canShowNextMonth
             ? html`
@@ -513,7 +515,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   min=${ifDefined(this.min?.toISOString())}
                   month=${ifDefined(this.nextMonth?.toISOString())}
                   selected=${ifDefined(this.selected?.toISOString())}
-                  tabindex=${ifDefined(isSecondMonthFocused ? undefined : '-1')}></sl-month-view>
+                  tabindex=${ifDefined(isSecondMonthTabbable ? undefined : '-1')}></sl-month-view>
               `
             : nothing
         }
@@ -588,6 +590,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     );
 
     if (visibleMonthView) {
+      visibleMonthView.keyboardRangeSelection = this.keyboardRangeSelection;
       visibleMonthView.focus(event.detail);
       return;
     }
@@ -661,8 +664,27 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    this.rangePreview = date;
+    this.rangePreview =
+      date ??
+      Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')).find(
+        monthView => monthView.focusedDate
+      )?.focusedDate;
   };
+
+  #hasEnabledDates(month?: Date): boolean {
+    if (!month || this.readonly) {
+      return false;
+    }
+
+    return createCalendar(month, {
+      disabledDates: this.disabledDates,
+      firstDayOfWeek: this.firstDayOfWeek,
+      max: this.max,
+      min: this.min
+    }).weeks.some(week =>
+      week.days.some(day => day.currentMonth && !day.disabled && !day.outOfRange)
+    );
+  }
 
   #onToggleMonthSelect(): void {
     this.toggleEvent.emit('month');

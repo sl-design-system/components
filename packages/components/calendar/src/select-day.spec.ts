@@ -350,6 +350,119 @@ describe('sl-select-day', () => {
       expect(monthViews.every(monthView => monthView.hideDaysOtherMonths)).to.be.true;
     });
 
+    for (const restriction of ['min', 'disabled dates'] as const) {
+      it(`should tab into the second month when ${restriction} leaves no enabled dates in the first`, async () => {
+        el.max = new Date(2023, 3, 30);
+        if (restriction === 'min') {
+          el.min = new Date(2023, 3, 1);
+        } else {
+          el.disabledDates = Array.from({ length: 31 }, (_, index) => new Date(2023, 2, index + 1));
+        }
+        await el.updateComplete;
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const months = Array.from(
+            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+          ),
+          after = document.createElement('button');
+
+        after.textContent = 'After calendar';
+        el.after(after);
+        after.focus();
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+
+        expect(months).to.have.lengthOf(2);
+        expect(months[1].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+        expect(months[0].shadowRoot?.activeElement).to.be.null;
+
+        await userEvent.keyboard('{Tab}');
+        expect(document.activeElement).to.equal(after);
+      });
+    }
+
+    it('should return the tab stop to the first month if the last focused month becomes disabled', async () => {
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
+
+      after.textContent = 'After calendar';
+      el.after(after);
+      months[1].focus(new Date(2023, 3, 15));
+      await el.updateComplete;
+      after.focus();
+
+      el.disabledDates = Array.from({ length: 30 }, (_, index) => new Date(2023, 3, index + 1));
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+
+      expect(months[0].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(months[1].shadowRoot?.activeElement).to.be.null;
+    });
+
+    for (const backwards of [false, true]) {
+      it(`should discard stale hover when arrow navigation crosses months ${backwards ? 'backwards' : 'forwards'}`, async () => {
+        el.rangeSelection = true;
+        el.rangeStart = backwards ? new Date(2023, 3, 1) : new Date(2023, 2, 31);
+        await el.updateComplete;
+
+        const months = Array.from(
+            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+          ),
+          origin = months[backwards ? 1 : 0],
+          target = months[backwards ? 0 : 1],
+          endpoint = backwards ? new Date(2023, 2, 31) : new Date(2023, 3, 1),
+          hoveredDate = new Date(2023, backwards ? 2 : 3, 15),
+          hovered = target.renderRoot.querySelector<HTMLButtonElement>(
+            `td[data-date="${hoveredDate.toISOString()}"] button`
+          )!;
+
+        origin.focus(el.rangeStart);
+        await userEvent.hover(hovered);
+        expect(el.rangePreview).to.equalDate(hoveredDate);
+
+        await userEvent.keyboard(backwards ? '{ArrowLeft}' : '{ArrowRight}');
+        await el.updateComplete;
+        await target.updateComplete;
+
+        expect(el.rangePreview).to.equalDate(endpoint);
+        expect(target.shadowRoot?.activeElement)
+          .to.have.attribute('part')
+          .that.contains(backwards ? 'range-start' : 'range-end');
+      });
+    }
+
+    it('should restore a shared preview to the date focused in the other month after unhover', async () => {
+      el.rangeSelection = true;
+      el.rangeStart = new Date(2023, 2, 26);
+      await el.updateComplete;
+
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        hovered = months[0].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 2, 30).toISOString()}"] button`
+        )!,
+        marchEnd = months[0].renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${new Date(2023, 2, 31).toISOString()}"] button`
+        )!;
+
+      months[1].focus(new Date(2023, 3, 5));
+      await userEvent.hover(hovered);
+      expect(el.rangePreview).to.equalDate(new Date(2023, 2, 30));
+
+      await userEvent.unhover(hovered);
+      await el.updateComplete;
+      await Promise.all(months.map(month => month.updateComplete));
+
+      expect(el.rangePreview).to.equalDate(new Date(2023, 3, 5));
+      expect(marchEnd).to.have.attribute('part').that.contains('in-range');
+      expect(months[1].shadowRoot?.activeElement)
+        .to.have.attribute('part')
+        .that.contains('range-end');
+    });
+
     it('should forward range CSS parts from the month views', () => {
       const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
 

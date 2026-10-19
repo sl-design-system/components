@@ -318,6 +318,21 @@ describe('sl-calendar', () => {
       monthView = selectDay.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
     });
 
+    it('should clear a declarative range when its attribute is removed', async () => {
+      el.setAttribute('range', '2023-03-17,2023-03-22');
+      await el.updateComplete;
+      expect(el.range).to.have.lengthOf(2);
+
+      el.removeAttribute('range');
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      await monthView.updateComplete;
+
+      expect(el.range).to.be.undefined;
+      expect(el.rangeStart).to.be.undefined;
+      expect(monthView.renderRoot.querySelector('button[aria-pressed="true"]')).to.be.null;
+    });
+
     for (const backwards of [false, true]) {
       it(`should ignore incidental hover during keyboard range selection across months ${backwards ? 'backwards' : 'forwards'}`, async () => {
         el.numberOfMonths = 2;

@@ -1,5 +1,6 @@
 :host {
   display: inline-flex;
+  position: relative;
 }
 
 :host([show-today]) {

@@ -2,7 +2,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { Calendar } from './calendar.js';
 import { type MonthView } from './month-view.js';
 import './register.js';
@@ -250,6 +250,60 @@ describe('sl-calendar', () => {
       expect(callCount).to.equal(1);
       expect(selectedDate).to.equalDate(new Date(2023, 2, 1));
     });
+  });
+
+  describe('small screens', () => {
+    afterEach(async () => {
+      await page.viewport(1024, 768);
+    });
+
+    for (const showWeekNumbers of [false, true]) {
+      it(`should show a complete single month at 320px ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
+        await page.viewport(320, 768);
+
+        const container = await fixture<HTMLDivElement>(html`
+            <div style="box-sizing: border-box; padding: 16px;">
+              <sl-calendar
+                .month=${new Date(2023, 8, 15)}
+                mode="range"
+                number-of-months="2"
+                ?show-week-numbers=${showWeekNumbers}></sl-calendar>
+            </div>
+          `),
+          calendar = container.querySelector('sl-calendar')!,
+          selectDay = calendar.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+        await selectDay.updateComplete;
+
+        const months = Array.from(
+            selectDay.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+          ),
+          containerBounds = container.getBoundingClientRect(),
+          scrollerBounds = selectDay.scroller!.getBoundingClientRect();
+
+        expect(selectDay.visibleMonthCount).to.equal(1);
+        expect(months).to.have.lengthOf(1);
+        expect(selectDay.renderRoot.querySelector('.following-month-label')).not.to.exist;
+        expect(calendar.getBoundingClientRect().right).to.be.at.most(containerBounds.right - 16);
+        expect(document.documentElement.scrollWidth).to.be.at.most(320);
+
+        for (const button of months[0].renderRoot.querySelectorAll('button')) {
+          const bounds = button.getBoundingClientRect();
+          expect(bounds.left).to.be.at.least(scrollerBounds.left - 1);
+          expect(bounds.right).to.be.at.most(scrollerBounds.right + 1);
+        }
+
+        for (const control of selectDay.renderRoot.querySelectorAll('header sl-button')) {
+          const bounds = control.getBoundingClientRect();
+          expect(bounds.left).to.be.at.least(containerBounds.left + 16);
+          expect(bounds.right).to.be.at.most(containerBounds.right - 16);
+        }
+
+        await page.viewport(1024, 768);
+        await vi.waitFor(() => expect(selectDay.visibleMonthCount).to.equal(2));
+      });
+    }
   });
 
   describe('range selection', () => {

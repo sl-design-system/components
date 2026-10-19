@@ -221,6 +221,20 @@ export const SelectedRange: Story = {
   }
 };
 
+export const RangeMobile: Story = {
+  args: {
+    ...Range.args
+  },
+  decorators: [
+    story => html`
+      <div
+        style="box-sizing: border-box; inline-size: 320px; max-inline-size: 100%; padding: 16px;">
+        ${story()}
+      </div>
+    `
+  ]
+};
+
 export const IndicatorDates: Story = {
   args: {
     indicatorDates: [

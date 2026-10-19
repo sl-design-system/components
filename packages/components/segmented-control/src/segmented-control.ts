@@ -59,7 +59,10 @@ export type SegmentedControlSize = 'md' | 'lg';
 export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
-    return { 'sl-option': Option, 'sl-select': Select };
+    return {
+      'sl-option': Option,
+      'sl-select': Select
+    };
   }
 
   /** @internal */
@@ -68,7 +71,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Used for the `animated`, `measuring` and `overflowing` custom states. */
   #internals = this.attachInternals();
 
-  /** Detects whether the options fit; if not, a select is shown instead. */
+  /** Detects whether the options fit. If not, a select is shown instead. */
   #overflow = new OverflowController(this, this.#internals);
 
   /** The previously selected option, so its fill can animate out. */
@@ -346,6 +349,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     return item.value || item.getAttribute('value') || '';
   }
 
+  /** Update the selected value and optionally emit `sl-change` for user-driven changes. */
   #select(value: string, emitEvent = true): void {
     if (value === this.value) {
       return;
@@ -359,13 +363,30 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * An `aria-labelledby` reference can't cross the shadow DOM boundary, so resolve the referenced
-   * elements and use their text as the accessible name of the list.
+   * Resolve the host's accessible name to a plain text string so the internal list and fallback
+   * select can reuse it inside the shadow DOM.
    */
   #updateLabelReference(): void {
+    if (this.ariaLabel) {
+      this.labelFromReference = undefined;
+      return;
+    }
+
+    const labelElements = this.ariaLabelledByElements ?? [];
+
+    if (labelElements.length) {
+      this.labelFromReference =
+        Array.from(labelElements)
+          .map(el => el.textContent?.trim())
+          .filter(Boolean)
+          .join(' ') || undefined;
+
+      return;
+    }
+
     const ids = this.getAttribute('aria-labelledby')?.split(/\s+/).filter(Boolean) ?? [];
 
-    if (!ids.length || this.ariaLabel) {
+    if (!ids.length) {
       this.labelFromReference = undefined;
       return;
     }

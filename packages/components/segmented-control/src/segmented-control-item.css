@@ -126,7 +126,6 @@ button[aria-current='true'].has-selected-icon {
     scale: 1;
   }
 
-  /* Subtle emphasis: an underline inside the fill, so it scales and fades with the fill. */
   &::after {
     background: var(--sl-color-border-selected);
     block-size: 3px; /* Should be hardcoded, there is no such token for 3px and this value should not change per different user groups */

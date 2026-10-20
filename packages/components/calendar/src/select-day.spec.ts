@@ -678,6 +678,72 @@ describe('sl-select-day', () => {
       expect(previewButton).to.have.attribute('part').that.contains('range-end');
     });
 
+    it('should use the same date layout in the offscreen months while paging', () => {
+      const months = Array.from(el.renderRoot.querySelectorAll<MonthView>('sl-month-view'));
+
+      expect(months).to.have.lengthOf(4);
+      expect(months.every(month => month.hideDaysOtherMonths)).to.be.true;
+    });
+
+    it('should keep month labels consecutive throughout animated paging', async () => {
+      const labels: Array<{ first: number; second: number }> = [];
+      let sampling = true;
+      const sample = (): void => {
+        labels.push({ first: el.displayMonth!.getMonth(), second: el.nextMonth!.getMonth() });
+        if (sampling) {
+          requestAnimationFrame(sample);
+        }
+      };
+
+      requestAnimationFrame(sample);
+      try {
+        el.renderRoot.querySelector<HTMLElement>('.next-month')!.click();
+        await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(labels.length).to.be.greaterThan(0);
+        expect(labels.every(({ first, second }) => second === (first + 1) % 12)).to.be.true;
+      } finally {
+        sampling = false;
+      }
+    });
+
+    it('should recenter the rendered months before painting when scrollend is polyfilled', async () => {
+      let prototype = Object.getPrototypeOf(el.scroller!) as object;
+      while (!Object.hasOwn(prototype, 'onscrollend')) {
+        prototype = Object.getPrototypeOf(prototype) as object;
+      }
+      const descriptor = Object.getOwnPropertyDescriptor(prototype, 'onscrollend')!,
+        positions: number[] = [];
+      let sampling = true;
+      const sample = (): void => {
+        if (!sampling) {
+          return;
+        }
+        if (el.month.getMonth() === 3) {
+          const activeMonth = el.renderRoot.querySelector('sl-month-view:not([inert])')!;
+          positions.push(
+            activeMonth.getBoundingClientRect().left - el.scroller!.getBoundingClientRect().left
+          );
+        }
+        requestAnimationFrame(sample);
+      };
+
+      Reflect.deleteProperty(prototype, 'onscrollend');
+      requestAnimationFrame(sample);
+      try {
+        el.renderRoot.querySelector<HTMLElement>('.next-month')!.click();
+        await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(positions.length).to.be.greaterThan(0);
+        expect(positions.every(position => Math.abs(position) <= 1)).to.be.true;
+      } finally {
+        sampling = false;
+        Object.defineProperty(prototype, 'onscrollend', descriptor);
+      }
+    });
+
     it('should advance the two-month window by one month', async () => {
       el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
 

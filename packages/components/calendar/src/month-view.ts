@@ -347,6 +347,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ${msg('End of range', { id: 'sl.calendar.rangeEnd' })}
       </span>
       <table
+        class=${this.rangeSelection ? 'range-selection' : ''}
         aria-hidden=${ifDefined(ariaHidden)}
         aria-label=${msg(
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,

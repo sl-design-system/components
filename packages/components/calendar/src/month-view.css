@@ -145,6 +145,10 @@ button {
   }
 }
 
+.range-selection button span {
+  transition: none;
+}
+
 [part~='previous-month'],
 [part~='next-month'] {
   color: var(--sl-color-foreground-subtlest);

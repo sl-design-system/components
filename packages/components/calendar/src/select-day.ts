@@ -88,6 +88,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
+          // Commit both month labels together after scrolling has settled.
+          if (this.visibleMonthCount === 2) {
+            return;
+          }
+
           // Find the first month view that is at least 50% visible
           const visibleEntry = entries
             .filter(entry => entry.isIntersecting)
@@ -445,6 +450,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
                   ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
@@ -526,6 +532,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
                   ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
                   .range=${this.range}
@@ -632,13 +639,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Update the month, so it rerenders the month-views
     this.month = displayMonth;
 
-    if ('onscrollend' in this.scroller!) {
-      await this.updateComplete;
-    } else {
-      // Safari <= 26 only: wait for the scroller and month views to be rendered
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-    }
+    // Render and recenter in the same paint, including when scrollend is polyfilled.
+    await this.updateComplete;
+    await Promise.all(
+      Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view')).map(
+        monthView => monthView.updateComplete
+      )
+    );
 
     // Now instantly scroll back to the center month (so the user doesn't notice)
     this.#scrollToMonth(0);

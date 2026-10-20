@@ -595,6 +595,30 @@ describe('sl-month-view', () => {
       expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
     });
 
+    it('should update former preview endpoints immediately without fading over the range', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 22))!,
+        tile = endpoint.querySelector('span')!;
+
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
+      await userEvent.hover(getDayButton(new Date(2023, 2, 23))!);
+      await el.updateComplete;
+
+      expect(endpoint).to.have.attribute('part').that.contains('in-range');
+      expect(getComputedStyle(tile).transitionDuration).to.equal('0s');
+      expect(tile.getAnimations()).to.be.empty;
+
+      await userEvent.hover(getDayButton(new Date(2023, 2, 20))!);
+      await el.updateComplete;
+
+      expect(endpoint).to.have.attribute('part').that.does.not.contain('range-preview');
+      expect(getComputedStyle(tile).transitionDuration).to.equal('0s');
+      expect(tile.getAnimations()).to.be.empty;
+    });
+
     it('should mark the prospective second selection when previewing backwards', async () => {
       const initialSelection = getDayButton(new Date(2023, 2, 22))!,
         previewEnd = getDayButton(new Date(2023, 2, 17))!;

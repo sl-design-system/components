@@ -539,6 +539,41 @@ describe('sl-select-day', () => {
       }
     });
 
+    for (const showWeekNumbers of [false, true]) {
+      it(`should keep navigation aligned with the visible month when resized just below the two-month threshold ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
+        el.showWeekNumbers = showWeekNumbers;
+        el.month = new Date(2023, 8, 15);
+        await el.updateComplete;
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        const header = el.renderRoot.querySelector<HTMLElement>('header')!,
+          fullWidth = el.getBoundingClientRect().width;
+
+        expect(el.visibleMonthCount).to.equal(2);
+        expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+
+        for (const reduction of [1, 10, 50]) {
+          el.style.maxInlineSize = `${fullWidth - reduction}px`;
+          await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+          await el.updateComplete;
+
+          const bounds = header.getBoundingClientRect(),
+            monthBounds = el.scroller!.getBoundingClientRect(),
+            nextBounds = el.renderRoot.querySelector('.next-month')!.getBoundingClientRect();
+
+          expect(bounds.left).to.equal(monthBounds.left);
+          expect(bounds.right).to.equal(monthBounds.right);
+          expect(nextBounds.right).to.be.at.most(monthBounds.right);
+          expect(monthBounds.right - nextBounds.right).to.be.at.most(8);
+        }
+
+        el.style.removeProperty('max-inline-size');
+        await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+        await el.updateComplete;
+        expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+      });
+    }
+
     it('should collapse to one active month when the available width is too small', async () => {
       el.style.maxInlineSize = '238px';
       await new Promise(resolve => setTimeout(resolve, 50));

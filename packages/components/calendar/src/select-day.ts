@@ -329,7 +329,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         : false;
 
     return html`
-      <header>
+      <header class=${showTwoMonths ? '' : 'single-month'}>
         ${
           canSelectPreviousMonth || canShowNextMonth
             ? html`

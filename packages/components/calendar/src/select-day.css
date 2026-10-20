@@ -38,6 +38,7 @@
 
 header {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   gap: var(--sl-size-100);
   justify-content: space-between;
@@ -48,6 +49,18 @@ header {
 
   .next-month {
     margin-inline-start: calc(-1 * var(--sl-size-050));
+  }
+}
+
+:host(:not([show-week-numbers])) header.single-month {
+  gap: 0;
+
+  .current-year {
+    margin-inline-start: var(--sl-size-050);
+  }
+
+  .next-month {
+    margin-inline-start: 0;
   }
 }
 
@@ -80,6 +93,7 @@ sl-button {
   overflow: hidden;
 }
 
+header.single-month,
 .weekdays.single-month,
 .scroller.single-month {
   inline-size: var(--_month-inline-size);

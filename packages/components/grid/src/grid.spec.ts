@@ -1,3 +1,5 @@
+import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { Avatar } from '@sl-design-system/avatar';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import {
@@ -11,8 +13,9 @@ import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { type SinonSpy, spy } from 'sinon';
+import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
 import './register.js';
@@ -246,6 +249,452 @@ describe('sl-grid', () => {
       expect(rows[0].getBoundingClientRect().height).to.be.greaterThan(
         rows[1].getBoundingClientRect().height
       );
+    });
+  });
+
+  describe('automatic column widths', () => {
+    it('should retry initial sizing when fonts finish while the grid is detached', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+
+      try {
+        el = await fixture(html`
+          <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+        // Let the initial virtualizer layout finish so sizing is awaiting fonts.
+        await (el.tbody as VirtualizerHostElement)[virtualizerRef]!.layoutComplete;
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        const parent = el.parentElement!;
+        el.remove();
+        resolveFonts(document.fonts);
+        // Allow the interrupted sizing pass to finish before reconnecting.
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        const measure = spy(el, 'recalculateColumnWidths');
+        try {
+          parent.append(el);
+          await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+          expect(measure).to.have.been.called;
+          expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+        } finally {
+          measure.restore();
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should ignore an interrupted layout from an earlier connection and retry sizing', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      let rejectLayout!: (reason: Error) => void,
+        layoutRequested = false;
+      const interruptedLayout = new Promise<void>((_, reject) => {
+          rejectLayout = reject;
+        }),
+        virtualizer = (el.tbody as VirtualizerHostElement)[virtualizerRef]!,
+        layoutComplete = stub(virtualizer, 'layoutComplete').get(() => {
+          layoutRequested = true;
+          return interruptedLayout;
+        });
+      try {
+        await expect.poll(() => layoutRequested).toBe(true);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+        const parent = el.parentElement!;
+        el.remove();
+        layoutComplete.restore();
+        parent.append(el);
+        // Rejection may arrive after reconnection; it belongs to the old attempt.
+        rejectLayout(new Error('Virtualizer disconnected'));
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+      } finally {
+        layoutComplete.restore();
+      }
+    });
+
+    it('should reveal the initial table only after its automatic widths are ready', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+
+      try {
+        el = await fixture(html`
+          <sl-grid
+            style="inline-size: 320px"
+            .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column grow="3" path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        resolveFonts(document.fonts);
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+        const widths = () =>
+            Array.from(el.thead.querySelectorAll('th')).map(
+              cell => cell.getBoundingClientRect().width
+            ),
+          initialWidths = widths();
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+        // Observe actual paints after reveal, including virtualizer range updates.
+        for (let frame = 0; frame < 10; frame++) {
+          await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+          expect(widths()).to.deep.equal(initialWidths);
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should reveal an empty grid without waiting for data to arrive', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await expect.poll(() => el.thead.querySelector('th')?.textContent?.trim()).toBe('First name');
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+    });
+
+    it('should fit custom cell content at 320px after rendering', async () => {
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 320px"
+          .items=${[{ firstName: 'Jacob van der Moore', lastName: 'Gymnasium Sankt Georg' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column ellipsize-text path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect
+        .poll(() => {
+          const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar'),
+            name = avatar?.renderRoot.querySelector<HTMLElement>('[part="name"]'),
+            slot = el.renderRoot
+              .querySelector('sl-ellipsize-text')
+              ?.shadowRoot?.querySelector('slot');
+          return (
+            !!name &&
+            !!slot &&
+            name.clientWidth >= name.scrollWidth &&
+            slot.clientWidth >= slot.scrollWidth
+          );
+        })
+        .toBe(true);
+    });
+
+    it('should wait for fonts before reading cell geometry', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      let resolveFonts!: (fonts: FontFaceSet) => void,
+        fontsRequested = false,
+        sizing: Promise<void> | undefined;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          fontsRequested = true;
+          return pendingFonts;
+        }),
+        measurement = spy(),
+        getRect = Element.prototype.getBoundingClientRect,
+        geometry = stub(Element.prototype, 'getBoundingClientRect').callsFake(
+          function (this: Element) {
+            if (this instanceof HTMLTableCellElement && this.getRootNode() === el.renderRoot) {
+              measurement();
+            }
+            return getRect.call(this);
+          }
+        );
+
+      try {
+        sizing = el.recalculateColumnWidths();
+        // Wait until the sizing pass reaches the controlled font-readiness promise.
+        await expect.poll(() => fontsRequested).toBe(true);
+        expect(measurement).not.to.have.been.called;
+
+        resolveFonts(document.fonts);
+        await sizing;
+        expect(measurement).to.have.been.called;
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(0);
+      } finally {
+        resolveFonts(document.fonts);
+        try {
+          await sizing;
+        } finally {
+          geometry.restore();
+          fontsReady.restore();
+        }
+      }
+    });
+
+    it('should coalesce requests and remeasure a range changed while cells update', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        cell = el.renderRoot.querySelector<HTMLTableCellElement>('th')!,
+        measurement = spy(cell, 'getBoundingClientRect');
+      let releaseUpdate!: () => void;
+      const pendingUpdate = new Promise<boolean>(resolve => {
+          releaseUpdate = () => resolve(true);
+        }),
+        updateComplete = stub(avatar, 'updateComplete').get(() => pendingUpdate);
+
+      try {
+        const requests = [el.recalculateColumnWidths(), el.recalculateColumnWidths()];
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        expect(measurement).not.to.have.been.called;
+
+        // These requests arrive while the first pass is awaiting custom content.
+        for (let index = 0; index < 5; index++) {
+          el.tbody.dispatchEvent(new Event('rangeChanged'));
+        }
+        requests.push(el.recalculateColumnWidths());
+        releaseUpdate();
+        await Promise.all(requests);
+        expect(measurement).to.have.been.calledTwice;
+      } finally {
+        releaseUpdate();
+        updateComplete.restore();
+        measurement.restore();
+      }
+    });
+
+    it('should batch cell measurements and restore styles even if a measurement fails', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+      // Initial sizing also uses the scheduler. Finish it before injecting a
+      // failure into the separate, explicitly requested measurement below.
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const cells = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('th, tbody td')),
+        firstCell = cells[0],
+        lastCell = cells[cells.length - 1],
+        getFirstRect = firstCell.getBoundingClientRect.bind(firstCell),
+        firstMeasurement = stub(firstCell, 'getBoundingClientRect').callsFake(() => {
+          expect(cells.every(cell => cell.style.inlineSize === 'max-content')).to.be.true;
+          expect(cells.every(cell => cell.style.flexGrow === '0')).to.be.true;
+          return getFirstRect();
+        }),
+        failedMeasurement = stub(lastCell, 'getBoundingClientRect').throws('Measurement failed');
+      firstCell.style.inlineSize = '150px';
+      firstCell.style.flexGrow = '2';
+
+      try {
+        await expect(el.recalculateColumnWidths()).rejects.toThrow('Measurement failed');
+        expect(firstMeasurement).to.have.been.calledOnce;
+        expect(firstCell.style.inlineSize).to.equal('150px');
+        expect(firstCell.style.flexGrow).to.equal('2');
+        expect(
+          cells.slice(1).every(cell => cell.style.inlineSize === '' && cell.style.flexGrow === '')
+        ).to.be.true;
+      } finally {
+        firstMeasurement.restore();
+        failedMeasurement.restore();
+      }
+
+      // A failed pass must not leave the scheduler stuck on a rejected task.
+      await el.recalculateColumnWidths();
+      expect(firstCell.style.inlineSize).to.equal('150px');
+      expect(firstCell.style.flexGrow).to.equal('2');
+    });
+
+    it('should skip custom content and font waits for fixed columns while updating their layout', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            sticky
+            width="220"
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column width="400" path="lastName"></sl-grid-column>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        fixedColumn = el.querySelector<GridColumn>('sl-grid-column')!,
+        cellUpdate = stub(avatar, 'updateComplete').get(() => {
+          throw new Error('Fixed columns must not wait for custom content');
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          throw new Error('Fixed columns must not wait for fonts');
+        });
+
+      try {
+        fixedColumn.width = 240;
+        await el.recalculateColumnWidths();
+        expect(el.style.getPropertyValue('--sl-grid-row-width')).to.equal('640px');
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-margin-inline')).to.equal(
+          '240px 0px'
+        );
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-inline-size')).to.equal(
+          'calc(var(--sl-grid-width) - 240px)'
+        );
+
+        // Range changes in a fixed-width grid must use the same fast path.
+        el.tbody.dispatchEvent(new Event('rangeChanged'));
+        await el.recalculateColumnWidths();
+      } finally {
+        cellUpdate.restore();
+        fontsReady.restore();
+      }
+    });
+
+    it('should grow when a data source refreshes rows without changing its items array or range', async () => {
+      const items = [{ firstName: 'Jane', lastName: 'Smith' }],
+        dataSource = new ArrayListDataSource(items);
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .dataSource=${dataSource}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column width="80" path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const column = el.querySelector<GridColumn>('sl-grid-column')!,
+        initialWidth = column.width!,
+        renderedItems = dataSource.items,
+        itemsGetter = stub(dataSource, 'items').get(() => renderedItems),
+        rangeChanges = spy();
+      el.tbody.addEventListener('rangeChanged', rangeChanges);
+
+      try {
+        items[0].firstName = 'A much longer name updated in the same existing row';
+        dataSource.update();
+        await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+        await expect
+          .poll(() => {
+            const text = el.renderRoot.querySelector('sl-ellipsize-text'),
+              slot = text?.shadowRoot?.querySelector('slot');
+            return (
+              text?.textContent === items[0].firstName &&
+              !!slot &&
+              slot.clientWidth >= slot.scrollWidth
+            );
+          })
+          .toBe(true);
+        expect(rangeChanges).not.to.have.been.called;
+      } finally {
+        el.tbody.removeEventListener('rangeChanged', rangeChanges);
+        itemsGetter.restore();
+      }
+    });
+
+    it('should grow when scrolling reveals longer content and retain the width on return', async () => {
+      const items = Array.from({ length: 200 }, (_, index) => ({
+          firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',
+          lastName: 'Smith'
+        })),
+        scroller = await fixture<HTMLDivElement>(html`
+          <div style="block-size: 256px; inline-size: 320px; overflow: auto">
+            <sl-grid .items=${items}>
+              <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+              <sl-grid-column path="lastName" width="80"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `);
+      el = scroller.querySelector<Grid<Person>>('sl-grid')!;
+      await waitForGridToRenderData(el);
+      const column = el.querySelector<GridColumn>('sl-grid-column')!;
+      await expect.poll(() => column.width).toBeGreaterThan(0);
+      const initialWidth = column.width!;
+      expect(el.renderRoot.textContent).not.to.contain(items[199].firstName);
+
+      scroller.scrollTop = scroller.scrollHeight;
+      await expect.poll(() => el.renderRoot.textContent).toContain(items[199].firstName);
+      await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+      const grownWidth = column.width;
+      await expect
+        .poll(() => {
+          const text = Array.from(el.renderRoot.querySelectorAll('sl-ellipsize-text')).find(
+              element => element.textContent === items[199].firstName
+            ),
+            slot = text?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      scroller.scrollTop = 0;
+      await expect.poll(() => el.renderRoot.textContent).not.toContain(items[199].firstName);
+      expect(column.width).to.equal(grownWidth);
+    });
+
+    it('should grow for newly rendered rows without shrinking or changing fixed columns', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName" width="80"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      const [auto, fixed] = el.querySelectorAll<GridColumn>('sl-grid-column');
+      await expect.poll(() => auto.width).toBeGreaterThan(0);
+      const initialWidth = auto.width!;
+
+      el.items = [
+        { firstName: 'A much longer name rendered later in the grid', lastName: 'Smith' }
+      ];
+      await expect.poll(() => auto.width).toBeGreaterThan(initialWidth);
+      const grownWidth = auto.width;
+      await expect
+        .poll(() => {
+          const slot = el.renderRoot
+            .querySelector('sl-ellipsize-text')
+            ?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      el.items = [{ firstName: 'Jane', lastName: 'Smith' }];
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      expect(auto.width).to.equal(grownWidth);
+      expect(fixed.width).to.equal(80);
     });
   });
 

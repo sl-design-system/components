@@ -73,10 +73,10 @@ export class GridColumn<T = any> extends LitElement {
    * Automatically sets the width of the column based on the column contents when this is set to
    * `true`.
    *
-   * For performance reasons the column width is calculated automatically only once when the grid
-   * items are rendered for the first time and the calculation only considers the rows which are
-   * currently rendered in DOM (a bit more than what is currently visible). If the grid is scrolled,
-   * or the cell content changes, the column width might not match the contents anymore.
+   * The calculation considers the rows currently rendered in DOM (a bit more than what is currently
+   * visible). As new rows are rendered, the column can grow to fit longer content, but does not
+   * shrink while scrolling. If existing cell content changes, call `grid.recalculateColumnWidths()`
+   * to update the widths.
    *
    * Hidden columns are ignored in the calculation and their widths are not automatically updated
    * when you show a column that was initially hidden.

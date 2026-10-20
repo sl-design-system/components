@@ -119,6 +119,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
     this.#resizeFrame = requestAnimationFrame(() => {
       this.#resizeFrame = undefined;
+      this.#updateHeaderSize();
       this.#updateVisibleMonthCount();
     });
   });
@@ -222,6 +223,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.connectedCallback();
 
     this.#resizeObserver.observe(this);
+    void document.fonts.ready.then(() => {
+      if (this.isConnected) {
+        this.#updateHeaderSize();
+      }
+    });
   }
 
   override disconnectedCallback(): void {
@@ -287,6 +293,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('locale') || changes.has('showWeekNumbers')) {
+      this.#updateHeaderSize();
+    }
+
     if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
       this.#updateWeekNumberColumnSize();
     }
@@ -335,66 +345,68 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <header class=${showTwoMonths ? '' : 'single-month'}>
-        ${
-          canSelectPreviousMonth || canShowNextMonth
-            ? html`
-                <sl-button
-                  @click=${this.#onToggleMonthSelect}
-                  aria-label=${msg(
-                    str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
-                    {
-                      id: 'sl.calendar.changeMonth'
-                    }
-                  )}
-                  class="current-month"
-                  fill="link"
-                  variant="secondary">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    month="long"></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-month">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    month="long"></sl-format-date>
-                </span>
-              `
-        }
-        ${
-          canSelectPreviousYear || canSelectNextYear
-            ? html`
-                <sl-button
-                  @click=${this.#onToggleYearSelect}
-                  aria-label=${msg(
-                    str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
-                    {
-                      id: 'sl.calendar.changeYear'
-                    }
-                  )}
-                  class="current-year"
-                  fill="link"
-                  variant="secondary">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-year">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"></sl-format-date>
-                </span>
-              `
-        }
+        <div class="month-year-controls">
+          ${
+            canSelectPreviousMonth || canShowNextMonth
+              ? html`
+                  <sl-button
+                    @click=${this.#onToggleMonthSelect}
+                    aria-label=${msg(
+                      str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
+                      {
+                        id: 'sl.calendar.changeMonth'
+                      }
+                    )}
+                    class="current-month"
+                    fill="link"
+                    variant="secondary">
+                    <sl-format-date
+                      .date=${this.displayMonth}
+                      locale=${ifDefined(this.locale)}
+                      month="long"></sl-format-date>
+                    <sl-icon name="caret-down-solid"></sl-icon>
+                  </sl-button>
+                `
+              : html`
+                  <span class="current-month">
+                    <sl-format-date
+                      .date=${this.displayMonth}
+                      locale=${ifDefined(this.locale)}
+                      month="long"></sl-format-date>
+                  </span>
+                `
+          }
+          ${
+            canSelectPreviousYear || canSelectNextYear
+              ? html`
+                  <sl-button
+                    @click=${this.#onToggleYearSelect}
+                    aria-label=${msg(
+                      str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
+                      {
+                        id: 'sl.calendar.changeYear'
+                      }
+                    )}
+                    class="current-year"
+                    fill="link"
+                    variant="secondary">
+                    <sl-format-date
+                      .date=${this.displayMonth}
+                      locale=${ifDefined(this.locale)}
+                      year="numeric"></sl-format-date>
+                    <sl-icon name="caret-down-solid"></sl-icon>
+                  </sl-button>
+                `
+              : html`
+                  <span class="current-year">
+                    <sl-format-date
+                      .date=${this.displayMonth}
+                      locale=${ifDefined(this.locale)}
+                      year="numeric"></sl-format-date>
+                  </span>
+                `
+          }
+        </div>
         ${
           showTwoMonths
             ? html`
@@ -408,30 +420,32 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             : nothing
         }
 
-        <sl-button
-          @click=${this.#onPrevious}
-          ?disabled=${!canSelectPreviousMonth}
-          aria-label=${msg(
-            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.previousMonth' }
-          )}
-          class="previous-month"
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          ?disabled=${!canSelectNextMonth}
-          aria-label=${msg(
-            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.nextMonth' }
-          )}
-          class="next-month"
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            ?disabled=${!canSelectPreviousMonth}
+            aria-label=${msg(
+              str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.previousMonth' }
+            )}
+            class="previous-month"
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            ?disabled=${!canSelectNextMonth}
+            aria-label=${msg(
+              str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.nextMonth' }
+            )}
+            class="next-month"
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </header>
 
       <div aria-hidden="true" class="weekdays ${showTwoMonths ? '' : 'single-month'}">
@@ -795,9 +809,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   #getMonthStep(): number {
     const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
       width =
-        monthView?.getBoundingClientRect().width ??
-        this.scroller?.getBoundingClientRect().width ??
-        0,
+        (monthView ? Number.parseFloat(getComputedStyle(monthView).width) : undefined) ??
+        (this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).width) : 0),
       gap = Number.parseFloat(getComputedStyle(this.scroller!).columnGap) || 0;
 
     return width + gap;
@@ -839,19 +852,80 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #updateVisibleMonthCount(): void {
     const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
-      availableWidth = this.getBoundingClientRect().width,
-      monthWidth = monthView?.getBoundingClientRect().width ?? 0,
+      // Compare CSS sizes in the same coordinate space as the gap and scroll offsets.
+      // Bounding rectangles include Storybook's CSS zoom, while computed gaps do not.
+      availableWidth = Number.parseFloat(getComputedStyle(this).width),
+      monthWidth = monthView ? Number.parseFloat(getComputedStyle(monthView).width) : 0,
       gap = this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).columnGap) || 0 : 0,
       nextCount =
         this.numberOfMonths === 2 &&
         this.#isMonthAtOrBeforeMax(this.nextMonth) &&
         monthWidth > 0 &&
-        availableWidth >= monthWidth * 2 + gap
+        // Allow subpixel rounding at the exact two-month boundary.
+        availableWidth + 0.5 >= monthWidth * 2 + gap
           ? 2
           : 1;
 
     if (this.visibleMonthCount !== nextCount) {
       this.visibleMonthCount = nextCount;
+    }
+  }
+
+  /** Reserve room for the longest localized month before the user starts navigating. */
+  #updateHeaderSize(): void {
+    const header = this.renderRoot.querySelector<HTMLElement>('header'),
+      monthButton = this.renderRoot.querySelector<HTMLElement>('sl-button.current-month'),
+      year = this.renderRoot.querySelector<HTMLElement>('.current-year'),
+      arrows = this.renderRoot.querySelector<HTMLElement>('.arrows');
+
+    if (!header || !monthButton || !year || !arrows) {
+      this.style.removeProperty('--_header-inline-size');
+      return;
+    }
+
+    // Date fields keep their calendar in a closed dialog until the picker opens.
+    if (year.getBoundingClientRect().width === 0) {
+      return;
+    }
+
+    const measure = document.createElement('span');
+    measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
+    measure.style.fontWeight = getComputedStyle(monthButton).fontWeight;
+    measure.setAttribute('aria-hidden', 'true');
+    header.append(measure);
+
+    let monthWidth = 0;
+    for (let month = 0; month < 12; month++) {
+      measure.textContent = format(new Date(2026, month, 1), this.locale, { month: 'long' });
+      monthWidth = Math.max(monthWidth, Number.parseFloat(getComputedStyle(measure).width));
+    }
+    measure.remove();
+
+    const button = monthButton.shadowRoot?.querySelector('button'),
+      buttonStyle = button ? getComputedStyle(button) : undefined,
+      headerStyle = getComputedStyle(header),
+      controlsStyle = getComputedStyle(monthButton.parentElement!),
+      iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
+      monthControlWidth =
+        monthWidth +
+        iconWidth +
+        (Number.parseFloat(buttonStyle?.columnGap ?? '') || 0) +
+        (Number.parseFloat(buttonStyle?.borderInlineStartWidth ?? '') || 0) +
+        (Number.parseFloat(buttonStyle?.borderInlineEndWidth ?? '') || 0),
+      width =
+        monthControlWidth +
+        Number.parseFloat(getComputedStyle(year).width) +
+        (Number.parseFloat(controlsStyle.columnGap) || 0) +
+        Number.parseFloat(getComputedStyle(arrows).width) +
+        (Number.parseFloat(headerStyle.columnGap) || 0) +
+        (Number.parseFloat(headerStyle.paddingInlineStart) || 0) +
+        (Number.parseFloat(headerStyle.paddingInlineEnd) || 0);
+
+    this.style.setProperty('--_month-control-inline-size', `${Math.ceil(monthControlWidth)}px`);
+    const inlineSize = `${Math.ceil(width) + 1}px`;
+    if (this.style.getPropertyValue('--_header-inline-size') !== inlineSize) {
+      this.style.setProperty('--_header-inline-size', inlineSize);
+      this.#scrollToMonth(0);
     }
   }
 
@@ -870,7 +944,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const requiredColumnSize = getRequiredColumnSize(
-      weekNumber.getBoundingClientRect().width,
+      weekNumber.offsetWidth,
       weekNumber.scrollWidth
     );
 

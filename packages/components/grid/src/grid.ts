@@ -148,6 +148,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-tool-bar')?.refresh()
   );
 
+  /** The active column sizing task, shared by automatic and manual requests. */
+  #columnWidthCalculation?: Promise<void>;
+
   /** The column definitions. */
   #columnDefinitions: Array<GridColumn<T>> = [];
 
@@ -175,9 +178,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The header rows for the grid. */
   #headerRows: Array<Array<GridColumn<T>>> = [];
 
-  /** Flag for calculating the column widths only once. */
-  #initialColumnWidthsCalculated = false;
-
   /** Reveal auto-sized columns only after the initial virtualized range is measured. */
   #initialColumnWidthsReady = false;
 
@@ -190,18 +190,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item after the dragged item when dragging started. */
   #itemAfterDragItem?: ListDataSourceItem<T>;
 
+  /** Pending sizing mode; a manual request also allows columns to shrink. */
+  #pendingColumnWidthsGrowOnly?: boolean;
+
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
 
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
     this.#mutationObserver?.disconnect();
-
-    // Only recalculate the column widths if the grid has been rendered for the first time
-    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
-      this.#initialColumnWidthsCalculated = true;
-      void this.recalculateColumnWidths();
-    }
 
     // This is a workaround for the virtualizer not taking the border width into account
     // We convert the min-height to a CSS variable so we can use it in the styles and
@@ -534,7 +531,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
-        <tbody id="tbody" part="tbody">
+        <tbody
+          id="tbody"
+          part="tbody"
+          @rangeChanged=${() => this.#scheduleColumnWidthCalculation(true)}>
           ${virtualize({
             items: this.dataSource?.items ?? [],
             renderItem: (item, index) => this.renderItem(item, index)
@@ -748,10 +748,44 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Updates the `width` of all columns which have `autoWidth` set to `true`. */
   async recalculateColumnWidths(): Promise<void> {
-    // Do not remove, this is needed; not sure why
-    await this.updateComplete;
+    await this.#scheduleColumnWidthCalculation(false);
+  }
 
-    if (this.#headerRows.at(-1)?.some(col => !col.hidden && col.autoWidth)) {
+  #scheduleColumnWidthCalculation(growOnly: boolean): Promise<void> {
+    if (!this.isConnected) {
+      return Promise.resolve();
+    }
+
+    // A manual recalculation takes precedence over automatic grow-only requests.
+    this.#pendingColumnWidthsGrowOnly = (this.#pendingColumnWidthsGrowOnly ?? true) && growOnly;
+    return (this.#columnWidthCalculation ??= this.#flushColumnWidthCalculations());
+  }
+
+  async #flushColumnWidthCalculations(): Promise<void> {
+    try {
+      while (this.isConnected && this.#pendingColumnWidthsGrowOnly !== undefined) {
+        // Combine range changes arriving within a frame into a single measurement.
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        const growOnly = this.#pendingColumnWidthsGrowOnly;
+        this.#pendingColumnWidthsGrowOnly = undefined;
+        await this.#recalculateColumnWidths(growOnly);
+        // Requests arriving while cells or fonts update are measured in the next pass.
+      }
+    } finally {
+      this.#columnWidthCalculation = undefined;
+      this.#pendingColumnWidthsGrowOnly = undefined;
+    }
+  }
+
+  async #recalculateColumnWidths(growOnly = false): Promise<void> {
+    // The virtualizer renders the new range asynchronously. Custom cell renderers
+    // must also finish rendering before their intrinsic sizes can be measured.
+    await this.updateComplete;
+    if (!this.isConnected || !this.#headerRows.length) {
+      return;
+    }
+
+    if (this.#headerRows.at(-1)!.some(col => !col.hidden && col.autoWidth)) {
       await Promise.all(
         Array.from(this.tbody.querySelectorAll('*'))
           .filter((element): element is LitElement => element instanceof LitElement)
@@ -760,28 +794,53 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       await document.fonts.ready;
     }
 
+    // Column definitions may have changed while custom content or fonts were loading.
     const rows = this.#headerRows;
-    if (!this.isConnected || !rows.length) return;
+    if (!this.isConnected || !rows.length) {
+      return;
+    }
 
-    rows[rows.length - 1]
-      .filter(col => !col.hidden && col.autoWidth)
-      .forEach(col => {
-        const index = rows[rows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(
-            `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
-          );
+    const measurements = rows[rows.length - 1]
+        .filter(col => !col.hidden && col.autoWidth)
+        .map(col => {
+          const index = rows[rows.length - 1].indexOf(col),
+            cells = Array.from(
+              this.renderRoot.querySelectorAll<HTMLElement>(
+                `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
+              )
+            ).map(cell => ({
+              cell,
+              inlineSize: cell.style.inlineSize,
+              flexGrow: cell.style.flexGrow
+            }));
 
-        col.width = Array.from(cells).reduce((acc, cur) => {
-          cur.style.flexGrow = '0';
-          cur.style.width = 'auto';
+          return { col, cells, width: growOnly ? (col.width ?? 0) : 0 };
+        }),
+      cells = measurements.flatMap(measurement => measurement.cells);
 
-          const { width } = cur.getBoundingClientRect();
-
-          cur.style.flexGrow = cur.style.width = '';
-
-          return Math.max(acc, width);
-        }, 0);
+    try {
+      // Batch all writes before reading any geometry to avoid layout per cell.
+      cells.forEach(({ cell }) => {
+        cell.style.flexGrow = '0';
+        cell.style.inlineSize = 'max-content';
       });
+
+      measurements.forEach(measurement => {
+        measurement.width = measurement.cells.reduce(
+          (width, { cell }) => Math.max(width, cell.getBoundingClientRect().width),
+          measurement.width
+        );
+      });
+    } finally {
+      cells.forEach(({ cell, inlineSize, flexGrow }) => {
+        cell.style.inlineSize = inlineSize;
+        cell.style.flexGrow = flexGrow;
+      });
+    }
+
+    measurements.forEach(({ col, width }) => {
+      col.width = width;
+    });
 
     const columns = this.#columnDefinitions.filter(col => !col.hidden);
 
@@ -792,12 +851,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     const scrollbarMarginInlineStart = columns
-      .filter(col => col.stickyPosition === 'start')
-      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
-
-    const scrollbarMarginInlineEnd = columns
-      .filter(col => col.stickyPosition === 'end')
-      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+        .filter(col => col.stickyPosition === 'start')
+        .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0),
+      scrollbarMarginInlineEnd = columns
+        .filter(col => col.stickyPosition === 'end')
+        .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
 
     this.style.setProperty(
       '--sl-grid-scrollbar-margin-inline',
@@ -908,6 +966,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onDataSourceUpdate = () => {
     this.requestUpdate();
+    // A data source can refresh existing rows while retaining its items array.
+    // In that case the virtualizer does not emit a rangeChanged event.
+    void this.#scheduleColumnWidthCalculation(true);
   };
 
   #onDragHandleStart = (event: MouseEvent | TouchEvent): void => {

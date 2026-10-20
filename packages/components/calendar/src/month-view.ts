@@ -555,10 +555,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (dayColumn === DAYS_IN_WEEK - 1 && hasTrailingBridge) {
       parts.push('range-row-end');
     }
-    if (isFirstDayOfMonth && hasLeadingBridge) {
+    if (this.hideDaysOtherMonths && isFirstDayOfMonth && hasLeadingBridge) {
       parts.push('range-month-start');
     }
-    if (isLastDayOfMonth && hasTrailingBridge) {
+    if (this.hideDaysOtherMonths && isLastDayOfMonth && hasTrailingBridge) {
       parts.push('range-month-end');
     }
     if (this.rangeStart && parts.length) {

@@ -678,6 +678,36 @@ describe('sl-select-day', () => {
       expect(previewButton).to.have.attribute('part').that.contains('range-end');
     });
 
+    it('should remove month fades when resizing to one month and restore them for two months', async () => {
+      el.rangeSelection = true;
+      el.range = [new Date(2023, 2, 29), new Date(2023, 3, 5)];
+      await el.updateComplete;
+
+      const firstMonth = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!,
+        lastDay = (): HTMLButtonElement =>
+          firstMonth.renderRoot.querySelector<HTMLButtonElement>(
+            `td[data-date="${new Date(2023, 2, 31).toISOString()}"] button`
+          )!;
+
+      await firstMonth.updateComplete;
+      expect(lastDay()).to.have.attribute('part').that.contains('range-month-end');
+
+      el.style.maxInlineSize = '300px';
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+      await firstMonth.updateComplete;
+
+      expect(lastDay()).to.have.attribute('part').that.contains('in-range');
+      expect(lastDay()).to.have.attribute('part').that.does.not.contain('range-month-end');
+      expect(getComputedStyle(lastDay(), '::before').backgroundImage).to.equal('none');
+
+      el.style.removeProperty('max-inline-size');
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      await firstMonth.updateComplete;
+
+      expect(lastDay()).to.have.attribute('part').that.contains('range-month-end');
+      expect(getComputedStyle(lastDay(), '::before').backgroundImage).to.contain('linear-gradient');
+    });
+
     it('should use the same date layout in the offscreen months while paging', () => {
       const months = Array.from(el.renderRoot.querySelectorAll<MonthView>('sl-month-view'));
 

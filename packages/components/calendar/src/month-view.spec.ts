@@ -545,6 +545,35 @@ describe('sl-month-view', () => {
       await el.updateComplete;
     });
 
+    for (const preview of [false, true]) {
+      for (const monthEnd of [false, true]) {
+        it(`should keep a continuous ${preview ? 'preview' : 'selected range'} at the ${monthEnd ? 'end' : 'start'} of a single month`, async () => {
+          const start = monthEnd ? new Date(2023, 2, 29) : new Date(2023, 1, 27),
+            end = monthEnd ? new Date(2023, 3, 6) : new Date(2023, 2, 5),
+            boundaries = monthEnd
+              ? [new Date(2023, 2, 31), new Date(2023, 3, 1)]
+              : [new Date(2023, 1, 28), new Date(2023, 2, 1)];
+
+          if (preview) {
+            el.rangeStart = start;
+            el.rangePreview = end;
+          } else {
+            el.range = [start, end];
+          }
+          await el.updateComplete;
+
+          for (const date of boundaries) {
+            const button = getDayButton(date)!;
+
+            expect(button).to.have.attribute('part').that.contains('in-range');
+            expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+            expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+            expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+          }
+        });
+      }
+    }
+
     it('should render a range in chronological order', async () => {
       el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
       await el.updateComplete;

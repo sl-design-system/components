@@ -26,7 +26,7 @@ However, dynamically introduced actions in inline messages can be difficult for 
 
 2. Place the inline message as the last element in the page's reading and tab order. Because we cannot move focus to the inline message automatically, provide a consistent location across pages so users know where to expect dynamically added content.
 
-This tries were done only for testing and comparison with more accessible solutions. By them we confirmed, that making inline message fully accessible when it contains actions is not possible, and that there are significantly better solutions for this use case. 
+ These experiments were performed only for testing and comparison with alternative solutions. Their results describe limitations of the tested approaches, not proof that inline messages containing actions cannot be made accessible. We recommend the alternative patterns below.
 
 We don’t recommend using Inline message with modifications that we tried, as there are better, more accessible patterns to e.g. inform user about errors.
 

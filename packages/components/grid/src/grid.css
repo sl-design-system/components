@@ -7,17 +7,7 @@
 
 :host {
   --_body-cell-background: var(--sl-elevation-surface-raised-default);
-  --_body-cell-background-interactive: linear-gradient(
-    var(--_body-cell-background-interactive-mix),
-    var(--_body-cell-background-interactive-mix)
-  );
   --_body-cell-background-interactive-color: transparent;
-  --_body-cell-background-interactive-mix: color-mix(
-    in srgb,
-    transparent,
-    var(--_body-cell-background-interactive-color)
-      calc(100% * var(--_body-cell-background-interactive-opacity))
-  );
   --_body-cell-background-interactive-opacity: 0;
   --_body-cell-padding-block: var(--sl-size-125);
   --_body-cell-padding-inline: var(--sl-size-150);
@@ -439,6 +429,18 @@ th[part~='selection'] {
 }
 
 td {
+  /* Resolve the overlay on each cell so it uses the row's current interaction state. */
+  --_body-cell-background-interactive: linear-gradient(
+    var(--_body-cell-background-interactive-mix),
+    var(--_body-cell-background-interactive-mix)
+  );
+  --_body-cell-background-interactive-mix: color-mix(
+    in srgb,
+    transparent,
+    var(--_body-cell-background-interactive-color)
+      calc(100% * var(--_body-cell-background-interactive-opacity))
+  );
+
   background: var(--_body-cell-background-interactive), var(--_body-cell-background);
   border-block-end: var(--_border);
   justify-content: start;

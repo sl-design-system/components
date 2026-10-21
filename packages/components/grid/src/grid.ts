@@ -17,6 +17,7 @@ import {
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
+  ListDataSourcePlaceholder,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
@@ -539,6 +540,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           ${virtualize({
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
+            // Data source updates recreate data item wrappers. Groups already have stable
+            // identity, and unloaded placeholders all share the same ID.
+            keyFunction: item =>
+              isListDataSourceDataItem(item) && item.id !== ListDataSourcePlaceholder
+                ? item.id
+                : item,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>

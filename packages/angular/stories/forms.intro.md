@@ -1,5 +1,10 @@
 This page shows how SLDS validation integrates with Angular forms.
 
+The **Groups Reactive Initial Values** example renders checkbox and radio groups immediately with
+`formControlName` and a `FormGroup` initialized synchronously. No deferred rendering or
+`afterNextRender()` workaround is needed. Open the story directly or reload it to verify the initial
+selection on a cold page load.
+
 In practice, validation is shared between Angular and SLDS:
 
 - **Angular forms** track form state (`touched`, `dirty` etc.) and run Angular validators you configure.

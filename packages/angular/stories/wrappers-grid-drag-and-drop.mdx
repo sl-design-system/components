@@ -48,16 +48,17 @@ const scopedElements = { 'sl-avatar': Avatar };
 
 ## On top
 
-Drop rows on top of other rows and filter valid drop targets.
+Drop a row on a highlighted member to move it immediately after that member. Regular members cannot
+be drop targets; the membership column makes the filter visible.
 
 In this example, `on-top` highlights allowed target rows and emits `slGridDrop` when a row is
-dropped. It does not reorder rows automatically.
+dropped. The application handles the event and calls `dataSource.reorder` to update the grid.
 
 ### Template
 
 ```html
 <sl-grid
-  [items]="people"
+  [dataSource]="dataSource"
   draggableRows="on-top"
   [dropFilter]="dropFilter"
   [noSkipLinks]="true"
@@ -66,20 +67,25 @@ dropped. It does not reorder rows automatically.
   <sl-grid-column path="firstName"></sl-grid-column>
   <sl-grid-column path="lastName"></sl-grid-column>
   <sl-grid-column path="email"></sl-grid-column>
-  <sl-grid-column path="profession"></sl-grid-column>
+  <sl-grid-column path="membership"></sl-grid-column>
 </sl-grid>
 ```
 
 ### Props
 
 ```typescript
-const dropFilter = (person: Person): boolean => {
-  return (person as Person & { membership?: string }).membership !== 'Regular';
-};
+const dataSource = new ArrayListDataSource(people);
+const dropFilter = ({ membership }: Person): boolean => membership !== 'Regular';
 
 const onDrop = (event: Event): void => {
-  const detail = (event as CustomEvent<{ item: Person; relativeItem: Person }>).detail;
-  console.log('Dropped', detail.item, detail.relativeItem);
+  const { item, relativeItem, position } = (event as SlDropEvent<Person>).detail;
+  const target = dataSource.items.find(
+    target => isListDataSourceDataItem(target) && target.data === relativeItem
+  );
+
+  if (position === 'on-top' && target && relativeItem && dropFilter(relativeItem)) {
+    dataSource.reorder(item, target, 'after');
+  }
 };
 
 // people: Person[] loaded via getPeople({ count: 20 })

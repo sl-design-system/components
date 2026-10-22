@@ -70,18 +70,31 @@ export const Basic: Story = {
 export const OnTop: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayListDataSource(people as Person[]);
     const dropFilter: GridDropFilter<Person> = ({ membership }) => membership !== 'Regular';
 
     const onDrop = (event: SlDropEvent<Person>): void => {
-      console.log('Dropped', event.detail.item, event.detail.relativeItem);
+      const { item, relativeItem, position } = event.detail;
+      const target = dataSource.items.find(
+        target => isListDataSourceDataItem(target) && target.data === relativeItem
+      );
+
+      if (position === 'on-top' && target && relativeItem && dropFilter(relativeItem)) {
+        dataSource.reorder(item, target, 'after');
+      }
     };
 
     return html`
+      <p>
+        Drop a row on a highlighted member to move it immediately after that member. Regular members
+        cannot be drop targets. In <code>on-top</code> mode, the application handles
+        <code>sl-grid-drop</code> and updates the data source explicitly.
+      </p>
       <sl-grid
         @sl-grid-drop=${onDrop}
         draggable-rows="on-top"
         .dropFilter=${dropFilter}
-        .items=${people}>
+        .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

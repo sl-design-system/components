@@ -7,6 +7,8 @@ button {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_fill-transition-delay: calc(var(--_fill-duration, 0ms) - 30ms);
+  --_fill-transition-duration: calc(var(--_fill-duration, 0ms) + 30ms);
 
   align-items: center;
   appearance: none;
@@ -173,6 +175,9 @@ button[aria-current='true'].has-selected-icon {
  */
 @media (prefers-reduced-motion: no-preference) {
   button {
+    --_fill-transition-delay: calc(var(--_fill-duration, 0ms) - 30ms);
+    --_fill-transition-duration: calc(var(--_fill-duration, 0ms) + 30ms);
+
     transition:
       background-color 80ms ease,
       color var(--_fill-duration, 0ms) ease-out var(--_fill-duration, 0ms),
@@ -190,18 +195,21 @@ button[aria-current='true'].has-selected-icon {
   .fill {
     transition:
       background-color 80ms ease,
-      opacity var(--_fill-duration, 0ms) ease-out var(--_fill-duration, 0ms),
-      scale var(--_fill-duration, 0ms) ease-out var(--_fill-duration, 0ms);
+      opacity var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
+      scale var(--_fill-transition-duration) ease-out var(--_fill-transition-delay);
   }
 
   /* The old fill uses its own keyframes instead of reversing the transition. */
   :host([leaving]) .fill {
-    animation: fill-out var(--_fill-duration, 0ms) ease-in;
+    animation: fill-out var(--_fill-duration, 0ms) ease-in 120ms both;
     transition: background-color 80ms ease;
   }
 
   ::slotted(sl-icon) {
-    transition: scale 80ms ease;
+    transition:
+      color var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
+      fill var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
+      scale 80ms ease;
   }
 
   button:hover:not(:disabled) ::slotted(sl-icon) {

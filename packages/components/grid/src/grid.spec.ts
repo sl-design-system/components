@@ -2,6 +2,7 @@ import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualiz
 import { Avatar } from '@sl-design-system/avatar';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
   FetchListDataSource,
@@ -15,6 +16,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
@@ -701,6 +703,48 @@ describe('sl-grid', () => {
   describe('multiple select', () => {
     beforeEach(async () => {
       await mountMultipleSelectGrid();
+    });
+
+    it('should show the keyboard focus indicator on selection checkboxes', async () => {
+      await expect.poll(() => el.renderRoot.querySelectorAll('sl-checkbox').length).toBe(3);
+      await expect
+        .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
+        .toBe('visible');
+      el.style.setProperty('--sl-color-border-focused', 'rgb(1, 2, 3)');
+      await userEvent.keyboard('{Tab}');
+
+      for (const selector of [
+        'thead sl-checkbox',
+        'tbody tr:first-child sl-checkbox',
+        'tbody tr:last-child sl-checkbox'
+      ]) {
+        const checkbox = el.renderRoot.querySelector<Checkbox>(selector)!;
+        checkbox.focus();
+
+        expect(checkbox.input.matches(':focus-visible')).to.be.true;
+        const inner = checkbox.renderRoot.querySelector<HTMLElement>('[part="inner"]')!;
+        await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgb(1, 2, 3)');
+
+        checkbox.blur();
+        await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgba(0, 0, 0, 0)');
+      }
+    });
+
+    it('should not show the keyboard focus indicator when clicking a selection checkbox', async () => {
+      await expect
+        .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
+        .toBe('visible');
+      const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+
+      await userEvent.click(checkbox);
+
+      await expect
+        .poll(() => {
+          const current = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+          return getComputedStyle(current.renderRoot.querySelector<HTMLElement>('[part="inner"]')!)
+            .outlineColor;
+        })
+        .toBe('rgba(0, 0, 0, 0)');
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {

@@ -113,12 +113,20 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     super.formValue = value;
   }
 
+  constructor() {
+    super();
+
+    // Reactive forms can read validity before the element is connected.
+    this.setFormControlElement(this);
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
 
     this.elementInternals.role = 'group';
+    // Restore the invalid listener after reconnection as well.
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message

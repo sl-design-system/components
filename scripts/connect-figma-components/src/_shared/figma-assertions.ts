@@ -15,16 +15,19 @@ export function checkBooleanProperty(
   return property;
 }
 
-export function checkEnum<T extends string>(property: T | Array<{ message: string }>): T {
-  if (typeof property !== 'string') {
-    property.forEach(error => {
-      throw new Error(error.message ?? `Missing Figma property`);
-    });
+export function checkEnum<T extends string>(
+  property: T | undefined | Array<{ message: string }>,
+  name?: string
+): T {
+  if (typeof property === 'string') return property;
 
-    return '' as T;
+  if (Array.isArray(property)) {
+    throw new Error(
+      property[0]?.message ?? `Missing Figma enum property${name ? `: ${name}` : ''}`
+    );
   }
 
-  return property;
+  throw new Error(`Missing or unmapped Figma enum value${name ? ` for property: ${name}` : ''}`);
 }
 
 export function checkStringProperty(

@@ -6,13 +6,13 @@ import { checkEnum } from './_shared/figma-assertions.js';
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const size = checkEnum(instance.getEnum('size', { SM: 'sm', LG: 'lg' }) || 'md');
+  const size = checkEnum(instance.getEnum('size', { sm: 'sm', lg: 'lg' }) || 'md');
 
   const fill = checkEnum(
     instance.getEnum('fill', {
-      Ghost: 'ghost',
-      Link: 'link',
-      Outline: 'outline'
+      ghost: 'ghost',
+      link: 'link',
+      outline: 'outline'
     }) || 'solid'
   );
 

@@ -11,30 +11,32 @@ import {
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = checkStringProperty(instance.getString('state'), 'state') === 'disabled';
-
-  const fill = checkEnum(
-    instance.getEnum('fill', {
-      Outline: 'outline',
-      Solid: 'solid'
-    }) || 'solid'
-  );
+  const fillOptions = {
+    outline: 'outline',
+    solid: 'solid'
+  } as const;
+  const fill = checkEnum(instance.getEnum('fill', fillOptions), 'fill') || 'solid';
 
   const icon = instance.findInstance('Base/Icon', { traverseInstances: true }) as InstanceHandle;
 
   const name = checkStringProperty(icon.getString('icon-name'), 'icon-name'),
-    variant = checkEnum(icon.getEnum('variant', { Outline: 'far', Solid: 'fas' }) || 'far');
+    variant = checkEnum(icon.getEnum('variant', { outline: 'far' }), 'icon variant') || 'far';
 
-  const selected = checkBooleanProperty(instance.getBoolean('selected'), 'selected');
+  const pressed = checkBooleanProperty(instance.getBoolean('pressed'), 'pressed');
 
-  const size = checkEnum(instance.getEnum('size', { SM: 'sm', LG: 'lg' }) || 'md');
+  const sizeOptions = {
+    sm: 'sm',
+    md: 'md',
+    lg: 'lg'
+  } as const;
+  const size = checkEnum(instance.getEnum('size', sizeOptions), 'size') || 'md';
 
   return figma.code`
     <sl-toggle-button
-      ${disabled ? 'disabled' : ''}
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
-      ${selected ? 'pressed' : ''}
+      ${pressed ? 'pressed' : ''}
       ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
+      ${variant !== 'far' ? `variant="${variant}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
     >
       <sl-icon name="${variant ? `${variant}-` : ''}${name}" slot="default"></sl-icon>

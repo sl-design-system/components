@@ -37,7 +37,8 @@ function getExample() {
     }) || 'secondary'
   );
 
-  const buttonBase = buttonVariants.findInstance('button-base') as InstanceHandle;
+  const buttonBase = buttonVariants.findInstance('button-base') as InstanceHandle,
+    disabled = checkBooleanProperty(buttonVariants.getBoolean('disabled'), 'disabled');
 
   const iconOnly = checkBooleanProperty(buttonBase.getBoolean('icon-only'), 'icon-only'),
     iconStart = checkBooleanProperty(
@@ -50,8 +51,8 @@ function getExample() {
   // The default size is "md".
   const size = checkEnum(
     buttonBase.getEnum('size', {
-      SM: 'sm',
-      LG: 'lg'
+      sm: 'sm',
+      lg: 'lg'
     }) || 'md'
   );
 
@@ -70,6 +71,7 @@ function getExample() {
       ${size !== 'md' ? `size="${size}"` : ''}
       ${typeof slot === 'string' ? `slot="${slot}"` : ''}
       ${variant !== 'secondary' ? `variant="${variant}"` : ''}
+      ${disabled ? `disabled` : ''}
     >
       ${iconStart ? icon : ''}
       ${!iconOnly ? text : ''}

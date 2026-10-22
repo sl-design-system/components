@@ -32,11 +32,11 @@
     "templateFile": "./toggle-button.figma.batch.ts",
     "components": [
       {
-        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-119505",
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-134194",
         "id": "toggle-button"
       },
       {
-        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-123586",
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3549-137278",
         "id": "toggle-button",
         "shape": "pill"
       }
@@ -48,11 +48,6 @@
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=699-52205",
         "id": "toggle-group"
-      },
-      {
-        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3572-155658",
-        "id": "toggle-group",
-        "shape": "pill"
       }
     ]
   },
@@ -71,6 +66,15 @@
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1040-29501",
         "id": "menu"
+      }
+    ]
+  },
+  {
+    "templateFile": "./menu-button.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=9230-152119",
+        "id": "menu-button"
       }
     ]
   }

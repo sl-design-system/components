@@ -16,7 +16,7 @@ function getExample() {
     border = checkBooleanProperty(instance.getBoolean('display-border'), 'display-border'),
     divider = checkBooleanProperty(instance.getBoolean('display-divider'), 'display-divider'),
     elevationRaw = checkEnum(
-      instance.getEnum('elevation', { None: 'none', Raised: 'raised', Sunken: 'sunken' }) ?? 'none'
+      instance.getEnum('elevation', { none: 'none', raised: 'raised', sunken: 'sunken' }) ?? 'none'
     ),
     shadow = checkBooleanProperty(instance.getBoolean('display-shadow'), 'display-shadow');
 
@@ -32,13 +32,13 @@ function getExample() {
     : undefined;
 
   const collapsed = collapsible
-    ? checkStringProperty(instance.getString('state'), 'state') === 'Collapsed'
+    ? checkStringProperty(instance.getString('state'), 'state') === 'collapsed'
     : false;
 
   let elevation;
-  if (elevationRaw === 'Raised' && shadow) {
+  if (elevationRaw === 'raised' && shadow) {
     elevation = 'raised';
-  } else if (elevationRaw === 'Sunken') {
+  } else if (elevationRaw === 'sunken') {
     elevation = 'sunken';
   } else {
     elevation = 'none';
@@ -75,9 +75,9 @@ function getExample() {
 
   let prefix;
   if (hasPrefix) {
-    const prefixInstance = header.getInstanceSwap('prefix');
+    const prefixInstance = header.getInstanceSwap('prefix instance'); // this should be the name of the property in the Figma component, not the name of the element in the Layers tree
     if (!prefixInstance || prefixInstance.type === 'ERROR') {
-      throw new Error('Missing Figma instance swap: prefix');
+      throw new Error('Missing Figma instance swap: prefix instance');
     }
 
     // Set the slot property to ensure the slot attribute is rendered
@@ -88,9 +88,9 @@ function getExample() {
 
   let suffix;
   if (hasSuffix) {
-    const suffixInstance = header.getInstanceSwap('suffix');
+    const suffixInstance = header.getInstanceSwap('suffix instance');
     if (!suffixInstance || suffixInstance.type === 'ERROR') {
-      throw new Error('Missing Figma instance swap: suffix');
+      throw new Error('Missing Figma instance swap: suffix instance');
     }
 
     // Set the slot property to ensure the slot attribute is rendered

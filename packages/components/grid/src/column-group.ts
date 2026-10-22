@@ -1,5 +1,6 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -34,18 +35,44 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    // The labels of the group are copied to the nested columns by the grid. Tell the grid when
+    // they change, so it can refresh them.
+    if (
+      this.grid &&
+      (changes.has('header') ||
+        changes.has('formControlColumnLabel') ||
+        changes.has('hideHeaderText'))
+    ) {
+      this.columnUpdateEvent.emit({ grid: this.grid, column: this });
+    }
+  }
+
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index >= this.headerRowCount) {
       return nothing;
     }
 
-    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.renderHeaderLabel()}</th>`;
+    return html`
+      <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-colspan=${Math.max(this.columnSpan, 1)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
+        colspan=${Math.max(this.columnSpan, 1)}
+        id=${this.headerCellId}
+        role="cell">
+        ${this.renderHeaderLabel()}
+      </th>
+    `;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
+    // The grid recalculates `groupHeaderIds` when it receives the column update event
     columns.forEach(col => (col.grid = this.grid));
 
     this.columns = columns;

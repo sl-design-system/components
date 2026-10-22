@@ -1,0 +1,29 @@
+[
+  {
+    "templateFile": "./dialog.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2924-285265",
+        "id": "dialog"
+      }
+    ]
+  },
+  {
+    "templateFile": "./infotip.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=17355-98183",
+        "id": "infotip"
+      }
+    ]
+  },
+  {
+    "templateFile": "./popover.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2888-98096",
+        "id": "popover"
+      }
+    ]
+  }
+]

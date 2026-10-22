@@ -3484,9 +3484,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma/code-connect@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "@figma/code-connect@npm:1.4.8"
+"@figma/code-connect@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@figma/code-connect@npm:2.0.2"
   dependencies:
     boxen: "npm:5.1.1"
     chalk: "npm:^4.1.2"
@@ -3494,6 +3494,7 @@ __metadata:
     compare-versions: "npm:^6.1.0"
     cross-spawn: "npm:^7.0.3"
     dotenv: "npm:^16.3.1"
+    esbuild-wasm: "npm:0.27.5"
     fast-fuzzy: "npm:^1.12.0"
     find-up: "npm:^5.0.0"
     glob: "npm:^11.0.4"
@@ -3508,11 +3509,11 @@ __metadata:
     ts-morph: "npm:^27.0.0"
     typescript: "npm:6.0.3"
     undici: "npm:^7.19.1"
-    zod: "npm:3.25.58"
+    zod: "npm:3.25.76"
     zod-validation-error: "npm:^3.2.0"
   bin:
     figma: bin/figma
-  checksum: 10c0/f1faf61a5b1d53fea849aadd7640aea48eaa3515a62cb601f52a54020a4ecf038212636edf7f449aa1aa8009501c9f5cce5b6023152f5f28efc6efb3b76ff15a
+  checksum: 10c0/95fec065a3af17faf4675b2f13e2e587cd102173c9ee5b13497bffbbeb7fd3a81542148f35147a9d409dacf0125becd383bc8797fa96ff6939c9309811570fce
   languageName: node
   linkType: hard
 
@@ -7499,7 +7500,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/connect-figma-components@workspace:scripts/connect-figma-components"
   dependencies:
-    "@figma/code-connect": "npm:^1.4.8"
+    "@figma/code-connect": "npm:^2.0.2"
     typescript: "npm:^6.0.3"
   languageName: unknown
   linkType: soft
@@ -14186,6 +14187,15 @@ __metadata:
     is-date-object: "npm:^1.0.5"
     is-symbol: "npm:^1.0.4"
   checksum: 10c0/c7e87467abb0b438639baa8139f701a06537d2b9bc758f23e8622c3b42fd0fdb5bde0f535686119e446dd9d5e4c0f238af4e14960f4771877cf818d023f6730b
+  languageName: node
+  linkType: hard
+
+"esbuild-wasm@npm:0.27.5":
+  version: 0.27.5
+  resolution: "esbuild-wasm@npm:0.27.5"
+  bin:
+    esbuild: bin/esbuild
+  checksum: 10c0/aa76bfd8415ea549deae9c2d71251432588c5ae977df2b5b11abcea2f70b1a8654859502d6dd3428355ebcc819f35e567f74caf00e0e055e1d2e542ea866f001
   languageName: node
   linkType: hard
 
@@ -28187,10 +28197,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.25.58":
-  version: 3.25.58
-  resolution: "zod@npm:3.25.58"
-  checksum: 10c0/3525e9104adcb84b48ff2c166a44175e2f4fd502bcab045bde7cb898097a3ff0cc8b03469d949f1c14455266fd9bedeea0b411ec624b42827db48ad942ffb3b1
+"zod@npm:3.25.76":
+  version: 3.25.76
+  resolution: "zod@npm:3.25.76"
+  checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
   languageName: node
   linkType: hard
 

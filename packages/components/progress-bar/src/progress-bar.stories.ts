@@ -5,7 +5,7 @@ import { type TemplateResult, html } from 'lit';
 import { type ProgressBar } from './progress-bar.js';
 import './register.js';
 
-type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> & {
+type Props = Pick<ProgressBar, 'color' | 'indeterminate' | 'label' | 'variant' | 'value'> & {
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -30,19 +30,24 @@ export default {
       control: 'inline-radio',
       options: [undefined, 'success', 'warning', 'error']
     },
+    color: {
+      control: 'inline-radio',
+      options: [undefined, 'default', 'blue', 'green', 'orange', 'purple', 'red', 'teal', 'yellow']
+    },
     slot: {
       table: {
         disable: true
       }
     }
   },
-  render: ({ indeterminate, variant, value, label, slot }) => {
+  render: ({ indeterminate, variant, value, label, slot, color }) => {
     return html`
       <sl-progress-bar
         ?indeterminate=${indeterminate}
         .value=${value}
         .label=${label}
-        .variant=${variant}>
+        .variant=${variant}
+        .color=${color}>
         ${slot?.() ?? html`Uploaded ${value}% of 100%`}
       </sl-progress-bar>
     `;

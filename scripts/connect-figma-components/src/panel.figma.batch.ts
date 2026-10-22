@@ -1,46 +1,62 @@
+// source=packages/components/panel/src/panel.ts
+// component=Panel
 import figma from 'figma';
+import {
+  type InstanceHandle,
+  type TextHandle,
+  checkBooleanProperty,
+  checkEnum,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const collapsible = figma.batch.collapsible,
-    border = instance.getBoolean('Border'),
-    divider = instance.getBoolean('Divider'),
-    elevationRaw = instance.getString('Elevation') || 'none',
-    shadow = instance.getBoolean('Shadow');
+    border = checkBooleanProperty(instance.getBoolean('display-border'), 'display-border'),
+    divider = checkBooleanProperty(instance.getBoolean('display-divider'), 'display-divider'),
+    elevationRaw = checkEnum(
+      instance.getEnum('elevation', { none: 'none', raised: 'raised', sunken: 'sunken' }) ?? 'none'
+    ),
+    shadow = checkBooleanProperty(instance.getBoolean('display-shadow'), 'display-shadow');
 
-  const density =
-    instance.getEnum('Density', {
+  const density = checkEnum(
+    instance.getEnum('density', {
       Default: 'default',
       Relaxed: 'relaxed'
-    }) ?? 'default';
+    }) ?? 'default'
+  );
 
   const togglePlacement = collapsible
-    ? (instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
+    ? checkEnum(instance.getEnum('toggle-placement', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
-  const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;
+  const collapsed = collapsible
+    ? checkStringProperty(instance.getString('state'), 'state') === 'collapsed'
+    : false;
 
   let elevation;
-  if (elevationRaw === 'Raised' && shadow) {
+  if (elevationRaw === 'raised' && shadow) {
     elevation = 'raised';
-  } else if (elevationRaw === 'Sunken') {
+  } else if (elevationRaw === 'sunken') {
     elevation = 'sunken';
   } else {
     elevation = 'none';
   }
 
-  const header = collapsible
-    ? instance.findInstance('sl-panel-header-collapsable')
-    : instance.findInstance('sl-panel-header-default');
-  if (header.type === 'ERROR') return null;
+  const header = (
+    collapsible
+      ? instance.findInstance('sl-panel-header-collapsable')
+      : instance.findInstance('sl-panel-header-default')
+  ) as InstanceHandle;
 
-  const hasActions = collapsible ? false : header.getBoolean('Actions'),
-    hasPrefix = header.getBoolean('Prefix'),
-    hasSuffix = header.getBoolean('Suffix');
+  const hasActions = collapsible
+      ? false
+      : checkBooleanProperty(header.getBoolean('actions'), 'actions'),
+    hasPrefix = checkBooleanProperty(header.getBoolean('prefix'), 'prefix'),
+    hasSuffix = checkBooleanProperty(header.getBoolean('suffix'), 'suffix');
 
-  const heading = header.findText('title');
-  if (heading.type === 'ERROR') return null;
+  const heading = header.findText('title') as TextHandle;
 
   let actions;
   if (hasActions) {
@@ -59,8 +75,10 @@ function getExample() {
 
   let prefix;
   if (hasPrefix) {
-    const prefixInstance = header.getInstanceSwap('Prefix instance');
-    if (!prefixInstance || prefixInstance.type === 'ERROR') return null;
+    const prefixInstance = header.getInstanceSwap('prefix instance'); // this should be the name of the property in the Figma component, not the name of the element in the Layers tree
+    if (!prefixInstance || prefixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: prefix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     prefixInstance.properties.slot = { value: 'prefix' };
@@ -70,8 +88,10 @@ function getExample() {
 
   let suffix;
   if (hasSuffix) {
-    const suffixInstance = header.getInstanceSwap('Suffix instance');
-    if (!suffixInstance || suffixInstance.type === 'ERROR') return null;
+    const suffixInstance = header.getInstanceSwap('suffix instance');
+    if (!suffixInstance || suffixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: suffix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     suffixInstance.properties.slot = { value: 'suffix' };

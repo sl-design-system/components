@@ -1,0 +1,38 @@
+[
+  {
+    "templateFile": "./badge.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1870-150559",
+        "id": "Badge"
+      }
+    ]
+  },
+  {
+    "templateFile": "./inline-message.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2050-275668",
+        "id": "inline-message"
+      }
+    ]
+  },
+  {
+    "templateFile": "./progress-bar.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3572-168559",
+        "id": "progress-bar"
+      }
+    ]
+  },
+  {
+    "templateFile": "./spinner.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3671-300714",
+        "id": "spinner"
+      }
+    ]
+  }
+]

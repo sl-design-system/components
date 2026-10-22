@@ -1,5 +1,37 @@
 # @sl-design-system/grid
 
+## 0.8.5
+
+### Patch Changes
+
+- [#3765](https://github.com/sl-design-system/components/pull/3765) [`74d5c80`](https://github.com/sl-design-system/components/commit/74d5c80c84539584c30b740dc45a461036486df2) - Fix column headers and cells being announced incorrectly by screen readers for column groups.
+
+  Accessibility improvements:
+
+  - Headers inside a column group are now exposed as cells, so VoiceOver reads them only once and no longer pairs them with the wrong group header.
+  - Group headers now have `aria-colindex` and `aria-colspan` and can be focused.
+  - Cells in a column group are now named by their group header(s) and column header, for example "Name First name Sophie".
+  - Form controls (text field and select) in grouped columns now include the group header(s) in their label.
+  - Columns with `hide-header-text` now set `aria-label` on the header, also for column groups.
+  - `aria-sort` is only set on headers that are real column headers.
+  - Hidden columns are now counted in `aria-colcount` and `aria-colindex`, as they are still rendered.
+
+  Fixes:
+
+  - Adding or removing a column in a column group now updates the header rows, accessibility attributes and column widths.
+  - Removing a sorted or filtered column from a column group now also removes its sort or filter from the data source.
+  - Header cells are now keyed by column, so removing a column no longer mixes up the filter and sort controls of the remaining columns.
+
+- [#3780](https://github.com/sl-design-system/components/pull/3780) [`a374c93`](https://github.com/sl-design-system/components/commit/a374c937778204c10f379a667af6a6697c9f5ea4) - Measure automatic column widths after custom cell renderers and fonts are ready, using the full intrinsic content width. Grow automatic columns when virtual scrolling renders longer content, retaining their widths when scrolling back to shorter rows.
+
+- [#3788](https://github.com/sl-design-system/components/pull/3788) [`ec51ec7`](https://github.com/sl-design-system/components/commit/ec51ec77fdde2a8e2a5c45ce2099b75bfed04abc) - Fix incorrect grid body height after filtering or lazy loading changes the rendered rows, preventing clipped wrapped text and excess space below the last row.
+
+- [#3787](https://github.com/sl-design-system/components/pull/3787) [`f328d4a`](https://github.com/sl-design-system/components/commit/f328d4a2ad8d7d0e630c5ece7dd507eed4c8c343) - Prevent auto-sized columns from flashing their temporary widths on initial render. Reveal the table after the initial virtualized rows, custom cell content, fonts, and column measurements are ready.
+
+- Updated dependencies [[`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/data-source@0.4.6
+  - @sl-design-system/shared@0.14.2
+
 ## 0.8.4
 
 ### Patch Changes

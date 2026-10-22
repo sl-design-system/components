@@ -1,5 +1,16 @@
 # @sl-design-system/data-source
 
+## 0.4.6
+
+### Patch Changes
+
+- [#3777](https://github.com/sl-design-system/components/pull/3777) [`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa) - Refetch an empty `FetchListDataSource` on `update()` so removing a filter that returned no results restores the available items, including when pagination is enabled.
+
+  Reuse pending page requests across updates with unchanged fetch options to avoid duplicate network calls. Ignore responses from requests invalidated by changes to filters, sorting, page size, custom options, or the fetch callback.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 0.4.5
 
 ### Patch Changes

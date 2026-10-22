@@ -61,7 +61,7 @@ button {
   }
 }
 
-:host([emphasis='bold']) button {
+:host([emphasis='bold']) button:not([aria-disabled='true']) {
   color: var(--sl-color-foreground-neutral-bold);
 
   &[aria-current='true'] {

@@ -337,7 +337,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   #requestedValue(): string | undefined {
-    return this.value || this.getAttribute('value') || undefined;
+    return this.value ?? this.getAttribute('value') ?? undefined;
   }
 
   #resolveSelectedItem(value = this.#requestedValue()): SegmentedControlItem | undefined {
@@ -351,7 +351,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   #itemValue(item: SegmentedControlItem): string {
-    return item.value || item.getAttribute('value') || '';
+    return item.value ?? item.getAttribute('value') ?? '';
   }
 
   #isAriaDisabled(item: SegmentedControlItem): boolean {

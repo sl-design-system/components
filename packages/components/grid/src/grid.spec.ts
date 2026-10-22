@@ -1,6 +1,6 @@
 import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { Avatar } from '@sl-design-system/avatar';
-import { type Button } from '@sl-design-system/button';
+import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import {
   ArrayListDataSource,
@@ -15,6 +15,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
@@ -45,6 +46,68 @@ describe('sl-grid', () => {
 
     return el;
   };
+
+  describe('keyboard focus after selection changes', () => {
+    it.each([
+      { mode: 'activate', key: 'Enter' },
+      { mode: 'activate', key: 'Space' },
+      { mode: 'single', key: 'Enter' },
+      { mode: 'single', key: 'Space' },
+      { mode: 'multiple', key: 'Space' }
+    ])('should preserve focus when toggling $mode with $key', async ({ mode, key }) => {
+      const items = [
+        { firstName: 'John', lastName: 'Doe' },
+        { firstName: 'Jane', lastName: 'Smith' },
+        { firstName: 'Sam', lastName: 'Jones' }
+      ];
+
+      el = await fixture(html`
+        <sl-grid
+          .items=${items}
+          .rowAction=${mode === 'activate' ? 'activate' : mode === 'single' ? 'select' : undefined}
+          .selects=${mode === 'single' ? 'single' : undefined}>
+          ${mode === 'multiple' ? html`<sl-grid-selection-column></sl-grid-selection-column>` : ''}
+          <sl-grid-column
+            path="firstName"
+            width="200"
+            .scopedElements=${{ 'sl-button': Button }}
+            .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const selector = mode === 'multiple' ? 'sl-checkbox input' : 'sl-button',
+        rows = el.tbody.querySelectorAll('tr'),
+        control = rows[1].querySelector<HTMLElement>(selector)!,
+        nextControl =
+          mode === 'multiple'
+            ? rows[1].querySelector<HTMLElement>('sl-button')!
+            : rows[2].querySelector<HTMLElement>(selector)!;
+
+      control.focus();
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      for (const selected of [true, false]) {
+        await userEvent.keyboard(`{${key}}`);
+        await expect
+          .poll(() =>
+            el.tbody
+              .querySelectorAll('tr')[1]
+              .getAttribute(mode === 'activate' ? 'aria-selected' : 'part')
+          )
+          .to.equal(
+            mode === 'activate' ? String(selected) : `row even${selected ? ' selected' : ''}`
+          );
+        expect(control.isConnected).to.be.true;
+        expect(el.shadowRoot!.activeElement).to.equal(control);
+      }
+
+      await userEvent.tab();
+      expect(el.shadowRoot!.activeElement).to.equal(nextControl);
+    });
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -254,11 +317,15 @@ describe('sl-grid', () => {
 
   describe('automatic column widths', () => {
     it('should retry initial sizing when fonts finish while the grid is detached', async () => {
-      let resolveFonts!: (fonts: FontFaceSet) => void;
+      let resolveFonts!: (fonts: FontFaceSet) => void,
+        fontsRequested = false;
       const pendingFonts = new Promise<FontFaceSet>(resolve => {
           resolveFonts = resolve;
         }),
-        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          fontsRequested = true;
+          return pendingFonts;
+        });
 
       try {
         el = await fixture(html`
@@ -267,9 +334,8 @@ describe('sl-grid', () => {
           </sl-grid>
         `);
         await waitForGridToRenderData(el);
-        // Let the initial virtualizer layout finish so sizing is awaiting fonts.
-        await (el.tbody as VirtualizerHostElement)[virtualizerRef]!.layoutComplete;
-        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        // Wait for sizing to request fonts; the initial layout may already be complete.
+        await expect.poll(() => fontsRequested).toBe(true);
         expect(getComputedStyle(el.table).visibility).to.equal('hidden');
 
         const parent = el.parentElement!;

@@ -1,0 +1,48 @@
+:host {
+  display: inline-block;
+  max-inline-size: 100%;
+}
+
+:host(:is(:state(measuring), :state(overflowing))) .list {
+  inline-size: max-content;
+}
+
+/* Hide the options, but keep them laid out so they can still be measured. */
+:host(:state(overflowing)) .track {
+  block-size: 0;
+  inline-size: 0;
+  overflow: hidden;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* Never affects the width of the host, and keeps the height of the options when showing the select. */
+.content {
+  align-content: center;
+  display: grid;
+  justify-items: start;
+  min-block-size: var(--_content-block-size, auto);
+}
+
+.track {
+  justify-self: stretch;
+}
+
+.list {
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-subtle);
+  border-radius: var(--sl-size-borderRadius-default);
+  display: grid;
+  gap: var(--sl-size-075);
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  padding: var(--sl-size-050);
+}
+
+:host(:where(:not([fill]), [fill='solid'])) .list {
+  background: var(--sl-color-background-neutral-subtle);
+  border-width: var(--sl-size-borderWidth-none);
+}
+
+:host([shape='pill']) .list {
+  border-radius: var(--sl-size-borderRadius-full);
+}

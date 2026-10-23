@@ -22,6 +22,7 @@
 
 table {
   border-collapse: collapse;
+  inline-size: 100%;
 }
 
 .visually-hidden {

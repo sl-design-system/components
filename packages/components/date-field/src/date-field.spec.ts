@@ -393,6 +393,30 @@ describe('sl-date-field', () => {
       expect(dialog!.open).to.be.false;
     });
 
+    it('should size the localized header and keep the visible dates aligned after opening', async () => {
+      el.locale = 'nl-NL';
+      await el.updateComplete;
+      el.showPicker();
+      await el.updateComplete;
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      await calendar.updateComplete;
+      const selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+      await vi.waitFor(() => {
+        expect(selectDay.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+        const scroller = selectDay.renderRoot.querySelector<HTMLElement>('.scroller')!,
+          month = selectDay.renderRoot.querySelector('sl-month-view:not([inert])')!,
+          label = selectDay.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
+
+        expect(month.getBoundingClientRect().left).to.be.closeTo(
+          scroller.getBoundingClientRect().left,
+          1
+        );
+        expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      });
+    });
+
     it('should render the calendar when the dialog is opened', async () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 

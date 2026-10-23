@@ -18,20 +18,25 @@
 
 header {
   align-items: center;
-  display: flex;
-  gap: var(--sl-size-100);
+  display: grid;
+  gap: var(--sl-size-300);
+  grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
   margin-block-end: var(--sl-size-050);
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 
-  span {
+  > :first-child {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-    margin-inline-end: auto;
+    grid-column: 1 / span 3;
+    justify-self: start;
   }
+}
 
-  sl-button + sl-button {
-    margin-inline-start: calc(-1 * var(--sl-size-050));
-  }
+.arrows {
+  display: flex;
+  gap: var(--sl-size-050);
+  grid-column: 4 / span 1;
+  justify-self: end;
 }
 
 sl-button {

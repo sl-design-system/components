@@ -30,6 +30,82 @@ describe('sl-select-day', () => {
 
   afterEach(() => vi.useRealTimers());
 
+  for (const locale of ['en-GB', 'nl-NL', 'pl-PL', 'de-DE', 'fi-FI']) {
+    for (const numberOfMonths of [1, 2]) {
+      it(`should keep header controls stable across all months in ${locale} with ${numberOfMonths} visible months`, async () => {
+        el = await fixture(html`
+          <sl-select-day locale=${locale} number-of-months=${numberOfMonths}></sl-select-day>
+        `);
+        await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(numberOfMonths));
+        await document.fonts.ready;
+        await vi.waitFor(() =>
+          expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+
+        const header = el.renderRoot.querySelector<HTMLElement>('header')!,
+          year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
+          previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
+          next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
+          initialWidth = el.getBoundingClientRect().width,
+          initialYear = year.getBoundingClientRect().left,
+          initialPrevious = previous.getBoundingClientRect().left,
+          initialNext = next.getBoundingClientRect().left;
+
+        for (let month = 0; month < 12; month++) {
+          el.month = new Date(2026, month, 1);
+          await el.updateComplete;
+          await Promise.all(
+            Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
+              label => label.updateComplete
+            )
+          );
+
+          const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
+            monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
+            yearBounds = year.getBoundingClientRect(),
+            previousBounds = previous.getBoundingClientRect(),
+            nextBounds = next.getBoundingClientRect();
+
+          const monthLabel = el.renderRoot.querySelector<HTMLElement>(
+            '.current-month sl-format-date'
+          )!;
+          expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
+          expect(el.getBoundingClientRect().width).to.equal(initialWidth);
+          expect(yearBounds.left).to.be.closeTo(initialYear, 1);
+          expect(previousBounds.left).to.equal(initialPrevious);
+          expect(nextBounds.left).to.equal(initialNext);
+          expect(yearBounds.left - monthBounds.right).to.equal(8);
+          expect(nextBounds.left - previousBounds.right).to.equal(4);
+          expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
+          expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
+
+          if (numberOfMonths === 2) {
+            const label = el.renderRoot.querySelector('.following-month-label')!,
+              headerBounds = header.getBoundingClientRect();
+
+            expect(label.getBoundingClientRect().left).to.be.closeTo(
+              headerBounds.left + headerBounds.width / 2 - 2,
+              1
+            );
+          }
+        }
+      });
+    }
+  }
+
+  for (const zoom of [0.9, 1, 1.1]) {
+    it(`should keep two German months with week numbers at ${zoom} CSS zoom`, async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="de"
+          number-of-months="2"
+          show-week-numbers
+          style=${`zoom: ${zoom}`}></sl-select-day>
+      `);
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+    });
+  }
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);

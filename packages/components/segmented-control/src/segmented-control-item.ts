@@ -62,6 +62,9 @@ export class SegmentedControlItem extends LitElement {
   /** @internal Set by the segmented control. */
   @property({ reflect: true }) emphasis?: 'subtle' | 'bold';
 
+  /** @internal Set by the segmented control on the newly selected option, to animate it in. */
+  @property({ type: Boolean, reflect: true }) entering?: boolean;
+
   /** @internal Whether there is an icon in the `selected-icon` slot. */
   @state() hasSelectedIcon = false;
 

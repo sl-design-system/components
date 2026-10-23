@@ -71,6 +71,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timeout used to keep the animated state active long enough for the incoming fill transition. */
+  #animationTimeout?: number;
+
   /** Used for the `animated`, `measuring` and `overflowing` custom states. */
   #internals = this.attachInternals();
 
@@ -159,6 +162,11 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.removeEventListener('click', this.#onClick);
     this.#internals.states.delete('animated');
 
+    if (this.#animationTimeout !== undefined) {
+      clearTimeout(this.#animationTimeout);
+      this.#animationTimeout = undefined;
+    }
+
     if (this.#selectionRetryFrame !== undefined) {
       cancelAnimationFrame(this.#selectionRetryFrame);
       this.#selectionRetryFrame = undefined;
@@ -240,6 +248,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.items.forEach(item => {
       item.emphasis = this.emphasis;
       item.iconOnly = this.iconOnly;
+      // Only the options that change state animate their fill in or out.
+      item.entering = item === this.selectedItem && this.#previousItem !== undefined;
       item.leaving = item === this.#previousItem;
       item.selected = item === this.selectedItem;
       item.shape = this.shape;
@@ -248,15 +258,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       this.#rovingTabindexController.clearElementCache();
-    }
-
-    // Only animate selection changes, not the initial selection.
-    if (this.items.length && !this.#internals.states.has('animated')) {
-      requestAnimationFrame(() => {
-        if (this.isConnected) {
-          this.#internals.states.add('animated');
-        }
-      });
     }
   }
 
@@ -362,7 +363,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
   /** Update the selected value and optionally emit `sl-change` for user-driven changes. */
   #select(value: string, emitEvent = true): void {
-    if (value === this.value) {
+    if (value === this.#requestedValue()) {
       return;
     }
 

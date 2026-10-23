@@ -1,4 +1,8 @@
 :host {
+  /* Timings of the selection animation. The old fill leaves first, then the new fill enters. */
+  --_duration-fill: 120ms;
+  --_duration-state: 80ms;
+
   display: flex;
   min-inline-size: 0;
 }
@@ -7,8 +11,6 @@ button {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --_fill-transition-delay: calc(var(--_fill-duration, 0ms) - 30ms);
-  --_fill-transition-duration: calc(var(--_fill-duration, 0ms) + 30ms);
 
   align-items: center;
   appearance: none;
@@ -59,6 +61,10 @@ button {
     cursor: default;
     pointer-events: none;
   }
+}
+
+:host(:not([emphasis='bold'])) button[aria-current='true']:not([aria-disabled='true']) {
+  color: var(--sl-color-foreground-selected-bold);
 }
 
 :host([emphasis='bold']) button:not([aria-disabled='true']) {
@@ -168,52 +174,56 @@ button[aria-current='true'].has-selected-icon {
 }
 
 /*
- * Selection animation, 240ms in total: first the old fill shrinks to 75% and fades out (120ms
- * ease-in), then the new fill grows from the centre from 40% to 100% (120ms ease-out, 120ms delay).
- * The segmented control sets `--_fill-duration` once the initial selection has rendered, and only
- * when the user doesn't prefer reduced motion.
+ * Selection animation: first the old fill shrinks and fades out (120ms), then the new fill grows
+ * from the centre (120ms, delayed by 120ms). These are animations instead of transitions, so they
+ * start over every time the `entering` or `leaving` attribute is set, also on an option that was
+ * selected before. The segmented control only sets these attributes when the selection changes.
  */
 @media (prefers-reduced-motion: no-preference) {
   button {
-    --_fill-transition-delay: calc(var(--_fill-duration, 0ms) - 30ms);
-    --_fill-transition-duration: calc(var(--_fill-duration, 0ms) + 30ms);
-
     transition:
-      background-color 80ms ease,
-      color var(--_fill-duration, 0ms) ease-out var(--_fill-duration, 0ms),
-      outline-color 80ms ease;
+      background-color var(--_duration-state) ease,
+      color var(--_duration-state) ease,
+      outline-color var(--_duration-state) ease;
+  }
 
-    /* The hover tint stays visible until the new fill has landed. */
-    &[aria-current='true'] {
-      transition:
-        background-color 50ms ease-in-out calc(2 * var(--_fill-duration, 0ms)),
-        color var(--_fill-duration, 0ms) ease-out var(--_fill-duration, 0ms),
-        outline-color 80ms ease;
-    }
+  :host(:is([entering], [leaving])) button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color var(--_duration-fill) ease-out var(--_duration-fill),
+      outline-color var(--_duration-state) ease;
   }
 
   .fill {
-    transition:
-      background-color 80ms ease,
-      opacity var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
-      scale var(--_fill-transition-duration) ease-out var(--_fill-transition-delay);
+    transition: background-color var(--_duration-state) ease;
   }
 
-  /* The old fill uses its own keyframes instead of reversing the transition. */
   :host([leaving]) .fill {
-    animation: fill-out var(--_fill-duration, 0ms) ease-in 120ms both;
-    transition: background-color 80ms ease;
+    animation: fill-out var(--_duration-fill) ease-in both;
+  }
+
+  :host([entering]) .fill {
+    animation: fill-in var(--_duration-fill) ease-out var(--_duration-fill) both;
   }
 
   ::slotted(sl-icon) {
-    transition:
-      color var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
-      fill var(--_fill-transition-duration) ease-out var(--_fill-transition-delay),
-      scale 80ms ease;
+    transition: scale var(--_duration-state) ease;
   }
 
   button:hover:not(:disabled) ::slotted(sl-icon) {
     scale: 1.15;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
   }
 }
 

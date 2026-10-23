@@ -3,11 +3,6 @@
   max-inline-size: 100%;
 }
 
-/* Enables the selection animation of the items, once the initial selection has rendered. */
-:host(:state(animated)) {
-  --_fill-duration: 120ms;
-}
-
 :host(:is(:state(measuring), :state(overflowing))) .list {
   inline-size: max-content;
 }

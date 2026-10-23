@@ -191,6 +191,20 @@ describe('sl-segmented-control', () => {
       expect(options().map(option => !!option.leaving)).to.deep.equal([false, false, false]);
     });
 
+    it('should not mark any option as entering on the first render', () => {
+      expect(options().map(option => !!option.entering)).to.deep.equal([false, false, false]);
+    });
+
+    it('should animate in an option that was selected before', async () => {
+      buttons()[1].click();
+      await settle();
+      buttons()[0].click();
+      await settle();
+
+      expect(options().map(option => !!option.entering)).to.deep.equal([true, false, false]);
+      expect(options().map(option => !!option.leaving)).to.deep.equal([false, true, false]);
+    });
+
     it('should mark the previously selected option as leaving', async () => {
       buttons()[1].click();
       await settle();

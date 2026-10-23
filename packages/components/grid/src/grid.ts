@@ -545,6 +545,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           ${virtualize({
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
+            // Data-source updates replace item wrappers; keep native drag sources mounted.
+            keyFunction: item => (isListDataSourceDataItem(item) ? item.data : item),
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -675,7 +677,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
         ...(active ? ['active'] : []),
-        ...(this.#dragItem === item ? ['dragging'] : []),
+        ...(isListDataSourceDataItem(this.#dragItem) && this.#dragItem.data === item.data
+          ? ['dragging']
+          : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
       ariaSelected =

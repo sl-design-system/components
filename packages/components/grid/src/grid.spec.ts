@@ -952,6 +952,72 @@ describe('sl-grid', () => {
   });
 
   describe('drag and drop', () => {
+    it('should preserve the dragged row through successive reorder gestures', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' },
+            { firstName: 'Alice', lastName: 'Brown' }
+          ]}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const onDrop = spy();
+      el.addEventListener('sl-grid-drop', onDrop);
+      const readOrder = () =>
+        Array.from(el.renderRoot.querySelectorAll('tbody tr'), row =>
+          row.querySelector('td:nth-child(2)')?.textContent?.trim()
+        );
+
+      for (const [sourceIndex, targetIndex, position, expectedOrder] of [
+        [0, 2, 'after', ['Jane', 'Alice', 'John']],
+        [2, 0, 'before', ['John', 'Jane', 'Alice']],
+        [1, 2, 'after', ['John', 'Alice', 'Jane']]
+      ] as const) {
+        const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'),
+          sourceRow = rows[sourceIndex],
+          targetRow = rows[targetIndex],
+          transfer = new DataTransfer(),
+          rect = targetRow.getBoundingClientRect(),
+          clientY = position === 'before' ? rect.top + 1 : rect.bottom - 1;
+        const dispatch = (row: HTMLTableRowElement, type: string) =>
+          row.dispatchEvent(
+            new DragEvent(type, {
+              bubbles: true,
+              composed: true,
+              cancelable: true,
+              dataTransfer: transfer,
+              clientY
+            })
+          );
+
+        sourceRow
+          .querySelector('[part~="drag-handle"]')!
+          .dispatchEvent(
+            new MouseEvent('mousedown', { bubbles: true, composed: true, cancelable: true })
+          );
+        dispatch(sourceRow, 'dragstart');
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        dispatch(targetRow, 'dragover');
+        await expect.poll(readOrder).to.deep.equal(expectedOrder);
+
+        // Replacing this element interrupts the browser's native drag-and-drop gesture.
+        expect(sourceRow.isConnected).to.be.true;
+        expect(sourceRow.part.contains('dragging')).to.be.true;
+        expect(onDrop).not.to.have.been.called;
+        dispatch(targetRow, 'drop');
+        dispatch(sourceRow, 'dragend');
+        await el.updateComplete;
+        expect(onDrop).to.have.been.calledOnce;
+        expect(sourceRow.part.contains('dragging')).to.be.false;
+        onDrop.resetHistory();
+      }
+    });
+
     it('should use the default cursor for a non-draggable group row', async () => {
       const dataSource = new ArrayListDataSource<Person>(
         [

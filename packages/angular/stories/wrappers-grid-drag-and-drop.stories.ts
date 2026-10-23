@@ -107,18 +107,26 @@ export const OnTop: StoryObj = {
 
     const onDrop = (event: Event): void => {
       const { item, relativeItem, position } = (event as SlDropEvent<Person>).detail;
-      const target = dataSource.items.find(
-        target => isListDataSourceDataItem(target) && target.data === relativeItem
-      );
-
-      if (position === 'on-top' && target && relativeItem && dropFilter(relativeItem)) {
-        dataSource.reorder(item, target, 'after');
+      if (position !== 'on-top' || !relativeItem || !dropFilter(relativeItem)) {
+        return;
       }
+
+      const items = dataSource.items,
+        sourceIndex = items.findIndex(source => source.type === item.type && source.id === item.id),
+        targetIndex = items.findIndex(
+          target => isListDataSourceDataItem(target) && target.data === relativeItem
+        );
+
+      if (sourceIndex === -1 || targetIndex === -1 || sourceIndex === targetIndex) {
+        return;
+      }
+
+      dataSource.reorder(item, items[targetIndex], sourceIndex < targetIndex ? 'after' : 'before');
     };
 
     return {
       description:
-        'Drop a row on a highlighted member to move it immediately after that member. Regular members cannot be drop targets. In on-top mode, the application handles slGridDrop and updates the data source explicitly.',
+        "Drop a row on a highlighted member to move it to the target member's position. Regular members cannot be drop targets. In on-top mode, the application handles slGridDrop and updates the data source explicitly.",
       props: { dataSource, dropFilter, onDrop },
       template: `
         <sl-grid

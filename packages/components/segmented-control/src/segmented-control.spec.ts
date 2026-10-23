@@ -1,7 +1,7 @@
 import '@sl-design-system/icon/register.js';
 import { type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { type TemplateResult, html, nothing } from 'lit';
+import { type TemplateResult, html, nothing, render } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
@@ -142,6 +142,31 @@ describe('sl-segmented-control', () => {
 
       expect(list()).to.have.attribute('aria-label', 'Sort by');
     });
+
+    it('should update when aria-label changes', async () => {
+      await setup(html`
+        <sl-segmented-control aria-label="View">${renderItems(items)}</sl-segmented-control>
+      `);
+
+      el.setAttribute('aria-label', 'Layout');
+      await settle();
+
+      expect(list()).to.have.attribute('aria-label', 'Layout');
+    });
+
+    it('should update when the referenced label text changes', async () => {
+      const root = await setup(html`
+        <div>
+          <span id="label">Sort by</span>
+          <sl-segmented-control aria-labelledby="label">${renderItems(items)}</sl-segmented-control>
+        </div>
+      `);
+
+      root.querySelector('#label')!.textContent = 'Order by';
+      await settle();
+
+      expect(list()).to.have.attribute('aria-label', 'Order by');
+    });
   });
 
   describe('selection', () => {
@@ -238,6 +263,17 @@ describe('sl-segmented-control', () => {
       expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(buttons()[1]).to.have.attribute('aria-current', 'true');
       expect(onChange).not.to.have.been.called;
+    });
+
+    it('should select the first option again when the value is cleared', async () => {
+      el.value = 'grid';
+      await settle();
+
+      el.value = undefined;
+      await settle();
+
+      expect(el.value).to.equal('list');
+      expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
     });
 
     it('should select an option when the value attribute is set', async () => {
@@ -659,6 +695,56 @@ describe('sl-segmented-control', () => {
       expect(select()).not.to.exist;
     });
 
+    it('should switch back to the options when the host of a containing shadow root widens', async () => {
+      const host = document.createElement('div');
+
+      host.style.inlineSize = '150px';
+      document.body.append(host);
+
+      try {
+        render(
+          html`<sl-segmented-control>${renderItems(longItems)}</sl-segmented-control>`,
+          host.attachShadow({ mode: 'open' })
+        );
+
+        el = host.shadowRoot!.querySelector('sl-segmented-control') as SegmentedControl;
+        await settle();
+
+        expect(select()).to.exist;
+
+        host.style.inlineSize = '1000px';
+        await settle();
+
+        expect(select()).not.to.exist;
+      } finally {
+        host.remove();
+      }
+    });
+
+    it('should keep the select options in sync when an item becomes aria-disabled', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      options()[1].setAttribute('aria-disabled', 'true');
+      await settle();
+
+      const selectOptions = Array.from(select()!.querySelectorAll('sl-option'));
+
+      expect(selectOptions.map(option => option.hasAttribute('disabled'))).to.deep.equal([
+        false,
+        true,
+        false
+      ]);
+
+      select()!.dispatchEvent(
+        new CustomEvent('sl-change', { bubbles: true, composed: true, detail: 'two' })
+      );
+      await el.updateComplete;
+
+      expect(onChange).not.to.have.been.called;
+      expect(el.value).to.equal('one');
+    });
+
     it('should update the value and emit a single sl-change when the select changes', async () => {
       const onChange = spy();
       el.addEventListener('sl-change', onChange);
@@ -677,14 +763,15 @@ describe('sl-segmented-control', () => {
     });
 
     it('should keep the selected value and not animate when switching back to the options', async () => {
-      el.value = 'table';
+      el.value = 'two';
       await settle();
 
       container.style.inlineSize = '1000px';
       await settle();
       await settle();
 
-      expect(el.value).to.equal('table');
+      expect(el.value).to.equal('two');
+      expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(options().map(option => !!option.leaving)).to.deep.equal([false, false, false]);
     });
   });

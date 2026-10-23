@@ -71,14 +71,20 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Timeout used to keep the animated state active long enough for the incoming fill transition. */
-  #animationTimeout?: number;
-
-  /** Used for the `animated`, `measuring` and `overflowing` custom states. */
+  /** Used for the `measuring` and `overflowing` custom states. */
   #internals = this.attachInternals();
+
+  /** Refreshes the accessible name when `aria-label`, `aria-labelledby` or the label text changes. */
+  #labelObserver = new MutationObserver(() => {
+    this.#updateLabelReference();
+    this.requestUpdate();
+  });
 
   /** Detects whether the options fit. If not, a select is shown instead. */
   #overflow = new OverflowController(this, this.#internals);
+
+  /** Keeps the fallback select in sync when an option's disabled state or label changes. */
+  #itemObserver = new MutationObserver(() => this.requestUpdate());
 
   /** The previously selected option, so its fill can animate out. */
   #previousItem?: SegmentedControlItem;
@@ -156,16 +162,13 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.addEventListener('click', this.#onClick);
+    this.#observeItems();
   }
 
   override disconnectedCallback(): void {
     this.removeEventListener('click', this.#onClick);
-    this.#internals.states.delete('animated');
-
-    if (this.#animationTimeout !== undefined) {
-      clearTimeout(this.#animationTimeout);
-      this.#animationTimeout = undefined;
-    }
+    this.#itemObserver.disconnect();
+    this.#labelObserver.disconnect();
 
     if (this.#selectionRetryFrame !== undefined) {
       cancelAnimationFrame(this.#selectionRetryFrame);
@@ -335,10 +338,25 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.items = event.target
       .assignedElements({ flatten: true })
       .filter((el): el is SegmentedControlItem => el instanceof SegmentedControlItem);
+
+    this.#observeItems();
+  }
+
+  #observeItems(): void {
+    this.#itemObserver.disconnect();
+    this.items.forEach(item =>
+      this.#itemObserver.observe(item, {
+        attributeFilter: ['aria-disabled'],
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true
+      })
+    );
   }
 
   #requestedValue(): string | undefined {
-    return this.value ?? this.getAttribute('value') ?? undefined;
+    return this.value;
   }
 
   #resolveSelectedItem(value = this.#requestedValue()): SegmentedControlItem | undefined {
@@ -367,6 +385,13 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // Reject disabled options, also when the value comes from the fallback select.
+    const item = this.items.find(item => this.#itemValue(item) === value);
+
+    if (item && this.#isAriaDisabled(item)) {
+      return;
+    }
+
     this.value = value;
 
     if (emitEvent) {
@@ -376,39 +401,29 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
   /**
    * Resolve the host's accessible name to a plain text string so the internal list and fallback
-   * select can reuse it inside the shadow DOM.
+   * select can reuse it inside the shadow DOM, and observe everything the name depends on.
    */
   #updateLabelReference(): void {
-    if (this.ariaLabel) {
-      this.labelFromReference = undefined;
-      return;
-    }
-
-    const labelElements = this.ariaLabelledByElements ?? [];
-
-    if (labelElements.length) {
-      this.labelFromReference =
-        Array.from(labelElements)
+    const root = this.getRootNode() as Document | ShadowRoot,
+      ids = this.getAttribute('aria-labelledby')?.split(/\s+/).filter(Boolean) ?? [],
+      elements = this.ariaLabelledByElements?.length
+        ? Array.from(this.ariaLabelledByElements)
+        : ids.map(id => root.getElementById?.(id)).filter((el): el is HTMLElement => !!el);
+    this.labelFromReference = this.ariaLabel
+      ? undefined
+      : elements
           .map(el => el.textContent?.trim())
           .filter(Boolean)
           .join(' ') || undefined;
 
-      return;
-    }
+    this.#labelObserver.disconnect();
+    this.#labelObserver.observe(this, {
+      attributeFilter: ['aria-label', 'aria-labelledby'],
+      attributes: true
+    });
 
-    const ids = this.getAttribute('aria-labelledby')?.split(/\s+/).filter(Boolean) ?? [];
-
-    if (!ids.length) {
-      this.labelFromReference = undefined;
-      return;
-    }
-
-    const root = this.getRootNode() as Document | ShadowRoot;
-
-    this.labelFromReference =
-      ids
-        .map(id => root.getElementById?.(id)?.textContent?.trim())
-        .filter(Boolean)
-        .join(' ') || undefined;
+    elements.forEach(el =>
+      this.#labelObserver.observe(el, { characterData: true, childList: true, subtree: true })
+    );
   }
 }

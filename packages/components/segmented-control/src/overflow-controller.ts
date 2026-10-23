@@ -30,10 +30,17 @@ export class OverflowController implements ReactiveController {
   hostConnected(): void {
     this.#observer.observe(this.#host);
     this.#syncAncestorObservations();
+
+    const list = this.#host.renderRoot.querySelector('.list');
+
+    if (list) {
+      this.#observer.observe(list);
+    }
   }
 
   hostDisconnected(): void {
     this.#observer.disconnect();
+    this.#observedAncestors.clear();
 
     if (this.#frame !== undefined) {
       cancelAnimationFrame(this.#frame);
@@ -64,7 +71,14 @@ export class OverflowController implements ReactiveController {
   #syncAncestorObservations(): void {
     const nextAncestors = new Set<Element>();
 
-    for (let ancestor = this.#host.parentElement; ancestor; ancestor = ancestor.parentElement) {
+    // Also continue through shadow root boundaries, so containers of a parent component count too.
+    const parentOf = (el: Element): Element | null => {
+      const root = el.getRootNode();
+
+      return el.parentElement ?? (root instanceof ShadowRoot ? root.host : null);
+    };
+
+    for (let ancestor = parentOf(this.#host); ancestor; ancestor = parentOf(ancestor)) {
       nextAncestors.add(ancestor);
     }
 

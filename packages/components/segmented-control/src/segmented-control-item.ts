@@ -44,6 +44,12 @@ export class SegmentedControlItem extends LitElement {
   /** Prevents repeating the same dev-mode warning every update. */
   #lastError?: string;
 
+  /**
+   * Mutation observer used to refresh the label for icon-only buttons when the slotted text
+   * changes.
+   */
+  #labelObserver = new MutationObserver(() => this.#onLabelSlotChange());
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -54,7 +60,12 @@ export class SegmentedControlItem extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Whether the option is aria-disabled. When set, the option stays focusable but is inactive. */
-  @property({ attribute: 'aria-disabled', reflect: true }) ariaDisabledState?: string;
+  @property({
+    attribute: 'aria-disabled',
+    converter: value => value ?? undefined,
+    reflect: true
+  })
+  ariaDisabledState?: string;
 
   /** @internal Whether there is an icon in the `icon` slot. */
   @state() hasIcon = false;
@@ -93,6 +104,13 @@ export class SegmentedControlItem extends LitElement {
     super.connectedCallback();
 
     this.setAttribute('role', 'listitem');
+    this.#labelObserver.observe(this, { childList: true, characterData: true, subtree: true });
+  }
+
+  override disconnectedCallback(): void {
+    this.#labelObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {

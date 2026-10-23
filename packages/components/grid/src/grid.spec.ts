@@ -202,6 +202,48 @@ describe('sl-grid', () => {
       await checkFilteredRows(2);
     });
 
+    it('should replace distinct loading rows when fetched pages resolve out of order', async () => {
+      const resolvers: Array<(result: { items: Person[]; totalItems: number }) => void> = [],
+        dataSource = new FetchListDataSource<Person>({
+          pageSize: 3,
+          size: 6,
+          fetchPage: ({ page }) =>
+            new Promise(resolve => {
+              resolvers[page] = resolve;
+            })
+        }),
+        people = ['John', 'Jane', 'Alice', 'Bob', 'Mary', 'Eve'].map(firstName => ({
+          firstName,
+          lastName: 'Test'
+        }));
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(6);
+      await expect.poll(() => typeof resolvers[1]).toBe('function');
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[1]({ items: people.slice(3), totalItems: 6 });
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(3);
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[0]({ items: people.slice(0, 3), totalItems: 6 });
+      await expect
+        .poll(() =>
+          Array.from(el.tbody.querySelectorAll('tr'), row =>
+            row.querySelector('td')?.textContent?.trim()
+          )
+        )
+        .to.deep.equal(people.map(person => person.firstName));
+      expect(el.tbody.querySelectorAll('td[part~="placeholder"]')).to.have.length(0);
+    });
+
     it('should fit wrapped rows after replacing measured placeholders with a smaller fetched result', async () => {
       let resolveFetch!: (result: { items: Person[]; totalItems: number }) => void;
       const pendingFetch = new Promise<{ items: Person[]; totalItems: number }>(resolve => {

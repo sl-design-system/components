@@ -546,7 +546,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
             // Data-source updates replace item wrappers; keep native drag sources mounted.
-            keyFunction: item => (isListDataSourceDataItem(item) ? item.data : item),
+            // Loading rows share a placeholder symbol, so key them by their individual wrappers.
+            keyFunction: item =>
+              isListDataSourceDataItem(item) && typeof item.data !== 'symbol' ? item.data : item,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>

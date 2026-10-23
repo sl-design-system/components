@@ -580,6 +580,72 @@ describe('ArrayListDataSource', () => {
       expect(source.isSelected(group)).to.be.false;
     });
 
+    it('should replace group markers when successive single-selection batches select different groups', () => {
+      const source = new ArrayListDataSource(
+          [
+            { id: 1, group: 'A' },
+            { id: 2, group: 'B' }
+          ],
+          { selects: 'single', groupBy: 'group' }
+        ),
+        [first, second] = source.filteredItems,
+        onSelectionChange = spy();
+
+      source.toggleItems([first], true);
+      source.update();
+      source.addEventListener('sl-selection-change', onSelectionChange);
+      source.toggleItems([second], true);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(first)).to.be.false;
+      expect(source.isSelected(second)).to.be.true;
+      expect(
+        source.items.filter(isListDataSourceDataItem).map(item => item.selected)
+      ).to.deep.equal([false, true]);
+      expect(
+        source.items.filter(isListDataSourceGroupItem).map(group => source.isSelected(group))
+      ).to.deep.equal([false, true]);
+      expect(onSelectionChange).to.have.been.calledOnce;
+    });
+
+    it('should preserve single-selection group markers for an empty batch', () => {
+      const source = new ArrayListDataSource([{ id: 1, group: 'A' }], {
+          selects: 'single',
+          groupBy: 'group'
+        }),
+        item = source.filteredItems[0];
+
+      source.toggleItems([item], true);
+      source.toggleItems([], true);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(item)).to.be.true;
+      expect(source.isSelected(source.items.find(isListDataSourceGroupItem))).to.be.true;
+    });
+
+    it('should preserve single-selection group markers when deselecting an unrelated row', () => {
+      const source = new ArrayListDataSource(
+          [
+            { id: 1, group: 'A' },
+            { id: 2, group: 'B' }
+          ],
+          { selects: 'single', groupBy: 'group' }
+        ),
+        [first, second] = source.filteredItems;
+
+      source.toggleItems([first], true);
+      source.toggleItems([second], false);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(first)).to.be.true;
+      expect(
+        source.items.filter(isListDataSourceGroupItem).map(group => source.isSelected(group))
+      ).to.deep.equal([true, false]);
+    });
+
     it('should use updated unfiltered membership after replacing the dataset', () => {
       const source = new ArrayListDataSource([{ id: 1, group: 'A' }], {
         selects: 'multiple',

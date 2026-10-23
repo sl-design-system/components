@@ -467,6 +467,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     const groups = new Set<ListDataSourceGroupItem<T>>();
 
+    if (this.#selects === 'single' && force && items.length > 0) {
+      this.#groupSelection.clear();
+    }
+
     items.forEach(item => {
       this.toggle(item, force, false);
 

@@ -187,10 +187,14 @@ button[aria-current='true'].has-selected-icon {
       outline-color var(--_duration-state) ease;
   }
 
+  /*
+   * The icons swap instantly, so the label color changes instantly as well.
+   * This keeps the icon and the label in sync when the selection changes.
+   */
   :host(:is([entering], [leaving])) button {
     transition:
       background-color var(--_duration-state) ease,
-      color var(--_duration-fill) ease-out var(--_duration-fill),
+      color 0s,
       outline-color var(--_duration-state) ease;
   }
 

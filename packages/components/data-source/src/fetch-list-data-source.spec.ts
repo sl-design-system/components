@@ -1001,6 +1001,35 @@ describe('FetchListDataSource', () => {
       expect(source.isSelectAllToggled()).to.be.true;
     });
 
+    it('should update the aggregate lower bound when only one remote group total is known', async () => {
+      const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 })),
+        source = new FetchListDataSource<Person>({
+          size: 1,
+          groups: [{ id: 'A', collapsed: false }, { id: 'B' }],
+          pageSize: 2,
+          selects: 'multiple',
+          getId: item => item.id,
+          fetchPage
+        }),
+        group = source.items[0] as ListDataSourceGroupItem<Person>;
+
+      // Initialize the expanded group's unloaded member slot before requesting its first page.
+      group.members = Array.from({ length: 1 });
+      source.items.splice(1, 0, ...group.members);
+      void source.items[1];
+      await expect.poll(() => source.size).to.equal(2);
+
+      source.selectAll();
+      source.deselect(source.items[1]);
+
+      expect(source.totalSize).to.equal(2);
+      expect(source.selected).to.equal(1);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected(source.items[2])).to.be.true;
+      expect(fetchPage).to.have.been.calledOnce;
+      expect(fetchPage).to.have.been.calledWithMatch({ group: 'A' });
+    });
+
     it('should use the combined known group sizes as the unfiltered total', () => {
       const source = new FetchListDataSource({
         groups: [

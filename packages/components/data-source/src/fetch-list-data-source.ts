@@ -456,21 +456,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
               this.#unfilteredGroupSizes.delete(group.id);
               this.#totalSizeKnown = false;
             }
-
-            const minimumTotal = Array.from(this.#groups.keys()).reduce<number>(
-              (total, id) =>
-                total +
-                Math.max(
-                  this.#unfilteredGroupSizes.get(id) ?? 0,
-                  this.#groupSizeLowerBounds.get(id) ?? 0
-                ),
-              0
-            );
-
-            if (minimumTotal > this.#totalSize) {
-              this.#totalSize = minimumTotal;
-              this.#totalSizeKnown = false;
-            }
           }
           const selectionChanged = this.#updateTotalSize();
 
@@ -524,6 +509,20 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   #updateTotalSize(): boolean {
     if (this.#unfilteredGroupSizes.size !== this.#groups.size) {
+      const minimumTotal = Array.from(this.#groups.keys()).reduce<number>(
+        (total, id) =>
+          total +
+          Math.max(
+            this.#unfilteredGroupSizes.get(id) ?? 0,
+            this.#groupSizeLowerBounds.get(id) ?? 0
+          ),
+        0
+      );
+
+      if (minimumTotal > this.#totalSize) {
+        this.#totalSize = minimumTotal;
+        this.#totalSizeKnown = false;
+      }
       return false;
     }
 

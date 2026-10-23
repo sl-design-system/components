@@ -6,10 +6,13 @@ import {
   MenuItemComponent,
   MenuItemGroupComponent
 } from '@sl-design-system/angular/menu';
+import {
+  SegmentedControlComponent,
+  SegmentedControlItemComponent
+} from '@sl-design-system/angular/segmented-control';
 import { ToggleButtonComponent } from '@sl-design-system/angular/toggle-button';
 import { ToggleGroupComponent } from '@sl-design-system/angular/toggle-group';
 import { ToolBarComponent } from '@sl-design-system/angular/tool-bar';
-import '@sl-design-system/segmented-control/register.js';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
@@ -23,6 +26,8 @@ export default {
         MenuButtonComponent,
         MenuItemComponent,
         MenuItemGroupComponent,
+        SegmentedControlComponent,
+        SegmentedControlItemComponent,
         ToggleButtonComponent,
         ToggleGroupComponent,
         ToolBarComponent

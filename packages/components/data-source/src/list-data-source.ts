@@ -330,6 +330,11 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#sort = undefined;
   }
 
+  /** The known unfiltered total used to detect when select-all has been fully deselected. */
+  protected get selectionSize(): number | undefined {
+    return this.totalSize;
+  }
+
   /**
    * Returns whether all members in the provided group are selected.
    *
@@ -405,7 +410,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
 
       // If all items have been manually deselected, turn off select all mode
-      if (this.#selection.size === this.totalSize) {
+      if (this.#selection.size === this.selectionSize) {
         this.deselectAll(false);
       }
     } else {
@@ -452,6 +457,34 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (update) {
       this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
+  }
+
+  /** Sets selection for a batch of data items and emits a single selection event. */
+  toggleItems(items: Array<ListDataSourceDataItem<T>>, force: boolean): void {
+    if (this.#selects === undefined) {
+      return;
+    }
+
+    const groups = new Set<ListDataSourceGroupItem<T>>();
+
+    items.forEach(item => {
+      this.toggle(item, force, false);
+
+      if (item.group) {
+        groups.add(item.group);
+      }
+    });
+
+    // Reconcile markers after the batch against the entire group, including hidden members.
+    groups.forEach(group => {
+      if (this.areAllGroupMembersSelected(group)) {
+        this.select(group, false);
+      } else {
+        this.deselect(group, false);
+      }
+    });
+
+    this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
 
   /**

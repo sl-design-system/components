@@ -862,6 +862,144 @@ describe('FetchListDataSource', () => {
     });
   });
 
+  describe('select all with fetched totals', () => {
+    it('should use the fetched total of 5 rows when deselecting', async () => {
+      const rows = Array.from({ length: 5 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 5 }),
+          getId: item => item.id,
+          pageSize: 5,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(5);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 3).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should use the fetched total of 12 rows when deselecting', async () => {
+      const rows = Array.from({ length: 12 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 12 }),
+          getId: item => item.id,
+          pageSize: 12,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 10).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should not reset select-all against an estimated total', async () => {
+      const rows = Array.from({ length: 10 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows }),
+          getId: item => item.id,
+          pageSize: 10,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      // The server has not supplied a total, so additional selected rows may still exist.
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected({ id: 10, type: 'data' })).to.be.true;
+    });
+
+    it('should use a known total even when the first fetch is filtered', async () => {
+      const source = new FetchListDataSource({
+        size: people.length,
+        filters: [{ id: 'name', by: 'firstName', value: 'Ann' }],
+        fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+
+    it('should use the combined known group sizes as the unfiltered total', () => {
+      const source = new FetchListDataSource({
+        groups: [
+          { id: 'A', size: 2 },
+          { id: 'B', size: 3 }
+        ],
+        fetchPage: () => Promise.resolve({ items: [] }),
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      source.selectAll();
+      expect(source.totalSize).to.equal(5);
+      expect(source.selected).to.equal(5);
+      for (let id = 0; id < 5; id++) {
+        source.deselect({ id, type: 'data' });
+      }
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should retain the unfiltered total when a filtered response arrives', async () => {
+      const source = new FetchListDataSource<Person>({
+        fetchPage: ({ filters }) =>
+          Promise.resolve({
+            items: filters?.length ? people.slice(0, 2) : people,
+            totalItems: filters?.length ? 2 : people.length
+          }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(people.length);
+      source.selectAll();
+      source.addFilter('name', 'firstName', 'Ann');
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+
+      [...source.items].forEach(item => source.deselect(item));
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+  });
+
   describe('group selection', () => {
     beforeEach(() => {
       ds = new FetchListDataSource<Person>({

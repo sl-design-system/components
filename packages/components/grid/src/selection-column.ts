@@ -145,14 +145,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     if (dataSource?.filters.size && dataSource.filteredItems) {
       // Select the filtered data, including rows outside the current page or collapsed groups.
       // Keep selections hidden by the filter unchanged and emit a single selection event.
-      dataSource.filteredItems.filter(isListDataSourceDataItem<T>).forEach(item => {
-        dataSource.toggle(item, checked, false);
-
-        if (!checked && item.group) {
-          dataSource.deselect(item.group, false);
-        }
-      });
-      dataSource.dispatchEvent(new CustomEvent('sl-selection-change'));
+      dataSource.toggleItems(dataSource.filteredItems.filter(isListDataSourceDataItem<T>), checked);
     } else if (checked) {
       dataSource?.selectAll();
     } else {

@@ -2,6 +2,7 @@ import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualiz
 import { Avatar } from '@sl-design-system/avatar';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
   FetchListDataSource,
@@ -15,6 +16,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
@@ -936,6 +938,251 @@ describe('sl-grid', () => {
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
+    });
+
+    it('should select 2 of 48 rows after typing sop in the student filter', async () => {
+      const students = Array.from({ length: 48 }, (_, index) => ({
+        firstName: index === 0 ? 'Sophie' : index === 1 ? 'Sophia' : `Student ${index}`,
+        lastName: `Last name ${index}`
+      }));
+
+      el = await fixture(html`
+        <sl-grid .items=${students}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-filter-column header="Student" path="firstName"></sl-grid-filter-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const searchField = el.renderRoot
+        .querySelector('sl-grid-filter')!
+        .renderRoot.querySelector('sl-search-field')!;
+
+      await userEvent.type(searchField.input, 'sop');
+      await expect.poll(() => el.dataSource?.size).to.equal(2);
+
+      await userEvent.click(el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!);
+      await expect.poll(() => el.dataSource?.selected).to.equal(2);
+      expect(el.renderRoot.textContent).to.contain('2 of 48 selected');
+
+      searchField.clear();
+      await expect.poll(() => el.dataSource?.size).to.equal(48);
+      expect(el.dataSource?.selected).to.equal(2);
+    });
+
+    it('should disable select-all for empty filter results without retaining a checked state', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.addFilter('name', 'firstName', 'Nobody');
+      dataSource.update();
+      await el.updateComplete;
+      const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+
+      expect(checkbox).to.have.attribute('disabled');
+      checkbox.click();
+      await el.updateComplete;
+      expect(checkbox.checked).not.to.be.true;
+      expect(dataSource.selected).to.equal(0);
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+      expect(checkbox).not.to.have.attribute('disabled');
+      expect(checkbox.checked).not.to.be.true;
+    });
+
+    it('should select only filtered rows with the header checkbox', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[0]]);
+      expect(dataSource.selected).to.equal(1);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.property('checked', true);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[0]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.property(
+        'indeterminate',
+        true
+      );
+    });
+
+    it('should preserve hidden selections when deselecting filtered rows', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>,
+        onSelectionChange = spy();
+
+      dataSource.selectAll();
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[1]]);
+      expect(dataSource.selected).to.equal(1);
+      expect(onSelectionChange).to.have.been.calledOnce;
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+    });
+
+    it('should reflect selection in the current filter rather than hidden rows', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.select(dataSource.items[1]);
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal(multipleSelectItems);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+    });
+
+    it('should select filtered rows across pages', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'John', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, {
+          selects: 'multiple',
+          pagination: true,
+          pageSize: 1
+        });
+
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(dataSource.selected).to.equal(2);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('indeterminate');
+    });
+
+    it('should select filtered rows in collapsed groups', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'John', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, {
+          selects: 'multiple',
+          groupBy: 'group',
+          pagination: false,
+          pageSize: 1
+        });
+
+      dataSource.collapseGroup('B');
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(dataSource.selected).to.equal(2);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('indeterminate');
+    });
+
+    it('should synchronize group selection after selecting filtered rows', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'Alice', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'group' }),
+        onSelectionChange = spy();
+
+      dataSource.addFilter('group', 'group', 'A');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      const group = dataSource.items.find(item => item.type === 'group')!;
+
+      expect(dataSource.isSelected(group)).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+      dataSource.toggle(group);
+      expect(dataSource.getSelectedItems()).to.deep.equal([]);
+    });
+
+    it('should restore group selection after deselecting and reselecting filtered rows in select-all mode', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'Alice', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'group' }),
+        onSelectionChange = spy();
+
+      dataSource.selectAll();
+      dataSource.addFilter('group', 'group', 'A');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+      onSelectionChange.resetHistory();
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      const group = dataSource.items.find(item => item.type === 'group')!;
+
+      expect(dataSource.isSelected(group)).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+      dataSource.toggle(group);
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[2]]);
     });
 
     it('should set the selects property on the new data source when items are updated', async () => {

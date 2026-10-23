@@ -75,6 +75,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
+            ?disabled=${items?.length === 0 || dataSource?.size === 0}
             ?indeterminate=${indeterminate}
             aria-label=${msg('Select all rows', { id: 'sl.grid.selectAllRows' })}
             class="selection-toggle"

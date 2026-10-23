@@ -23,6 +23,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The filtered, grouped and sorted items. */
   #items: Array<ListDataSourceDataItem<T>> = [];
 
+  /** Unfiltered group membership, rebuilt when the dataset changes. */
+  #groupMembers = new Map<unknown, Array<ListDataSourceDataItem<T>>>();
+
   /** The mapped array of items, as provided in the constructor. */
   #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
@@ -157,6 +160,17 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       data: item,
       selected: options.isSelected?.(item)
     }));
+
+    this.#groupMembers.clear();
+    this.#mappedItems.forEach(item => {
+      let members = this.#groupMembers.get(item.groupId);
+
+      if (!members) {
+        members = [];
+        this.#groupMembers.set(item.groupId, members);
+      }
+      members.push(item);
+    });
 
     if (this.#reorderedGroupIds?.length) {
       const availableGroupIds = Array.from(new Set(this.#mappedItems.map(item => item.groupId)));
@@ -399,7 +413,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   }
 
   protected override areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
-    const members = this.unfilteredItems.filter(item => item.groupId === group.id);
+    const members = this.#groupMembers.get(group.id) ?? [];
 
     return !!members.length && members.every(member => this.isSelected(member));
   }

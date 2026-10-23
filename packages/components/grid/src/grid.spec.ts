@@ -2,6 +2,7 @@ import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualiz
 import { Avatar } from '@sl-design-system/avatar';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
   FetchListDataSource,
@@ -968,6 +969,27 @@ describe('sl-grid', () => {
       searchField.clear();
       await expect.poll(() => el.dataSource?.size).to.equal(48);
       expect(el.dataSource?.selected).to.equal(2);
+    });
+
+    it('should disable select-all for empty filter results without retaining a checked state', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.addFilter('name', 'firstName', 'Nobody');
+      dataSource.update();
+      await el.updateComplete;
+      const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+
+      expect(checkbox).to.have.attribute('disabled');
+      checkbox.click();
+      await el.updateComplete;
+      expect(checkbox.checked).not.to.be.true;
+      expect(dataSource.selected).to.equal(0);
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+      expect(checkbox).not.to.have.attribute('disabled');
+      expect(checkbox.checked).not.to.be.true;
     });
 
     it('should select only filtered rows with the header checkbox', async () => {

@@ -477,10 +477,11 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     // Reconcile markers after the batch against the entire group, including hidden members.
     groups.forEach(group => {
-      if (this.areAllGroupMembersSelected(group)) {
-        this.select(group, false);
+      // In select-all mode, group markers represent deselections.
+      if (this.areAllGroupMembersSelected(group) !== !!this.#selectAll) {
+        this.#groupSelection.add(group.id);
       } else {
-        this.deselect(group, false);
+        this.#groupSelection.delete(group.id);
       }
     });
 

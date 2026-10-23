@@ -117,6 +117,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** Known unfiltered totals for individual groups. Filtered responses do not update these. */
   #unfilteredGroupSizes = new Map<unknown, number>();
 
+  /** Minimum group sizes established by fetched rows, independent of active filters. */
+  #groupSizeLowerBounds = new Map<unknown, number>();
+
   /** The total number of items in the data source. */
   #totalSize: number;
 
@@ -438,8 +441,37 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
           if (!options.filters?.length && res.totalItems !== undefined) {
             this.#unfilteredGroupSizes.set(group.id, Number(res.totalItems));
-            this.#updateTotalSize();
+            this.#groupSizeLowerBounds.set(group.id, Number(res.totalItems));
+          } else if (res.items.length > 0) {
+            const minimumSize = Math.max(
+              this.#groupSizeLowerBounds.get(group.id) ?? 0,
+              page * pageSize + res.items.length
+            );
+
+            this.#groupSizeLowerBounds.set(group.id, minimumSize);
+
+            // Supplied totals can become stale as the remote dataset grows.
+            if ((this.#unfilteredGroupSizes.get(group.id) ?? Infinity) < minimumSize) {
+              this.#unfilteredGroupSizes.delete(group.id);
+              this.#totalSizeKnown = false;
+            }
+
+            const minimumTotal = Array.from(this.#groups.keys()).reduce<number>(
+              (total, id) =>
+                total +
+                Math.max(
+                  this.#unfilteredGroupSizes.get(id) ?? 0,
+                  this.#groupSizeLowerBounds.get(id) ?? 0
+                ),
+              0
+            );
+
+            if (minimumTotal > this.#totalSize) {
+              this.#totalSize = minimumTotal;
+              this.#totalSizeKnown = false;
+            }
           }
+          this.#updateTotalSize();
 
           if (group.size !== undefined && group.size !== group.members?.length) {
             recreateProxy = true;

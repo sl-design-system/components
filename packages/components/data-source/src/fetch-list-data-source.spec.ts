@@ -9,6 +9,7 @@ import {
 } from './fetch-list-data-source.js';
 import {
   type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
   ListDataSourcePlaceholder,
   isListDataSourceGroupItem
 } from './list-data-source.js';
@@ -83,6 +84,54 @@ describe('FetchListDataSource', () => {
     expect(ds.size).to.equal(4);
     expect(ds.items.length).to.equal(2);
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
+  });
+
+  it('should invalidate an underestimated total after fetching a later page', async () => {
+    const source = new FetchListDataSource<Person>({
+      size: 1,
+      pageSize: 2,
+      pagination: true,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+    });
+
+    source.setPage(1);
+    source.update();
+    void source.items[0];
+    await expect.poll(() => source.size).to.equal(4);
+    source.selectAll();
+    source.deselect(source.items[0]);
+
+    expect(source.totalSize).to.equal(4);
+    expect(source.selected).to.equal(3);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[1])).to.be.true;
+  });
+
+  it('should invalidate an underestimated supplied group size', async () => {
+    const source = new FetchListDataSource<Person>({
+      groups: [{ id: 'A', size: 1, collapsed: false }],
+      pageSize: 2,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(0, 2) })
+    });
+
+    // Initialize the expanded group's unloaded member slots before requesting its first page.
+    const group = source.items[0] as ListDataSourceGroupItem<Person>;
+    group.members = Array.from({ length: 1 });
+    source.items.push(...group.members);
+
+    void source.items[1];
+    await expect.poll(() => source.size).to.equal(2);
+    source.selectAll();
+    source.deselect(source.items[1]);
+
+    expect(source.totalSize).to.equal(2);
+    expect(source.selected).to.equal(1);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[2])).to.be.true;
   });
 
   it('should preserve a larger known size when totalItems is omitted', async () => {

@@ -35,6 +35,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
 
+  override get filteredItems(): Array<ListDataSourceDataItem<T>> {
+    return this.#items;
+  }
+
   get items() {
     return this.#viewItems;
   }

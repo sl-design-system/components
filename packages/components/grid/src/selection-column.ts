@@ -2,7 +2,8 @@ import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import {
   type ListDataSourceDataItem,
-  type ListDataSourceItem
+  type ListDataSourceItem,
+  isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -51,8 +52,16 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index === 0) {
-      const checked = !!this.grid?.dataSource?.selected && this.grid?.dataSource?.areAllSelected(),
-        indeterminate = this.grid?.dataSource?.areSomeSelected(),
+      const dataSource = this.grid?.dataSource,
+        items = dataSource?.filters.size
+          ? dataSource.filteredItems?.filter(isListDataSourceDataItem<T>)
+          : undefined,
+        checked = items
+          ? !!items.length && items.every(item => dataSource!.isSelected(item))
+          : !!dataSource?.selected && dataSource.areAllSelected(),
+        indeterminate = items
+          ? !checked && items.some(item => dataSource!.isSelected(item))
+          : dataSource?.areSomeSelected(),
         classes = this.getClasses();
 
       return html`
@@ -131,12 +140,25 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   #onToggleAll(checked: boolean): void {
     this.selectAll = checked;
 
-    if (this.selectAll) {
-      this.grid?.dataSource?.selectAll();
+    const dataSource = this.grid?.dataSource;
+
+    if (dataSource?.filters.size && dataSource.filteredItems) {
+      // Select the filtered data, including rows outside the current page or collapsed groups.
+      // Keep selections hidden by the filter unchanged and emit a single selection event.
+      dataSource.filteredItems.filter(isListDataSourceDataItem<T>).forEach(item => {
+        dataSource.toggle(item, checked, false);
+
+        if (!checked && item.group) {
+          dataSource.deselect(item.group, false);
+        }
+      });
+      dataSource.dispatchEvent(new CustomEvent('sl-selection-change'));
+    } else if (checked) {
+      dataSource?.selectAll();
     } else {
-      this.grid?.dataSource?.deselectAll();
+      dataSource?.deselectAll();
     }
 
-    this.grid?.dataSource?.update();
+    dataSource?.update();
   }
 }

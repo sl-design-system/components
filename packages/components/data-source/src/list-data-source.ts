@@ -166,6 +166,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    */
   #sort?: DataSourceSort<T>;
 
+  /**
+   * All filtered items before pagination or collapsing groups, when available synchronously. Remote
+   * data sources can leave this undefined to avoid fetching unloaded items.
+   */
+  get filteredItems(): U[] | undefined {
+    return undefined;
+  }
+
   get filters() {
     return this.#filters;
   }
@@ -397,7 +405,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
 
       // If all items have been manually deselected, turn off select all mode
-      if (this.#selection.size === this.size) {
+      if (this.#selection.size === this.totalSize) {
         this.deselectAll(false);
       }
     } else {

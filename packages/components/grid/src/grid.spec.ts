@@ -48,13 +48,10 @@ describe('sl-grid', () => {
   };
 
   describe('keyboard focus after selection changes', () => {
-    it.each([
-      { mode: 'activate', key: 'Enter' },
-      { mode: 'activate', key: 'Space' },
-      { mode: 'single', key: 'Enter' },
-      { mode: 'single', key: 'Space' },
-      { mode: 'multiple', key: 'Space' }
-    ])('should preserve focus when toggling $mode with $key', async ({ mode, key }) => {
+    const expectFocusToBePreserved = async (
+      mode: 'activate' | 'single' | 'multiple',
+      key: 'Enter' | 'Space'
+    ): Promise<void> => {
       const items = [
         { firstName: 'John', lastName: 'Doe' },
         { firstName: 'Jane', lastName: 'Smith' },
@@ -106,6 +103,26 @@ describe('sl-grid', () => {
 
       await userEvent.tab();
       expect(el.shadowRoot!.activeElement).to.equal(nextControl);
+    };
+
+    it('should preserve focus when toggling activation with Enter', async () => {
+      await expectFocusToBePreserved('activate', 'Enter');
+    });
+
+    it('should preserve focus when toggling activation with Space', async () => {
+      await expectFocusToBePreserved('activate', 'Space');
+    });
+
+    it('should preserve focus when toggling single selection with Enter', async () => {
+      await expectFocusToBePreserved('single', 'Enter');
+    });
+
+    it('should preserve focus when toggling single selection with Space', async () => {
+      await expectFocusToBePreserved('single', 'Space');
+    });
+
+    it('should preserve focus when toggling multiple selection with Space', async () => {
+      await expectFocusToBePreserved('multiple', 'Space');
     });
 
     it('should preserve focus and scroll position when selecting a row after scrolling down', async () => {

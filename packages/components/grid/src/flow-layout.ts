@@ -1,4 +1,5 @@
 import { FlowLayout } from '@lit-labs/virtualizer/layouts/flow.js';
+import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
 
 /** Flow layout with measurements scoped to the current data source items. */
 export class GridFlowLayout extends FlowLayout {
@@ -27,6 +28,11 @@ export class GridFlowLayout extends FlowLayout {
     for (let i = 0; i < prev.length; i++) {
       const a = prev[i] as { id?: unknown; data?: unknown };
       const b = next[i] as { id?: unknown; data?: unknown };
+      // Reading lazy array entries may fetch a page. Stop at the first unloaded
+      // item rather than fetching the entire data source to compare placeholders.
+      if (a?.id === ListDataSourcePlaceholder || b?.id === ListDataSourcePlaceholder) {
+        return false;
+      }
       if (a === b) {
         continue;
       }
@@ -42,7 +48,7 @@ export class GridFlowLayout extends FlowLayout {
         (dataB && typeof dataB === 'object' && 'id' in dataB
           ? (dataB as { id?: unknown }).id
           : dataB);
-      if (idA !== undefined && idB !== undefined ? idA !== idB : a !== b) {
+      if ((idA !== undefined && idB !== undefined ? idA !== idB : a !== b) || dataA !== dataB) {
         return false;
       }
     }

@@ -893,7 +893,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const monthButton = this.renderRoot.querySelector('.current-month'),
       font = monthButton ? getComputedStyle(monthButton).font : '';
     if (font) {
-      await document.fonts.load(font);
+      // Measure the fallback font as well when the web font cannot be loaded.
+      await document.fonts.load(font).catch(() => undefined);
     }
     if (this.isConnected) {
       this.#updateHeaderSize();

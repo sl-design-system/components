@@ -201,6 +201,64 @@ describe('sl-select-day', () => {
       }
     }
 
+    it('should truncate a static localized month label without overlapping the year', async () => {
+      const container = await fixture<HTMLDivElement>(html`
+        <div style="inline-size: 200px">
+          <sl-select-day
+            locale="de"
+            .month=${new Date(2026, 8, 1)}
+            .min=${new Date(2026, 8, 1)}
+            .max=${new Date(2026, 8, 30)}
+            style="font-family: monospace; font-size: 20px"></sl-select-day>
+        </div>
+      `);
+      el = container.querySelector('sl-select-day')!;
+      await el.updateComplete;
+      await vi.waitFor(() => {
+        const month = el.renderRoot.querySelector<HTMLElement>('span.current-month')!,
+          label = month.querySelector<HTMLElement>('sl-format-date')!,
+          year = el.renderRoot.querySelector('.current-year')!;
+        expect(label.scrollWidth).to.be.greaterThan(label.clientWidth);
+        expect(label.getBoundingClientRect().right).to.be.at.most(
+          year.getBoundingClientRect().left
+        );
+      });
+    });
+
+    it('should stabilize the header even when loading its font fails', async () => {
+      const loadFont = vi
+        .spyOn(document.fonts, 'load')
+        .mockRejectedValue(new Error('Font unavailable'));
+      try {
+        el = await fixture(html`
+          <sl-select-day
+            locale="en-GB"
+            .month=${new Date(2026, 2, 1)}
+            style="font-family: 'Unavailable calendar font', sans-serif"></sl-select-day>
+        `);
+        await vi.waitFor(() =>
+          expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+        expect(loadFont).toHaveBeenCalled();
+        const year = el.renderRoot.querySelector('.current-year')!,
+          next = el.renderRoot.querySelector('.next-month')!,
+          yearLeft = year.getBoundingClientRect().left,
+          nextLeft = next.getBoundingClientRect().left;
+        el.month = new Date(2026, 8, 1);
+        await el.updateComplete;
+        await Promise.all(
+          Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
+            label => label.updateComplete
+          )
+        );
+        expect(year.getBoundingClientRect().left).to.be.closeTo(yearLeft, 0.5);
+        expect(next.getBoundingClientRect().left).to.equal(nextLeft);
+      } finally {
+        el?.remove();
+        loadFont.mockRestore();
+      }
+    });
+
     it('should reserve month width when constraints replace static labels with buttons', async () => {
       el = await fixture(html`
         <sl-select-day

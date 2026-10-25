@@ -107,6 +107,7 @@ sl-button {
   }
 
   sl-format-date {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

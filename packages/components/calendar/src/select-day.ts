@@ -73,6 +73,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   #intersectionObserver?: IntersectionObserver;
 
+  /** Cached longest month width for the active locale and font. */
+  #monthLabelSize?: { key: string; width: number };
+
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
 
@@ -119,7 +122,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
     this.#resizeFrame = requestAnimationFrame(() => {
       this.#resizeFrame = undefined;
-      this.#updateHeaderSize();
+      void this.#updateHeaderAfterRender();
       this.#updateVisibleMonthCount();
     });
   });
@@ -225,7 +228,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#resizeObserver.observe(this);
     void document.fonts.ready.then(() => {
       if (this.isConnected) {
-        this.#updateHeaderSize();
+        this.#monthLabelSize = undefined;
+        void this.#updateHeaderAfterRender();
       }
     });
   }
@@ -293,8 +297,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('locale') || changes.has('showWeekNumbers')) {
-      this.#updateHeaderSize();
+    if (
+      changes.has('locale') ||
+      changes.has('showWeekNumbers') ||
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('month')
+    ) {
+      void this.#updateHeaderAfterRender();
     }
 
     if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
@@ -871,6 +881,25 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
+  /** Wait for newly rendered controls and date labels before measuring them. */
+  async #updateHeaderAfterRender(): Promise<void> {
+    const controls = Array.from(
+      this.renderRoot.querySelectorAll<LitElement>('header sl-button, header sl-format-date')
+    );
+    await Promise.all(controls.map(control => control.updateComplete));
+    // Buttons determine their icon-only size in their first animation frame.
+    await new Promise(requestAnimationFrame);
+    await Promise.all(controls.map(control => control.updateComplete));
+    const monthButton = this.renderRoot.querySelector('.current-month'),
+      font = monthButton ? getComputedStyle(monthButton).font : '';
+    if (font) {
+      await document.fonts.load(font);
+    }
+    if (this.isConnected) {
+      this.#updateHeaderSize();
+    }
+  }
+
   /** Reserve room for the longest localized month before the user starts navigating. */
   #updateHeaderSize(): void {
     const header = this.renderRoot.querySelector<HTMLElement>('header'),
@@ -880,6 +909,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     if (!header || !monthButton || !year || !arrows) {
       this.style.removeProperty('--_header-inline-size');
+      this.style.removeProperty('--_month-control-inline-size');
       return;
     }
 
@@ -888,18 +918,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const measure = document.createElement('span');
-    measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
-    measure.style.fontWeight = getComputedStyle(monthButton).fontWeight;
-    measure.setAttribute('aria-hidden', 'true');
-    header.append(measure);
+    const monthStyle = getComputedStyle(monthButton),
+      key = `${this.locale}|${monthStyle.font}|${monthStyle.letterSpacing}`;
+    if (this.#monthLabelSize?.key !== key) {
+      const measure = document.createElement('span');
+      measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
+      measure.style.font = monthStyle.font;
+      measure.style.letterSpacing = monthStyle.letterSpacing;
+      measure.setAttribute('aria-hidden', 'true');
+      header.append(measure);
 
-    let monthWidth = 0;
-    for (let month = 0; month < 12; month++) {
-      measure.textContent = format(new Date(2026, month, 1), this.locale, { month: 'long' });
-      monthWidth = Math.max(monthWidth, Number.parseFloat(getComputedStyle(measure).width));
+      let width = 0;
+      for (let month = 0; month < 12; month++) {
+        measure.textContent = format(new Date(2026, month, 1), this.locale, { month: 'long' });
+        width = Math.max(width, Number.parseFloat(getComputedStyle(measure).width));
+      }
+      measure.remove();
+      this.#monthLabelSize = { key, width };
     }
-    measure.remove();
 
     const button = monthButton.shadowRoot?.querySelector('button'),
       buttonStyle = button ? getComputedStyle(button) : undefined,
@@ -907,7 +943,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       controlsStyle = getComputedStyle(monthButton.parentElement!),
       iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
       monthControlWidth =
-        monthWidth +
+        this.#monthLabelSize.width +
         iconWidth +
         (Number.parseFloat(buttonStyle?.columnGap ?? '') || 0) +
         (Number.parseFloat(buttonStyle?.borderInlineStartWidth ?? '') || 0) +

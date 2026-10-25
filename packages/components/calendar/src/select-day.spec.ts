@@ -42,6 +42,9 @@ describe('sl-select-day', () => {
           expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
         );
 
+        // Font loading and child control updates can schedule a final header measurement.
+        await new Promise(requestAnimationFrame);
+
         const header = el.renderRoot.querySelector<HTMLElement>('header')!,
           year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
           previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
@@ -105,6 +108,126 @@ describe('sl-select-day', () => {
       await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
     });
   }
+
+  describe('localized layout regressions', () => {
+    for (const showWeekNumbers of [false, true]) {
+      it(`should center dates below weekdays and connect range backgrounds in a widened month ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
+        el = await fixture(html`
+          <sl-select-day
+            locale="de"
+            ?show-week-numbers=${showWeekNumbers}
+            .month=${new Date(2026, 2, 1)}
+            .range=${[new Date(2026, 2, 2), new Date(2026, 2, 6)]}
+            .rangeSelection=${true}
+            style="font-family: monospace; font-size: 20px"></sl-select-day>
+        `);
+        await document.fonts.ready;
+        await vi.waitFor(() =>
+          expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+        const month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+        await month.updateComplete;
+
+        await vi.waitFor(() => {
+          const headings = el.renderRoot.querySelectorAll('.day-of-week'),
+            cells = month.renderRoot.querySelectorAll(
+              'tbody tr:first-child td:not([part="week-number"])'
+            );
+          expect(cells).to.have.lengthOf(7);
+          for (const [index, cell] of Array.from(cells).entries()) {
+            const tile = cell.querySelector('button span')!.getBoundingClientRect(),
+              heading = headings[index].getBoundingClientRect();
+            expect(tile.left + tile.width / 2).to.be.closeTo(heading.left + heading.width / 2, 0.5);
+          }
+
+          if (showWeekNumbers) {
+            const heading = el.renderRoot.querySelector('.week-number')!.getBoundingClientRect(),
+              cell = month.renderRoot
+                .querySelector('tbody [part="week-number"]')!
+                .getBoundingClientRect();
+            expect(cell.right).to.be.closeTo(heading.right, 0.5);
+          }
+
+          const rangeButtons = month.renderRoot.querySelectorAll<HTMLElement>(
+            'button[part~="in-range"]'
+          );
+          expect(rangeButtons.length).to.be.greaterThan(1);
+          const first = rangeButtons[0],
+            next = rangeButtons[1],
+            bridge = getComputedStyle(first, '::before'),
+            bridgeEnd =
+              first.getBoundingClientRect().left +
+              Number.parseFloat(bridge.left) +
+              Number.parseFloat(bridge.width);
+          const nextBridgeStart =
+            next.getBoundingClientRect().left +
+            Number.parseFloat(getComputedStyle(next, '::before').left);
+          expect(bridgeEnd).to.be.closeTo(nextBridgeStart, 0.5);
+        });
+      });
+
+      for (const numberOfMonths of [1, 2]) {
+        it(`should fit a localized header into a narrow container with ${numberOfMonths} preferred months ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
+          const width = showWeekNumbers ? 274 : 238,
+            container = await fixture<HTMLDivElement>(html`
+              <div style=${`inline-size: ${width}px`}>
+                <sl-select-day
+                  locale="de"
+                  number-of-months=${numberOfMonths}
+                  ?show-week-numbers=${showWeekNumbers}
+                  style="font-family: monospace; font-size: 20px"></sl-select-day>
+              </div>
+            `);
+          el = container.querySelector('sl-select-day')!;
+          await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+          await vi.waitFor(() => {
+            const containerBounds = container.getBoundingClientRect(),
+              month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+            for (const element of [
+              el.renderRoot.querySelector('header')!,
+              el.scroller!,
+              el.renderRoot.querySelector('.weekdays')!,
+              month
+            ]) {
+              expect(element.getBoundingClientRect().right).to.be.at.most(
+                containerBounds.right + 0.5
+              );
+            }
+            expect(
+              month.renderRoot.querySelector('table')!.getBoundingClientRect().right
+            ).to.be.at.most(containerBounds.right + 0.5);
+          });
+        });
+      }
+    }
+
+    it('should reserve month width when constraints replace static labels with buttons', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          .month=${new Date(2026, 2, 1)}
+          .min=${new Date(2026, 2, 1)}
+          .max=${new Date(2026, 2, 31)}></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await new Promise(requestAnimationFrame);
+      expect(el.renderRoot.querySelector('sl-button.current-month')).not.to.exist;
+      expect(el.style.getPropertyValue('--_header-inline-size')).to.equal('');
+      el.max = undefined;
+      await el.updateComplete;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      const year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect().left;
+      el.month = new Date(2026, 8, 1);
+      await el.updateComplete;
+      await vi.waitFor(() =>
+        expect(
+          el.renderRoot.querySelector('.current-year')!.getBoundingClientRect().left
+        ).to.be.closeTo(year, 0.5)
+      );
+    });
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

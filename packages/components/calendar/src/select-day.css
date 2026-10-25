@@ -7,6 +7,7 @@
     calc(var(--_days-in-week) * var(--_cell-size)),
     var(--_header-inline-size, 0px)
   );
+  --_rendered-month-inline-size: min(var(--_month-inline-size), 100%);
   --_week-number-column-size: var(--sl-size-450);
   --_week-number-column-padding-inline: var(--sl-size-025);
 
@@ -39,7 +40,9 @@
   }
 
   sl-month-view::part(week-number) {
-    min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--sl-size-010));
+    box-sizing: border-box;
+    inline-size: var(--_week-number-column-size);
+    min-inline-size: var(--_week-number-column-size);
   }
 }
 
@@ -130,13 +133,13 @@ sl-button {
 header.single-month,
 .weekdays.single-month,
 .scroller.single-month {
-  inline-size: var(--_month-inline-size);
+  inline-size: var(--_rendered-month-inline-size);
 }
 
 .days-of-week {
   color: var(--sl-color-foreground-subtlest);
   display: grid;
-  flex: 0 0 var(--_month-inline-size);
+  flex: 0 0 var(--_rendered-month-inline-size);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   grid-template-columns: repeat(var(--_days-in-week), minmax(0, 1fr));
   line-height: calc((24 / 14) * 1em);
@@ -182,7 +185,10 @@ header.single-month,
 }
 
 sl-month-view {
-  flex: 0 0 var(--_month-inline-size);
+  --_table-layout: fixed;
+
+  flex: 0 0 var(--_rendered-month-inline-size);
+  min-inline-size: 0;
   padding-inline: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;

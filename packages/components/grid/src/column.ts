@@ -52,10 +52,15 @@ export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefin
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
+let nextHeaderCellId = 0;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */
   #grid?: Grid<T>;
+
+  /** Stable id for the rendered header cell. */
+  #headerCellId = `sl-grid-column-header-${nextHeaderCellId++}`;
 
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
@@ -68,6 +73,12 @@ export class GridColumn<T = any> extends LitElement {
 
   /** The alignment of the content within the column. */
   @property() align?: GridColumnAlignment;
+
+  /** @internal The 1-based column index used for accessibility metadata. */
+  columnIndex = 1;
+
+  /** @internal The number of leaf columns represented by this column. */
+  columnSpan = 1;
 
   /**
    * Automatically sets the width of the column based on the column contents when this is set to
@@ -136,6 +147,12 @@ export class GridColumn<T = any> extends LitElement {
 
   /** The number of header rows for this column. */
   headerRowCount = 1;
+
+  /** @internal IDs of ancestor group headers that apply to this column header. */
+  groupHeaderIds: string[] = [];
+
+  /** @internal Text labels of ancestor group headers; used to name form controls in cells. */
+  groupHeaderLabels: string[] = [];
 
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
@@ -213,6 +230,49 @@ export class GridColumn<T = any> extends LitElement {
    */
   stateChanged(): void {}
 
+  /** @internal */
+  get headerCellId(): string {
+    return this.#headerCellId;
+  }
+
+  /** @internal */
+  get headerIds(): string {
+    return this.headerCellId;
+  }
+
+  /**
+   * @internal The role for the header cell. Headers inside a column group are exposed as cells, so
+   * VoiceOver reads them only once and doesn't pair them with the wrong group header.
+   */
+  get headerRole(): 'cell' | 'columnheader' {
+    return this.groupHeaderIds.length > 0 ? 'cell' : 'columnheader';
+  }
+
+  /** @internal The scope for the header cell; only column headers have a scope. */
+  get headerScope(): 'col' | undefined {
+    return this.headerRole === 'columnheader' ? 'col' : undefined;
+  }
+
+  /** @internal */
+  get headerAriaLabel(): string | undefined {
+    if (!this.hideHeaderText) {
+      return undefined;
+    }
+
+    // Don't use `formControlColumnLabel` here: that only applies to controls inside the cells
+    const headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
+
+    return headerLabel || (this.path ? getNameByPath(this.path) : undefined);
+  }
+
+  /** @internal Text label used for header announcements and form-control labels. */
+  get headerLabelText(): string {
+    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
+      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
+
+    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
+  }
+
   /**
    * This method renders the `<th>` element and all the related attributes, classes and content.
    * Override this method if you want to customize how a header is rendered. Do not override this if
@@ -229,9 +289,13 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
+        id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader">
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
         ${this.renderHeaderLabel()}
       </th>
     `;
@@ -243,14 +307,14 @@ export class GridColumn<T = any> extends LitElement {
    * override this if you only want to change the classes, contents or parts of the header.
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
-    const className = this.hideHeaderText ? 'visually-hidden' : undefined;
-
     if (this.header) {
-      return typeof this.header === 'string'
-        ? html`<span class=${ifDefined(className)}>${this.header}</span>`
-        : this.header(this);
+      if (typeof this.header === 'string') {
+        return this.hideHeaderText ? undefined : this.header;
+      }
+
+      return this.header(this);
     } else if (this.path) {
-      return html`<span class=${ifDefined(className)}>${getNameByPath(this.path)}</span>`;
+      return this.hideHeaderText ? undefined : getNameByPath(this.path);
     }
 
     return undefined;
@@ -265,17 +329,37 @@ export class GridColumn<T = any> extends LitElement {
   renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     const classes = this.getClasses(item.data),
       data = this.getDisplayValue(item.data),
-      parts = ['data', ...this.getParts(item.data)];
+      parts = ['data', ...this.getParts(item.data)],
+      // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
+      // data cell by its group header(s) and column header instead (e.g. "Name First name"); the
+      // rendered value is still read as the content. This applies to every cell in a grouped
+      // column, including empty cells and cells with custom templates.
+      labelledBy =
+        this.groupHeaderIds.length > 0
+          ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+          : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
-        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
+        <td
+          aria-labelledby=${ifDefined(labelledBy)}
+          aria-colindex=${String(this.columnIndex)}
+          class=${ifDefined(classes.join(' ') || undefined)}
+          headers=${this.headerIds}
+          part=${parts.join(' ')}
+          role="cell">
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
       return html`
-        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
+        <td
+          aria-labelledby=${ifDefined(labelledBy)}
+          aria-colindex=${String(this.columnIndex)}
+          class=${ifDefined(classes.join(' ') || undefined)}
+          headers=${this.headerIds}
+          part=${parts.join(' ')}
+          role="cell">
           ${data}
         </td>
       `;
@@ -327,10 +411,10 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
-    const columnLabel = this.#getHeaderLabel(),
+    const columnLabel = this.headerLabelText,
       rowLabel = this.formControlLabel?.(item)?.trim();
 
-    return [columnLabel, rowLabel].filter(Boolean).join(' ');
+    return [...this.groupHeaderLabels, columnLabel, rowLabel].filter(Boolean).join(' ');
   }
 
   /**
@@ -356,12 +440,5 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
-  }
-
-  #getHeaderLabel(): string {
-    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
-      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
-
-    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 }

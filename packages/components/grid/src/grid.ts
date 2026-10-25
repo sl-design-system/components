@@ -198,19 +198,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
 
-  /** Observe the tbody style changes. */
-  #mutationObserver = new MutationObserver(() => {
-    this.#mutationObserver?.disconnect();
-
-    // This is a workaround for the virtualizer not taking the border width into account
-    // We convert the min-height to a CSS variable so we can use it in the styles and
-    // add the border-width to the eventual min-height value.
-    this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
-    this.tbody.style.minHeight = '';
-
-    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
-  });
-
   /** We need to know when the user drags items outside of the grid. */
   #onWindowDragOver = (event: DragEvent) => {
     const grid = event.composedPath().find(el => el instanceof Grid);
@@ -403,7 +390,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
 
     this.#bulkActionsObserver.disconnect();
-    this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
     this.#clearDragArm();
     window.removeEventListener('dragover', this.#onWindowDragOver);
@@ -426,7 +412,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       childList: true,
       subtree: true
     });
-    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onBodyScroll(), { passive: true });
     this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });

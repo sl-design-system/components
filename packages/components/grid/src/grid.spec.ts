@@ -107,6 +107,42 @@ describe('sl-grid', () => {
       await userEvent.tab();
       expect(el.shadowRoot!.activeElement).to.equal(nextControl);
     });
+
+    it('should preserve focus and scroll position when selecting a row after scrolling down', async () => {
+      const items = Array.from({ length: 40 }, (_, i) => ({
+        firstName: `First ${i}`,
+        lastName: `Last ${i}`
+      }));
+
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div style="height: 300px; overflow: auto;">
+          <sl-grid .items=${items} row-action="select" selects="single">
+            <sl-grid-column
+              path="firstName"
+              width="200"
+              .scopedElements=${{ 'sl-button': Button }}
+              .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+          </sl-grid>
+        </div>
+      `);
+      const grid = wrapper.querySelector('sl-grid') as Grid;
+      await waitForGridToRenderData(grid);
+      await grid.updateComplete;
+
+      wrapper.scrollTop = 400;
+      await new Promise(r => setTimeout(r, 50));
+      const rows = grid.tbody.querySelectorAll('tr');
+      const targetRow = rows[rows.length - 2];
+      const button = targetRow.querySelector<HTMLElement>('sl-button')!;
+      button.focus();
+
+      const scrollAfterFocus = wrapper.scrollTop;
+      await userEvent.keyboard('{Space}');
+      await grid.updateComplete;
+
+      expect(wrapper.scrollTop).to.equal(scrollAfterFocus);
+      expect(grid.shadowRoot!.activeElement).to.equal(button);
+    });
   });
 
   describe('defaults', () => {

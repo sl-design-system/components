@@ -258,9 +258,10 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       }
 
       // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
+      // :focus-within ensures WebKit updates the part style when focus changes inside a shadow root.
       const style = document.createElement('style');
       style.innerHTML = `
-        sl-checkbox:has(input:focus-visible):not([data-pointer-focus])::part(inner) {
+        sl-checkbox:focus-within:has(input:focus-visible):not([data-pointer-focus])::part(inner) {
           outline-color: var(--sl-color-border-focused);
           transition: 200ms ease-in-out;
           transition-property: background, border-color, color, outline-color;

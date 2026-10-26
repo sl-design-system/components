@@ -111,6 +111,15 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** In-flight requests that can be reused while their fetch options remain unchanged. */
   #pending = new WeakMap<FetchListDataSourceGroupItem<T>, Map<number, PendingFetch<T>>>();
 
+  /** Whether the unfiltered total is known rather than an estimate. */
+  #totalSizeKnown: boolean;
+
+  /** Known unfiltered totals for individual groups. Filtered responses do not update these. */
+  #unfilteredGroupSizes = new Map<unknown, number>();
+
+  /** Minimum group sizes established by fetched rows, independent of active filters. */
+  #groupSizeLowerBounds = new Map<unknown, number>();
+
   /** The total number of items in the data source. */
   #totalSize: number;
 
@@ -130,6 +139,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   get totalSize(): number {
     return this.#totalSize;
+  }
+
+  protected override get selectionSize(): number | undefined {
+    return this.#totalSizeKnown ? this.totalSize : undefined;
   }
 
   constructor(options: FetchListDataSourceOptions<T>) {
@@ -178,6 +191,15 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     };
 
     this.#totalSize = options.size ?? FetchListDataSource.defaultSize;
+    this.#totalSizeKnown = options.size !== undefined;
+    if (options.groups || options.size !== undefined) {
+      this.#groups.forEach(group => {
+        if (group.size !== undefined) {
+          this.#unfilteredGroupSizes.set(group.id, group.size);
+        }
+      });
+    }
+    this.#updateTotalSize();
     this.fetchPage = options.fetchPage;
 
     if (typeof options.pageSize === 'number') {
@@ -417,6 +439,26 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             );
           }
 
+          if (!options.filters?.length && res.totalItems !== undefined) {
+            this.#unfilteredGroupSizes.set(group.id, Number(res.totalItems));
+            this.#groupSizeLowerBounds.set(group.id, Number(res.totalItems));
+          } else if (res.items.length > 0 || res.totalItems !== undefined) {
+            const minimumSize = Math.max(
+              this.#groupSizeLowerBounds.get(group.id) ?? 0,
+              res.items.length > 0 ? page * pageSize + res.items.length : 0,
+              Number(res.totalItems ?? 0)
+            );
+
+            this.#groupSizeLowerBounds.set(group.id, minimumSize);
+
+            // Supplied totals can become stale as the remote dataset grows.
+            if ((this.#unfilteredGroupSizes.get(group.id) ?? Infinity) < minimumSize) {
+              this.#unfilteredGroupSizes.delete(group.id);
+              this.#totalSizeKnown = false;
+            }
+          }
+          const selectionChanged = this.#updateTotalSize();
+
           if (group.size !== undefined && group.size !== group.members?.length) {
             recreateProxy = true;
 
@@ -444,6 +486,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             this.#proxy = this.#createProxy(this.#items);
           }
 
+          if (selectionChanged) {
+            this.dispatchEvent(new CustomEvent('sl-selection-change'));
+          }
           this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
         });
 
@@ -460,6 +505,42 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       type: 'data',
       data: ListDataSourcePlaceholder
     } as ListDataSourceDataItem<T>;
+  }
+
+  #updateTotalSize(): boolean {
+    if (this.#unfilteredGroupSizes.size !== this.#groups.size) {
+      const minimumTotal = Array.from(this.#groups.keys()).reduce<number>(
+        (total, id) =>
+          total +
+          Math.max(
+            this.#unfilteredGroupSizes.get(id) ?? 0,
+            this.#groupSizeLowerBounds.get(id) ?? 0
+          ),
+        0
+      );
+
+      if (minimumTotal > this.#totalSize) {
+        this.#totalSize = minimumTotal;
+        this.#totalSizeKnown = false;
+      }
+      return false;
+    }
+
+    const totalSize = Array.from(this.#unfilteredGroupSizes.values()).reduce(
+        (total, size) => total + size,
+        0
+      ),
+      selectionChanged = totalSize < this.#totalSize && this.selection.size > 0;
+
+    // Remote pages cannot establish whether previously stored ids still exist after a shrink.
+    // Reset their selection before publishing the smaller total instead of keeping stale ids.
+    if (selectionChanged) {
+      this.deselectAll(false);
+    }
+    this.#totalSize = totalSize;
+    this.#totalSizeKnown = true;
+
+    return selectionChanged;
   }
 
   /**

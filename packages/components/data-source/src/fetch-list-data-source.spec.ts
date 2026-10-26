@@ -9,6 +9,7 @@ import {
 } from './fetch-list-data-source.js';
 import {
   type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
   ListDataSourcePlaceholder,
   isListDataSourceGroupItem
 } from './list-data-source.js';
@@ -83,6 +84,54 @@ describe('FetchListDataSource', () => {
     expect(ds.size).to.equal(4);
     expect(ds.items.length).to.equal(2);
     expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
+  });
+
+  it('should invalidate an underestimated total after fetching a later page', async () => {
+    const source = new FetchListDataSource<Person>({
+      size: 1,
+      pageSize: 2,
+      pagination: true,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+    });
+
+    source.setPage(1);
+    source.update();
+    void source.items[0];
+    await expect.poll(() => source.size).to.equal(4);
+    source.selectAll();
+    source.deselect(source.items[0]);
+
+    expect(source.totalSize).to.equal(4);
+    expect(source.selected).to.equal(3);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[1])).to.be.true;
+  });
+
+  it('should invalidate an underestimated supplied group size', async () => {
+    const source = new FetchListDataSource<Person>({
+      groups: [{ id: 'A', size: 1, collapsed: false }],
+      pageSize: 2,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(0, 2) })
+    });
+
+    // Initialize the expanded group's unloaded member slots before requesting its first page.
+    const group = source.items[0] as ListDataSourceGroupItem<Person>;
+    group.members = Array.from({ length: 1 });
+    source.items.push(...group.members);
+
+    void source.items[1];
+    await expect.poll(() => source.size).to.equal(2);
+    source.selectAll();
+    source.deselect(source.items[1]);
+
+    expect(source.totalSize).to.equal(2);
+    expect(source.selected).to.equal(1);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[2])).to.be.true;
   });
 
   it('should preserve a larger known size when totalItems is omitted', async () => {
@@ -859,6 +908,271 @@ describe('FetchListDataSource', () => {
         expect(ds.fetchPage).to.have.been.calledOnce;
         expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 1, pageSize: 2 });
       });
+    });
+  });
+
+  describe('select all with fetched totals', () => {
+    it('should use the fetched total of 5 rows when deselecting', async () => {
+      const rows = Array.from({ length: 5 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 5 }),
+          getId: item => item.id,
+          pageSize: 5,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(5);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 3).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should use the fetched total of 12 rows when deselecting', async () => {
+      const rows = Array.from({ length: 12 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 12 }),
+          getId: item => item.id,
+          pageSize: 12,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 10).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should not reset select-all against an estimated total', async () => {
+      const rows = Array.from({ length: 10 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows }),
+          getId: item => item.id,
+          pageSize: 10,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      // The server has not supplied a total, so additional selected rows may still exist.
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected({ id: 10, type: 'data' })).to.be.true;
+    });
+
+    it('should use a known total even when the first fetch is filtered', async () => {
+      const source = new FetchListDataSource({
+        size: people.length,
+        filters: [{ id: 'name', by: 'firstName', value: 'Ann' }],
+        fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+
+    it('should update the aggregate lower bound when only one remote group total is known', async () => {
+      const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 })),
+        source = new FetchListDataSource<Person>({
+          size: 1,
+          groups: [{ id: 'A', collapsed: false }, { id: 'B' }],
+          pageSize: 2,
+          selects: 'multiple',
+          getId: item => item.id,
+          fetchPage
+        }),
+        group = source.items[0] as ListDataSourceGroupItem<Person>;
+
+      // Initialize the expanded group's unloaded member slot before requesting its first page.
+      group.members = Array.from({ length: 1 });
+      source.items.splice(1, 0, ...group.members);
+      void source.items[1];
+      await expect.poll(() => source.size).to.equal(2);
+
+      source.selectAll();
+      source.deselect(source.items[1]);
+
+      expect(source.totalSize).to.equal(2);
+      expect(source.selected).to.equal(1);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected(source.items[2])).to.be.true;
+      expect(fetchPage).to.have.been.calledOnce;
+      expect(fetchPage).to.have.been.calledWithMatch({ group: 'A' });
+    });
+
+    it('should use the combined known group sizes as the unfiltered total', () => {
+      const source = new FetchListDataSource({
+        groups: [
+          { id: 'A', size: 2 },
+          { id: 'B', size: 3 }
+        ],
+        fetchPage: () => Promise.resolve({ items: [] }),
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      source.selectAll();
+      expect(source.totalSize).to.equal(5);
+      expect(source.selected).to.equal(5);
+      for (let id = 0; id < 5; id++) {
+        source.deselect({ id, type: 'data' });
+      }
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should use a filtered total as a lower bound when the supplied total is too small', async () => {
+      const source = new FetchListDataSource<{ id: number }>({
+        size: 1,
+        pageSize: 1,
+        pagination: true,
+        selects: 'multiple',
+        filters: [{ id: 'matching', by: () => true }],
+        getId: item => item.id,
+        fetchPage: () => Promise.resolve({ items: [{ id: 0 }], totalItems: 12 })
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      source.deselect(source.items[0]);
+
+      expect(source.totalSize).to.equal(12);
+      expect(source.selected).to.equal(11);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected({ id: 11, type: 'data' })).to.be.true;
+    });
+
+    it('should use a filtered total as a lower bound even when the fetched page is empty', async () => {
+      const source = new FetchListDataSource<{ id: number }>({
+        size: 1,
+        pageSize: 1,
+        pagination: true,
+        selects: 'multiple',
+        filters: [{ id: 'matching', by: () => true }],
+        fetchPage: () => Promise.resolve({ items: [], totalItems: 12 })
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      source.deselect({ id: 0, type: 'data' });
+
+      expect(source.totalSize).to.equal(12);
+      expect(source.selected).to.equal(11);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+
+    it('should reset stale exclusions when an unfiltered refresh shrinks the dataset', async () => {
+      let rows = Array.from({ length: 10 }, (_, id) => ({ id }));
+      const source = new FetchListDataSource<{ id: number }>({
+          pageSize: 10,
+          selects: 'multiple',
+          getId: item => item.id,
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: rows.length })
+        }),
+        onSelectionChange = spy(() => ({ total: source.totalSize, selected: source.selected }));
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      [...source.items].slice(0, 8).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+
+      source.addEventListener('sl-selection-change', onSelectionChange);
+      rows = rows.slice(8);
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.totalSize).to.equal(2);
+
+      expect(source.selected).to.equal(0);
+      expect(source.selection.size).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+      expect([...source.items].every(item => !source.isSelected(item))).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+      expect(onSelectionChange.firstCall.returnValue).to.deep.equal({ total: 2, selected: 0 });
+    });
+
+    it('should preserve select-all without exclusions when an unfiltered refresh shrinks the dataset', async () => {
+      let rows = Array.from({ length: 10 }, (_, id) => ({ id }));
+      const source = new FetchListDataSource<{ id: number }>({
+        pageSize: 10,
+        selects: 'multiple',
+        getId: item => item.id,
+        fetchPage: () => Promise.resolve({ items: rows, totalItems: rows.length })
+      });
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      rows = rows.slice(8);
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.totalSize).to.equal(2);
+
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect([...source.items].every(item => source.isSelected(item))).to.be.true;
+    });
+
+    it('should retain the unfiltered total when a filtered response arrives', async () => {
+      const source = new FetchListDataSource<Person>({
+        fetchPage: ({ filters }) =>
+          Promise.resolve({
+            items: filters?.length ? people.slice(0, 2) : people,
+            totalItems: filters?.length ? 2 : people.length
+          }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(people.length);
+      source.selectAll();
+      source.addFilter('name', 'firstName', 'Ann');
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+
+      [...source.items].forEach(item => source.deselect(item));
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
     });
   });
 

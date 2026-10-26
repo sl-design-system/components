@@ -16,6 +16,15 @@
   visibility: hidden;
 }
 
+:host(:where(:not([fill]), [fill='solid'])) .list {
+  background: var(--sl-color-background-neutral-subtle);
+  border-width: var(--sl-size-borderWidth-none);
+}
+
+:host([shape='pill']) .list {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 /* Never affects the width of the host, and keeps the height of the options when showing the select. */
 .content {
   align-content: center;
@@ -36,13 +45,4 @@
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   padding: var(--sl-size-050);
-}
-
-:host(:where(:not([fill]), [fill='solid'])) .list {
-  background: var(--sl-color-background-neutral-subtle);
-  border-width: var(--sl-size-borderWidth-none);
-}
-
-:host([shape='pill']) .list {
-  border-radius: var(--sl-size-borderRadius-full);
 }

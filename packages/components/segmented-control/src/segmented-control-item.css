@@ -7,6 +7,64 @@
   min-inline-size: 0;
 }
 
+:host(:not([emphasis='bold'])) button[aria-current='true']:not([aria-disabled='true']) {
+  color: var(--sl-color-foreground-selected-bold);
+}
+
+:host([emphasis='bold']) button:not([aria-disabled='true']) {
+  color: var(--sl-color-foreground-neutral-bold);
+
+  &[aria-current='true'] {
+    color: var(--sl-color-foreground-selected-onBold);
+  }
+}
+
+:host([shape='pill']) button {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([size='lg']) button {
+  padding: var(--sl-size-175) var(--sl-size-250);
+}
+
+:host([icon-only]) button {
+  padding: var(--sl-size-125);
+}
+
+:host([icon-only][size='lg']) button {
+  padding: var(--sl-size-200);
+}
+
+/* Icon-only: the label is used as the accessible name of the button instead. */
+:host([icon-only]) .label {
+  display: none;
+}
+
+:host([emphasis='bold']) .fill {
+  background-color: color-mix(
+    in srgb,
+    var(--sl-color-background-selected-bold),
+    var(--sl-color-background-selected-interactive-bold) calc(100% * var(--_bg-opacity))
+  );
+
+  &::after {
+    display: none;
+  }
+}
+
+:host([size='lg']) .fill::after {
+  inline-size: var(--sl-size-450);
+  inset-block-end: var(--sl-size-075);
+}
+
+:host([icon-only]) .fill::after {
+  inline-size: var(--sl-size-150);
+}
+
+:host([icon-only][size='lg']) .fill::after {
+  inline-size: var(--sl-size-200);
+}
+
 button {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
@@ -63,39 +121,6 @@ button {
   }
 }
 
-:host(:not([emphasis='bold'])) button[aria-current='true']:not([aria-disabled='true']) {
-  color: var(--sl-color-foreground-selected-bold);
-}
-
-:host([emphasis='bold']) button:not([aria-disabled='true']) {
-  color: var(--sl-color-foreground-neutral-bold);
-
-  &[aria-current='true'] {
-    color: var(--sl-color-foreground-selected-onBold);
-  }
-}
-
-:host([shape='pill']) button {
-  border-radius: var(--sl-size-borderRadius-full);
-}
-
-:host([size='lg']) button {
-  padding: var(--sl-size-175) var(--sl-size-250);
-}
-
-:host([icon-only]) button {
-  padding: var(--sl-size-125);
-}
-
-:host([icon-only][size='lg']) button {
-  padding: var(--sl-size-200);
-}
-
-/* Icon-only: the label is used as the accessible name of the button instead. */
-:host([icon-only]) .label {
-  display: none;
-}
-
 ::slotted(sl-icon) {
   fill: currentcolor;
   pointer-events: none;
@@ -148,31 +173,6 @@ button[aria-current='true'].has-selected-icon {
   }
 }
 
-:host([emphasis='bold']) .fill {
-  background-color: color-mix(
-    in srgb,
-    var(--sl-color-background-selected-bold),
-    var(--sl-color-background-selected-interactive-bold) calc(100% * var(--_bg-opacity))
-  );
-
-  &::after {
-    display: none;
-  }
-}
-
-:host([size='lg']) .fill::after {
-  inline-size: var(--sl-size-450);
-  inset-block-end: var(--sl-size-075);
-}
-
-:host([icon-only]) .fill::after {
-  inline-size: var(--sl-size-150);
-}
-
-:host([icon-only][size='lg']) .fill::after {
-  inline-size: var(--sl-size-200);
-}
-
 /*
  * Selection animation: first the old fill shrinks and fades out (120ms), then the new fill grows
  * from the centre (120ms, delayed by 120ms). These are animations instead of transitions, so they
@@ -180,13 +180,6 @@ button[aria-current='true'].has-selected-icon {
  * selected before. The segmented control only sets these attributes when the selection changes.
  */
 @media (prefers-reduced-motion: no-preference) {
-  button {
-    transition:
-      background-color var(--_duration-state) ease,
-      color var(--_duration-state) ease,
-      outline-color var(--_duration-state) ease;
-  }
-
   /*
    * The icons swap instantly, so the label color changes instantly as well.
    * This keeps the icon and the label in sync when the selection changes.
@@ -195,6 +188,13 @@ button[aria-current='true'].has-selected-icon {
     transition:
       background-color var(--_duration-state) ease,
       color 0s,
+      outline-color var(--_duration-state) ease;
+  }
+
+  button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color var(--_duration-state) ease,
       outline-color var(--_duration-state) ease;
   }
 

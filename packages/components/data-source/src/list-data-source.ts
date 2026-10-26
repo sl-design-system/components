@@ -166,6 +166,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    */
   #sort?: DataSourceSort<T>;
 
+  /**
+   * All filtered items before pagination or collapsing groups, when available synchronously. Remote
+   * data sources can leave this undefined to avoid fetching unloaded items.
+   */
+  get filteredItems(): U[] | undefined {
+    return undefined;
+  }
+
   get filters() {
     return this.#filters;
   }
@@ -322,6 +330,11 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#sort = undefined;
   }
 
+  /** The known unfiltered total used to detect when select-all has been fully deselected. */
+  protected get selectionSize(): number | undefined {
+    return this.totalSize;
+  }
+
   /**
    * Returns whether all members in the provided group are selected.
    *
@@ -397,7 +410,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
 
       // If all items have been manually deselected, turn off select all mode
-      if (this.#selection.size === this.size) {
+      if (this.#selection.size === this.selectionSize) {
         this.deselectAll(false);
       }
     } else {
@@ -444,6 +457,39 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (update) {
       this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
+  }
+
+  /** Sets selection for a batch of data items and emits a single selection event. */
+  toggleItems(items: Array<ListDataSourceDataItem<T>>, force: boolean): void {
+    if (this.#selects === undefined) {
+      return;
+    }
+
+    const groups = new Set<ListDataSourceGroupItem<T>>();
+
+    if (this.#selects === 'single' && force && items.length > 0) {
+      this.#groupSelection.clear();
+    }
+
+    items.forEach(item => {
+      this.toggle(item, force, false);
+
+      if (item.group) {
+        groups.add(item.group);
+      }
+    });
+
+    // Reconcile markers after the batch against the entire group, including hidden members.
+    groups.forEach(group => {
+      // In select-all mode, group markers represent deselections.
+      if (this.areAllGroupMembersSelected(group) !== !!this.#selectAll) {
+        this.#groupSelection.add(group.id);
+      } else {
+        this.#groupSelection.delete(group.id);
+      }
+    });
+
+    this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
 
   /**

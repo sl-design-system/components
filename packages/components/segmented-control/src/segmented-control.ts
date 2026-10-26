@@ -356,7 +356,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   #requestedValue(): string | undefined {
-    return this.value;
+    return this.value ?? undefined;
   }
 
   #resolveSelectedItem(value = this.#requestedValue()): SegmentedControlItem | undefined {

@@ -202,6 +202,17 @@ button[aria-current='true'].has-selected-icon {
     transition: background-color var(--_duration-state) ease;
   }
 
+  /*
+   * In the bold emphasis, the selected text and icon are light on a strong background. Wait until
+   * the new fill starts to appear before changing the color, so they change together.
+   */
+  :host([emphasis='bold'][entering]) button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color 0s var(--_duration-fill),
+      outline-color var(--_duration-state) ease;
+  }
+
   :host([leaving]) .fill {
     animation: fill-out var(--_duration-fill) ease-in both;
   }

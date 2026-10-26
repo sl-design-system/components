@@ -53,7 +53,7 @@ export type SegmentedControlSize = 'md' | 'lg';
  * Give the control an accessible name using `aria-label` or `aria-labelledby` on the host element.
  * The name should explain what the control changes, such as "View" or "Sort by".
  *
- * The control is a single tab stop; use the left and right arrow keys to move between options.
+ * The control is a single tab stop, use the left and right arrow keys to move between options.
  *
  * @slot default - The `sl-segmented-control-item` elements.
  * @csspart select - The `sl-select` that is shown when the options don't fit. Use it to change the
@@ -74,6 +74,9 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Used for the `measuring` and `overflowing` custom states. */
   #internals = this.attachInternals();
 
+  /** Keeps the fallback select in sync when an option's disabled state or label changes. */
+  #itemObserver = new MutationObserver(() => this.requestUpdate());
+
   /** Refreshes the accessible name when `aria-label`, `aria-labelledby` or the label text changes. */
   #labelObserver = new MutationObserver(() => {
     this.#updateLabelReference();
@@ -83,17 +86,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Detects whether the options fit. If not, a select is shown instead. */
   #overflow = new OverflowController(this, this.#internals);
 
-  /** Keeps the fallback select in sync when an option's disabled state or label changes. */
-  #itemObserver = new MutationObserver(() => this.requestUpdate());
-
   /** The previously selected option, so its fill can animate out. */
   #previousItem?: SegmentedControlItem;
-
-  /** Retry selection reconciliation after leaving the select fallback. */
-  #selectionRetryFrame?: number;
-
-  /** How many times we've retried selection reconciliation after leaving the select fallback. */
-  #selectionRetryAttempts = 0;
 
   /** Manage keyboard navigation between the options. */
   #rovingTabindexController = new RovingTabindexController<SegmentedControlItem>(this, {
@@ -107,6 +101,12 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     isFocusableElement: () => true
   });
 
+  /** Animation frame used to check the selected option again after the select is replaced. */
+  #selectionRetryFrame?: number;
+
+  /** How many times we have checked the selected option again after the select was replaced. */
+  #selectionRetryAttempts = 0;
+
   /** Whether the last render showed the select. */
   #showsSelect = false;
 
@@ -114,16 +114,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
   /**
-   * The emphasis of the selected option. `subtle` uses a light background with an underline, `bold`
-   * uses a strong background.
+   * The emphasis of the selected option.
    *
    * @default 'subtle'
    */
   @property({ reflect: true }) emphasis: SegmentedControlEmphasis = 'subtle';
 
   /**
-   * The fill of the control. In the `outline` fill the control has a border, in the `solid` fill it
-   * has a background.
+   * The fill of the control.
    *
    * @default 'solid'
    */

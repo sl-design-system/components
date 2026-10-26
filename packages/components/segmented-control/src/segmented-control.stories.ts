@@ -258,6 +258,48 @@ export const FillWidth: Story = {
   `
 };
 
+export const Overflow: Story = {
+  args: {
+    description:
+      'When the options do not fit in the available width, the control shows a select with the same options instead. When there is enough space again, it switches back to the options. Drag the bottom-right corner of the box to change its width.',
+    items: fillWidthItems
+  },
+  render: ({
+    ariaLabel,
+    description,
+    emphasis,
+    fill,
+    items,
+    value,
+    shape,
+    size
+  }): TemplateResult => html`
+    <style>
+      .overflow-demo {
+        border: 1px dashed var(--sl-color-border-neutral-bold);
+        inline-size: 300px;
+        max-inline-size: 100%;
+        overflow: auto;
+        padding: var(--sl-size-200);
+        resize: horizontal;
+      }
+    </style>
+
+    <p>${description}</p>
+    <div class="overflow-demo">
+      <sl-segmented-control
+        aria-label=${ariaLabel}
+        emphasis=${emphasis}
+        fill=${fill}
+        .value=${value}
+        shape=${shape}
+        size=${size}>
+        ${renderItems(items)}
+      </sl-segmented-control>
+    </div>
+  `
+};
+
 export const InvalidIcons: Story = {
   args: {
     description:

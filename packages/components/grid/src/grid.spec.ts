@@ -1051,9 +1051,11 @@ describe('sl-grid', () => {
         expect(sourceRow.isConnected).to.be.true;
         expect(sourceRow.part.contains('dragging')).to.be.true;
         expect(onDrop).not.to.have.been.called;
+
         dispatch(targetRow, 'drop');
         dispatch(sourceRow, 'dragend');
         await el.updateComplete;
+
         expect(onDrop).to.have.been.calledOnce;
         expect(sourceRow.part.contains('dragging')).to.be.false;
         onDrop.resetHistory();

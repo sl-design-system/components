@@ -591,7 +591,7 @@ describe('sl-date-field', () => {
           await new Promise(resolve => setTimeout(resolve, 50));
 
           const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!,
-            selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+            selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
 
           selectDay.renderRoot.querySelector<HTMLElement>('.current-month')!.click();
           await calendar.updateComplete;

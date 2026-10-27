@@ -19,7 +19,7 @@ Add your own the same way, also when a run of a skill goes wrong in your daily w
 ```markdown
 # <skill>: <topic>
 
-Date, client and version, model, skill commit, who ran it.
+Date, client and version, model, the skill's commit (or the content hash of its folder before it was committed), who ran it.
 
 ## Cases
 

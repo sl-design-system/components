@@ -1,6 +1,6 @@
 # sl-ds-figma-to-code: setup check with broken setups
 
-2026-10-26; Claude Code 2.1.310 with Opus 5.5, and Copilot CLI 1.0.103 with its default model for one run; headless `/sl-figma-to-code check` (the skill's name then) in a copy of a product repository without installed dependencies; skill `96fcd3e5`.
+2026-10-26; Claude Code 2.1.310 with Opus 5.5, and Copilot CLI 1.0.103 with its default model for one run; headless `/sl-figma-to-code check` (the skill's name then) in a copy of a product repository without installed dependencies; skill content hash `96fcd3e5`, before it was committed.
 Each run broke one part of the setup for that run only; the real configuration was untouched.
 
 ## Cases

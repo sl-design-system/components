@@ -19,7 +19,7 @@ Figma was signed out, so #3722 also tested that failure.
 
 | Run                                | Setup first, failures named                    | Stopped for confirmation | Files named vs the answer key                                               | Approach vs the merged fix                                                                                                                  |
 | ---------------------------------- | ---------------------------------------------- | ------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| #3722, Claude Code                 | yes, Figma sign-in named with the fix          | yes                      | 5 of 5 (component, styles, spec, stories, package.json, locales, changeset) | same, including the two `msg()` ids of the merged code; the comment's `role="group"` and description requirement was picked up              |
+| #3722, Claude Code                 | yes, Figma sign-in named with the fix          | yes                      | 7 of 7 (component, styles, spec, stories, package.json, locales, changeset) | same, including the two `msg()` ids of the merged code; the comment's `role="group"` and description requirement was picked up              |
 | #3229, Claude Code                 | yes                                            | yes                      | 4 of 4                                                                      | same design (attribute found through `composedPath()`, then `hidePicker()`); the attribute name differed and was flagged as a team decision |
 | #3132, Claude Code                 | yes                                            | yes                      | 5 of 5, including the website `accessibility.md`                            | same three changes: remove `tabindex="-1"`, hide on `readonly`, keep the host's Enter handler off the button                                |
 | #3728, Claude Code                 | yes, with a real fetch and pull-request search | yes                      | no answer key                                                               | found the open PR #3753 for the issue and advised reviewing it instead of a second pull request                                             |
@@ -29,6 +29,6 @@ About 2 minutes per issue in Claude Code.
 
 ## Findings
 
-- The #3722 plan named only one translation, while the merged change added every locale; fixed: the skill now asks for a translation in every locale file.
+- The #3722 plan named only one translation, while the merged change added every locale; fixed: the skill now asks for a translation in every locale (a `<target>` in every `.xlf` file).
 - On Copilot's default model the plan was shallower (one run); to be retested with an Opus model before changing the skill.
 - Agents tried to download issue images with `curl`; left to the developer at run time.

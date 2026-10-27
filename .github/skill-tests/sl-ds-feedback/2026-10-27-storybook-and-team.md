@@ -1,6 +1,6 @@
 # sl-ds-feedback: Storybook check and team question
 
-2026-10-27; Claude Code 2.1.310 headless with Opus 5.5; skill `cc9c211f`, then `74ce09e0` for the B3 re-run; run by the skill's builder.
+2026-10-27; Claude Code 2.1.310 headless with Opus 5.5; skill content hash `cc9c211f` (on top of `fed384d03`), then `74ce09e0` for the B3 re-run; run by the skill's builder.
 Two new-issue cases from the 2026-10-26 probe, with two changes to the method: no team given in advance, so the skill has to ask, and `playwright-cli` allowed, so it can run its claims in the public Storybook.
 Nothing could be posted.
 

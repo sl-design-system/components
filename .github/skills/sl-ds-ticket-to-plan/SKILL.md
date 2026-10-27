@@ -46,14 +46,14 @@ Mark each line `ok`, `question`, `failed` or `n/a`, with what the call returned.
 
 ## 3. Decide the kind of work
 
-| The issue                                                | Then                                                                                                                                                                                                                                                                                  |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bug                                                      | Plan a fix; the first plan step reproduces it (spec test or story) before changing code                                                                                                                                                                                               |
-| Feature, request or new component                        | Draft acceptance criteria, then plan                                                                                                                                                                                                                                                  |
-| Tokens or theme                                          | Plan the edit in the committed token export (`scripts/themes/export/`, e.g. `core-css/brand/<theme>.css`; `scripts/themes/studio.lock` changes with it); say whether Tokens Studio needs the same change so the next `yarn import-tokens` keeps it, and list what else uses the token |
-| Documentation only                                       | Plan in `website/`; no changeset                                                                                                                                                                                                                                                      |
-| Discovery, research or a spike                           | Skip the confirmation: give investigation questions and areas to explore instead of steps                                                                                                                                                                                             |
-| Figma library work only (a `figma` label, no code asked) | Stop: say there is no code scope                                                                                                                                                                                                                                                      |
+| The issue                                                | Then                                                                                                                                                                                                                                                                                                                   |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bug                                                      | Plan a fix; the first plan step reproduces it (spec test or story) before changing code                                                                                                                                                                                                                                |
+| Feature, request or new component                        | Draft acceptance criteria, then plan                                                                                                                                                                                                                                                                                   |
+| Tokens or theme                                          | Plan the change in Tokens Studio; `yarn import-tokens` (`studio pull`) then regenerates the committed `scripts/themes/export/` (e.g. `core-css/brand/<theme>.css`) and `scripts/themes/studio.lock`, which are never edited by hand; name the token, the export file you expect to change and what else uses the token |
+| Documentation only                                       | Plan in `website/`; no changeset                                                                                                                                                                                                                                                                                       |
+| Discovery, research or a spike                           | Skip the confirmation: give investigation questions and areas to explore instead of steps                                                                                                                                                                                                                              |
+| Figma library work only (a `figma` label, no code asked) | Stop: say there is no code scope                                                                                                                                                                                                                                                                                       |
 
 ## 4. Read the design (only with a Figma link and access)
 
@@ -93,8 +93,8 @@ After the confirmation, read the repository's own instructions first (`.github/c
 
 - `packages/components/<name>/src/`: `<name>.ts`, `<name>.css`, `<name>.spec.ts`, `<name>.stories.ts`, plus `index.ts` when the public exports change.
 - Shared behavior lives in `packages/components/shared/`; check it before adding a helper.
-- New user-visible text uses `msg()` with an `id`, then `yarn extract-i18n` and a translation in every locale file in `packages/locales/src/`.
-- Angular: the component wrappers are generated from the custom-elements manifest; only `packages/angular/src/forms/` and `services/` are written by hand.
+- New user-visible text uses `msg()` with an `id`, then `yarn extract-i18n` and a `<target>` in every `.xlf` file in `packages/locales/src/`; the `.ts` files there are generated.
+- Angular: the component wrappers are generated from the custom-elements manifest; only `packages/angular/src/forms/`, `services/` and the top-level files such as `tooltip.directive.ts` are written by hand.
 - Website docs: `website/src/categories/components/<name>/` (`usage.md`, `accessibility.md`, `code.md`); the component's status is in `<name>.json` there.
 - `git log --oneline -15 -- packages/components/<name>` and the component's `CHANGELOG.md`: recent fixes the change must not undo.
 
@@ -123,7 +123,7 @@ Verification
 5. Each "Must not regress" item
 
 Release
-- Branch `fix/<n>-<desc>` or `feature/<n>-<desc>`; a changeset per changed package (the repository's `changeset` skill), with the bump type and why; the pull request says `Fixes #<n>`
+- Branch `fix/<n>-<desc>` or `feature/<n>-<desc>`; a changeset per changed package (`.github/skills/changeset/SKILL.md`), with the bump type and why; the pull request says `Fixes #<n>`
 
 Decisions
 - <scope limits, assumptions, open items>

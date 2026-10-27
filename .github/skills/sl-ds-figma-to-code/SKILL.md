@@ -1,6 +1,6 @@
 ---
 name: sl-ds-figma-to-code
-description: "Implements a Figma design, a Jira or GitHub ticket with designs, or design screenshots in this repository's existing app. Use it whenever the developer asks to build or change UI from a design. It checks the developer's setup first, picks components in a fixed order, checks the result and passes design-system feedback on; `/sl-ds-figma-to-code check` runs only the setup check."
+description: "Implements a Figma design, a Jira or GitHub ticket with designs, or design screenshots in this repository's existing app. Use it whenever the developer asks to build or change UI from a design. It checks the developer's setup first, picks components in a fixed order, checks the result and passes design-system feedback on; `/sl-ds-figma-to-code check` runs only the setup check. Not for work in sl-design-system/components itself."
 argument-hint: '[ticket key | Figma link | check]'
 ---
 
@@ -53,7 +53,7 @@ The first that fits wins:
 
 - Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every tag and attribute in it exists in the installed package (its `custom-elements.json`) and the order above allows it.
   Otherwise build the element from the design data and put the mapping on the design-system list.
-- Before using an sl-ds component the project does not use yet, read its status: `componentStatus` in `website/src/categories/components/<name>/<name>.json` on `main` of github.com/sl-design-system/components.
+- Before using an sl-ds component the project does not use yet, read its status: `componentStatus` in `website/src/categories/components/<name>/<name>.json` on `main` of github.com/sl-design-system/components; no such file means it is undocumented, so treat it as not Stable.
 - Ask before adding a UI library or a package, before using an sl-ds component that is not `stable`, before building something custom that sl-ds might cover, and before moving away from the project's convention.
 
 ## 4. Fit the project

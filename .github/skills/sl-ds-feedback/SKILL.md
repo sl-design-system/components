@@ -1,6 +1,6 @@
 ---
 name: sl-ds-feedback
-description: "Reports an SL Design System (sl-ds, @sl-design-system/*) bug, missing feature or component need to the design-system team on GitHub. It searches the existing issues first and adds a +1 or a comment to a match, or creates a new issue from the repository's issue form, always after the developer's yes. Use it when a developer wants to report or request something in sl-ds, and offer it when you run into an sl-ds problem during any task."
+description: "Reports an SL Design System (sl-ds, @sl-design-system/*) bug, missing feature or component need to the design-system team on GitHub. It searches the existing issues first and adds a +1 or a comment to a match, or creates a new issue from the repository's issue form, always after the developer's yes. Use it when a developer wants to report or request something in sl-ds, and offer it when you run into an sl-ds problem during any task. Not for work in sl-design-system/components itself."
 argument-hint: '[what is wrong or missing, such as: sl-button has no focus ring with fill=link]'
 ---
 
@@ -36,7 +36,7 @@ Mark each line `ok`, `question`, `failed` or `n/a`, with what the call returned.
 
 ## 2. Check
 
-- The component's status: `componentStatus` in `website/src/categories/components/<name>/<name>.json`.
+- The component's status: `componentStatus` in `website/src/categories/components/<name>/<name>.json`; no such file means it is undocumented, so treat it as not Stable.
   If a `stable` component covers the need, tell the developer, no issue needed; a `preview` one is available but its API may change, and the need may be a request to make it Stable; never suggest a `draft` one.
 - For a bug or a missing feature, compare the installed version with `packages/components/<name>/CHANGELOG.md` (newest first).
   If a newer release has it, the advice is to upgrade.

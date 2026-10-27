@@ -20,3 +20,4 @@
 - A Figma design review skill for the design-system team: detached instances, other or custom design systems, working Code Connect.
 - A self-improve step, like the one in `sl-ds-ticket-to-plan`, in the other two skills, sending findings to the design-system team through `sl-ds-feedback`.
 - Code Connect mappings for the packages that do not have one yet.
+- `sl-ds-ticket-to-plan` goes on from the plan to the code change and a draft pull request, after the developer's yes, so an issue from `sl-ds-feedback` can end in a fix; whether product developers open such pull requests is the design-system team's call.

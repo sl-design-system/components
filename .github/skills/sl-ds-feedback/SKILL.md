@@ -22,7 +22,8 @@ Setup check
 2 Component   its name and installed version, from the lockfile
 3 Framework   from the package manifest
 4 Reporter    git config user.name, or the GitHub profile
-5 Team        "For sl-ds issues" in .github/sl-ds-figma-to-code.md, if the file exists
+5 Team        "For sl-ds issues" in .github/sl-ds-figma-to-code.md, else ask the developer
+6 Browser     the client's browser tool for the public Storybook, or n/a when there is none; nothing waits for it
 ```
 
 Mark each line `ok`, `question`, `failed` or `n/a`, with what the call returned.
@@ -54,6 +55,7 @@ If you are not sure about a match, show the closest two or three and let the dev
 - The body has the form's field labels as `###` headings, in the form's order.
 - In a bug, the reproduction path goes into Steps to Reproduce, what was observed into Current Behavior and what was expected into Expected Behavior; in a feature request, the reproduction path goes into Context.
 - The reproduction path must work for the design-system team: a story in their public Storybook or a small snippet with only sl-ds, never a path through the developer's product.
+- Each claim about how a component behaves, and the bug form's "reproduce this in our storybook" answer, comes from a run in the public Storybook (https://storybook.sanomalearning.design) where a browser tool is available; any other claim says "read from the source, not run".
 - Only what the form asks for: nothing about the developer's product beyond the form's product or team field, so no product names, plans or dates, ticket keys, internal links, product code or unreleased designs.
 - Every new issue and comment ends with the line `<!-- sl-ds-feedback -->`, which GitHub hides on the page, so the team can find what came in through this skill (`gh search issues --repo sl-design-system/components sl-ds-feedback`).
   Show it in the text the developer confirms; a 👍 cannot carry it.

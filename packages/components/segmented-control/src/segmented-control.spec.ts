@@ -1,5 +1,5 @@
 import '@sl-design-system/icon/register.js';
-import { type Select } from '@sl-design-system/select';
+import { type Option, type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type TemplateResult, html, nothing, render } from 'lit';
 import { spy } from 'sinon';
@@ -167,6 +167,19 @@ describe('sl-segmented-control', () => {
 
       expect(list()).to.have.attribute('aria-label', 'Order by');
     });
+
+    it('should prefer aria-labelledby over aria-label', async () => {
+      await setup(html`
+        <div>
+          <span id="label">Sort by</span>
+          <sl-segmented-control aria-label="View" aria-labelledby="label">
+            ${renderItems(items)}
+          </sl-segmented-control>
+        </div>
+      `);
+
+      expect(list()).to.have.attribute('aria-label', 'Sort by');
+    });
   });
 
   describe('selection', () => {
@@ -282,6 +295,40 @@ describe('sl-segmented-control', () => {
 
       expect(el.value).to.equal('table');
       expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
+    });
+
+    it('should not select any option when every option is aria-disabled and no value is set', async () => {
+      await setup(html`
+        <sl-segmented-control>
+          <sl-segmented-control-item aria-disabled="true" value="list"
+            >List</sl-segmented-control-item
+          >
+          <sl-segmented-control-item aria-disabled="true" value="grid"
+            >Grid</sl-segmented-control-item
+          >
+        </sl-segmented-control>
+      `);
+
+      expect(el.value).to.be.undefined;
+      expect(options().map(option => option.selected)).to.deep.equal([false, false]);
+      expect(options().filter(option => option.tabIndex === 0)).to.have.length(1);
+    });
+
+    it('should keep updating after the control is removed and reinserted', async () => {
+      await setup(html`
+        <sl-segmented-control aria-label="View">${renderItems(items)}</sl-segmented-control>
+      `);
+
+      const parent = el.parentElement!;
+
+      el.remove();
+      parent.appendChild(el);
+      await settle();
+
+      el.setAttribute('aria-label', 'Layout');
+      await settle();
+
+      expect(list()).to.have.attribute('aria-label', 'Layout');
     });
   });
 
@@ -745,6 +792,31 @@ describe('sl-segmented-control', () => {
       expect(el.value).to.equal('one');
     });
 
+    it('should keep the select options in sync when an item value changes', async () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      options()[1].value = 'second';
+      await settle();
+
+      const selectOptions = Array.from(select()!.querySelectorAll<Option>('sl-option'));
+
+      expect(selectOptions.map(option => option.value as string)).to.deep.equal([
+        'one',
+        'second',
+        'three'
+      ]);
+
+      select()!.dispatchEvent(
+        new CustomEvent('sl-change', { bubbles: true, composed: true, detail: 'second' })
+      );
+      await settle();
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(el.value).to.equal('second');
+      expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
+    });
+
     it('should update the value and emit a single sl-change when the select changes', async () => {
       const onChange = spy();
       el.addEventListener('sl-change', onChange);
@@ -773,6 +845,19 @@ describe('sl-segmented-control', () => {
       expect(el.value).to.equal('two');
       expect(options().map(option => option.selected)).to.deep.equal([false, true, false]);
       expect(options().map(option => !!option.leaving)).to.deep.equal([false, false, false]);
+    });
+  });
+
+  describe('tab stop', () => {
+    beforeEach(async () => {
+      await setup(html`<sl-segmented-control>${renderItems(items)}</sl-segmented-control>`);
+    });
+
+    it('should move the tab stop to the selected option when value changes programmatically', async () => {
+      el.value = 'table';
+      await settle();
+
+      expect(options().map(option => option.tabIndex)).to.deep.equal([-1, -1, 0]);
     });
   });
 });

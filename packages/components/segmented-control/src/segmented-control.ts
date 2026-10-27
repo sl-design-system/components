@@ -161,6 +161,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     this.addEventListener('click', this.#onClick);
     this.#observeItems();
+    this.#updateLabelReference();
+    this.requestUpdate();
   }
 
   override disconnectedCallback(): void {
@@ -257,13 +259,14 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       item.size = this.size;
     });
 
-    if (changes.has('items')) {
+    if (changes.has('items') || changes.has('selectedItem')) {
       this.#rovingTabindexController.clearElementCache();
     }
   }
 
   override render(): TemplateResult {
-    const label = this.ariaLabel ?? this.labelFromReference,
+    // A valid `aria-labelledby` reference takes precedence over `aria-label`.
+    const label = this.labelFromReference ?? this.ariaLabel,
       overflowing = this.#overflow.overflowing;
 
     return html`
@@ -344,7 +347,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     this.#itemObserver.disconnect();
     this.items.forEach(item =>
       this.#itemObserver.observe(item, {
-        attributeFilter: ['aria-disabled'],
+        attributeFilter: ['aria-disabled', 'value'],
         attributes: true,
         characterData: true,
         childList: true,
@@ -364,7 +367,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       return selected;
     }
 
-    return selected ?? this.items.find(item => !this.#isAriaDisabled(item)) ?? this.items[0];
+    return selected ?? this.items.find(item => !this.#isAriaDisabled(item));
   }
 
   #itemValue(item: SegmentedControlItem): string {
@@ -407,12 +410,11 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
       elements = this.ariaLabelledByElements?.length
         ? Array.from(this.ariaLabelledByElements)
         : ids.map(id => root.getElementById?.(id)).filter((el): el is HTMLElement => !!el);
-    this.labelFromReference = this.ariaLabel
-      ? undefined
-      : elements
-          .map(el => el.textContent?.trim())
-          .filter(Boolean)
-          .join(' ') || undefined;
+    this.labelFromReference =
+      elements
+        .map(el => el.textContent?.trim())
+        .filter(Boolean)
+        .join(' ') || undefined;
 
     this.#labelObserver.disconnect();
     this.#labelObserver.observe(this, {

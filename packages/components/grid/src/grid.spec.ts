@@ -204,6 +204,48 @@ describe('sl-grid', () => {
       await checkFilteredRows(2);
     });
 
+    it('should replace distinct loading rows when fetched pages resolve out of order', async () => {
+      const resolvers: Array<(result: { items: Person[]; totalItems: number }) => void> = [],
+        dataSource = new FetchListDataSource<Person>({
+          pageSize: 3,
+          size: 6,
+          fetchPage: ({ page }) =>
+            new Promise(resolve => {
+              resolvers[page] = resolve;
+            })
+        }),
+        people = ['John', 'Jane', 'Alice', 'Bob', 'Mary', 'Eve'].map(firstName => ({
+          firstName,
+          lastName: 'Test'
+        }));
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(6);
+      await expect.poll(() => typeof resolvers[1]).toBe('function');
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[1]({ items: people.slice(3), totalItems: 6 });
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(3);
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[0]({ items: people.slice(0, 3), totalItems: 6 });
+      await expect
+        .poll(() =>
+          Array.from(el.tbody.querySelectorAll('tr'), row =>
+            row.querySelector('td')?.textContent?.trim()
+          )
+        )
+        .to.deep.equal(people.map(person => person.firstName));
+      expect(el.tbody.querySelectorAll('td[part~="placeholder"]')).to.have.length(0);
+    });
+
     it('should fit wrapped rows after replacing measured placeholders with a smaller fetched result', async () => {
       let resolveFetch!: (result: { items: Person[]; totalItems: number }) => void;
       const pendingFetch = new Promise<{ items: Person[]; totalItems: number }>(resolve => {
@@ -1241,6 +1283,74 @@ describe('sl-grid', () => {
   });
 
   describe('drag and drop', () => {
+    it('should preserve the dragged row through successive reorder gestures', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' },
+            { firstName: 'Alice', lastName: 'Brown' }
+          ]}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const onDrop = spy();
+      el.addEventListener('sl-grid-drop', onDrop);
+      const readOrder = () =>
+        Array.from(el.renderRoot.querySelectorAll('tbody tr'), row =>
+          row.querySelector('td:nth-child(2)')?.textContent?.trim()
+        );
+
+      for (const [sourceIndex, targetIndex, position, expectedOrder] of [
+        [0, 2, 'after', ['Jane', 'Alice', 'John']],
+        [2, 0, 'before', ['John', 'Jane', 'Alice']],
+        [1, 2, 'after', ['John', 'Alice', 'Jane']]
+      ] as const) {
+        const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'),
+          sourceRow = rows[sourceIndex],
+          targetRow = rows[targetIndex],
+          transfer = new DataTransfer(),
+          rect = targetRow.getBoundingClientRect(),
+          clientY = position === 'before' ? rect.top + 1 : rect.bottom - 1;
+        const dispatch = (row: HTMLTableRowElement, type: string) =>
+          row.dispatchEvent(
+            new DragEvent(type, {
+              bubbles: true,
+              composed: true,
+              cancelable: true,
+              dataTransfer: transfer,
+              clientY
+            })
+          );
+
+        sourceRow
+          .querySelector('[part~="drag-handle"]')!
+          .dispatchEvent(
+            new MouseEvent('mousedown', { bubbles: true, composed: true, cancelable: true })
+          );
+        dispatch(sourceRow, 'dragstart');
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        dispatch(targetRow, 'dragover');
+        await expect.poll(readOrder).to.deep.equal(expectedOrder);
+
+        // Replacing this element interrupts the browser's native drag-and-drop gesture.
+        expect(sourceRow.isConnected).to.be.true;
+        expect(sourceRow.part.contains('dragging')).to.be.true;
+        expect(onDrop).not.to.have.been.called;
+
+        dispatch(targetRow, 'drop');
+        dispatch(sourceRow, 'dragend');
+        await el.updateComplete;
+
+        expect(onDrop).to.have.been.calledOnce;
+        expect(sourceRow.part.contains('dragging')).to.be.false;
+        onDrop.resetHistory();
+      }
+    });
+
     it('should use the default cursor for a non-draggable group row', async () => {
       const dataSource = new ArrayListDataSource<Person>(
         [

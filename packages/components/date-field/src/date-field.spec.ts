@@ -386,6 +386,30 @@ describe('sl-date-field', () => {
       el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
+    for (const view of ['month', 'year'] as const) {
+      it(`should keep the ${view} table above the extra controls`, async () => {
+        el.requireConfirmation = true;
+        el.showPicker();
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve));
+
+        const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+        calendar.view = view;
+        await calendar.updateComplete;
+
+        const selector = calendar.renderRoot.querySelector<RenderRootElement>(`sl-select-${view}`)!;
+        await selector.updateComplete;
+
+        const table = selector.renderRoot.querySelector('table')!,
+          controls = el.renderRoot.querySelector('sl-button-bar')!,
+          tableBounds = table.getBoundingClientRect();
+
+        expect(tableBounds.height).to.be.greaterThan(0);
+        expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+        expect(tableBounds.bottom).to.be.at.most(controls.getBoundingClientRect().top);
+      });
+    }
+
     it('should not show calendar initially', () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 

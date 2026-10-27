@@ -213,7 +213,7 @@ button[aria-current='true'].has-selected-icon {
   /*
    * Wait until the new fill starts to appear before changing the color and the icon of the option
    * that is being selected, so the fill, the color and the icon all change together. The icon swap
-   * uses `display`, so the old icon is kept for that time with an animation (see keyframes below).
+   * uses `display`, so the old icon is kept for that time with an animation.
    */
   :host([entering]) button {
     transition:

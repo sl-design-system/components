@@ -20,10 +20,10 @@ declare global {
 /**
  * A single option in an `sl-segmented-control`. Put an `sl-icon` in the `icon` slot to show an icon
  * before the label. Put a second `sl-icon` in the `selected-icon` slot to show a different icon
- * (usually the solid variant) when the option is selected, just like `sl-toggle-button`.
+ * (the solid variant) when the option is selected, just like `sl-toggle-button`.
  *
- * Use `aria-disabled="true"` to make an option unavailable while keeping it focusable for screen
- * reader users.
+ * Use `aria-disabled="true"` to make an option unavailable (disabled) while keeping it focusable
+ * for screen reader users.
  *
  * ```html
  * <sl-segmented-control value="list">
@@ -59,7 +59,10 @@ export class SegmentedControlItem extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether the option is aria-disabled. When set, the option stays focusable but is inactive. */
+  /**
+   * Whether the option is aria-disabled. When set, the option stays focusable but is inactive
+   * (disabled).
+   */
   @property({
     attribute: 'aria-disabled',
     converter: value => value ?? undefined,
@@ -141,8 +144,7 @@ export class SegmentedControlItem extends LitElement {
         aria-current=${this.selected ? 'true' : 'false'}
         aria-label=${this.iconOnly && this.label ? this.label : nothing}
         class=${this.hasSelectedIcon ? 'has-selected-icon' : nothing}
-        part="button"
-        type="button">
+        part="button">
         <span class="fill"></span>
         <slot @slotchange=${this.#onIconSlotChange} name="icon"></slot>
         <slot @slotchange=${this.#onSelectedIconSlotChange} name="selected-icon"></slot>

@@ -1,4 +1,4 @@
-# sl-figma-to-code: project context
+# sl-ds-figma-to-code: project context
 
 Updated: <date>
 

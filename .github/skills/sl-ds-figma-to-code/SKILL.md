@@ -1,6 +1,6 @@
 ---
-name: sl-figma-to-code
-description: "Implements a Figma design, a Jira or GitHub ticket with designs, or design screenshots in this repository's existing app. Use it whenever the developer asks to build or change UI from a design. It checks the developer's setup first, picks components in a fixed order, checks the result and passes design-system feedback on; `/sl-figma-to-code check` runs only the setup check."
+name: sl-ds-figma-to-code
+description: "Implements a Figma design, a Jira or GitHub ticket with designs, or design screenshots in this repository's existing app. Use it whenever the developer asks to build or change UI from a design. It checks the developer's setup first, picks components in a fixed order, checks the result and passes design-system feedback on; `/sl-ds-figma-to-code check` runs only the setup check."
 argument-hint: '[ticket key | Figma link | check]'
 ---
 
@@ -17,7 +17,7 @@ Setup check
 2 Figma         whoami: Dev or Full seat -> Figma path; View or Collab seat, or no Figma link -> screenshot path
 3 Figma skill   figma-design-to-code loaded (Figma path only)
 4 Images        screenshot path: from the ticket (downloadJiraIssueAttachment) or the chat, else get_screenshot per frame, else "Copy as PNG"; no design at all: ask for one
-5 Context file  .github/sl-figma-to-code.md read, or missing: drafted at the end
+5 Context file  .github/sl-ds-figma-to-code.md read, or missing: drafted at the end
 6 App           its URL opened with the browser tool for the check: the project's verify skill, the client's browser tools, playwright-cli or Playwright MCP
 7 Commands      lint, type-check and unit tests, from the context file or package.json
 ```
@@ -84,5 +84,5 @@ The first that fits wins:
 
 ## 7. Context file
 
-If `.github/sl-figma-to-code.md` was missing, draft it from [templates/project-context.md](templates/project-context.md) with what this run learned, show it, and write it only after the developer agrees.
+If `.github/sl-ds-figma-to-code.md` was missing, draft it from [templates/project-context.md](templates/project-context.md) with what this run learned, show it, and write it only after the developer agrees.
 If it exists and this run learned something new, propose the change.

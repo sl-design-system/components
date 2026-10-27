@@ -73,8 +73,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   #intersectionObserver?: IntersectionObserver;
 
-  /** Cached longest month width for the active locale and font. */
-  #monthLabelSize?: { key: string; width: number };
+  /** Cached month and year label widths for the active locale and font. */
+  #headerLabelSize?: { key: string; monthWidth: number; yearWidth: number };
 
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
@@ -228,7 +228,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#resizeObserver.observe(this);
     void document.fonts.ready.then(() => {
       if (this.isConnected) {
-        this.#monthLabelSize = undefined;
+        this.#headerLabelSize = undefined;
         void this.#updateHeaderAfterRender();
       }
     });
@@ -911,6 +911,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!header || !monthButton || !year || !arrows) {
       this.style.removeProperty('--_header-inline-size');
       this.style.removeProperty('--_month-control-inline-size');
+      this.style.removeProperty('--_year-control-inline-size');
+      this.style.removeProperty('--_header-controls-inline-size');
       return;
     }
 
@@ -920,8 +922,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const monthStyle = getComputedStyle(monthButton),
-      key = `${this.locale}|${monthStyle.font}|${monthStyle.letterSpacing}`;
-    if (this.#monthLabelSize?.key !== key) {
+      yearLabel = format(this.displayMonth!, this.locale, { year: 'numeric' }),
+      key = `${this.locale}|${monthStyle.font}|${monthStyle.letterSpacing}|${yearLabel.replace(/\p{Decimal_Number}/gu, '0')}`;
+    if (this.#headerLabelSize?.key !== key) {
       const measure = document.createElement('span');
       measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
       measure.style.font = monthStyle.font;
@@ -934,8 +937,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         measure.textContent = format(new Date(2026, month, 1), this.locale, { month: 'long' });
         width = Math.max(width, Number.parseFloat(getComputedStyle(measure).width));
       }
+      const monthWidth = width,
+        digits = new Intl.NumberFormat(this.locale, { useGrouping: false });
+      let yearWidth = 0;
+      // Reserve the widest digit in every position, including fonts without tabular figures.
+      for (let digit = 0; digit < 10; digit++) {
+        measure.textContent = yearLabel.replace(/\p{Decimal_Number}/gu, digits.format(digit));
+        yearWidth = Math.max(yearWidth, Number.parseFloat(getComputedStyle(measure).width));
+      }
       measure.remove();
-      this.#monthLabelSize = { key, width };
+      this.#headerLabelSize = { key, monthWidth, yearWidth };
     }
 
     const button = monthButton.shadowRoot?.querySelector('button'),
@@ -944,22 +955,34 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       controlsStyle = getComputedStyle(monthButton.parentElement!),
       iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
       monthControlWidth =
-        this.#monthLabelSize.width +
+        this.#headerLabelSize.monthWidth +
         iconWidth +
         (Number.parseFloat(buttonStyle?.columnGap ?? '') || 0) +
         (Number.parseFloat(buttonStyle?.borderInlineStartWidth ?? '') || 0) +
         (Number.parseFloat(buttonStyle?.borderInlineEndWidth ?? '') || 0),
-      width =
-        monthControlWidth +
-        Number.parseFloat(getComputedStyle(year).width) +
-        (Number.parseFloat(controlsStyle.columnGap) || 0) +
-        Number.parseFloat(getComputedStyle(arrows).width) +
-        (Number.parseFloat(headerStyle.columnGap) || 0) +
+      yearButton = year.shadowRoot?.querySelector('button'),
+      yearButtonStyle = yearButton ? getComputedStyle(yearButton) : undefined,
+      yearIcon = year.querySelector('sl-icon'),
+      yearControlWidth = Math.ceil(
+        this.#headerLabelSize.yearWidth +
+          (yearIcon ? Number.parseFloat(getComputedStyle(yearIcon).width) : 0) +
+          (Number.parseFloat(yearButtonStyle?.columnGap ?? '') || 0) +
+          (Number.parseFloat(yearButtonStyle?.borderInlineStartWidth ?? '') || 0) +
+          (Number.parseFloat(yearButtonStyle?.borderInlineEndWidth ?? '') || 0)
+      ),
+      controlsWidth =
+        Math.ceil(monthControlWidth) +
+        yearControlWidth +
+        (Number.parseFloat(controlsStyle.getPropertyValue('--_controls-gap')) || 0) +
+        Number.parseFloat(getComputedStyle(arrows).width),
+      headerPadding =
         (Number.parseFloat(headerStyle.paddingInlineStart) || 0) +
         (Number.parseFloat(headerStyle.paddingInlineEnd) || 0);
 
     this.style.setProperty('--_month-control-inline-size', `${Math.ceil(monthControlWidth)}px`);
-    const inlineSize = `${Math.ceil(width) + 1}px`;
+    this.style.setProperty('--_year-control-inline-size', `${yearControlWidth}px`);
+    this.style.setProperty('--_header-controls-inline-size', `${Math.ceil(controlsWidth) + 1}px`);
+    const inlineSize = `${Math.ceil(controlsWidth + headerPadding) + Number.parseFloat(headerStyle.getPropertyValue('--_header-gap')) + 1}px`;
     if (this.style.getPropertyValue('--_header-inline-size') !== inlineSize) {
       this.style.setProperty('--_header-inline-size', inlineSize);
       this.#scrollToMonth(0);

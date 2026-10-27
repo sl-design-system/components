@@ -47,10 +47,12 @@
 }
 
 header {
+  --_header-gap: var(--sl-size-300);
+
   align-items: center;
   box-sizing: border-box;
   display: grid;
-  gap: var(--sl-size-300);
+  gap: var(--_header-gap);
   grid-template-columns:
     minmax(
       0,
@@ -66,6 +68,8 @@ header {
 }
 
 header.single-month {
+  /* Use spare space for separation before shrinking a localized month label. */
+  column-gap: clamp(0px, calc(100% - var(--_header-controls-inline-size, 0px)), var(--_header-gap));
   grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
 
   .month-year-controls {
@@ -74,9 +78,15 @@ header.single-month {
 }
 
 .month-year-controls {
+  --_controls-gap: var(--sl-size-100);
+
   align-items: center;
   display: flex;
-  gap: var(--sl-size-100);
+  gap: clamp(
+    0px,
+    calc(100% - var(--_month-control-inline-size, 0px) - var(--_year-control-inline-size, 0px)),
+    var(--_controls-gap)
+  );
   grid-column: 1 / span 1;
   min-inline-size: 0;
 }
@@ -95,6 +105,15 @@ sl-button {
 .current-month,
 .current-year {
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+}
+
+.current-year {
+  flex: 0 0 auto;
+  inline-size: var(--_year-control-inline-size, auto);
+
+  &::part(button) {
+    justify-content: start;
+  }
 }
 
 .current-month {

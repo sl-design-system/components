@@ -4,7 +4,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { DateField } from './date-field.js';
 import './register.js';
 
@@ -415,6 +415,47 @@ describe('sl-date-field', () => {
         );
         expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
       });
+    });
+
+    it('should show full month names in the picker at a 320px viewport', async () => {
+      await page.viewport(320, 600);
+      try {
+        el.locale = 'en-GB';
+        el.month = new Date(2024, 1, 1);
+        el.style.cssText = 'margin: 8px; font-family: Arial, sans-serif; font-size: 16px';
+        await el.updateComplete;
+        el.showPicker();
+        await el.updateComplete;
+        const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+        await calendar.updateComplete;
+        const selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+        for (const month of [1, 8, 10, 11]) {
+          calendar.month = new Date(2024, month, 1);
+          await calendar.updateComplete;
+          await selectDay.updateComplete;
+          await Promise.all(
+            Array.from(selectDay.renderRoot.querySelectorAll('sl-format-date')).map(
+              label => label.updateComplete
+            )
+          );
+          await vi.waitFor(() => {
+            expect(selectDay.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+            const label = selectDay.renderRoot.querySelector<HTMLElement>(
+                '.current-month sl-format-date'
+              )!,
+              year = selectDay.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+              arrows = selectDay.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+            expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+            expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+            expect(year.right).to.be.at.most(arrows.left);
+            expect(arrows.right).to.be.at.most(window.innerWidth);
+          });
+        }
+      } finally {
+        el.hidePicker();
+        await page.viewport(1024, 768);
+      }
     });
 
     it('should render the calendar when the dialog is opened', async () => {

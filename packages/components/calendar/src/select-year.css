@@ -22,6 +22,9 @@ header {
   gap: var(--sl-size-300);
   grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
   margin-block-end: var(--sl-size-050);
+  /* Extend the header through the selector padding to align with the day view. */
+  margin-block-start: calc(-1 * var(--sl-size-025));
+  margin-inline: calc(-1 * var(--sl-size-025));
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 

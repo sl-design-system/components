@@ -96,6 +96,69 @@ describe('sl-select-day', () => {
     }
   }
 
+  for (const numberOfMonths of [1, 2]) {
+    it(`should keep navigation stationary across years with ${numberOfMonths} preferred months`, async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="es"
+          number-of-months=${numberOfMonths}
+          .month=${new Date(2019, 0, 1)}
+          style="font-family: Georgia, serif; font-variant-numeric: proportional-nums"></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      await new Promise(requestAnimationFrame);
+      const initialWidth = el.getBoundingClientRect().width,
+        previous = el.renderRoot.querySelector('.previous-month')!,
+        next = el.renderRoot.querySelector('.next-month')!,
+        previousLeft = previous.getBoundingClientRect().left,
+        nextLeft = next.getBoundingClientRect().left;
+
+      for (const year of [2020, 2021, 2028, 2019]) {
+        el.month = new Date(year, 0, 1);
+        await el.updateComplete;
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+        expect(el.getBoundingClientRect().width).to.equal(initialWidth);
+        expect(previous.getBoundingClientRect().left).to.equal(previousLeft);
+        expect(next.getBoundingClientRect().left).to.equal(nextLeft);
+      }
+    });
+  }
+
+  for (const locale of ['en-GB', 'es', 'nl-NL', 'pl-PL', 'de-DE', 'fi-FI']) {
+    it(`should show full month names in a mobile date picker in ${locale}`, async () => {
+      // Leave room for the mobile dialog's padding, borders and browser margins.
+      const container = await fixture<HTMLDivElement>(html`
+        <div style="inline-size: 255px">
+          <sl-select-day
+            locale=${locale}
+            .month=${new Date(2024, 1, 1)}
+            style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+        </div>
+      `);
+      el = container.querySelector('sl-select-day')!;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      for (let month = 0; month < 12; month++) {
+        el.month = new Date(2024, month, 1);
+        await el.updateComplete;
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+        const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+          year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+          arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+        expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+        expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+        expect(year.right).to.be.at.most(arrows.left);
+        expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+      }
+    });
+  }
+
   for (const zoom of [0.9, 1, 1.1]) {
     it(`should keep two German months with week numbers at ${zoom} CSS zoom`, async () => {
       el = await fixture(html`

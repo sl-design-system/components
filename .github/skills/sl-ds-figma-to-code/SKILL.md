@@ -51,7 +51,8 @@ The first that fits wins:
 3. Another library the project already uses, when no Stable sl-ds component fits.
 4. Custom, from the project's tokens and building blocks.
 
-- Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every tag and attribute in it exists in the installed package (its `custom-elements.json`) and the order above allows it.
+- Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every `sl-*` tag in it, with its attributes, slots and events, exists in the installed package (its `custom-elements.json`) and the order above allows it.
+  Standard HTML elements and global attributes, such as `h1`, `slot`, `class` or `aria-label`, are not in that file; do not check them there.
   Otherwise build the element from the design data and put the mapping on the design-system list.
 - Before using an sl-ds component the project does not use yet, read its status: `componentStatus` in `website/src/categories/components/<name>/<name>.json` on `main` of github.com/sl-design-system/components; no such file means it is undocumented, so treat it as not Stable.
 - Ask before adding a UI library or a package, before using an sl-ds component that is not `stable`, before building something custom that sl-ds might cover, and before moving away from the project's convention.

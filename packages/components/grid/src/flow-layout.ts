@@ -5,12 +5,19 @@ import {
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 
+// Bound retained content and recursive work independently of the dataset size.
+const MAX_CONTENT_SNAPSHOT_VALUES = 256;
+const MAX_CONTENT_SNAPSHOT_DEPTH = 16;
+
 /** Flow layout with measurements scoped to the current data source items. */
 export class GridFlowLayout extends FlowLayout {
   #itemsChanged = false;
 
   /** Content at measurement time, independent of mutable data references. */
   #contentSnapshots = new Map<number, { data: unknown; content?: unknown[] }>();
+
+  /** Opaque graphs always invalidate; do not repeatedly traverse shared oversized objects. */
+  #opaqueContent = new WeakSet<object>();
 
   constructor(...args: ConstructorParameters<typeof FlowLayout>) {
     super(...args);
@@ -30,9 +37,11 @@ export class GridFlowLayout extends FlowLayout {
 
   #hasContentChanges(): boolean {
     for (const { data, content } of this.#contentSnapshots.values()) {
+      if (!content) {
+        return true;
+      }
       const current = this.#captureContent(data);
       if (
-        !content ||
         !current ||
         content.length !== current.length ||
         content.some((value, index) => !Object.is(value, current[index]))
@@ -48,13 +57,20 @@ export class GridFlowLayout extends FlowLayout {
   #captureContent(data: unknown): unknown[] | undefined {
     const content: unknown[] = [],
       seen = new Map<object, number>();
-    const capture = (value: unknown): boolean => {
+    let remaining = MAX_CONTENT_SNAPSHOT_VALUES;
+    const capture = (value: unknown, depth = 0): boolean => {
+      if (remaining-- <= 0 || depth > MAX_CONTENT_SNAPSHOT_DEPTH) {
+        return false;
+      }
       if (typeof value === 'function') {
         return false;
       }
       if (value === null || typeof value !== 'object') {
         content.push(typeof value, value);
         return true;
+      }
+      if (this.#opaqueContent.has(value)) {
+        return false;
       }
       const reference = seen.get(value);
       if (reference !== undefined) {
@@ -73,19 +89,31 @@ export class GridFlowLayout extends FlowLayout {
         prototype !== null
       ) {
         // Opaque objects may hold mutable state that own properties cannot describe.
+        this.#opaqueContent.add(value);
         return false;
       }
 
+      // Check large arrays before enumerating their indices, including lazy proxies.
+      if (Array.isArray(value) && value.length > remaining) {
+        this.#opaqueContent.add(value);
+        return false;
+      }
       const keys = Reflect.ownKeys(value);
+      if (keys.length > remaining) {
+        this.#opaqueContent.add(value);
+        return false;
+      }
       content.push(keys.length);
       for (const key of keys) {
         const descriptor = Object.getOwnPropertyDescriptor(value, key)!;
         // Do not invoke application getters while measuring or comparing rows.
         if (!('value' in descriptor)) {
+          this.#opaqueContent.add(value);
           return false;
         }
         content.push(key, descriptor.enumerable);
-        if (!capture(descriptor.value as unknown)) {
+        if (!capture(descriptor.value as unknown, depth + 1)) {
+          this.#opaqueContent.add(value);
           return false;
         }
       }

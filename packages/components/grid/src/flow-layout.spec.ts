@@ -177,6 +177,70 @@ describe('GridFlowLayout', () => {
     expect(getter).not.to.have.been.called;
   });
 
+  it('should bound snapshot traversal when each row references a shared collection', () => {
+    type Record = { id: number; parent?: { children: Record[] } };
+    const readProperty = spy(Reflect.getOwnPropertyDescriptor),
+      children: Record[] = Array.from(
+        { length: 2000 },
+        (_, id) => new Proxy({ id }, { getOwnPropertyDescriptor: readProperty })
+      ),
+      parent = { children };
+    children.forEach(child => (child.parent = parent));
+    const dataSource = new ArrayListDataSource(children, { selects: 'multiple' });
+    layout.items = dataSource.items;
+    readProperty.resetHistory();
+    layout.updateItemSizes(measurements);
+
+    // Snapshot work must not grow with the shared collection's size per measured row.
+    expect(readProperty.callCount).to.be.lessThan(1000);
+    readProperty.resetHistory();
+    dataSource.select(dataSource.items[0]);
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(readProperty.callCount).to.be.lessThan(100);
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should invalidate deeply nested records without overflowing the stack', () => {
+    let data: { child?: unknown } = {};
+    for (let depth = 0; depth < 10000; depth++) {
+      data = { child: data };
+    }
+    const dataSource = new ArrayListDataSource([{ id: 1 }, { id: 2, data }]);
+    layout.items = dataSource.items;
+
+    expect(() => layout.updateItemSizes(measurements)).not.to.throw();
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should not enumerate an oversized shared object again for each measured row', () => {
+    const ownKeys = spy(Reflect.ownKeys),
+      shared = new Proxy(
+        Object.fromEntries(Array.from({ length: 2000 }, (_, index) => [`field${index}`, index])),
+        { ownKeys }
+      ),
+      dataSource = new ArrayListDataSource([
+        { id: 1, shared },
+        { id: 2, shared }
+      ]);
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    expect(ownKeys).to.have.been.calledOnce;
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(ownKeys).to.have.been.calledOnce;
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
   it('should apply a real scroll extent decrease of three pixels', () => {
     layout.items = [{ id: 1 }, { id: 2 }];
     layout.updateItemSizes({ 0: measurements[0], 1: measurements[0] });

@@ -97,15 +97,28 @@
 }
 
 :host(:state(clearable):state(has-selection)) {
+  /* Space above and below the separator, measured from the inside of the border. */
+  --_separator-padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  --_wrapper-padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+
   .wrapper {
     padding-inline-end: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   }
 
   .status {
-    border-inline-start: var(--sl-size-borderWidth-default) solid
-      var(--sl-color-border-neutral-subtle);
     margin-inline-start: 0;
     padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+    position: relative;
+
+    /* Separator between the clear button and the chevron. */
+    &::before {
+      background: var(--sl-color-border-neutral-subtle);
+      content: '';
+      inline-size: var(--sl-size-borderWidth-default);
+      inset-block: calc(var(--_separator-padding-block) - var(--_wrapper-padding-block));
+      inset-inline-start: 0;
+      position: absolute;
+    }
   }
 }
 
@@ -119,6 +132,9 @@
 }
 
 :host(:state(clearable):state(has-selection)[size='lg']) {
+  --_separator-padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+  --_wrapper-padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+
   .wrapper {
     padding-inline-end: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
   }

@@ -30,6 +30,49 @@ describe('sl-select-day', () => {
 
   afterEach(() => vi.useRealTimers());
 
+  for (const rootFontSize of [16, 20]) {
+    it(`should measure rem spacing tokens in pixels with a ${rootFontSize}px root font`, async () => {
+      const rootStyle = document.documentElement.style,
+        previousFontSize = rootStyle.fontSize;
+      rootStyle.fontSize = `${rootFontSize}px`;
+      try {
+        const controlsGap = rootFontSize / 2,
+          headerGap = rootFontSize * 1.5;
+        el = await fixture(html`
+          <sl-select-day
+            locale="en-GB"
+            style=${`--sl-size-100: ${controlsGap}px; --sl-size-300: ${headerGap}px`}></sl-select-day>
+        `);
+        await document.fonts.ready;
+
+        await vi.waitFor(() =>
+          expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+        const pixelHeaderSize = el.style.getPropertyValue('--_header-inline-size'),
+          pixelControlsSize = el.style.getPropertyValue('--_header-controls-inline-size');
+
+        el.style.setProperty('--sl-size-100', '0.5rem');
+        el.style.setProperty('--sl-size-300', '1.5rem');
+        // Trigger the same header measurement used when navigating the calendar.
+        el.month = new Date(2026, 8, 1);
+        await el.updateComplete;
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+
+        await vi.waitFor(() => {
+          expect(el.style.getPropertyValue('--_header-inline-size')).to.equal(pixelHeaderSize);
+          expect(el.style.getPropertyValue('--_header-controls-inline-size')).to.equal(
+            pixelControlsSize
+          );
+        });
+      } finally {
+        rootStyle.fontSize = previousFontSize;
+      }
+    });
+  }
+
   for (const locale of ['en-GB', 'nl-NL', 'pl-PL', 'de-DE', 'fi-FI']) {
     for (const numberOfMonths of [1, 2]) {
       it(`should keep header controls stable across all months in ${locale} with ${numberOfMonths} visible months`, async () => {

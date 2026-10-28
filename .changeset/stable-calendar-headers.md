@@ -9,3 +9,5 @@ Keep localized calendars within narrow containers, align date cells and week num
 Reserve a stable year control width for proportional digits and reduce header spacing on narrow screens to keep full month names visible.
 
 Align month and year selector headers with the day view and preserve measured header widths when switching views so navigation buttons stay in place.
+
+Resolve header spacing tokens to pixels before measuring so relative CSS units do not shrink the reserved header width.

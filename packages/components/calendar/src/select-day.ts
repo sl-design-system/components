@@ -43,6 +43,18 @@ const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): numb
   return requiredColumnSize > minimumColumnSize ? requiredColumnSize : undefined;
 };
 
+/** Resolve a spacing custom property in its element's context, including rem, em and calc(). */
+const getCustomPropertyPixelSize = (element: HTMLElement, property: string): number => {
+  const measure = document.createElement('span');
+  measure.style.cssText = `position: absolute; visibility: hidden; inline-size: var(${property})`;
+  measure.setAttribute('aria-hidden', 'true');
+  element.append(measure);
+  const size = Number.parseFloat(getComputedStyle(measure).inlineSize);
+  measure.remove();
+
+  return size;
+};
+
 @localized()
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -952,7 +964,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const button = monthButton.shadowRoot?.querySelector('button'),
       buttonStyle = button ? getComputedStyle(button) : undefined,
       headerStyle = getComputedStyle(header),
-      controlsStyle = getComputedStyle(monthButton.parentElement!),
       iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
       monthControlWidth =
         this.#headerLabelSize.monthWidth +
@@ -973,7 +984,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       controlsWidth =
         Math.ceil(monthControlWidth) +
         yearControlWidth +
-        (Number.parseFloat(controlsStyle.getPropertyValue('--_controls-gap')) || 0) +
+        getCustomPropertyPixelSize(monthButton.parentElement!, '--_controls-gap') +
         Number.parseFloat(getComputedStyle(arrows).width),
       headerPadding =
         (Number.parseFloat(headerStyle.paddingInlineStart) || 0) +
@@ -982,7 +993,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.style.setProperty('--_month-control-inline-size', `${Math.ceil(monthControlWidth)}px`);
     this.style.setProperty('--_year-control-inline-size', `${yearControlWidth}px`);
     this.style.setProperty('--_header-controls-inline-size', `${Math.ceil(controlsWidth) + 1}px`);
-    const inlineSize = `${Math.ceil(controlsWidth + headerPadding) + Number.parseFloat(headerStyle.getPropertyValue('--_header-gap')) + 1}px`;
+    const inlineSize = `${Math.ceil(controlsWidth + headerPadding) + getCustomPropertyPixelSize(header, '--_header-gap') + 1}px`;
     if (this.style.getPropertyValue('--_header-inline-size') !== inlineSize) {
       this.style.setProperty('--_header-inline-size', inlineSize);
       this.#scrollToMonth(0);

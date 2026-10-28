@@ -1901,85 +1901,111 @@ describe('sl-grid', () => {
       expect(reorderSpy).not.to.have.been.called;
     });
 
-    it('should allow dragging and dropping a complete group', async () => {
-      const dataSource = new ArrayListDataSource<Student>(
-        [
+    for (const collapsed of [false, true]) {
+      it(`should allow repeatedly dragging and dropping ${collapsed ? 'a collapsed' : 'an expanded'} group`, async () => {
+        const dataSource = new ArrayListDataSource<Student>(
+          [
+            {
+              firstName: 'John',
+              lastName: 'Doe',
+              school: { id: 1, name: 'School A' }
+            },
+            {
+              firstName: 'Jane',
+              lastName: 'Smith',
+              school: { id: 2, name: 'School B' }
+            }
+          ],
           {
-            firstName: 'John',
-            lastName: 'Doe',
-            school: { id: 1, name: 'School A' }
-          },
-          {
-            firstName: 'Jane',
-            lastName: 'Smith',
-            school: { id: 2, name: 'School B' }
+            groupBy: 'school.id',
+            groupLabelPath: 'school.name'
           }
-        ],
-        {
-          groupBy: 'school.id',
-          groupLabelPath: 'school.name'
+        );
+
+        if (collapsed) {
+          dataSource.collapseGroup(1);
+          dataSource.collapseGroup(2);
         }
-      );
 
-      el = await fixture(html`
-        <sl-grid .dataSource=${dataSource}>
-          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-        </sl-grid>
-      `);
+        el = await fixture(html`
+          <sl-grid .dataSource=${dataSource}>
+            <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid>
+        `);
 
-      await waitForGridToRenderData(el);
+        await waitForGridToRenderData(el);
 
-      const reorderSpy = spy(dataSource, 'reorder'),
-        groupRows = Array.from(
-          el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
-        ),
-        sourceGroupRow = groupRows[0],
-        targetGroupRow = groupRows[1],
-        sourceGroupHeader = sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
-        dragHandle =
-          sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
-        dragStartEvent = new DragEvent('dragstart', {
-          bubbles: true,
-          cancelable: true,
-          composed: true,
-          dataTransfer: new DataTransfer()
-        });
+        const reorderSpy = spy(dataSource, 'reorder'),
+          dragStartSpy = spy();
 
-      expect(sourceGroupRow).to.have.attribute('draggable');
+        el.addEventListener('sl-grid-dragstart', dragStartSpy);
 
-      dragHandle.dispatchEvent(
-        new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
-      );
-      dragHandle.dispatchEvent(dragStartEvent);
-      targetGroupRow.dispatchEvent(
-        new DragEvent('dragover', {
-          bubbles: true,
-          cancelable: true,
-          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
-          dataTransfer: new DataTransfer()
-        })
-      );
-      targetGroupRow.dispatchEvent(
-        new DragEvent('drop', {
-          bubbles: true,
-          cancelable: true,
-          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
-          dataTransfer: new DataTransfer()
-        })
-      );
-      sourceGroupRow.dispatchEvent(
-        new DragEvent('dragend', {
-          bubbles: true,
-          cancelable: true,
-          dataTransfer: new DataTransfer()
-        })
-      );
+        for (let attempt = 0; attempt < 3; attempt++) {
+          const groupRows = Array.from(
+              el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
+            ),
+            sourceGroupRow = groupRows.find(row => row.textContent?.includes('School A'))!,
+            targetGroupRow = groupRows.find(row => row.textContent?.includes('School B'))!,
+            sourceGroupHeader =
+              sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+            dragHandle =
+              sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
+            position = attempt % 2 === 0 ? 'after' : 'before',
+            clientY =
+              position === 'after'
+                ? targetGroupRow.getBoundingClientRect().bottom - 1
+                : targetGroupRow.getBoundingClientRect().top + 1,
+            dataTransfer = new DataTransfer();
 
-      expect(reorderSpy).to.have.been.calledOnce;
-      expect(reorderSpy.firstCall.args[0]).to.have.property('type', 'group');
-      expect(reorderSpy.firstCall.args[2]).to.equal('after');
-    });
+          expect(sourceGroupRow).to.have.attribute('draggable', 'true');
+
+          dragHandle.dispatchEvent(
+            new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
+          );
+          dragHandle.dispatchEvent(
+            new DragEvent('dragstart', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              dataTransfer
+            })
+          );
+          targetGroupRow.dispatchEvent(
+            new DragEvent('dragover', { bubbles: true, cancelable: true, clientY, dataTransfer })
+          );
+          targetGroupRow.dispatchEvent(
+            new DragEvent('drop', { bubbles: true, cancelable: true, clientY, dataTransfer })
+          );
+          dragHandle.dispatchEvent(
+            new DragEvent('dragend', {
+              bubbles: true,
+              cancelable: true,
+              composed: true,
+              dataTransfer
+            })
+          );
+
+          await waitForGridToRenderData(el);
+
+          expect(dragStartSpy.callCount).to.equal(attempt + 1);
+          expect(reorderSpy.callCount).to.equal(attempt + 1);
+          expect(reorderSpy.lastCall.args[0]).to.have.property('type', 'group');
+          expect(reorderSpy.lastCall.args[2]).to.equal(position);
+          await expect
+            .poll(() =>
+              Array.from(el.tbody.querySelectorAll('tr[part~="group"]')).map(row =>
+                row.textContent?.trim()
+              )
+            )
+            .to.deep.equal(
+              position === 'after'
+                ? ['School B (1)', 'School A (1)']
+                : ['School A (1)', 'School B (1)']
+            );
+        }
+      });
+    }
 
     it('should update the row order immediately when reordering items within one group', async () => {
       const dataSource = new ArrayListDataSource<Student>(

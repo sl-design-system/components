@@ -10,7 +10,7 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Calendar
-  status: new
+  status: ready
 ---
 
 ## Date range

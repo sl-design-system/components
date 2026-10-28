@@ -246,8 +246,8 @@ li {
   }
 
   &[aria-selected='true'] {
-    --_bg-color: var(--sl-color-background-primary-bold);
-    --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
+    --_bg-color: var(--sl-color-background-selected-bold);
+    --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
     color: var(--sl-color-foreground-selected-onBold);
   }

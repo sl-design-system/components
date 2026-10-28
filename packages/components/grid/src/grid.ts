@@ -531,8 +531,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           ${virtualize({
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
-            // Data source updates recreate data item wrappers. Groups already have stable
-            // identity, and unloaded placeholders all share the same ID.
+            // Keep focused controls and native drag sources mounted across data-source updates.
+            // Groups retain their identity; loading placeholders share an ID and need separate keys.
             keyFunction: item =>
               isListDataSourceDataItem(item) && item.id !== ListDataSourcePlaceholder
                 ? item.id
@@ -667,7 +667,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
         ...(active ? ['active'] : []),
-        ...(this.#dragItem === item ? ['dragging'] : []),
+        ...(isListDataSourceDataItem(this.#dragItem) && this.#dragItem.data === item.data
+          ? ['dragging']
+          : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
       ariaSelected =

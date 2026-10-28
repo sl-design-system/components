@@ -8,14 +8,21 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { GridFlowLayout } from './flow-layout.js';
 
 describe('GridFlowLayout', () => {
-  let layout: GridFlowLayout;
+  class TestLayout extends GridFlowLayout {
+    get scrollSize(): number {
+      this._updateScrollSize();
+      return this._scrollSize;
+    }
+  }
+
+  let layout: TestLayout;
   const measurements = {
     0: { width: 200, height: 38, marginTop: 0, marginRight: 0, marginBottom: 0, marginLeft: 0 },
     1: { width: 200, height: 100, marginTop: 0, marginRight: 0, marginBottom: 0, marginLeft: 0 }
   };
 
   beforeEach(() => {
-    layout = new GridFlowLayout(() => undefined);
+    layout = new TestLayout(() => undefined);
   });
 
   it('should stop comparing unloaded placeholders without requesting every page', () => {
@@ -69,5 +76,115 @@ describe('GridFlowLayout', () => {
 
     layout.updateItemSizes({ 0: measurements[0] });
     expect(layout._metricsCache.getChildSize(1)).to.equal(100);
+  });
+
+  it('should discard offscreen measurements when nested record content changes in place', () => {
+    const items = [
+        { id: 1, details: { text: 'Short text' } },
+        { id: 2, details: { text: 'Previously wrapped text' } }
+      ],
+      dataSource = new ArrayListDataSource(items);
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    items[1].details.text = 'Short text';
+    dataSource.update();
+    layout.items = dataSource.items;
+
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should detect content edits when the items array and wrappers are retained', () => {
+    const items = [
+        { id: 1, text: 'Short' },
+        { id: 2, text: 'Long' }
+      ],
+      dataSource = new ArrayListDataSource(items);
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    items[1].text = 'Short';
+    layout.items = dataSource.items;
+
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should apply a real scroll extent increase of three pixels', () => {
+    layout.items = [{ id: 1 }, { id: 2 }];
+    layout.updateItemSizes({ 0: measurements[0], 1: measurements[0] });
+    expect(layout.scrollSize).to.equal(76);
+
+    layout.updateItemSizes({ 1: { ...measurements[0], height: 41 } });
+
+    expect(layout.scrollSize).to.equal(79);
+    expect(layout.scrollSize).to.equal(79);
+  });
+
+  it('should retain measurements for unchanged cyclic data and detect later edits', () => {
+    const details: { text: string; self?: unknown } = { text: 'Original' };
+    details.self = details;
+    const dataSource = new ArrayListDataSource([{ id: 1 }, { id: 2, details }], {
+      selects: 'multiple'
+    });
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    dataSource.select(dataSource.items[0]);
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.equal(100);
+
+    details.text = 'Updated';
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should detect a date changed in place in a measured record', () => {
+    const date = new Date('2026-01-01T00:00:00Z'),
+      dataSource = new ArrayListDataSource([{ id: 1 }, { id: 2, date }]);
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    date.setUTCDate(2);
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+  });
+
+  it('should invalidate conservatively without invoking application getters', () => {
+    const getter = spy(() => 'Text'),
+      item = Object.defineProperty({ id: 2 }, 'text', { get: getter }),
+      dataSource = new ArrayListDataSource([{ id: 1 }, item]);
+    layout.items = dataSource.items;
+    layout.updateItemSizes(measurements);
+
+    dataSource.update();
+    layout.items = dataSource.items;
+    layout.updateItemSizes({ 0: measurements[0] });
+
+    expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
+    expect(getter).not.to.have.been.called;
+  });
+
+  it('should apply a real scroll extent decrease of three pixels', () => {
+    layout.items = [{ id: 1 }, { id: 2 }];
+    layout.updateItemSizes({ 0: measurements[0], 1: measurements[0] });
+    expect(layout.scrollSize).to.equal(76);
+
+    layout.updateItemSizes({ 1: { ...measurements[0], height: 35 } });
+
+    expect(layout.scrollSize).to.equal(73);
+    expect(layout.scrollSize).to.equal(73);
   });
 });

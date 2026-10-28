@@ -1,9 +1,16 @@
 import { FlowLayout } from '@lit-labs/virtualizer/layouts/flow.js';
-import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  type ListDataSourceItem,
+  ListDataSourcePlaceholder,
+  isListDataSourceDataItem
+} from '@sl-design-system/data-source';
 
 /** Flow layout with measurements scoped to the current data source items. */
 export class GridFlowLayout extends FlowLayout {
   #itemsChanged = false;
+
+  /** Content at measurement time, independent of mutable data references. */
+  #contentSnapshots = new Map<number, { data: unknown; content?: unknown[] }>();
 
   constructor(...args: ConstructorParameters<typeof FlowLayout>) {
     super(...args);
@@ -11,11 +18,81 @@ export class GridFlowLayout extends FlowLayout {
   }
 
   protected override _setItems(items: unknown[]): void {
-    if (items !== this.items && !this.#areItemsEquivalent(this.items ?? [], items ?? [])) {
+    if (
+      this.#hasContentChanges() ||
+      (items !== this.items && !this.#areItemsEquivalent(this.items ?? [], items ?? []))
+    ) {
       this.#itemsChanged = true;
     }
 
     super._setItems(items);
+  }
+
+  #hasContentChanges(): boolean {
+    for (const { data, content } of this.#contentSnapshots.values()) {
+      const current = this.#captureContent(data);
+      if (
+        !content ||
+        !current ||
+        content.length !== current.length ||
+        content.some((value, index) => !Object.is(value, current[index]))
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /** Snapshot measured records only; never traverse the lazy items array. */
+  #captureContent(data: unknown): unknown[] | undefined {
+    const content: unknown[] = [],
+      seen = new Map<object, number>();
+    const capture = (value: unknown): boolean => {
+      if (typeof value === 'function') {
+        return false;
+      }
+      if (value === null || typeof value !== 'object') {
+        content.push(typeof value, value);
+        return true;
+      }
+      const reference = seen.get(value);
+      if (reference !== undefined) {
+        content.push('reference', reference);
+        return true;
+      }
+      seen.set(value, seen.size);
+
+      const prototype: unknown = Object.getPrototypeOf(value);
+      content.push('object', prototype);
+      if (value instanceof Date) {
+        content.push(value.getTime());
+      } else if (
+        prototype !== Object.prototype &&
+        prototype !== Array.prototype &&
+        prototype !== null
+      ) {
+        // Opaque objects may hold mutable state that own properties cannot describe.
+        return false;
+      }
+
+      const keys = Reflect.ownKeys(value);
+      content.push(keys.length);
+      for (const key of keys) {
+        const descriptor = Object.getOwnPropertyDescriptor(value, key)!;
+        // Do not invoke application getters while measuring or comparing rows.
+        if (!('value' in descriptor)) {
+          return false;
+        }
+        content.push(key, descriptor.enumerable);
+        if (!capture(descriptor.value as unknown)) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    return capture(data) ? content : undefined;
   }
 
   #areItemsEquivalent(prev: unknown[], next: unknown[]): boolean {
@@ -56,13 +133,8 @@ export class GridFlowLayout extends FlowLayout {
   }
 
   override _updateScrollSize(): void {
-    const prev = this._scrollSize;
     super._updateScrollSize();
-    if (prev > 1 && Math.abs(this._scrollSize - prev) <= 3) {
-      this._scrollSize = prev;
-    } else {
-      this._scrollSize = Math.round(this._scrollSize);
-    }
+    this._scrollSize = Math.round(this._scrollSize);
   }
 
   override updateItemSizes(sizes: Parameters<FlowLayout['updateItemSizes']>[0]): void {
@@ -72,9 +144,20 @@ export class GridFlowLayout extends FlowLayout {
     // runs with an empty cache and falls back to the default row estimate.
     if (this.#itemsChanged) {
       this._metricsCache.clear();
+      this.#contentSnapshots.clear();
       this.#itemsChanged = false;
     }
 
     super.updateItemSizes(sizes);
+
+    for (const index of Object.keys(sizes).map(Number)) {
+      const item = this.items[index] as ListDataSourceItem | undefined;
+      if (isListDataSourceDataItem<unknown>(item) && item.id !== ListDataSourcePlaceholder) {
+        this.#contentSnapshots.set(index, {
+          data: item.data,
+          content: this.#captureContent(item.data)
+        });
+      }
+    }
   }
 }

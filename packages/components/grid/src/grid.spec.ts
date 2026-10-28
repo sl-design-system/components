@@ -126,6 +126,46 @@ describe('sl-grid', () => {
       await expectFocusToBePreserved('multiple', 'Space');
     });
 
+    it('should preserve the focused control and Tab order when records are replaced under stable IDs', async () => {
+      const items = [
+          { id: 1, firstName: 'John', lastName: 'Doe' },
+          { id: 2, firstName: 'Jane', lastName: 'Smith' },
+          { id: 3, firstName: 'Sam', lastName: 'Jones' }
+        ],
+        dataSource = new ArrayListDataSource(items);
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column
+            path="firstName"
+            width="200"
+            .scopedElements=${{ 'sl-button': Button }}
+            .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const rows = el.tbody.querySelectorAll('tr'),
+        control = rows[1].querySelector<HTMLElement>('sl-button')!,
+        nextControl = rows[2].querySelector<HTMLElement>('sl-button')!;
+      control.focus();
+
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      dataSource.setData(items.map(item => ({ ...item, firstName: `${item.firstName} updated` })));
+      dataSource.update();
+
+      await expect.poll(() => control.textContent?.trim()).to.equal('Jane updated');
+      expect(el.tbody.querySelectorAll('tr')[1].querySelector('sl-button')).to.equal(control);
+      expect(control.isConnected).to.be.true;
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      await userEvent.tab();
+
+      expect(el.shadowRoot!.activeElement).to.equal(nextControl);
+    });
+
     it('should preserve focus and scroll position when selecting a row after scrolling down', async () => {
       const items = Array.from({ length: 40 }, (_, i) => ({
         firstName: `First ${i}`,

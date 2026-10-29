@@ -5,6 +5,7 @@ import {
 import { Option, Select } from '@sl-design-system/select';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -59,7 +60,10 @@ export type SegmentedControlSize = 'md' | 'lg';
  * @csspart select - The `sl-select` that is shown when the options don't fit. Use it to change the
  *   width of the select, for example to let it fill the full width of the control.
  */
-export class SegmentedControl extends ScopedElementsMixin(LitElement) {
+export class SegmentedControl extends ForwardAriaMixin(ScopedElementsMixin(LitElement), [
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -77,11 +81,8 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** Keeps the fallback select in sync when an option's disabled state or label changes. */
   #itemObserver = new MutationObserver(() => this.requestUpdate());
 
-  /** Refreshes the accessible name when `aria-label`, `aria-labelledby` or the label text changes. */
-  #labelObserver = new MutationObserver(() => {
-    this.#updateLabelReference();
-    this.requestUpdate();
-  });
+  /** Refreshes the name of the fallback select when the text of a referenced label changes. */
+  #labelObserver = new MutationObserver(() => this.requestUpdate());
 
   /** Detects whether the options fit. If not, a select is shown instead. */
   #overflow = new OverflowController(this, this.#internals);
@@ -133,9 +134,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   /** @internal The options of the control. */
   @state() items: SegmentedControlItem[] = [];
 
-  /** @internal The accessible name resolved from `aria-labelledby`, if set. */
-  @state() labelFromReference?: string;
-
   /** The value of the selected option. */
   @property({ reflect: true }) value?: string;
 
@@ -161,7 +159,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
 
     this.addEventListener('click', this.#onClick);
     this.#observeItems();
-    this.#updateLabelReference();
+    this.#observeLabelReferences();
     this.requestUpdate();
   }
 
@@ -176,6 +174,13 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
     }
 
     super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    // The list has the `list` role, so it gets the `aria-label` and `aria-labelledby` of the host.
+    this.setProxyTarget(this.renderRoot.querySelector<HTMLElement>('.list')!);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -195,12 +200,12 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
         this.value = selectedItem?.value;
       }
     }
-
-    this.#updateLabelReference();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    this.#observeLabelReferences();
 
     if (this.#showsSelect !== this.#overflow.overflowing) {
       this.#showsSelect = this.#overflow.overflowing;
@@ -265,8 +270,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    // A valid `aria-labelledby` reference takes precedence over `aria-label`.
-    const label = this.labelFromReference ?? this.ariaLabel,
+    const label = this.#accessibleName(),
       overflowing = this.#overflow.overflowing;
 
     return html`
@@ -275,7 +279,6 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
           <div
             ?inert=${overflowing}
             aria-hidden=${ifDefined(overflowing ? 'true' : undefined)}
-            aria-label=${ifDefined(overflowing ? undefined : (label ?? undefined))}
             class="list"
             role="list">
             <slot @slotchange=${this.#onSlotChange}></slot>
@@ -288,7 +291,7 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
                   @sl-change=${this.#onSelectChange}
                   @sl-form-control=${this.#onSelectFormControl}
                   .value=${this.#requestedValue()}
-                  aria-label=${ifDefined(label ?? undefined)}
+                  aria-label=${ifDefined(label)}
                   part="select"
                   shape=${this.shape}
                   size=${this.size}>
@@ -401,28 +404,25 @@ export class SegmentedControl extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Resolve the host's accessible name to a plain text string so the internal list and fallback
-   * select can reuse it inside the shadow DOM, and observe everything the name depends on.
+   * The accessible name that the host received through `aria-label` or `aria-labelledby`. The list
+   * has them, this is only used to also name the fallback select. A valid `aria-labelledby` takes
+   * precedence over `aria-label`.
    */
-  #updateLabelReference(): void {
-    const root = this.getRootNode() as Document | ShadowRoot,
-      ids = this.getAttribute('aria-labelledby')?.split(/\s+/).filter(Boolean) ?? [],
-      elements = this.ariaLabelledByElements?.length
-        ? Array.from(this.ariaLabelledByElements)
-        : ids.map(id => root.getElementById?.(id)).filter((el): el is HTMLElement => !!el);
-    this.labelFromReference =
-      elements
+  #accessibleName(): string | undefined {
+    const list = this.getProxyTarget(),
+      labelledBy = Array.from(list?.ariaLabelledByElements ?? [])
         .map(el => el.textContent?.trim())
         .filter(Boolean)
-        .join(' ') || undefined;
+        .join(' ');
 
+    return labelledBy || list?.getAttribute('aria-label') || undefined;
+  }
+
+  /** Watch the text of the referenced labels, so the name of the fallback select stays current. */
+  #observeLabelReferences(): void {
     this.#labelObserver.disconnect();
-    this.#labelObserver.observe(this, {
-      attributeFilter: ['aria-label', 'aria-labelledby'],
-      attributes: true
-    });
 
-    elements.forEach(el =>
+    this.getProxyTarget()?.ariaLabelledByElements?.forEach(el =>
       this.#labelObserver.observe(el, { characterData: true, childList: true, subtree: true })
     );
   }

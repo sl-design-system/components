@@ -140,7 +140,21 @@ describe('sl-segmented-control', () => {
         </div>
       `);
 
-      expect(list()).to.have.attribute('aria-label', 'Sort by');
+      expect(list()?.ariaLabelledByElements?.[0]).to.have.text('Sort by');
+    });
+
+    it('should not have aria-label or aria-labelledby on the host', async () => {
+      await setup(html`
+        <div>
+          <span id="label">Sort by</span>
+          <sl-segmented-control aria-label="View" aria-labelledby="label">
+            ${renderItems(items)}
+          </sl-segmented-control>
+        </div>
+      `);
+
+      expect(el).not.to.have.attribute('aria-label');
+      expect(el).not.to.have.attribute('aria-labelledby');
     });
 
     it('should update when aria-label changes', async () => {
@@ -165,7 +179,7 @@ describe('sl-segmented-control', () => {
       root.querySelector('#label')!.textContent = 'Order by';
       await settle();
 
-      expect(list()).to.have.attribute('aria-label', 'Order by');
+      expect(list()?.ariaLabelledByElements?.[0]).to.have.text('Order by');
     });
 
     it('should prefer aria-labelledby over aria-label', async () => {
@@ -178,7 +192,7 @@ describe('sl-segmented-control', () => {
         </div>
       `);
 
-      expect(list()).to.have.attribute('aria-label', 'Sort by');
+      expect(list()?.ariaLabelledByElements?.[0]).to.have.text('Sort by');
     });
   });
 

@@ -1193,10 +1193,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
-    event
+    const row = event
       .composedPath()
-      .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement)
-      ?.removeAttribute('draggable');
+      .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
+
+    // Data rows are armed by their handle for each gesture. Group rows keep their
+    // rendered draggable state so the same group can be dragged again.
+    if (row && !row.part.contains('group')) {
+      row.removeAttribute('draggable');
+    }
 
     // Reset any drop targets
     this.renderRoot

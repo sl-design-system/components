@@ -211,23 +211,14 @@ button[aria-current='true'].has-selected-icon {
   }
 
   /*
-   * Wait until the new fill starts to appear before changing the color and the icon of the option
-   * that is being selected, so the fill, the color and the icon all change together. The icon swap
-   * uses `display`, so the old icon is kept for that time with an animation.
+   * In the bold emphasis, the selected text and icon are light on a strong background. Wait until
+   * the new fill starts to appear before changing the color, so they change together.
    */
-  :host([entering]) button {
+  :host([emphasis='bold'][entering]) button {
     transition:
       background-color var(--_duration-state) ease,
       color 0s var(--_duration-fill),
       outline-color var(--_duration-state) ease;
-  }
-
-  :host([entering]) button.has-selected-icon slot[name='icon'] {
-    animation: icon-hold var(--_duration-fill) step-end;
-  }
-
-  :host([entering]) button.has-selected-icon slot[name='selected-icon'] {
-    animation: selected-icon-wait var(--_duration-fill) step-end;
   }
 
   ::slotted(sl-icon) {
@@ -236,20 +227,6 @@ button[aria-current='true'].has-selected-icon {
 
   button:hover:not(:disabled) ::slotted(sl-icon) {
     scale: 1.15;
-  }
-}
-
-@keyframes icon-hold {
-  from,
-  to {
-    display: contents;
-  }
-}
-
-@keyframes selected-icon-wait {
-  from,
-  to {
-    display: none;
   }
 }
 

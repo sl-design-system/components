@@ -41,6 +41,7 @@ describe('GridFlowLayout', () => {
     expect(fetchPage).to.have.been.calledOnce;
 
     layout.updateItemSizes({ 0: measurements[0] });
+
     expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
   });
 
@@ -61,6 +62,7 @@ describe('GridFlowLayout', () => {
 
     // Only the visible row has been measured again; the offscreen row is stale.
     layout.updateItemSizes({ 0: measurements[0] });
+
     expect(layout._metricsCache.getChildSize(0)).to.equal(38);
     expect(layout._metricsCache.getChildSize(1)).to.be.undefined;
   });
@@ -75,6 +77,7 @@ describe('GridFlowLayout', () => {
     layout.items = dataSource.items;
 
     layout.updateItemSizes({ 0: measurements[0] });
+
     expect(layout._metricsCache.getChildSize(1)).to.equal(100);
   });
 
@@ -116,6 +119,7 @@ describe('GridFlowLayout', () => {
   it('should apply a real scroll extent increase of three pixels', () => {
     layout.items = [{ id: 1 }, { id: 2 }];
     layout.updateItemSizes({ 0: measurements[0], 1: measurements[0] });
+
     expect(layout.scrollSize).to.equal(76);
 
     layout.updateItemSizes({ 1: { ...measurements[0], height: 41 } });
@@ -193,6 +197,7 @@ describe('GridFlowLayout', () => {
 
     // Snapshot work must not grow with the shared collection's size per measured row.
     expect(readProperty.callCount).to.be.lessThan(1000);
+
     readProperty.resetHistory();
     dataSource.select(dataSource.items[0]);
     dataSource.update();
@@ -212,6 +217,7 @@ describe('GridFlowLayout', () => {
     layout.items = dataSource.items;
 
     expect(() => layout.updateItemSizes(measurements)).not.to.throw();
+
     dataSource.update();
     layout.items = dataSource.items;
     layout.updateItemSizes({ 0: measurements[0] });
@@ -233,6 +239,7 @@ describe('GridFlowLayout', () => {
     layout.updateItemSizes(measurements);
 
     expect(ownKeys).to.have.been.calledOnce;
+
     dataSource.update();
     layout.items = dataSource.items;
     layout.updateItemSizes({ 0: measurements[0] });
@@ -244,6 +251,7 @@ describe('GridFlowLayout', () => {
   it('should apply a real scroll extent decrease of three pixels', () => {
     layout.items = [{ id: 1 }, { id: 2 }];
     layout.updateItemSizes({ 0: measurements[0], 1: measurements[0] });
+
     expect(layout.scrollSize).to.equal(76);
 
     layout.updateItemSizes({ 1: { ...measurements[0], height: 35 } });

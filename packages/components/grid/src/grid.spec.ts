@@ -74,6 +74,7 @@ describe('sl-grid', () => {
       `);
       await waitForGridToRenderData(el);
       await el.updateComplete;
+
       await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
 
       const selector = mode === 'multiple' ? 'sl-checkbox input' : 'sl-button',
@@ -85,10 +86,12 @@ describe('sl-grid', () => {
             : rows[2].querySelector<HTMLElement>(selector)!;
 
       control.focus();
+
       expect(el.shadowRoot!.activeElement).to.equal(control);
 
       for (const selected of [true, false]) {
         await userEvent.keyboard(`{${key}}`);
+
         await expect
           .poll(() =>
             el.tbody
@@ -103,6 +106,7 @@ describe('sl-grid', () => {
       }
 
       await userEvent.tab();
+
       expect(el.shadowRoot!.activeElement).to.equal(nextControl);
     };
 
@@ -380,17 +384,22 @@ describe('sl-grid', () => {
         </sl-grid>
       `);
       await waitForGridToRenderData(el);
+
       await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(6);
       await expect.poll(() => typeof resolvers[1]).toBe('function');
+
       el.requestUpdate();
       await el.updateComplete;
 
       resolvers[1]({ items: people.slice(3), totalItems: 6 });
+
       await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(3);
+
       el.requestUpdate();
       await el.updateComplete;
 
       resolvers[0]({ items: people.slice(0, 3), totalItems: 6 });
+
       await expect
         .poll(() =>
           Array.from(el.tbody.querySelectorAll('tr'), row =>
@@ -440,6 +449,7 @@ describe('sl-grid', () => {
       await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(0);
       await expect.poll(() => dataSource.size).toBe(2);
       expect(dataSource.items).not.to.equal(initialItems);
+
       await expectRowsToFit(2);
 
       const rows = el.tbody.querySelectorAll('tr');
@@ -471,6 +481,7 @@ describe('sl-grid', () => {
           </sl-grid>
         `);
         await waitForGridToRenderData(el);
+
         // Wait for sizing to request fonts; the initial layout may already be complete.
         await expect.poll(() => fontsRequested).toBe(true);
         expect(getComputedStyle(el.table).visibility).to.equal('hidden');
@@ -483,6 +494,7 @@ describe('sl-grid', () => {
         const measure = spy(el, 'recalculateColumnWidths');
         try {
           parent.append(el);
+
           await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
           expect(measure).to.have.been.called;
           expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
@@ -514,12 +526,14 @@ describe('sl-grid', () => {
       try {
         await expect.poll(() => layoutRequested).toBe(true);
         expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
         const parent = el.parentElement!;
         el.remove();
         layoutComplete.restore();
         parent.append(el);
         // Rejection may arrive after reconnection; it belongs to the old attempt.
         rejectLayout(new Error('Virtualizer disconnected'));
+
         await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
         expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
       } finally {
@@ -544,9 +558,11 @@ describe('sl-grid', () => {
           </sl-grid>
         `);
         await waitForGridToRenderData(el);
+
         expect(getComputedStyle(el.table).visibility).to.equal('hidden');
 
         resolveFonts(document.fonts);
+
         await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
 
         const widths = () =>
@@ -554,10 +570,13 @@ describe('sl-grid', () => {
               cell => cell.getBoundingClientRect().width
             ),
           initialWidths = widths();
+
         expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+
         // Observe actual paints after reveal, including virtualizer range updates.
         for (let frame = 0; frame < 10; frame++) {
           await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
           expect(widths()).to.deep.equal(initialWidths);
         }
       } finally {
@@ -572,6 +591,7 @@ describe('sl-grid', () => {
           <sl-grid-column path="firstName"></sl-grid-column>
         </sl-grid>
       `);
+
       await expect.poll(() => el.thead.querySelector('th')?.textContent?.trim()).toBe('First name');
       await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
     });
@@ -639,12 +659,14 @@ describe('sl-grid', () => {
 
       try {
         sizing = el.recalculateColumnWidths();
+
         // Wait until the sizing pass reaches the controlled font-readiness promise.
         await expect.poll(() => fontsRequested).toBe(true);
         expect(measurement).not.to.have.been.called;
 
         resolveFonts(document.fonts);
         await sizing;
+
         expect(measurement).to.have.been.called;
         expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(0);
       } finally {
@@ -681,6 +703,7 @@ describe('sl-grid', () => {
       try {
         const requests = [el.recalculateColumnWidths(), el.recalculateColumnWidths()];
         await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
         expect(measurement).not.to.have.been.called;
 
         // These requests arrive while the first pass is awaiting custom content.
@@ -690,6 +713,7 @@ describe('sl-grid', () => {
         requests.push(el.recalculateColumnWidths());
         releaseUpdate();
         await Promise.all(requests);
+
         expect(measurement).to.have.been.calledTwice;
       } finally {
         releaseUpdate();
@@ -707,6 +731,7 @@ describe('sl-grid', () => {
       `);
       await waitForGridToRenderData(el);
       await el.recalculateColumnWidths();
+
       // Initial sizing also uses the scheduler. Finish it before injecting a
       // failure into the separate, explicitly requested measurement below.
       await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
@@ -718,6 +743,7 @@ describe('sl-grid', () => {
         firstMeasurement = stub(firstCell, 'getBoundingClientRect').callsFake(() => {
           expect(cells.every(cell => cell.style.inlineSize === 'max-content')).to.be.true;
           expect(cells.every(cell => cell.style.flexGrow === '0')).to.be.true;
+
           return getFirstRect();
         }),
         failedMeasurement = stub(lastCell, 'getBoundingClientRect').throws('Measurement failed');
@@ -739,6 +765,7 @@ describe('sl-grid', () => {
 
       // A failed pass must not leave the scheduler stuck on a rejected task.
       await el.recalculateColumnWidths();
+
       expect(firstCell.style.inlineSize).to.equal('150px');
       expect(firstCell.style.flexGrow).to.equal('2');
     });
@@ -770,6 +797,7 @@ describe('sl-grid', () => {
       try {
         fixedColumn.width = 240;
         await el.recalculateColumnWidths();
+
         expect(el.style.getPropertyValue('--sl-grid-row-width')).to.equal('640px');
         expect(el.style.getPropertyValue('--sl-grid-scrollbar-margin-inline')).to.equal(
           '240px 0px'
@@ -809,6 +837,7 @@ describe('sl-grid', () => {
       try {
         items[0].firstName = 'A much longer name updated in the same existing row';
         dataSource.update();
+
         await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
         await expect
           .poll(() => {
@@ -844,14 +873,20 @@ describe('sl-grid', () => {
       el = scroller.querySelector<Grid<Person>>('sl-grid')!;
       await waitForGridToRenderData(el);
       const column = el.querySelector<GridColumn>('sl-grid-column')!;
+
       await expect.poll(() => column.width).toBeGreaterThan(0);
+
       const initialWidth = column.width!;
+
       expect(el.renderRoot.textContent).not.to.contain(items[199].firstName);
 
       scroller.scrollTop = scroller.scrollHeight;
+
       await expect.poll(() => el.renderRoot.textContent).toContain(items[199].firstName);
       await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+
       const grownWidth = column.width;
+
       await expect
         .poll(() => {
           const text = Array.from(el.renderRoot.querySelectorAll('sl-ellipsize-text')).find(
@@ -863,6 +898,7 @@ describe('sl-grid', () => {
         .toBe(true);
 
       scroller.scrollTop = 0;
+
       await expect.poll(() => el.renderRoot.textContent).not.toContain(items[199].firstName);
       expect(column.width).to.equal(grownWidth);
     });
@@ -876,14 +912,19 @@ describe('sl-grid', () => {
       `);
       await waitForGridToRenderData(el);
       const [auto, fixed] = el.querySelectorAll<GridColumn>('sl-grid-column');
+
       await expect.poll(() => auto.width).toBeGreaterThan(0);
+
       const initialWidth = auto.width!;
 
       el.items = [
         { firstName: 'A much longer name rendered later in the grid', lastName: 'Smith' }
       ];
+
       await expect.poll(() => auto.width).toBeGreaterThan(initialWidth);
+
       const grownWidth = auto.width;
+
       await expect
         .poll(() => {
           const slot = el.renderRoot
@@ -896,6 +937,7 @@ describe('sl-grid', () => {
       el.items = [{ firstName: 'Jane', lastName: 'Smith' }];
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
       expect(auto.width).to.equal(grownWidth);
       expect(fixed.width).to.equal(80);
     });
@@ -934,6 +976,7 @@ describe('sl-grid', () => {
       expect(headers[0]).not.to.have.attribute('aria-hidden');
       expect(headers[1]).to.have.attribute('role', 'cell');
       expect(headers[1]).not.to.have.attribute('aria-hidden');
+
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('role', 'cell');
       });
@@ -1082,6 +1125,7 @@ describe('sl-grid', () => {
       await expect
         .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
         .toBe('visible');
+
       el.style.setProperty('--sl-color-border-focused', 'rgb(1, 2, 3)');
       await userEvent.keyboard('{Tab}');
 
@@ -1094,10 +1138,13 @@ describe('sl-grid', () => {
         checkbox.focus();
 
         expect(checkbox.input.matches(':focus-visible')).to.be.true;
+
         const inner = checkbox.renderRoot.querySelector<HTMLElement>('[part="inner"]')!;
+
         await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgb(1, 2, 3)');
 
         checkbox.blur();
+
         await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgba(0, 0, 0, 0)');
       }
     });
@@ -1106,6 +1153,7 @@ describe('sl-grid', () => {
       await expect
         .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
         .toBe('visible');
+
       const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
 
       await userEvent.click(checkbox);
@@ -1126,6 +1174,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
     });
 
@@ -1138,6 +1187,7 @@ describe('sl-grid', () => {
       const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRow).to.be.null;
     });
 
@@ -1153,6 +1203,7 @@ describe('sl-grid', () => {
       const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -1202,13 +1253,16 @@ describe('sl-grid', () => {
         .renderRoot.querySelector('sl-search-field')!;
 
       await userEvent.type(searchField.input, 'sop');
+
       await expect.poll(() => el.dataSource?.size).to.equal(2);
 
       await userEvent.click(el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!);
+
       await expect.poll(() => el.dataSource?.selected).to.equal(2);
       expect(el.renderRoot.textContent).to.contain('2 of 48 selected');
 
       searchField.clear();
+
       await expect.poll(() => el.dataSource?.size).to.equal(48);
       expect(el.dataSource?.selected).to.equal(2);
     });
@@ -1222,14 +1276,17 @@ describe('sl-grid', () => {
       const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
 
       expect(checkbox).to.have.attribute('disabled');
+
       checkbox.click();
       await el.updateComplete;
+
       expect(checkbox.checked).not.to.be.true;
       expect(dataSource.selected).to.equal(0);
 
       dataSource.removeFilter('name');
       dataSource.update();
       await el.updateComplete;
+
       expect(checkbox).not.to.have.attribute('disabled');
       expect(checkbox.checked).not.to.be.true;
     });
@@ -1393,7 +1450,9 @@ describe('sl-grid', () => {
 
       expect(dataSource.isSelected(group)).to.be.true;
       expect(onSelectionChange).to.have.been.calledOnce;
+
       dataSource.toggle(group);
+
       expect(dataSource.getSelectedItems()).to.deep.equal([]);
     });
 
@@ -1423,7 +1482,9 @@ describe('sl-grid', () => {
 
       expect(dataSource.isSelected(group)).to.be.true;
       expect(onSelectionChange).to.have.been.calledOnce;
+
       dataSource.toggle(group);
+
       expect(dataSource.getSelectedItems()).to.deep.equal([people[2]]);
     });
 
@@ -1492,6 +1553,7 @@ describe('sl-grid', () => {
         dispatch(sourceRow, 'dragstart');
         await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
         dispatch(targetRow, 'dragover');
+
         await expect.poll(readOrder).to.deep.equal(expectedOrder);
 
         // Replacing this element interrupts the browser's native drag-and-drop gesture.
@@ -1505,6 +1567,7 @@ describe('sl-grid', () => {
 
         expect(onDrop).to.have.been.calledOnce;
         expect(sourceRow.part.contains('dragging')).to.be.false;
+
         onDrop.resetHistory();
       }
     });
@@ -1841,6 +1904,7 @@ describe('sl-grid', () => {
       );
 
       expect(selectedItem).to.exist;
+
       el.dataSource?.select(selectedItem!);
       el.dataSource?.update();
       await waitForGridToRenderData(el);
@@ -2341,6 +2405,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
     });
 
@@ -2353,6 +2418,7 @@ describe('sl-grid', () => {
       let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRows).to.have.lengthOf(1);
 
       el.renderRoot
@@ -2363,12 +2429,15 @@ describe('sl-grid', () => {
       selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRows).to.have.lengthOf(1);
 
       const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(firstRow?.part.contains('selected')).to.be.false;
 
       const secondRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
+
       expect(secondRow?.part.contains('selected')).to.be.true;
     });
 
@@ -2379,6 +2448,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -2387,6 +2457,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -2502,6 +2573,7 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
       expect(row?.part.contains('active')).to.be.true;
     });
 
@@ -2698,6 +2770,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -2706,6 +2779,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -2716,6 +2790,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -2724,6 +2799,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -2739,6 +2815,7 @@ describe('sl-grid', () => {
       const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -2783,6 +2860,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
+
       expect(event.detail.message).to.equal('Row 2 activated');
       expect(event.detail.urgency).to.equal('polite');
 
@@ -2809,6 +2887,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
+
       expect(event.detail.message).to.equal('Row 2 deactivated');
       expect(event.detail.urgency).to.equal('polite');
 

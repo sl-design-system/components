@@ -348,11 +348,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(
-      event.detail.getFullYear(),
-      event.detail.getMonth(),
-      this.month!.getDate()
-    );
+    const year = event.detail.getFullYear(),
+      month = event.detail.getMonth(),
+      day = Math.min(this.month!.getDate(), new Date(year, month + 1, 0).getDate());
+
+    // Clamp the day so shorter months do not overflow into the following month.
+    this.month = new Date(year, month, day);
     this.view = 'day';
 
     requestAnimationFrame(() => {
@@ -364,11 +365,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(
-      event.detail.getFullYear(),
-      this.month!.getMonth(),
-      this.month!.getDate()
-    );
+    const year = event.detail.getFullYear(),
+      month = this.month!.getMonth(),
+      day = Math.min(this.month!.getDate(), new Date(year, month + 1, 0).getDate());
+
+    // February 29 must stay in February when switching to a non-leap year.
+    this.month = new Date(year, month, day);
     this.view = this.#previousView ?? 'day';
 
     requestAnimationFrame(() => {

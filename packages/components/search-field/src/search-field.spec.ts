@@ -1,4 +1,6 @@
 import { configureLocalization } from '@lit/localize';
+import { type Form as SlForm } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -518,7 +520,7 @@ describe('sl-search-field', () => {
         const onSearch = searchSpy();
         await userEvent.type(el.input, 'Gar');
         await el.updateComplete;
-        const message = el.querySelector('[role="status"]') as HTMLElement;
+        const message = el.querySelector('[slot="suggestions"][role="status"]') as HTMLElement;
         expect(message.hidden).to.be.false;
         expect(message.textContent).to.equal(
           state === 'loading'
@@ -684,6 +686,15 @@ describe('sl-search-field', () => {
       await el.updateComplete;
       expect(document.activeElement).to.equal(list());
       expect(list().getAttribute('aria-activedescendant')).to.equal(options()[2].id);
+      await list().updateComplete;
+      await Promise.all(options().map(option => option.updateComplete));
+      await new Promise(resolve => setTimeout(resolve, 0));
+      expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+        'false',
+        'false',
+        'true'
+      ]);
+      expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
       await userEvent.keyboard('{Enter}');
       expect(onSearch).to.have.been.calledOnceWith('García');
     });
@@ -754,7 +765,7 @@ describe('sl-search-field', () => {
       });
       el.loading = true;
       await userEvent.type(el.input, 'Gar');
-      const message = el.querySelector('[role="status"]')!;
+      const message = el.querySelector('[slot="suggestions"][role="status"]')!;
       expect(message.textContent).to.equal('Finding suggestions…');
       try {
         await setLocale('pl');
@@ -769,9 +780,133 @@ describe('sl-search-field', () => {
         await el.updateComplete;
         expect(list().getAttribute('aria-label')).to.equal('Suggested searches');
         expect(list().getAttribute('aria-activedescendant')).to.equal(activeId);
+        await userEvent.keyboard('{Escape}');
+        el.autocomplete = 'inline';
+        el.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+        await expect.poll(suffix).to.equal('cía');
+        await setLocale('pl');
+        await el.updateComplete;
+        expect(el.querySelector('[slot="inline-announcement"]')?.textContent).to.equal(
+          'Sugerowane uzupełnienie: García. Naciśnij strzałkę w prawo lub End, aby zaakceptować.'
+        );
       } finally {
         await setLocale('en');
       }
+    });
+
+    for (const mode of ['off', 'both'] as const) {
+      it(`preserves native form submission on Enter in ${mode} mode`, async () => {
+        const form = await fixture<HTMLFormElement>(html`
+          <form>
+            <sl-search-field
+              name="q"
+              aria-label="Search"
+              .autocomplete=${mode}
+              .suggestions=${phrases}></sl-search-field>
+          </form>
+        `);
+        const onSubmit = spy();
+        form.addEventListener('submit', event => {
+          event.preventDefault();
+          onSubmit(new FormData(form).get('q'));
+        });
+        el = form.querySelector('sl-search-field')!;
+        await userEvent.type(el.input, 'Gar');
+        const onSearch = searchSpy();
+        await userEvent.keyboard('{Enter}');
+        expect(onSubmit).to.have.been.calledOnceWith('Gar');
+        expect(onSearch).to.have.been.calledOnceWith('Gar');
+      });
+
+      it(`preserves sl-form submission on Enter in ${mode} mode`, async () => {
+        const form = await fixture<SlForm>(html`
+          <sl-form>
+            <sl-search-field
+              name="q"
+              aria-label="Search"
+              .autocomplete=${mode}
+              .suggestions=${phrases}></sl-search-field>
+          </sl-form>
+        `);
+        const onSubmit = spy();
+        form.addEventListener('sl-submit', onSubmit);
+        el = form.querySelector('sl-search-field')!;
+        await userEvent.type(el.input, 'Gar');
+        await userEvent.keyboard('{Enter}');
+        expect(onSubmit).to.have.been.calledOnce;
+      });
+    }
+
+    it('does not submit a form when Enter chooses a list suggestion', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-search-field
+            name="q"
+            aria-label="Search"
+            autocomplete="both"
+            .suggestions=${phrases}></sl-search-field>
+        </form>
+      `);
+      const submit = spy(form, 'requestSubmit');
+      el = form.querySelector('sl-search-field')!;
+      await userEvent.type(el.input, 'Gar');
+      await userEvent.keyboard('{ArrowDown}{Enter}');
+      expect(el.value).to.equal('García');
+      expect(submit).not.to.have.been.called;
+    });
+
+    it('does not submit a form while composing text', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form><sl-search-field aria-label="Search"></sl-search-field></form>
+      `);
+      el = form.querySelector('sl-search-field')!;
+      const submit = spy(form, 'requestSubmit');
+      el.input.dispatchEvent(
+        new CompositionEvent('compositionstart', { bubbles: true, composed: true })
+      );
+      el.input.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          isComposing: true,
+          bubbles: true,
+          composed: true
+        })
+      );
+      expect(submit).not.to.have.been.called;
+    });
+
+    it('exposes an inline-only proposal as a live accessible description without replacing other descriptions', async () => {
+      el.autocomplete = 'inline';
+      const hint = document.createElement('p');
+      hint.id = 'search-hint';
+      hint.textContent = 'Search by surname';
+      el.append(hint);
+      el.input.setAttribute('aria-describedby', hint.id);
+      await userEvent.type(el.input, 'Gar');
+      await expect.poll(suffix).to.equal('cía');
+      const announcement = el.querySelector<HTMLElement>('[slot="inline-announcement"]')!;
+      expect(announcement.getAttribute('role')).to.equal('status');
+      expect(announcement.getAttribute('aria-live')).to.equal('polite');
+      expect(announcement.textContent).to.equal(
+        'Suggested completion: García. Press Right Arrow or End to accept.'
+      );
+      expect(el.input.getAttribute('aria-describedby')?.split(' ')).to.deep.equal([
+        hint.id,
+        announcement.id
+      ]);
+      expect(announcement.hidden).to.be.false;
+      expect(getComputedStyle(announcement).display).not.to.equal('none');
+      expect(getComputedStyle(announcement.assignedSlot!).display).not.to.equal('none');
+      expect(getComputedStyle(announcement.assignedSlot!).visibility).not.to.equal('hidden');
+      expect(announcement.assignedSlot!.getBoundingClientRect().height).to.equal(1);
+      expect(announcement.assignedSlot!.getBoundingClientRect().width).to.equal(1);
+      expect(el.input.value).to.equal('Gar');
+      expect(list().hidden).to.be.true;
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      expect(el.value).to.equal('García');
+      expect(announcement.textContent).to.equal('');
+      expect(el.input.getAttribute('aria-describedby')).to.equal(hint.id);
     });
 
     it('ignores Enter during composition', () => {

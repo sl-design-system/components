@@ -49,7 +49,7 @@ Suggestions start after three non-space characters by default. Set `suggestion-t
 
 Enter in the field searches only the typed words. Right Arrow or End explicitly accepts the proposed suffix, making it editable text. Tab moves through the Clear button to the suggestion list; Up/Down also moves focus from the field to the list. Arrow keys and Home/End navigate the list, and Enter searches the focused phrase. Escape closes suggestions and returns focus from the list to the field. A further Escape clears the field.
 
-`sl-search` continues to emit the current query 300 ms after editing, immediately on Enter, and immediately after choosing a list suggestion. An unaccepted inline suffix is rendered as a visual overlay. It is excluded from the query, `value`, the native input value, form submission and validation.
+`sl-search` continues to emit the current query 300 ms after editing, immediately on Enter, and immediately after choosing a list suggestion. An unaccepted inline suffix is rendered as a visual overlay. The proposed phrase and acceptance keys are exposed through a live announcement and an accessible description that preserves existing field descriptions. It is excluded from the query, `value`, the native input value, form submission and validation.
 
 For asynchronous data, listen for `sl-change`, set `loading` while fetching phrases, then update `suggestions`. Set `unavailable` when fetching fails. Ignore stale responses in your data provider. Loading, empty and unavailable states describe suggestions; the typed query can still be searched. Browser autofill is disabled so it does not compete with these suggestions.
 

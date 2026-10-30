@@ -117,6 +117,7 @@ export const templates = {
   'sl.radioGroup.validation.valueMissing': 'Kies een optie.',
   'sl.searchField.clearText': 'Wis tekst',
   'sl.searchField.empty': 'Geen zoeksuggesties',
+  'sl.searchField.inlineCompletion': str`Voorgestelde aanvulling: ${0}. Druk op de pijl naar rechts of End om te accepteren.`,
   'sl.searchField.loading': 'Suggesties zoeken…',
   'sl.searchField.suggestions': 'Zoeksuggesties',
   'sl.searchField.unavailable': 'Suggesties niet beschikbaar',

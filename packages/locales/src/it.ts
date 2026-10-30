@@ -117,6 +117,7 @@ export const templates = {
   'sl.radioGroup.validation.valueMissing': "Seleziona un'opzione.",
   'sl.searchField.clearText': 'Cancella testo',
   'sl.searchField.empty': 'Nessuna ricerca suggerita',
+  'sl.searchField.inlineCompletion': str`Completamento suggerito: ${0}. Premi la freccia destra o Fine per accettare.`,
   'sl.searchField.loading': 'Ricerca dei suggerimenti…',
   'sl.searchField.suggestions': 'Ricerche suggerite',
   'sl.searchField.unavailable': 'Suggerimenti non disponibili',

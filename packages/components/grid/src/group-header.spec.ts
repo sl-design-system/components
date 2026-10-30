@@ -1,4 +1,5 @@
 import { type Button } from '@sl-design-system/button';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import { getForwardedAriaAttribute } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -43,15 +44,19 @@ describe('sl-grid-group-header', () => {
   });
 
   describe('selection checkbox', () => {
-    it('should use the group label in the checkbox aria-label', async () => {
+    it('should be named after the group using aria-labelledby', async () => {
       el = await fixture(html`
-        <sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>
+        <sl-grid-group-header selectable>
+          <span slot="group-heading">Allergist (3)</span>
+        </sl-grid-group-header>
       `);
 
-      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+      const checkbox = el.renderRoot.querySelector<Checkbox>('sl-checkbox'),
+        [label, heading] = checkbox?.getProxyTarget()?.ariaLabelledByElements ?? [];
 
       expect(checkbox).to.exist;
-      expect(getForwardedAriaAttribute(checkbox!, 'aria-label')).to.equal('Allergist group');
+      expect(label?.textContent?.trim()).to.equal('Select group');
+      expect(heading).to.have.attribute('part', 'group-heading');
     });
   });
 

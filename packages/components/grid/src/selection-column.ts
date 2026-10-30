@@ -20,6 +20,12 @@ declare global {
 /** A grid column that can be used to select items in the grid. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
+  /** Counter used to generate unique ids for the hidden row labels. */
+  #nextRowLabelId = 0;
+
+  /** Ids of the hidden row labels; item ids are not guaranteed to be valid or unique strings. */
+  #rowLabelIds = new WeakMap<ListDataSourceItem<T>, string>();
+
   /** @internal */
   override get baseScopedElements(): Record<string, typeof HTMLElement> {
     return { 'sl-checkbox': Checkbox };
@@ -77,7 +83,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
             ?checked=${checked}
             ?disabled=${items?.length === 0 || dataSource?.size === 0}
             ?indeterminate=${indeterminate}
-            aria-label=${msg('Select all rows', { id: 'sl.grid.selectAllRows' })}
+            aria-label=${msg('Select all rows', {
+              id: 'sl.grid.selectAllRows'
+            })}
             class="selection-toggle"
             size="sm"></sl-checkbox>
         </th>
@@ -97,7 +105,10 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
-    const classes = this.getClasses(item.data);
+    const classes = this.getClasses(item.data),
+      // Row context (e.g. the student's name) makes the name unique: "Select row John Doe"
+      rowLabel = this.formControlLabel?.(item.data)?.trim(),
+      rowLabelId = this.#getRowLabelId(item);
 
     return html`
       <td
@@ -110,14 +121,37 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         headers=${this.headerIds}
         part="data selection"
         role="cell">
+        ${
+          rowLabel
+            ? html`
+                <span hidden id=${rowLabelId}>
+                  ${msg('Select row', { id: 'sl.grid.selectRow' })} ${rowLabel}
+                </span>
+              `
+            : nothing
+        }
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}
-          aria-label=${msg('Select row', { id: 'sl.grid.selectRow' })}
+          aria-label=${ifDefined(
+            rowLabel ? undefined : msg('Select row', { id: 'sl.grid.selectRow' })
+          )}
+          aria-labelledby=${ifDefined(rowLabel ? rowLabelId : undefined)}
           class="selection-toggle"
           size="sm"></sl-checkbox>
       </td>
     `;
+  }
+
+  #getRowLabelId(item: ListDataSourceItem<T>): string {
+    let id = this.#rowLabelIds.get(item);
+
+    if (!id) {
+      id = `${this.headerCellId}-row-${this.#nextRowLabelId++}`;
+      this.#rowLabelIds.set(item, id);
+    }
+
+    return id;
   }
 
   #onClick(event: Event & { target: HTMLElement }): void {
@@ -127,7 +161,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       event.preventDefault();
       event.stopPropagation();
 
-      (event.target.firstElementChild as HTMLElement)?.click();
+      event.target.querySelector<HTMLElement>('sl-checkbox')?.click();
     }
   }
 

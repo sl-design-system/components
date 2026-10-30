@@ -494,10 +494,6 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>W aktywowanym wierszu <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroup">
-  <source>Group</source>
-  <target>Grupa</target>
-</trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_one">
   <source><x id="0" equiv-text="${over}"/> character too many</source>
   <target><x id="0" equiv-text="${over}"/> znak za dużo</target>
@@ -534,10 +530,6 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Usuń co najmniej <x id="0" equiv-text="${over}"/> znaków.</target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroupWithName">
-  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
-  <target><x id="0" equiv-text="${this.groupLabel}"/> grupa</target>
-</trans-unit>
 <trans-unit id="link.opens-in-new-tab">
   <source>opens in a new tab</source>
   <target>otwiera się w nowej karcie</target>
@@ -557,6 +549,10 @@
 <trans-unit id="sl.calendar.rangeEnd">
   <source>End of range</source>
   <target>Koniec zakresu</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectGroupLabel">
+  <source>Select group</source>
+  <target>Zaznacz grupę</target>
 </trans-unit>
 </body>
 </file>

@@ -1896,7 +1896,7 @@ describe('sl-grid', () => {
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4']);
     });
 
-    it('should use the group name in the grouped selection checkbox aria-label', async () => {
+    it('should name the grouped selection checkbox using aria-labelledby', async () => {
       el = await fixture(html`
         <sl-grid
           .dataSource=${new ArrayListDataSource<Student>(
@@ -1926,11 +1926,40 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
 
       const groupHeader = el.renderRoot.querySelector('sl-grid-group-header'),
-        checkbox = groupHeader?.renderRoot.querySelector('sl-checkbox'),
-        input = checkbox?.querySelector('input');
+        checkbox = groupHeader?.renderRoot.querySelector<Checkbox>('sl-checkbox'),
+        [label, heading] = checkbox?.getProxyTarget()?.ariaLabelledByElements ?? [];
 
       expect(checkbox).to.exist;
-      expect(input).to.have.attribute('aria-label', 'School A group');
+      expect(label?.textContent?.trim()).to.equal('Select group');
+      expect(heading).to.have.attribute('part', 'group-heading');
+    });
+
+    it('should name the row selection checkbox using the row label', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>([
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ])}>
+          <sl-grid-selection-column
+            .formControlLabel=${(s: Student) => `${s.firstName} ${s.lastName}`}></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const checkboxes = Array.from(el.renderRoot.querySelectorAll<Checkbox>('tbody sl-checkbox'));
+
+      await Promise.all(checkboxes.map(checkbox => checkbox.updateComplete));
+
+      const names = checkboxes.map(checkbox =>
+        (checkbox.getProxyTarget()?.ariaLabelledByElements ?? [])
+          .map(label => label.textContent?.replaceAll(/\s+/g, ' ').trim())
+          .join(' ')
+      );
+
+      expect(names).to.deep.equal(['Select row John Doe', 'Select row Jane Smith']);
     });
 
     it('should deselect the displayed rows when a partially selected group checkbox is unchecked', async () => {

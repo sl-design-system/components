@@ -6,16 +6,39 @@ import { html } from 'lit';
 import './register.js';
 import { type SearchField } from './search-field.js';
 
-type Props = Pick<SearchField, 'disabled' | 'placeholder' | 'shape' | 'size' | 'value'>;
+type Props = Pick<
+  SearchField,
+  | 'disabled'
+  | 'placeholder'
+  | 'shape'
+  | 'size'
+  | 'value'
+  | 'autocomplete'
+  | 'matching'
+  | 'suggestionThreshold'
+  | 'suggestionPlacement'
+  | 'loading'
+  | 'unavailable'
+>;
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Search field',
   args: {
+    autocomplete: 'off',
+    matching: 'starts-with',
+    suggestionThreshold: 3,
+    suggestionPlacement: 'overlay',
+    loading: false,
+    unavailable: false,
     placeholder: '',
     value: ''
   },
   argTypes: {
+    autocomplete: { control: 'inline-radio', options: ['off', 'inline', 'list', 'both'] },
+    matching: { control: 'inline-radio', options: ['starts-with', 'contains'] },
+    suggestionPlacement: { control: 'inline-radio', options: ['overlay', 'flow'] },
+    suggestionThreshold: { control: { type: 'number', min: 1, max: 3 } },
     shape: {
       control: 'inline-radio',
       options: ['rect', 'pill']
@@ -29,9 +52,28 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ disabled, placeholder, shape, size, value }) => html`
+  render: ({
+    disabled,
+    placeholder,
+    shape,
+    size,
+    value,
+    autocomplete,
+    matching,
+    suggestionThreshold,
+    suggestionPlacement,
+    loading,
+    unavailable
+  }) => html`
     <sl-search-field
       aria-label="Search"
+      .autocomplete=${autocomplete}
+      .matching=${matching}
+      .suggestionThreshold=${suggestionThreshold}
+      .suggestionPlacement=${suggestionPlacement}
+      .loading=${loading}
+      .unavailable=${unavailable}
+      .suggestions=${['García', 'García Ruiz', 'High West Institute', 'Elementary High School']}
       ?disabled=${disabled}
       .placeholder=${placeholder}
       .shape=${shape}
@@ -161,5 +203,50 @@ export const All: Story = {
       <sl-search-field aria-label="Search" shape="pill" value="Value"></sl-search-field>
       <sl-search-field aria-label="Search" shape="pill" size="lg" value="Value"></sl-search-field>
     </div>
+  `
+};
+
+/** Type Gar or High. Enter searches your words; Right Arrow/End accepts inline completion. */
+export const Autocomplete: Story = {
+  args: { autocomplete: 'both', placeholder: 'Try Gar or High', matching: 'contains' }
+};
+
+export const SuggestionsInFlow: Story = {
+  args: { ...Autocomplete.args, suggestionPlacement: 'flow' },
+  render: () => html`
+    <div style="max-width: 30rem">
+      <sl-search-field
+        aria-label="Search"
+        autocomplete="both"
+        suggestion-placement="flow"
+        matching="contains"
+        placeholder="Try High">
+        <option>High West Institute</option>
+        <option>Elementary High School</option>
+      </sl-search-field>
+      <p>Content below the field moves down when suggestions appear.</p>
+    </div>
+  `
+};
+
+/** Listen for edits, then replace suggestions independently of sl-search. */
+export const AsyncSuggestions: Story = {
+  render: () => html`
+    <sl-search-field
+      aria-label="Search"
+      autocomplete="both"
+      placeholder="Try Gar"
+      .suggestions=${[]}
+      @sl-change=${(event: Event) => {
+        const field = event.currentTarget as SearchField,
+          query = field.value;
+        field.loading = true;
+        setTimeout(() => {
+          if (field.value === query) {
+            field.suggestions = ['García', 'Garden', 'Garland'];
+            field.loading = false;
+          }
+        }, 700);
+      }}></sl-search-field>
   `
 };

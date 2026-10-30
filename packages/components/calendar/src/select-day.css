@@ -7,6 +7,7 @@
   --_week-number-column-size: var(--sl-size-450);
   --_week-number-column-padding-inline: var(--sl-size-025);
 
+  box-sizing: border-box;
   display: inline-flex;
   flex-direction: column;
   inline-size: var(--_month-inline-size);
@@ -43,11 +44,13 @@ header {
   gap: var(--sl-size-100);
   justify-content: space-between;
   margin-block-end: var(--sl-size-050);
+  max-inline-size: 100%;
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
   position: relative;
 
   .next-month {
+    flex-shrink: 0;
     margin-inline-start: calc(-1 * var(--sl-size-050));
   }
 }
@@ -73,8 +76,22 @@ sl-button {
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
 }
 
+.current-month {
+  flex-shrink: 1;
+  min-inline-size: 0;
+
+  sl-format-date {
+    display: inline-block;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .current-year {
-  margin-inline-start: var(--sl-size-100);
+  flex-shrink: 0;
 }
 
 .following-month-label {
@@ -84,6 +101,7 @@ sl-button {
 }
 
 .previous-month {
+  flex-shrink: 0;
   margin-inline-start: auto;
 }
 

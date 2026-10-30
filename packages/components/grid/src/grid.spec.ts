@@ -2731,6 +2731,63 @@ describe('sl-grid', () => {
     });
   });
 
+  describe.each(['activate', 'select'] as const)('row action %s backgrounds', rowAction => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${multipleSelectItems}
+          row-action=${rowAction}
+          style="
+            --sl-color-background-input-interactive: rgb(0 0 0);
+            --sl-color-background-selected-interactive-plain: rgb(0 80 160);
+            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-opacity-interactive-plain-hover: 0.2;
+          ">
+          ${rowAction === 'select' ? html`<sl-grid-selection-column></sl-grid-selection-column>` : ''}
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await userEvent.unhover(el);
+    });
+
+    const expectOverlay = (row: HTMLTableRowElement, color: string, opacity: number): void => {
+      const reference = document.createElement('div');
+      reference.style.backgroundImage = `linear-gradient(color-mix(in srgb, transparent, ${color} ${opacity * 100}%), color-mix(in srgb, transparent, ${color} ${opacity * 100}%))`;
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundImage;
+      reference.remove();
+
+      for (const cell of row.cells) {
+        expect(getComputedStyle(cell).backgroundImage).to.contain(expected);
+      }
+    };
+
+    it('should render the idle and hover overlays on sticky and regular cells', async () => {
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      expectOverlay(row, 'rgb(0 0 0)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 0 0)', 0.2);
+    });
+
+    it('should use the selected color after activating or selecting a row', async () => {
+      let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      row.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+      await waitForGridToRenderData(el);
+      row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+      expect(row.part.contains(rowAction === 'activate' ? 'active' : 'selected')).to.be.true;
+      await userEvent.unhover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.2);
+    });
+  });
+
   describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`

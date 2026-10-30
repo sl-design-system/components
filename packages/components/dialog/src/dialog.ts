@@ -3,6 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { Announcer } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
@@ -59,6 +60,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
+      'sl-announcer': Announcer,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon
@@ -176,6 +178,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
+        <sl-announcer></sl-announcer>
       </dialog>
     `;
   }

@@ -1,6 +1,6 @@
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
+import { type LitElement, html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { Calendar } from './calendar.js';
@@ -250,6 +250,56 @@ describe('sl-calendar', () => {
       expect(callCount).to.equal(1);
       expect(selectedDate).to.equalDate(new Date(2023, 2, 1));
     });
+  });
+
+  describe('header alignment', () => {
+    for (const numberOfMonths of [1, 2]) {
+      it(`should keep header controls aligned across views with ${numberOfMonths} months`, async () => {
+        el = await fixture(html`
+          <sl-calendar locale="en-GB" number-of-months=${numberOfMonths}></sl-calendar>
+        `);
+        await document.fonts.ready;
+        const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+        await vi.waitFor(() =>
+          expect(selectDay.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+        let initialWidth: number | undefined,
+          initialArrows: Array<{ left: number; top: number }> | undefined;
+
+        for (const view of ['day', 'month', 'year', 'day'] as const) {
+          el.view = view;
+          await el.updateComplete;
+          const selector = el.renderRoot.querySelector<SelectDay | SelectMonth | SelectYear>(
+            `sl-select-${view}`
+          )!;
+          await selector.updateComplete;
+          await Promise.all(
+            Array.from(selector.renderRoot.querySelectorAll<LitElement>('header sl-button')).map(
+              button => button.updateComplete
+            )
+          );
+          // Icon-only buttons finish sizing in their first animation frame.
+          await new Promise(requestAnimationFrame);
+          await new Promise(requestAnimationFrame);
+          const calendarBounds = el.getBoundingClientRect(),
+            header = selector.renderRoot.querySelector('header')!,
+            controls = header.querySelector('.month-year-controls') ?? header.firstElementChild!,
+            arrows = header.querySelector('.arrows')!.getBoundingClientRect(),
+            buttons = Array.from(header.querySelectorAll('.arrows sl-button')).map(button => {
+              const { left, top } = button.getBoundingClientRect();
+              return { left, top };
+            });
+
+          initialWidth ??= calendarBounds.width;
+          expect(calendarBounds.width).to.equal(initialWidth);
+          expect(controls.getBoundingClientRect().left - calendarBounds.left).to.equal(4);
+          expect(calendarBounds.right - arrows.right).to.equal(2);
+          expect(arrows.top - calendarBounds.top).to.equal(2);
+          initialArrows ??= buttons;
+          expect(buttons).to.deep.equal(initialArrows);
+        }
+      });
+    }
   });
 
   describe('small screens', () => {

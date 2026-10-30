@@ -3,7 +3,11 @@
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   --_focus-offset: var(--sl-size-outlineOffset-default);
   --_month-gap: 0px;
-  --_month-inline-size: calc(var(--_days-in-week) * var(--_cell-size));
+  --_month-inline-size: max(
+    calc(var(--_days-in-week) * var(--_cell-size)),
+    var(--_header-inline-size, 0px)
+  );
+  --_rendered-month-inline-size: min(var(--_month-inline-size), 100%);
   --_week-number-column-size: var(--sl-size-450);
   --_week-number-column-padding-inline: var(--sl-size-025);
 
@@ -21,47 +25,77 @@
 
 :host([show-week-numbers]) {
   --_month-inline-size: calc(
-    var(--_week-number-column-size) + var(--_days-in-week) * var(--_cell-size)
+    var(--_week-number-column-size) +
+      max(
+        var(--_days-in-week) * var(--_cell-size),
+        var(--_header-inline-size, 0px) - var(--_week-number-column-size)
+      )
   );
 
   .days-of-week {
     grid-template-columns: var(--_week-number-column-size) repeat(
         var(--_days-in-week),
-        var(--_cell-size)
+        minmax(0, 1fr)
       );
   }
 
   sl-month-view::part(week-number) {
-    min-inline-size: calc(var(--_week-number-column-size) - 2 * var(--sl-size-010));
+    box-sizing: border-box;
+    inline-size: var(--_week-number-column-size);
+    min-inline-size: var(--_week-number-column-size);
   }
 }
 
 header {
+  --_header-gap: var(--sl-size-300);
+
   align-items: center;
   box-sizing: border-box;
-  display: flex;
-  gap: var(--sl-size-100);
-  justify-content: space-between;
+  display: grid;
+  gap: var(--_header-gap);
+  grid-template-columns:
+    minmax(
+      0,
+      calc(
+        var(--_month-inline-size) + var(--_month-gap) / 2 - 2 * var(--sl-size-300) -
+          var(--sl-size-025) - var(--sl-size-050)
+      )
+    )
+    0 minmax(0, 1fr) max-content;
   margin-block-end: var(--sl-size-050);
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
-  position: relative;
+}
 
-  .next-month {
-    margin-inline-start: calc(-1 * var(--sl-size-050));
+header.single-month {
+  /* Use spare space for separation before shrinking a localized month label. */
+  column-gap: clamp(0px, calc(100% - var(--_header-controls-inline-size, 0px)), var(--_header-gap));
+  grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
+
+  .month-year-controls {
+    grid-column: 1 / span 3;
   }
 }
 
-:host(:not([show-week-numbers])) header.single-month {
-  gap: 0;
+.month-year-controls {
+  --_controls-gap: var(--sl-size-100);
 
-  .current-year {
-    margin-inline-start: var(--sl-size-050);
-  }
+  align-items: center;
+  display: flex;
+  gap: clamp(
+    0px,
+    calc(100% - var(--_month-control-inline-size, 0px) - var(--_year-control-inline-size, 0px)),
+    var(--_controls-gap)
+  );
+  grid-column: 1 / span 1;
+  min-inline-size: 0;
+}
 
-  .next-month {
-    margin-inline-start: 0;
-  }
+.arrows {
+  display: flex;
+  gap: var(--sl-size-050);
+  grid-column: 4 / span 1;
+  justify-self: end;
 }
 
 sl-button {
@@ -74,17 +108,40 @@ sl-button {
 }
 
 .current-year {
-  margin-inline-start: var(--sl-size-100);
+  flex: 0 0 auto;
+  inline-size: var(--_year-control-inline-size, auto);
+
+  &::part(button) {
+    justify-content: start;
+  }
+}
+
+.current-month {
+  flex: 0 1 auto;
+  inline-size: var(--_month-control-inline-size, auto);
+  min-inline-size: 0;
+
+  &::part(button) {
+    justify-content: start;
+  }
+
+  sl-format-date {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .following-month-label {
+  color: var(--sl-color-foreground-subtlest);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  inset-inline-start: calc(var(--_month-inline-size) + var(--_month-gap) + var(--sl-size-050));
-  position: absolute;
-}
-
-.previous-month {
-  margin-inline-start: auto;
+  grid-column: 3 / span 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  padding-inline-start: var(--sl-size-300);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .weekdays {
@@ -96,15 +153,15 @@ sl-button {
 header.single-month,
 .weekdays.single-month,
 .scroller.single-month {
-  inline-size: var(--_month-inline-size);
+  inline-size: var(--_rendered-month-inline-size);
 }
 
 .days-of-week {
   color: var(--sl-color-foreground-subtlest);
   display: grid;
-  flex: 0 0 var(--_month-inline-size);
+  flex: 0 0 var(--_rendered-month-inline-size);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  grid-template-columns: repeat(var(--_days-in-week), var(--_cell-size));
+  grid-template-columns: repeat(var(--_days-in-week), minmax(0, 1fr));
   line-height: calc((24 / 14) * 1em);
   margin-block-end: var(--sl-size-025);
   padding-block: var(--sl-size-050);
@@ -148,7 +205,10 @@ header.single-month,
 }
 
 sl-month-view {
-  flex: 0 0 var(--_month-inline-size);
+  --_table-layout: fixed;
+
+  flex: 0 0 var(--_rendered-month-inline-size);
+  min-inline-size: 0;
   padding-inline: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;

@@ -26,6 +26,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import styles from './calendar.css' with { type: 'css' };
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
@@ -210,7 +211,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.view === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
+        style=${styleMap({ visibility: this.view === 'day' ? undefined : 'hidden' })}></sl-select-day>
       ${choose(this.view, [
         [
           'month',

@@ -22,6 +22,18 @@
 
 table {
   border-collapse: collapse;
+  inline-size: 100%;
+  table-layout: var(--_table-layout, auto);
+
+  button {
+    box-sizing: border-box;
+    inline-size: 100%;
+    justify-content: center;
+  }
+}
+
+.week-number-column {
+  inline-size: var(--_week-number-column-size, var(--sl-size-400));
 }
 
 .visually-hidden {
@@ -59,8 +71,9 @@ th {
 }
 
 [part~='week-number'] {
-  inline-size: auto;
-  min-inline-size: calc(var(--sl-size-400) - 2 * var(--sl-size-010));
+  box-sizing: border-box;
+  inline-size: var(--_week-number-column-size, var(--sl-size-400));
+  min-inline-size: var(--_week-number-column-size, var(--sl-size-400));
   position: relative;
   text-align: center;
 

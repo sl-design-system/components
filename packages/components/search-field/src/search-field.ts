@@ -74,7 +74,7 @@ export class SearchField extends TextField {
   #message?: HTMLDivElement;
   #options: Option[] = [];
   #activeIndex = -1;
-  #inlineValue?: string;
+  @state() private inlineValue?: string;
   #composing = false;
   #suggestionsDirty = true;
   #sourceObserver = new MutationObserver(records => {
@@ -101,7 +101,14 @@ export class SearchField extends TextField {
     keydown: this.#onKeyDown,
     focusout: this.#onFocusOut,
     focusin: this.#onFocusIn,
-    beforeinput: this.#onBeforeInput,
+    select: () => {
+      if (
+        this.input.selectionStart !== this.value?.length ||
+        this.input.selectionEnd !== this.value?.length
+      )
+        this.#discardInline();
+    },
+    scroll: { handler: () => this.requestUpdate(), options: true },
     compositionstart: () => {
       this.#composing = true;
       this.#discardInline();
@@ -170,6 +177,29 @@ export class SearchField extends TextField {
     `;
   }
 
+  override renderInputSlot(): TemplateResult {
+    return html`
+      <div class="input-wrapper">
+        ${super.renderInputSlot()}
+        ${
+          this.inlineValue
+            ? html`
+                <span
+                  aria-hidden="true"
+                  class="inline-completion"
+                  style=${`transform: translate(${-this.input.scrollLeft}px, -50%)`}>
+                  <span class="inline-prefix">${this.value}</span
+                  ><span class="inline-suffix"
+                    >${this.inlineValue.slice(this.value?.length ?? 0)}</span
+                  >
+                </span>
+              `
+            : nothing
+        }
+      </div>
+    `;
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
     if (this.disabled || this.readonly || this.autocomplete === 'off') this.suggestionOpen = false;
@@ -195,6 +225,7 @@ export class SearchField extends TextField {
       this.#suggestionsDirty = false;
       this.#renderSuggestions();
     }
+    this.#updateSuggestionText();
   }
 
   protected override updateInputElement(input: HTMLInputElement): void {
@@ -243,10 +274,6 @@ export class SearchField extends TextField {
       this.#listbox = this.shadowRoot!.createElement('sl-listbox');
       this.#listbox.id = `sl-search-suggestions-${nextSuggestionId++}`;
       this.#listbox.slot = 'suggestions';
-      this.#listbox.setAttribute(
-        'aria-label',
-        msg('Suggested searches', { id: 'sl.searchField.suggestions' })
-      );
       this.#listbox.addEventListener('focus', () =>
         this.#setActive(Math.max(0, this.#activeIndex))
       );
@@ -258,6 +285,8 @@ export class SearchField extends TextField {
       this.append(this.#message);
     }
 
+    const listFocused = this.#listbox.matches(':focus'),
+      activeValue: unknown = this.#options[this.#activeIndex]?.value;
     this.#options = showList
       ? phrases.map(label => {
           const option = this.shadowRoot!.createElement('sl-option'),
@@ -279,17 +308,19 @@ export class SearchField extends TextField {
         })
       : [];
     this.#listbox.replaceChildren(...this.#options);
+    if (listFocused && !this.#options.length) this.input.focus();
     this.#listbox.hidden = !showList || !phrases.length;
     this.#listbox.tabIndex = showList && phrases.length ? 0 : -1;
     this.#activeIndex = -1;
     this.#listbox.removeAttribute('aria-activedescendant');
+    if (listFocused && this.#options.length)
+      this.#setActive(
+        Math.max(
+          0,
+          this.#options.findIndex(option => option.value === activeValue)
+        )
+      );
     this.#message!.hidden = !showList || !!phrases.length;
-    const message = this.loading
-      ? msg('Finding suggestions…', { id: 'sl.searchField.loading' })
-      : this.unavailable
-        ? msg('Suggestions unavailable', { id: 'sl.searchField.unavailable' })
-        : msg('No suggested searches', { id: 'sl.searchField.empty' });
-    this.#message!.textContent = showList && !phrases.length ? message : '';
     if (showList && phrases.length) this.input.setAttribute('aria-controls', this.#listbox.id);
     else this.input.removeAttribute('aria-controls');
 
@@ -304,21 +335,32 @@ export class SearchField extends TextField {
     ) {
       const completion = phrases.find(label => {
         const match = matchSuggestion(label, query)!;
-        return match.prefix && match.end < label.length;
+        return match.prefix && match.complete && match.end < label.length;
       });
       if (completion) {
-        this.#inlineValue = query + completion.slice(matchSuggestion(completion, query)!.end);
-        this.input.value = this.#inlineValue;
-        this.input.setSelectionRange(query.length, this.#inlineValue.length);
+        this.inlineValue = query + completion.slice(matchSuggestion(completion, query)!.end);
       }
     }
   }
 
-  #discardInline(): void {
-    if (this.#inlineValue) {
-      this.input.value = this.value ?? '';
-      this.#inlineValue = undefined;
+  #updateSuggestionText(): void {
+    this.#listbox?.setAttribute(
+      'aria-label',
+      msg('Suggested searches', { id: 'sl.searchField.suggestions' })
+    );
+    if (this.#message) {
+      this.#message.textContent = this.#message.hidden
+        ? ''
+        : this.loading
+          ? msg('Finding suggestions…', { id: 'sl.searchField.loading' })
+          : this.unavailable
+            ? msg('Suggestions unavailable', { id: 'sl.searchField.unavailable' })
+            : msg('No suggested searches', { id: 'sl.searchField.empty' });
     }
+  }
+
+  #discardInline(): void {
+    this.inlineValue = undefined;
   }
 
   #closeSuggestions(): void {
@@ -327,7 +369,13 @@ export class SearchField extends TextField {
   }
 
   #onFocusIn(event: FocusEvent): void {
-    if (event.target === this.input && this.autocomplete !== 'off' && !this.suggestionOpen)
+    if (
+      event.target === this.input &&
+      this.autocomplete !== 'off' &&
+      !this.disabled &&
+      !this.readonly &&
+      !this.suggestionOpen
+    )
       this.suggestionOpen = true;
   }
 
@@ -338,28 +386,6 @@ export class SearchField extends TextField {
         !this.renderRoot.contains(event.relatedTarget as Node))
     ) {
       this.#closeSuggestions();
-    }
-  }
-
-  #onBeforeInput(event: InputEvent): void {
-    if (event.target !== this.input || !this.#inlineValue || event.isComposing) return;
-    if (event.inputType === 'deleteContentBackward' && event.cancelable) {
-      event.preventDefault();
-      this.#discardInline();
-      const segments = [
-        ...new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(this.input.value)
-      ];
-      this.input.value = this.input.value.slice(0, segments.at(-1)?.index ?? 0);
-      this.input.dispatchEvent(
-        new InputEvent('input', {
-          bubbles: true,
-          composed: true,
-          inputType: 'deleteContentBackward'
-        })
-      );
-    } else if (event.inputType === 'deleteContentForward' && event.cancelable) {
-      event.preventDefault();
-      this.#discardInline();
     }
   }
 
@@ -466,7 +492,7 @@ export class SearchField extends TextField {
   }
 
   protected override onInput(event: Event & { target: HTMLInputElement }): void {
-    this.#inlineValue = undefined;
+    this.inlineValue = undefined;
     super.onInput(event);
     if (this.#composing) return;
     this.suggestionOpen = this.autocomplete !== 'off';
@@ -481,7 +507,9 @@ export class SearchField extends TextField {
     }
 
     if (
-      this.#inlineValue &&
+      this.inlineValue &&
+      this.input.selectionStart === this.value?.length &&
+      this.input.selectionEnd === this.value?.length &&
       !event.shiftKey &&
       !event.altKey &&
       !event.ctrlKey &&
@@ -489,13 +517,25 @@ export class SearchField extends TextField {
       (event.key === 'ArrowRight' || event.key === 'End')
     ) {
       event.preventDefault();
-      const completion = this.#inlineValue;
+      const completion = this.inlineValue;
       this.#discardInline();
       this.input.value = completion;
       this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       return;
     }
-    if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown', 'Tab'].includes(event.key))
+    if (
+      [
+        'ArrowLeft',
+        'ArrowRight',
+        'Home',
+        'End',
+        'PageUp',
+        'PageDown',
+        'Tab',
+        'Delete',
+        'Backspace'
+      ].includes(event.key)
+    )
       this.#discardInline();
     if (['ArrowDown', 'ArrowUp'].includes(event.key) && this.#listbox && !this.#listbox.hidden) {
       event.preventDefault();
@@ -515,7 +555,7 @@ export class SearchField extends TextField {
     } else if (event.key === 'Escape') {
       event.preventDefault();
 
-      if (this.suggestionOpen || this.#inlineValue) this.#closeSuggestions();
+      if (this.suggestionOpen || this.inlineValue) this.#closeSuggestions();
       else this.clear();
     }
   }

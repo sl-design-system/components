@@ -151,6 +151,10 @@ button {
   position: static;
 }
 
+.suggestions::slotted([hidden]) {
+  display: none;
+}
+
 .suggestions::slotted(:not([hidden])) {
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
@@ -166,4 +170,35 @@ button {
 
 :host([suggestion-placement='flow']) .suggestions::slotted(:not([hidden])) {
   margin-block-start: var(--sl-size-050);
+}
+
+.input-wrapper {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.inline-completion {
+  display: flex;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.inline-prefix {
+  visibility: hidden;
+}
+
+.inline-suffix {
+  background: var(--sl-color-background-selected-subtle);
+  color: var(--sl-color-foreground-plain);
+}
+
+.inline-prefix,
+.inline-suffix {
+  flex: none;
+  white-space: pre;
 }

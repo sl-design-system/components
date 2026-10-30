@@ -2,10 +2,11 @@
 export function matchSuggestion(
   label: string,
   query: string
-): { start: number; end: number; prefix: boolean } | undefined {
+): { start: number; end: number; prefix: boolean; complete: boolean } | undefined {
   const fold = (value: string): string =>
     value
       .toLocaleLowerCase()
+      .replace(/ς/g, 'σ')
       .normalize('NFD')
       .replace(/\p{M}/gu, '')
       .replace(
@@ -33,6 +34,11 @@ export function matchSuggestion(
   const needle = fold(query).trim().replace(/\s+/gu, ' '),
     index = text.indexOf(needle);
   return needle && index >= 0
-    ? { start: starts[index], end: ends[index + needle.length - 1], prefix: index === 0 }
+    ? {
+        start: starts[index],
+        end: ends[index + needle.length - 1],
+        prefix: index === 0,
+        complete: ends[index + needle.length - 1] !== ends[index + needle.length]
+      }
     : undefined;
 }

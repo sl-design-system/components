@@ -17,8 +17,12 @@
 }
 
 :host(:where(:not([fill]), [fill='solid'])) .list {
-  background: var(--sl-color-background-neutral-subtle);
+  background: var(--sl-color-background-neutral-bold);
   border-width: var(--sl-size-borderWidth-none);
+}
+
+:host([fill='outline']) .list {
+  background: var(--sl-elevation-surface-raised-default);
 }
 
 :host([shape='pill']) .list {

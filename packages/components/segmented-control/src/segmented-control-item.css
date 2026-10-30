@@ -12,7 +12,7 @@
 }
 
 :host([emphasis='bold']) button:not([aria-disabled='true']) {
-  color: var(--sl-color-foreground-neutral-bold);
+  color: var(--sl-color-foreground-bold);
 
   &[aria-current='true'] {
     color: var(--sl-color-foreground-selected-onBold);
@@ -79,7 +79,7 @@ button {
   );
   border: 0;
   border-radius: var(--sl-size-borderRadius-child);
-  color: var(--sl-color-foreground-subtle);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;
   font: inherit;

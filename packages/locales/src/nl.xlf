@@ -314,6 +314,26 @@
   <source>Step up</source>
   <target>Stap omhoog</target>
 </trans-unit>
+<trans-unit id="sl.searchField.suggestions">
+  <source>Suggested searches</source>
+  <target>Zoeksuggesties</target>
+</trans-unit>
+<trans-unit id="sl.searchField.loading">
+  <source>Finding suggestions…</source>
+  <target>Suggesties zoeken…</target>
+</trans-unit>
+<trans-unit id="sl.searchField.unavailable">
+  <source>Suggestions unavailable</source>
+  <target>Suggesties niet beschikbaar</target>
+</trans-unit>
+<trans-unit id="sl.searchField.empty">
+  <source>No suggested searches</source>
+  <target>Geen zoeksuggesties</target>
+</trans-unit>
+<trans-unit id="sl.searchField.inlineCompletion">
+  <source>Suggested completion: <x id="0" equiv-text="${this.inlineValue}"/>. Press Right Arrow or End to accept.</source>
+  <target>Voorgestelde aanvulling: <x id="0" equiv-text="${this.inlineValue}"/>. Druk op de pijl naar rechts of End om te accepteren.</target>
+</trans-unit>
 <trans-unit id="sl.searchField.clearText">
   <source>Clear text</source>
   <target>Wis tekst</target>

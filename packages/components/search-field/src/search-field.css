@@ -1,5 +1,11 @@
 :host {
+  background: transparent;
+  border: 0;
+  display: block;
+  outline: 0;
   overflow: visible;
+  padding: 0;
+  position: relative;
 }
 
 :host([shape='pill']) {
@@ -79,4 +85,130 @@ button {
   border-start-end-radius: var(--sl-size-borderRadius-full);
   border-start-start-radius: 0;
   padding-inline-end: var(--sl-size-075);
+}
+
+:host([shape='pill']),
+:host([size='lg']),
+:host([shape='pill'][size='lg']) {
+  padding: 0;
+}
+
+.field {
+  align-items: center;
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+  border-radius: var(--sl-size-borderRadius-default);
+  display: flex;
+  gap: var(--sl-size-100);
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+}
+
+:host([shape='pill']) .field {
+  border-radius: var(--sl-size-borderRadius-full);
+  padding-inline-start: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+}
+
+:host([size='lg']) .field {
+  padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+}
+
+:host([shape='pill'][size='lg']) .field {
+  padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+}
+
+:host([disabled]) .field {
+  background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-disabled);
+}
+
+:host([show-validity='invalid']) .field {
+  border-color: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) .field {
+  border-color: var(--sl-color-border-positive-plain);
+}
+
+:host([has-focus-ring]) .field {
+  outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+.suggestions {
+  display: block;
+  inline-size: 100%;
+  inset-block-start: calc(100% + var(--sl-size-050));
+  inset-inline-start: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+:host([suggestion-placement='flow']) .suggestions {
+  position: static;
+}
+
+.suggestions::slotted([hidden]) {
+  display: none;
+}
+
+.suggestions::slotted(:not([hidden])) {
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  max-block-size: 20rem;
+  overflow: auto;
+  padding: var(--sl-size-050);
+}
+
+:host([suggestion-placement='flow']) .suggestions::slotted(:not([hidden])) {
+  margin-block-start: var(--sl-size-050);
+}
+
+.input-wrapper {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.inline-completion {
+  display: flex;
+  inset-block-start: 50%;
+  inset-inline-start: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.inline-prefix {
+  visibility: hidden;
+}
+
+.inline-suffix {
+  background: var(--sl-color-background-selected-subtle);
+  color: var(--sl-color-foreground-plain);
+}
+
+.inline-prefix,
+.inline-suffix {
+  flex: none;
+  white-space: pre;
+}
+
+.inline-announcement {
+  block-size: 1px;
+  clip-path: inset(50%);
+  display: block;
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
 }

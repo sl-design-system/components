@@ -202,3 +202,13 @@ button {
   flex: none;
   white-space: pre;
 }
+
+.inline-announcement {
+  block-size: 1px;
+  clip-path: inset(50%);
+  display: block;
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}

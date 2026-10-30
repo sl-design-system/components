@@ -1,4 +1,4 @@
-import { msg } from '@lit/localize';
+import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { Listbox, Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -72,6 +72,7 @@ export class SearchField extends TextField {
 
   #listbox?: Listbox;
   #message?: HTMLDivElement;
+  #inlineAnnouncement?: HTMLDivElement;
   #options: Option[] = [];
   #activeIndex = -1;
   @state() private inlineValue?: string;
@@ -138,6 +139,16 @@ export class SearchField extends TextField {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    if (!this.#inlineAnnouncement) {
+      this.#inlineAnnouncement = document.createElement('div');
+      this.#inlineAnnouncement.id = `sl-search-inline-${nextSuggestionId++}`;
+      this.#inlineAnnouncement.slot = 'inline-announcement';
+      this.#inlineAnnouncement.setAttribute('role', 'status');
+      this.#inlineAnnouncement.setAttribute('aria-live', 'polite');
+      this.#inlineAnnouncement.setAttribute('aria-atomic', 'true');
+      this.append(this.#inlineAnnouncement);
+    }
+
     this.#sourceObserver.observe(this, {
       childList: true,
       subtree: true,
@@ -168,6 +179,7 @@ export class SearchField extends TextField {
     return html`
       <div class="field" part="field">${super.render()}</div>
       <slot name="suggestions" class="suggestions"></slot>
+      <slot name="inline-announcement" class="inline-announcement"></slot>
       <slot
         @slotchange=${() => {
           this.#suggestionsDirty = true;
@@ -238,8 +250,9 @@ export class SearchField extends TextField {
     );
   }
 
-  // Search submission is handled here rather than by the text field's implicit form submission.
-  protected override onKeydown(): void {}
+  protected override onKeydown(event: KeyboardEvent): void {
+    if (!this.#composing && !event.isComposing) super.onKeydown(event);
+  }
 
   #getSuggestions(): string[] {
     return (
@@ -344,6 +357,23 @@ export class SearchField extends TextField {
   }
 
   #updateSuggestionText(): void {
+    if (this.#inlineAnnouncement) {
+      const announcement = this.inlineValue
+        ? msg(str`Suggested completion: ${this.inlineValue}. Press Right Arrow or End to accept.`, {
+            id: 'sl.searchField.inlineCompletion'
+          })
+        : '';
+      if (this.#inlineAnnouncement.textContent !== announcement)
+        this.#inlineAnnouncement.textContent = announcement;
+      const descriptions = new Set(
+        (this.input.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean)
+      );
+      if (announcement) descriptions.add(this.#inlineAnnouncement.id);
+      else descriptions.delete(this.#inlineAnnouncement.id);
+      if (descriptions.size)
+        this.input.setAttribute('aria-describedby', [...descriptions].join(' '));
+      else this.input.removeAttribute('aria-describedby');
+    }
     this.#listbox?.setAttribute(
       'aria-label',
       msg('Suggested searches', { id: 'sl.searchField.suggestions' })
@@ -394,6 +424,7 @@ export class SearchField extends TextField {
     this.#activeIndex = (index + this.#options.length) % this.#options.length;
     this.#options.forEach((option, i) => {
       option.toggleAttribute('current', i === this.#activeIndex);
+      option.selected = i === this.#activeIndex;
       option.setAttribute('aria-selected', String(i === this.#activeIndex));
     });
     this.#listbox!.setAttribute('aria-activedescendant', this.#options[this.#activeIndex].id);

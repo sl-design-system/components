@@ -1,5 +1,18 @@
 # @sl-design-system/calendar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Add date range selection to `sl-calendar` with hover previews, keyboard cancellation, accessible range announcements and an optional responsive two-month layout.
+
+### Patch Changes
+
+- [#3810](https://github.com/sl-design-system/components/pull/3810) [`15e9297`](https://github.com/sl-design-system/components/commit/15e9297c4b193d9d1b3012fe97c2232b5f11080c) - Keep the requested month visible when navigating from a day that does not exist in the target month or year, including in date fields.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 0.1.3
 
 ### Patch Changes

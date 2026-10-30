@@ -1,5 +1,60 @@
 # @sl-design-system/grid
 
+## 0.8.5
+
+### Patch Changes
+
+- [#3765](https://github.com/sl-design-system/components/pull/3765) [`74d5c80`](https://github.com/sl-design-system/components/commit/74d5c80c84539584c30b740dc45a461036486df2) - Fix column headers and cells being announced incorrectly by screen readers for column groups.
+
+  Accessibility improvements:
+
+  - Headers inside a column group are now exposed as cells, so VoiceOver reads them only once and no longer pairs them with the wrong group header.
+  - Group headers now have `aria-colindex` and `aria-colspan` and can be focused.
+  - Cells in a column group are now named by their group header(s) and column header, for example "Name First name Sophie".
+  - Form controls (text field and select) in grouped columns now include the group header(s) in their label.
+  - Columns with `hide-header-text` now set `aria-label` on the header, also for column groups.
+  - `aria-sort` is only set on headers that are real column headers.
+  - Hidden columns are now counted in `aria-colcount` and `aria-colindex`, as they are still rendered.
+
+  Fixes:
+
+  - Adding or removing a column in a column group now updates the header rows, accessibility attributes and column widths.
+  - Removing a sorted or filtered column from a column group now also removes its sort or filter from the data source.
+  - Header cells are now keyed by column, so removing a column no longer mixes up the filter and sort controls of the remaining columns.
+
+- [#3817](https://github.com/sl-design-system/components/pull/3817) [`2d53fc7`](https://github.com/sl-design-system/components/commit/2d53fc7408744df9189ea7245cc1daf758754475) - Accessibility improvement: the toggle button in each group header now has a unique name that includes the name of the group, for example "Toggle group Allergist". The name is set with `aria-labelledby`, so it also works with a custom `groupHeaderRenderer`.
+
+- [#3780](https://github.com/sl-design-system/components/pull/3780) [`a374c93`](https://github.com/sl-design-system/components/commit/a374c937778204c10f379a667af6a6697c9f5ea4) - Measure automatic column widths after custom cell renderers and fonts are ready, using the full intrinsic content width. Grow automatic columns when virtual scrolling renders longer content, retaining their widths when scrolling back to shorter rows.
+
+- [#3806](https://github.com/sl-design-system/components/pull/3806) [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769) - Limit the grid header selection toggle to filtered array data and calculate its checked state from those results. Preserve hidden selections when deselecting filtered rows, including grouped and paginated data.
+
+  Synchronize group selection markers after filtered batch changes. Use known unfiltered remote totals when resetting select-all, without treating estimated or filtered counts as the complete dataset.
+
+  Invalidate underestimated remote totals when fetched rows exceed them. Index unfiltered group membership for efficient batch reconciliation, preserve single-selection group members, and disable the select-all checkbox for empty results.
+
+  Recalculate aggregate lower bounds after every remote response, including filtered totals, empty pages, and partially known group totals. Reset stored selection ids when an unfiltered refresh shrinks the dataset, while preserving select-all without exclusions.
+
+- [#3788](https://github.com/sl-design-system/components/pull/3788) [`ec51ec7`](https://github.com/sl-design-system/components/commit/ec51ec77fdde2a8e2a5c45ce2099b75bfed04abc) - Fix incorrect grid body height after filtering or lazy loading changes the rendered rows, preventing clipped wrapped text and excess space below the last row.
+
+- [#3787](https://github.com/sl-design-system/components/pull/3787) [`f328d4a`](https://github.com/sl-design-system/components/commit/f328d4a2ad8d7d0e630c5ece7dd507eed4c8c343) - Prevent auto-sized columns from flashing their temporary widths on initial render. Reveal the table after the initial virtualized rows, custom cell content, fonts, and column measurements are ready.
+
+- [#3815](https://github.com/sl-design-system/components/pull/3815) [`c4af0c9`](https://github.com/sl-design-system/components/commit/c4af0c92d450700b4868e231bec457314a92b408) - Fix grouped rows becoming non-draggable after their first drag and drop. Groups now remain draggable after reordering, both when expanded and collapsed.
+
+- [#3805](https://github.com/sl-design-system/components/pull/3805) [`1eeafbc`](https://github.com/sl-design-system/components/commit/1eeafbc02edd3075f47dff544b4187057e71302a) - Preserve rendered rows and the dragging indicator while reordering so consecutive native drag-and-drop gestures complete without interruption.
+
+  Keep loading placeholders keyed separately while retaining stable keys for loaded rows.
+
+- [#3802](https://github.com/sl-design-system/components/pull/3802) [`bdb01c6`](https://github.com/sl-design-system/components/commit/bdb01c60ffd1540c1e7ad28e75e8ffe3e25544ca) - Preserve keyboard focus when activating, selecting or deselecting grid rows by using stable item IDs when rendering virtualized rows, and prevent view jumps when scrolling and selecting rows in Firefox.
+
+  Invalidate cached row heights after content edits, including in-place mutations, and retain small measured changes to the scroll extent.
+
+  Bound content snapshots so records referencing large shared collections do not undermine virtualization.
+
+- Updated dependencies [[`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa), [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769), [`9d41e31`](https://github.com/sl-design-system/components/commit/9d41e3153731587d3c77bc2416adb6345192b65b), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/data-source@0.4.6
+  - @sl-design-system/checkbox@2.4.3
+  - @sl-design-system/shared@0.14.2
+
 ## 0.8.4
 
 ### Patch Changes

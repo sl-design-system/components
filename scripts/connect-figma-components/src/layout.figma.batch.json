@@ -1,0 +1,64 @@
+[
+  {
+    "templateFile": "./accordion-items.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7650-19762",
+        "id": "accordion-item"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7650-19956",
+        "id": "accordion-item"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7660-22260",
+        "id": "accordion-item"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7660-22269",
+        "id": "accordion-item"
+      }
+    ]
+  },
+  {
+    "templateFile": "./panel.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3923-189594",
+        "id": "panel"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3923-203981",
+        "id": "panel",
+        "collapsible": true
+      }
+    ]
+  },
+  {
+    "templateFile": "./accordion.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7689-21467",
+        "id": "accordion"
+      }
+    ]
+  },
+  {
+    "templateFile": "./callout.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10995-110181",
+        "id": "callout"
+      }
+    ]
+  },
+  {
+    "templateFile": "./card.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6013-90927",
+        "id": "card"
+      }
+    ]
+  }
+]

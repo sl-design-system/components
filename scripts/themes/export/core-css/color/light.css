@@ -189,14 +189,14 @@ body {
   --sl-color-background-secondary-subtlest: var(
     --sl-brand-light-color-background-secondary-subtlest
   );
-  --sl-color-background-selected-bold: var(--sl-brand-light-color-background-selected-bold);
+  --sl-color-background-selected-bold: var(--sl-subtheme-light-color-background-selected-bold);
   --sl-color-background-selected-interactive-bold: var(
-    --sl-brand-light-color-background-selected-interactive-bold
+    --sl-subtheme-light-color-background-selected-interactive-bold
   );
   --sl-color-background-selected-interactive-plain: var(
-    --sl-brand-light-color-background-selected-interactive-plain
+    --sl-subtheme-light-color-background-selected-interactive-plain
   );
-  --sl-color-background-selected-subtle: var(--sl-brand-light-color-background-selected-subtle);
+  --sl-color-background-selected-subtle: var(--sl-subtheme-light-color-background-selected-subtle);
   --sl-color-background-selected-subtlest: var(--sl-brand-light-color-background-selected-subtlest);
   --sl-color-background-subtle: var(--sl-brand-light-color-background-subtle);
   --sl-color-blanket-plain: var(--sl-brand-light-color-blanket-plain);
@@ -240,7 +240,7 @@ body {
   --sl-color-border-primary-plain: var(--sl-brand-light-color-border-primary-plain);
   --sl-color-border-secondary-bold: var(--sl-brand-light-color-border-secondary-bold);
   --sl-color-border-secondary-plain: var(--sl-brand-light-color-border-secondary-plain);
-  --sl-color-border-selected: var(--sl-brand-light-color-border-selected);
+  --sl-color-border-selected: var(--sl-subtheme-light-color-border-selected);
   --sl-color-foreground-accent-blue-bold: var(--sl-brand-light-color-foreground-accent-blue-bold);
   --sl-color-foreground-accent-blue-onBold: var(
     --sl-brand-light-color-foreground-accent-blue-onBold
@@ -329,9 +329,9 @@ body {
   --sl-color-foreground-primary-onBold: var(--sl-brand-light-color-foreground-primary-onBold);
   --sl-color-foreground-secondary-bold: var(--sl-brand-light-color-foreground-secondary-bold);
   --sl-color-foreground-secondary-onBold: var(--sl-brand-light-color-foreground-secondary-onBold);
-  --sl-color-foreground-selected-bold: var(--sl-brand-light-color-foreground-selected-bold);
-  --sl-color-foreground-selected-onBold: var(--sl-brand-light-color-foreground-selected-onBold);
-  --sl-color-foreground-selected-plain: var(--sl-brand-light-color-foreground-selected-plain);
+  --sl-color-foreground-selected-bold: var(--sl-subtheme-light-color-foreground-selected-bold);
+  --sl-color-foreground-selected-onBold: var(--sl-subtheme-light-color-foreground-selected-onBold);
+  --sl-color-foreground-selected-plain: var(--sl-subtheme-light-color-foreground-selected-plain);
   --sl-color-foreground-subtle: var(--sl-brand-light-color-foreground-subtle);
   --sl-color-foreground-subtlest: var(--sl-brand-light-color-foreground-subtlest);
   --sl-color-link-active: var(--sl-brand-light-color-link-active);

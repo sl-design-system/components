@@ -6,6 +6,10 @@ import {
   MenuItemComponent,
   MenuItemGroupComponent
 } from '@sl-design-system/angular/menu';
+import {
+  SegmentedControlComponent,
+  SegmentedControlItemComponent
+} from '@sl-design-system/angular/segmented-control';
 import { ToggleButtonComponent } from '@sl-design-system/angular/toggle-button';
 import { ToggleGroupComponent } from '@sl-design-system/angular/toggle-group';
 import { ToolBarComponent } from '@sl-design-system/angular/tool-bar';
@@ -22,6 +26,8 @@ export default {
         MenuButtonComponent,
         MenuItemComponent,
         MenuItemGroupComponent,
+        SegmentedControlComponent,
+        SegmentedControlItemComponent,
         ToggleButtonComponent,
         ToggleGroupComponent,
         ToolBarComponent
@@ -61,6 +67,20 @@ export const MenuButton: StoryObj = {
           <sl-menu-item>Option 2</sl-menu-item>
           <sl-menu-item>Option 3</sl-menu-item>
       </sl-menu-button>
+    `
+  })
+};
+
+export const SegmentedControl: StoryObj = {
+  render: () => ({
+    description:
+      'A segmented control lets users switch between a small set of related options. The selected option is shown with a filled background.',
+    template: `
+      <sl-segmented-control aria-label="View" value="list">
+        <sl-segmented-control-item value="list">List</sl-segmented-control-item>
+        <sl-segmented-control-item value="grid">Grid</sl-segmented-control-item>
+        <sl-segmented-control-item value="table">Table</sl-segmented-control-item>
+      </sl-segmented-control>
     `
   })
 };

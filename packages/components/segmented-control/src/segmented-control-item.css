@@ -1,0 +1,255 @@
+:host {
+  /* Timings of the selection animation. The old fill leaves first, then the new fill enters. */
+  --_duration-fill: 120ms;
+  --_duration-state: 80ms;
+
+  display: flex;
+  min-inline-size: 0;
+}
+
+:host(:not([emphasis='bold'])) button[aria-current='true']:not([aria-disabled='true']) {
+  color: var(--sl-color-foreground-selected-bold);
+}
+
+:host([emphasis='bold']) button:not([aria-disabled='true']) {
+  color: var(--sl-color-foreground-bold);
+
+  &[aria-current='true'] {
+    color: var(--sl-color-foreground-selected-onBold);
+  }
+}
+
+:host([shape='pill']) button {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([size='lg']) button {
+  padding: var(--sl-size-175) var(--sl-size-250);
+}
+
+:host([icon-only]) button {
+  padding: var(--sl-size-125);
+}
+
+:host([icon-only][size='lg']) button {
+  padding: var(--sl-size-200);
+}
+
+/* Icon-only: the label is used as the accessible name of the button instead. */
+:host([icon-only]) .label {
+  display: none;
+}
+
+:host([emphasis='bold']) .fill {
+  background-color: color-mix(
+    in srgb,
+    var(--sl-color-background-selected-bold),
+    var(--sl-color-background-selected-interactive-bold) calc(100% * var(--_bg-opacity))
+  );
+
+  &::after {
+    display: none;
+  }
+}
+
+:host([size='lg']) .fill::after {
+  inline-size: var(--sl-size-450);
+  inset-block-end: var(--sl-size-075);
+}
+
+:host([icon-only]) .fill::after {
+  inline-size: var(--sl-size-150);
+}
+
+:host([icon-only][size='lg']) .fill::after {
+  inline-size: var(--sl-size-200);
+}
+
+button {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
+  align-items: center;
+  appearance: none;
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-child);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: var(--sl-fontWeight-semiBold);
+  gap: var(--sl-size-075);
+  inline-size: 100%;
+  isolation: isolate;
+  justify-content: center;
+  line-height: var(--sl-size-lineHeight-250);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--sl-size-100) var(--sl-size-150);
+  position: relative;
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+    z-index: 1;
+  }
+
+  &:hover:not([aria-disabled='true']) {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active:not([aria-disabled='true']) {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  &[aria-current='true'] {
+    background: transparent;
+  }
+
+  &[aria-disabled='true'] {
+    --_bg-mix-color: transparent;
+
+    color: var(--sl-color-foreground-disabled);
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+::slotted(sl-icon) {
+  fill: currentcolor;
+  pointer-events: none;
+}
+
+/* Show the selected icon instead of the icon, like the pressed icon of sl-toggle-button. */
+slot[name='selected-icon'] {
+  display: none;
+}
+
+button[aria-current='true'].has-selected-icon {
+  slot[name='icon'] {
+    display: none;
+  }
+
+  slot[name='selected-icon'] {
+    display: contents;
+  }
+}
+
+/* The fill of the selected option, on its own layer behind the content so it can be animated. */
+.fill {
+  background-color: color-mix(
+    in srgb,
+    var(--sl-color-background-selected-subtle),
+    var(--sl-color-background-selected-interactive-plain) calc(100% * var(--_bg-opacity))
+  );
+  border-radius: inherit;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  scale: 0.4;
+  z-index: -1;
+
+  [aria-current='true'] > & {
+    opacity: 1;
+    scale: 1;
+  }
+
+  &::after {
+    background: var(--sl-color-border-selected);
+    block-size: 3px; /* Should be hardcoded, there is no such token for 3px and this value should not change per different user groups */
+    border-radius: var(--sl-size-borderRadius-sm);
+    content: '';
+    inline-size: var(--sl-size-400);
+    inset-block-end: var(--sl-size-050);
+    inset-inline: 0;
+    margin-inline: auto;
+    position: absolute;
+  }
+}
+
+/*
+ * Selection animation: first the old fill shrinks and fades out (120ms), then the new fill grows
+ * from the centre (120ms, delayed by 120ms). These are animations instead of transitions, so they
+ * start over every time the `entering` or `leaving` attribute is set, also on an option that was
+ * selected before. The segmented control only sets these attributes when the selection changes.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /*
+   * The icons swap instantly, so the label color changes instantly as well.
+   * This keeps the icon and the label in sync when the selection changes.
+   */
+  :host(:is([entering], [leaving])) button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color 0s,
+      outline-color var(--_duration-state) ease;
+  }
+
+  button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color var(--_duration-state) ease,
+      outline-color var(--_duration-state) ease;
+  }
+
+  .fill {
+    transition: background-color var(--_duration-state) ease;
+  }
+
+  :host([leaving]) .fill {
+    animation: fill-out var(--_duration-fill) ease-in both;
+  }
+
+  :host([entering]) .fill {
+    animation: fill-in var(--_duration-fill) ease-out var(--_duration-fill) both;
+  }
+
+  /*
+   * In the bold emphasis, the selected text and icon are light on a strong background. Wait until
+   * the new fill starts to appear before changing the color, so they change together.
+   */
+  :host([emphasis='bold'][entering]) button {
+    transition:
+      background-color var(--_duration-state) ease,
+      color 0s var(--_duration-fill),
+      outline-color var(--_duration-state) ease;
+  }
+
+  ::slotted(sl-icon) {
+    transition: scale var(--_duration-state) ease;
+  }
+
+  button:hover:not(:disabled) ::slotted(sl-icon) {
+    scale: 1.15;
+  }
+}
+
+@keyframes fill-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fill-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+
+  to {
+    opacity: 0;
+    scale: 0.75;
+  }
+}

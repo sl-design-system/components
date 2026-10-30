@@ -1085,7 +1085,7 @@ describe('sl-time-field', () => {
       expect(el).to.match(':focus-within');
     });
 
-    it('should restore focus to the text-field when the popover is closed by pressing Escape', async () => {
+    it('should restore focus to the field button when the popover is closed by pressing Escape', async () => {
       const input = el.renderRoot.querySelector('[role="spinbutton"]');
 
       expect(input).to.exist;
@@ -1107,7 +1107,7 @@ describe('sl-time-field', () => {
       await waitForPopoverState(dialog, false);
 
       expect(dialog).not.to.match(':popover-open');
-      expect(el).to.match(':focus-within');
+      await expect.poll(() => el.button?.matches(':focus-within')).toBe(true);
     });
 
     it('should close the popover and move focus outside the component when pressing Tab', async () => {
@@ -2063,7 +2063,7 @@ describe('sl-time-field', () => {
       expect(dialog).to.match(':popover-open');
     });
 
-    it('should restore focus to spinbutton after popover closes when opened via button after label click', async () => {
+    it('should restore focus to field button on Escape when opened via button after label click', async () => {
       const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
 
@@ -2084,8 +2084,7 @@ describe('sl-time-field', () => {
       expect(dialog).not.to.match(':popover-open');
       expect(el).to.match(':focus-within');
 
-      const hourSpinbutton = el.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
-      expect(el.shadowRoot?.activeElement).to.equal(hourSpinbutton);
+      await expect.poll(() => button.matches(':focus-within')).toBe(true);
     });
 
     it('should set has-focus state when label click focuses the spinbutton', async () => {

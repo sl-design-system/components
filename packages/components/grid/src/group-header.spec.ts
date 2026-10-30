@@ -60,6 +60,27 @@ describe('sl-grid-group-header', () => {
       el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
     });
 
+    it('should be named after the group using aria-labelledby', async () => {
+      el = await fixture(html`
+        <sl-grid-group-header>
+          <span slot="group-heading">Allergist (3)</span>
+        </sl-grid-group-header>
+      `);
+
+      const button = el.renderRoot.querySelector<Button>('sl-button'),
+        [label, heading] = button?.getProxyTarget()?.ariaLabelledByElements ?? [],
+        slot = heading?.querySelector('slot');
+
+      expect(label?.textContent?.trim()).to.equal('Toggle group');
+      expect(heading).to.have.attribute('part', 'group-heading');
+      expect(
+        slot
+          ?.assignedNodes({ flatten: true })
+          .map(node => node.textContent?.trim())
+          .join('')
+      ).to.equal('Allergist (3)');
+    });
+
     it('should update aria-expanded from "true" to "false"', async () => {
       const button = el.renderRoot.querySelector<Button>('sl-button');
 

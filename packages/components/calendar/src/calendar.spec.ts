@@ -802,6 +802,33 @@ describe('sl-calendar', () => {
       expect(el.month?.getDate()).to.equal(15); // Should preserve day
     });
 
+    it('should keep February visible when changing from a leap year to a non-leap year', async () => {
+      const selected = new Date(2024, 1, 29),
+        onChange = vi.fn();
+
+      el = await fixture(
+        html`<sl-calendar .selected=${selected} @sl-change=${onChange}></sl-calendar>`
+      );
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')!
+        .renderRoot.querySelector<HTMLElement>('.current-year')!
+        .click();
+      await el.updateComplete;
+
+      const buttons = el.renderRoot
+        .querySelector<SelectYear>('sl-select-year')!
+        .renderRoot.querySelectorAll<HTMLButtonElement>('button');
+
+      Array.from(buttons)
+        .find(button => button.textContent?.trim() === '2025')!
+        .click();
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2025, 1, 28));
+      expect(el.selected).to.equalDate(selected);
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('should return to day mode when a year is selected', async () => {
       // Switch to year mode
       el.renderRoot

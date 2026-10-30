@@ -572,6 +572,52 @@ describe('sl-date-field', () => {
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
     });
 
+    for (const [year, month, lastDay] of [
+      [2026, 3, 30],
+      [2026, 1, 28],
+      [2028, 1, 29]
+    ]) {
+      it(`should open month ${month + 1}/${year} on the first attempt from January 31, including after reopening`, async () => {
+        const value = new Date(year, 0, 31),
+          onChange = vi.fn();
+
+        el.value = value;
+        el.addEventListener('sl-change', onChange);
+        await el.updateComplete;
+
+        for (let attempt = 0; attempt < 2; attempt++) {
+          el.showPicker();
+          await el.updateComplete;
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!,
+            selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+          selectDay.renderRoot.querySelector<HTMLElement>('.current-month')!.click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          const monthButtons = calendar.renderRoot
+            .querySelector<RenderRootElement>('sl-select-month')!
+            .renderRoot.querySelectorAll<HTMLButtonElement>('button');
+
+          monthButtons[month].click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          expect(calendar.view).to.equal('day');
+          expect(calendar.month).to.equalDate(new Date(year, month, lastDay));
+          expect(selectDay.month).to.equalDate(new Date(year, month, lastDay));
+          expect(calendar.selected).to.equalDate(value);
+          expect(el.value).to.equalDate(value);
+          expect(onChange).not.toHaveBeenCalled();
+
+          el.hidePicker();
+          await el.updateComplete;
+        }
+      });
+    }
+
     it('should focus the first day of the selected month after choosing a month', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));

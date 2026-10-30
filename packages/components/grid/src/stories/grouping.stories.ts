@@ -9,11 +9,26 @@ import {
 } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { type TemplateResult, html } from 'lit';
 import '.././register.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
+
+/**
+ * Renders the custom group header content. The button shows "Add student", but its accessible name
+ * is "Add student to GROUP NAME", so every button in the grid has a unique name. The name comes
+ * from a hidden element referenced with `aria-labelledby`.
+ */
+const addStudentGroupHeaderRenderer = (item: ListDataSourceGroupItem): TemplateResult => {
+  const labelId = `add-student-label-${String(item.id)}`;
+
+  return html`
+    <span slot="group-heading">${item.label} (${item.count})</span>
+    <span hidden id=${labelId}>Add student to ${item.label}</span>
+    <sl-button aria-labelledby=${labelId} size="sm">Add student</sl-button>
+  `;
+};
 
 export default {
   title: 'Grid/Grouping',
@@ -242,19 +257,16 @@ export const CustomGroupHeader: Story = {
         groupBy: 'school.id',
         groupLabelPath: 'school.name'
       }),
-      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
-        return html`
-          <span slot="group-heading">${item.label} (${item.count})</span>
-          <sl-button size="sm">Add student</sl-button>
-        `;
-      };
+      groupHeaderRenderer = addStudentGroupHeaderRenderer;
 
     return html`
       <p>
         This example shows how you can customize the group header. By using the
         <code>groupHeaderRenderer</code> callback property, it adds an "Add student" button to the
-        group header. When doing this, do not forget to also set the
-        <code>scopedElements</code> property to include the custom elements used in the renderer.
+        group header. The button has an <code>aria-labelledby</code> that points to a hidden text
+        ("Add student to GROUP NAME"), so each button has a unique name for screen readers. When
+        doing this, do not forget to also set the <code>scopedElements</code> property to include
+        the custom elements used in the renderer.
       </p>
       <sl-grid
         .dataSource=${dataSource}
@@ -280,12 +292,7 @@ export const StickyColumnsWithCustomGroupHeader: Story = {
         groupBy: 'school.id',
         groupLabelPath: 'school.name'
       }),
-      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
-        return html`
-          <span slot="group-heading">${item.label} (${item.count})</span>
-          <sl-button size="sm">Add student</sl-button>
-        `;
-      };
+      groupHeaderRenderer = addStudentGroupHeaderRenderer;
 
     return html`
       <style>

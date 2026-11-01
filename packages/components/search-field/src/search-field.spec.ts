@@ -1,4 +1,4 @@
-import { configureLocalization } from '@lit/localize';
+import { configureLocalization, str } from '@lit/localize';
 import { type Form as SlForm } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -761,7 +761,15 @@ describe('sl-search-field', () => {
       const { setLocale } = configureLocalization({
         sourceLocale: 'en',
         targetLocales: ['pl'],
-        loadLocale: () => import('../../../locales/src/pl.js')
+        // Keep the component test independent of generated locale modules and their build.
+        loadLocale: () =>
+          Promise.resolve({
+            templates: {
+              'sl.searchField.suggestions': 'Sugerowane wyszukiwania',
+              'sl.searchField.loading': 'Wyszukiwanie sugestii…',
+              'sl.searchField.inlineCompletion': str`Sugerowane uzupełnienie: ${0}. Naciśnij strzałkę w prawo lub End, aby zaakceptować.`
+            }
+          })
       });
       el.loading = true;
       await userEvent.type(el.input, 'Gar');

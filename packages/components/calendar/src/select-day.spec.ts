@@ -881,6 +881,53 @@ describe('sl-select-day', () => {
       });
     });
 
+    it('should skip a pending announcement when the day view becomes inert', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.inert = true;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(el.isConnected).to.be.true;
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should skip a pending announcement when the month changes without a navigation button', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2023, 4, 1);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should skip a pending announcement when only the year changes', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2024, 3, 1);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should still announce when only the day changes within the displayed month', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2023, 3, 15);
+      await el.updateComplete;
+      await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+
+      expect((announce.lastCall.firstArg as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'April 2023',
+        urgency: 'polite'
+      });
+    });
+
     describe('back', () => {
       it('should show the previous month when using the keyboard', async () => {
         el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus();

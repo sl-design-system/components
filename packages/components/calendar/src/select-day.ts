@@ -733,11 +733,21 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // The focused navigation button's accessible name changes after scrolling settles.
     // Give screen readers time to process it before sending the live announcement.
     this.#announceTimeoutId = setTimeout(() => {
+      this.#announceTimeoutId = undefined;
+
+      // The day view stays connected when month/year selection is open. Its delayed
+      // announcement must also be skipped if navigation has since changed the month.
+      if (
+        this.inert ||
+        this.month.getFullYear() !== month.getFullYear() ||
+        this.month.getMonth() !== month.getMonth()
+      ) {
+        return;
+      }
+
       const monthFormatted = format(month, this.locale, { month: 'long', year: 'numeric' });
 
       announce(`${monthFormatted}`, 'polite');
-
-      this.#announceTimeoutId = undefined;
     }, 250);
   }
 

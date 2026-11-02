@@ -231,7 +231,8 @@ export class SearchField extends TextField {
         'unavailable',
         'suggestionOpen',
         'disabled',
-        'readonly'
+        'readonly',
+        'maxLength'
       ].some(key => changes.has(key as keyof SearchField))
     ) {
       this.#suggestionsDirty = false;
@@ -263,6 +264,13 @@ export class SearchField extends TextField {
     );
   }
 
+  #fitsMaxLength(value: string): boolean {
+    const limit = this.maxLength;
+    return (
+      typeof limit !== 'number' || !Number.isInteger(limit) || limit < 0 || value.length <= limit
+    );
+  }
+
   #renderSuggestions(): void {
     this.#discardInline();
     const query = this.value ?? '',
@@ -281,6 +289,7 @@ export class SearchField extends TextField {
               return match && (this.matching === 'contains' || match.prefix);
             })
           : [],
+      listPhrases = phrases.filter(label => this.#fitsMaxLength(label)),
       showList = eligible && (this.autocomplete === 'list' || this.autocomplete === 'both');
 
     if (!this.#listbox) {
@@ -301,7 +310,7 @@ export class SearchField extends TextField {
     const listFocused = this.#listbox.matches(':focus'),
       activeValue: unknown = this.#options[this.#activeIndex]?.value;
     this.#options = showList
-      ? phrases.map(label => {
+      ? listPhrases.map(label => {
           const option = this.shadowRoot!.createElement('sl-option'),
             { start, end } = matchSuggestion(label, query)!;
           option.id = `${this.#listbox!.id}-${nextSuggestionId++}`;
@@ -322,8 +331,8 @@ export class SearchField extends TextField {
       : [];
     this.#listbox.replaceChildren(...this.#options);
     if (listFocused && !this.#options.length) this.input.focus();
-    this.#listbox.hidden = !showList || !phrases.length;
-    this.#listbox.tabIndex = showList && phrases.length ? 0 : -1;
+    this.#listbox.hidden = !showList || !listPhrases.length;
+    this.#listbox.tabIndex = showList && listPhrases.length ? 0 : -1;
     this.#activeIndex = -1;
     this.#listbox.removeAttribute('aria-activedescendant');
     if (listFocused && this.#options.length)
@@ -333,8 +342,8 @@ export class SearchField extends TextField {
           this.#options.findIndex(option => option.value === activeValue)
         )
       );
-    this.#message!.hidden = !showList || !!phrases.length;
-    if (showList && phrases.length) this.input.setAttribute('aria-controls', this.#listbox.id);
+    this.#message!.hidden = !showList || !!listPhrases.length;
+    if (showList && listPhrases.length) this.input.setAttribute('aria-controls', this.#listbox.id);
     else this.input.removeAttribute('aria-controls');
 
     if (
@@ -348,7 +357,12 @@ export class SearchField extends TextField {
     ) {
       const completion = phrases.find(label => {
         const match = matchSuggestion(label, query)!;
-        return match.prefix && match.complete && match.end < label.length;
+        return (
+          match.prefix &&
+          match.complete &&
+          match.end < label.length &&
+          this.#fitsMaxLength(query + label.slice(match.end))
+        );
       });
       if (completion) {
         this.inlineValue = query + completion.slice(matchSuggestion(completion, query)!.end);
@@ -455,6 +469,8 @@ export class SearchField extends TextField {
   }
 
   #acceptSuggestion(label: string): void {
+    if (!this.#fitsMaxLength(label)) return;
+
     this.#clearDebounceTimer();
     this.#discardInline();
     this.input.value = label;
@@ -550,6 +566,8 @@ export class SearchField extends TextField {
       event.preventDefault();
       const completion = this.inlineValue;
       this.#discardInline();
+      if (!this.#fitsMaxLength(completion)) return;
+
       this.input.value = completion;
       this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       return;

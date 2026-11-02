@@ -408,6 +408,154 @@ describe('sl-search-field', () => {
       expect(onSearch).to.have.been.calledOnce;
     });
 
+    it('does not offer or accept an overlong inline proposal with Right Arrow', async () => {
+      el.maxLength = 3;
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(suffix()).to.be.undefined;
+      expect(el.value).to.equal('Gar');
+      expect(el.input.value).to.equal('Gar');
+      expect(options()).to.have.length(0);
+    });
+
+    it('does not accept an overlong inline proposal with End', async () => {
+      el.maxLength = 3;
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      await userEvent.keyboard('{End}');
+
+      expect(suffix()).to.be.undefined;
+      expect(el.value).to.equal('Gar');
+      expect(el.input.value).to.equal('Gar');
+    });
+
+    it('offers only list phrases that fit maxlength and accepts a phrase at the limit', async () => {
+      el.maxLength = 6;
+      el.suggestions = ['Garden', 'Garland'];
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+
+      expect(options().map(option => option.value as string)).to.deep.equal(['Garden']);
+
+      const onSearch = searchSpy();
+      await userEvent.click(options()[0]);
+
+      expect(el.value).to.equal('Garden');
+      expect(el.input.value).to.equal('Garden');
+      expect(onSearch).to.have.been.calledOnceWith('Garden');
+    });
+
+    it('rechecks maxlength before accepting a previously displayed inline proposal', async () => {
+      await userEvent.type(el.input, 'Gar');
+
+      await expect.poll(suffix).to.equal('cía');
+
+      el.maxLength = 3;
+      el.input.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'ArrowRight',
+          bubbles: true,
+          composed: true,
+          cancelable: true
+        })
+      );
+
+      expect(el.value).to.equal('Gar');
+      expect(el.input.value).to.equal('Gar');
+
+      await el.updateComplete;
+
+      expect(suffix()).to.be.undefined;
+      expect(options()).to.have.length(0);
+    });
+
+    it('rechecks maxlength before accepting a previously displayed list option by pointer', async () => {
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      const option = options()[0],
+        onSearch = searchSpy();
+      el.maxLength = 3;
+      option.click();
+
+      expect(el.value).to.equal('Gar');
+      expect(el.input.value).to.equal('Gar');
+      expect(onSearch).not.to.have.been.called;
+
+      await el.updateComplete;
+
+      expect(options()).to.have.length(0);
+    });
+
+    it('rechecks maxlength before accepting a focused list option with Enter', async () => {
+      await userEvent.type(el.input, 'Gar');
+      await userEvent.keyboard('{ArrowDown}');
+      const onSearch = searchSpy();
+      el.maxLength = 3;
+      list().dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          bubbles: true,
+          composed: true,
+          cancelable: true
+        })
+      );
+
+      expect(el.value).to.equal('Gar');
+      expect(el.input.value).to.equal('Gar');
+      expect(onSearch).not.to.have.been.called;
+
+      await el.updateComplete;
+
+      expect(options()).to.have.length(0);
+      expect(document.activeElement).to.equal(el.input);
+    });
+
+    it('refreshes and accepts inline proposals when maxlength is increased', async () => {
+      el.maxLength = 3;
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+
+      expect(suffix()).to.be.undefined;
+      expect(options()).to.have.length(0);
+
+      el.maxLength = 6;
+      await el.updateComplete;
+
+      await expect.poll(suffix).to.equal('cía');
+
+      await userEvent.keyboard('{End}');
+
+      expect(el.value).to.equal('García');
+      expect(el.input.value).to.equal('García');
+    });
+
+    it('uses UTF-16 length for suggestion limits just like the native input', async () => {
+      el.maxLength = 4;
+      el.suggestions = ['Gar😀'];
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+
+      expect(suffix()).to.be.undefined;
+      expect(options()).to.have.length(0);
+      expect(el.input.value).to.equal('Gar');
+    });
+
+    it('checks the actual inline value length after matching a decomposed accent', async () => {
+      el.maxLength = 6;
+      el.suggestions = ['Garci\u0301a'];
+      await userEvent.type(el.input, 'Garci');
+
+      await expect.poll(suffix).to.equal('a');
+
+      await userEvent.keyboard('{End}');
+
+      expect(el.value).to.equal('Garcia');
+      expect(el.input.value).to.equal('Garcia');
+      expect(el.input.value.length).to.equal(6);
+    });
+
     it('accepts the inline completion with ArrowRight', async () => {
       await userEvent.type(el.input, 'Gar');
       await userEvent.keyboard('{ArrowRight}');

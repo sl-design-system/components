@@ -351,67 +351,165 @@ describe('sl-time-field', () => {
       expect(selection.toString()).to.equal('');
     }
 
-    for (const [index, name] of (['hour', 'minute'] as const).entries()) {
-      for (const empty of [false, true]) {
-        it(`should collapse the selection after focusing the ${empty ? 'empty' : 'filled'} ${name}`, async () => {
-          if (empty) {
-            el.value = undefined;
-            await el.updateComplete;
-          }
+    it('should collapse the selection after focusing the filled hour', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[0];
 
-          const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+      part.focus();
+      await waitForSelection();
 
-          part.focus();
-          await waitForSelection();
+      expectCollapsedSelection(part);
+    });
 
-          expectCollapsedSelection(part);
-        });
-      }
+    it('should collapse the selection after focusing the empty hour', async () => {
+      el.value = undefined;
+      await el.updateComplete;
 
-      it(`should keep the selection collapsed after editing the ${name}`, async () => {
-        const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[0];
 
-        part.focus();
-        await waitForSelection();
+      part.focus();
+      await waitForSelection();
 
-        await userEvent.keyboard('1');
-        await waitForSelection();
+      expectCollapsedSelection(part);
+    });
 
-        expect(el.timeParts[name]).to.equal(1);
-        expectCollapsedSelection(part);
+    it('should keep the selection collapsed after editing the hour', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[0];
 
-        await userEvent.keyboard('{ArrowUp}');
-        await waitForSelection();
+      part.focus();
+      await waitForSelection();
 
-        expect(el.timeParts[name]).to.equal(index === 0 ? 2 : 6);
-        expectCollapsedSelection(part);
+      await userEvent.keyboard('1');
+      await waitForSelection();
 
-        await userEvent.keyboard('{Backspace}');
-        await waitForSelection();
+      expect(el.timeParts.hour).to.equal(1);
+      expectCollapsedSelection(part);
 
-        expect(el.timeParts[name]).to.be.undefined;
-        expectCollapsedSelection(part);
-      });
+      await userEvent.keyboard('{ArrowUp}');
+      await waitForSelection();
 
-      for (const modifier of ['Control', 'Meta']) {
-        it(`should select the complete time with ${modifier}+A from the ${name}`, async () => {
-          const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+      expect(el.timeParts.hour).to.equal(2);
+      expectCollapsedSelection(part);
 
-          part.focus();
-          await waitForSelection();
+      await userEvent.keyboard('{Backspace}');
+      await waitForSelection();
 
-          await userEvent.keyboard(`{${modifier}>}a{/${modifier}}`);
-          await waitForSelection();
+      expect(el.timeParts.hour).to.be.undefined;
+      expectCollapsedSelection(part);
+    });
 
-          const selection = el.ownerDocument.getSelection()!;
+    it('should select the complete time with Control+A from the hour', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[0];
 
-          expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
-          expect(selection.rangeCount).to.equal(1);
-          expect(selection.isCollapsed).to.be.false;
-          expect(selection.toString()).to.equal('12:34');
-        });
-      }
-    }
+      part.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await waitForSelection();
+
+      const selection = el.ownerDocument.getSelection()!;
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.isCollapsed).to.be.false;
+      expect(selection.toString()).to.equal('12:34');
+    });
+
+    it('should select the complete time with Meta+A from the hour', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[0];
+
+      part.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('{Meta>}a{/Meta}');
+      await waitForSelection();
+
+      const selection = el.ownerDocument.getSelection()!;
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.isCollapsed).to.be.false;
+      expect(selection.toString()).to.equal('12:34');
+    });
+
+    it('should collapse the selection after focusing the filled minute', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[1];
+
+      part.focus();
+      await waitForSelection();
+
+      expectCollapsedSelection(part);
+    });
+
+    it('should collapse the selection after focusing the empty minute', async () => {
+      el.value = undefined;
+      await el.updateComplete;
+
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[1];
+
+      part.focus();
+      await waitForSelection();
+
+      expectCollapsedSelection(part);
+    });
+
+    it('should keep the selection collapsed after editing the minute', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[1];
+
+      part.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('1');
+      await waitForSelection();
+
+      expect(el.timeParts.minute).to.equal(1);
+      expectCollapsedSelection(part);
+
+      await userEvent.keyboard('{ArrowUp}');
+      await waitForSelection();
+
+      expect(el.timeParts.minute).to.equal(6);
+      expectCollapsedSelection(part);
+
+      await userEvent.keyboard('{Backspace}');
+      await waitForSelection();
+
+      expect(el.timeParts.minute).to.be.undefined;
+      expectCollapsedSelection(part);
+    });
+
+    it('should select the complete time with Control+A from the minute', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[1];
+
+      part.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('{Control>}a{/Control}');
+      await waitForSelection();
+
+      const selection = el.ownerDocument.getSelection()!;
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.isCollapsed).to.be.false;
+      expect(selection.toString()).to.equal('12:34');
+    });
+
+    it('should select the complete time with Meta+A from the minute', async () => {
+      const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[1];
+
+      part.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('{Meta>}a{/Meta}');
+      await waitForSelection();
+
+      const selection = el.ownerDocument.getSelection()!;
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.isCollapsed).to.be.false;
+      expect(selection.toString()).to.equal('12:34');
+    });
 
     it('should keep the selection collapsed when moving between parts with arrow keys', async () => {
       const [hour, minute] = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]');

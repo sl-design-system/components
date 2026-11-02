@@ -99,7 +99,10 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             <sl-icon name="chevron-down"></sl-icon>
           </sl-button>
           <div id="group-heading" part="group-heading">
-            <slot name="group-heading"></slot>
+            <slot name="group-heading">
+              <!-- Fallback when a custom renderer does not provide a heading: keeps the name unique for assistive technology -->
+              <span hidden>${this.groupLabel}</span>
+            </slot>
           </div>
         </div>
         <div part="actions">

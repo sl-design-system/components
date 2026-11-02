@@ -58,6 +58,17 @@ describe('sl-grid-group-header', () => {
       expect(label?.textContent?.trim()).to.equal('Select group');
       expect(heading).to.have.attribute('part', 'group-heading');
     });
+
+    it('should fall back to group-label when no heading is slotted', async () => {
+      el = await fixture(
+        html`<sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>`
+      );
+
+      const checkbox = el.renderRoot.querySelector<Checkbox>('sl-checkbox'),
+        heading = checkbox?.getProxyTarget()?.ariaLabelledByElements?.[1];
+
+      expect(heading?.textContent?.trim()).to.equal('Allergist');
+    });
   });
 
   describe('toggle button', () => {

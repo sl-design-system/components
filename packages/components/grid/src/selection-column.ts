@@ -3,6 +3,7 @@ import { Checkbox } from '@sl-design-system/checkbox';
 import {
   type ListDataSourceDataItem,
   type ListDataSourceItem,
+  ListDataSourcePlaceholder,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
@@ -107,7 +108,10 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     const classes = this.getClasses(item.data),
       // Row context (e.g. the student's name) makes the name unique: "Select row John Doe"
-      rowLabel = this.formControlLabel?.(item.data)?.trim(),
+      rowLabel =
+        item.data === ListDataSourcePlaceholder
+          ? undefined
+          : this.formControlLabel?.(item.data)?.trim(),
       rowLabelId = this.#getRowLabelId(item);
 
     return html`

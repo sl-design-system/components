@@ -7,6 +7,7 @@ import {
   ArrayListDataSource,
   FetchListDataSource,
   type ListDataSourceGroupItem,
+  ListDataSourcePlaceholder,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
@@ -1960,6 +1961,34 @@ describe('sl-grid', () => {
       );
 
       expect(names).to.deep.equal(['Select row John Doe', 'Select row Jane Smith']);
+    });
+
+    it('should not call the row label callback for placeholder rows', async () => {
+      const label = spy((s: Student) => s.firstName);
+
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>([{ firstName: 'John', lastName: 'Doe' }])}>
+          <sl-grid-selection-column .formControlLabel=${label}></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const column = el.querySelector('sl-grid-selection-column')!;
+
+      label.resetHistory();
+
+      expect(() =>
+        column.renderData({
+          id: 0,
+          data: ListDataSourcePlaceholder,
+          selected: false,
+          type: 'data'
+        } as never)
+      ).not.to.throw();
+      expect(label).not.to.have.been.called;
     });
 
     it('should deselect the displayed rows when a partially selected group checkbox is unchecked', async () => {

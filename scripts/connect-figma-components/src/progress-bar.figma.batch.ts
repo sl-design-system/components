@@ -13,10 +13,10 @@ const instance = figma.selectedInstance;
 function getExample() {
   const variant = checkEnum(
       instance.getEnum('variant', {
-        Default: 'default',
-        Positive: 'positive',
-        Negative: 'negative',
-        Caution: 'caution'
+        undefined: 'default',
+        success: 'positive',
+        error: 'negative',
+        warning: 'caution'
       }) || 'default'
     ),
     progress = checkEnum(
@@ -31,14 +31,14 @@ function getExample() {
     ),
     color = checkEnum(
       instance.getEnum('color', {
-        Default: 'default',
-        Blue: 'blue',
-        Green: 'green',
-        Orange: 'orange',
-        Purple: 'purple',
-        Red: 'red',
-        Teal: 'teal',
-        Yellow: 'yellow'
+        default: 'default',
+        blue: 'blue',
+        green: 'green',
+        orange: 'orange',
+        purple: 'purple',
+        red: 'red',
+        teal: 'teal',
+        yellow: 'yellow'
       }) || 'default'
     );
 
@@ -57,7 +57,7 @@ function getExample() {
     const validationMessage = instance.findInstance('sl-base-validation-message', {
       traverseInstances: true
     }) as InstanceHandle;
-    errorMessage = checkStringProperty(validationMessage.getString('message'), 'message');
+    errorMessage = checkStringProperty(validationMessage.getString('Message'), 'Message');
   }
 
   const value = progress === 'indeterminate' ? undefined : Number.parseInt(progress, 10);

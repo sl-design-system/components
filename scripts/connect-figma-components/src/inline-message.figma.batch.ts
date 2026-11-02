@@ -20,9 +20,9 @@ function getExample() {
     variant = checkEnum(
       instance.getEnum('variant', {
         info: 'info',
-        positive: 'success',
-        caution: 'warning',
-        negative: 'danger'
+        success: 'success',
+        warning: 'warning',
+        danger: 'danger'
       }) ?? 'info'
     );
 

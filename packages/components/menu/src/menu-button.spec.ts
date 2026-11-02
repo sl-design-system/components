@@ -20,6 +20,19 @@ Icon.register(faGear);
 describe('sl-menu-button', () => {
   let el: MenuButton, button: Button, menu: Menu;
 
+  it('should hide forwarded separators from assistive technologies', async () => {
+    el = await fixture(html`
+      <sl-menu-button>
+        <span slot="button">Button</span>
+        <sl-menu-item>Item 1</sl-menu-item>
+        <hr />
+        <sl-menu-item>Item 2</sl-menu-item>
+      </sl-menu-button>
+    `);
+
+    await expect.poll(() => el.querySelector('hr')?.getAttribute('aria-hidden')).toBe('true');
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`

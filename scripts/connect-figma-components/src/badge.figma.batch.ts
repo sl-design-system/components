@@ -11,12 +11,29 @@ function getExample() {
     size = checkStringProperty(instance.getString('size'), 'size') ?? 'md',
     slot = instance.getString('slot');
 
-  const badgeBase = instance.findInstance(`badge-base-${size}`) as InstanceHandle;
+  const badgeBase = instance.findInstance(`badge-base-${size}`) as InstanceHandle,
+    badgeBaseVariant = badgeBase.getEnum('Variant', {
+      'text only (2 or more char.)': 'textOnly',
+      'round (icon or single char.)': 'round',
+      'text & icon': 'textAndIcon'
+    });
 
-  const iconInstance = badgeBase.findInstance('sl-icon', { traverseInstances: true }),
-    icon = iconInstance.executeTemplate().example;
+  let icon, badgeRoundContent, label;
+  if (badgeBaseVariant === 'round') {
+    const badgeRound = badgeBase.findInstance(`_badge-round-content-${size}`) as InstanceHandle;
+    badgeRoundContent = badgeRound.getEnum('content', {
+      icon: 'icon',
+      'single char. label': 'text'
+    });
+    label = checkStringProperty(badgeRound.getString('Text'), 'Text');
+  } else {
+    label = checkStringProperty(badgeBase.getString('Text'), 'Text');
+  }
 
-  const label = checkStringProperty(badgeBase.getString('Text'), 'Text');
+  if (badgeBaseVariant !== 'textOnly' && badgeRoundContent !== 'text' && size !== 'sm') {
+    const iconInstance = badgeBase.findInstance('sl-icon', { traverseInstances: true });
+    icon = iconInstance ? iconInstance.executeTemplate().example : undefined;
+  }
 
   return figma.code`
     <sl-badge
@@ -25,8 +42,8 @@ function getExample() {
       ${size !== 'md' ? ` size="${size}"` : ''}
       ${typeof slot === 'string' ? ` slot="${slot}"` : ''}
     >
-      ${icon ?? ''}
-      ${label}
+      ${icon ? icon : ''}
+      ${badgeRoundContent !== 'icon' && size !== 'sm' ? label : ''}
     </sl-badge>
   `;
 }

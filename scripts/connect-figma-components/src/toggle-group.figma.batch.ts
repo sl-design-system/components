@@ -63,7 +63,8 @@ function getExample() {
       true,
       checkBooleanProperty(instance.getBoolean('button 2'), 'button 2'),
       checkBooleanProperty(instance.getBoolean('button 3'), 'button 3'),
-      checkBooleanProperty(instance.getBoolean('button 4'), 'button 4')
+      checkBooleanProperty(instance.getBoolean('button 4'), 'button 4'),
+      true
     ],
     buttons = buttonInstances
       .filter((_, index) => visibleButtons[index])

@@ -1185,28 +1185,43 @@ describe('sl-calendar', () => {
   });
 
   describe('helper text', () => {
-    for (const view of ['month', 'year'] as const) {
-      it(`should keep the ${view} table above the helper text`, async () => {
-        el = await fixture(html`
-          <sl-calendar .month=${new Date(2023, 2, 14)} max="2023-12-31"></sl-calendar>
-        `);
-        el.view = view;
-        await el.updateComplete;
+    it('should keep the month table above the helper text', async () => {
+      el = await fixture(html`
+        <sl-calendar .month=${new Date(2023, 2, 14)} max="2023-12-31"></sl-calendar>
+      `);
+      el.view = 'month';
+      await el.updateComplete;
 
-        const selector = el.renderRoot.querySelector<SelectMonth | SelectYear>(
-          `sl-select-${view}`
-        )!;
-        await selector.updateComplete;
+      const selector = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await selector.updateComplete;
 
-        const table = selector.renderRoot.querySelector('table')!,
-          helper = el.renderRoot.querySelector('.helper-text')!,
-          tableBounds = table.getBoundingClientRect();
+      const table = selector.renderRoot.querySelector('table')!,
+        helper = el.renderRoot.querySelector('.helper-text')!,
+        tableBounds = table.getBoundingClientRect();
 
-        expect(tableBounds.height).to.be.greaterThan(0);
-        expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
-        expect(tableBounds.bottom).to.be.at.most(helper.getBoundingClientRect().top);
-      });
-    }
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(helper.getBoundingClientRect().top);
+    });
+
+    it('should keep the year table above the helper text', async () => {
+      el = await fixture(html`
+        <sl-calendar .month=${new Date(2023, 2, 14)} max="2023-12-31"></sl-calendar>
+      `);
+      el.view = 'year';
+      await el.updateComplete;
+
+      const selector = el.renderRoot.querySelector<SelectYear>('sl-select-year')!;
+      await selector.updateComplete;
+
+      const table = selector.renderRoot.querySelector('table')!,
+        helper = el.renderRoot.querySelector('.helper-text')!,
+        tableBounds = table.getBoundingClientRect();
+
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(helper.getBoundingClientRect().top);
+    });
 
     it('should not render helper text when neither min nor max is set', async () => {
       el = await fixture(html`<sl-calendar locale="en-GB"></sl-calendar>`);

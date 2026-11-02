@@ -332,6 +332,105 @@ describe('sl-time-field', () => {
     });
   });
 
+  describe('text selection', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-time-field locale="en-GB" value="12:34"></sl-time-field>`);
+    });
+
+    async function waitForSelection(): Promise<void> {
+      await el.updateComplete;
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    }
+
+    function expectCollapsedSelection(part: HTMLElement): void {
+      const selection = el.ownerDocument.getSelection()!;
+
+      expect(el.shadowRoot?.activeElement).to.equal(part);
+      expect(selection.rangeCount).to.equal(1);
+      expect(selection.isCollapsed).to.be.true;
+      expect(selection.toString()).to.equal('');
+    }
+
+    for (const [index, name] of (['hour', 'minute'] as const).entries()) {
+      for (const empty of [false, true]) {
+        it(`should collapse the selection after focusing the ${empty ? 'empty' : 'filled'} ${name}`, async () => {
+          if (empty) {
+            el.value = undefined;
+            await el.updateComplete;
+          }
+
+          const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+
+          part.focus();
+          await waitForSelection();
+
+          expectCollapsedSelection(part);
+        });
+      }
+
+      it(`should keep the selection collapsed after editing the ${name}`, async () => {
+        const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+
+        part.focus();
+        await waitForSelection();
+
+        await userEvent.keyboard('1');
+        await waitForSelection();
+
+        expect(el.timeParts[name]).to.equal(1);
+        expectCollapsedSelection(part);
+
+        await userEvent.keyboard('{ArrowUp}');
+        await waitForSelection();
+
+        expect(el.timeParts[name]).to.equal(index === 0 ? 2 : 6);
+        expectCollapsedSelection(part);
+
+        await userEvent.keyboard('{Backspace}');
+        await waitForSelection();
+
+        expect(el.timeParts[name]).to.be.undefined;
+        expectCollapsedSelection(part);
+      });
+
+      for (const modifier of ['Control', 'Meta']) {
+        it(`should select the complete time with ${modifier}+A from the ${name}`, async () => {
+          const part = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]')[index];
+
+          part.focus();
+          await waitForSelection();
+
+          await userEvent.keyboard(`{${modifier}>}a{/${modifier}}`);
+          await waitForSelection();
+
+          const selection = el.ownerDocument.getSelection()!;
+
+          expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('.select-all'));
+          expect(selection.rangeCount).to.equal(1);
+          expect(selection.isCollapsed).to.be.false;
+          expect(selection.toString()).to.equal('12:34');
+        });
+      }
+    }
+
+    it('should keep the selection collapsed when moving between parts with arrow keys', async () => {
+      const [hour, minute] = el.renderRoot.querySelectorAll<HTMLElement>('[role="spinbutton"]');
+
+      hour.focus();
+      await waitForSelection();
+
+      await userEvent.keyboard('{ArrowRight}');
+      await waitForSelection();
+
+      expectCollapsedSelection(minute);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await waitForSelection();
+
+      expectCollapsedSelection(hour);
+    });
+  });
+
   describe('has-value state', () => {
     it('should not have the state when there is no value', async () => {
       const empty = await fixture<TimeField>(

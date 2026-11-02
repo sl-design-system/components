@@ -39,6 +39,7 @@
   color: var(--sl-color-foreground-plain);
   display: block;
   outline: none;
+  overflow-anchor: none;
   position: relative;
 }
 
@@ -249,6 +250,7 @@ table {
   inline-size: fit-content;
   min-inline-size: 100%;
   overflow: clip;
+  overflow-anchor: none;
   position: relative;
   z-index: 1;
 }
@@ -297,8 +299,8 @@ tbody {
   border-end-start-radius: var(--sl-size-borderRadius-default);
   border-inline: var(--_border);
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
-  min-block-size: var(--sl-grid-tbody-min-height);
   overflow: auto clip;
+  overflow-anchor: none;
   overscroll-behavior: contain auto;
   scrollbar-width: none;
 

@@ -216,6 +216,13 @@ export class Menu extends LitElement {
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    // Separators are decorative and should not be announced by screen readers.
+    event.target.assignedElements({ flatten: true }).forEach(element => {
+      if (element instanceof HTMLHRElement) {
+        element.setAttribute('aria-hidden', 'true');
+      }
+    });
+
     let menuItems: MenuItem[];
 
     if (this.querySelector('slot:not([name])')) {

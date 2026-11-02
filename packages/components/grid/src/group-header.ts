@@ -101,7 +101,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
           <div id="group-heading" part="group-heading">
             <slot name="group-heading">
               <!-- Fallback when a custom renderer does not provide a heading: keeps the name unique for assistive technology -->
-              <span hidden>${this.groupLabel}</span>
+              <span class="visually-hidden">${this.groupLabel}</span>
             </slot>
           </div>
         </div>

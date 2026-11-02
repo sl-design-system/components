@@ -64,10 +64,9 @@ describe('sl-grid-group-header', () => {
         html`<sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>`
       );
 
-      const checkbox = el.renderRoot.querySelector<Checkbox>('sl-checkbox'),
-        heading = checkbox?.getProxyTarget()?.ariaLabelledByElements?.[1];
-
-      expect(heading?.textContent?.trim()).to.equal('Allergist');
+      const fallback = el.renderRoot.querySelector<HTMLElement>('#group-heading .visually-hidden');
+      expect(fallback).to.have.text('Allergist');
+      expect(getComputedStyle(fallback!).display).to.not.equal('none');
     });
   });
 

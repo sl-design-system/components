@@ -586,8 +586,11 @@ export class SearchField extends TextField {
     } else if (event.key === 'Escape') {
       event.preventDefault();
 
-      if (this.suggestionOpen || this.inlineValue) this.#closeSuggestions();
-      else this.clear();
+      if (this.inlineValue || this.#listbox?.hidden === false || this.#message?.hidden === false) {
+        this.#closeSuggestions();
+      } else {
+        this.clear();
+      }
     }
   }
 

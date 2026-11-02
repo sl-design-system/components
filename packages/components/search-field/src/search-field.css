@@ -87,7 +87,7 @@ button {
   padding-inline-end: var(--sl-size-075);
 }
 
-:host([shape='pill']),
+:host([shape='pill']:not([size='lg'])),
 :host([size='lg']),
 :host([shape='pill'][size='lg']) {
   padding: 0;

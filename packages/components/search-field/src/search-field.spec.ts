@@ -509,6 +509,120 @@ describe('sl-search-field', () => {
       expect(list().hidden).to.be.true;
     });
 
+    it('clears immediately on Escape below the suggestion threshold', async () => {
+      const onSearch = searchSpy();
+      await userEvent.type(el.input, 'Ga');
+      await el.updateComplete;
+
+      expect(list().hidden).to.be.true;
+      expect(suffix()).to.be.undefined;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+      expect(el.input.value).to.equal('');
+      expect(onSearch).to.have.been.calledOnceWith('');
+    });
+
+    it('clears immediately on Escape in inline mode when no completion matches', async () => {
+      el.autocomplete = 'inline';
+      await userEvent.type(el.input, 'School');
+      await el.updateComplete;
+
+      expect(suffix()).to.be.undefined;
+      expect(list().hidden).to.be.true;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+      expect(el.input.value).to.equal('');
+    });
+
+    it('dismisses a visible inline proposal before clearing on the next Escape', async () => {
+      el.autocomplete = 'inline';
+      await userEvent.type(el.input, 'Gar');
+
+      await expect.poll(suffix).to.equal('cía');
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('Gar');
+      expect(suffix()).to.be.undefined;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+    });
+
+    it('dismisses a visible suggestion status before clearing on the next Escape', async () => {
+      el.suggestions = [];
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      const message = el.querySelector<HTMLElement>('[slot="suggestions"][role="status"]')!;
+
+      expect(message.hidden).to.be.false;
+      expect(list().hidden).to.be.true;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('Gar');
+      expect(message.hidden).to.be.true;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+    });
+
+    it('aligns a default medium pill field with its suggestions without outer padding', async () => {
+      el.shape = 'pill';
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      const field = el.renderRoot.querySelector<HTMLElement>('.field')!;
+
+      expect(getComputedStyle(el).paddingInlineStart).to.equal('0px');
+      expect(getComputedStyle(el).paddingInlineEnd).to.equal('0px');
+      expect(field.getBoundingClientRect().left).to.be.closeTo(
+        el.getBoundingClientRect().left,
+        0.1
+      );
+      expect(field.getBoundingClientRect().right).to.be.closeTo(
+        el.getBoundingClientRect().right,
+        0.1
+      );
+      expect(list().getBoundingClientRect().left).to.be.closeTo(
+        field.getBoundingClientRect().left,
+        0.1
+      );
+      expect(list().getBoundingClientRect().width).to.be.closeTo(
+        field.getBoundingClientRect().width,
+        0.1
+      );
+    });
+
+    it('removes outer padding from an explicitly medium pill field', async () => {
+      el.shape = 'pill';
+      el.size = 'md';
+      await el.updateComplete;
+
+      expect(getComputedStyle(el).paddingInlineStart).to.equal('0px');
+      expect(getComputedStyle(el).paddingInlineEnd).to.equal('0px');
+    });
+
+    it('keeps a large pill field free of outer padding', async () => {
+      el.shape = 'pill';
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(getComputedStyle(el).paddingInlineStart).to.equal('0px');
+      expect(getComputedStyle(el).paddingInlineEnd).to.equal('0px');
+    });
+
     it('closes the list with Escape and returns focus without clearing', async () => {
       await userEvent.type(el.input, 'Gar');
       await userEvent.keyboard('{ArrowDown}{Escape}');

@@ -47,7 +47,7 @@ Enable suggestions with `autocomplete="inline"`, `"list"` or `"both"`. The defau
 
 Suggestions start after three non-space characters by default. Set `suggestion-threshold="1"` or `"2"` to start earlier. The default `suggestion-placement="overlay"` covers following content; `"flow"` moves it down.
 
-Enter in the field searches only the typed words. Right Arrow or End explicitly accepts the proposed suffix, making it editable text. Tab moves through the Clear button to the suggestion list; Up/Down also moves focus from the field to the list. Arrow keys and Home/End navigate the list, and Enter searches the focused phrase. Escape closes suggestions and returns focus from the list to the field. A further Escape clears the field.
+Enter in the field searches only the typed words. Right Arrow or End explicitly accepts the proposed suffix, making it editable text. Tab moves through the Clear button to the suggestion list; Up/Down also moves focus from the field to the list. Arrow keys and Home/End navigate the list, and Enter searches the focused phrase. Escape dismisses a visible inline proposal, suggestion list or suggestion status; from the list it returns focus to the field. If none is visible, Escape clears the field immediately.
 
 `sl-search` continues to emit the current query 300 ms after editing, immediately on Enter, and immediately after choosing a list suggestion. An unaccepted inline suffix is rendered as a visual overlay. The proposed phrase and acceptance keys are exposed through a live announcement and an accessible description that preserves existing field descriptions. It is excluded from the query, `value`, the native input value, form submission and validation.
 

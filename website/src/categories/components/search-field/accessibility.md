@@ -31,7 +31,7 @@ Here's an overview of the common keyboard interactions associated with a search 
 |Up Arrow / Down Arrow in the list|Moves through the suggestions.|
 |Home / End in the list|Moves to the first / last suggestion.|
 |Enter in the list|Searches the focused phrase and returns focus to the input. It does not submit the surrounding form.|
-|Escape in the input|Dismisses suggestions first. When suggestions are closed, clears the search value.|
+|Escape in the input|Dismisses a visible inline proposal, suggestion list or suggestion status. If none is visible, clears the search value immediately.|
 |Escape in the list|Closes suggestions and returns focus to the input without clearing the query.|
 |Enter / Space on Clear|Clears the search field and moves focus back to the input.|
 |Escape on Clear|Clears the search field and moves focus back to the input.|

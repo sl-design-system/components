@@ -260,3 +260,49 @@ export const AsyncSuggestions: Story = {
     `;
   }
 };
+
+/** Compare how the same phrases are offered; type Gar into each field. */
+export const AutocompleteModes: Story = {
+  render: () => html`
+    <div style="display: grid; gap: 2rem; max-width: 30rem">
+      ${(['off', 'inline', 'list', 'both'] as const).map(
+        mode => html`
+          <div>
+            <p>${mode}</p>
+            <sl-search-field
+              aria-label=${`Search with ${mode} autocomplete`}
+              .autocomplete=${mode}
+              suggestion-placement="flow"
+              placeholder="Try Gar"
+              .suggestions=${['García', 'Garden', 'Garland']}></sl-search-field>
+          </div>
+        `
+      )}
+    </div>
+  `
+};
+
+/** Type Gar to see the suggestion loading message while ordinary search stays available. */
+export const LoadingSuggestions: Story = {
+  args: { autocomplete: 'list', loading: true, placeholder: 'Type Gar to show loading' }
+};
+
+/** Type Gar to see an empty suggestion response; the typed words can still be searched. */
+export const EmptySuggestions: Story = {
+  render: () => html`
+    <sl-search-field
+      aria-label="Search"
+      autocomplete="list"
+      placeholder="Type Gar to show an empty response"
+      .suggestions=${[]}></sl-search-field>
+  `
+};
+
+/** Type Gar to see a failed suggestion response; ordinary search stays available. */
+export const UnavailableSuggestions: Story = {
+  args: {
+    autocomplete: 'list',
+    unavailable: true,
+    placeholder: 'Type Gar to show unavailable suggestions'
+  }
+};

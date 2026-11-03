@@ -70,6 +70,6 @@ If you are not sure about a match, show the closest two or three and let the dev
 - After the yes:
   - 👍: `gh api -X POST repos/sl-design-system/components/issues/<n>/reactions -f content=+1`; without `gh`, give the developer the issue link to add the 👍 by hand.
   - Comment: `add_issue_comment`, or `gh issue comment <n> --repo sl-design-system/components`.
-  - New issue: `issue_write` with `method: "create"`, or write the body to a temporary file outside the repository and run `gh api -X POST repos/sl-design-system/components/issues -f title=<title> -F body=@<file>`, with `-f 'labels[]=<label>'` for each of the form's `labels` and `-f type=<type>` when the form has a `type` (only the bug form does).
+  - New issue: `issue_write` with `method: "create"`, or write the body to a temporary file outside the repository and run `gh api -X POST repos/sl-design-system/components/issues -f 'title=<title>' -F 'body=@<file>'`, with `-f 'labels[]=<label>'` for each of the form's `labels` and `-f 'type=<type>'` when the form has a `type` (only the bug form does). Quote substituted values safely for the shell.
 - Then give the links.
   If GitHub dropped the form's labels or type, which it does for users without push access, say that the issue is in but without the `triage` label.

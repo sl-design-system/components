@@ -386,6 +386,50 @@ describe('sl-date-field', () => {
       el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
+    it('should keep the month table above the extra controls', async () => {
+      el.requireConfirmation = true;
+      el.showPicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      calendar.view = 'month';
+      await calendar.updateComplete;
+
+      const selector = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-month')!;
+      await selector.updateComplete;
+
+      const table = selector.renderRoot.querySelector('table')!,
+        controls = el.renderRoot.querySelector('sl-button-bar')!,
+        tableBounds = table.getBoundingClientRect();
+
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(controls.getBoundingClientRect().top);
+    });
+
+    it('should keep the year table above the extra controls', async () => {
+      el.requireConfirmation = true;
+      el.showPicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      calendar.view = 'year';
+      await calendar.updateComplete;
+
+      const selector = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-year')!;
+      await selector.updateComplete;
+
+      const table = selector.renderRoot.querySelector('table')!,
+        controls = el.renderRoot.querySelector('sl-button-bar')!,
+        tableBounds = table.getBoundingClientRect();
+
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(controls.getBoundingClientRect().top);
+    });
+
     it('should not show calendar initially', () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 

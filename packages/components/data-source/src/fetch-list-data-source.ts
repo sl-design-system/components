@@ -364,7 +364,11 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
       group.startIndex = index;
 
-      if (!this.isGroupCollapsed(group.id) && group.members) {
+      if (!this.isGroupCollapsed(group.id)) {
+        // `update()` resets the members; initialize them again so the items of an expanded
+        // group can be requested (lazily) when they are accessed
+        group.members ??= Array.from({ length: group.size ?? FetchListDataSource.defaultSize });
+
         items.push(...group.members);
         index += group.members.length;
       }
@@ -399,7 +403,13 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   #requestFetch(n: number): ListDataSourceItem<T> {
     const group = this.#getGroupAtIndex(n)!,
       { pageSize } = this,
-      page = this.pagination ? this.page : Math.floor((n - (group.startIndex ?? 0)) / pageSize);
+      page = this.pagination
+        ? this.page
+        : Math.floor(
+            (n -
+              (this.#groups.has(FetchListDataSourceDummyGroup) ? 0 : (group.startIndex ?? 0) + 1)) /
+              pageSize
+          );
 
     if (!group.pages[page]) {
       const options = this.getFetchOptions(group, page, pageSize),
@@ -427,7 +437,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
           // If the size of the group changes, or pagination is enabled, we need to
           // recreate the proxy to ensure that the array with items is up to date.
-          let recreateProxy = this.pagination;
+          // For grouped data the flattened items array holds copies of the group members, so
+          // it also needs to be recreated when a group refetches pages it already had a size for.
+          let recreateProxy = this.pagination || !this.#groups.has(FetchListDataSourceDummyGroup);
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);

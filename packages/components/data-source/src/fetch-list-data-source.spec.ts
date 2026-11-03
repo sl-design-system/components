@@ -1013,9 +1013,7 @@ describe('FetchListDataSource', () => {
         }),
         group = source.items[0] as ListDataSourceGroupItem<Person>;
 
-      // Initialize the expanded group's unloaded member slot before requesting its first page.
-      group.members = Array.from({ length: 1 });
-      source.items.splice(1, 0, ...group.members);
+      expect(group.members).to.exist;
       void source.items[1];
       await expect.poll(() => source.size).to.equal(2);
 
@@ -1210,6 +1208,71 @@ describe('FetchListDataSource', () => {
 
       expect(updatedGroup.members).to.be.undefined;
       expect(ds.isSelected(updatedGroup)).to.be.true;
+    });
+  });
+
+  describe('expanding a collapsed group', () => {
+    it('should fetch and show the items of the group after it is expanded', async () => {
+      const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }));
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage,
+        getId: item => item.id,
+        groups: [{ id: 'A', label: 'A' }],
+        pageSize: 10
+      });
+
+      expect(ds.items.length).to.equal(1);
+
+      ds.expandGroup('A');
+      ds.update();
+
+      // Accessing the items (as a grid does when rendering) triggers the fetch
+      await expect.poll(() => [...ds.items].length).to.equal(3);
+      expect(fetchPage).to.have.been.calledWithMatch({ group: 'A' });
+    });
+
+    it('should still show the items of an expanded group after another group is expanded', async () => {
+      const fetchPage = spy(({ group }: { group: unknown }) =>
+        Promise.resolve({
+          items: group === 'A' ? people.slice(0, 2) : people.slice(2, 4),
+          totalItems: 2
+        })
+      );
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage,
+        getId: item => item.id,
+        groups: [
+          { id: 'A', size: 2 },
+          { id: 'B', size: 2 }
+        ],
+        pageSize: 10
+      });
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(2);
+
+      ds.expandGroup('B');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(4);
     });
   });
 });

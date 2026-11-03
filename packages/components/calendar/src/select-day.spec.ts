@@ -172,6 +172,86 @@ describe('sl-select-day', () => {
     });
   }
 
+  it('should reserve the semibold month width when proportional digits make the font shorthand empty', async () => {
+    const container = await fixture<HTMLDivElement>(html`
+      <div>
+        <span
+          style="display: inline-block; font-family: Georgia, serif; font-size: 20px; font-weight: 600; font-variant-numeric: proportional-nums"
+          >September</span
+        >
+        <sl-select-day
+          locale="en-GB"
+          .month=${new Date(2026, 8, 1)}
+          style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await document.fonts.ready;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+    );
+
+    const button = el.renderRoot.querySelector('.current-month')!,
+      label = button.querySelector('sl-format-date')!,
+      reference = container.querySelector('span')!;
+
+    expect(getComputedStyle(button).font).to.equal('');
+    expect(label.getBoundingClientRect().width).to.be.at.least(
+      reference.getBoundingClientRect().width
+    );
+  });
+
+  it('should load the header font when its computed shorthand is empty', async () => {
+    const loadFont = vi.spyOn(document.fonts, 'load');
+
+    try {
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+      `);
+
+      await vi.waitFor(() => {
+        expect(loadFont).toHaveBeenCalledWith('normal 600 20px Georgia, serif');
+      });
+    } finally {
+      el?.remove();
+      loadFont.mockRestore();
+    }
+  });
+
+  it('should refresh cached month measurements when font size changes with an empty font shorthand', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="en-GB"
+        .month=${new Date(2026, 8, 1)}
+        style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+    `);
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+    );
+
+    await document.fonts.ready;
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+
+    const initialWidth = Number.parseFloat(
+      el.style.getPropertyValue('--_month-control-inline-size')
+    );
+    el.style.fontSize = '24px';
+    el.month = new Date(2027, 8, 1);
+    await el.updateComplete;
+
+    await vi.waitFor(() => {
+      const button = el.renderRoot.querySelector('.current-month')!;
+
+      expect(getComputedStyle(button).font).to.equal('');
+      expect(
+        Number.parseFloat(el.style.getPropertyValue('--_month-control-inline-size'))
+      ).to.be.greaterThan(initialWidth);
+    });
+  });
+
   for (const locale of ['en-GB', 'es', 'nl-NL', 'pl-PL', 'de-DE', 'fi-FI']) {
     it(`should show full month names in a mobile date picker in ${locale}`, async () => {
       // Leave room for the mobile dialog's padding, borders and browser margins.

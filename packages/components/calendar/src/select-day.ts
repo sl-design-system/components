@@ -903,7 +903,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     await new Promise(requestAnimationFrame);
     await Promise.all(controls.map(control => control.updateComplete));
     const monthButton = this.renderRoot.querySelector('.current-month'),
-      font = monthButton ? getComputedStyle(monthButton).font : '';
+      monthStyle = monthButton ? getComputedStyle(monthButton) : undefined,
+      font = monthStyle
+        ? `${monthStyle.fontStyle} ${monthStyle.fontWeight} ${monthStyle.fontSize} ${monthStyle.fontFamily}`
+        : '';
     if (font) {
       // Measure the fallback font as well when the web font cannot be loaded.
       await document.fonts.load(font).catch(() => undefined);
@@ -934,13 +937,33 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const monthStyle = getComputedStyle(monthButton),
+      // The computed font shorthand can be empty when variants such as proportional digits are set.
+      measurementStyle = {
+        fontFamily: monthStyle.fontFamily,
+        fontSize: monthStyle.fontSize,
+        fontWeight: monthStyle.fontWeight,
+        fontStyle: monthStyle.fontStyle,
+        fontStretch: monthStyle.fontStretch,
+        fontVariantNumeric: monthStyle.fontVariantNumeric,
+        fontVariantCaps: monthStyle.fontVariantCaps,
+        fontVariantLigatures: monthStyle.fontVariantLigatures,
+        fontVariantEastAsian: monthStyle.fontVariantEastAsian,
+        fontVariantPosition: monthStyle.fontVariantPosition,
+        fontFeatureSettings: monthStyle.fontFeatureSettings,
+        fontVariationSettings: monthStyle.fontVariationSettings,
+        fontKerning: monthStyle.fontKerning,
+        fontOpticalSizing: monthStyle.fontOpticalSizing,
+        fontSizeAdjust: monthStyle.fontSizeAdjust,
+        lineHeight: monthStyle.lineHeight,
+        letterSpacing: monthStyle.letterSpacing,
+        wordSpacing: monthStyle.wordSpacing
+      },
       yearLabel = format(this.displayMonth!, this.locale, { year: 'numeric' }),
-      key = `${this.locale}|${monthStyle.font}|${monthStyle.letterSpacing}|${yearLabel.replace(/\p{Decimal_Number}/gu, '0')}`;
+      key = `${this.locale}|${JSON.stringify(measurementStyle)}|${yearLabel.replace(/\p{Decimal_Number}/gu, '0')}`;
     if (this.#headerLabelSize?.key !== key) {
       const measure = document.createElement('span');
       measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
-      measure.style.font = monthStyle.font;
-      measure.style.letterSpacing = monthStyle.letterSpacing;
+      Object.assign(measure.style, measurementStyle);
       measure.setAttribute('aria-hidden', 'true');
       header.append(measure);
 

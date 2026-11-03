@@ -1292,6 +1292,40 @@ describe('FetchListDataSource', () => {
       expect(ds.isSelected(group.members![3])).to.be.true;
     });
 
+    it('should keep a deselected row deselected after the group is refetched', async () => {
+      ds = new FetchListDataSource<Person>({
+        fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      const loadedCount = (): number =>
+        [...ds.items].filter(
+          i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+        ).length;
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      ds.select(group);
+      ds.deselect(group.members![0]);
+
+      expect(ds.isSelected(group)).to.be.false;
+
+      // A refresh, as the grid does, fetches the members again
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(2);
+      expect(ds.isSelected(group.members![0])).to.be.false;
+      expect(ds.isSelected(group.members![1])).to.be.true;
+    });
+
     it('should fetch and show the items of the group after it is expanded', async () => {
       const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }));
 

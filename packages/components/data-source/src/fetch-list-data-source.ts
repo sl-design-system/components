@@ -500,7 +500,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             const member: ListDataSourceDataItem<T> = {
               id: this.#mapping.getId!(item),
               type: 'data',
-              data: item
+              data: item,
+              group: this.#groups.has(FetchListDataSourceDummyGroup) ? undefined : group
             };
 
             group.members![index] = member;

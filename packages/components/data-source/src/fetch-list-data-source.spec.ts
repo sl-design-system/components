@@ -1249,12 +1249,14 @@ describe('FetchListDataSource', () => {
     });
 
     it('should select a partially loaded group', async () => {
+      // The second page only resolves when the test says so
+      const secondPage = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+
       ds = new FetchListDataSource<Person>({
-        // Only the first page ever loads, so the last two members stay unloaded
         fetchPage: ({ page }) =>
           page === 0
             ? Promise.resolve({ items: people.slice(0, 2), totalItems: 4 })
-            : new Promise(() => {}),
+            : secondPage.promise,
         getId: item => item.id,
         groups: [{ id: 'A' }],
         pageSize: 2,
@@ -1279,6 +1281,15 @@ describe('FetchListDataSource', () => {
       expect(ds.isSelected(group)).to.be.true;
       expect(ds.isSelected(group.members![0])).to.be.true;
       expect(ds.isSelected(group.members![1])).to.be.true;
+
+      secondPage.resolve({ items: people.slice(2, 4), totalItems: 4 });
+
+      await expect.poll(() => group.members?.[3]?.data).to.equal(people[3]);
+
+      // The rows that arrived later are selected too
+      expect(ds.isSelected(group)).to.be.true;
+      expect(ds.isSelected(group.members![2])).to.be.true;
+      expect(ds.isSelected(group.members![3])).to.be.true;
     });
 
     it('should fetch and show the items of the group after it is expanded', async () => {

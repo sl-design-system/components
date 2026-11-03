@@ -485,15 +485,31 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             }
           }
 
+          const selectIncomingMembers =
+            this.selects === 'multiple' &&
+            !this.isSelectAllToggled() &&
+            !this.#groups.has(FetchListDataSourceDummyGroup) &&
+            this.isSelected(group);
+
+          let membersSelected = false;
+
           for (let i = 0; i < res.items.length; i++) {
             const index = pageSize * page + i,
               item = res.items[i];
 
-            group.members![index] = {
+            const member: ListDataSourceDataItem<T> = {
               id: this.#mapping.getId!(item),
               type: 'data',
               data: item
             };
+
+            group.members![index] = member;
+
+            // Rows that arrive after their group was selected are part of that selection
+            if (selectIncomingMembers) {
+              this.select(member, false);
+              membersSelected = true;
+            }
           }
 
           if (recreateProxy) {
@@ -501,7 +517,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             this.#proxy = this.#createProxy(this.#items);
           }
 
-          if (selectionChanged) {
+          if (selectionChanged || membersSelected) {
             this.dispatchEvent(new CustomEvent('sl-selection-change'));
           }
           this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

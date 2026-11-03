@@ -7,7 +7,7 @@ argument-hint: '[what is wrong or missing, such as: sl-button has no focus ring 
 # sl-ds feedback
 
 The repository is github.com/sl-design-system/components, and it is public.
-Read its files from the `main` branch.
+Read its files from the `main` branch: `gh api repos/sl-design-system/components/contents/<path> -H "Accept: application/vnd.github.raw"`, or the GitHub MCP `get_file_contents`.
 Take steps 2 to 4 for each item the developer, or another skill, gives you.
 Nothing is posted without the developer's yes.
 
@@ -66,9 +66,10 @@ If you are not sure about a match, show the closest two or three and let the dev
   The developer decides; if they insist, do as they ask, because it goes out under their name.
 - Show one list: the setup check in one line, then per item the action and the exact text.
   One answer: send all, pick, edit or skip.
+- If a new issue carries the reporter's name, say once in that list that it goes out publicly under that name.
 - After the yes:
-  - 👍: `add_issue_comment` with `reaction: "+1"`, or `gh api -X POST repos/sl-design-system/components/issues/<n>/reactions -f content=+1`.
+  - 👍: `gh api -X POST repos/sl-design-system/components/issues/<n>/reactions -f content=+1`; without `gh`, give the developer the issue link to add the 👍 by hand.
   - Comment: `add_issue_comment`, or `gh issue comment <n> --repo sl-design-system/components`.
-  - New issue: `issue_write` with `method: "create"`, or `gh api -X POST repos/sl-design-system/components/issues`, with the title, the body and the form's `labels` and `type`.
+  - New issue: `issue_write` with `method: "create"`, or write the body to a temporary file outside the repository and run `gh api -X POST repos/sl-design-system/components/issues -f title=<title> -F body=@<file>`, with `-f 'labels[]=<label>'` for each of the form's `labels` and `-f type=<type>` when the form has a `type` (only the bug form does).
 - Then give the links.
   If GitHub dropped the form's labels or type, which it does for users without push access, say that the issue is in but without the `triage` label.

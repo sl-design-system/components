@@ -46,7 +46,7 @@ describe('sl-grid-drag-handle-column', () => {
       const header = el.renderRoot.querySelector('th[part*="drag-handle"]');
 
       expect(header).to.exist;
-      expect(header).to.have.attribute('role', 'columnheader');
+      expect(header).to.have.attribute('scope', 'col');
 
       const span = header!.querySelector('span.visually-hidden');
       expect(span).to.exist;

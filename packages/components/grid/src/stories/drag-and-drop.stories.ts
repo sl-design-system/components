@@ -45,22 +45,20 @@ export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
     return html`
       <p>
-        This example shows basic drag and drop behavior. You can drag and row and drop it in between
-        other rows. This way you can reorder the items in the grid. This is the default behavior
-        when you add a
-        <code>sl-grid-drag-handle-column</code> to the grid. The column automatically sets the
-        <code>draggable-rows</code> property to <code>between</code>.
+        Drag a row by its handle and drop it between other rows to change their order. Adding a
+        <code>sl-grid-drag-handle-column</code> automatically sets <code>draggable-rows</code> to
+        <code>between</code>, so the grid reorders the rows as you drag. This example uses unsorted
+        columns so the rows keep the order you choose.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
-        <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>
-        <sl-grid-sort-column
-          direction="asc"
+        <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
+        <sl-grid-column
           grow="3"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -70,18 +68,39 @@ export const Basic: Story = {
 export const OnTop: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayListDataSource(people as Person[]);
     const dropFilter: GridDropFilter<Person> = ({ membership }) => membership !== 'Regular';
 
     const onDrop = (event: SlDropEvent<Person>): void => {
-      console.log('Dropped', event.detail.item, event.detail.relativeItem);
+      const { item, relativeItem, position } = event.detail;
+      if (position !== 'on-top' || !relativeItem || !dropFilter(relativeItem)) {
+        return;
+      }
+
+      const items = dataSource.items,
+        sourceIndex = items.findIndex(source => source.type === item.type && source.id === item.id),
+        targetIndex = items.findIndex(
+          target => isListDataSourceDataItem(target) && target.data === relativeItem
+        );
+
+      if (sourceIndex === -1 || targetIndex === -1 || sourceIndex === targetIndex) {
+        return;
+      }
+
+      dataSource.reorder(item, items[targetIndex], sourceIndex < targetIndex ? 'after' : 'before');
     };
 
     return html`
+      <p>
+        Drop a row on a highlighted member to move it to that member's position. Regular members
+        cannot be drop targets. In <code>on-top</code> mode, the application handles
+        <code>sl-grid-drop</code> and updates the data source explicitly.
+      </p>
       <sl-grid
         @sl-grid-drop=${onDrop}
         draggable-rows="on-top"
         .dropFilter=${dropFilter}
-        .items=${people}>
+        .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

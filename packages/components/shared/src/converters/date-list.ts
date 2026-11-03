@@ -1,5 +1,9 @@
 export const dateListConverter = {
-  fromAttribute: (value: string): Array<Date | undefined> => {
+  fromAttribute: (value: string | null): Date[] | undefined => {
+    if (value === null) {
+      return undefined;
+    }
+
     const dates = value
       .split(',')
       .filter(dateStr => !isNaN(Date.parse(dateStr)))

@@ -88,15 +88,18 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
                 `
               : nothing
           }
+          <span hidden id="toggle-label">
+            ${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+          </span>
           <sl-button
             @click=${this.#onClick}
             aria-expanded=${this.collapsed ? 'false' : 'true'}
-            aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+            aria-labelledby="toggle-label group-heading"
             fill="ghost"
             size="sm">
             <sl-icon name="chevron-down"></sl-icon>
           </sl-button>
-          <div part="group-heading">
+          <div id="group-heading" part="group-heading">
             <slot name="group-heading"></slot>
           </div>
         </div>

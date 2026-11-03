@@ -223,7 +223,7 @@ export const EllipsizeTextWithCustomContent: Story = {
           width="48"
           .renderer=${fileTypeRenderer}
           .renderStyles=${() => fileTypeStyles}></sl-grid-column>
-        <sl-grid-column grow="0" header="Name" path="name" width="260"></sl-grid-column>
+        <sl-grid-column header="Name" path="name" width="240"></sl-grid-column>
         <sl-grid-column grow="0" header="Info" path="empty" width="80"></sl-grid-column>
         <sl-grid-column
           grow="0"

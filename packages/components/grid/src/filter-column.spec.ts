@@ -52,10 +52,11 @@ describe('sl-grid-filter-column', () => {
       expect(headerRowCount).to.deep.equal([2, 2]);
     });
 
-    it('should set the role of the th elements to "columnheader"', () => {
+    it('should render native column headers with scope', () => {
       const ths = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(ths.every(th => th.role === 'columnheader')).to.be.true;
+      expect(ths.every(th => th.tagName === 'TH')).to.be.true;
+      expect(ths.every(th => th.getAttribute('scope') === 'col')).to.be.true;
     });
 
     it('should set the correct parts on the th elements', () => {
@@ -160,17 +161,18 @@ describe('sl-grid-filter-column', () => {
       const filter = el.renderRoot.querySelector<GridFilter>(
           'thead tr:last-of-type th:last-of-type sl-grid-filter'
         )!,
-        selectButton = filter.renderRoot.querySelector<HTMLElement>('sl-select-button');
+        selectButton = filter.renderRoot.querySelector<HTMLElement>('sl-select-button')!;
 
       expect(filter.value).to.equal('Premium');
 
-      selectButton?.focus();
+      // Rendered rows can exist while initial column sizing still hides the table.
+      // A hidden select cannot receive focus or keyboard input.
+      await expect.poll(() => getComputedStyle(selectButton).visibility).toBe('visible');
+      selectButton.focus();
+      expect(selectButton.matches(':focus')).to.be.true;
       await userEvent.keyboard('{Backspace}');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(filter.value).to.be.undefined;
-
-      expect(el.renderRoot.querySelectorAll('tbody tr')).to.have.lengthOf(2);
+      await expect.poll(() => filter.value).toBeUndefined();
+      await expect.poll(() => el.renderRoot.querySelectorAll('tbody tr').length).toBe(2);
     });
   });
 

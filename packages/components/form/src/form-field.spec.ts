@@ -177,6 +177,76 @@ describe('sl-form-field', () => {
       expect(announceSpy).to.have.been.calledOnce;
     });
 
+    it('should announce validation messages for controls inside a shadow root', async () => {
+      const announceSpy = listenForAnnouncements(),
+        host = await fixture<HTMLElement>(html`<div></div>`),
+        shadowRoot = host.attachShadow({ mode: 'open' }),
+        field = await fixture<FormField>(
+          html`
+            <sl-form-field label="Name">
+              <sl-text-field required></sl-text-field>
+            </sl-form-field>
+          `,
+          { baseElement: shadowRoot }
+        );
+
+      await field.querySelector('sl-text-field')!.updateComplete;
+      field.querySelector('sl-text-field')!.reportValidity();
+      await field.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).to.have.been.calledOnce;
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'Name: Please fill in this field.', force: true }
+      });
+    });
+
+    it('should not announce validation messages after the field is disconnected', async () => {
+      const announceSpy = listenForAnnouncements();
+
+      el.querySelector('sl-text-field')!.reportValidity();
+      el.remove();
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
+    it('should not announce validation messages after the control is removed', async () => {
+      const announceSpy = listenForAnnouncements(),
+        control = el.querySelector('sl-text-field')!;
+
+      control.reportValidity();
+      control.remove();
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
+    it('should cancel pending announcements when the control becomes valid', async () => {
+      const announceSpy = listenForAnnouncements(),
+        control = el.querySelector('sl-text-field')!;
+
+      control.reportValidity();
+      control.value = 'Name';
+      await control.updateComplete;
+      control.reportValidity();
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
+    it('should keep the pending announcement when the same error is reported again', async () => {
+      const announceSpy = listenForAnnouncements(),
+        control = el.querySelector('sl-text-field')!;
+
+      control.reportValidity();
+      control.reportValidity();
+      await waitForAnnouncement();
+
+      expect(announceSpy).to.have.been.calledOnce;
+    });
+
     it('should not show validation after calling setCustomValidity', async () => {
       el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
       await el.updateComplete;

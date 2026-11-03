@@ -1,7 +1,11 @@
-import { type Button } from '@sl-design-system/button';
+import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { Avatar } from '@sl-design-system/avatar';
+import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
+  FetchListDataSource,
   type ListDataSourceGroupItem,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
@@ -10,8 +14,10 @@ import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { type SinonSpy, spy } from 'sinon';
+import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import { type GridColumn } from './column.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
 import './register.js';
@@ -42,6 +48,165 @@ describe('sl-grid', () => {
     return el;
   };
 
+  describe('keyboard focus after selection changes', () => {
+    const expectFocusToBePreserved = async (
+      mode: 'activate' | 'single' | 'multiple',
+      key: 'Enter' | 'Space'
+    ): Promise<void> => {
+      const items = [
+        { firstName: 'John', lastName: 'Doe' },
+        { firstName: 'Jane', lastName: 'Smith' },
+        { firstName: 'Sam', lastName: 'Jones' }
+      ];
+
+      el = await fixture(html`
+        <sl-grid
+          .items=${items}
+          .rowAction=${mode === 'activate' ? 'activate' : mode === 'single' ? 'select' : undefined}
+          .selects=${mode === 'single' ? 'single' : undefined}>
+          ${mode === 'multiple' ? html`<sl-grid-selection-column></sl-grid-selection-column>` : ''}
+          <sl-grid-column
+            path="firstName"
+            width="200"
+            .scopedElements=${{ 'sl-button': Button }}
+            .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const selector = mode === 'multiple' ? 'sl-checkbox input' : 'sl-button',
+        rows = el.tbody.querySelectorAll('tr'),
+        control = rows[1].querySelector<HTMLElement>(selector)!,
+        nextControl =
+          mode === 'multiple'
+            ? rows[1].querySelector<HTMLElement>('sl-button')!
+            : rows[2].querySelector<HTMLElement>(selector)!;
+
+      control.focus();
+
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      for (const selected of [true, false]) {
+        await userEvent.keyboard(`{${key}}`);
+
+        await expect
+          .poll(() =>
+            el.tbody
+              .querySelectorAll('tr')[1]
+              .getAttribute(mode === 'activate' ? 'aria-selected' : 'part')
+          )
+          .to.equal(
+            mode === 'activate' ? String(selected) : `row even${selected ? ' selected' : ''}`
+          );
+        expect(control.isConnected).to.be.true;
+        expect(el.shadowRoot!.activeElement).to.equal(control);
+      }
+
+      await userEvent.tab();
+
+      expect(el.shadowRoot!.activeElement).to.equal(nextControl);
+    };
+
+    it('should preserve focus when toggling activation with Enter', async () => {
+      await expectFocusToBePreserved('activate', 'Enter');
+    });
+
+    it('should preserve focus when toggling activation with Space', async () => {
+      await expectFocusToBePreserved('activate', 'Space');
+    });
+
+    it('should preserve focus when toggling single selection with Enter', async () => {
+      await expectFocusToBePreserved('single', 'Enter');
+    });
+
+    it('should preserve focus when toggling single selection with Space', async () => {
+      await expectFocusToBePreserved('single', 'Space');
+    });
+
+    it('should preserve focus when toggling multiple selection with Space', async () => {
+      await expectFocusToBePreserved('multiple', 'Space');
+    });
+
+    it('should preserve the focused control and Tab order when records are replaced under stable IDs', async () => {
+      const items = [
+          { id: 1, firstName: 'John', lastName: 'Doe' },
+          { id: 2, firstName: 'Jane', lastName: 'Smith' },
+          { id: 3, firstName: 'Sam', lastName: 'Jones' }
+        ],
+        dataSource = new ArrayListDataSource(items);
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column
+            path="firstName"
+            width="200"
+            .scopedElements=${{ 'sl-button': Button }}
+            .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const rows = el.tbody.querySelectorAll('tr'),
+        control = rows[1].querySelector<HTMLElement>('sl-button')!,
+        nextControl = rows[2].querySelector<HTMLElement>('sl-button')!;
+      control.focus();
+
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      dataSource.setData(items.map(item => ({ ...item, firstName: `${item.firstName} updated` })));
+      dataSource.update();
+
+      await expect.poll(() => control.textContent?.trim()).to.equal('Jane updated');
+      expect(el.tbody.querySelectorAll('tr')[1].querySelector('sl-button')).to.equal(control);
+      expect(control.isConnected).to.be.true;
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+
+      await userEvent.tab();
+
+      expect(el.shadowRoot!.activeElement).to.equal(nextControl);
+    });
+
+    it('should preserve focus and scroll position when selecting a row after scrolling down', async () => {
+      const items = Array.from({ length: 40 }, (_, i) => ({
+        firstName: `First ${i}`,
+        lastName: `Last ${i}`
+      }));
+
+      const wrapper = await fixture<HTMLDivElement>(html`
+        <div style="height: 300px; overflow: auto;">
+          <sl-grid .items=${items} row-action="select" selects="single">
+            <sl-grid-column
+              path="firstName"
+              width="200"
+              .scopedElements=${{ 'sl-button': Button }}
+              .renderer=${({ firstName }: Person) => html`<sl-button>${firstName}</sl-button>`}></sl-grid-column>
+          </sl-grid>
+        </div>
+      `);
+      const grid = wrapper.querySelector('sl-grid') as Grid;
+      await waitForGridToRenderData(grid);
+      await grid.updateComplete;
+
+      wrapper.scrollTop = 400;
+      await new Promise(r => setTimeout(r, 50));
+      const rows = grid.tbody.querySelectorAll('tr');
+      const targetRow = rows[rows.length - 2];
+      const button = targetRow.querySelector<HTMLElement>('sl-button')!;
+      button.focus();
+
+      const scrollAfterFocus = wrapper.scrollTop;
+      await userEvent.keyboard('{Space}');
+      await grid.updateComplete;
+
+      expect(wrapper.scrollTop).to.equal(scrollAfterFocus);
+      expect(grid.shadowRoot!.activeElement).to.equal(button);
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -67,6 +232,7 @@ describe('sl-grid', () => {
       const table = el.renderRoot.querySelector('table');
 
       expect(table).to.exist;
+      expect(table).to.have.attribute('role', 'table');
       expect(table).to.contain('thead');
       expect(table).to.contain('tbody');
     });
@@ -107,9 +273,898 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('variable row heights', () => {
+    const expectRowsToFit = async (length: number) => {
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(length);
+
+      await expect
+        .poll(() => {
+          const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+              row.getBoundingClientRect()
+            ),
+            body = el.tbody.getBoundingClientRect();
+
+          // Include borders and pixel rounding, but no stale estimated whitespace.
+          return Math.abs(body.height - rows.reduce((height, row) => height + row.height, 0));
+        })
+        .toBeLessThanOrEqual(2);
+
+      await expect
+        .poll(() => {
+          const rows = Array.from(el.tbody.querySelectorAll('tr'), row =>
+            row.getBoundingClientRect()
+          );
+
+          return rows.slice(1).every((row, index) => Math.abs(row.top - rows[index].bottom) <= 1);
+        })
+        .toBe(true);
+
+      await expect
+        .poll(() => {
+          const body = el.tbody.getBoundingClientRect(),
+            lastRow = el.tbody.querySelector('tr:last-of-type')!.getBoundingClientRect();
+
+          return Math.abs(body.bottom - lastRow.bottom);
+        })
+        .toBeLessThanOrEqual(2);
+    };
+
+    const checkFilteredRows = async (count: number) => {
+      const dataSource = new ArrayListDataSource<Person>([
+        ...Array.from({ length: 20 }, (_, index) => ({
+          firstName: `Short ${index}`,
+          lastName: 'Doe'
+        })),
+        ...Array.from({ length: count }, (_, index) => ({
+          firstName: 'This is a really long description of a profession '.repeat(8 - index * 3),
+          lastName: 'Long'
+        }))
+      ]);
+
+      el = await fixture(html`
+        <sl-grid style="width: 300px" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200" grow="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="100" grow="0"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+
+      await expectRowsToFit(count);
+
+      dataSource.removeFilter('height');
+      dataSource.update();
+
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBeGreaterThan(count);
+
+      dataSource.addFilter('height', 'firstName', 'Short 0');
+      dataSource.update();
+      await expectRowsToFit(1);
+
+      dataSource.addFilter('height', 'lastName', 'Missing');
+      dataSource.update();
+
+      await expect.poll(() => el.tbody.querySelectorAll('tr').length).toBe(0);
+
+      dataSource.addFilter('height', 'lastName', 'Long');
+      dataSource.update();
+      await expectRowsToFit(count);
+    };
+
+    it('should fit one long row after filtering', async () => {
+      await checkFilteredRows(1);
+    });
+
+    it('should fit two long rows after filtering', async () => {
+      await checkFilteredRows(2);
+    });
+
+    it('should replace distinct loading rows when fetched pages resolve out of order', async () => {
+      const resolvers: Array<(result: { items: Person[]; totalItems: number }) => void> = [],
+        dataSource = new FetchListDataSource<Person>({
+          pageSize: 3,
+          size: 6,
+          fetchPage: ({ page }) =>
+            new Promise(resolve => {
+              resolvers[page] = resolve;
+            })
+        }),
+        people = ['John', 'Jane', 'Alice', 'Bob', 'Mary', 'Eve'].map(firstName => ({
+          firstName,
+          lastName: 'Test'
+        }));
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(6);
+      await expect.poll(() => typeof resolvers[1]).toBe('function');
+
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[1]({ items: people.slice(3), totalItems: 6 });
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(3);
+
+      el.requestUpdate();
+      await el.updateComplete;
+
+      resolvers[0]({ items: people.slice(0, 3), totalItems: 6 });
+
+      await expect
+        .poll(() =>
+          Array.from(el.tbody.querySelectorAll('tr'), row =>
+            row.querySelector('td')?.textContent?.trim()
+          )
+        )
+        .to.deep.equal(people.map(person => person.firstName));
+      expect(el.tbody.querySelectorAll('td[part~="placeholder"]')).to.have.length(0);
+    });
+
+    it('should fit wrapped rows after replacing measured placeholders with a smaller fetched result', async () => {
+      let resolveFetch!: (result: { items: Person[]; totalItems: number }) => void;
+      const pendingFetch = new Promise<{ items: Person[]; totalItems: number }>(resolve => {
+          resolveFetch = resolve;
+        }),
+        dataSource = new FetchListDataSource<Person>({
+          pageSize: 20,
+          fetchPage: () => pendingFetch
+        }),
+        initialItems = dataSource.items,
+        items = [
+          {
+            firstName: 'This is a really long description of a profession '.repeat(8),
+            lastName: 'First'
+          },
+          {
+            firstName: 'This is a really long description of a profession '.repeat(5),
+            lastName: 'Second'
+          }
+        ];
+
+      el = await fixture(html`
+        <sl-grid style="width: 300px" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200" grow="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="100" grow="0"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(20);
+
+      // Do not resolve the fetch until the ten placeholder rows have actually
+      // been measured and positioned, so their indices populate the old cache.
+      await expectRowsToFit(10);
+      resolveFetch({ items, totalItems: items.length });
+
+      await expect.poll(() => el.tbody.querySelectorAll('td[part~="placeholder"]').length).toBe(0);
+      await expect.poll(() => dataSource.size).toBe(2);
+      expect(dataSource.items).not.to.equal(initialItems);
+
+      await expectRowsToFit(2);
+
+      const rows = el.tbody.querySelectorAll('tr');
+
+      expect(rows[0].textContent).to.contain(items[0].firstName);
+      expect(rows[1].textContent).to.contain(items[1].firstName);
+      expect(rows[0].getBoundingClientRect().height).to.be.greaterThan(
+        rows[1].getBoundingClientRect().height
+      );
+    });
+  });
+
+  describe('automatic column widths', () => {
+    it('should retry initial sizing when fonts finish while the grid is detached', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void,
+        fontsRequested = false;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          fontsRequested = true;
+          return pendingFonts;
+        });
+
+      try {
+        el = await fixture(html`
+          <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+
+        // Wait for sizing to request fonts; the initial layout may already be complete.
+        await expect.poll(() => fontsRequested).toBe(true);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        const parent = el.parentElement!;
+        el.remove();
+        resolveFonts(document.fonts);
+        // Allow the interrupted sizing pass to finish before reconnecting.
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        const measure = spy(el, 'recalculateColumnWidths');
+        try {
+          parent.append(el);
+
+          await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+          expect(measure).to.have.been.called;
+          expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+        } finally {
+          measure.restore();
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should ignore an interrupted layout from an earlier connection and retry sizing', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      let rejectLayout!: (reason: Error) => void,
+        layoutRequested = false;
+      const interruptedLayout = new Promise<void>((_, reject) => {
+          rejectLayout = reject;
+        }),
+        virtualizer = (el.tbody as VirtualizerHostElement)[virtualizerRef]!,
+        layoutComplete = stub(virtualizer, 'layoutComplete').get(() => {
+          layoutRequested = true;
+          return interruptedLayout;
+        });
+      try {
+        await expect.poll(() => layoutRequested).toBe(true);
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        const parent = el.parentElement!;
+        el.remove();
+        layoutComplete.restore();
+        parent.append(el);
+        // Rejection may arrive after reconnection; it belongs to the old attempt.
+        rejectLayout(new Error('Virtualizer disconnected'));
+
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+      } finally {
+        layoutComplete.restore();
+      }
+    });
+
+    it('should reveal the initial table only after its automatic widths are ready', async () => {
+      let resolveFonts!: (fonts: FontFaceSet) => void;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => pendingFonts);
+
+      try {
+        el = await fixture(html`
+          <sl-grid
+            style="inline-size: 320px"
+            .items=${[{ firstName: 'A very long student name', lastName: 'Smith' }]}>
+            <sl-grid-column grow="3" path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid>
+        `);
+        await waitForGridToRenderData(el);
+
+        expect(getComputedStyle(el.table).visibility).to.equal('hidden');
+
+        resolveFonts(document.fonts);
+
+        await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+        const widths = () =>
+            Array.from(el.thead.querySelectorAll('th')).map(
+              cell => cell.getBoundingClientRect().width
+            ),
+          initialWidths = widths();
+
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(100);
+
+        // Observe actual paints after reveal, including virtualizer range updates.
+        for (let frame = 0; frame < 10; frame++) {
+          await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+          expect(widths()).to.deep.equal(initialWidths);
+        }
+      } finally {
+        resolveFonts(document.fonts);
+        fontsReady.restore();
+      }
+    });
+
+    it('should reveal an empty grid without waiting for data to arrive', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await expect.poll(() => el.thead.querySelector('th')?.textContent?.trim()).toBe('First name');
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+    });
+
+    it('should fit custom cell content at 320px after rendering', async () => {
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 320px"
+          .items=${[{ firstName: 'Jacob van der Moore', lastName: 'Gymnasium Sankt Georg' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column ellipsize-text path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      await expect
+        .poll(() => {
+          const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar'),
+            name = avatar?.renderRoot.querySelector<HTMLElement>('[part="name"]'),
+            slot = el.renderRoot
+              .querySelector('sl-ellipsize-text')
+              ?.shadowRoot?.querySelector('slot');
+          return (
+            !!name &&
+            !!slot &&
+            name.clientWidth >= name.scrollWidth &&
+            slot.clientWidth >= slot.scrollWidth
+          );
+        })
+        .toBe(true);
+    });
+
+    it('should wait for fonts before reading cell geometry', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      let resolveFonts!: (fonts: FontFaceSet) => void,
+        fontsRequested = false,
+        sizing: Promise<void> | undefined;
+      const pendingFonts = new Promise<FontFaceSet>(resolve => {
+          resolveFonts = resolve;
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          fontsRequested = true;
+          return pendingFonts;
+        }),
+        measurement = spy(),
+        getRect = Element.prototype.getBoundingClientRect,
+        geometry = stub(Element.prototype, 'getBoundingClientRect').callsFake(
+          function (this: Element) {
+            if (this instanceof HTMLTableCellElement && this.getRootNode() === el.renderRoot) {
+              measurement();
+            }
+            return getRect.call(this);
+          }
+        );
+
+      try {
+        sizing = el.recalculateColumnWidths();
+
+        // Wait until the sizing pass reaches the controlled font-readiness promise.
+        await expect.poll(() => fontsRequested).toBe(true);
+        expect(measurement).not.to.have.been.called;
+
+        resolveFonts(document.fonts);
+        await sizing;
+
+        expect(measurement).to.have.been.called;
+        expect(el.querySelector<GridColumn>('sl-grid-column')!.width).to.be.greaterThan(0);
+      } finally {
+        resolveFonts(document.fonts);
+        try {
+          await sizing;
+        } finally {
+          geometry.restore();
+          fontsReady.restore();
+        }
+      }
+    });
+
+    it('should coalesce requests and remeasure a range changed while cells update', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        cell = el.renderRoot.querySelector<HTMLTableCellElement>('th')!,
+        measurement = spy(cell, 'getBoundingClientRect');
+      let releaseUpdate!: () => void;
+      const pendingUpdate = new Promise<boolean>(resolve => {
+          releaseUpdate = () => resolve(true);
+        }),
+        updateComplete = stub(avatar, 'updateComplete').get(() => pendingUpdate);
+
+      try {
+        const requests = [el.recalculateColumnWidths(), el.recalculateColumnWidths()];
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        expect(measurement).not.to.have.been.called;
+
+        // These requests arrive while the first pass is awaiting custom content.
+        for (let index = 0; index < 5; index++) {
+          el.tbody.dispatchEvent(new Event('rangeChanged'));
+        }
+        requests.push(el.recalculateColumnWidths());
+        releaseUpdate();
+        await Promise.all(requests);
+
+        expect(measurement).to.have.been.calledTwice;
+      } finally {
+        releaseUpdate();
+        updateComplete.restore();
+        measurement.restore();
+      }
+    });
+
+    it('should batch cell measurements and restore styles even if a measurement fails', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      // Initial sizing also uses the scheduler. Finish it before injecting a
+      // failure into the separate, explicitly requested measurement below.
+      await expect.poll(() => getComputedStyle(el.table).visibility).toBe('visible');
+
+      const cells = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('th, tbody td')),
+        firstCell = cells[0],
+        lastCell = cells[cells.length - 1],
+        getFirstRect = firstCell.getBoundingClientRect.bind(firstCell),
+        firstMeasurement = stub(firstCell, 'getBoundingClientRect').callsFake(() => {
+          expect(cells.every(cell => cell.style.inlineSize === 'max-content')).to.be.true;
+          expect(cells.every(cell => cell.style.flexGrow === '0')).to.be.true;
+
+          return getFirstRect();
+        }),
+        failedMeasurement = stub(lastCell, 'getBoundingClientRect').throws('Measurement failed');
+      firstCell.style.inlineSize = '150px';
+      firstCell.style.flexGrow = '2';
+
+      try {
+        await expect(el.recalculateColumnWidths()).rejects.toThrow('Measurement failed');
+        expect(firstMeasurement).to.have.been.calledOnce;
+        expect(firstCell.style.inlineSize).to.equal('150px');
+        expect(firstCell.style.flexGrow).to.equal('2');
+        expect(
+          cells.slice(1).every(cell => cell.style.inlineSize === '' && cell.style.flexGrow === '')
+        ).to.be.true;
+      } finally {
+        firstMeasurement.restore();
+        failedMeasurement.restore();
+      }
+
+      // A failed pass must not leave the scheduler stuck on a rejected task.
+      await el.recalculateColumnWidths();
+
+      expect(firstCell.style.inlineSize).to.equal('150px');
+      expect(firstCell.style.flexGrow).to.equal('2');
+    });
+
+    it('should skip custom content and font waits for fixed columns while updating their layout', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column
+            sticky
+            width="220"
+            .scopedElements=${{ 'sl-avatar': Avatar }}
+            .renderer=${(person: Person) => html`<sl-avatar size="sm" .displayName=${person.firstName}></sl-avatar>`}></sl-grid-column>
+          <sl-grid-column width="400" path="lastName"></sl-grid-column>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const avatar = el.renderRoot.querySelector<Avatar>('sl-avatar')!,
+        fixedColumn = el.querySelector<GridColumn>('sl-grid-column')!,
+        cellUpdate = stub(avatar, 'updateComplete').get(() => {
+          throw new Error('Fixed columns must not wait for custom content');
+        }),
+        fontsReady = stub(document.fonts, 'ready').get(() => {
+          throw new Error('Fixed columns must not wait for fonts');
+        });
+
+      try {
+        fixedColumn.width = 240;
+        await el.recalculateColumnWidths();
+
+        expect(el.style.getPropertyValue('--sl-grid-row-width')).to.equal('640px');
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-margin-inline')).to.equal(
+          '240px 0px'
+        );
+        expect(el.style.getPropertyValue('--sl-grid-scrollbar-inline-size')).to.equal(
+          'calc(var(--sl-grid-width) - 240px)'
+        );
+
+        // Range changes in a fixed-width grid must use the same fast path.
+        el.tbody.dispatchEvent(new Event('rangeChanged'));
+        await el.recalculateColumnWidths();
+      } finally {
+        cellUpdate.restore();
+        fontsReady.restore();
+      }
+    });
+
+    it('should grow when a data source refreshes rows without changing its items array or range', async () => {
+      const items = [{ firstName: 'Jane', lastName: 'Smith' }],
+        dataSource = new ArrayListDataSource(items);
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .dataSource=${dataSource}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column width="80" path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+
+      const column = el.querySelector<GridColumn>('sl-grid-column')!,
+        initialWidth = column.width!,
+        renderedItems = dataSource.items,
+        itemsGetter = stub(dataSource, 'items').get(() => renderedItems),
+        rangeChanges = spy();
+      el.tbody.addEventListener('rangeChanged', rangeChanges);
+
+      try {
+        items[0].firstName = 'A much longer name updated in the same existing row';
+        dataSource.update();
+
+        await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+        await expect
+          .poll(() => {
+            const text = el.renderRoot.querySelector('sl-ellipsize-text'),
+              slot = text?.shadowRoot?.querySelector('slot');
+            return (
+              text?.textContent === items[0].firstName &&
+              !!slot &&
+              slot.clientWidth >= slot.scrollWidth
+            );
+          })
+          .toBe(true);
+        expect(rangeChanges).not.to.have.been.called;
+      } finally {
+        el.tbody.removeEventListener('rangeChanged', rangeChanges);
+        itemsGetter.restore();
+      }
+    });
+
+    it('should grow when scrolling reveals longer content and retain the width on return', async () => {
+      const items = Array.from({ length: 200 }, (_, index) => ({
+          firstName: index === 199 ? 'A much longer name at the end of the list' : 'Jane',
+          lastName: 'Smith'
+        })),
+        scroller = await fixture<HTMLDivElement>(html`
+          <div style="block-size: 256px; inline-size: 320px; overflow: auto">
+            <sl-grid .items=${items}>
+              <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+              <sl-grid-column path="lastName" width="80"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `);
+      el = scroller.querySelector<Grid<Person>>('sl-grid')!;
+      await waitForGridToRenderData(el);
+      const column = el.querySelector<GridColumn>('sl-grid-column')!;
+
+      await expect.poll(() => column.width).toBeGreaterThan(0);
+
+      const initialWidth = column.width!;
+
+      expect(el.renderRoot.textContent).not.to.contain(items[199].firstName);
+
+      scroller.scrollTop = scroller.scrollHeight;
+
+      await expect.poll(() => el.renderRoot.textContent).toContain(items[199].firstName);
+      await expect.poll(() => column.width).toBeGreaterThan(initialWidth);
+
+      const grownWidth = column.width;
+
+      await expect
+        .poll(() => {
+          const text = Array.from(el.renderRoot.querySelectorAll('sl-ellipsize-text')).find(
+              element => element.textContent === items[199].firstName
+            ),
+            slot = text?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      scroller.scrollTop = 0;
+
+      await expect.poll(() => el.renderRoot.textContent).not.toContain(items[199].firstName);
+      expect(column.width).to.equal(grownWidth);
+    });
+
+    it('should grow for newly rendered rows without shrinking or changing fixed columns', async () => {
+      el = await fixture(html`
+        <sl-grid style="inline-size: 320px" .items=${[{ firstName: 'Jane', lastName: 'Smith' }]}>
+          <sl-grid-column ellipsize-text path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName" width="80"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      const [auto, fixed] = el.querySelectorAll<GridColumn>('sl-grid-column');
+
+      await expect.poll(() => auto.width).toBeGreaterThan(0);
+
+      const initialWidth = auto.width!;
+
+      el.items = [
+        { firstName: 'A much longer name rendered later in the grid', lastName: 'Smith' }
+      ];
+
+      await expect.poll(() => auto.width).toBeGreaterThan(initialWidth);
+
+      const grownWidth = auto.width;
+
+      await expect
+        .poll(() => {
+          const slot = el.renderRoot
+            .querySelector('sl-ellipsize-text')
+            ?.shadowRoot?.querySelector('slot');
+          return !!slot && slot.clientWidth >= slot.scrollWidth;
+        })
+        .toBe(true);
+
+      el.items = [{ firstName: 'Jane', lastName: 'Smith' }];
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      expect(auto.width).to.equal(grownWidth);
+      expect(fixed.width).to.equal(80);
+    });
+  });
+
+  describe('column groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            {
+              firstName: 'John',
+              lastName: 'Doe',
+              school: { name: 'Example School', city: 'Example City', country: 'Example Country' }
+            }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid-column-group>
+          <sl-grid-column-group header="School">
+            <sl-grid-column path="school.name"></sl-grid-column>
+            <sl-grid-column path="school.city"></sl-grid-column>
+            <sl-grid-column path="school.country"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should scope group headers and leaf headers correctly', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('role', 'cell');
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).to.have.attribute('role', 'cell');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+
+      headers.slice(2).forEach(header => {
+        expect(header).to.have.attribute('role', 'cell');
+      });
+
+      const firstNameHeaderId = headers[2].id,
+        lastNameHeaderId = headers[3].id,
+        schoolNameHeaderId = headers[4].id,
+        cityHeaderId = headers[5].id,
+        countryHeaderId = headers[6].id,
+        cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(headers[0]).not.to.have.attribute('aria-hidden');
+      expect(headers[1]).not.to.have.attribute('aria-hidden');
+
+      expect(headers[2]).to.have.attribute('aria-colindex', '1');
+      expect(headers[2]).not.to.have.attribute('headers');
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).not.to.have.attribute('aria-label');
+
+      expect(headers[3]).to.have.attribute('aria-colindex', '2');
+      expect(headers[3]).not.to.have.attribute('headers');
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).not.to.have.attribute('aria-label');
+
+      expect(headers[4]).to.have.attribute('aria-colindex', '3');
+      expect(headers[4]).not.to.have.attribute('headers');
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).not.to.have.attribute('aria-label');
+
+      expect(headers[5]).to.have.attribute('aria-colindex', '4');
+      expect(headers[5]).not.to.have.attribute('headers');
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).not.to.have.attribute('aria-label');
+
+      expect(headers[6]).to.have.attribute('aria-colindex', '5');
+      expect(headers[6]).not.to.have.attribute('headers');
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).not.to.have.attribute('aria-label');
+
+      expect(cells[0]).to.have.attribute('headers', `${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('headers', `${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('headers', `${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('headers', `${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('headers', `${countryHeaderId}`);
+
+      const nameGroupHeaderId = headers[0].id,
+        schoolGroupHeaderId = headers[1].id;
+
+      expect(cells[0]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${firstNameHeaderId}`
+      );
+      expect(cells[1]).to.have.attribute(
+        'aria-labelledby',
+        `${nameGroupHeaderId} ${lastNameHeaderId}`
+      );
+      expect(cells[2]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${schoolNameHeaderId}`
+      );
+      expect(cells[3]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${cityHeaderId}`
+      );
+      expect(cells[4]).to.have.attribute(
+        'aria-labelledby',
+        `${schoolGroupHeaderId} ${countryHeaderId}`
+      );
+    });
+  });
+
+  describe('column group header changes', () => {
+    it('should update the group label of nested columns when the group header changes', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe' }]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      const column = grid.querySelector('sl-grid-column')!,
+        group = grid.querySelector('sl-grid-column-group')!;
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Name First name'
+      );
+
+      group.header = 'Person';
+
+      // No manual update of the grid: the group has to notify it
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(column.getFormControlLabel({ firstName: 'John', lastName: 'Doe' })).to.equal(
+        'Person First name'
+      );
+    });
+  });
+
+  describe('column group with filter columns', () => {
+    it('should keep the surviving filter registered after removing the first column', async () => {
+      const grid: Grid<Person> = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
+            <sl-grid-filter-column path="lastName"></sl-grid-filter-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(grid);
+
+      grid.querySelector('sl-grid-filter-column')!.remove();
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await grid.updateComplete;
+
+      const column = grid.querySelector('sl-grid-filter-column')!,
+        filterElement = column.filterElement!;
+
+      expect(filterElement.isConnected).to.be.true;
+
+      filterElement.value = 'Doe';
+      filterElement.filterChangeEvent.emit({ column, value: 'Doe' });
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(grid.dataSource?.items).to.have.length(1);
+    });
+  });
+
   describe('multiple select', () => {
     beforeEach(async () => {
       await mountMultipleSelectGrid();
+    });
+
+    it('should show the keyboard focus indicator on selection checkboxes', async () => {
+      await expect.poll(() => el.renderRoot.querySelectorAll('sl-checkbox').length).toBe(3);
+      await expect
+        .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
+        .toBe('visible');
+
+      el.style.setProperty('--sl-color-border-focused', 'rgb(1, 2, 3)');
+      await userEvent.keyboard('{Tab}');
+
+      for (const selector of [
+        'thead sl-checkbox',
+        'tbody tr:first-child sl-checkbox',
+        'tbody tr:last-child sl-checkbox'
+      ]) {
+        const checkbox = el.renderRoot.querySelector<Checkbox>(selector)!;
+        checkbox.focus();
+
+        expect(checkbox.input.matches(':focus-visible')).to.be.true;
+
+        const inner = checkbox.renderRoot.querySelector<HTMLElement>('[part="inner"]')!;
+
+        await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgb(1, 2, 3)');
+
+        checkbox.blur();
+
+        await expect.poll(() => getComputedStyle(inner).outlineColor).toBe('rgba(0, 0, 0, 0)');
+      }
+    });
+
+    it('should not show the keyboard focus indicator when clicking a selection checkbox', async () => {
+      await expect
+        .poll(() => getComputedStyle(el.renderRoot.querySelector('table')!).visibility)
+        .toBe('visible');
+
+      const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+
+      await userEvent.click(checkbox);
+
+      await expect
+        .poll(() => {
+          const current = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+          return getComputedStyle(current.renderRoot.querySelector<HTMLElement>('[part="inner"]')!)
+            .outlineColor;
+        })
+        .toBe('rgba(0, 0, 0, 0)');
     });
 
     it('should toggle the "selected" part of the row when clicking in the selection column', async () => {
@@ -119,6 +1174,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
     });
 
@@ -131,6 +1187,7 @@ describe('sl-grid', () => {
       const selectedRow = el.renderRoot.querySelector<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRow).to.be.null;
     });
 
@@ -146,6 +1203,7 @@ describe('sl-grid', () => {
       const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -175,6 +1233,331 @@ describe('sl-grid', () => {
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
     });
 
+    it('should select 2 of 48 rows after typing sop in the student filter', async () => {
+      const students = Array.from({ length: 48 }, (_, index) => ({
+        firstName: index === 0 ? 'Sophie' : index === 1 ? 'Sophia' : `Student ${index}`,
+        lastName: `Last name ${index}`
+      }));
+
+      el = await fixture(html`
+        <sl-grid .items=${students}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-filter-column header="Student" path="firstName"></sl-grid-filter-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const searchField = el.renderRoot
+        .querySelector('sl-grid-filter')!
+        .renderRoot.querySelector('sl-search-field')!;
+
+      await userEvent.type(searchField.input, 'sop');
+
+      await expect.poll(() => el.dataSource?.size).to.equal(2);
+
+      await userEvent.click(el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!);
+
+      await expect.poll(() => el.dataSource?.selected).to.equal(2);
+      expect(el.renderRoot.textContent).to.contain('2 of 48 selected');
+
+      searchField.clear();
+
+      await expect.poll(() => el.dataSource?.size).to.equal(48);
+      expect(el.dataSource?.selected).to.equal(2);
+    });
+
+    it('should toggle a row on the first mouse click after filtering', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${multipleSelectItems}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const searchField = el.renderRoot
+        .querySelector('sl-grid-filter')!
+        .renderRoot.querySelector('sl-search-field')!;
+
+      await userEvent.click(searchField.input);
+      await userEvent.type(searchField.input, 'Jane');
+      await expect.poll(() => el.dataSource?.size).to.equal(1);
+
+      const getCheckbox = (): Checkbox =>
+        el.renderRoot.querySelector<Checkbox>('tbody sl-checkbox')!;
+
+      // Keep the mouse pressed while the input's native change event refreshes the data source.
+      // Replacing the row between mousedown and mouseup would swallow the checkbox click.
+      await userEvent.click(getCheckbox(), { delay: 100 });
+      await expect.poll(() => el.dataSource?.selected).to.equal(1);
+      expect(getCheckbox().checked).to.be.true;
+
+      await userEvent.click(getCheckbox(), { delay: 100 });
+      await expect.poll(() => el.dataSource?.selected).to.equal(0);
+      expect(getCheckbox().checked).to.be.false;
+    });
+
+    it('should toggle a row on the first mouse click after clearing a filter', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${multipleSelectItems}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-filter-column path="firstName"></sl-grid-filter-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const searchField = el.renderRoot
+        .querySelector('sl-grid-filter')!
+        .renderRoot.querySelector('sl-search-field')!;
+
+      await userEvent.click(searchField.input);
+      await userEvent.type(searchField.input, 'Jane');
+
+      await expect.poll(() => el.dataSource?.size).to.equal(1);
+
+      await userEvent.clear(searchField.input);
+
+      await expect.poll(() => el.dataSource?.size).to.equal(2);
+
+      const getCheckbox = (): Checkbox =>
+        el.renderRoot.querySelector<Checkbox>('tbody sl-checkbox')!;
+
+      // Keep the mouse pressed while the input's native change event refreshes the data source.
+      // Replacing the row between mousedown and mouseup would swallow the checkbox click.
+      await userEvent.click(getCheckbox(), { delay: 100 });
+      await expect.poll(() => el.dataSource?.selected).to.equal(1);
+      expect(getCheckbox().checked).to.be.true;
+
+      await userEvent.click(getCheckbox(), { delay: 100 });
+
+      await expect.poll(() => el.dataSource?.selected).to.equal(0);
+      expect(getCheckbox().checked).to.be.false;
+    });
+
+    it('should disable select-all for empty filter results without retaining a checked state', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.addFilter('name', 'firstName', 'Nobody');
+      dataSource.update();
+      await el.updateComplete;
+      const checkbox = el.renderRoot.querySelector<Checkbox>('thead sl-checkbox')!;
+
+      expect(checkbox).to.have.attribute('disabled');
+
+      checkbox.click();
+      await el.updateComplete;
+
+      expect(checkbox.checked).not.to.be.true;
+      expect(dataSource.selected).to.equal(0);
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(checkbox).not.to.have.attribute('disabled');
+      expect(checkbox.checked).not.to.be.true;
+    });
+
+    it('should select only filtered rows with the header checkbox', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[0]]);
+      expect(dataSource.selected).to.equal(1);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.property('checked', true);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[0]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.property(
+        'indeterminate',
+        true
+      );
+    });
+
+    it('should preserve hidden selections when deselecting filtered rows', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>,
+        onSelectionChange = spy();
+
+      dataSource.selectAll();
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([multipleSelectItems[1]]);
+      expect(dataSource.selected).to.equal(1);
+      expect(onSelectionChange).to.have.been.calledOnce;
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+    });
+
+    it('should reflect selection in the current filter rather than hidden rows', async () => {
+      const dataSource = el.dataSource as ArrayListDataSource<Person>;
+
+      dataSource.select(dataSource.items[1]);
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute('checked');
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).not.to.have.attribute(
+        'indeterminate'
+      );
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal(multipleSelectItems);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+    });
+
+    it('should select filtered rows across pages', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'John', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, {
+          selects: 'multiple',
+          pagination: true,
+          pageSize: 1
+        });
+
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(dataSource.selected).to.equal(2);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('indeterminate');
+    });
+
+    it('should select filtered rows in collapsed groups', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'John', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, {
+          selects: 'multiple',
+          groupBy: 'group',
+          pagination: false,
+          pageSize: 1
+        });
+
+      dataSource.collapseGroup('B');
+      dataSource.addFilter('name', 'firstName', 'John');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(dataSource.selected).to.equal(2);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('checked');
+
+      dataSource.removeFilter('name');
+      dataSource.update();
+      await el.updateComplete;
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[0], people[2]]);
+      expect(el.renderRoot.querySelector('thead sl-checkbox')).to.have.attribute('indeterminate');
+    });
+
+    it('should synchronize group selection after selecting filtered rows', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'Alice', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'group' }),
+        onSelectionChange = spy();
+
+      dataSource.addFilter('group', 'group', 'A');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      const group = dataSource.items.find(item => item.type === 'group')!;
+
+      expect(dataSource.isSelected(group)).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+
+      dataSource.toggle(group);
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([]);
+    });
+
+    it('should restore group selection after deselecting and reselecting filtered rows in select-all mode', async () => {
+      const people: Person[] = [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' },
+          { firstName: 'Alice', lastName: 'Brown', group: 'B' }
+        ],
+        dataSource = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'group' }),
+        onSelectionChange = spy();
+
+      dataSource.selectAll();
+      dataSource.addFilter('group', 'group', 'A');
+      dataSource.update();
+      el.dataSource = dataSource;
+      await el.updateComplete;
+      el.addEventListener('sl-grid-selection-change', onSelectionChange);
+
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+      onSelectionChange.resetHistory();
+      el.renderRoot.querySelector<HTMLElement>('thead sl-checkbox')!.click();
+      await el.updateComplete;
+
+      const group = dataSource.items.find(item => item.type === 'group')!;
+
+      expect(dataSource.isSelected(group)).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+
+      dataSource.toggle(group);
+
+      expect(dataSource.getSelectedItems()).to.deep.equal([people[2]]);
+    });
+
     it('should set the selects property on the new data source when items are updated', async () => {
       const newItems = [
         { firstName: 'Alice', lastName: 'Johnson' },
@@ -189,6 +1572,76 @@ describe('sl-grid', () => {
   });
 
   describe('drag and drop', () => {
+    it('should preserve the dragged row through successive reorder gestures', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' },
+            { firstName: 'Alice', lastName: 'Brown' }
+          ]}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const onDrop = spy();
+      el.addEventListener('sl-grid-drop', onDrop);
+      const readOrder = () =>
+        Array.from(el.renderRoot.querySelectorAll('tbody tr'), row =>
+          row.querySelector('td:nth-child(2)')?.textContent?.trim()
+        );
+
+      for (const [sourceIndex, targetIndex, position, expectedOrder] of [
+        [0, 2, 'after', ['Jane', 'Alice', 'John']],
+        [2, 0, 'before', ['John', 'Jane', 'Alice']],
+        [1, 2, 'after', ['John', 'Alice', 'Jane']]
+      ] as const) {
+        const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'),
+          sourceRow = rows[sourceIndex],
+          targetRow = rows[targetIndex],
+          transfer = new DataTransfer(),
+          rect = targetRow.getBoundingClientRect(),
+          clientY = position === 'before' ? rect.top + 1 : rect.bottom - 1;
+        const dispatch = (row: HTMLTableRowElement, type: string) =>
+          row.dispatchEvent(
+            new DragEvent(type, {
+              bubbles: true,
+              composed: true,
+              cancelable: true,
+              dataTransfer: transfer,
+              clientY
+            })
+          );
+
+        sourceRow
+          .querySelector('[part~="drag-handle"]')!
+          .dispatchEvent(
+            new MouseEvent('mousedown', { bubbles: true, composed: true, cancelable: true })
+          );
+        dispatch(sourceRow, 'dragstart');
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+        dispatch(targetRow, 'dragover');
+
+        await expect.poll(readOrder).to.deep.equal(expectedOrder);
+
+        // Replacing this element interrupts the browser's native drag-and-drop gesture.
+        expect(sourceRow.isConnected).to.be.true;
+        expect(sourceRow.part.contains('dragging')).to.be.true;
+        expect(onDrop).not.to.have.been.called;
+
+        dispatch(targetRow, 'drop');
+        dispatch(sourceRow, 'dragend');
+        await el.updateComplete;
+
+        expect(onDrop).to.have.been.calledOnce;
+        expect(sourceRow.part.contains('dragging')).to.be.false;
+
+        onDrop.resetHistory();
+      }
+    });
+
     it('should use the default cursor for a non-draggable group row', async () => {
       const dataSource = new ArrayListDataSource<Person>(
         [
@@ -521,6 +1974,7 @@ describe('sl-grid', () => {
       );
 
       expect(selectedItem).to.exist;
+
       el.dataSource?.select(selectedItem!);
       el.dataSource?.update();
       await waitForGridToRenderData(el);
@@ -739,7 +2193,7 @@ describe('sl-grid', () => {
       expect(reorderSpy).not.to.have.been.called;
     });
 
-    it('should allow dragging and dropping a complete group', async () => {
+    it('should allow repeatedly dragging and dropping an expanded group', async () => {
       const dataSource = new ArrayListDataSource<Student>(
         [
           {
@@ -769,54 +2223,175 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
 
       const reorderSpy = spy(dataSource, 'reorder'),
-        groupRows = Array.from(
-          el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
-        ),
-        sourceGroupRow = groupRows[0],
-        targetGroupRow = groupRows[1],
-        sourceGroupHeader = sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
-        dragHandle =
-          sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
-        dragStartEvent = new DragEvent('dragstart', {
-          bubbles: true,
-          cancelable: true,
-          composed: true,
-          dataTransfer: new DataTransfer()
-        });
+        dragStartSpy = spy();
 
-      expect(sourceGroupRow).to.have.attribute('draggable');
+      el.addEventListener('sl-grid-dragstart', dragStartSpy);
 
-      dragHandle.dispatchEvent(
-        new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
-      );
-      dragHandle.dispatchEvent(dragStartEvent);
-      targetGroupRow.dispatchEvent(
-        new DragEvent('dragover', {
-          bubbles: true,
-          cancelable: true,
-          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
-          dataTransfer: new DataTransfer()
-        })
-      );
-      targetGroupRow.dispatchEvent(
-        new DragEvent('drop', {
-          bubbles: true,
-          cancelable: true,
-          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
-          dataTransfer: new DataTransfer()
-        })
-      );
-      sourceGroupRow.dispatchEvent(
-        new DragEvent('dragend', {
-          bubbles: true,
-          cancelable: true,
-          dataTransfer: new DataTransfer()
-        })
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const groupRows = Array.from(
+            el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
+          ),
+          sourceGroupRow = groupRows.find(row => row.textContent?.includes('School A'))!,
+          targetGroupRow = groupRows.find(row => row.textContent?.includes('School B'))!,
+          sourceGroupHeader =
+            sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+          dragHandle =
+            sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
+          position = attempt % 2 === 0 ? 'after' : 'before',
+          clientY =
+            position === 'after'
+              ? targetGroupRow.getBoundingClientRect().bottom - 1
+              : targetGroupRow.getBoundingClientRect().top + 1,
+          dataTransfer = new DataTransfer();
+
+        expect(sourceGroupRow).to.have.attribute('draggable', 'true');
+
+        dragHandle.dispatchEvent(
+          new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
+        );
+        dragHandle.dispatchEvent(
+          new DragEvent('dragstart', {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            dataTransfer
+          })
+        );
+        targetGroupRow.dispatchEvent(
+          new DragEvent('dragover', { bubbles: true, cancelable: true, clientY, dataTransfer })
+        );
+        targetGroupRow.dispatchEvent(
+          new DragEvent('drop', { bubbles: true, cancelable: true, clientY, dataTransfer })
+        );
+        dragHandle.dispatchEvent(
+          new DragEvent('dragend', {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            dataTransfer
+          })
+        );
+
+        await waitForGridToRenderData(el);
+
+        expect(dragStartSpy.callCount).to.equal(attempt + 1);
+        expect(reorderSpy.callCount).to.equal(attempt + 1);
+        expect(reorderSpy.lastCall.args[0]).to.have.property('type', 'group');
+        expect(reorderSpy.lastCall.args[2]).to.equal(position);
+        await expect
+          .poll(() =>
+            Array.from(el.tbody.querySelectorAll('tr[part~="group"]')).map(row =>
+              row.textContent?.trim()
+            )
+          )
+          .to.deep.equal(
+            position === 'after'
+              ? ['School B (1)', 'School A (1)']
+              : ['School A (1)', 'School B (1)']
+          );
+      }
+    });
+
+    it('should allow repeatedly dragging and dropping a collapsed group', async () => {
+      const dataSource = new ArrayListDataSource<Student>(
+        [
+          {
+            firstName: 'John',
+            lastName: 'Doe',
+            school: { id: 1, name: 'School A' }
+          },
+          {
+            firstName: 'Jane',
+            lastName: 'Smith',
+            school: { id: 2, name: 'School B' }
+          }
+        ],
+        {
+          groupBy: 'school.id',
+          groupLabelPath: 'school.name'
+        }
       );
 
-      expect(reorderSpy).to.have.been.calledOnce;
-      expect(reorderSpy.firstCall.args[0]).to.have.property('type', 'group');
-      expect(reorderSpy.firstCall.args[2]).to.equal('after');
+      dataSource.collapseGroup(1);
+      dataSource.collapseGroup(2);
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const reorderSpy = spy(dataSource, 'reorder'),
+        dragStartSpy = spy();
+
+      el.addEventListener('sl-grid-dragstart', dragStartSpy);
+
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const groupRows = Array.from(
+            el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
+          ),
+          sourceGroupRow = groupRows.find(row => row.textContent?.includes('School A'))!,
+          targetGroupRow = groupRows.find(row => row.textContent?.includes('School B'))!,
+          sourceGroupHeader =
+            sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+          dragHandle =
+            sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
+          position = attempt % 2 === 0 ? 'after' : 'before',
+          clientY =
+            position === 'after'
+              ? targetGroupRow.getBoundingClientRect().bottom - 1
+              : targetGroupRow.getBoundingClientRect().top + 1,
+          dataTransfer = new DataTransfer();
+
+        expect(sourceGroupRow).to.have.attribute('draggable', 'true');
+
+        dragHandle.dispatchEvent(
+          new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
+        );
+        dragHandle.dispatchEvent(
+          new DragEvent('dragstart', {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            dataTransfer
+          })
+        );
+        targetGroupRow.dispatchEvent(
+          new DragEvent('dragover', { bubbles: true, cancelable: true, clientY, dataTransfer })
+        );
+        targetGroupRow.dispatchEvent(
+          new DragEvent('drop', { bubbles: true, cancelable: true, clientY, dataTransfer })
+        );
+        dragHandle.dispatchEvent(
+          new DragEvent('dragend', {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            dataTransfer
+          })
+        );
+
+        await waitForGridToRenderData(el);
+
+        expect(dragStartSpy.callCount).to.equal(attempt + 1);
+        expect(reorderSpy.callCount).to.equal(attempt + 1);
+        expect(reorderSpy.lastCall.args[0]).to.have.property('type', 'group');
+        expect(reorderSpy.lastCall.args[2]).to.equal(position);
+        await expect
+          .poll(() =>
+            Array.from(el.tbody.querySelectorAll('tr[part~="group"]')).map(row =>
+              row.textContent?.trim()
+            )
+          )
+          .to.deep.equal(
+            position === 'after'
+              ? ['School B (1)', 'School A (1)']
+              : ['School A (1)', 'School B (1)']
+          );
+      }
     });
 
     it('should update the row order immediately when reordering items within one group', async () => {
@@ -1021,6 +2596,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
     });
 
@@ -1033,6 +2609,7 @@ describe('sl-grid', () => {
       let selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRows).to.have.lengthOf(1);
 
       el.renderRoot
@@ -1043,12 +2620,15 @@ describe('sl-grid', () => {
       selectedRows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(selectedRows).to.have.lengthOf(1);
 
       const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(firstRow?.part.contains('selected')).to.be.false;
 
       const secondRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
+
       expect(secondRow?.part.contains('selected')).to.be.true;
     });
 
@@ -1059,6 +2639,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -1067,6 +2648,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -1182,6 +2764,7 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
       expect(row?.part.contains('active')).to.be.true;
     });
 
@@ -1378,6 +2961,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -1386,6 +2970,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -1396,6 +2981,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.true;
 
       el.renderRoot
@@ -1404,6 +2990,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row?.part.contains('selected')).to.be.false;
     });
 
@@ -1419,6 +3006,7 @@ describe('sl-grid', () => {
       const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>(
         'tbody tr[part~="selected"]'
       );
+
       expect(rows).to.have.lengthOf(2);
     });
 
@@ -1463,6 +3051,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
+
       expect(event.detail.message).to.equal('Row 2 activated');
       expect(event.detail.urgency).to.equal('polite');
 
@@ -1489,6 +3078,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
+
       expect(event.detail.message).to.equal('Row 2 deactivated');
       expect(event.detail.urgency).to.equal('polite');
 
@@ -1687,6 +3277,23 @@ describe('sl-grid', () => {
         Math.round(tbody.getBoundingClientRect().right - 12),
         1
       );
+    });
+
+    it('should count hidden columns in aria-colcount and column indices', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${[{ firstName: 'John', lastName: 'Doe', email: 'j@d.nl' }]}>
+          <sl-grid-column .hidden=${true} path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
+
+      expect(el.renderRoot.querySelector('table')).to.have.attribute('aria-colcount', '3');
+      expect(cells.map(cell => cell.getAttribute('aria-colindex'))).to.deep.equal(['1', '2', '3']);
     });
 
     it('should use the sticky order from the last visible sticky start column', async () => {

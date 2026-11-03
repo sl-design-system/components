@@ -12,6 +12,7 @@ import {
 } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Ref, createRef, ref } from 'lit/directives/ref.js';
 import { GridFilter } from './filter.js';
 import { GridSortColumn } from './sort-column.js';
@@ -151,7 +152,11 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
       return super.renderHeaderRow(index);
     } else if (index === 1) {
       return html`
-        <th part=${parts.join(' ')} role="columnheader" scope="col">
+        <th
+          aria-colindex=${String(this.columnIndex)}
+          part=${parts.join(' ')}
+          role=${this.headerRole}
+          scope=${ifDefined(this.headerScope)}>
           <sl-grid-filter
             ${ref(this.#filterRef)}
             .column=${this}

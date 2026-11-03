@@ -64,6 +64,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Pending validation announcements, tracked separately for each form control. */
+  #announcementTimers = new Map<HTMLElement & FormControl, ReturnType<typeof setTimeout>>();
+
   /** Whether a custom error has been slotted. */
   #customError?: boolean;
 
@@ -127,6 +130,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    this.#announcementTimers.forEach(timer => clearTimeout(timer));
+    this.#announcementTimers.clear();
+
     this.#unregister?.();
     this.#unregister = undefined;
 
@@ -412,12 +418,36 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       });
     }
 
+    // Capture the control during dispatch, before Shadow DOM retargets the event.
+    const control = event.target,
+      pendingAnnouncement = this.#announcementTimers.get(control);
+
+    if (
+      pendingAnnouncement !== undefined &&
+      (!this.announceErrors || nextError !== previousError)
+    ) {
+      clearTimeout(pendingAnnouncement);
+      this.#announcementTimers.delete(control);
+    }
+
     if (this.announceErrors && nextError && nextError !== previousError) {
       // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
       // This improves compatibility with screen readers like VoiceOver and NVDA
-      setTimeout(() => {
-        announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
+      const timer = setTimeout(() => {
+        this.#announcementTimers.delete(control);
+
+        if (
+          this.announceErrors &&
+          this.isConnected &&
+          control.isConnected &&
+          this.contains(control) &&
+          this.errors[control.id] === nextError
+        ) {
+          announce(this.#getValidationAnnouncement(control, nextError), 'polite', true);
+        }
       }, 250);
+
+      this.#announcementTimers.set(control, timer);
     }
 
     // Since we can have multiple form controls slotted, we need to

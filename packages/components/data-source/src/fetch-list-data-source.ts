@@ -4,9 +4,12 @@ import {
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
+  type ListDataSourceItemBase,
   type ListDataSourceMapping,
   type ListDataSourceOptions,
-  ListDataSourcePlaceholder
+  ListDataSourcePlaceholder,
+  isListDataSourceDataItem,
+  isListDataSourceGroupItem
 } from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,6 +123,20 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** Minimum group sizes established by fetched rows, independent of active filters. */
   #groupSizeLowerBounds = new Map<unknown, number>();
 
+  /**
+   * Ids of the groups the user explicitly deselected while "select all" is active. Unlike the group
+   * marker, which is also set when a single row of the group is deselected, this tells that rows
+   * arriving later for the group should be deselected as well.
+   */
+  #deselectedGroups = new Set<unknown>();
+
+  /**
+   * Ids of the groups the user explicitly selected. A group can also look selected because all of
+   * its loaded rows were selected one by one; rows that arrive later are only selected for groups
+   * in this set.
+   */
+  #selectedGroups = new Set<unknown>();
+
   /** The total number of items in the data source. */
   #totalSize: number;
 
@@ -212,6 +229,44 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
     // Initialize the items array, but do not emit an event yet
     this.update(false);
+  }
+
+  override select(item: ListDataSourceItemBase, update = true): void {
+    if (update) {
+      if (isListDataSourceGroupItem<T>(item)) {
+        this.#deselectedGroups.delete(item.id);
+        this.#selectedGroups.add(item.id);
+      } else if (isListDataSourceDataItem<T>(item) && item.group) {
+        this.#deselectedGroups.delete(item.group.id);
+      }
+    }
+
+    super.select(item, update);
+  }
+
+  override deselect(item: ListDataSourceItemBase, update = true): void {
+    if (update) {
+      if (isListDataSourceGroupItem<T>(item)) {
+        this.#deselectedGroups.add(item.id);
+        this.#selectedGroups.delete(item.id);
+      } else if (isListDataSourceDataItem<T>(item) && item.group) {
+        this.#selectedGroups.delete(item.group.id);
+      }
+    }
+
+    super.deselect(item, update);
+  }
+
+  override selectAll(update = true): void {
+    this.#deselectedGroups.clear();
+    this.#selectedGroups.clear();
+    super.selectAll(update);
+  }
+
+  override deselectAll(update = true): void {
+    this.#deselectedGroups.clear();
+    this.#selectedGroups.clear();
+    super.deselectAll(update);
   }
 
   override reorder(
@@ -489,9 +544,15 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             this.selects === 'multiple' &&
             !this.isSelectAllToggled() &&
             !this.#groups.has(FetchListDataSourceDummyGroup) &&
+            this.#selectedGroups.has(group.id) &&
             this.isSelected(group);
 
-          let membersSelected = false;
+          const deselectIncomingMembers =
+            this.isSelectAllToggled() &&
+            !this.#groups.has(FetchListDataSourceDummyGroup) &&
+            this.#deselectedGroups.has(group.id);
+
+          let selectionTouched = false;
 
           for (let i = 0; i < res.items.length; i++) {
             const index = pageSize * page + i,
@@ -506,10 +567,13 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
             group.members![index] = member;
 
-            // Rows that arrive after their group was selected are part of that selection
+            // Rows that arrive after their group was selected or deselected follow that choice
             if (selectIncomingMembers) {
               this.select(member, false);
-              membersSelected = true;
+              selectionTouched = true;
+            } else if (deselectIncomingMembers) {
+              this.deselect(member, false);
+              selectionTouched = true;
             }
           }
 
@@ -518,7 +582,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             this.#proxy = this.#createProxy(this.#items);
           }
 
-          if (selectionChanged || membersSelected) {
+          if (selectionChanged || selectionTouched) {
             this.dispatchEvent(new CustomEvent('sl-selection-change'));
           }
           this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

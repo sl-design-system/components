@@ -341,10 +341,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Subclasses can override this to evaluate unfiltered group membership.
    */
   protected areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
-    // Unloaded members (e.g. pages that are not fetched yet) are not taken into account
-    return (
-      !group.members?.length || group.members.every(member => !member || this.isSelected(member))
-    );
+    // Members that are not loaded yet (e.g. pages that are not fetched yet) are not selected, so
+    // the group is never inferred to be fully selected while some of its members are missing
+    return !group.members?.length || group.members.every(member => this.isSelected(member));
   }
 
   /**
@@ -363,7 +362,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
         this.#selection.delete(item.id);
       }
     } else {
-      if (this.#selects === 'single') {
+      // Marking a group only reconciles its marker, it must not clear the selected row
+      if (this.#selects === 'single' && (update || item.type !== 'group')) {
         this.#selection.clear();
       }
 
@@ -380,7 +380,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       if (isListDataSourceGroupItem<T>(item)) {
         item.members?.forEach(member => member && this.select(member, false));
 
-        if (this.areAllGroupMembersSelected(item)) {
+        // Explicitly selecting a group selects the group, even if not all members are loaded yet
+        if (item.members?.some(member => !member) || this.areAllGroupMembersSelected(item)) {
           this.select(item, false);
         } else {
           this.deselect(item, false);

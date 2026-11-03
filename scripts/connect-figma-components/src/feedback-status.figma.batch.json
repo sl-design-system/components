@@ -34,5 +34,14 @@
         "id": "spinner"
       }
     ]
+  },
+  {
+    "templateFile": "./tag.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6768-535028",
+        "id": "tag"
+      }
+    ]
   }
 ]

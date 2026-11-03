@@ -1212,6 +1212,42 @@ describe('FetchListDataSource', () => {
   });
 
   describe('expanding a collapsed group', () => {
+    it('should fetch an expanded group again after it was empty and the filter is removed', async () => {
+      const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters }) =>
+        Promise.resolve(
+          filters?.length
+            ? { items: [], totalItems: 0 }
+            : { items: people.slice(0, 2), totalItems: 2 }
+        )
+      );
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage,
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 10
+      });
+
+      ds.expandGroup('A');
+      ds.addFilter('firstName', 'firstName', 'xyz');
+      ds.update();
+
+      // The group is empty with the filter applied; only the header remains
+      await expect.poll(() => [...ds.items].length).to.equal(1);
+
+      ds.removeFilter('firstName');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(2);
+    });
+
     it('should select a partially loaded group', async () => {
       ds = new FetchListDataSource<Person>({
         // Only the first page ever loads, so the last two members stay unloaded

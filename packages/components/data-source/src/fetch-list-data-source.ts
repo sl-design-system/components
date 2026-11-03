@@ -367,7 +367,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       if (!this.isGroupCollapsed(group.id)) {
         // `update()` resets the members; initialize them again so the items of an expanded
         // group can be requested (lazily) when they are accessed
-        group.members ??= Array.from({ length: group.size ?? FetchListDataSource.defaultSize });
+        // Always reserve at least one slot, so an empty group can fetch again after an update
+        group.members ??= Array.from({
+          length: Math.max(1, group.size ?? FetchListDataSource.defaultSize)
+        });
 
         items.push(...group.members);
         index += group.members.length;

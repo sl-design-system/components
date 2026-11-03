@@ -115,6 +115,7 @@ describe('sl-select-day', () => {
           const monthLabel = el.renderRoot.querySelector<HTMLElement>(
             '.current-month sl-format-date'
           )!;
+
           expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
           expect(el.getBoundingClientRect().width).to.equal(initialWidth);
           expect(yearBounds.left).to.be.closeTo(initialYear, 1);
@@ -126,13 +127,13 @@ describe('sl-select-day', () => {
           expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
 
           if (numberOfMonths === 2) {
-            const label = el.renderRoot.querySelector('.following-month-label')!,
-              headerBounds = header.getBoundingClientRect();
+            const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
+              secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
+              labelStart =
+                label.getBoundingClientRect().left +
+                Number.parseFloat(getComputedStyle(label).paddingInlineStart);
 
-            expect(label.getBoundingClientRect().left).to.be.closeTo(
-              headerBounds.left + headerBounds.width / 2 - 2,
-              1
-            );
+            expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
           }
         }
       });

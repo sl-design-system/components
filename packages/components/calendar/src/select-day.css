@@ -3,12 +3,12 @@
   --_cell-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
   --_focus-offset: var(--sl-size-outlineOffset-default);
   --_month-gap: 0px;
-  --_month-inline-size: max(
-    calc(var(--_days-in-week) * var(--_cell-size)),
-    var(--_header-inline-size, 0px)
+  --_month-inline-size: calc(
+    2 * var(--sl-size-025) +
+      max(calc(var(--_days-in-week) * var(--_cell-size)), var(--_header-inline-size, 0px))
   );
   --_rendered-month-inline-size: min(var(--_month-inline-size), 100%);
-  --_week-number-column-size: var(--sl-size-450);
+  --_week-number-column-size: calc(var(--sl-size-450) + var(--sl-size-200));
   --_week-number-column-padding-inline: var(--sl-size-025);
 
   display: inline-flex;
@@ -25,7 +25,7 @@
 
 :host([show-week-numbers]) {
   --_month-inline-size: calc(
-    var(--_week-number-column-size) +
+    2 * var(--sl-size-025) + var(--_week-number-column-size) +
       max(
         var(--_days-in-week) * var(--_cell-size),
         var(--_header-inline-size, 0px) - var(--_week-number-column-size)
@@ -52,17 +52,8 @@ header {
   align-items: center;
   box-sizing: border-box;
   display: grid;
-  gap: var(--_header-gap);
-  grid-template-columns:
-    minmax(
-      0,
-      calc(
-        var(--_month-inline-size) + var(--_month-gap) / 2 - 2 * var(--sl-size-300) -
-          var(--sl-size-025) - var(--sl-size-050)
-      )
-    )
-    0 minmax(0, 1fr) max-content;
-  margin-block-end: var(--sl-size-050);
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 }
@@ -87,7 +78,7 @@ header.single-month {
     calc(100% - var(--_month-control-inline-size, 0px) - var(--_year-control-inline-size, 0px)),
     var(--_controls-gap)
   );
-  grid-column: 1 / span 1;
+  grid-column: 1 / span 2;
   min-inline-size: 0;
 }
 
@@ -139,7 +130,7 @@ sl-button {
   grid-column: 3 / span 1;
   min-inline-size: 0;
   overflow: hidden;
-  padding-inline-start: var(--sl-size-300);
+  padding-inline-start: var(--sl-size-100);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -157,6 +148,7 @@ header.single-month,
 }
 
 .days-of-week {
+  box-sizing: border-box;
   color: var(--sl-color-foreground-subtlest);
   display: grid;
   flex: 0 0 var(--_rendered-month-inline-size);
@@ -165,7 +157,7 @@ header.single-month,
   line-height: calc((24 / 14) * 1em);
   margin-block-end: var(--sl-size-025);
   padding-block: var(--sl-size-050);
-  padding-inline: 0;
+  padding-inline: var(--sl-size-025);
 }
 
 .day-of-week,
@@ -207,9 +199,10 @@ header.single-month,
 sl-month-view {
   --_table-layout: fixed;
 
+  box-sizing: border-box;
   flex: 0 0 var(--_rendered-month-inline-size);
   min-inline-size: 0;
-  padding-inline: 0;
+  padding-inline: var(--sl-size-025);
   scroll-snap-align: start;
   scroll-snap-stop: always;
 

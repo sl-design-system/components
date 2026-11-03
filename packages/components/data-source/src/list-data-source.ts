@@ -341,7 +341,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Subclasses can override this to evaluate unfiltered group membership.
    */
   protected areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
-    return !group.members?.length || group.members.every(member => this.isSelected(member));
+    // Unloaded members (e.g. pages that are not fetched yet) are not taken into account
+    return (
+      !group.members?.length || group.members.every(member => !member || this.isSelected(member))
+    );
   }
 
   /**
@@ -375,7 +378,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     if (update) {
       if (isListDataSourceGroupItem<T>(item)) {
-        item.members?.forEach(member => this.select(member, false));
+        item.members?.forEach(member => member && this.select(member, false));
 
         if (this.areAllGroupMembersSelected(item)) {
           this.select(item, false);
@@ -423,7 +426,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     if (update) {
       if (isListDataSourceGroupItem<T>(item)) {
-        item.members?.forEach(member => this.deselect(member, false));
+        item.members?.forEach(member => member && this.deselect(member, false));
       } else if (
         isListDataSourceDataItem<T>(item) &&
         item.group?.members?.some(member => !this.isSelected(member))
@@ -451,7 +454,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     }
 
     if (isListDataSourceGroupItem<T>(item)) {
-      item.members?.forEach(member => this.toggle(member, force, false));
+      item.members?.forEach(member => member && this.toggle(member, force, false));
     }
 
     if (update) {

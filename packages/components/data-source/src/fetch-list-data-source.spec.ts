@@ -1212,6 +1212,39 @@ describe('FetchListDataSource', () => {
   });
 
   describe('expanding a collapsed group', () => {
+    it('should select a partially loaded group', async () => {
+      ds = new FetchListDataSource<Person>({
+        // Only the first page ever loads, so the last two members stay unloaded
+        fetchPage: ({ page }) =>
+          page === 0
+            ? Promise.resolve({ items: people.slice(0, 2), totalItems: 4 })
+            : new Promise(() => {}),
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      expect(() => ds.select(group)).not.to.throw();
+      expect(ds.isSelected(group)).to.be.true;
+      expect(ds.isSelected(group.members![0])).to.be.true;
+      expect(ds.isSelected(group.members![1])).to.be.true;
+    });
+
     it('should fetch and show the items of the group after it is expanded', async () => {
       const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }));
 

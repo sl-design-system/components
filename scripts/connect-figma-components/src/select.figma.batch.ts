@@ -26,7 +26,7 @@ function getExample() {
   }) as InstanceHandle;
 
   const clearable = checkBooleanProperty(selectVariants.getBoolean('clearable'), 'clearable'),
-    disabled = checkStringProperty(selectVariants.getString('state'), 'state') === 'Disabled',
+    disabled = checkBooleanProperty(selectVariants.getBoolean('disabled'), 'disabled'),
     placeholder = checkStringProperty(selectVariants.getString('placeholder'), 'placeholder'),
     value = checkStringProperty(selectVariants.getString('value'), 'value');
 

@@ -21,8 +21,8 @@ function getExample() {
   // The default size is "md".
   const size = checkEnum(
     radiobuttonBase.getEnum('size', {
-      SM: 'sm',
-      LG: 'lg'
+      sm: 'sm',
+      lg: 'lg'
     }) || 'md'
   );
 

@@ -29,8 +29,8 @@ function getExample() {
 
   const size = checkEnum(
     baseCombobox.getEnum('size', {
-      MD: 'md',
-      LG: 'lg'
+      md: 'md',
+      lg: 'lg'
     }) ?? 'md'
   );
 

@@ -4,6 +4,7 @@ import figma from 'figma';
 import {
   type InstanceHandle,
   checkBooleanProperty,
+  checkEnum,
   checkStringProperty
 } from './_shared/figma-assertions.js';
 
@@ -17,6 +18,8 @@ function getExample() {
   const disabled = checkStringProperty(variants.getString('state'), 'state') === 'Disabled',
     hasLabel = checkBooleanProperty(variants.getBoolean('display-label'), 'display-label'),
     placeholder = checkStringProperty(variants.getString('placeholder'), 'placeholder'),
+    size = checkEnum(variants.getEnum('size', { md: 'md', lg: 'lg' }) ?? 'md'),
+    shape = checkEnum(variants.getEnum('shape', { pill: 'pill', rect: 'rect' }) ?? 'rect'),
     value = checkStringProperty(variants.getString('value'), 'value');
 
   let label = undefined,
@@ -33,7 +36,9 @@ function getExample() {
       <sl-date-field
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
+        ${shape !== 'rect' ? ` shape="${shape}"` : ''}
         ${required ? ' required' : ''}
+        ${size !== 'md' ? ` size="${size}"` : ''}
         ${value ? ` value="${value}"` : ''}
       ></sl-date-field>
     </sl-form-field>

@@ -11,6 +11,7 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const hasDescription = checkBooleanProperty(instance.getBoolean('description'), 'description'),
+    checked = checkBooleanProperty(instance.getBoolean('checked'), 'checked'),
     description = hasDescription
       ? checkStringProperty(instance.getString('description'), 'description')
       : '',
@@ -31,7 +32,7 @@ function getExample() {
         })
         .map(child => child.executeTemplate().example)
         .flatMap(results => results.filter(result => result.type === 'CODE'))
-        .map(result => result.code)
+        .map(result => result.code.replace('<sl-infotip', '<sl-infotip slot="infotip"'))
         .join('\n')
     : '';
 
@@ -39,6 +40,7 @@ function getExample() {
     <sl-switch
       ${switchPosition === 'left' ? 'reverse' : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
+      ${checked ? 'checked' : ''}
     >
       ${label}
       ${description ? `<span slot="description">${description}</span>` : ''}

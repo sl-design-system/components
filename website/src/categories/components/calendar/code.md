@@ -41,5 +41,5 @@ You can override the first day of the week with the `first-day-of-week` attribut
 
 </section>
 
-{% include "../component-table.njk" %}
+[//]: # ({% include "../component-table.njk" %})
 

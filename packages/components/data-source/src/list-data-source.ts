@@ -380,8 +380,12 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       if (isListDataSourceGroupItem<T>(item)) {
         item.members?.forEach(member => member && this.select(member, false));
 
-        // Explicitly selecting a group selects the group, even if not all members are loaded yet
-        if (item.members?.some(member => !member) || this.areAllGroupMembersSelected(item)) {
+        // With multiple selection, explicitly selecting a group selects the group, even if not all
+        // members are loaded yet. With single selection only one member can be selected.
+        if (
+          (this.#selects === 'multiple' && item.members?.some(member => !member)) ||
+          this.areAllGroupMembersSelected(item)
+        ) {
           this.select(item, false);
         } else {
           this.deselect(item, false);

@@ -1364,6 +1364,40 @@ describe('FetchListDataSource', () => {
       expect(ds.isSelected(group.members![3])).to.be.true;
     });
 
+    it('should not mark a partially loaded group as selected with single selection', async () => {
+      ds = new FetchListDataSource<Person>({
+        // The second page never loads, so the last member stays unloaded
+        fetchPage: ({ page }) =>
+          page === 0
+            ? Promise.resolve({ items: people.slice(0, 2), totalItems: 3 })
+            : new Promise(() => {}),
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 2,
+        selects: 'single'
+      });
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      ds.select(group);
+
+      // Only one member can be selected, so the group as a whole is not selected
+      expect(ds.selected).to.equal(1);
+      expect(ds.isSelected(group)).to.be.false;
+    });
+
     it('should keep the only row of a group selected with single selection', async () => {
       ds = new FetchListDataSource<Person>({
         fetchPage: () => Promise.resolve({ items: people.slice(0, 1), totalItems: 1 }),
@@ -1434,6 +1468,56 @@ describe('FetchListDataSource', () => {
       expect(ds.isSelected(group)).to.be.false;
       expect(ds.isSelected(group.members![2])).to.be.false;
       expect(ds.isSelected(group.members![3])).to.be.false;
+    });
+
+    it('should keep a group excluded when one of its rows is selected again', async () => {
+      const secondPage = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage: ({ page }) =>
+          page === 0
+            ? Promise.resolve({ items: people.slice(0, 2), totalItems: 4 })
+            : secondPage.promise,
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+
+      const loadedCount = (): number =>
+        [...ds.items].filter(
+          i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+        ).length;
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      ds.selectAll();
+      ds.deselect(group);
+      ds.select(group.members![0]);
+
+      secondPage.resolve({ items: people.slice(2, 4), totalItems: 4 });
+
+      await expect.poll(() => group.members?.[3]?.data).to.equal(people[3]);
+
+      const expectOnlyFirstRowSelected = (): void => {
+        expect(ds.isSelected(group.members![0])).to.be.true;
+        expect(ds.isSelected(group.members![1])).to.be.false;
+        expect(ds.isSelected(group.members![2])).to.be.false;
+        expect(ds.isSelected(group.members![3])).to.be.false;
+      };
+
+      expectOnlyFirstRowSelected();
+
+      // A refresh fetches all pages again
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(4);
+      expectOnlyFirstRowSelected();
     });
 
     it('should keep a deselected row deselected after the group is refetched', async () => {

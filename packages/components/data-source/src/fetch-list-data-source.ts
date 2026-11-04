@@ -137,6 +137,12 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
    */
   #selectedGroups = new Set<unknown>();
 
+  /**
+   * Ids of the rows that were selected again, per explicitly deselected group, while "select all"
+   * is active. Rows arriving (again) for such a group are deselected, except for these rows.
+   */
+  #reselectedRows = new Map<unknown, Set<unknown>>();
+
   /** The total number of items in the data source. */
   #totalSize: number;
 
@@ -235,9 +241,19 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     if (update) {
       if (isListDataSourceGroupItem<T>(item)) {
         this.#deselectedGroups.delete(item.id);
+        this.#reselectedRows.delete(item.id);
         this.#selectedGroups.add(item.id);
-      } else if (isListDataSourceDataItem<T>(item) && item.group) {
-        this.#deselectedGroups.delete(item.group.id);
+      } else if (
+        isListDataSourceDataItem<T>(item) &&
+        item.group &&
+        this.isSelectAllToggled() &&
+        this.#deselectedGroups.has(item.group.id)
+      ) {
+        // The group stays excluded, only this row is selected again
+        const rows = this.#reselectedRows.get(item.group.id) ?? new Set<unknown>();
+
+        rows.add(item.id);
+        this.#reselectedRows.set(item.group.id, rows);
       }
     }
 
@@ -248,8 +264,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     if (update) {
       if (isListDataSourceGroupItem<T>(item)) {
         this.#deselectedGroups.add(item.id);
+        this.#reselectedRows.delete(item.id);
         this.#selectedGroups.delete(item.id);
       } else if (isListDataSourceDataItem<T>(item) && item.group) {
+        this.#reselectedRows.get(item.group.id)?.delete(item.id);
         this.#selectedGroups.delete(item.group.id);
       }
     }
@@ -259,12 +277,14 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   override selectAll(update = true): void {
     this.#deselectedGroups.clear();
+    this.#reselectedRows.clear();
     this.#selectedGroups.clear();
     super.selectAll(update);
   }
 
   override deselectAll(update = true): void {
     this.#deselectedGroups.clear();
+    this.#reselectedRows.clear();
     this.#selectedGroups.clear();
     super.deselectAll(update);
   }
@@ -571,7 +591,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             if (selectIncomingMembers) {
               this.select(member, false);
               selectionTouched = true;
-            } else if (deselectIncomingMembers) {
+            } else if (
+              deselectIncomingMembers &&
+              !this.#reselectedRows.get(group.id)?.has(member.id)
+            ) {
               this.deselect(member, false);
               selectionTouched = true;
             }

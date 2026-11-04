@@ -243,17 +243,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         this.#deselectedGroups.delete(item.id);
         this.#reselectedRows.delete(item.id);
         this.#selectedGroups.add(item.id);
-      } else if (
-        isListDataSourceDataItem<T>(item) &&
-        item.group &&
-        this.isSelectAllToggled() &&
-        this.#deselectedGroups.has(item.group.id)
-      ) {
-        // The group stays excluded, only this row is selected again
-        const rows = this.#reselectedRows.get(item.group.id) ?? new Set<unknown>();
-
-        rows.add(item.id);
-        this.#reselectedRows.set(item.group.id, rows);
+      } else if (isListDataSourceDataItem<T>(item)) {
+        this.#recordRowSelected(item);
       }
     }
 
@@ -266,9 +257,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         this.#deselectedGroups.add(item.id);
         this.#reselectedRows.delete(item.id);
         this.#selectedGroups.delete(item.id);
-      } else if (isListDataSourceDataItem<T>(item) && item.group) {
-        this.#reselectedRows.get(item.group.id)?.delete(item.id);
-        this.#selectedGroups.delete(item.group.id);
+      } else if (isListDataSourceDataItem<T>(item)) {
+        this.#recordRowDeselected(item);
       }
     }
 
@@ -287,6 +277,16 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.#reselectedRows.clear();
     this.#selectedGroups.clear();
     super.deselectAll(update);
+  }
+
+  override toggleItems(items: Array<ListDataSourceDataItem<T>>, force: boolean): void {
+    // The batch selects and deselects its rows without `update`, so the user's choice for each
+    // row is recorded here. The group markers the batch reconciles afterwards are not.
+    items.forEach(item =>
+      force ? this.#recordRowSelected(item) : this.#recordRowDeselected(item)
+    );
+
+    super.toggleItems(items, force);
   }
 
   override reorder(
@@ -348,6 +348,25 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       pageSize,
       sort: this.sort
     };
+  }
+
+  /** Records that the user selected the row, so it survives refetching an excluded group. */
+  #recordRowSelected(item: ListDataSourceDataItem<T>): void {
+    if (item.group && this.isSelectAllToggled() && this.#deselectedGroups.has(item.group.id)) {
+      // The group stays excluded, only this row is selected again
+      const rows = this.#reselectedRows.get(item.group.id) ?? new Set<unknown>();
+
+      rows.add(item.id);
+      this.#reselectedRows.set(item.group.id, rows);
+    }
+  }
+
+  /** Records that the user deselected the row. */
+  #recordRowDeselected(item: ListDataSourceDataItem<T>): void {
+    if (item.group) {
+      this.#reselectedRows.get(item.group.id)?.delete(item.id);
+      this.#selectedGroups.delete(item.group.id);
+    }
   }
 
   #createItemsArray(): Array<ListDataSourceItem<T>> {

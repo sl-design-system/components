@@ -1520,6 +1520,50 @@ describe('FetchListDataSource', () => {
       expectOnlyFirstRowSelected();
     });
 
+    it('should keep a row selected again with toggleItems when the group is refetched', async () => {
+      const secondPage = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage: ({ page }) =>
+          page === 0
+            ? Promise.resolve({ items: people.slice(0, 2), totalItems: 4 })
+            : secondPage.promise,
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+
+      const loadedCount = (): number =>
+        [...ds.items].filter(
+          i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+        ).length;
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      ds.selectAll();
+      ds.deselect(group);
+      ds.toggleItems([group.members![0]], true);
+
+      secondPage.resolve({ items: people.slice(2, 4), totalItems: 4 });
+
+      await expect.poll(() => group.members?.[3]?.data).to.equal(people[3]);
+
+      // A refresh fetches all pages again
+      ds.update();
+
+      await expect.poll(loadedCount).to.equal(4);
+      expect(ds.isSelected(group.members![0])).to.be.true;
+      expect(ds.isSelected(group.members![1])).to.be.false;
+      expect(ds.isSelected(group.members![2])).to.be.false;
+      expect(ds.isSelected(group.members![3])).to.be.false;
+    });
+
     it('should keep a deselected row deselected after the group is refetched', async () => {
       ds = new FetchListDataSource<Person>({
         fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),

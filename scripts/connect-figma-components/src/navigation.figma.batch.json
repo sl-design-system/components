@@ -1,0 +1,88 @@
+[
+  {
+    "templateFile": "./link.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19630-58561",
+        "id": "link"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19629-3720",
+        "id": "link",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
+    "templateFile": "./tab-group.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2093-294142",
+        "id": "tab-group"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2899-302703",
+        "id": "tab-group",
+        "vertical": true
+      }
+    ]
+  },
+  {
+    "templateFile": "./tab.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2702-35398",
+        "id": "tab"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2899-302642",
+        "id": "tab"
+      }
+    ]
+  },
+  {
+    "templateFile": "./breadcrumb.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7413-416778",
+        "id": "breadcrumb"
+      }
+    ]
+  },
+  {
+    "templateFile": "./breadcrumbs.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7476-189273",
+        "id": "breadcrumbs"
+      }
+    ]
+  },
+  {
+    "templateFile": "./paginator-size.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2640-93851",
+        "id": "paginator-page-size"
+      }
+    ]
+  },
+  {
+    "templateFile": "./paginator-status.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2640-93857",
+        "id": "paginator-status"
+      }
+    ]
+  },
+  {
+    "templateFile": "./paginator.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2654-121519",
+        "id": "paginator"
+      }
+    ]
+  }
+]

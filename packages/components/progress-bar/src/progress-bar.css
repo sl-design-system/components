@@ -63,7 +63,7 @@
 .label {
   color: var(--sl-color-foreground-bold);
   display: flex;
-  font: var(--sl-text-new-heading-sm);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   gap: var(--sl-space-100);
   justify-content: space-between;
 }

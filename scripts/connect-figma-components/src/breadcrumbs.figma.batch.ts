@@ -12,9 +12,7 @@ function getExample() {
     `SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`
   ) as InstanceHandle;
 
-  const homeBreadcrumb = (
-    inverted ? container.findInstance('breadcrumb-home') : container.findInstance('breadcrumb/home')
-  ) as InstanceHandle;
+  const homeBreadcrumb = container.findInstance('breadcrumb-home') as InstanceHandle;
 
   const hideHomeLabel = !checkBooleanProperty(
     homeBreadcrumb.getBoolean('Show label'),

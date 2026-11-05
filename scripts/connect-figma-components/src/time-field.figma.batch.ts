@@ -6,6 +6,7 @@ import {
   checkBooleanProperty,
   checkStringProperty
 } from './_shared/figma-assertions.js';
+import { getFormFieldProperties, renderFormField } from './_shared/figma-form-field.js';
 
 const instance = figma.selectedInstance;
 
@@ -17,25 +18,21 @@ function getExample() {
     placeholder = checkStringProperty(timePicker.getString('placeholder'), 'placeholder'),
     value = checkStringProperty(timePicker.getString('value'), 'value');
 
-  let label = undefined,
-    required = false;
-  if (hasLabel) {
-    const labelBase = timePicker.findInstance('sl-base-label') as InstanceHandle;
+  const formField = getFormFieldProperties(
+    hasLabel ? (timePicker.findInstance('sl-base-label') as InstanceHandle) : undefined
+  );
 
-    label = checkStringProperty(labelBase.getString('label'), 'label');
-    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
-  }
-
-  return figma.code`
-    <sl-form-field ${label ? `label="${label}"` : ''}>
+  return renderFormField(
+    formField,
+    figma.code`
       <sl-time-field
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
-        ${required ? ' required' : ''}
+        ${formField.required ? ' required' : ''}
         ${value ? ` value="${value}"` : ''}
       ></sl-time-field>
-    </sl-form-field>
-  `;
+  `
+  );
 }
 
 export default {

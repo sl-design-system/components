@@ -1,11 +1,8 @@
 // source=packages/components/checkbox/src/checkbox-group.ts
 // component=CheckboxGroup
 import figma from 'figma';
-import {
-  type InstanceHandle,
-  checkBooleanProperty,
-  checkStringProperty
-} from './_shared/figma-assertions.js';
+import { type InstanceHandle, checkStringProperty } from './_shared/figma-assertions.js';
+import { getFormFieldProperties, renderFormField } from './_shared/figma-form-field.js';
 
 const instance = figma.selectedInstance;
 
@@ -14,10 +11,7 @@ function getExample() {
 
   const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
 
-  const hint = checkStringProperty(labelBase.getString('hint'), 'hint'),
-    label = checkStringProperty(labelBase.getString('label'), 'label'),
-    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required'),
-    showHint = checkBooleanProperty(labelBase.getBoolean('display-hint'), 'display-hint');
+  const formField = getFormFieldProperties(labelBase);
 
   const checkboxes = instance
     .findConnectedInstances(node => node.codeConnectId() === 'checkbox')
@@ -26,19 +20,17 @@ function getExample() {
     .map(result => result?.code)
     .join('\n');
 
-  return figma.code`
-    <sl-form-field
-      ${showHint && hint ? ` hint="${hint}"` : ''}
-      ${label ? ` label="${label}"` : ''}
-    >
+  return renderFormField(
+    formField,
+    figma.code`
       <sl-checkbox-group
         ${disabled ? ' disabled' : ''}
-        ${required ? ' required' : ''}
+        ${formField.required ? ' required' : ''}
       >
         ${checkboxes}
       </sl-checkbox-group>
-    </sl-form-field>
-  `;
+  `
+  );
 }
 
 export default {

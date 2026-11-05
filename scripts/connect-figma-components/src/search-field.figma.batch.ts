@@ -6,6 +6,7 @@ import {
   checkBooleanProperty,
   checkStringProperty
 } from './_shared/figma-assertions.js';
+import { getFormFieldProperties, renderFormField } from './_shared/figma-form-field.js';
 
 const instance = figma.selectedInstance;
 
@@ -14,29 +15,20 @@ function getExample() {
     hasLabel = checkBooleanProperty(instance.getBoolean('display-label'), 'display-label'),
     placeholder = checkStringProperty(instance.getString('placeholder'), 'placeholder');
 
-  let label = undefined,
-    required = false;
-  if (hasLabel) {
-    const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
-
-    label = checkStringProperty(labelBase.getString('label'), 'label');
-    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
-  }
+  const formField = getFormFieldProperties(
+    hasLabel ? (instance.findInstance('sl-base-label') as InstanceHandle) : undefined
+  );
 
   const searchField = figma.code`
     <sl-search-field
       ${disabled ? ' disabled' : ''}
       ${placeholder ? ` placeholder="${placeholder}"` : ''}
-      ${required ? ' required' : ''}
+      ${formField.required ? ' required' : ''}
     ></sl-search-field>
   `;
 
   if (hasLabel) {
-    return figma.code`
-      <sl-form-field ${label ? `label="${label}"` : ''}>
-        ${searchField}
-      </sl-form-field>
-    `;
+    return renderFormField(formField, searchField);
   }
 
   return searchField;

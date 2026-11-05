@@ -19,7 +19,6 @@ function getExample() {
     baseIcon = sizeInstance.findInstance('Base/Icon', {
       traverseInstances: true
     }) as InstanceHandle,
-    name = checkStringProperty(baseIcon.getString('icon-name'), 'icon-name'),
     variant = checkEnum(
       baseIcon.getEnum('variant', {
         outline: 'far',
@@ -34,7 +33,11 @@ function getExample() {
     return figma.code`<sl-spinner size="${size}"></sl-spinner>`;
   }
 
-  const iconName = variant === 'custom SVG' ? name : `${variant}-${name}`;
+  const isDuotone = variant === 'fadr' || variant === 'fad',
+    nameProperty = isDuotone ? '\u262f\ufe0e - Duotone - #' : 'icon-name',
+    name = checkStringProperty(baseIcon.getString(nameProperty), nameProperty),
+    iconName =
+      variant === 'custom SVG' ? name : `${variant}-${isDuotone ? name.replace(/#+$/, '') : name}`;
 
   return figma.code`<sl-icon name="${iconName}" size="${size}"></sl-icon>`;
 }

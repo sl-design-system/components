@@ -7,6 +7,7 @@ import {
   checkEnum,
   checkStringProperty
 } from './_shared/figma-assertions.js';
+import { getFormFieldProperties, renderFormField } from './_shared/figma-form-field.js';
 
 const instance = figma.selectedInstance;
 
@@ -22,27 +23,23 @@ function getExample() {
     shape = checkEnum(variants.getEnum('shape', { pill: 'pill', rect: 'rect' }) ?? 'rect'),
     value = checkStringProperty(variants.getString('value'), 'value');
 
-  let label = undefined,
-    required = false;
-  if (hasLabel) {
-    const labelBase = variants.findInstance('sl-base-label') as InstanceHandle;
+  const formField = getFormFieldProperties(
+    hasLabel ? (variants.findInstance('sl-base-label') as InstanceHandle) : undefined
+  );
 
-    label = checkStringProperty(labelBase.getString('label'), 'label');
-    required = checkBooleanProperty(labelBase.getBoolean('required'), 'required');
-  }
-
-  return figma.code`
-    <sl-form-field ${label ? `label="${label}"` : ''}>
+  return renderFormField(
+    formField,
+    figma.code`
       <sl-date-field
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
         ${shape !== 'rect' ? ` shape="${shape}"` : ''}
-        ${required ? ' required' : ''}
+        ${formField.required ? ' required' : ''}
         ${size !== 'md' ? ` size="${size}"` : ''}
         ${value ? ` value="${value}"` : ''}
       ></sl-date-field>
-    </sl-form-field>
-  `;
+  `
+  );
 }
 
 export default {

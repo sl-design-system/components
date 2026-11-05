@@ -7,6 +7,7 @@ import {
   checkStringProperty,
   checkEnum
 } from './_shared/figma-assertions.js';
+import { getFormFieldProperties, renderFormField } from './_shared/figma-form-field.js';
 
 const instance = figma.selectedInstance;
 
@@ -20,28 +21,22 @@ function getExample() {
     ),
     value = checkStringProperty(instance.getString('value'), 'value');
 
-  let label = undefined,
-    required = false;
-  if (hasLabel) {
-    const labelBase = instance.findInstance('sl-base-label') as InstanceHandle;
+  const formField = getFormFieldProperties(
+    hasLabel ? (instance.findInstance('sl-base-label') as InstanceHandle) : undefined
+  );
 
-    label = checkStringProperty(labelBase.getString('label'), 'label');
-    required =
-      checkEnum(labelBase.getEnum('required', { true: 'true', false: 'false' }) ?? 'false') ===
-      'true';
-  }
-
-  return figma.code`
-    <sl-form-field ${label ? `label="${label}"` : ''}>
+  return renderFormField(
+    formField,
+    figma.code`
       <sl-number-field
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
-        ${required ? ' required' : ''}
+        ${formField.required ? ' required' : ''}
         ${stepButtons ? ` step-buttons="${stepButtons}"` : ''}
         ${value ? ` value="${value}"` : ''}
       ></sl-number-field>
-    </sl-form-field>
-  `;
+  `
+  );
 }
 
 export default {

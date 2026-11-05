@@ -312,15 +312,15 @@ slot:not([name]) {
 
 /*
  * Safari shows a native tooltip for text truncated with `text-overflow: ellipsis`, on top of the
- * sl-tooltip. A single line clamp truncates the text the same way without the native tooltip.
+ * sl-tooltip. Adding an empty block-level pseudo-element after the text prevents Safari from
+ * showing its native tooltip, without changing how the text is truncated.
  */
 @supports (font: -apple-system-body) and (not (-webkit-touch-callout: none)) {
   :host(:not([vertical])) [part='name'],
   slot:not([name]) {
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    text-overflow: clip;
-    white-space: normal;
+    &::after {
+      content: '';
+      display: block;
+    }
   }
 }

@@ -315,12 +315,10 @@ slot:not([name]) {
  * sl-tooltip. Adding an empty block-level pseudo-element after the text prevents Safari from
  * showing its native tooltip, without changing how the text is truncated.
  */
-@supports (font: -apple-system-body) and (not (-webkit-touch-callout: none)) {
-  :host(:not([vertical])) [part='name'],
-  slot:not([name]) {
-    &::after {
-      content: '';
-      display: block;
-    }
+:host(:not([vertical])) [part='name'],
+slot:not([name]) {
+  &::after {
+    content: '';
+    display: block;
   }
 }

@@ -49,6 +49,41 @@ Avoid using a search field within a page section when dealing with small or limi
 
 <section>
 
+## Suggested searches
+
+Use suggestions when users benefit from completing a name or discovering a useful search phrase. Users can still search their own words without choosing a suggestion.
+
+|Mode|Use when|
+|-|-|
+|`off`|Search should use the typed words without offering suggestions. This is the default.|
+|`inline`|A phrase beginning with the typed words can help users complete their query.|
+|`list`|Users should be able to review matching phrases while their input stays as typed.|
+|`both`|Users benefit from an inline proposal and a list of matching phrases.|
+
+{.ds-table .ds-table-align-top}
+
+Prefix matching offers phrases starting with the typed words and emphasises the remaining text. Contains matching also finds words inside phrases and emphasises the match. Inline completion always requires a prefix match, including when the list uses contains matching.
+
+Suggestions start after three non-space characters by default. Start earlier only when one or two characters yield useful suggestions. Use overlay placement to cover following content temporarily, or flow placement to move that content down.
+
+A suggestion-loading or unavailable message does not mean the search has no results. Keep the typed search available in every suggestion response state.
+
+</section>
+
+<section>
+
+## Search field or Combobox?
+
+Use **Search field** to search or filter content using a phrase. Suggestions assist the query; choosing one is optional, and Enter in the field searches the typed words.
+
+Use [Combobox](/categories/components/combobox/usage) when the task is to choose a form value from options, including configurations that allow custom values or multiple selections. Typing helps users locate a value to select.
+
+Choose based on the user's task: finding content belongs in Search field; choosing a value belongs in Combobox.
+
+</section>
+
+<section>
+
 ## Anatomy
 
 |Item|Name| Description | Optional|

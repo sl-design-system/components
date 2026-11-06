@@ -4,9 +4,12 @@ import {
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
+  type ListDataSourceItemBase,
   type ListDataSourceMapping,
   type ListDataSourceOptions,
-  ListDataSourcePlaceholder
+  ListDataSourcePlaceholder,
+  isListDataSourceDataItem,
+  isListDataSourceGroupItem
 } from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,6 +123,26 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** Minimum group sizes established by fetched rows, independent of active filters. */
   #groupSizeLowerBounds = new Map<unknown, number>();
 
+  /**
+   * Ids of the groups the user explicitly deselected while "select all" is active. Unlike the group
+   * marker, which is also set when a single row of the group is deselected, this tells that rows
+   * arriving later for the group should be deselected as well.
+   */
+  #deselectedGroups = new Set<unknown>();
+
+  /**
+   * Ids of the groups the user explicitly selected. A group can also look selected because all of
+   * its loaded rows were selected one by one; rows that arrive later are only selected for groups
+   * in this set.
+   */
+  #selectedGroups = new Set<unknown>();
+
+  /**
+   * Ids of the rows that were selected again, per explicitly deselected group, while "select all"
+   * is active. Rows arriving (again) for such a group are deselected, except for these rows.
+   */
+  #reselectedRows = new Map<unknown, Set<unknown>>();
+
   /** The total number of items in the data source. */
   #totalSize: number;
 
@@ -214,6 +237,58 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.update(false);
   }
 
+  override select(item: ListDataSourceItemBase, update = true): void {
+    if (update) {
+      if (isListDataSourceGroupItem<T>(item)) {
+        this.#deselectedGroups.delete(item.id);
+        this.#reselectedRows.delete(item.id);
+        this.#selectedGroups.add(item.id);
+      } else if (isListDataSourceDataItem<T>(item)) {
+        this.#recordRowSelected(item);
+      }
+    }
+
+    super.select(item, update);
+  }
+
+  override deselect(item: ListDataSourceItemBase, update = true): void {
+    if (update) {
+      if (isListDataSourceGroupItem<T>(item)) {
+        this.#deselectedGroups.add(item.id);
+        this.#reselectedRows.delete(item.id);
+        this.#selectedGroups.delete(item.id);
+      } else if (isListDataSourceDataItem<T>(item)) {
+        this.#recordRowDeselected(item);
+      }
+    }
+
+    super.deselect(item, update);
+  }
+
+  override selectAll(update = true): void {
+    this.#deselectedGroups.clear();
+    this.#reselectedRows.clear();
+    this.#selectedGroups.clear();
+    super.selectAll(update);
+  }
+
+  override deselectAll(update = true): void {
+    this.#deselectedGroups.clear();
+    this.#reselectedRows.clear();
+    this.#selectedGroups.clear();
+    super.deselectAll(update);
+  }
+
+  override toggleItems(items: Array<ListDataSourceDataItem<T>>, force: boolean): void {
+    // The batch selects and deselects its rows without `update`, so the user's choice for each
+    // row is recorded here. The group markers the batch reconciles afterwards are not.
+    items.forEach(item =>
+      force ? this.#recordRowSelected(item) : this.#recordRowDeselected(item)
+    );
+
+    super.toggleItems(items, force);
+  }
+
   override reorder(
     _item: ListDataSourceItem<T>,
     _relativeItem: ListDataSourceItem<T>,
@@ -273,6 +348,25 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       pageSize,
       sort: this.sort
     };
+  }
+
+  /** Records that the user selected the row, so it survives refetching an excluded group. */
+  #recordRowSelected(item: ListDataSourceDataItem<T>): void {
+    if (item.group && this.isSelectAllToggled() && this.#deselectedGroups.has(item.group.id)) {
+      // The group stays excluded, only this row is selected again
+      const rows = this.#reselectedRows.get(item.group.id) ?? new Set<unknown>();
+
+      rows.add(item.id);
+      this.#reselectedRows.set(item.group.id, rows);
+    }
+  }
+
+  /** Records that the user deselected the row. */
+  #recordRowDeselected(item: ListDataSourceDataItem<T>): void {
+    if (item.group) {
+      this.#reselectedRows.get(item.group.id)?.delete(item.id);
+      this.#selectedGroups.delete(item.group.id);
+    }
   }
 
   #createItemsArray(): Array<ListDataSourceItem<T>> {
@@ -364,7 +458,14 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
       group.startIndex = index;
 
-      if (!this.isGroupCollapsed(group.id) && group.members) {
+      if (!this.isGroupCollapsed(group.id)) {
+        // `update()` resets the members; initialize them again so the items of an expanded
+        // group can be requested (lazily) when they are accessed
+        // Always reserve at least one slot, so an empty group can fetch again after an update
+        group.members ??= Array.from({
+          length: Math.max(1, group.size ?? FetchListDataSource.defaultSize)
+        });
+
         items.push(...group.members);
         index += group.members.length;
       }
@@ -399,7 +500,13 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   #requestFetch(n: number): ListDataSourceItem<T> {
     const group = this.#getGroupAtIndex(n)!,
       { pageSize } = this,
-      page = this.pagination ? this.page : Math.floor((n - (group.startIndex ?? 0)) / pageSize);
+      page = this.pagination
+        ? this.page
+        : Math.floor(
+            (n -
+              (this.#groups.has(FetchListDataSourceDummyGroup) ? 0 : (group.startIndex ?? 0) + 1)) /
+              pageSize
+          );
 
     if (!group.pages[page]) {
       const options = this.getFetchOptions(group, page, pageSize),
@@ -427,7 +534,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
           // If the size of the group changes, or pagination is enabled, we need to
           // recreate the proxy to ensure that the array with items is up to date.
-          let recreateProxy = this.pagination;
+          // For grouped data the flattened items array holds copies of the group members, so
+          // it also needs to be recreated when a group refetches pages it already had a size for.
+          let recreateProxy = this.pagination || !this.#groups.has(FetchListDataSourceDummyGroup);
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);
@@ -470,15 +579,44 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             }
           }
 
+          const selectIncomingMembers =
+            this.selects === 'multiple' &&
+            !this.isSelectAllToggled() &&
+            !this.#groups.has(FetchListDataSourceDummyGroup) &&
+            this.#selectedGroups.has(group.id) &&
+            this.isSelected(group);
+
+          const deselectIncomingMembers =
+            this.isSelectAllToggled() &&
+            !this.#groups.has(FetchListDataSourceDummyGroup) &&
+            this.#deselectedGroups.has(group.id);
+
+          let selectionTouched = false;
+
           for (let i = 0; i < res.items.length; i++) {
             const index = pageSize * page + i,
               item = res.items[i];
 
-            group.members![index] = {
+            const member: ListDataSourceDataItem<T> = {
               id: this.#mapping.getId!(item),
               type: 'data',
-              data: item
+              data: item,
+              group: this.#groups.has(FetchListDataSourceDummyGroup) ? undefined : group
             };
+
+            group.members![index] = member;
+
+            // Rows that arrive after their group was selected or deselected follow that choice
+            if (selectIncomingMembers) {
+              this.select(member, false);
+              selectionTouched = true;
+            } else if (
+              deselectIncomingMembers &&
+              !this.#reselectedRows.get(group.id)?.has(member.id)
+            ) {
+              this.deselect(member, false);
+              selectionTouched = true;
+            }
           }
 
           if (recreateProxy) {
@@ -486,7 +624,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             this.#proxy = this.#createProxy(this.#items);
           }
 
-          if (selectionChanged) {
+          if (selectionChanged || selectionTouched) {
             this.dispatchEvent(new CustomEvent('sl-selection-change'));
           }
           this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

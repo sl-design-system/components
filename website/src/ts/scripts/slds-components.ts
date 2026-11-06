@@ -56,6 +56,7 @@ import {
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
 import '@sl-design-system/accordion/register.js';
+import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/breadcrumbs/register.js';

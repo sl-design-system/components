@@ -157,6 +157,15 @@
   font-kerning: none;
 }
 
+span[role='spinbutton'] {
+  caret-color: transparent;
+
+  &:focus {
+    background: Highlight;
+    color: HighlightText;
+  }
+}
+
 span[contenteditable] {
   border-radius: var(--sl-size-borderRadius-default);
   display: inline-block;

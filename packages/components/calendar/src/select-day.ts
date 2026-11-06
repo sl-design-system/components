@@ -64,8 +64,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Timeout id, to be used with `clearTimeout`. */
-  #announceTimeoutId?: ReturnType<typeof setTimeout>;
+  #announceAfterScroll = false;
 
   /**
    * Use an intersection observer as a workaround until `scrollsnapchange` events are widely
@@ -235,10 +234,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#intersectionObserver?.disconnect();
     this.#intersectionObserver = undefined;
 
-    if (this.#announceTimeoutId) {
-      clearTimeout(this.#announceTimeoutId);
-      this.#announceTimeoutId = undefined;
-    }
+    this.#announceAfterScroll = false;
 
     super.disconnectedCallback();
   }
@@ -611,13 +607,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onPrevious(): void {
+    this.#announceAfterScroll = true;
     this.#scrollToMonth(-1, true);
-    this.#announce(this.previousMonth);
   }
 
   #onNext(): void {
+    this.#announceAfterScroll = true;
     this.#scrollToMonth(1, true);
-    this.#announce(this.nextMonth);
   }
 
   async #onScrollEnd(): Promise<void> {
@@ -630,6 +626,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
+    const shouldAnnounce = this.#announceAfterScroll;
+    this.#announceAfterScroll = false;
     this.displayMonth = displayMonth;
 
     // Stop observing month views while we adjust the scroll position
@@ -653,6 +651,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Start observing month views again
     this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
     this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+
+    // Announce the displayed month after the focused navigation button's label has updated.
+    if (shouldAnnounce && this.isConnected && !this.#announceAfterScroll) {
+      announce(format(displayMonth, this.locale, { month: 'long', year: 'numeric' }), 'polite');
+    }
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -699,26 +702,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
-  }
-
-  #announce(month?: Date): void {
-    if (!month) {
-      return;
-    }
-
-    // Clear any pending announcement
-    if (this.#announceTimeoutId) {
-      clearTimeout(this.#announceTimeoutId);
-    }
-
-    // Announce if needed, we don't want to have the same message announced twice
-    this.#announceTimeoutId = setTimeout(() => {
-      const monthFormatted = format(month, this.locale, { month: 'long', year: 'numeric' });
-
-      announce(`${monthFormatted}`, 'polite');
-
-      this.#announceTimeoutId = undefined;
-    }, 50);
   }
 
   #canSelectNextMonth(): boolean {

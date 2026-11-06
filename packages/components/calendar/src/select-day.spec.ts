@@ -786,10 +786,13 @@ describe('sl-select-day', () => {
   });
 
   describe('navigation', () => {
-    let announce: SinonSpy;
+    let announce: SinonSpy, announcedMonth: Date | undefined;
 
     beforeEach(async () => {
-      announce = spy();
+      announcedMonth = undefined;
+      announce = spy(() => {
+        announcedMonth = el.month;
+      });
       document.body.addEventListener('sl-announce', announce);
 
       el = await fixture(html`<sl-select-day></sl-select-day>`);
@@ -840,10 +843,9 @@ describe('sl-select-day', () => {
       it('should announce the previous month when using the mouse', async () => {
         el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
 
-        // Wait for the announcement to be made from a setTimeout
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
 
-        expect(announce).to.have.been.calledOnce;
+        expect(announcedMonth).to.equalDate(new Date(2023, 1, 1));
 
         const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 
@@ -897,10 +899,8 @@ describe('sl-select-day', () => {
       it('should announce the next month when using the mouse', async () => {
         el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
 
-        // Wait for the announcement to be made from a setTimeout
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        expect(announce).to.have.been.calledOnce;
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+        expect(announcedMonth).to.equalDate(new Date(2023, 3, 1));
 
         const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 

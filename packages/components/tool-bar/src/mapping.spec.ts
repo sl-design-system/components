@@ -397,9 +397,14 @@ describe('mapElementsToItems', () => {
 
   it('should not include Lit marker comments in the label', async () => {
     const label = 'Copy',
-      el = await fixture<MenuItem>(html`<sl-menu-item>${label}</sl-menu-item>`),
-      item = mapMenuItemToItem(el);
+      el = await fixture<MenuButton>(html`
+        <sl-menu-button>
+          <span slot="button">Actions</span>
+          <sl-menu-item>${label}</sl-menu-item>
+        </sl-menu-button>
+      `),
+      [item] = mapElementsToItems([el]) as ToolBarItemMenu[];
 
-    expect(item.label).to.equal('Copy');
+    expect((item.menuItems[0] as ToolBarItemButton).label).to.equal('Copy');
   });
 });

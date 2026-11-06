@@ -416,7 +416,9 @@ describe('sl-date-field', () => {
       await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
 
       const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
       expect(announcer).to.exist;
+
       await announcer!.updateComplete;
       await el.calendar!.updateComplete;
 
@@ -440,7 +442,9 @@ describe('sl-date-field', () => {
       await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
 
       const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
       expect(announcer).to.exist;
+
       await announcer!.updateComplete;
       await el.calendar!.updateComplete;
 
@@ -466,7 +470,9 @@ describe('sl-date-field', () => {
       await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
 
       const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
       expect(announcer).to.exist;
+
       await announcer!.updateComplete;
       await el.calendar!.updateComplete;
 
@@ -492,7 +498,9 @@ describe('sl-date-field', () => {
       await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
 
       const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
       expect(announcer).to.exist;
+
       await announcer!.updateComplete;
       await el.calendar!.updateComplete;
 

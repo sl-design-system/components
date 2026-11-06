@@ -22,6 +22,18 @@
 
 table {
   border-collapse: collapse;
+  inline-size: 100%;
+  table-layout: var(--_table-layout, auto);
+
+  button {
+    box-sizing: border-box;
+    inline-size: 100%;
+    justify-content: center;
+  }
+}
+
+.week-number-column {
+  inline-size: var(--_week-number-column-size, var(--sl-size-400));
 }
 
 .visually-hidden {
@@ -38,6 +50,10 @@ td,
 th {
   padding: var(--sl-size-010);
   position: relative;
+}
+
+.days {
+  block-size: calc(var(--sl-size-300) + 2 * var(--sl-size-050) + 2 * var(--sl-size-010));
 }
 
 [part~='week-day'],
@@ -59,8 +75,9 @@ th {
 }
 
 [part~='week-number'] {
-  inline-size: auto;
-  min-inline-size: calc(var(--sl-size-400) - 2 * var(--sl-size-010));
+  box-sizing: border-box;
+  inline-size: var(--_week-number-column-size, var(--sl-size-400));
+  min-inline-size: var(--_week-number-column-size, var(--sl-size-400));
   position: relative;
   text-align: center;
 
@@ -195,7 +212,7 @@ button {
 [part~='range-start']::before,
 [part~='range-end']::before,
 [part~='in-range']::before {
-  background: var(--sl-color-background-selected-subtle);
+  background: var(--sl-color-background-primary-subtlest);
 }
 
 [part~='range-start']::before {
@@ -213,21 +230,21 @@ button {
 [part~='range-row-start']::before {
   border-end-start-radius: var(--sl-size-borderRadius-default);
   border-start-start-radius: var(--sl-size-borderRadius-default);
-  inset-inline-start: 0;
+  inset-inline-start: calc((100% - var(--sl-size-300)) / 2);
 }
 
 [part~='range-row-end']::before {
   border-end-end-radius: var(--sl-size-borderRadius-default);
   border-start-end-radius: var(--sl-size-borderRadius-default);
-  inset-inline-end: 0;
+  inset-inline-end: calc((100% - var(--sl-size-300)) / 2);
 }
 
 [part~='range-month-start']::before {
-  background: linear-gradient(to right, transparent, var(--sl-color-background-selected-subtle));
+  background: linear-gradient(to right, transparent, var(--sl-color-background-primary-subtlest));
 }
 
 [part~='range-month-end']::before {
-  background: linear-gradient(to right, var(--sl-color-background-selected-subtle), transparent);
+  background: linear-gradient(to right, var(--sl-color-background-primary-subtlest), transparent);
 }
 
 [part~='range-start'][part~='range-end']::before {

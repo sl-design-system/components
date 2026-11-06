@@ -217,6 +217,21 @@ describe('sl-month-view', () => {
       expect(lastWeekNumber).to.have.attribute('aria-hidden', 'true');
     });
 
+    it('should preserve six full week rows when dates from other months are hidden', async () => {
+      el.hideDaysOtherMonths = true;
+      await el.updateComplete;
+
+      const firstRow = el.renderRoot.querySelector('tr.days')!,
+        lastRow = el.renderRoot.querySelector('tr.days:last-child')!;
+
+      expect(el.renderRoot.querySelectorAll('tr.days')).to.have.lengthOf(6);
+      expect(lastRow).to.have.attribute('aria-hidden', 'true');
+      expect(lastRow.getBoundingClientRect().height).to.be.closeTo(
+        firstRow.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
     it('should expose rows only when they contain visible days', async () => {
       el.hideDaysOtherMonths = true;
       await el.updateComplete;
@@ -574,6 +589,59 @@ describe('sl-month-view', () => {
       }
     }
 
+    it('should align week row backgrounds with the day tiles in a widened selected range', async () => {
+      el.style.inlineSize = '600px';
+      el.range = [new Date(2023, 2, 17), new Date(2023, 2, 28)];
+      await el.updateComplete;
+
+      const rowEnd = getDayButton(new Date(2023, 2, 19))!,
+        rowEndBounds = rowEnd.getBoundingClientRect(),
+        rowEndTile = rowEnd.querySelector('span')!.getBoundingClientRect(),
+        rowEndBridge = getComputedStyle(rowEnd, '::before');
+
+      expect(rowEndBounds.right - Number.parseFloat(rowEndBridge.right)).to.be.closeTo(
+        rowEndTile.right,
+        0.5
+      );
+
+      const rowStart = getDayButton(new Date(2023, 2, 20))!,
+        rowStartBounds = rowStart.getBoundingClientRect(),
+        rowStartTile = rowStart.querySelector('span')!.getBoundingClientRect(),
+        rowStartBridge = getComputedStyle(rowStart, '::before');
+
+      expect(rowStartBounds.left + Number.parseFloat(rowStartBridge.left)).to.be.closeTo(
+        rowStartTile.left,
+        0.5
+      );
+    });
+
+    it('should align week row backgrounds with the day tiles in a widened preview', async () => {
+      el.style.inlineSize = '600px';
+      el.rangeStart = new Date(2023, 2, 17);
+      el.rangePreview = new Date(2023, 2, 28);
+      await el.updateComplete;
+
+      const rowEnd = getDayButton(new Date(2023, 2, 19))!,
+        rowEndBounds = rowEnd.getBoundingClientRect(),
+        rowEndTile = rowEnd.querySelector('span')!.getBoundingClientRect(),
+        rowEndBridge = getComputedStyle(rowEnd, '::before');
+
+      expect(rowEndBounds.right - Number.parseFloat(rowEndBridge.right)).to.be.closeTo(
+        rowEndTile.right,
+        0.5
+      );
+
+      const rowStart = getDayButton(new Date(2023, 2, 20))!,
+        rowStartBounds = rowStart.getBoundingClientRect(),
+        rowStartTile = rowStart.querySelector('span')!.getBoundingClientRect(),
+        rowStartBridge = getComputedStyle(rowStart, '::before');
+
+      expect(rowStartBounds.left + Number.parseFloat(rowStartBridge.left)).to.be.closeTo(
+        rowStartTile.left,
+        0.5
+      );
+    });
+
     it('should render a range in chronological order', async () => {
       el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
       await el.updateComplete;
@@ -663,39 +731,117 @@ describe('sl-month-view', () => {
       expect(initialSelection).to.have.attribute('aria-pressed', 'true');
     });
 
-    for (const interaction of ['hover', 'focus'] as const) {
-      for (const backwards of [false, true]) {
-        it(`should connect the range bridge under the ${interaction} preview tile when selecting ${backwards ? 'backwards' : 'forwards'}`, async () => {
-          el.rangeStart = new Date(2023, 2, backwards ? 22 : 17);
-          await el.updateComplete;
+    it('should connect the range bridge under the hover preview tile when selecting forwards', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
 
-          const endpoint = getDayButton(new Date(2023, 2, backwards ? 17 : 22))!;
-          if (interaction === 'hover') {
-            await userEvent.hover(endpoint);
-          } else {
-            endpoint.focus();
-          }
-          await el.updateComplete;
+      const endpoint = getDayButton(new Date(2023, 2, 22))!;
 
-          const bridge = getComputedStyle(endpoint, '::before'),
-            buttonBounds = endpoint.getBoundingClientRect(),
-            tile = endpoint.querySelector('span')!,
-            tileBounds = tile.getBoundingClientRect(),
-            tileStyle = getComputedStyle(tile);
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
 
-          expect(endpoint).to.have.attribute('part').that.contains('range-preview');
-          expect(tileStyle.backgroundImage).to.contain('linear-gradient');
-          expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
-          if (backwards) {
-            const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
-            expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
-          } else {
-            const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
-            expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
-          }
-        });
-      }
-    }
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
+
+      expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the hover preview tile when selecting backwards', async () => {
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 17))!;
+
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
+
+      expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the focus preview tile when selecting forwards', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 22))!;
+
+      endpoint.focus();
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
+
+      expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the focus preview tile when selecting backwards', async () => {
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 17))!;
+
+      endpoint.focus();
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
+
+      expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
+    });
 
     it('should ignore hover after keyboard navigation takes over a pointer preview', async () => {
       el.rangeStart = new Date(2023, 2, 17);

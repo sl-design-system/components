@@ -138,22 +138,24 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       <header>
         <span>${this.years.at(0)} - ${this.years.at(-1)}</span>
 
-        <sl-button
-          @click=${this.#onPrevious}
-          ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
-          aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
-          aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
+            aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
+            aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </header>
 
       <table

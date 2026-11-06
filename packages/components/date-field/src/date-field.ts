@@ -3,6 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { Announcer } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
@@ -73,6 +74,7 @@ export class DateField extends LocaleMixin(
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
+      'sl-announcer': Announcer,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-calendar': Calendar,
@@ -440,6 +442,7 @@ export class DateField extends LocaleMixin(
         @keydown=${this.#onKeydown}
         aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
         id="dialog">
+        <sl-announcer></sl-announcer>
         ${
           this.calendarVisible
             ? html`

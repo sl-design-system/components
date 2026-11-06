@@ -5,6 +5,13 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'angular',
+      testDir: './tests/angular',
+      use: {
+        baseURL: 'http://localhost:6007'
+      }
+    },
+    {
       testDir: './tests',
       name: 'storybook',
       use: {

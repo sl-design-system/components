@@ -1,3 +1,5 @@
+import { type Announcer } from '@sl-design-system/announcer';
+import '@sl-design-system/announcer/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -26,6 +28,51 @@ describe('sl-calendar', () => {
   });
 
   afterEach(() => vi.useRealTimers());
+
+  describe('standalone announcements', () => {
+    let announcer: Announcer;
+
+    beforeEach(async () => {
+      const container = await fixture(html`
+        <div>
+          <sl-announcer></sl-announcer>
+          <sl-calendar locale="en-US"></sl-calendar>
+        </div>
+      `);
+      el = container.querySelector('sl-calendar')!;
+      announcer = container.querySelector('sl-announcer')!;
+      await el.updateComplete;
+      await announcer.updateComplete;
+    });
+
+    it('should announce the previous month and year through the global announcer', async () => {
+      const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+      await selectDay.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2023'
+        )
+      );
+    });
+
+    it('should announce the next month and year through the global announcer', async () => {
+      const selectDay = el.renderRoot.querySelector<SelectDay>('sl-select-day')!;
+      await selectDay.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'April 2023'
+        )
+      );
+    });
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

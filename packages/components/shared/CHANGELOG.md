@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.14.2
+
+### Patch Changes
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Handle removed attributes in `dateListConverter` so removing a calendar's `range` or `disabled-dates` attribute clears the value without throwing.
+
 ## 0.14.1
 
 ### Patch Changes

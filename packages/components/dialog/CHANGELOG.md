@@ -1,5 +1,18 @@
 # @sl-design-system/dialog
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3774](https://github.com/sl-design-system/components/pull/3774) [`21b7197`](https://github.com/sl-design-system/components/commit/21b7197e59184feeac60ad1b68c7d63f3d1f8414) - Add `disable-body-animation` to opt out of the body scale and translate animation on mobile, for example in hybrid apps. The dialog still animates and retains modal behavior and scroll locking.
+
+### Patch Changes
+
+- [#3824](https://github.com/sl-design-system/components/pull/3824) [`bef12a5`](https://github.com/sl-design-system/components/commit/bef12a5510079f7f6e4f398a07b17b19688b135e) - Add an announcer inside the modal dialog so screen readers can announce form validation errors and other live messages while the rest of the page is inert. This also applies to components extending Dialog.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 2.1.4
 
 ### Patch Changes

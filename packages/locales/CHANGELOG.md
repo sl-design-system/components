@@ -1,5 +1,11 @@
 # @sl-design-system/locales
 
+## 0.5.1
+
+### Patch Changes
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Add Dutch, Italian, Polish and Spanish translations for calendar date range announcements and boundary descriptions.
+
 ## 0.5.0
 
 ### Minor Changes

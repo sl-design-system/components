@@ -1,5 +1,15 @@
 # @sl-design-system/checkbox
 
+## 2.4.3
+
+### Patch Changes
+
+- [#3803](https://github.com/sl-design-system/components/pull/3803) [`9d41e31`](https://github.com/sl-design-system/components/commit/9d41e3153731587d3c77bc2416adb6345192b65b) - Fix missing keyboard focus indicators on checkboxes inside Grid and other shadow roots in Safari.
+
+- Updated dependencies [[`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/form@1.7.1
+  - @sl-design-system/shared@0.14.2
+
 ## 2.4.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @sl-design-system/menu
 
+## 1.1.1
+
+### Patch Changes
+
+- [#3831](https://github.com/sl-design-system/components/pull/3831) [`aeefda9`](https://github.com/sl-design-system/components/commit/aeefda9c87e33fca82e10de1672825cacd1ebfe1) - Hide decorative menu separators from assistive technologies so mobile VoiceOver skips them when navigating menu items. This also applies to dynamically added separators and separators forwarded through a menu button.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 1.1.0
 
 ### Minor Changes

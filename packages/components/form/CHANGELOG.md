@@ -1,5 +1,14 @@
 # @sl-design-system/form
 
+## 1.7.1
+
+### Patch Changes
+
+- [#3778](https://github.com/sl-design-system/components/pull/3778) [`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854) - Fix delayed validation announcements for form controls inside Shadow DOM and cancel pending announcements when fields are disconnected or validation errors change.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 1.7.0
 
 ### Minor Changes

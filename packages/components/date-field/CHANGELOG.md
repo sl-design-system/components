@@ -1,5 +1,18 @@
 # @sl-design-system/date-field
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Preserve focus restoration when switching between calendar views and safely ignore date ranges from custom slotted calendars.
+
+- [#3833](https://github.com/sl-design-system/components/pull/3833) [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180) - Announce the displayed month and year after scrolling finishes and navigation button labels update, with a short delay to avoid interrupting the announcement. Add an announcer inside the date picker modal so these messages are available to screen readers there.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0), [`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180), [`15e9297`](https://github.com/sl-design-system/components/commit/15e9297c4b193d9d1b3012fe97c2232b5f11080c), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/calendar@0.2.0
+  - @sl-design-system/form@1.7.1
+  - @sl-design-system/shared@0.14.2
+
 ## 0.4.0
 
 ### Minor Changes

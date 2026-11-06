@@ -1,5 +1,24 @@
 # @sl-design-system/data-source
 
+## 0.4.6
+
+### Patch Changes
+
+- [#3777](https://github.com/sl-design-system/components/pull/3777) [`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa) - Refetch an empty `FetchListDataSource` on `update()` so removing a filter that returned no results restores the available items, including when pagination is enabled.
+
+  Reuse pending page requests across updates with unchanged fetch options to avoid duplicate network calls. Ignore responses from requests invalidated by changes to filters, sorting, page size, custom options, or the fetch callback.
+
+- [#3806](https://github.com/sl-design-system/components/pull/3806) [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769) - Limit the grid header selection toggle to filtered array data and calculate its checked state from those results. Preserve hidden selections when deselecting filtered rows, including grouped and paginated data.
+
+  Synchronize group selection markers after filtered batch changes. Use known unfiltered remote totals when resetting select-all, without treating estimated or filtered counts as the complete dataset.
+
+  Invalidate underestimated remote totals when fetched rows exceed them. Index unfiltered group membership for efficient batch reconciliation, preserve single-selection group members, and disable the select-all checkbox for empty results.
+
+  Recalculate aggregate lower bounds after every remote response, including filtered totals, empty pages, and partially known group totals. Reset stored selection ids when an unfiltered refresh shrinks the dataset, while preserving select-all without exclusions.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 0.4.5
 
 ### Patch Changes

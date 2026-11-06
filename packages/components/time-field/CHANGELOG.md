@@ -1,5 +1,17 @@
 # @sl-design-system/time-field
 
+## 0.3.3
+
+### Patch Changes
+
+- [#3808](https://github.com/sl-design-system/components/pull/3808) [`52a7b64`](https://github.com/sl-design-system/components/commit/52a7b64ff99ecd86e5eb5be312a8e8ab8e155155) - Fix contrast of selected hours and minutes in dark mode by using the selected background tokens, including hover and active states.
+
+- [#3809](https://github.com/sl-design-system/components/pull/3809) [`7c71313`](https://github.com/sl-design-system/components/commit/7c71313dfc2e3f67ec7d2481c6ab24cc48438130) - Return focus to the field button when the time picker is closed with Escape.
+
+- Updated dependencies [[`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/form@1.7.1
+  - @sl-design-system/shared@0.14.2
+
 ## 0.3.2
 
 ### Patch Changes

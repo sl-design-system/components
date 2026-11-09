@@ -53,6 +53,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** The focused month to restore after changing the responsive layout. */
+  #monthToFocus?: Date;
+
   /**
    * Number of columns in the months grid. Used by keyboard navigation and the focus group
    * controller to compute row/column movement and focus targets.
@@ -66,15 +69,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLTableElement => this.table,
+    scope: (): HTMLElement => this.grids,
     wrap: false
   });
 
   /** The buttons representing each month. */
   @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
 
-  /** The months grid table used as focus scope. */
-  @query('table') table!: HTMLTableElement;
+  /** The container of both month grids, used as a shared focus scope. */
+  @query('.month-grids') grids!: HTMLElement;
 
   /**
    * The maximum date selectable in the month.
@@ -92,6 +95,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The month/year to display. */
   @property({ converter: dateConverter }) month = new Date();
+
+  /** The number of month panels. Two panels show consecutive years. */
+  @property({ type: Number, attribute: 'number-of-months', reflect: true }) numberOfMonths: 1 | 2 =
+    1;
 
   /** @internal The months to display. */
   @state() months: Month[] = [];
@@ -124,18 +131,37 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('locale') || changes.has('month') || changes.has('min') || changes.has('max')) {
+    if (changes.has('numberOfMonths')) {
+      if (!changes.has('month')) {
+        const index = Array.from(this.buttons).findIndex(
+          button => button === this.shadowRoot?.activeElement
+        );
+        this.#monthToFocus = this.months[index]?.date;
+
+        if (this.numberOfMonths === 1 && this.#monthToFocus) {
+          this.month = new Date(this.#monthToFocus);
+        }
+      }
+    }
+
+    if (
+      changes.has('locale') ||
+      changes.has('month') ||
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('numberOfMonths')
+    ) {
       const formatShort = new Intl.DateTimeFormat(this.locale, { month: 'short' }),
         formatLong = new Intl.DateTimeFormat(this.locale, { month: 'long' });
 
-      this.months = Array.from({ length: 12 }, (_, i) => {
+      this.months = Array.from({ length: 12 * this.numberOfMonths }, (_, i) => {
         const date = new Date(this.month.getFullYear(), i, 1);
 
         return {
           short: formatShort.format(date),
           long: formatLong.format(date),
           date,
-          value: i,
+          value: date.getMonth(),
           disabled: !(
             (!this.min || date >= new Date(this.min.getFullYear(), this.min.getMonth(), 1)) &&
             (!this.max || date <= new Date(this.max.getFullYear(), this.max.getMonth(), 1))
@@ -144,18 +170,33 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       });
     }
 
-    if (changes.has('min') || changes.has('max') || changes.has('month')) {
+    if (
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('month') ||
+      changes.has('numberOfMonths')
+    ) {
       this.#focusGroupController.clearElementCache();
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (this.#monthToFocus) {
+      const date = this.#monthToFocus,
+        index = this.months.findIndex(month => month.date.getTime() === date.getTime()),
+        button = this.buttons[index];
+
+      this.#monthToFocus = undefined;
+      if (button && !button.disabled) {
+        this.#focusGroupController.focusToElement(button);
+      }
     }
   }
 
   override render(): TemplateResult {
     const currentYear = this.month.getFullYear();
-
-    const rows: Month[][] = [];
-    for (let i = 0; i < this.months.length; i += 3) {
-      rows.push(this.months.slice(i, i + 3));
-    }
 
     return html`
       <header>
@@ -182,11 +223,23 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               `
             : html`<span class="current-year">${currentYear}</span>`
         }
+        ${
+          this.numberOfMonths === 2
+            ? html`
+                <span class="following-year-label">
+                  <sl-format-date
+                    .date=${new Date(currentYear + 1, 0, 1)}
+                    locale=${ifDefined(this.locale)}
+                    year="numeric"></sl-format-date>
+                </span>
+              `
+            : undefined
+        }
         <div class="arrows">
           <sl-button
             @click=${this.#onPrevious}
             ?disabled=${!this.#canSelectYear(-1)}
-            aria-label=${msg(str`Previous year, ${currentYear - 1}`, {
+            aria-label=${msg(str`Previous year, ${currentYear - this.numberOfMonths}`, {
               id: 'sl.calendar.previousYear'
             })}
             fill="ghost"
@@ -196,7 +249,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           <sl-button
             @click=${this.#onNext}
             ?disabled=${!this.#canSelectYear(1)}
-            aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
+            aria-label=${msg(str`Next year, ${currentYear + this.numberOfMonths}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
             variant="secondary">
             <sl-icon name="chevron-right"></sl-icon>
@@ -204,6 +257,19 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </div>
       </header>
 
+      <div class="month-grids">
+        ${Array.from({ length: this.numberOfMonths }, (_, yearIndex) => this.#renderYear(yearIndex))}
+      </div>
+    `;
+  }
+
+  #renderYear(yearIndex: number): TemplateResult {
+    const currentYear = this.month.getFullYear() + yearIndex,
+      rows = Array.from({ length: 4 }, (_, row) =>
+        this.months.slice(yearIndex * 12 + row * 3, yearIndex * 12 + row * 3 + 3)
+      );
+
+    return html`
       <table
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
         role="grid">
@@ -223,7 +289,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   renderMonth(month: Month, rowIndex: number, colIndex: number): TemplateResult {
     const current =
         month.value === new Date().getMonth() &&
-        this.month.getFullYear() === new Date().getFullYear(),
+        month.date.getFullYear() === new Date().getFullYear(),
       selected = !!(
         this.selected &&
         this.selected.getMonth() === month.value &&
@@ -233,9 +299,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
         <button
-          @click=${() => this.#onClick(month.value)}
+          @click=${() => this.#onClick(month)}
           @keydown=${this.#onKeydown}
           ?disabled=${month.disabled}
+          aria-label=${format(month.date, this.locale, { month: 'long', year: 'numeric' })}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
           class=${classMap({ current, selected })}>
@@ -245,9 +312,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  #onClick(month: number): void {
-    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
-    this.selected = new Date(this.month.getFullYear(), month);
+  #onClick(month: Month): void {
+    const date = new Date(month.date);
+
+    this.selectEvent.emit(date);
+    this.selected = new Date(date);
   }
 
   /**
@@ -303,7 +372,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onNext(): void {
     this.month = new Date(
-      this.month.getFullYear() + 1,
+      this.month.getFullYear() + this.numberOfMonths,
       this.month.getMonth(),
       this.month.getDate()
     );
@@ -313,7 +382,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onPrevious(): void {
     this.month = new Date(
-      this.month.getFullYear() - 1,
+      this.month.getFullYear() - this.numberOfMonths,
       this.month.getMonth(),
       this.month.getDate()
     );
@@ -371,18 +440,18 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #allYearDisabled(offset: number): boolean {
-    const year = this.month.getFullYear() + offset;
-
-    return this.months.every(m => this.#isDisabled(year, m.value));
+    return this.months.every(month =>
+      this.#isDisabled(month.date.getFullYear() + offset * this.numberOfMonths, month.value)
+    );
   }
 
   #canSelectYear(offset: number): boolean {
-    const targetYear = this.month.getFullYear() + offset;
+    const targetYear = this.month.getFullYear() + offset * this.numberOfMonths;
 
     if (offset > 0) {
       return !this.max || targetYear <= this.max.getFullYear();
     } else {
-      return !this.min || targetYear >= this.min.getFullYear();
+      return !this.min || targetYear + this.numberOfMonths - 1 >= this.min.getFullYear();
     }
   }
 

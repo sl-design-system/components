@@ -385,6 +385,157 @@ describe('sl-select-month', () => {
     });
   });
 
+  describe('two-month layout', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        html`<sl-select-month
+          number-of-months="2"
+          .month=${new Date(2025, 0, 1)}></sl-select-month>`
+      );
+    });
+
+    it('should show two consecutive years as separate 3 by 4 month grids with a 24px gap', () => {
+      const tables = el.renderRoot.querySelectorAll('table'),
+        grids = el.renderRoot.querySelector('.month-grids')!;
+
+      expect(el.months).to.have.lengthOf(24);
+      expect(el.buttons).to.have.lengthOf(24);
+      expect(tables).to.have.lengthOf(2);
+      expect(tables[0]).to.have.attribute('aria-label', 'Months of 2025');
+      expect(tables[1]).to.have.attribute('aria-label', 'Months of 2026');
+      expect(tables[0].querySelectorAll('tbody tr')).to.have.lengthOf(4);
+      expect(tables[1].querySelectorAll('tbody tr')).to.have.lengthOf(4);
+      expect(tables[0].querySelector('tr')!.children).to.have.lengthOf(3);
+      expect(tables[1].querySelector('tr')!.children).to.have.lengthOf(3);
+      expect(getComputedStyle(grids).columnGap).to.equal('24px');
+      expect(
+        tables[1].getBoundingClientRect().left - tables[0].getBoundingClientRect().right
+      ).to.be.closeTo(24, 0.5);
+    });
+
+    it('should select a month from the second year with the correct date', async () => {
+      const onSelect = spy();
+      el.addEventListener('sl-select', (event: CustomEvent<Date>) => {
+        onSelect(event.detail);
+      });
+      el.buttons[17].click();
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.args[0]).to.equalDate(new Date(2026, 5, 1));
+      expect(el.selected).to.equalDate(new Date(2026, 5, 1));
+      expect(el.renderRoot.querySelectorAll('button.selected')).to.have.lengthOf(1);
+      expect(el.renderRoot.querySelector('button.selected')).to.have.attribute(
+        'aria-label',
+        'June 2026'
+      );
+    });
+
+    it('should highlight the current month only in its own year', async () => {
+      el.month = new Date(currentYear - 1, 0, 1);
+      el.showCurrent = true;
+      await el.updateComplete;
+
+      const current = el.renderRoot.querySelector('button.current')!;
+
+      expect(el.renderRoot.querySelectorAll('button.current')).to.have.lengthOf(1);
+      expect(current).to.equal(el.buttons[12 + new Date().getMonth()]);
+    });
+
+    it('should page forward by two years', async () => {
+      el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!.click();
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2027);
+      expect(el.months.at(0)!.date).to.equalDate(new Date(2027, 0, 1));
+      expect(el.months.at(-1)!.date).to.equalDate(new Date(2028, 11, 1));
+    });
+
+    it('should page backward by two years', async () => {
+      el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')!.click();
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2023);
+      expect(el.months.at(0)!.date).to.equalDate(new Date(2023, 0, 1));
+      expect(el.months.at(-1)!.date).to.equalDate(new Date(2024, 11, 1));
+    });
+
+    it('should navigate from December in the first panel to January in the second', async () => {
+      el.buttons[11].focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[12]);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'January 2026');
+      expect(el.month.getFullYear()).to.equal(2025);
+    });
+
+    it('should navigate back from January in the second panel to December in the first', async () => {
+      el.buttons[12].focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[11]);
+      expect(el.month.getFullYear()).to.equal(2025);
+    });
+
+    it('should keep the column when vertical navigation crosses into the next panel', async () => {
+      el.buttons[10].focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[13]);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'February 2026');
+    });
+
+    it('should keep the column when ArrowUp loads an earlier pair of years', async () => {
+      el.buttons[1].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2023);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[22]);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'November 2024');
+    });
+
+    it('should keep the column when ArrowDown loads a later pair of years', async () => {
+      el.buttons[22].focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2027);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[1]);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'February 2027');
+    });
+
+    it('should keep all enabled months reachable when min and max span the two panels', async () => {
+      el.min = new Date(2025, 10, 1);
+      el.max = new Date(2026, 1, 28);
+      await el.updateComplete;
+      el.buttons[10].focus();
+      await userEvent.keyboard('{ArrowRight}{ArrowRight}{ArrowRight}');
+
+      expect(Array.from(el.buttons).filter(button => !button.disabled)).to.have.lengthOf(4);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[13]);
+      expect(el.renderRoot.querySelector('.arrows sl-button:first-of-type')).to.match(':disabled');
+      expect(el.renderRoot.querySelector('.arrows sl-button:last-of-type')).to.match(':disabled');
+    });
+
+    it('should keep the focused month and browsed year when collapsing and expanding', async () => {
+      el.buttons[22].focus();
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2026);
+      expect(el.months).to.have.lengthOf(12);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'November 2026');
+
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2026);
+      expect(el.months).to.have.lengthOf(24);
+      expect(el.shadowRoot?.activeElement).to.have.attribute('aria-label', 'November 2026');
+    });
+  });
+
   describe('dialog tab escape', () => {
     it('should not cycle back to the header when tabbing forward from the table', async () => {
       const dialog = await fixture<HTMLDialogElement>(html`

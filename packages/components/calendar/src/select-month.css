@@ -28,11 +28,39 @@ header {
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 
-  > :first-child {
+  > .current-year {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
     grid-column: 1 / span 3;
     justify-self: start;
   }
+}
+
+:host([number-of-months='2']) header {
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  > .current-year {
+    grid-column: 1 / span 2;
+  }
+}
+
+.following-year-label {
+  color: var(--sl-color-foreground-subtlest);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  grid-column: 3;
+  padding-inline-start: calc(var(--sl-size-300) / 2);
+}
+
+.month-grids {
+  display: grid;
+  flex: 1;
+  gap: var(--sl-size-300);
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 0;
+}
+
+:host([number-of-months='2']) .month-grids {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .arrows {

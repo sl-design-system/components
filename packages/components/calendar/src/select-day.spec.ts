@@ -838,7 +838,7 @@ describe('sl-select-day', () => {
     }
   });
 
-  it('should refresh cached month measurements when font size changes with an empty font shorthand', async () => {
+  it('should resize intrinsic month labels when font size changes with an empty font shorthand', async () => {
     el = await fixture(html`
       <sl-select-day
         locale="en-GB"

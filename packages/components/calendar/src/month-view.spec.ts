@@ -219,6 +219,59 @@ describe('sl-month-view', () => {
       expect(lastWeekNumber).to.have.attribute('aria-hidden', 'true');
     });
 
+    it('should stop the week separator before an empty row at 100% zoom', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumbers = el.renderRoot.querySelectorAll<HTMLElement>(
+          'tbody [part~="week-number"]'
+        ),
+        lastVisible = weekNumbers[4],
+        empty = weekNumbers[5];
+
+      expect(getComputedStyle(lastVisible, '::after').content).to.equal('""');
+      expect(getComputedStyle(empty, '::after').content).to.equal('none');
+      expect(empty.getBoundingClientRect().height).to.be.closeTo(
+        lastVisible.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
+    it('should stop the week separator before an empty row at 125% zoom', async () => {
+      el.style.zoom = '1.25';
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumbers = el.renderRoot.querySelectorAll<HTMLElement>(
+          'tbody [part~="week-number"]'
+        ),
+        lastVisible = weekNumbers[4],
+        empty = weekNumbers[5];
+
+      expect(getComputedStyle(lastVisible, '::after').content).to.equal('""');
+      expect(getComputedStyle(empty, '::after').content).to.equal('none');
+      expect(empty.getBoundingClientRect().height).to.be.closeTo(
+        lastVisible.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
+    it('should retain the separator in the sixth row when it contains dates', async () => {
+      el.month = new Date(2025, 2, 1);
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const lastWeekNumber = el.renderRoot.querySelector(
+        'tbody tr:last-child [part~="week-number"]'
+      )!;
+
+      expect(lastWeekNumber).not.to.have.attribute('aria-hidden');
+      expect(getComputedStyle(lastWeekNumber, '::after').content).to.equal('""');
+    });
+
     it('should preserve six full week rows when dates from other months are hidden', async () => {
       el.hideDaysOtherMonths = true;
       await el.updateComplete;

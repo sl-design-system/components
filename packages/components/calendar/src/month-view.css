@@ -94,6 +94,10 @@ th {
   }
 }
 
+[part~='week-number'][aria-hidden='true']::after {
+  content: none;
+}
+
 button {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);

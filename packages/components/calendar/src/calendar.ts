@@ -226,6 +226,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               ?show-current=${this.showToday}
               .selected=${this.selected}
               .month=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-month>

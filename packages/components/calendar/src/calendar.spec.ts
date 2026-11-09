@@ -437,6 +437,64 @@ describe('sl-calendar', () => {
     });
   });
 
+  describe('responsive month selection', () => {
+    it('should show two complete month grids when both day calendars are visible', async () => {
+      el = await fixture(html`<sl-calendar mode="range" number-of-months="2"></sl-calendar>`);
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+
+      expect(months.months).to.have.lengthOf(24);
+      expect(months.renderRoot.querySelectorAll('table')).to.have.lengthOf(2);
+    });
+
+    it('should switch between 12 and 24 months when resizing the calendar', async () => {
+      const container = await fixture<HTMLDivElement>(html`
+        <div style="inline-size: 300px">
+          <sl-calendar mode="range" number-of-months="2"></sl-calendar>
+        </div>
+      `);
+      el = container.querySelector<Calendar>('sl-calendar')!;
+      await el.updateComplete;
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+
+      expect(months.months).to.have.lengthOf(12);
+
+      container.style.inlineSize = '700px';
+      await vi.waitFor(() => expect(months.months).to.have.lengthOf(24));
+      container.style.inlineSize = '300px';
+      await vi.waitFor(() => expect(months.months).to.have.lengthOf(12));
+    });
+
+    it('should navigate to the selected month in the second panel without choosing a range date', async () => {
+      el = await fixture(
+        html`<sl-calendar
+          mode="range"
+          number-of-months="2"
+          .month=${new Date(2025, 8, 1)}></sl-calendar>`
+      );
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+      months.buttons[17].click();
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2026, 5, 1));
+      expect(el.view).to.equal('day');
+      expect(el.range).to.be.undefined;
+    });
+  });
+
   describe('small screens', () => {
     afterEach(async () => {
       await page.viewport(1024, 768);

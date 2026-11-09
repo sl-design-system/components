@@ -85,9 +85,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   #intersectionObserver?: IntersectionObserver;
 
-  /** Cached month and year label widths for the active locale and font. */
-  #headerLabelSize?: { key: string; monthWidth: number; yearWidth: number };
-
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
 
@@ -243,7 +240,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#resizeObserver.observe(this);
     void document.fonts.ready.then(() => {
       if (this.isConnected) {
-        this.#headerLabelSize = undefined;
         void this.#updateHeaderAfterRender();
       }
     });
@@ -385,21 +381,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                     class="current-month"
                     fill="link"
                     variant="secondary">
-                    <sl-format-date
-                      .date=${this.displayMonth}
-                      locale=${ifDefined(this.locale)}
-                      month="long"></sl-format-date>
+                    ${this.#renderMonthLabel()}
                     <sl-icon name="caret-down-solid"></sl-icon>
                   </sl-button>
                 `
-              : html`
-                  <span class="current-month">
-                    <sl-format-date
-                      .date=${this.displayMonth}
-                      locale=${ifDefined(this.locale)}
-                      month="long"></sl-format-date>
-                  </span>
-                `
+              : html`<span class="current-month"> ${this.#renderMonthLabel()} </span>`
           }
           ${
             canSelectPreviousYear || canSelectNextYear
@@ -415,21 +401,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                     class="current-year"
                     fill="link"
                     variant="secondary">
-                    <sl-format-date
-                      .date=${this.displayMonth}
-                      locale=${ifDefined(this.locale)}
-                      year="numeric"></sl-format-date>
+                    ${this.#renderYearLabel()}
                     <sl-icon name="caret-down-solid"></sl-icon>
                   </sl-button>
                 `
-              : html`
-                  <span class="current-year">
-                    <sl-format-date
-                      .date=${this.displayMonth}
-                      locale=${ifDefined(this.locale)}
-                      year="numeric"></sl-format-date>
-                  </span>
-                `
+              : html`<span class="current-year"> ${this.#renderYearLabel()} </span>`
           }
         </div>
         ${
@@ -897,6 +873,53 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
+  /** Let CSS reserve the intrinsic width of every localized month in the label's own font. */
+  #renderMonthLabel(): TemplateResult {
+    return html`
+      <span class="control-label">
+        <span aria-hidden="true" class="label-sizer">
+          ${Array.from(
+            { length: 12 },
+            (_, month) => html`
+              <span class="label-sample"
+                >${format(new Date(2026, month, 1), this.locale, { month: 'long' })}</span
+              >
+            `
+          )}
+        </span>
+        <sl-format-date
+          .date=${this.displayMonth}
+          locale=${ifDefined(this.locale)}
+          month="long"></sl-format-date>
+      </span>
+    `;
+  }
+
+  /** Reserve the widest year digits without relying on tabular figures or measuring each string. */
+  #renderYearLabel(): TemplateResult {
+    const label = format(this.displayMonth!, this.locale, { year: 'numeric' }),
+      digits = new Intl.NumberFormat(this.locale, { useGrouping: false });
+
+    return html`
+      <span class="control-label">
+        <span aria-hidden="true" class="label-sizer">
+          ${Array.from(
+            { length: 10 },
+            (_, digit) => html`
+              <span class="label-sample"
+                >${label.replace(/\p{Decimal_Number}/gu, digits.format(digit))}</span
+              >
+            `
+          )}
+        </span>
+        <sl-format-date
+          .date=${this.displayMonth}
+          locale=${ifDefined(this.locale)}
+          year="numeric"></sl-format-date>
+      </span>
+    `;
+  }
+
   /** Wait for newly rendered controls and date labels before measuring them. */
   async #updateHeaderAfterRender(): Promise<void> {
     const controls = Array.from(
@@ -940,60 +963,20 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const monthStyle = getComputedStyle(monthButton),
-      // The computed font shorthand can be empty when variants such as proportional digits are set.
-      measurementStyle = {
-        fontFamily: monthStyle.fontFamily,
-        fontSize: monthStyle.fontSize,
-        fontWeight: monthStyle.fontWeight,
-        fontStyle: monthStyle.fontStyle,
-        fontStretch: monthStyle.fontStretch,
-        fontVariantNumeric: monthStyle.fontVariantNumeric,
-        fontVariantCaps: monthStyle.fontVariantCaps,
-        fontVariantLigatures: monthStyle.fontVariantLigatures,
-        fontVariantEastAsian: monthStyle.fontVariantEastAsian,
-        fontVariantPosition: monthStyle.fontVariantPosition,
-        fontFeatureSettings: monthStyle.fontFeatureSettings,
-        fontVariationSettings: monthStyle.fontVariationSettings,
-        fontKerning: monthStyle.fontKerning,
-        fontOpticalSizing: monthStyle.fontOpticalSizing,
-        fontSizeAdjust: monthStyle.fontSizeAdjust,
-        lineHeight: monthStyle.lineHeight,
-        letterSpacing: monthStyle.letterSpacing,
-        wordSpacing: monthStyle.wordSpacing
-      },
-      yearLabel = format(this.displayMonth!, this.locale, { year: 'numeric' }),
-      key = `${this.locale}|${JSON.stringify(measurementStyle)}|${yearLabel.replace(/\p{Decimal_Number}/gu, '0')}`;
-    if (this.#headerLabelSize?.key !== key) {
-      const measure = document.createElement('span');
-      measure.style.cssText = 'position: absolute; visibility: hidden; white-space: nowrap';
-      Object.assign(measure.style, measurementStyle);
-      measure.setAttribute('aria-hidden', 'true');
-      header.append(measure);
-
-      let width = 0;
-      for (let month = 0; month < 12; month++) {
-        measure.textContent = format(new Date(2026, month, 1), this.locale, { month: 'long' });
-        width = Math.max(width, Number.parseFloat(getComputedStyle(measure).width));
-      }
-      const monthWidth = width,
-        digits = new Intl.NumberFormat(this.locale, { useGrouping: false });
-      let yearWidth = 0;
-      // Reserve the widest digit in every position, including fonts without tabular figures.
-      for (let digit = 0; digit < 10; digit++) {
-        measure.textContent = yearLabel.replace(/\p{Decimal_Number}/gu, digits.format(digit));
-        yearWidth = Math.max(yearWidth, Number.parseFloat(getComputedStyle(measure).width));
-      }
-      measure.remove();
-      this.#headerLabelSize = { key, monthWidth, yearWidth };
-    }
+    // CSS lays out the samples together, so these are two reads regardless of sample count.
+    const monthWidth = Number.parseFloat(
+        getComputedStyle(monthButton.querySelector('.label-sizer')!).inlineSize
+      ),
+      yearWidth = Number.parseFloat(
+        getComputedStyle(year.querySelector('.label-sizer')!).inlineSize
+      );
 
     const button = monthButton.shadowRoot?.querySelector('button'),
       buttonStyle = button ? getComputedStyle(button) : undefined,
       headerStyle = getComputedStyle(header),
       iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
       monthControlWidth =
-        this.#headerLabelSize.monthWidth +
+        monthWidth +
         iconWidth +
         (Number.parseFloat(buttonStyle?.columnGap ?? '') || 0) +
         (Number.parseFloat(buttonStyle?.borderInlineStartWidth ?? '') || 0) +
@@ -1002,7 +985,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       yearButtonStyle = yearButton ? getComputedStyle(yearButton) : undefined,
       yearIcon = year.querySelector('sl-icon'),
       yearControlWidth = Math.ceil(
-        this.#headerLabelSize.yearWidth +
+        yearWidth +
           (yearIcon ? Number.parseFloat(getComputedStyle(yearIcon).width) : 0) +
           (Number.parseFloat(yearButtonStyle?.columnGap ?? '') || 0) +
           (Number.parseFloat(yearButtonStyle?.borderInlineStartWidth ?? '') || 0) +

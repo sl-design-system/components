@@ -100,7 +100,6 @@ sl-button {
 
 .current-year {
   flex: 0 0 auto;
-  inline-size: var(--_year-control-inline-size, auto);
 
   &::part(button) {
     justify-content: start;
@@ -109,7 +108,6 @@ sl-button {
 
 .current-month {
   flex: 0 1 auto;
-  inline-size: var(--_month-control-inline-size, auto);
   min-inline-size: 0;
 
   &::part(button) {
@@ -121,6 +119,29 @@ sl-button {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+}
+
+.control-label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-inline-size: 0;
+  overflow: hidden;
+
+  > .label-sizer,
+  > sl-format-date {
+    grid-area: 1 / 1;
+  }
+}
+
+.label-sizer {
+  display: grid;
+  inline-size: max-content;
+  visibility: hidden;
+  white-space: nowrap;
+
+  > .label-sample {
+    grid-area: 1 / 1;
   }
 }
 

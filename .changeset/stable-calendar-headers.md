@@ -21,3 +21,9 @@ Preserve font longhands when measuring calendar headers so non-default numeric v
 Use a 24px gap between calendar months and show 20 years in five columns when two months are visible. Keep year paging, keyboard navigation, accessible labels and responsive layouts consistent with the visible grid.
 
 Preserve the browsed year range and focused year when responsive resizing changes the year grid between 12 and 20 years. Recenter only when the calendar year is explicitly changed.
+
+Reserve header label widths with hidden CSS grid samples instead of measuring each month and year string in JavaScript. Labels inherit the control font directly, including numeric variants.
+
+Stop the week number separator at the last visible week while preserving the space reserved for empty week rows.
+
+Show two complete month grids for consecutive years in the two-month range layout, with a 24px gap, year labels, keyboard navigation and responsive switching back to one year. Preserve the focused month when resizing.

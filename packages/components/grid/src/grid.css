@@ -356,9 +356,10 @@ tr {
     }
   }
 
+  &[part~='active'],
   &[part~='selected'] {
     /**
-     * Manually customize the background color for selected rows, so it's not
+     * Manually customize the background color for active and selected rows, so it's not
      * transparent like --sl-color-background-selected-subtlest
      */
     --_body-cell-background: color-mix(

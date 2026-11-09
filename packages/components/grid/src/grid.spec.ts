@@ -1964,7 +1964,7 @@ describe('sl-grid', () => {
       document.body.removeEventListener('sl-announce', announceSpy);
     });
 
-    it('should keep sticky active row cells opaque', async () => {
+    it('should keep active row cells highlighted and opaque with zero idle overlay opacity', async () => {
       el = await fixture(html`
         <sl-grid
           .items=${[
@@ -1977,7 +1977,9 @@ describe('sl-grid', () => {
             --sl-color-background-input-interactive: rgb(0 0 0);
             --sl-color-background-selected-interactive-plain: rgb(0 80 160);
             --sl-color-background-selected-subtlest: transparent;
-            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-color-background-accent-blue-bold: rgb(0 80 160);
+            --sl-opacity-subtlest: 0.1;
+            --sl-opacity-interactive-plain-idle: 0;
           ">
           <sl-grid-column path="firstName" sticky></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -1989,16 +1991,55 @@ describe('sl-grid', () => {
       el.activeRow = el.items!.at(0);
       await el.updateComplete;
 
-      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
-        'tbody tr:first-of-type td.sticky-start-first'
-      );
+      await userEvent.unhover(el);
 
-      expect(cell).to.exist;
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type')!,
+        reference = document.createElement('div');
+      reference.style.backgroundColor = 'color-mix(in srgb, rgb(0 80 160) 10%, rgb(255 255 255))';
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundColor;
+      reference.remove();
 
-      const style = getComputedStyle(cell!);
+      expect(row.querySelector('td.sticky-start-first')).to.exist;
+      for (const cell of row.cells) {
+        const style = getComputedStyle(cell);
 
-      expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');
-      expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(style.backgroundColor).to.equal(expected);
+        expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(
+          style.getPropertyValue('--_body-cell-background-interactive-opacity').trim()
+        ).to.equal('0');
+      }
+    });
+
+    it('should move and clear the persistent active background with the default theme', async () => {
+      await userEvent.unhover(el);
+      const getRows = (): HTMLTableRowElement[] =>
+        Array.from(el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'));
+      const getBackground = (row: HTMLTableRowElement): string =>
+        getComputedStyle(row.cells[0]).backgroundColor;
+      const idleBackground = getBackground(getRows()[0]);
+
+      expect(
+        getComputedStyle(el).getPropertyValue('--sl-opacity-interactive-plain-idle').trim()
+      ).to.equal('0');
+
+      el.activeRow = el.items![0];
+      await el.updateComplete;
+      const activeBackground = getBackground(getRows()[0]);
+      expect(activeBackground).to.not.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(idleBackground);
+
+      el.activeRow = el.items![1];
+      await el.updateComplete;
+      expect(getBackground(getRows()[0])).to.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(activeBackground);
+
+      el.activeRow = undefined;
+      await el.updateComplete;
+      for (const row of getRows()) {
+        expect(getBackground(row)).to.equal(idleBackground);
+      }
     });
   });
 

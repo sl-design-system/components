@@ -165,6 +165,7 @@ describe('sl-select-month', () => {
       const disabledButtons = Array.from(el.renderRoot.querySelectorAll('table button[disabled]'));
 
       // Months 0,1,2 and 9,10,11 -> 6 disabled
+
       expect(disabledButtons).to.have.lengthOf(6);
     });
 
@@ -222,6 +223,7 @@ describe('sl-select-month', () => {
       await userEvent.keyboard('{ArrowRight}');
 
       await el.updateComplete;
+
       expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
     });
 
@@ -234,6 +236,7 @@ describe('sl-select-month', () => {
       await userEvent.keyboard('{ArrowUp}');
 
       await el.updateComplete;
+
       expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
     });
 
@@ -258,6 +261,7 @@ describe('sl-select-month', () => {
       await userEvent.keyboard('{ArrowDown}');
 
       await el.updateComplete;
+
       expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
     });
 
@@ -355,9 +359,11 @@ describe('sl-select-month', () => {
         firstEnabled?.focus();
 
         await userEvent.keyboard('{ArrowLeft}');
+
         expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
 
         await userEvent.keyboard('{ArrowRight}');
+
         expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
       });
 

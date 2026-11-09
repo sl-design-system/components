@@ -122,6 +122,7 @@ describe('sl-month-view', () => {
       expect(el.showWeekNumbers).to.be.true;
 
       const weekNumbers = el.renderRoot.querySelectorAll('[part~="week-number"]');
+
       expect(weekNumbers.length).to.be.greaterThan(0);
     });
 
@@ -153,6 +154,7 @@ describe('sl-month-view', () => {
       await el.updateComplete;
 
       const weekdays = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]'));
+
       expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
         'Sun',
         'Mon',
@@ -250,20 +252,30 @@ describe('sl-month-view', () => {
       expect(rows.every(row => !row.hasAttribute('aria-hidden'))).to.be.true;
     });
 
-    for (const showWeekNumbers of [false, true]) {
-      it(`should satisfy aria-required-children with hidden dates ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
-        el.hideDaysOtherMonths = true;
-        el.showWeekNumbers = showWeekNumbers;
-        await el.updateComplete;
+    it('should satisfy aria-required-children with hidden dates without week numbers', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = false;
+      await el.updateComplete;
 
-        const results = await axe.run(el, {
-          runOnly: { type: 'rule', values: ['aria-required-children'] }
-        });
-
-        expect(results.violations).to.be.empty;
-        expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
+      const results = await axe.run(el, {
+        runOnly: { type: 'rule', values: ['aria-required-children'] }
       });
-    }
+
+      expect(results.violations).to.be.empty;
+      expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
+    });
+
+    it('should satisfy aria-required-children with hidden dates with week numbers', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+      const results = await axe.run(el, {
+        runOnly: { type: 'rule', values: ['aria-required-children'] }
+      });
+
+      expect(results.violations).to.be.empty;
+      expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
+    });
   });
 
   describe('custom renderer', () => {
@@ -387,7 +399,7 @@ describe('sl-month-view', () => {
     it('should apply "day" to the day buttons', () => {
       const days = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]'));
 
-      expect(days).to.be.length(7 * 6);
+      expect(days).to.be.length(42);
     });
 
     it('should apply "previous-month" to days from previous month', () => {
@@ -560,34 +572,87 @@ describe('sl-month-view', () => {
       await el.updateComplete;
     });
 
-    for (const preview of [false, true]) {
-      for (const monthEnd of [false, true]) {
-        it(`should keep a continuous ${preview ? 'preview' : 'selected range'} at the ${monthEnd ? 'end' : 'start'} of a single month`, async () => {
-          const start = monthEnd ? new Date(2023, 2, 29) : new Date(2023, 1, 27),
-            end = monthEnd ? new Date(2023, 3, 6) : new Date(2023, 2, 5),
-            boundaries = monthEnd
-              ? [new Date(2023, 2, 31), new Date(2023, 3, 1)]
-              : [new Date(2023, 1, 28), new Date(2023, 2, 1)];
-
-          if (preview) {
-            el.rangeStart = start;
-            el.rangePreview = end;
-          } else {
-            el.range = [start, end];
-          }
-          await el.updateComplete;
-
-          for (const date of boundaries) {
-            const button = getDayButton(date)!;
-
-            expect(button).to.have.attribute('part').that.contains('in-range');
-            expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
-            expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
-            expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
-          }
-        });
+    it('should keep a continuous selected range at the start of a single month', async () => {
+      const start = new Date(2023, 1, 27),
+        end = new Date(2023, 2, 5),
+        boundaries = [new Date(2023, 1, 28), new Date(2023, 2, 1)];
+      {
+        el.range = [start, end];
       }
-    }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous selected range at the end of a single month', async () => {
+      const start = new Date(2023, 2, 29),
+        end = new Date(2023, 3, 6),
+        boundaries = [new Date(2023, 2, 31), new Date(2023, 3, 1)];
+      {
+        el.range = [start, end];
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous preview at the start of a single month', async () => {
+      const start = new Date(2023, 1, 27),
+        end = new Date(2023, 2, 5),
+        boundaries = [new Date(2023, 1, 28), new Date(2023, 2, 1)];
+      {
+        el.rangeStart = start;
+        el.rangePreview = end;
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous preview at the end of a single month', async () => {
+      const start = new Date(2023, 2, 29),
+        end = new Date(2023, 3, 6),
+        boundaries = [new Date(2023, 2, 31), new Date(2023, 3, 1)];
+      {
+        el.rangeStart = start;
+        el.rangePreview = end;
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
 
     it('should align week row backgrounds with the day tiles in a widened selected range', async () => {
       el.style.inlineSize = '600px';
@@ -997,6 +1062,7 @@ describe('sl-month-view', () => {
       await userEvent.unhover(button14);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay + 50));
+
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)

@@ -18,7 +18,7 @@
 }
 
 :host([number-of-months='2']) {
-  --_month-gap: var(--sl-size-200);
+  --_month-gap: var(--sl-size-300);
 
   inline-size: calc(2 * var(--_month-inline-size) + var(--_month-gap));
 }
@@ -130,7 +130,7 @@ sl-button {
   grid-column: 3 / span 1;
   min-inline-size: 0;
   overflow: hidden;
-  padding-inline-start: var(--sl-size-100);
+  padding-inline-start: calc(var(--_month-gap) / 2);
   text-overflow: ellipsis;
   white-space: nowrap;
 }

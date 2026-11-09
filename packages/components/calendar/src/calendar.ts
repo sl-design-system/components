@@ -134,6 +134,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The view the calendar is currently showing. */
   @state() view: 'day' | 'month' | 'year' = 'day';
 
+  /** @internal The number of months that fit in the responsive day view. */
+  @state() visibleMonthCount: 1 | 2 = 1;
+
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
 
@@ -201,6 +204,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .indicatorDates=${this.indicatorDates}
         .month=${this.month}
         .numberOfMonths=${this.numberOfMonths}
+        .visibleMonthCountChange=${this.#onVisibleMonthCountChange}
         .range=${this.range}
         .rangeSelection=${this.mode === 'range'}
         .rangeStart=${this.rangeStart}
@@ -235,6 +239,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               ?show-current=${this.showToday}
               .selected=${this.selected}
               .year=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
@@ -279,6 +284,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
     `;
   }
+
+  #onVisibleMonthCountChange = (count: 1 | 2): void => {
+    this.visibleMonthCount = count;
+  };
 
   /**
    * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus

@@ -194,6 +194,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The number of months that currently fit in the available space. */
   @state() visibleMonthCount: 1 | 2 = 1;
 
+  /** @internal Reports responsive month count changes to the calendar's other views. */
+  @property({ attribute: false }) visibleMonthCountChange?: (count: 1 | 2) => void;
+
   /** Will disable selecting a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
 
@@ -890,6 +893,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     if (this.visibleMonthCount !== nextCount) {
       this.visibleMonthCount = nextCount;
+      this.visibleMonthCountChange?.(nextCount);
     }
   }
 

@@ -53,7 +53,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    * Number of columns in the years grid. Used by keyboard navigation and the roving tabindex
    * controller to compute row/column movement and focus targets.
    */
-  #cols = 3;
+  get #cols(): number {
+    return this.numberOfMonths === 2 ? 5 : 3;
+  }
 
   /** Focus management. */
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
@@ -86,6 +88,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
+  /** The number of months represented by the calendar. Two months show 20 years in five columns. */
+  @property({ type: Number, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 = 1;
+
   /** The currently selected date. (In order to style current month) */
   @property({ converter: dateConverter }) selected?: Date;
 
@@ -117,10 +122,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('year')) {
+    if (changes.has('year') || changes.has('numberOfMonths')) {
       const year = this.year.getFullYear();
 
-      this.#setYears(year - 5, year + 6);
+      this.#setYears(year - 5, year - 5 + this.#cols * 4 - 1);
+      this.#focusGroupController.directionLength = this.#cols;
     }
 
     if (changes.has('max') || changes.has('min') || changes.has('years')) {
@@ -142,7 +148,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           <sl-button
             @click=${this.#onPrevious}
             ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
-            aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
+            aria-label=${msg(str`Go back ${this.years.length} years`, { id: 'sl.calendar.previousYears' })}
             fill="ghost"
             variant="secondary">
             <sl-icon name="chevron-left"></sl-icon>
@@ -150,7 +156,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           <sl-button
             @click=${this.#onNext}
             ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
-            aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
+            aria-label=${msg(str`Go forward ${this.years.length} years`, { id: 'sl.calendar.nextYears' })}
             fill="ghost"
             variant="secondary">
             <sl-icon name="chevron-right"></sl-icon>
@@ -258,12 +264,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onNext(): void {
-    this.#setYears(this.years.at(-1)! + 1, this.years.at(-1)! + 12);
+    this.#setYears(this.years.at(-1)! + 1, this.years.at(-1)! + this.years.length);
     this.#announce(this.years);
   }
 
   #onPrevious(): void {
-    this.#setYears(this.years.at(0)! - 12, this.years.at(0)! - 1);
+    this.#setYears(this.years.at(0)! - this.years.length, this.years.at(0)! - 1);
     this.#announce(this.years);
   }
 

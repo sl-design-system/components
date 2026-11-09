@@ -321,7 +321,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick = (event: MouseEvent): void => {
-    console.log(event.target, this.#titleLink, this.#shouldIgnoreClick(event));
     if (!this.#titleLink || this.#shouldIgnoreClick(event)) {
       return;
     }

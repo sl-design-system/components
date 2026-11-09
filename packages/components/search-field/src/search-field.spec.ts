@@ -1069,6 +1069,90 @@ describe('sl-search-field', () => {
       expect(el.getBoundingClientRect().height).to.equal(height);
     });
 
+    it('keeps focused suggestions unselected until the query matches a phrase', async () => {
+      el.autocomplete = 'list';
+      el.suggestions = ['García', 'Garden', 'Garland'];
+      await userEvent.type(el.input, 'Gar');
+      await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+      await list().updateComplete;
+      await Promise.all(options().map(option => option.updateComplete));
+      const active = options()[1],
+        icon = active.renderRoot.querySelector('sl-icon')!;
+
+      expect(el.value).to.equal('Gar');
+      expect(list().getAttribute('aria-activedescendant')).to.equal(active.id);
+      expect(active.hasAttribute('current')).to.be.true;
+      expect(options().map(option => option.selected)).to.deep.equal([false, false, false]);
+      expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+        'false',
+        'false',
+        'false'
+      ]);
+      expect(getComputedStyle(icon).visibility).to.equal('hidden');
+      expect(getComputedStyle(list()).outlineStyle).to.equal('none');
+      expect(getComputedStyle(active).outlineStyle).to.equal('solid');
+      expect(parseFloat(getComputedStyle(active).outlineWidth)).to.be.greaterThan(0);
+    });
+
+    it('keeps the exact query selected while focus moves to another suggestion', async () => {
+      el.autocomplete = 'list';
+      el.suggestions = ['Garden', 'Gardener', 'Gardenia'];
+      await userEvent.type(el.input, 'Garden');
+      await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+      await list().updateComplete;
+      await Promise.all(options().map(option => option.updateComplete));
+
+      expect(el.value).to.equal('Garden');
+      expect(list().getAttribute('aria-activedescendant')).to.equal(options()[1].id);
+      expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
+      expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+        'true',
+        'false',
+        'false'
+      ]);
+    });
+
+    it('selects a matching phrase only after its inline proposal is accepted', async () => {
+      el.suggestions = ['García', 'García Ruiz'];
+      await userEvent.type(el.input, 'Gar');
+      await expect.poll(suffix).to.equal('cía');
+
+      expect(el.value).to.equal('Gar');
+      expect(options().map(option => option.selected)).to.deep.equal([false, false]);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      await list().updateComplete;
+      await Promise.all(options().map(option => option.updateComplete));
+
+      expect(el.value).to.equal('García');
+      expect(options().map(option => option.selected)).to.deep.equal([true, false]);
+      expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+        'true',
+        'false'
+      ]);
+    });
+
+    it('clears option selection when editing the query back to a partial phrase', async () => {
+      el.autocomplete = 'list';
+      el.suggestions = ['Garden', 'Gardener'];
+      await userEvent.type(el.input, 'Garden');
+      await el.updateComplete;
+
+      expect(options().map(option => option.selected)).to.deep.equal([true, false]);
+
+      el.clear();
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+      await list().updateComplete;
+
+      expect(options().map(option => option.selected)).to.deep.equal([false, false]);
+      expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+        'false',
+        'false'
+      ]);
+    });
+
     it('keeps an active suggestion through updates while the list has focus', async () => {
       const onSearch = searchSpy();
       el.suggestions = ['Garden', 'García'];
@@ -1087,9 +1171,9 @@ describe('sl-search-field', () => {
       expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
         'false',
         'false',
-        'true'
+        'false'
       ]);
-      expect(options().map(option => option.selected)).to.deep.equal([false, false, true]);
+      expect(options().map(option => option.selected)).to.deep.equal([false, false, false]);
 
       await userEvent.keyboard('{Enter}');
 

@@ -155,6 +155,11 @@ button {
   display: none;
 }
 
+/* The active option supplies the keyboard focus indicator inside the list. */
+.suggestions::slotted(sl-listbox:focus) {
+  outline: none;
+}
+
 .suggestions::slotted(:not([hidden])) {
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);

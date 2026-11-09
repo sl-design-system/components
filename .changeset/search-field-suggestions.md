@@ -7,4 +7,4 @@ Add optional inline and list suggestions to the search field, with prefix or con
 
 Render inline proposals separately from the native input so form submission, validation and text selection use only accepted text. Preserve active suggestions across updates, hide closed lists in flow layouts, refresh localized suggestion messages and handle Unicode case folding and partial character expansions correctly. Deduplicate requests in the asynchronous example.
 
-Preserve inherited Enter-to-submit behavior for native forms and `sl-form`, expose inline proposals through a localized accessible description and live announcement, and synchronize selected option state when suggestion lists are rebuilt.
+Preserve inherited Enter-to-submit behavior for native forms and `sl-form`, expose inline proposals through a localized accessible description and live announcement, and preserve selected phrases independently of keyboard focus when suggestion lists are rebuilt.

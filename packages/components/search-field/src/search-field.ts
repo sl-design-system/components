@@ -308,13 +308,16 @@ export class SearchField extends TextField {
     }
 
     const listFocused = this.#listbox.matches(':focus'),
-      activeValue: unknown = this.#options[this.#activeIndex]?.value;
+      activeValue: unknown = this.#options[this.#activeIndex]?.value,
+      selectedIndex = listPhrases.indexOf(query);
     this.#options = showList
-      ? listPhrases.map(label => {
+      ? listPhrases.map((label, index) => {
           const option = this.shadowRoot!.createElement('sl-option'),
             { start, end } = matchSuggestion(label, query)!;
           option.id = `${this.#listbox!.id}-${nextSuggestionId++}`;
           option.value = label;
+          option.selected = index === selectedIndex;
+          option.setAttribute('aria-selected', String(option.selected));
           const before = label.slice(0, start),
             match = label.slice(start, end),
             after = label.slice(end);
@@ -438,8 +441,6 @@ export class SearchField extends TextField {
     this.#activeIndex = (index + this.#options.length) % this.#options.length;
     this.#options.forEach((option, i) => {
       option.toggleAttribute('current', i === this.#activeIndex);
-      option.selected = i === this.#activeIndex;
-      option.setAttribute('aria-selected', String(i === this.#activeIndex));
     });
     this.#listbox!.setAttribute('aria-activedescendant', this.#options[this.#activeIndex].id);
     this.#options[this.#activeIndex].scrollIntoView({ block: 'nearest' });

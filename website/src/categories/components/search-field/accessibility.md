@@ -49,7 +49,7 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 Inline proposals are announced through a polite live region and added to the input's accessible description, including the Right Arrow / End acceptance instructions. Existing descriptions, such as a field hint, are preserved. Unaccepted proposals are excluded from the input value, form submission and native validation.
 
-The input has the `searchbox` role. Suggestions use a separate, focusable listbox: its active option is identified with `aria-activedescendant`, while `aria-selected` reflects the current option. Updating suggestions preserves the active phrase when it remains available. If no options remain, focus returns to the input.
+The input has the `searchbox` role. Suggestions use a separate, focusable listbox: its active option is identified with `aria-activedescendant`, while `aria-selected` is true only for an option whose phrase exactly matches the text in the field. Moving focus with the arrow keys does not select a phrase or change the query. The focused row has a focus outline and side indicator; selection styling is reserved for a matching query. Updating suggestions preserves the active phrase when it remains available. If no options remain, focus returns to the input.
 
 Loading, empty and unavailable messages describe suggestions, not the results of the search. They use a status region; searching with the typed words remains available. Keep the field's label and any persistent instructions meaningful without relying on placeholder text.
 

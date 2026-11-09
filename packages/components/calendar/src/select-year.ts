@@ -49,6 +49,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** The focused year to restore after a responsive grid layout change. */
+  #yearToFocus?: number;
+
   /**
    * Number of columns in the years grid. Used by keyboard navigation and the roving tabindex
    * controller to compute row/column movement and focus targets.
@@ -122,15 +125,52 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('year') || changes.has('numberOfMonths')) {
-      const year = this.year.getFullYear();
+    const yearCount = this.#cols * 4;
 
-      this.#setYears(year - 5, year - 5 + this.#cols * 4 - 1);
+    if (changes.has('year')) {
+      const start = this.year.getFullYear() - 5;
+
+      this.#setYears(start, start + yearCount - 1);
+    } else if (changes.has('numberOfMonths')) {
+      const focusedIndex = Array.from(this.buttons).findIndex(
+          button => button === this.shadowRoot?.activeElement
+        ),
+        focusedYear = this.years[focusedIndex],
+        browsedStart = this.years[0],
+        start =
+          focusedYear === undefined
+            ? browsedStart
+            : Math.max(browsedStart, focusedYear - yearCount + 1);
+
+      this.#yearToFocus = focusedYear;
+      this.#setYears(start, start + yearCount - 1);
+    }
+
+    if (changes.has('year') || changes.has('numberOfMonths')) {
       this.#focusGroupController.directionLength = this.#cols;
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('years')) {
-      this.#focusGroupController?.clearElementCache();
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('years') ||
+      changes.has('numberOfMonths')
+    ) {
+      this.#focusGroupController.clearElementCache();
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (this.#yearToFocus !== undefined) {
+      const index = this.years.indexOf(this.#yearToFocus),
+        button = this.buttons[index];
+
+      this.#yearToFocus = undefined;
+      if (button && !button.disabled) {
+        this.#focusGroupController.focusToElement(index);
+      }
     }
   }
 

@@ -19,3 +19,5 @@ Match range and hover preview backgrounds to the Figma design, align range row e
 Preserve font longhands when measuring calendar headers so non-default numeric variants do not truncate month names or reuse stale font measurements.
 
 Use a 24px gap between calendar months and show 20 years in five columns when two months are visible. Keep year paging, keyboard navigation, accessible labels and responsive layouts consistent with the visible grid.
+
+Preserve the browsed year range and focused year when responsive resizing changes the year grid between 12 and 20 years. Recenter only when the calendar year is explicitly changed.

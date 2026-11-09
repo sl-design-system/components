@@ -459,6 +459,86 @@ describe('sl-select-year', () => {
       expect(el.shadowRoot?.activeElement).to.equal(enabled[0]);
     });
 
+    it('should preserve the browsed start when collapsing after paging forward', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2041);
+      expect(el.years.at(-1)).to.equal(2052);
+
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2041);
+      expect(el.years.at(-1)).to.equal(2060);
+    });
+
+    it('should preserve the browsed start when collapsing after paging backward', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:first-of-type')!.click();
+      await el.updateComplete;
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2001);
+      expect(el.years.at(-1)).to.equal(2012);
+    });
+
+    it('should keep a focused year visible when it would fall outside the smaller grid', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.buttons[19].focus();
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2049);
+      expect(el.years.at(-1)).to.equal(2060);
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2060');
+
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2059');
+    });
+
+    it('should preserve focus on the same year when expanding a browsed grid', async () => {
+      el.year = new Date(2026, 0, 1);
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.buttons[7].focus();
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2033);
+      expect(el.years.at(-1)).to.equal(2052);
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2040');
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2045');
+    });
+
+    it('should recenter on an explicit year change even after browsing and resizing', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.year = new Date(2030, 0, 1);
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2025);
+      expect(el.years.at(-1)).to.equal(2036);
+    });
+
     it('should restore the 12-year grid when collapsing to one month', async () => {
       el.numberOfMonths = 1;
       await el.updateComplete;

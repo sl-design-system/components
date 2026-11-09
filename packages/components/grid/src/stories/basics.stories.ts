@@ -1,5 +1,6 @@
 import { Avatar } from '@sl-design-system/avatar';
 import {
+  ArrayListDataSource,
   FetchListDataSource,
   FetchListDataSourceError,
   ListDataSourcePlaceholder
@@ -9,12 +10,14 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
+import '@sl-design-system/paginator/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
+import { type GridSummaryTotals, calculateSummaryTotals } from '../summary.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -545,5 +548,309 @@ export const ReorderColumns: Story = {
     }
 
     return html`<grid-reorder-example></grid-reorder-example>`;
+  }
+};
+
+interface Pupil {
+  id: number;
+  name: string;
+  class: string;
+  grade: number;
+  homework: boolean;
+  present: boolean;
+  passed: boolean;
+}
+
+const names = [
+  'Gert Flits',
+  'René Top',
+  'Anna Bos',
+  'Mila de Vries',
+  'Daan Jansen',
+  'Sophie Visser',
+  'Lucas Smit',
+  'Emma Meijer',
+  'Finn Mulder',
+  'Julia Bakker',
+  'Sem Dekker'
+];
+
+/** Deterministic example data, so the totals in the stories (and snapshots) are stable. */
+const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
+  id: index + 1,
+  name: `${names[index % names.length]}${index >= names.length ? ` ${Math.floor(index / names.length) + 1}` : ''}`,
+  class: index % 3 === 0 ? 'F5AB' : 'F3CB',
+  grade: 3 + ((index * 7) % 8) + (index % 2) / 2,
+  homework: index % 3 !== 0,
+  present: index % 5 !== 0,
+  passed: 3 + ((index * 7) % 8) >= 6
+}));
+
+export const SummaryRow: Story = {
+  render: () => html`
+    <p>
+      A summary row shows the totals of the columns. Set <code>summary-type</code> on a column to
+      show a total: <code>number</code> columns show the sum (or the average),
+      <code>text</code> columns the number of non-empty values and <code>boolean</code> columns a
+      fraction, count or percentage. A dash is shown in columns without a total. The summary row is
+      shown at the bottom by default and stays visible while you scroll.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-type="text"></sl-grid-column>
+      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-type="number"></sl-grid-column>
+      <sl-grid-column
+        header="Homework"
+        path="homework"
+        summary-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Present"
+        path="present"
+        summary-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const SummaryRowTop: Story = {
+  render: () => html`
+    <p>
+      Use <code>summary-position="top"</code> to show the summary row below the header. It sticks to
+      the header when you scroll.
+    </p>
+    <sl-grid summary-position="top" .items=${pupils}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-type="text"></sl-grid-column>
+      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-format="average"
+        summary-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const SummaryRowFormatMenu: Story = {
+  render: () => html`
+    <p>
+      Add <code>summary-menu</code> to a column to show a menu beside its total. The menu changes
+      the format of all boolean totals that don't have a fixed <code>summary-format</code>. The
+      format only changes how the total is displayed, never the calculated value or the number of
+      records it is relative to. You can also set the format on the grid with
+      <code>summary-format</code>.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-menu
+        summary-type="text"></sl-grid-column>
+      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Homework"
+        path="homework"
+        summary-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Present"
+        path="present"
+        summary-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Passed (always a count)"
+        path="passed"
+        summary-format="count"
+        summary-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.passed ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-format="average"
+        summary-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const SummaryRowCustomContent: Story = {
+  render: () => html`
+    <p>
+      Use the <code>summary</code> property to replace the calculated total with a string or a
+      renderer function. The renderer receives the raw totals of the column.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column header="Student" path="name" .summary=${'Totals'}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-type="number"
+        .summary=${(totals?: GridSummaryTotals) =>
+          totals ? `${totals.sum} points in total` : '-'}></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const SummaryRowPagination: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        The totals are calculated for all the rows that match the active filters, across all pages.
+        They don't change when you change the page, the page size or the sorting. When the data is
+        paginated, the label of a column with a <code>summary-label</code> says that the total is
+        for the whole grid.
+      </p>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          summary-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
+      </div>
+    `;
+  }
+};
+
+export const SummaryRowPageTotal: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        Set <code>summary-scope="page"</code> to only calculate the totals for the rows on the
+        current page. The label then says "Page total".
+      </p>
+      <sl-grid summary-scope="page" .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          summary-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+      </div>
+    `;
+  }
+};
+
+export const SummaryRowFetch: Story = {
+  render: () => {
+    const ds = new FetchListDataSource<Pupil>({
+      pageSize: 10,
+      fetchPage: ({ page, pageSize }) => {
+        // A real server calculates the totals for all the records matching the filters. The
+        // totals are the raw values, so the format can be changed without fetching again.
+        const summary = {
+          name: calculateSummaryTotals(pupils.map(pupil => pupil.name)),
+          grade: calculateSummaryTotals(pupils.map(pupil => pupil.grade)),
+          present: calculateSummaryTotals(pupils.map(pupil => pupil.present))
+        };
+
+        return new Promise(resolve =>
+          setTimeout(
+            () =>
+              resolve({
+                items: pupils.slice(page * pageSize, page * pageSize + pageSize),
+                summary,
+                totalItems: pupils.length
+              }),
+            500
+          )
+        );
+      }
+    });
+
+    return html`
+      <p>
+        A <code>FetchListDataSource</code> doesn't have all the rows, so it can't calculate the
+        totals itself. Return the raw totals as <code>summary</code> from the
+        <code>fetchPage</code> callback, next to <code>items</code> and <code>totalItems</code>. The
+        summary row shows a dash until the totals have arrived.
+      </p>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-menu
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          summary-type="number"></sl-grid-column>
+        <sl-grid-column
+          header="Present"
+          path="present"
+          summary-type="boolean"
+          .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+      </sl-grid>
+    `;
   }
 };

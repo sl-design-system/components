@@ -21,6 +21,15 @@ export interface FetchListDataSourceCallbackOptions<T = any> {
 
 export interface FetchListDataSourceCallbackResult<T> {
   items: T[];
+
+  /**
+   * Optional raw totals for the summary row of a grid, for all the items matching the active
+   * filters (not just the fetched page). Use the same shape as `GridSummary` in the grid package:
+   * `{ [path]: { evaluated, sum, nonEmpty, trueCount, totalRecords } }`. Provide raw values, not
+   * formatted strings, so the format can be changed without fetching again.
+   */
+  summary?: Record<string, unknown>;
+
   totalItems?: number;
 }
 
@@ -123,6 +132,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The total number of items in the data source. */
   #totalSize: number;
 
+  /** The raw totals for the summary row, as returned by the latest fetch. */
+  #summary?: Record<string, unknown>;
+
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
 
@@ -135,6 +147,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   get size(): number {
     return Array.from(this.#groups.values()).reduce((acc, group) => acc + (group.size ?? 0), 0);
+  }
+
+  override get summary(): Record<string, unknown> | undefined {
+    return this.#summary;
   }
 
   get totalSize(): number {
@@ -428,6 +444,11 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           // If the size of the group changes, or pagination is enabled, we need to
           // recreate the proxy to ensure that the array with items is up to date.
           let recreateProxy = this.pagination;
+
+          // The totals depend on the filters, not on the page; the latest response wins.
+          if (res.summary) {
+            this.#summary = res.summary;
+          }
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);

@@ -7754,6 +7754,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.4.6"
     "@sl-design-system/infotip": "npm:^0.1.0"
     "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/menu": "npm:^1.1.0"
     "@sl-design-system/scrollbar": "npm:^0.1.4"
     "@sl-design-system/search-field": "npm:^1.0.2"
     "@sl-design-system/select": "npm:^2.4.2"

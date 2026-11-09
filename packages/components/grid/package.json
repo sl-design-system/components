@@ -67,6 +67,7 @@
     "@sl-design-system/ellipsize-text": "^0.1.2",
     "@sl-design-system/icon": "^1.4.6",
     "@sl-design-system/listbox": "^0.2.3",
+    "@sl-design-system/menu": "^1.1.0",
     "@sl-design-system/scrollbar": "^0.1.4",
     "@sl-design-system/search-field": "^1.0.2",
     "@sl-design-system/select": "^2.4.2",

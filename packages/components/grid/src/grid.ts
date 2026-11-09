@@ -22,8 +22,15 @@ import {
 } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Icon } from '@sl-design-system/icon';
+import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import { type EventEmitter, event, isSafari, positionPopover } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  event,
+  getValueByPath,
+  isSafari,
+  positionPopover
+} from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
@@ -51,6 +58,13 @@ import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
 import { type GridSorter, type SlSorterRegisterEvent } from './sorter.js';
+import {
+  type GridSummaryFormat,
+  type GridSummaryPosition,
+  type GridSummaryScope,
+  type GridSummaryTotals,
+  calculateSummaryTotals
+} from './summary.js';
 import { GridViewModel } from './view-model.js';
 
 declare global {
@@ -130,6 +144,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
       'sl-icon': Icon,
+      'sl-menu-button': MenuButton,
+      'sl-menu-item': MenuItem,
+      'sl-menu-item-group': MenuItemGroup,
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
       'sl-toggle-group': ToggleGroup,
@@ -360,6 +377,30 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
 
+  /**
+   * The format of the totals in boolean columns that don't have a fixed `summary-format`. Use the
+   * `summary-menu` attribute on a column to let the user change this.
+   *
+   * @default 'fraction'
+   */
+  @property({ reflect: true, attribute: 'summary-format' }) summaryFormat?: GridSummaryFormat;
+
+  /**
+   * Where the summary row is displayed. The summary row is only shown when at least one column has
+   * a `summary-type` or `summary`.
+   *
+   * @default 'bottom'
+   */
+  @property({ reflect: true, attribute: 'summary-position' }) summaryPosition?: GridSummaryPosition;
+
+  /**
+   * Whether the totals are calculated for all the rows matching the active filters (`all`) or only
+   * for the rows on the current page (`page`).
+   *
+   * @default 'all'
+   */
+  @property({ reflect: true, attribute: 'summary-scope' }) summaryScope?: GridSummaryScope;
+
   /** The table body element. */
   @query('tbody') tbody!: HTMLTableSectionElement;
 
@@ -523,6 +564,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-sorter-register=${this.#onSorterRegister}
           part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
+          ${this.summaryPosition === 'top' ? this.renderSummaryRow() : nothing}
         </thead>
         <tbody
           id="tbody"
@@ -541,14 +583,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           })}
         </tbody>
         ${
-          this.scrollbar
+          this.scrollbar || this.#hasBottomSummary
             ? html`
-                <tfoot>
-                  <tr class="scrollbar">
-                    <td>
-                      <sl-scrollbar scroller="tbody"></sl-scrollbar>
-                    </td>
-                  </tr>
+                <tfoot @scroll=${this.#onFooterScroll}>
+                  ${this.#hasBottomSummary ? this.renderSummaryRow() : nothing}
+                  ${
+                    this.scrollbar
+                      ? html`
+                          <tr class="scrollbar">
+                            <td>
+                              <sl-scrollbar scroller="tbody"></sl-scrollbar>
+                            </td>
+                          </tr>
+                        `
+                      : nothing
+                  }
                 </tfoot>
               `
             : nothing
@@ -613,7 +662,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody tr:not([part~='group']) td, thead tr th):nth-child(${index + 1}) {
+          :where(tbody tr:not([part~='group']) td, thead tr th, tr[part~='summary-row'] td):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -649,6 +698,39 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           </tr>
         `
       )}
+    `;
+  }
+
+  /**
+   * Renders the summary row with the totals of the columns. The row is only rendered when at least
+   * one column has a summary configured. Override this method if you want to customize how the
+   * whole row is rendered.
+   */
+  renderSummaryRow(): TemplateResult | typeof nothing {
+    const columns = this.#headerRows.at(-1) ?? [];
+
+    if (!this.#hasSummary) {
+      return nothing;
+    }
+
+    const totals = this.#calculateSummary(columns),
+      // The format menu is shown beside the label of the row, unless a column asks for it itself
+      explicitMenu = columns.some(col => col.summaryMenu),
+      hasFormattable = columns.some(col => col.summaryType === 'boolean' && !col.summaryFormat),
+      menuColumn =
+        !explicitMenu && hasFormattable
+          ? columns.find(col => !col.hidden && (col.summaryType || col.summary))
+          : undefined;
+
+    // Like the header rows, the row index of the summary row starts counting at 1 (see #3377)
+    return html`
+      <tr aria-rowindex="1" part="summary-row" role="row">
+        ${columns.map(col =>
+          col.renderSummary(totals.get(col), {
+            menu: explicitMenu ? col.summaryMenu : col === menuColumn
+          })
+        )}
+      </tr>
     `;
   }
 
@@ -816,7 +898,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           const index = rows[rows.length - 1].indexOf(col),
             cells = Array.from(
               this.renderRoot.querySelectorAll<HTMLElement>(
-                `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
+                `:where(tbody tr:not([part~='group']) td, th, tr[part~='summary-row'] td):nth-child(${index + 1})`
               )
             ).map(cell => ({
               cell,
@@ -1353,11 +1435,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onScroll();
   }
 
+  #onFooterScroll = (): void => {
+    if (this.tfoot.scrollLeft === this.tbody.scrollLeft) {
+      return;
+    }
+
+    // Scrolling the summary row (e.g. by moving focus to the format menu) scrolls the body
+    this.#syncScrollLeft(this.tfoot, this.tbody);
+    this.#onScroll();
+  };
+
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
     this.scrollbar = scrollWidth > offsetWidth;
     this.#syncScrollLeft(this.tbody, this.thead);
+
+    if (this.#hasBottomSummary && this.tfoot) {
+      this.#syncScrollLeft(this.tbody, this.tfoot);
+    }
 
     this.toggleAttribute('scrollable', this.scrollbar);
     this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
@@ -1684,6 +1780,48 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return columns
       .filter(col => !col.hidden)
       .reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
+  }
+
+  /** Whether at least one column has a summary configured. */
+  get #hasSummary(): boolean {
+    return !!this.#headerRows.at(-1)?.some(col => col.summaryType || col.summary);
+  }
+
+  /** Whether the summary row is rendered in the footer. */
+  get #hasBottomSummary(): boolean {
+    return this.summaryPosition !== 'top' && this.#hasSummary;
+  }
+
+  /**
+   * Calculates the totals for the summary row. The totals are calculated over all rows matching the
+   * active filters (not only the current page, unless `summaryScope` is `page`) and never over
+   * group rows. Data sources that don't have all the rows available (such as the
+   * `FetchListDataSource`) provide the raw totals themselves.
+   */
+  #calculateSummary(columns: Array<GridColumn<T>>): Map<GridColumn<T>, GridSummaryTotals> {
+    const dataSource = this.dataSource,
+      totals = new Map<GridColumn<T>, GridSummaryTotals>(),
+      rows = (this.summaryScope === 'page' ? dataSource?.items : dataSource?.filteredItems)
+        ?.filter((item): item is ListDataSourceDataItem<T> => isListDataSourceDataItem(item))
+        .filter(item => (item.data as unknown) !== ListDataSourcePlaceholder)
+        .map(item => item.data);
+
+    for (const col of columns) {
+      if (!col.summaryType || !col.path) {
+        continue;
+      }
+
+      const path = col.path as string,
+        result = rows
+          ? calculateSummaryTotals(rows.map(row => getValueByPath(row, col.path!)))
+          : (dataSource?.summary?.[path] as GridSummaryTotals | undefined);
+
+      if (result) {
+        totals.set(col, result);
+      }
+    }
+
+    return totals;
   }
 
   #getStickyStartColumns(): Array<GridColumn<T>> {

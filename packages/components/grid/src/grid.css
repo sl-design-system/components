@@ -583,12 +583,19 @@ tfoot {
   overflow: hidden;
   position: sticky;
 
-  td {
-    border: 0;
-    display: flex;
-    flex: 1;
-    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
-    padding: 0 !important;
+  /* Keep the scrollbar in place when the summary row above it is scrolled horizontally */
+  tr.scrollbar {
+    inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+    inset-inline-start: 0;
+    position: sticky;
+
+    td {
+      border: 0;
+      display: flex;
+      flex: 1;
+      max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+      padding: 0 !important;
+    }
   }
 
   sl-scrollbar {
@@ -596,6 +603,22 @@ tfoot {
     inline-size: var(--sl-grid-scrollbar-inline-size);
     margin-inline: var(--sl-grid-scrollbar-margin-inline);
     position: relative;
+  }
+}
+
+/* The summary row with the (grand) totals */
+tr[part~='summary-row'] {
+  --_body-cell-background: var(--sl-elevation-surface-raised-sunken);
+
+  td {
+    border-block-end: 0;
+    border-block-start: var(--_border);
+    gap: var(--sl-size-050);
+    padding-block: var(--_body-cell-padding-block);
+
+    sl-menu-button {
+      margin-block: calc(var(--_body-cell-padding-block) * -1);
+    }
   }
 }
 

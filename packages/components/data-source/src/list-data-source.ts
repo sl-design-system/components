@@ -178,6 +178,15 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#filters;
   }
 
+  /**
+   * Raw totals for the summary row of a grid, keyed by column path, for all items matching the
+   * active filters. Data sources that cannot compute the totals from `filteredItems` (such as
+   * remote data sources) provide them here. Returns `undefined` when not available.
+   */
+  get summary(): Record<string, unknown> | undefined {
+    return undefined;
+  }
+
   get groupBy() {
     return this.#groupBy;
   }

@@ -1,3 +1,4 @@
+import { msg } from '@lit/localize';
 import {
   type ListDataSourceDataItem,
   ListDataSourcePlaceholder
@@ -14,6 +15,14 @@ import { type CSSResult, LitElement, type TemplateResult, html, nothing } from '
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Grid } from './grid.js';
+import {
+  type GridSummaryFormat,
+  type GridSummaryTotals,
+  type GridSummaryType,
+  formatSummary,
+  getSummaryFormats,
+  resolveSummaryFormat
+} from './summary.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -38,6 +47,13 @@ export type GridColumnHeaderRenderer<T = any> = (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
+/** Custom renderer type for the cells in the summary row. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnSummaryRenderer<T = any> = (
+  totals: GridSummaryTotals | undefined,
+  column: GridColumn<T>
+) => string | undefined | TemplateResult;
+
 /** Custom type for providing parts to a cell. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
@@ -50,7 +66,10 @@ export type GridColumnParts<T = any> = (model: T) => string | undefined;
 export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
+export type SlColumnUpdateEvent<T = any> = CustomEvent<{
+  grid: Grid;
+  column: GridColumn<T>;
+}>;
 
 let nextHeaderCellId = 0;
 
@@ -111,13 +130,16 @@ export class GridColumn<T = any> extends LitElement {
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
-  @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+  @property({ type: Boolean, attribute: 'ellipsize-text' })
+  ellipsizeText?: boolean;
 
   /** Optional column label for form controls rendered inside a cell. */
-  @property({ attribute: 'form-control-column-label' }) formControlColumnLabel?: string;
+  @property({ attribute: 'form-control-column-label' })
+  formControlColumnLabel?: string;
 
   /** Optional row context to add to form controls rendered inside a cell. */
-  @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
+  @property({ attribute: false })
+  formControlLabel?: GridColumnFormControlLabel<T>;
 
   /** The parent grid instance. */
   @property({ attribute: false })
@@ -143,7 +165,8 @@ export class GridColumn<T = any> extends LitElement {
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** Whether the column header text should be visually hidden. */
-  @property({ type: Boolean, attribute: 'hide-header-text' }) hideHeaderText?: boolean;
+  @property({ type: Boolean, attribute: 'hide-header-text' })
+  hideHeaderText?: boolean;
 
   /** The number of header rows for this column. */
   headerRowCount = 1;
@@ -179,6 +202,36 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean }) sticky?: boolean;
+
+  /**
+   * Custom content for the cell of this column in the summary row. When set, this replaces the
+   * content that is calculated from `summaryType`.
+   */
+  @property({ attribute: false }) summary?: string | GridColumnSummaryRenderer<T>;
+
+  /**
+   * The format in which the total is displayed. Setting this fixes the format for this column; the
+   * format menu does not change it. When not set, the default for the `summaryType` is used. For
+   * boolean columns, the format follows the `summaryFormat` of the grid.
+   */
+  @property({ attribute: 'summary-format' }) summaryFormat?: GridSummaryFormat;
+
+  /** A label that is displayed after the total, for example "students". */
+  @property({ attribute: 'summary-label' }) summaryLabel?: string;
+
+  /**
+   * Shows a menu beside the total of this column, so the user can change the format of the totals
+   * of all boolean columns in the grid. When no column sets this, the menu is shown automatically
+   * in the first column of the summary row if there are boolean totals without a fixed format.
+   */
+  @property({ type: Boolean, attribute: 'summary-menu' }) summaryMenu?: boolean;
+
+  /**
+   * The kind of data in this column, which determines what the total shows and which formats are
+   * available: `number` (sum or average), `text` (count of non-empty values) or `boolean` (count,
+   * fraction or percentage). Columns without a type show a dash in the summary row.
+   */
+  @property({ attribute: 'summary-type' }) summaryType?: GridSummaryType;
 
   /** Whether this column is the first or last sticky column. */
   @state() stickyOrder?: 'first' | 'last';
@@ -366,6 +419,98 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /**
+   * This method renders the `<td>` element for the summary row. Override this method if you want to
+   * customize how the summary cell is rendered. Do not override this if you only want to change the
+   * content; use the `summary`, `summaryType` and `summaryFormat` properties for that.
+   */
+  renderSummary(totals?: GridSummaryTotals, options?: { menu?: boolean }): TemplateResult {
+    const classes = this.getClasses(),
+      parts = ['summary', ...this.getParts()];
+
+    return html`
+      <td
+        aria-colindex=${String(this.columnIndex)}
+        class=${ifDefined(classes.join(' ') || undefined)}
+        headers=${this.headerIds}
+        part=${parts.join(' ')}
+        role="cell">
+        ${this.renderSummaryContent(totals)}
+        ${(options?.menu ?? this.summaryMenu) ? this.renderSummaryMenu() : nothing}
+      </td>
+    `;
+  }
+
+  /** Renders the content of the summary cell; the calculated total or the custom content. */
+  renderSummaryContent(totals?: GridSummaryTotals): string | undefined | TemplateResult {
+    if (typeof this.summary === 'function') {
+      return this.summary(totals, this);
+    } else if (typeof this.summary === 'string') {
+      return this.summary;
+    } else if (!this.summaryType) {
+      return '-';
+    }
+
+    const format = this.getSummaryFormat(),
+      value = formatSummary(totals, this.summaryType, format, this.#getLocale());
+
+    if (value === '-') {
+      return value;
+    }
+
+    const prefix = format === 'average' ? `${msg('avg.', { id: 'sl.grid.summary.average' })} ` : '',
+      suffix = this.summaryLabel ? ` ${this.summaryLabel}${this.#getScopeLabel()}` : '';
+
+    return `${prefix}${value}${suffix}`;
+  }
+
+  /** Renders the menu for changing the format of the totals. */
+  renderSummaryMenu(): TemplateResult {
+    const format = resolveSummaryFormat('boolean', this.grid?.summaryFormat),
+      labels: Record<string, string> = {
+        count: msg('Count', { id: 'sl.grid.summary.format.count' }),
+        fraction: msg('Fractions', { id: 'sl.grid.summary.format.fraction' }),
+        percentage: msg('Percentage', {
+          id: 'sl.grid.summary.format.percentage'
+        })
+      };
+
+    return html`
+      <sl-menu-button
+        aria-label=${msg('Summary format', {
+          id: 'sl.grid.summary.formatMenu'
+        })}
+        fill="ghost"
+        size="sm">
+        <sl-icon name="angle-down" slot="button"></sl-icon>
+        <sl-menu-item-group selects="single">
+          ${getSummaryFormats('boolean').map(
+            option => html`
+              <sl-menu-item
+                @sl-select=${() => this.#onSummaryFormatSelect(option)}
+                ?selected=${option === format}
+                selectable>
+                ${labels[option]}
+              </sl-menu-item>
+            `
+          )}
+        </sl-menu-item-group>
+      </sl-menu-button>
+    `;
+  }
+
+  /** Returns the format that applies to this column's total. */
+  getSummaryFormat(): GridSummaryFormat | undefined {
+    if (!this.summaryType) {
+      return undefined;
+    }
+
+    return resolveSummaryFormat(
+      this.summaryType,
+      this.summaryFormat ?? (this.summaryType === 'boolean' ? this.grid?.summaryFormat : undefined)
+    );
+  }
+
   /** Override this method to provide internal styling for a cell. */
   renderStyles(): CSSResult | void {}
 
@@ -440,5 +585,26 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
+  }
+
+  #getLocale(): string | undefined {
+    return document.documentElement.lang || undefined;
+  }
+
+  /** Clarifies which rows the totals cover when the data is paginated. */
+  #getScopeLabel(): string {
+    if (!this.grid?.dataSource?.pagination) {
+      return '';
+    }
+
+    return this.grid.summaryScope === 'page'
+      ? ` (${msg('Page total', { id: 'sl.grid.summary.pageTotal' })})`
+      : ` (${msg('on the Grid', { id: 'sl.grid.summary.onTheGrid' })})`;
+  }
+
+  #onSummaryFormatSelect(format: GridSummaryFormat): void {
+    if (this.grid) {
+      this.grid.summaryFormat = format;
+    }
   }
 }

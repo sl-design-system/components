@@ -558,6 +558,34 @@
   <source>End of range</source>
   <target>Fin del intervalo</target>
 </trans-unit>
+<trans-unit id="sl.grid.summary.average">
+  <source>avg.</source>
+  <target>prom.</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.format.count">
+  <source>Count</source>
+  <target>Recuento</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.format.fraction">
+  <source>Fractions</source>
+  <target>Fracciones</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.format.percentage">
+  <source>Percentage</source>
+  <target>Porcentaje</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.formatMenu">
+  <source>Summary format</source>
+  <target>Formato del resumen</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.pageTotal">
+  <source>Page total</source>
+  <target>Total de la página</target>
+</trans-unit>
+<trans-unit id="sl.grid.summary.onTheGrid">
+  <source>on the Grid</source>
+  <target>en la tabla</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

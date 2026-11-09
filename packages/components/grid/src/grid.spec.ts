@@ -2731,6 +2731,63 @@ describe('sl-grid', () => {
     });
   });
 
+  describe.each(['activate', 'select'] as const)('row action %s backgrounds', rowAction => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${multipleSelectItems}
+          row-action=${rowAction}
+          style="
+            --sl-color-background-input-interactive: rgb(0 0 0);
+            --sl-color-background-selected-interactive-plain: rgb(0 80 160);
+            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-opacity-interactive-plain-hover: 0.2;
+          ">
+          ${rowAction === 'select' ? html`<sl-grid-selection-column></sl-grid-selection-column>` : ''}
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await userEvent.unhover(el);
+    });
+
+    const expectOverlay = (row: HTMLTableRowElement, color: string, opacity: number): void => {
+      const reference = document.createElement('div');
+      reference.style.backgroundImage = `linear-gradient(color-mix(in srgb, transparent, ${color} ${opacity * 100}%), color-mix(in srgb, transparent, ${color} ${opacity * 100}%))`;
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundImage;
+      reference.remove();
+
+      for (const cell of row.cells) {
+        expect(getComputedStyle(cell).backgroundImage).to.contain(expected);
+      }
+    };
+
+    it('should render the idle and hover overlays on sticky and regular cells', async () => {
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      expectOverlay(row, 'rgb(0 0 0)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 0 0)', 0.2);
+    });
+
+    it('should use the selected color after activating or selecting a row', async () => {
+      let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      row.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+      await waitForGridToRenderData(el);
+      row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+      expect(row.part.contains(rowAction === 'activate' ? 'active' : 'selected')).to.be.true;
+      await userEvent.unhover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.2);
+    });
+  });
+
   describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -2898,7 +2955,7 @@ describe('sl-grid', () => {
       document.body.removeEventListener('sl-announce', announceSpy);
     });
 
-    it('should keep sticky active row cells opaque', async () => {
+    it('should keep active row cells highlighted and opaque with zero idle overlay opacity', async () => {
       el = await fixture(html`
         <sl-grid
           .items=${[
@@ -2911,7 +2968,9 @@ describe('sl-grid', () => {
             --sl-color-background-input-interactive: rgb(0 0 0);
             --sl-color-background-selected-interactive-plain: rgb(0 80 160);
             --sl-color-background-selected-subtlest: transparent;
-            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-color-background-accent-blue-bold: rgb(0 80 160);
+            --sl-opacity-subtlest: 0.1;
+            --sl-opacity-interactive-plain-idle: 0;
           ">
           <sl-grid-column path="firstName" sticky></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -2923,16 +2982,55 @@ describe('sl-grid', () => {
       el.activeRow = el.items!.at(0);
       await el.updateComplete;
 
-      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
-        'tbody tr:first-of-type td.sticky-start-first'
-      );
+      await userEvent.unhover(el);
 
-      expect(cell).to.exist;
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type')!,
+        reference = document.createElement('div');
+      reference.style.backgroundColor = 'color-mix(in srgb, rgb(0 80 160) 10%, rgb(255 255 255))';
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundColor;
+      reference.remove();
 
-      const style = getComputedStyle(cell!);
+      expect(row.querySelector('td.sticky-start-first')).to.exist;
+      for (const cell of row.cells) {
+        const style = getComputedStyle(cell);
 
-      expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');
-      expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(style.backgroundColor).to.equal(expected);
+        expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(
+          style.getPropertyValue('--_body-cell-background-interactive-opacity').trim()
+        ).to.equal('0');
+      }
+    });
+
+    it('should move and clear the persistent active background with the default theme', async () => {
+      await userEvent.unhover(el);
+      const getRows = (): HTMLTableRowElement[] =>
+        Array.from(el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'));
+      const getBackground = (row: HTMLTableRowElement): string =>
+        getComputedStyle(row.cells[0]).backgroundColor;
+      const idleBackground = getBackground(getRows()[0]);
+
+      expect(
+        getComputedStyle(el).getPropertyValue('--sl-opacity-interactive-plain-idle').trim()
+      ).to.equal('0');
+
+      el.activeRow = el.items![0];
+      await el.updateComplete;
+      const activeBackground = getBackground(getRows()[0]);
+      expect(activeBackground).to.not.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(idleBackground);
+
+      el.activeRow = el.items![1];
+      await el.updateComplete;
+      expect(getBackground(getRows()[0])).to.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(activeBackground);
+
+      el.activeRow = undefined;
+      await el.updateComplete;
+      for (const row of getRows()) {
+        expect(getBackground(row)).to.equal(idleBackground);
+      }
     });
   });
 

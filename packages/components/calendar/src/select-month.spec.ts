@@ -78,6 +78,33 @@ describe('sl-select-month', () => {
       expect(selectedBounds.width).to.be.greaterThan(60);
     });
 
+    it('should truncate long German month names in narrow tiles while keeping full accessible names', async () => {
+      el.style.inlineSize = '238px';
+      el.style.font = '20px monospace';
+      el.locale = 'de';
+      el.month = new Date(2026, 0, 1);
+      await el.updateComplete;
+
+      const september = el.buttons[8],
+        label = september.querySelector('span')!,
+        labelStyle = getComputedStyle(label),
+        october = el.buttons[9].querySelector('span')!,
+        november = el.buttons[10].querySelector('span')!;
+
+      expect(september).to.have.attribute('aria-label', 'September 2026');
+      expect(label).to.have.trimmed.text('September');
+      expect(label.scrollWidth).to.be.greaterThan(label.clientWidth);
+      expect(labelStyle.overflowX).to.equal('hidden');
+      expect(labelStyle.textOverflow).to.equal('ellipsis');
+      expect(label.getBoundingClientRect().right).to.be.at.most(
+        september.getBoundingClientRect().right
+      );
+      expect(october.scrollWidth).to.be.greaterThan(october.clientWidth);
+      expect(getComputedStyle(october).textOverflow).to.equal('ellipsis');
+      expect(november.scrollWidth).to.be.greaterThan(november.clientWidth);
+      expect(getComputedStyle(november).textOverflow).to.equal('ellipsis');
+    });
+
     it('should show the selected month when set', async () => {
       el.selected = new Date(currentYear, 5, 1); // June
       await el.updateComplete;
@@ -598,6 +625,31 @@ describe('sl-select-month', () => {
       expect(el.shadowRoot?.activeElement).to.equal(el.buttons[13]);
       expect(el.renderRoot.querySelector('.arrows sl-button:first-of-type')).to.match(':disabled');
       expect(el.renderRoot.querySelector('.arrows sl-button:last-of-type')).to.match(':disabled');
+    });
+
+    it('should retain an enabled year when collapsing a browsed pair with header focus', async () => {
+      el.month = new Date(2026, 0, 1);
+      el.min = new Date(2025, 5, 1);
+      await el.updateComplete;
+
+      const previous = el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')!;
+      previous.click();
+      await el.updateComplete;
+      const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
+      next.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(next);
+      expect(el.month.getFullYear()).to.equal(2024);
+      expect(el.months[12].date.getFullYear()).to.equal(2025);
+
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.month.getFullYear()).to.equal(2025);
+      expect(el.buttons[4]).to.match(':disabled');
+      expect(el.buttons[5]).not.to.match(':disabled');
+      expect(el.buttons[11]).not.to.match(':disabled');
+      expect(el.renderRoot.querySelector('.arrows sl-button:first-of-type')).to.match(':disabled');
     });
 
     it('should keep the focused month and browsed year when collapsing and expanding', async () => {

@@ -143,7 +143,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         browsedStart = this.years[0],
         start =
           focusedYear === undefined
-            ? browsedStart
+            ? Math.max(browsedStart, (this.min?.getFullYear() ?? browsedStart) - yearCount + 1)
             : Math.max(browsedStart, focusedYear - yearCount + 1);
 
       this.#yearToFocus = focusedYear;

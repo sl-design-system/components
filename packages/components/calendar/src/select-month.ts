@@ -141,8 +141,12 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         );
         this.#monthToFocus = this.months[index]?.date;
 
-        if (this.numberOfMonths === 1 && this.#monthToFocus) {
-          this.month = new Date(this.#monthToFocus);
+        if (this.numberOfMonths === 1) {
+          if (this.#monthToFocus) {
+            this.month = new Date(this.#monthToFocus);
+          } else if (this.min && this.month.getFullYear() < this.min.getFullYear()) {
+            this.month = new Date(this.min);
+          }
         }
       }
     }

@@ -571,6 +571,32 @@ describe('sl-select-year', () => {
       expect(el.years.at(-1)).to.equal(2012);
     });
 
+    it('should retain an enabled year when collapsing a browsed range with header focus', async () => {
+      el.year = new Date(2026, 0, 1);
+      el.min = new Date(2015, 0, 1);
+      await el.updateComplete;
+
+      const previous = el.renderRoot.querySelector<Button>('sl-button:first-of-type')!;
+      previous.click();
+      await el.updateComplete;
+      const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
+      next.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(next);
+      expect(el.years.at(0)).to.equal(2001);
+      expect(el.years.at(-1)).to.equal(2020);
+
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years).to.have.lengthOf(12);
+      expect(el.years.at(0)).to.equal(2004);
+      expect(el.years.at(-1)).to.equal(2015);
+      expect(el.buttons[10]).to.match(':disabled');
+      expect(el.buttons[11]).not.to.match(':disabled');
+      expect(el.renderRoot.querySelector('sl-button:first-of-type')).to.match(':disabled');
+    });
+
     it('should keep a focused year visible when it would fall outside the smaller grid', async () => {
       el.year = new Date(2026, 0, 1);
       await el.updateComplete;

@@ -31,3 +31,5 @@ Show two complete month grids for consecutive years in the two-month range layou
 Highlight all months and years overlapping the selected date range in the month and year selectors, including accessible pressed states. Reserve stable header space in control containers while keeping short month buttons at their natural width and aligning their labels to the start.
 
 Expand month and year selection backgrounds across equal-width grid cells with a 48px minimum height, keeping the existing theme colors and focus spacing.
+
+Truncate long month labels in narrow selector tiles while preserving full accessible names. Keep selectable months and years visible when collapsing a browsed range with focus on the header.

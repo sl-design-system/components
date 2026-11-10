@@ -48,6 +48,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/listbox": "^0.2.3",
     "@sl-design-system/shared": "^0.14.1",
     "@sl-design-system/text-field": "^1.7.2"
   }

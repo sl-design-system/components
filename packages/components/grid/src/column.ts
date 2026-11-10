@@ -557,7 +557,9 @@ export class GridColumn<T = any> extends LitElement {
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
     const columnLabel = this.headerLabelText,
-      rowLabel = this.formControlLabel?.(item)?.trim();
+      // Loading rows contain a placeholder instead of data, which the callback cannot handle
+      rowLabel =
+        item === ListDataSourcePlaceholder ? undefined : this.formControlLabel?.(item)?.trim();
 
     return [...this.groupHeaderLabels, columnLabel, rowLabel].filter(Boolean).join(' ');
   }

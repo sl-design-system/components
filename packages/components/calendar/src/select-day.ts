@@ -372,46 +372,50 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <header class=${showTwoMonths ? '' : 'single-month'}>
         <div class="month-year-controls">
-          ${
-            canSelectPreviousMonth || canShowNextMonth
-              ? html`
-                  <sl-button
-                    @click=${this.#onToggleMonthSelect}
-                    aria-label=${msg(
-                      str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
-                      {
-                        id: 'sl.calendar.changeMonth'
-                      }
-                    )}
-                    class="current-month"
-                    fill="link"
-                    variant="secondary">
-                    ${this.#renderMonthLabel()}
-                    <sl-icon name="caret-down-solid"></sl-icon>
-                  </sl-button>
-                `
-              : html`<span class="current-month"> ${this.#renderMonthLabel()} </span>`
-          }
-          ${
-            canSelectPreviousYear || canSelectNextYear
-              ? html`
-                  <sl-button
-                    @click=${this.#onToggleYearSelect}
-                    aria-label=${msg(
-                      str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
-                      {
-                        id: 'sl.calendar.changeYear'
-                      }
-                    )}
-                    class="current-year"
-                    fill="link"
-                    variant="secondary">
-                    ${this.#renderYearLabel()}
-                    <sl-icon name="caret-down-solid"></sl-icon>
-                  </sl-button>
-                `
-              : html`<span class="current-year"> ${this.#renderYearLabel()} </span>`
-          }
+          <div class="month-control">
+            ${
+              canSelectPreviousMonth || canShowNextMonth
+                ? html`
+                    <sl-button
+                      @click=${this.#onToggleMonthSelect}
+                      aria-label=${msg(
+                        str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
+                        {
+                          id: 'sl.calendar.changeMonth'
+                        }
+                      )}
+                      class="current-month"
+                      fill="link"
+                      variant="secondary">
+                      ${this.#renderMonthLabel()}
+                      <sl-icon name="caret-down-solid"></sl-icon>
+                    </sl-button>
+                  `
+                : html`<span class="current-month"> ${this.#renderMonthLabel()} </span>`
+            }
+          </div>
+          <div class="year-control">
+            ${
+              canSelectPreviousYear || canSelectNextYear
+                ? html`
+                    <sl-button
+                      @click=${this.#onToggleYearSelect}
+                      aria-label=${msg(
+                        str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
+                        {
+                          id: 'sl.calendar.changeYear'
+                        }
+                      )}
+                      class="current-year"
+                      fill="link"
+                      variant="secondary">
+                      ${this.#renderYearLabel()}
+                      <sl-icon name="caret-down-solid"></sl-icon>
+                    </sl-button>
+                  `
+                : html`<span class="current-year"> ${this.#renderYearLabel()} </span>`
+            }
+          </div>
         </div>
         ${
           showTwoMonths

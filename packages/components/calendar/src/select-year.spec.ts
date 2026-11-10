@@ -54,6 +54,24 @@ describe('sl-select-year', () => {
       expect(el.selected).to.be.undefined;
     });
 
+    it('should fill equal-width year tiles with a 48px selection background', async () => {
+      el.style.inlineSize = '320px';
+      el.selected = new Date(currentYear, 0, 1);
+      await el.updateComplete;
+
+      const selected = el.renderRoot.querySelector<HTMLButtonElement>('button.selected')!,
+        selectedLabel = selected.querySelector('span')!,
+        otherLabel = el.renderRoot.querySelector<HTMLSpanElement>('td:last-child button span')!,
+        selectedBounds = selectedLabel.getBoundingClientRect(),
+        otherBounds = otherLabel.getBoundingClientRect(),
+        buttonBounds = selected.getBoundingClientRect();
+
+      expect(selectedBounds.height).to.equal(48);
+      expect(selectedBounds.width).to.be.closeTo(otherBounds.width, 0.1);
+      expect(selectedBounds.width).to.be.closeTo(buttonBounds.width - 8, 0.1);
+      expect(selectedBounds.width).to.be.greaterThan(60);
+    });
+
     it('should show the selected year when set', async () => {
       el.selected = new Date(currentYear, 0, 1);
       await el.updateComplete;
@@ -114,6 +132,70 @@ describe('sl-select-year', () => {
 
       expect(onSelect).to.have.been.calledOnce;
       expect(onSelect.lastCall.args[0]).to.equalDate(new Date(currentYear - 5, 0, 1));
+    });
+  });
+
+  describe('selected range', () => {
+    it('should highlight both boundary years and every year between them', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 5, 8), new Date(2027, 6, 22)]}></sl-select-year>
+      `);
+
+      const selected = el.renderRoot.querySelectorAll('button.selected');
+
+      expect(Array.from(selected, button => button.textContent?.trim())).to.deep.equal([
+        '2025',
+        '2026',
+        '2027'
+      ]);
+      expect(Array.from(selected, button => button.getAttribute('aria-pressed'))).to.deep.equal([
+        'true',
+        'true',
+        'true'
+      ]);
+    });
+
+    it('should highlight the same years for a reversed range', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2027, 6, 22), new Date(2025, 5, 8)]}></sl-select-year>
+      `);
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['2025', '2026', '2027']);
+    });
+
+    it('should include a year when the range ends on January first', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 11, 31, 23), new Date(2026, 0, 1)]}></sl-select-year>
+      `);
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['2025', '2026']);
+    });
+
+    it('should remove range highlighting when the range is cleared', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 5, 8), new Date(2027, 6, 22)]}></sl-select-year>
+      `);
+      el.range = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelectorAll('button.selected')).to.have.lengthOf(0);
+      expect(el.renderRoot.querySelectorAll('button[aria-pressed="true"]')).to.have.lengthOf(0);
     });
   });
 

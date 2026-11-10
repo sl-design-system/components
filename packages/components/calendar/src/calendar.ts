@@ -224,7 +224,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .month=${this.month}
               .numberOfMonths=${this.visibleMonthCount}
               locale=${ifDefined(this.locale)}
@@ -238,7 +239,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-year
               @sl-select=${this.#onSelectYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .year=${this.month}
               .numberOfMonths=${this.visibleMonthCount}
               max=${ifDefined(this.max?.toISOString())}

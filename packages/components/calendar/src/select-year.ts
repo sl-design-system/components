@@ -20,6 +20,7 @@ import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.css' with { type: 'css' };
+import { isPeriodInRange } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -93,6 +94,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   /** The number of months represented by the calendar. Two months show 20 years in five columns. */
   @property({ type: Number, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 = 1;
+
+  /** The selected date range. Every overlapping year is highlighted. */
+  @property({ attribute: false }) range?: Date[];
 
   /** The currently selected date. (In order to style current month) */
   @property({ converter: dateConverter }) selected?: Date;
@@ -226,7 +230,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     const current = year === new Date().getFullYear(),
       disabled =
         (this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()),
-      selected = !!(this.selected && this.selected.getFullYear() === year);
+      selected = this.range?.length
+        ? isPeriodInRange(new Date(year, 0, 1), new Date(year + 1, 0, 1), this.range)
+        : !!(this.selected && this.selected.getFullYear() === year);
 
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">

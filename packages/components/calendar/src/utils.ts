@@ -1,6 +1,18 @@
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isDateInList, isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 
+/** Whether a month or year [start, end) overlaps an inclusive selected date range. */
+export function isPeriodInRange(start: Date, end: Date, range?: Date[]): boolean {
+  if (!range?.length) {
+    return false;
+  }
+
+  const first = range[0].getTime(),
+    last = (range[1] ?? range[0]).getTime();
+
+  return Math.min(first, last) < end.getTime() && Math.max(first, last) >= start.getTime();
+}
+
 export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
 
 export type Indicator = { date: Date; color?: IndicatorColor; label?: string };

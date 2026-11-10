@@ -82,6 +82,19 @@ header.single-month {
   min-inline-size: 0;
 }
 
+.month-control {
+  display: flex;
+  flex: 0 1 auto;
+  inline-size: var(--_month-control-inline-size, auto);
+  min-inline-size: 0;
+}
+
+.year-control {
+  display: flex;
+  flex: 0 0 auto;
+  inline-size: var(--_year-control-inline-size, auto);
+}
+
 .arrows {
   display: flex;
   gap: var(--sl-size-050);
@@ -108,6 +121,7 @@ sl-button {
 
 .current-month {
   flex: 0 1 auto;
+  max-inline-size: 100%;
   min-inline-size: 0;
 
   &::part(button) {
@@ -127,6 +141,8 @@ sl-button {
   grid-template-columns: minmax(0, 1fr);
   min-inline-size: 0;
   overflow: hidden;
+  position: relative;
+  text-align: start;
 
   > .label-sizer,
   > sl-format-date {
@@ -137,6 +153,7 @@ sl-button {
 .label-sizer {
   display: grid;
   inline-size: max-content;
+  position: absolute;
   visibility: hidden;
   white-space: nowrap;
 

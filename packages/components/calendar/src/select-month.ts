@@ -22,7 +22,7 @@ import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.css' with { type: 'css' };
-import { Month } from './utils.js';
+import { Month, isPeriodInRange } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -102,6 +102,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The months to display. */
   @state() months: Month[] = [];
+
+  /** The selected date range. Every overlapping month is highlighted. */
+  @property({ attribute: false }) range?: Date[];
 
   /** The currently selected date. (In order to style current month) */
   @property({ converter: dateConverter }) selected?: Date;
@@ -290,11 +293,17 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const current =
         month.value === new Date().getMonth() &&
         month.date.getFullYear() === new Date().getFullYear(),
-      selected = !!(
-        this.selected &&
-        this.selected.getMonth() === month.value &&
-        this.selected.getFullYear() === month.date.getFullYear()
-      );
+      selected = this.range?.length
+        ? isPeriodInRange(
+            month.date,
+            new Date(month.date.getFullYear(), month.value + 1, 1),
+            this.range
+          )
+        : !!(
+            this.selected &&
+            this.selected.getMonth() === month.value &&
+            this.selected.getFullYear() === month.date.getFullYear()
+          );
 
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">

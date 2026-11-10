@@ -138,7 +138,6 @@ describe('sl-select-day', () => {
       );
 
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -149,7 +148,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -194,7 +196,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -205,7 +206,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -260,7 +264,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -271,7 +274,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -316,7 +322,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -327,7 +332,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -382,7 +390,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -393,7 +400,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -438,7 +448,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -449,7 +458,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -504,7 +516,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -515,7 +526,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -560,7 +574,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -571,7 +584,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -626,7 +642,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -637,7 +652,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -682,7 +700,6 @@ describe('sl-select-day', () => {
         )
       );
       const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        monthBounds = el.renderRoot.querySelector('.current-month')!.getBoundingClientRect(),
         yearBounds = year.getBoundingClientRect(),
         previousBounds = previous.getBoundingClientRect(),
         nextBounds = next.getBoundingClientRect();
@@ -693,7 +710,10 @@ describe('sl-select-day', () => {
       expect(yearBounds.left).to.be.closeTo(initialYear, 1);
       expect(previousBounds.left).to.equal(initialPrevious);
       expect(nextBounds.left).to.equal(initialNext);
-      expect(yearBounds.left - monthBounds.right).to.equal(8);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
@@ -1156,6 +1176,62 @@ describe('sl-select-day', () => {
     await checkMonth(9);
     await checkMonth(10);
     await checkMonth(11);
+  });
+
+  it('should align a short month label to the start of its reserved width without week numbers', async () => {
+    el = await fixture(
+      html`<sl-select-day locale="en-GB" .month=${new Date(2025, 5, 1)}></sl-select-day>`
+    );
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+
+    const label = el.renderRoot.querySelector<LitElement>('.current-month sl-format-date')!;
+    await label.updateComplete;
+    const text = document.createRange();
+    text.selectNodeContents(label.renderRoot);
+
+    expect(text.getBoundingClientRect().left).to.be.closeTo(
+      label.getBoundingClientRect().left,
+      0.5
+    );
+
+    const monthButton = el.renderRoot.querySelector('.current-month')!,
+      reserved = el.renderRoot.querySelector('.month-control')!;
+
+    expect(monthButton.getBoundingClientRect().width).to.be.lessThan(
+      reserved.getBoundingClientRect().width
+    );
+  });
+
+  it('should align a short first month label to the start of its reserved width in a two-month calendar without week numbers', async () => {
+    el = await fixture(
+      html`<sl-select-day
+        locale="en-GB"
+        number-of-months="2"
+        .month=${new Date(2027, 5, 1)}></sl-select-day>`
+    );
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+
+    const label = el.renderRoot.querySelector<LitElement>('.current-month sl-format-date')!;
+    await label.updateComplete;
+    const text = document.createRange();
+    text.selectNodeContents(label.renderRoot);
+
+    expect(text.getBoundingClientRect().left).to.be.closeTo(
+      label.getBoundingClientRect().left,
+      0.5
+    );
+
+    const monthButton = el.renderRoot.querySelector('.current-month')!,
+      reserved = el.renderRoot.querySelector('.month-control')!;
+
+    expect(monthButton.getBoundingClientRect().width).to.be.lessThan(
+      reserved.getBoundingClientRect().width
+    );
   });
 
   it('should keep two German months with week numbers at 0.9 CSS zoom', async () => {

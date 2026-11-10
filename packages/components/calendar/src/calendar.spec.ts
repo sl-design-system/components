@@ -262,6 +262,81 @@ describe('sl-calendar', () => {
     });
   });
 
+  describe('range highlighting in selectors', () => {
+    it('should highlight the completed range in both month and year views', async () => {
+      el = await fixture(
+        html`<sl-calendar
+          mode="range"
+          number-of-months="2"
+          .range=${[new Date(2027, 5, 8), new Date(2027, 6, 22)]}></sl-calendar>`
+      );
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+
+      expect(
+        Array.from(months.renderRoot.querySelectorAll('button.selected'), button =>
+          button.getAttribute('aria-label')
+        )
+      ).to.deep.equal(['June 2027', 'July 2027']);
+
+      el.view = 'year';
+      await el.updateComplete;
+
+      const years = el.renderRoot.querySelector<SelectYear>('sl-select-year')!;
+      await years.updateComplete;
+
+      expect(
+        Array.from(years.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['2027']);
+    });
+
+    it('should ignore a stale range in single selection mode', async () => {
+      el = await fixture(
+        html`<sl-calendar
+          .selected=${new Date(2027, 8, 10)}
+          .range=${[new Date(2027, 5, 8), new Date(2027, 6, 22)]}></sl-calendar>`
+      );
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+
+      expect(
+        Array.from(months.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['September']);
+    });
+
+    it('should ignore a stale single selection when the range mode has no completed range', async () => {
+      el = await fixture(
+        html`<sl-calendar mode="range" .selected=${new Date(2027, 8, 10)}></sl-calendar>`
+      );
+      el.view = 'month';
+      await el.updateComplete;
+
+      const months = el.renderRoot.querySelector<SelectMonth>('sl-select-month')!;
+      await months.updateComplete;
+
+      expect(months.renderRoot.querySelectorAll('button.selected')).to.have.lengthOf(0);
+
+      el.view = 'year';
+      await el.updateComplete;
+
+      const years = el.renderRoot.querySelector<SelectYear>('sl-select-year')!;
+      await years.updateComplete;
+
+      expect(years.renderRoot.querySelectorAll('button.selected')).to.have.lengthOf(0);
+    });
+  });
+
   describe('header alignment', () => {
     it('should keep header controls aligned across views with 1 months', async () => {
       el = await fixture(html` <sl-calendar locale="en-GB" number-of-months="1"></sl-calendar> `);

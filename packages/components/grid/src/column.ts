@@ -435,8 +435,16 @@ export class GridColumn<T = any> extends LitElement {
         headers=${this.headerIds}
         part=${parts.join(' ')}
         role="cell">
-        ${this.renderSummaryContent(totals)}
-        ${(options?.menu ?? this.summaryMenu) ? this.renderSummaryMenu() : nothing}
+        ${
+          (options?.menu ?? this.summaryMenu)
+            ? html`
+                <span class="summary-with-menu">
+                  <span>${this.renderSummaryContent(totals)}</span>
+                  ${this.renderSummaryMenu()}
+                </span>
+              `
+            : this.renderSummaryContent(totals)
+        }
       </td>
     `;
   }
@@ -487,7 +495,7 @@ export class GridColumn<T = any> extends LitElement {
           ${getSummaryFormats('boolean').map(
             option => html`
               <sl-menu-item
-                @sl-select=${() => this.#onSummaryFormatSelect(option)}
+                @sl-select=${(event: Event) => this.#onSummaryFormatSelect(event, option)}
                 ?selected=${option === format}
                 selectable>
                 ${labels[option]}
@@ -604,9 +612,17 @@ export class GridColumn<T = any> extends LitElement {
       : ` (${msg('on the Grid', { id: 'sl.grid.summary.onTheGrid' })})`;
   }
 
-  #onSummaryFormatSelect(format: GridSummaryFormat): void {
+  #onSummaryFormatSelect(event: Event, format: GridSummaryFormat): void {
     if (this.grid) {
       this.grid.summaryFormat = format;
     }
+
+    // The menu item group stops the `sl-select` event, so the menu button never gets a chance
+    // to close the menu. Close it here, once the selection has been made.
+    const menuButton = (event.target as HTMLElement).closest('sl-menu-button') as
+      | (HTMLElement & { menu?: HTMLElement })
+      | null;
+
+    menuButton?.menu?.hidePopover();
   }
 }

@@ -619,6 +619,14 @@ tr[part~='summary-row'] {
     gap: var(--sl-size-050);
     padding-block: var(--_body-cell-padding-block);
 
+    .summary-with-menu {
+      align-items: center;
+      display: flex;
+      gap: var(--sl-size-050);
+      inline-size: 100%;
+      justify-content: space-between;
+    }
+
     sl-menu-button {
       margin-block: calc(var(--_body-cell-padding-block) * -1);
     }

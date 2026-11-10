@@ -1,4 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
   FetchListDataSource,
@@ -11,12 +12,15 @@ import { Icon } from '@sl-design-system/icon';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/paginator/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
+import { createRef, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
+import { type Grid } from '../grid.js';
 import { type GridSummaryTotals, calculateSummaryTotals } from '../summary.js';
 import { avatarRenderer } from './story-utils.js';
 
@@ -606,6 +610,7 @@ export const SummaryRow: Story = {
         align="end"
         header="Grade"
         path="grade"
+        summary-format="average"
         summary-type="number"></sl-grid-column>
       <sl-grid-column
         header="Homework"
@@ -619,6 +624,110 @@ export const SummaryRow: Story = {
         .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
     </sl-grid>
   `
+};
+
+interface SubjectRow {
+  [subject: string]: boolean | number | string;
+  class: string;
+  grade: number;
+  name: string;
+  profile: string;
+}
+
+const subjects = ['AK', 'EC', 'EN', 'NSK1', 'WI', 'VT', 'ZW', 'TE', 'EC2', 'rtF2', 'mgez'],
+  /** Which subjects are checked: every subject has its own deterministic pattern. */
+  subjectPattern: Record<string, (index: number) => boolean> = {
+    AK: () => true,
+    EC: index => index === 2 || index === 6,
+    EN: () => true,
+    NSK1: index => [2, 4, 6, 7].includes(index),
+    WI: index => index === 4,
+    VT: () => true,
+    ZW: index => index === 6,
+    TE: index => [2, 4, 6].includes(index),
+    EC2: index => [2, 4, 6, 7].includes(index),
+    rtF2: () => true,
+    mgez: index => index === 2 || index === 6
+  },
+  subjectRows: SubjectRow[] = [
+    ['Irma Akpinar', 'F3CB', 'N&G', 4.1],
+    ['Josien Veenstra', 'F3CB', 'N&G', 7.3],
+    ['Sjors de Jong', 'F3CB', 'N&G', 6.7],
+    ['Rene Top', 'F5AB', '-', 5.5],
+    ['Fleur Fauna', 'F3CB', 'N&G', 7.8],
+    ['Gert Flits', 'F3CB', 'N&G', 3.5],
+    ['Gers Dijkstra', 'F3CB', '-', 9.2],
+    ['Mees Aka', 'F3CB', 'N&G', 6.3],
+    ['Josien Veenstra', 'F3CB', 'N&G', 7.3],
+    ['Rene Top', 'F3CB', '-', 5.5],
+    ['Gert Flits', 'F5AB', 'N&G', 3.5]
+  ].map(([name, className, profile, grade], index) => ({
+    class: className as string,
+    grade: grade as number,
+    name: name as string,
+    profile: profile as string,
+    ...Object.fromEntries(subjects.map(subject => [subject, subjectPattern[subject](index)]))
+  }));
+
+export const SummaryRowCheckboxColumns: Story = {
+  render: () => {
+    const gridRef = createRef<Grid>(),
+      checkboxRenderer =
+        (subject: string): GridColumnDataRenderer<SubjectRow> =>
+        row =>
+          html`
+            <sl-checkbox
+              @sl-change=${({ detail }: SlChangeEvent<boolean>) => {
+                // Update the data, then re-render the grid so the totals are recalculated
+                row[subject] = detail;
+                gridRef.value?.requestUpdate();
+              }}
+              aria-label="${subject}: ${row.name}"
+              ?checked=${row[subject]}
+              size="sm"></sl-checkbox>
+          `;
+
+    return html`
+      <p>
+        A grand total row for a grid with many boolean columns. There is no dedicated column type
+        for checkboxes, so the columns use a <code>renderer</code> that renders an
+        <code>sl-checkbox</code>, while <code>summary-type="boolean"</code> calculates the fractions
+        from the underlying values. Use the menu beside the label to switch between fractions,
+        counts and percentages.
+      </p>
+      <sl-grid ${ref(gridRef)} .items=${subjectRows}>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-menu
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column grow="0" header="Class" path="class" width="80"></sl-grid-column>
+        <sl-grid-column grow="0" header="Profile" path="profile" width="80"></sl-grid-column>
+        ${subjects.map(
+          subject => html`
+            <sl-grid-column
+              grow="0"
+              header=${subject.replace(/2$/, '')}
+              path=${subject}
+              summary-type="boolean"
+              width="70"
+              .renderer=${checkboxRenderer(subject)}
+              .scopedElements=${{ 'sl-checkbox': Checkbox }}></sl-grid-column>
+          `
+        )}
+        <sl-grid-column
+          align="end"
+          grow="0"
+          header="Grade"
+          path="grade"
+          summary-format="average"
+          summary-type="number"
+          width="80"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const SummaryRowTop: Story = {
@@ -701,7 +810,9 @@ export const SummaryRowCustomContent: Story = {
         path="grade"
         summary-type="number"
         .summary=${(totals?: GridSummaryTotals) =>
-          totals ? `${totals.sum} points in total` : '-'}></sl-grid-column>
+          totals?.evaluated
+            ? `${(totals.sum / totals.evaluated).toFixed(1)} on average`
+            : '-'}></sl-grid-column>
     </sl-grid>
   `
 };
@@ -741,6 +852,7 @@ export const SummaryRowPagination: Story = {
           align="end"
           header="Grade"
           path="grade"
+          summary-format="average"
           summary-type="number"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
@@ -788,6 +900,7 @@ export const SummaryRowPageTotal: Story = {
           align="end"
           header="Grade"
           path="grade"
+          summary-format="average"
           summary-type="number"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
@@ -844,6 +957,7 @@ export const SummaryRowFetch: Story = {
           align="end"
           header="Grade"
           path="grade"
+          summary-format="average"
           summary-type="number"></sl-grid-column>
         <sl-grid-column
           header="Present"

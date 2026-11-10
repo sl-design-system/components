@@ -44,9 +44,6 @@ const renderItems = (data: ItemData[]): TemplateResult[] =>
     `
   );
 
-/** Wait for the slot, the resize observer and the animation frame it schedules. */
-const nextLayout = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 100));
-
 describe('sl-segmented-control', () => {
   let el: SegmentedControl;
 
@@ -61,7 +58,7 @@ describe('sl-segmented-control', () => {
       select()?.renderRoot.querySelector<HTMLElement>('sl-select-button') ??
       null,
     settle = async (): Promise<void> => {
-      await nextLayout();
+      await new Promise(resolve => setTimeout(resolve, 100));
       await el.updateComplete;
       await Promise.all(options().map(option => option.updateComplete));
     },

@@ -838,6 +838,42 @@ describe('sl-select-day', () => {
     }
   });
 
+  it('should remeasure header controls when document.fonts.ready resolves after firstUpdated', async () => {
+    let resolveFonts!: (fonts: FontFaceSet) => void;
+    const pendingFonts = new Promise<FontFaceSet>(resolve => {
+        resolveFonts = resolve;
+      }),
+      fontsReady = sinon.stub(document.fonts, 'ready').get(() => pendingFonts);
+
+    try {
+      el = await fixture(html`
+        <sl-select-day locale="en-GB" .month=${new Date(2026, 8, 1)}></sl-select-day>
+      `);
+
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+      );
+
+      const initialWidth = Number.parseFloat(
+          el.style.getPropertyValue('--_month-control-inline-size')
+        ),
+        labelSizer = el.renderRoot.querySelector<HTMLElement>('.current-month .label-sizer')!;
+
+      // Simulate wider glyph metrics once the web font finishes loading without triggering Lit updates or host resize.
+      labelSizer.style.letterSpacing = '4px';
+      resolveFonts(document.fonts);
+
+      await vi.waitFor(() => {
+        expect(
+          Number.parseFloat(el.style.getPropertyValue('--_month-control-inline-size'))
+        ).to.be.greaterThan(initialWidth);
+      });
+    } finally {
+      resolveFonts(document.fonts);
+      fontsReady.restore();
+    }
+  });
+
   it('should resize intrinsic month labels when font size changes with an empty font shorthand', async () => {
     el = await fixture(html`
       <sl-select-day

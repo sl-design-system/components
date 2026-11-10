@@ -238,11 +238,6 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     super.connectedCallback();
 
     this.#resizeObserver.observe(this);
-    void document.fonts.ready.then(() => {
-      if (this.isConnected) {
-        void this.#updateHeaderAfterRender();
-      }
-    });
   }
 
   override disconnectedCallback(): void {
@@ -262,6 +257,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    void document.fonts.ready.then(() => {
+      if (this.isConnected) {
+        void this.#updateHeaderAfterRender();
+      }
+    });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

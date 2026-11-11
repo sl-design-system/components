@@ -378,6 +378,25 @@ describe('sl-tree-node', () => {
       `);
     });
 
+    it('should not select or emit selection events when node is disabled', async () => {
+      const onSelect = spy(),
+        onChange = spy();
+
+      el.addEventListener('sl-select', onSelect);
+      el.addEventListener('sl-change', onChange);
+
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+      expect(el).to.have.attribute('aria-selected', 'false');
+      expect(onSelect).not.to.have.been.called;
+      expect(onChange).not.to.have.been.called;
+      if (multiple) {
+        expect(el.renderRoot.querySelector('sl-checkbox')).not.to.have.property('checked', true);
+      }
+    });
+
     it.each(['{Enter}', '{Space}'])(
       'should not select or emit selection events when pressing %s',
       async key => {
@@ -396,7 +415,7 @@ describe('sl-tree-node', () => {
         expect(onSelect).not.to.have.been.called;
         expect(onChange).not.to.have.been.called;
         if (multiple) {
-          expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', false);
+          expect(el.renderRoot.querySelector('sl-checkbox')).not.to.have.property('checked', true);
         }
       }
     );

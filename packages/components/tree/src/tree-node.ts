@@ -245,6 +245,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       @sl-change=${this.#onChange}
                       ?checked=${this.selected}
                       ?indeterminate=${this.indeterminate}
+                      ?disabled=${this.disabled}
                       exportparts="label"
                       part="checkbox"
                       size="sm">
@@ -306,13 +307,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    */
   #onClick(event: Event): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (this.disabled) {
+      return;
+    }
 
     const insideWrapper = !!event
       .composedPath()
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
-    if (insideWrapper && this.selectable) {
+    if (insideWrapper && this.selectable && !this.disabled) {
       event.preventDefault();
 
       this.selected = !this.selected;
@@ -333,7 +337,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      if (!this.selectable) {
+      if (!this.selectable || this.disabled) {
         return;
       }
 

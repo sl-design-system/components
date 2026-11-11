@@ -166,6 +166,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
      * Virtualizer.
      */
     this.setAttribute('role', 'row');
+    this.#syncAriaDisabled();
 
     if (this.selectable) {
       this.setAttribute('aria-selected', Boolean(this.selected).toString());
@@ -185,6 +186,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       } else {
         this.removeAttribute('aria-expanded');
       }
+    }
+
+    if (changes.has('disabled')) {
+      this.#syncAriaDisabled();
     }
 
     if (changes.has('indeterminate') || changes.has('selectable') || changes.has('selected')) {
@@ -276,6 +281,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
     this.toggleEvent.emit(this.expanded);
+  }
+
+  #syncAriaDisabled(): void {
+    if (this.disabled) {
+      this.setAttribute('aria-disabled', 'true');
+    } else {
+      this.removeAttribute('aria-disabled');
+    }
   }
 
   #onChange(event: SlChangeEvent<boolean>): void {

@@ -108,6 +108,11 @@ describe('sl-tree', () => {
       expect(wrapper).to.have.attribute('role', 'treegrid');
     });
 
+    it('should expose the dimensions of an empty treegrid', () => {
+      expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '0');
+    });
+
     it('should not hide the indentation guides', () => {
       expect(el).to.not.have.attribute('hide-guides');
       expect(el.hideGuides).not.to.be.true;
@@ -160,6 +165,38 @@ describe('sl-tree', () => {
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
     });
 
+    it('should expose the dimensions of the treegrid', () => {
+      expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '6');
+    });
+
+    it('should keep rows owned by the treegrid rather than by their parent rows', () => {
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node'));
+
+      expect(el.wrapper).not.to.have.attribute('aria-owns');
+      expect(nodes).to.have.length(6);
+      nodes.forEach(node => {
+        expect(node).to.have.attribute('role', 'row');
+        expect(node).not.to.have.attribute('aria-owns');
+        expect(node.renderRoot.querySelector('[role="gridcell"]')).to.have.attribute(
+          'aria-colindex',
+          '1'
+        );
+      });
+    });
+
+    it('should update the row count and indices when a branch is collapsed', async () => {
+      ds.collapse(ds.nodes[0]);
+      await el.updateComplete;
+
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaRowIndex
+      );
+
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '5');
+      expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5']);
+    });
+
     it('should have an aria-label for each node', () => {
       const labels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
         node => node.ariaLabel
@@ -204,6 +241,19 @@ describe('sl-tree', () => {
       );
 
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5', '6']);
+    });
+
+    it('should focus cells with the matching row index when navigating', async () => {
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node'));
+
+      nodes[0].focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      await expect.poll(() => el.shadowRoot?.activeElement).to.equal(nodes[1]);
+      expect(nodes[1].shadowRoot?.activeElement).to.equal(
+        nodes[1].renderRoot.querySelector('[role="gridcell"]')
+      );
+      expect(nodes[1].shadowRoot?.activeElement).to.have.attribute('aria-rowindex', '2');
     });
 
     it('should have an aria-posinset for each node', () => {
@@ -271,6 +321,45 @@ describe('sl-tree', () => {
       el.focus();
 
       expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(1)');
+    });
+
+    it('should enter and leave the tree with Tab', async () => {
+      const before = document.createElement('button'),
+        after = document.createElement('button'),
+        firstNode = el.renderRoot.querySelector('sl-tree-node');
+
+      el.before(before);
+      el.after(after);
+
+      try {
+        before.focus();
+        await userEvent.keyboard('{Tab}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(firstNode);
+        expect(firstNode?.shadowRoot?.activeElement).to.equal(
+          firstNode?.renderRoot.querySelector('[role="gridcell"]')
+        );
+
+        await userEvent.keyboard('{Tab}');
+        expect(document.activeElement).to.equal(after);
+
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(el.shadowRoot?.activeElement).to.equal(firstNode);
+
+        await userEvent.keyboard('{ArrowDown}');
+        await expect
+          .poll(() => el.shadowRoot?.activeElement)
+          .to.equal(firstNode?.nextElementSibling);
+
+        await userEvent.keyboard('{Tab}');
+        expect(document.activeElement).to.equal(after);
+
+        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+        expect(el.shadowRoot?.activeElement).to.equal(firstNode?.nextElementSibling);
+      } finally {
+        before.remove();
+        after.remove();
+      }
     });
 
     it('should focus the next/previous tree nodes when pressing the up/down arrow keys', async () => {

@@ -54,6 +54,7 @@ export interface FlatDataNode {
   level: number;
   name: string;
   badge?: string;
+  disabled?: boolean;
 }
 
 export interface NestedDataNode {
@@ -197,6 +198,14 @@ export const flatData: FlatDataNode[] = [
     level: 3,
     name: 'M1A',
     badge: '27'
+  },
+  {
+    id: 13,
+    expandable: false,
+    level: 3,
+    name: 'M1B',
+    badge: '23',
+    disabled: true
   }
 ];
 

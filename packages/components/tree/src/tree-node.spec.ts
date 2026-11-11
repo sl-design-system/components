@@ -91,6 +91,24 @@ describe('sl-tree-node', () => {
       expect(gridcell).to.have.attribute('aria-colindex', '1');
     });
 
+    it('should delegate focus to the gridcell', () => {
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(
+        el.renderRoot.querySelector('[role="gridcell"]')
+      );
+    });
+
+    it('should expose the row index on the gridcell', async () => {
+      el.rowIndex = 7;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('[role="gridcell"]')).to.have.attribute(
+        'aria-rowindex',
+        '7'
+      );
+    });
+
     it('should not have a type', () => {
       expect(el.type).to.be.undefined;
     });

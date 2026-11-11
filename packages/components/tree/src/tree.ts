@@ -165,6 +165,8 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     // that would mess up the virtualization.
     return html`
       <div
+        aria-colcount="1"
+        aria-rowcount=${this.dataSource?.items.length ?? 0}
         aria-controls=${ifDefined(rootIds)}
         aria-owns=${ifDefined(rootIds)}
         part="wrapper"

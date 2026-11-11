@@ -373,6 +373,7 @@ export const Basic: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
@@ -387,6 +388,7 @@ export const Badges: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'

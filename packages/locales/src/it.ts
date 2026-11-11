@@ -141,5 +141,8 @@ export const templates = {
   'sl.toggleGroup.selectOne': 'Seleziona una voce.',
   'sl.toggleGroup.selectOneOrMore': 'Seleziona una o più voci.',
   'sl.toolBar.showMore': 'Mostra altro',
-  'sl.tree.loadingMessage': 'Caricamento'
+  'sl.tree.loadingMessage': 'Caricamento',
+  s3687049d1af562c4: 'Copy',
+  sd374c80e17e18808: 'Paste',
+  s64ef2a6c2dd1d3d1: 'Edit'
 };

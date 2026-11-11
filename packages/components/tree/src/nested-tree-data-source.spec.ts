@@ -51,6 +51,27 @@ describe('NestedTreeDataSource', () => {
       expect(ds.size).to.equal(3);
     });
 
+    it('should enable nodes by default', () => {
+      expect(ds.items.every(node => node.disabled === false)).to.be.true;
+    });
+
+    it('should map the disabled state of child nodes', () => {
+      const source = new NestedTreeDataSource(
+        [{ id: 1, disabled: false, children: [{ id: 2, disabled: true }] }],
+        {
+          getChildren: item => ('children' in item ? item.children : undefined),
+          getId: ({ id }) => id,
+          getLabel: ({ id }) => String(id),
+          isDisabled: ({ disabled }) => disabled,
+          isExpandable: item => 'children' in item,
+          isExpanded: () => true
+        }
+      );
+      source.update();
+
+      expect(source.items.map(node => node.disabled)).to.deep.equal([false, true]);
+    });
+
     it('should have the correct number of items', () => {
       expect(ds.items).to.have.length(6);
     });

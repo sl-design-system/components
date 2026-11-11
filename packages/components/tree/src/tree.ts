@@ -204,6 +204,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                       virtualizer.measureElement as RefOrCallback<Element>
                     ) /* must be *after* data-index */
                   }
+                  ?disabled=${item.disabled}
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
                   ?indeterminate=${item.indeterminate}

@@ -142,5 +142,8 @@ export const templates = {
   'sl.toggleGroup.selectOne': 'Wybierz jedną opcję.',
   'sl.toggleGroup.selectOneOrMore': 'Wybierz jedną lub więcej opcji.',
   'sl.toolBar.showMore': 'Pokaż więcej',
-  'sl.tree.loadingMessage': 'Ładowanie'
+  'sl.tree.loadingMessage': 'Ładowanie',
+  s3687049d1af562c4: 'Copy',
+  sd374c80e17e18808: 'Paste',
+  s64ef2a6c2dd1d3d1: 'Edit'
 };

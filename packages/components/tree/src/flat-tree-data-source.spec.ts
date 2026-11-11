@@ -43,6 +43,30 @@ describe('FlatTreeDataSource', () => {
       expect(ds.size).to.equal(2);
     });
 
+    it('should enable nodes by default', () => {
+      expect(ds.items.every(node => node.disabled === false)).to.be.true;
+    });
+
+    it('should map the disabled state of child nodes', () => {
+      ds = new FlatTreeDataSource(
+        [
+          { id: 1, level: 0, disabled: false },
+          { id: 2, level: 1, disabled: true }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ id }) => String(id),
+          getLevel: ({ level }) => level,
+          isDisabled: ({ disabled }) => disabled,
+          isExpandable: ({ level }) => level === 0,
+          isExpanded: () => true
+        }
+      );
+      ds.update();
+
+      expect(ds.items.map(node => node.disabled)).to.deep.equal([false, true]);
+    });
+
     it('should have the correct number of items', () => {
       expect(ds.items).to.have.length(5);
     });

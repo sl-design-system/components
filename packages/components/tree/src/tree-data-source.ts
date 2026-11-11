@@ -16,6 +16,7 @@ export interface TreeDataSourceNode<T> {
   childrenLoading?: Promise<void>;
   dataNode: T;
   description?: string;
+  disabled?: boolean;
   expandable: boolean;
   expanded: boolean;
   expandedIcon?: string;
@@ -53,6 +54,9 @@ export interface TreeDataSourceMapping<T> {
    * component.
    */
   getLabel(item: T): string;
+
+  /** Returns whether the given node is disabled. Nodes are enabled by default. */
+  isDisabled?(item: T): boolean;
 
   /** Returns whether the given node is expandable. */
   isExpandable(item: T): boolean;

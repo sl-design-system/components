@@ -182,6 +182,49 @@ describe('sl-tree', () => {
     expect(nodes[1]).to.have.attribute('aria-disabled', 'true');
   });
 
+  it('should expose all expanded rows in the row count when only some rows are rendered', async () => {
+    const source = new NestedTreeDataSource(
+      [
+        {
+          id: 0,
+          children: Array.from({ length: 100 }, (_, index) => ({ id: index + 1 }))
+        }
+      ],
+      {
+        getChildren: item => ('children' in item ? item.children : undefined),
+        getId: ({ id }) => id,
+        getLabel: ({ id }) => `Node ${id}`,
+        isExpandable: item => 'children' in item,
+        isExpanded: () => true
+      }
+    );
+
+    el = await fixture(html`
+      <sl-tree
+        .dataSource=${source}
+        .renderer=${(node: TreeDataSourceNode<{ id: number }>) =>
+          html`<span style="display: inline-block; block-size: 32px">${node.label}</span>`}
+        style="block-size: 128px; overflow: auto"></sl-tree>
+    `);
+
+    await expect
+      .poll(() => el.renderRoot.querySelectorAll('sl-tree-node').length)
+      .to.be.within(1, 100);
+
+    expect(source.items).to.have.length(101);
+    expect(el.wrapper).to.have.attribute('aria-rowcount', '101');
+    expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+
+    el.scrollTop = 1000;
+
+    await expect
+      .poll(() => Number(el.renderRoot.querySelector('sl-tree-node')?.ariaRowIndex ?? 0))
+      .to.be.greaterThan(1);
+
+    expect(el.renderRoot.querySelectorAll('sl-tree-node').length).to.be.lessThan(101);
+    expect(el.wrapper).to.have.attribute('aria-rowcount', '101');
+  });
+
   describe('accessibility', () => {
     let ds: NestedTreeDataSource;
 

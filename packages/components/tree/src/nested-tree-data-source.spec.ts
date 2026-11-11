@@ -8,6 +8,7 @@ import {
 type TestItem = {
   id: number | string;
   name: string;
+  disabled?: boolean;
   expanded?: boolean;
   selectable?: boolean;
   selected?: boolean;
@@ -293,7 +294,7 @@ describe('NestedTreeDataSource', () => {
       loadChildrenSpy = spy((node: TestItem) => {
         if (node.id === 1) {
           return Promise.resolve([
-            { id: 11, name: 'Child 1.1' },
+            { id: 11, name: 'Child 1.1', disabled: true },
             { id: 12, name: 'Child 1.2' }
           ]);
         } else if (node.id === 2) {
@@ -323,6 +324,7 @@ describe('NestedTreeDataSource', () => {
           isExpanded: ({ expanded }) => expanded ?? false,
           isSelected: ({ selected }) => selected ?? false,
           loadChildren: loadChildrenSpy as (node: TestItem) => Promise<TestItem[]>,
+          isDisabled: ({ disabled }) => !!disabled,
           multiple: true
         }
       );
@@ -363,6 +365,17 @@ describe('NestedTreeDataSource', () => {
       expect(parentNode.children![1].label).to.equal('Child 1.2');
       expect(parentNode.childrenLoading).to.be.undefined;
       expect(ds.items).to.have.length(5);
+    });
+
+    it('should map the disabled state of lazy-loaded children', async () => {
+      const parentNode = ds.items[0];
+
+      ds.expand(parentNode);
+      await parentNode.childrenLoading;
+
+      expect(parentNode.disabled).to.be.false;
+      expect(parentNode.children?.map(child => child.disabled)).to.deep.equal([true, false]);
+      expect(ds.items.find(node => node.id === 11)?.disabled).to.be.true;
     });
 
     it('should not call loadChildren again if children are already loaded', async () => {

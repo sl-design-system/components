@@ -295,6 +295,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
       .find((el): el is HTMLAnchorElement => el instanceof HTMLAnchorElement);
 
     this.classList.toggle('sl-has-link', !!this.#titleLink);
+    this.classList.toggle('sl-title-focus-visible', !!this.#titleLink?.matches(':focus-visible'));
   }
 
   #setMenuButton(): void {

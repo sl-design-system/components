@@ -243,7 +243,8 @@ export function createMonth(
   date: Date,
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreateMonthOptions
 ): Calendar {
-  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const firstDayOfMonth = normalizeDateTime(date);
+  firstDayOfMonth.setDate(1);
   const monthNumber = firstDayOfMonth.getMonth();
   const weekOptions = {
     disabledDates,

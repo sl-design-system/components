@@ -37,15 +37,6 @@
   }
 }
 
-:host([disabled]) {
-  color: var(--sl-color-foreground-disabled);
-  cursor: default;
-
-  [part='wrapper'] {
-    pointer-events: none;
-  }
-}
-
 sl-indent-guides {
   align-self: stretch;
   margin-block: calc(var(--sl-size-025) * -1);
@@ -87,6 +78,24 @@ sl-indent-guides {
 
   &:active:not(:has(.expander:active, sl-button-bar:active)) {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+}
+
+:host([disabled]) {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+
+  [part='wrapper'] {
+    pointer-events: none;
+  }
+
+  [role='gridcell'] {
+    /* pointer-events: none; */
+
+    &:active,
+    &:hover {
+      --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+    }
   }
 }
 

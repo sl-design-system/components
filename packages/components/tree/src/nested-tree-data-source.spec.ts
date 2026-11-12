@@ -378,6 +378,36 @@ describe('NestedTreeDataSource', () => {
       expect(ds.items.find(node => node.id === 11)?.disabled).to.be.true;
     });
 
+    it.each([false, true])(
+      'should preserve disabled lazy-loaded selection=%s under a selected parent',
+      async selected => {
+        ds = new NestedTreeDataSource<TestItem>([{ id: 1, name: 'Parent' }], {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ id }) => id === 1,
+          isDisabled: ({ disabled }) => !!disabled,
+          isSelected: ({ selected }) => !!selected,
+          loadChildren: () =>
+            Promise.resolve([
+              { id: 11, name: 'Disabled', disabled: true, selected },
+              { id: 12, name: 'Enabled' }
+            ]),
+          multiple: true
+        });
+        ds.select(ds.nodes[0]);
+        ds.expand(ds.nodes[0]);
+        await ds.nodes[0].childrenLoading;
+
+        const [disabled, enabled] = ds.nodes[0].children!;
+
+        expect(disabled.selected).to.equal(selected);
+        expect(ds.selection.has(disabled)).to.equal(selected);
+        expect(enabled.selected).to.be.true;
+        expect(ds.selection.has(enabled)).to.be.true;
+      }
+    );
+
     it('should not call loadChildren again if children are already loaded', async () => {
       const parentNode = ds.items[0];
 
@@ -462,7 +492,7 @@ describe('NestedTreeDataSource', () => {
       expect(parentNode.childrenLoading).to.be.instanceof(Promise);
     });
 
-    it('should select all lazy loaded children when parent is already selected', async () => {
+    it('should select enabled lazy-loaded children when parent is already selected', async () => {
       const parentNode = ds.items[0];
 
       // Select the parent node before expanding
@@ -480,13 +510,10 @@ describe('NestedTreeDataSource', () => {
       const children = parentNode.children!;
       expect(children).to.have.length(2);
 
-      // When a selected parent is expanded and lazy-loads children, all children
-      // should automatically be selected to maintain consistent selection state
-      expect(children[0].selected).to.be.true; // Child 1.1 should be selected
-      expect(children[1].selected).to.be.true; // Child 1.2 should also be selected
+      expect(children[0].selected).to.be.false;
+      expect(children[1].selected).to.be.true;
 
-      // All children should be in the selection
-      expect(ds.selection.has(children[0])).to.be.true;
+      expect(ds.selection.has(children[0])).to.be.false;
       expect(ds.selection.has(children[1])).to.be.true;
     });
   });

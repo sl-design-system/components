@@ -53,7 +53,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
 
           // If the parent is selected and we have multiple selection enabled,
           // ensure all lazy-loaded children are also selected
-          if (this.multiple && node.selected) {
+          if (this.multiple && node.selected && !childNode.disabled) {
             childNode.selected = true;
             this.selection.add(childNode);
           }

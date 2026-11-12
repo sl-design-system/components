@@ -53,8 +53,11 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
 
           // If the parent is selected and we have multiple selection enabled,
           // ensure all lazy-loaded children are also selected
-          if (this.multiple && node.selected) {
+          if (this.multiple && node.selected && !childNode.disabled) {
             childNode.selected = true;
+          }
+
+          if (childNode.selected) {
             this.selection.add(childNode);
           }
 

@@ -7,6 +7,7 @@ import {
   ArrayListDataSource,
   FetchListDataSource,
   type ListDataSourceGroupItem,
+  ListDataSourcePlaceholder,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
@@ -1896,7 +1897,7 @@ describe('sl-grid', () => {
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4']);
     });
 
-    it('should use the group name in the grouped selection checkbox aria-label', async () => {
+    it('should name the grouped selection checkbox using aria-labelledby', async () => {
       el = await fixture(html`
         <sl-grid
           .dataSource=${new ArrayListDataSource<Student>(
@@ -1926,11 +1927,68 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
 
       const groupHeader = el.renderRoot.querySelector('sl-grid-group-header'),
-        checkbox = groupHeader?.renderRoot.querySelector('sl-checkbox'),
-        input = checkbox?.querySelector('input');
+        checkbox = groupHeader?.renderRoot.querySelector<Checkbox>('sl-checkbox'),
+        [label, heading] = checkbox?.getProxyTarget()?.ariaLabelledByElements ?? [];
 
       expect(checkbox).to.exist;
-      expect(input).to.have.attribute('aria-label', 'School A group');
+      expect(label?.textContent?.trim()).to.equal('Select group');
+      expect(heading).to.have.attribute('part', 'group-heading');
+    });
+
+    it('should name the row selection checkbox using the row label', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>([
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ])}>
+          <sl-grid-selection-column
+            .formControlLabel=${(s: Student) => `${s.firstName} ${s.lastName}`}></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const checkboxes = Array.from(el.renderRoot.querySelectorAll<Checkbox>('tbody sl-checkbox'));
+
+      await Promise.all(checkboxes.map(checkbox => checkbox.updateComplete));
+
+      const names = checkboxes.map(checkbox =>
+        (checkbox.getProxyTarget()?.ariaLabelledByElements ?? [])
+          .map(label => label.textContent?.replaceAll(/\s+/g, ' ').trim())
+          .join(' ')
+      );
+
+      expect(names).to.deep.equal(['Select row John Doe', 'Select row Jane Smith']);
+    });
+
+    it('should not call the row label callback for placeholder rows', async () => {
+      const label = spy((s: Student) => s.firstName);
+
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>([{ firstName: 'John', lastName: 'Doe' }])}>
+          <sl-grid-selection-column .formControlLabel=${label}></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const column = el.querySelector('sl-grid-selection-column')!;
+
+      label.resetHistory();
+
+      expect(() =>
+        column.renderData({
+          id: 0,
+          data: ListDataSourcePlaceholder,
+          selected: false,
+          type: 'data'
+        } as never)
+      ).not.to.throw();
+      expect(label).not.to.have.been.called;
     });
 
     it('should deselect the displayed rows when a partially selected group checkbox is unchecked', async () => {
@@ -2731,6 +2789,63 @@ describe('sl-grid', () => {
     });
   });
 
+  describe.each(['activate', 'select'] as const)('row action %s backgrounds', rowAction => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${multipleSelectItems}
+          row-action=${rowAction}
+          style="
+            --sl-color-background-input-interactive: rgb(0 0 0);
+            --sl-color-background-selected-interactive-plain: rgb(0 80 160);
+            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-opacity-interactive-plain-hover: 0.2;
+          ">
+          ${rowAction === 'select' ? html`<sl-grid-selection-column></sl-grid-selection-column>` : ''}
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await userEvent.unhover(el);
+    });
+
+    const expectOverlay = (row: HTMLTableRowElement, color: string, opacity: number): void => {
+      const reference = document.createElement('div');
+      reference.style.backgroundImage = `linear-gradient(color-mix(in srgb, transparent, ${color} ${opacity * 100}%), color-mix(in srgb, transparent, ${color} ${opacity * 100}%))`;
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundImage;
+      reference.remove();
+
+      for (const cell of row.cells) {
+        expect(getComputedStyle(cell).backgroundImage).to.contain(expected);
+      }
+    };
+
+    it('should render the idle and hover overlays on sticky and regular cells', async () => {
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      expectOverlay(row, 'rgb(0 0 0)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 0 0)', 0.2);
+    });
+
+    it('should use the selected color after activating or selecting a row', async () => {
+      let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+
+      row.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+      await waitForGridToRenderData(el);
+      row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!;
+      expect(row.part.contains(rowAction === 'activate' ? 'active' : 'selected')).to.be.true;
+      await userEvent.unhover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.1);
+      await userEvent.hover(row);
+      expectOverlay(row, 'rgb(0 80 160)', 0.2);
+    });
+  });
+
   describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -2898,7 +3013,7 @@ describe('sl-grid', () => {
       document.body.removeEventListener('sl-announce', announceSpy);
     });
 
-    it('should keep sticky active row cells opaque', async () => {
+    it('should keep active row cells highlighted and opaque with zero idle overlay opacity', async () => {
       el = await fixture(html`
         <sl-grid
           .items=${[
@@ -2911,7 +3026,9 @@ describe('sl-grid', () => {
             --sl-color-background-input-interactive: rgb(0 0 0);
             --sl-color-background-selected-interactive-plain: rgb(0 80 160);
             --sl-color-background-selected-subtlest: transparent;
-            --sl-opacity-interactive-plain-idle: 0.1;
+            --sl-color-background-accent-blue-bold: rgb(0 80 160);
+            --sl-opacity-subtlest: 0.1;
+            --sl-opacity-interactive-plain-idle: 0;
           ">
           <sl-grid-column path="firstName" sticky></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -2923,16 +3040,55 @@ describe('sl-grid', () => {
       el.activeRow = el.items!.at(0);
       await el.updateComplete;
 
-      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
-        'tbody tr:first-of-type td.sticky-start-first'
-      );
+      await userEvent.unhover(el);
 
-      expect(cell).to.exist;
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type')!,
+        reference = document.createElement('div');
+      reference.style.backgroundColor = 'color-mix(in srgb, rgb(0 80 160) 10%, rgb(255 255 255))';
+      document.body.append(reference);
+      const expected = getComputedStyle(reference).backgroundColor;
+      reference.remove();
 
-      const style = getComputedStyle(cell!);
+      expect(row.querySelector('td.sticky-start-first')).to.exist;
+      for (const cell of row.cells) {
+        const style = getComputedStyle(cell);
 
-      expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');
-      expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(style.backgroundColor).to.equal(expected);
+        expect(style.backgroundImage).to.contain('linear-gradient');
+        expect(
+          style.getPropertyValue('--_body-cell-background-interactive-opacity').trim()
+        ).to.equal('0');
+      }
+    });
+
+    it('should move and clear the persistent active background with the default theme', async () => {
+      await userEvent.unhover(el);
+      const getRows = (): HTMLTableRowElement[] =>
+        Array.from(el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr'));
+      const getBackground = (row: HTMLTableRowElement): string =>
+        getComputedStyle(row.cells[0]).backgroundColor;
+      const idleBackground = getBackground(getRows()[0]);
+
+      expect(
+        getComputedStyle(el).getPropertyValue('--sl-opacity-interactive-plain-idle').trim()
+      ).to.equal('0');
+
+      el.activeRow = el.items![0];
+      await el.updateComplete;
+      const activeBackground = getBackground(getRows()[0]);
+      expect(activeBackground).to.not.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(idleBackground);
+
+      el.activeRow = el.items![1];
+      await el.updateComplete;
+      expect(getBackground(getRows()[0])).to.equal(idleBackground);
+      expect(getBackground(getRows()[1])).to.equal(activeBackground);
+
+      el.activeRow = undefined;
+      await el.updateComplete;
+      for (const row of getRows()) {
+        expect(getBackground(row)).to.equal(idleBackground);
+      }
     });
   });
 

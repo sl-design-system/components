@@ -307,9 +307,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    */
   #onClick(event: Event): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (this.disabled) {
-      return;
-    }
+    // if (this.disabled) {
+    //   return;
+    // }
+    console.log('Tree node clicked');
 
     const insideWrapper = !!event
       .composedPath()

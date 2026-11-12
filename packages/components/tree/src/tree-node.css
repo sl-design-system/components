@@ -40,7 +40,10 @@
 :host([disabled]) {
   color: var(--sl-color-foreground-disabled);
   cursor: default;
-  pointer-events: none;
+
+  [part='wrapper'] {
+    pointer-events: none;
+  }
 }
 
 sl-indent-guides {

@@ -61,6 +61,7 @@ export interface NestedDataNode {
   id: number;
   name: string;
   description?: string;
+  disabled?: boolean;
   children?: NestedDataNode[];
 }
 
@@ -292,7 +293,11 @@ export const nestedData: NestedDataNode[] = [
             name: 'Spanish',
             children: [
               { id: 18, name: 'Basic Greetings', description: 'Everyday words and phrases' },
-              { id: 19, name: 'Verb Conjugation', description: 'Present tense regular verbs' }
+              {
+                id: 19,
+                name: 'Verb Conjugation',
+                description: 'Present tense regular verbs'
+              }
             ]
           }
         ]
@@ -663,6 +668,7 @@ export const Selectable: Story = {
       isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
       // Only the parent nodes are selectable, the leaf nodes are not.
       isSelectable: ({ children }) => !!children,
+      isDisabled: ({ name }) => ['Spanish'].includes(name),
       multiple: true
     }),
     renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {

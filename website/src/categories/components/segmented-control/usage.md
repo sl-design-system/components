@@ -6,6 +6,54 @@ eleventyNavigation:
   key: SegmentedControlUsage
 ---
 
+<section class="no-heading">
+
+<div class="ds-example">
+
+<sl-segmented-control aria-label="Timetable view" value="week">
+  <sl-segmented-control-item value="day">
+    <sl-icon name="far-calendar-day" slot="icon"></sl-icon>
+    <sl-icon name="fas-calendar-day" slot="selected-icon"></sl-icon>
+    Day
+  </sl-segmented-control-item>
+  <sl-segmented-control-item value="week">
+    <sl-icon name="far-calendar-week" slot="icon"></sl-icon>
+    <sl-icon name="fas-calendar-week" slot="selected-icon"></sl-icon>
+    Week
+  </sl-segmented-control-item>
+  <sl-segmented-control-item value="month">
+    <sl-icon name="far-calendar-days" slot="icon"></sl-icon>
+    <sl-icon name="fas-calendar-days" slot="selected-icon"></sl-icon>
+    Month
+  </sl-segmented-control-item>
+</sl-segmented-control>
+
+</div>
+
+<div class="ds-code">
+
+  ```html
+  <sl-segmented-control aria-label="Timetable view" value="week">
+    <sl-segmented-control-item value="day">
+      <sl-icon name="far-calendar-day" slot="icon"></sl-icon>
+      <sl-icon name="fas-calendar-day" slot="selected-icon"></sl-icon>
+      Day
+    </sl-segmented-control-item>
+    <sl-segmented-control-item value="week">
+      <sl-icon name="far-calendar-week" slot="icon"></sl-icon>
+      <sl-icon name="fas-calendar-week" slot="selected-icon"></sl-icon>
+      Week
+    </sl-segmented-control-item>
+    <sl-segmented-control-item value="month">
+      <sl-icon name="far-calendar-days" slot="icon"></sl-icon>
+      <sl-icon name="fas-calendar-days" slot="selected-icon"></sl-icon>
+      Month
+    </sl-segmented-control-item>
+  </sl-segmented-control>
+  ```
+
+</div>
+
 </section>
 
 <section>

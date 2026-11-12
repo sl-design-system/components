@@ -3,10 +3,14 @@
   "tags": "segmented-control",
   "componentStatus": "draft",
   "componentTagName": [
-	{
+	  {
 	  "name": "Segmented control",
 	  "selector": "sl-segmented-control"
-	}
+	  },
+    {
+      "name": "Segmented control item",
+      "selector": "sl-segmented-control-item"
+    }
   ]
 }
 

@@ -1,3 +1,5 @@
+import { type Announcer } from '@sl-design-system/announcer';
+import { type Calendar } from '@sl-design-system/calendar';
 import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -405,6 +407,114 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should announce the previous month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
+    });
+
+    it('should announce the previous month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
+    });
+
     it('should cancel a pending open when hidePicker is called before updateComplete resolves', async () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 
@@ -570,6 +680,52 @@ describe('sl-date-field', () => {
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
     });
+
+    for (const [year, month, lastDay] of [
+      [2026, 3, 30],
+      [2026, 1, 28],
+      [2028, 1, 29]
+    ]) {
+      it(`should open month ${month + 1}/${year} on the first attempt from January 31, including after reopening`, async () => {
+        const value = new Date(year, 0, 31),
+          onChange = vi.fn();
+
+        el.value = value;
+        el.addEventListener('sl-change', onChange);
+        await el.updateComplete;
+
+        for (let attempt = 0; attempt < 2; attempt++) {
+          el.showPicker();
+          await el.updateComplete;
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!,
+            selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+          selectDay.renderRoot.querySelector<HTMLElement>('.current-month')!.click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          const monthButtons = calendar.renderRoot
+            .querySelector<RenderRootElement>('sl-select-month')!
+            .renderRoot.querySelectorAll<HTMLButtonElement>('button');
+
+          monthButtons[month].click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          expect(calendar.view).to.equal('day');
+          expect(calendar.month).to.equalDate(new Date(year, month, lastDay));
+          expect(selectDay.month).to.equalDate(new Date(year, month, lastDay));
+          expect(calendar.selected).to.equalDate(value);
+          expect(el.value).to.equalDate(value);
+          expect(onChange).not.toHaveBeenCalled();
+
+          el.hidePicker();
+          await el.updateComplete;
+        }
+      });
+    }
 
     it('should focus the first day of the selected month after choosing a month', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
@@ -2288,7 +2444,7 @@ describe('sl-date-field', () => {
   });
 
   describe('custom calendar', () => {
-    let calendar: RenderRootElement;
+    let calendar: Calendar;
 
     beforeEach(async () => {
       el = await fixture(html`
@@ -2296,7 +2452,7 @@ describe('sl-date-field', () => {
           <sl-calendar slot="calendar" show-today></sl-calendar>
         </sl-date-field>
       `);
-      calendar = el.querySelector<RenderRootElement>('sl-calendar[slot="calendar"]')!;
+      calendar = el.querySelector<Calendar>('sl-calendar[slot="calendar"]')!;
     });
 
     it('should work with a slotted calendar for date selection', async () => {
@@ -2336,6 +2492,24 @@ describe('sl-date-field', () => {
       expect(onChange).to.have.been.calledOnce;
     });
 
+    it('should ignore a range selected by a slotted calendar', async () => {
+      const initialValue = new Date(2026, 4, 10);
+      el.value = initialValue;
+      calendar.mode = 'range';
+      await el.updateComplete;
+
+      calendar.dispatchEvent(
+        new CustomEvent('sl-change', {
+          detail: [new Date(2026, 5, 15), new Date(2026, 5, 20)],
+          bubbles: true,
+          composed: true
+        })
+      );
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(initialValue);
+    });
+
     describe('with requireConfirmation', () => {
       beforeEach(async () => {
         el.requireConfirmation = true;
@@ -2358,6 +2532,22 @@ describe('sl-date-field', () => {
         await el.updateComplete;
 
         expect(el.value).to.equalDate(new Date(2026, 2, 14));
+      });
+
+      it('should not confirm a range selected by a slotted calendar', async () => {
+        const initialValue = new Date(2026, 4, 10);
+        el.value = initialValue;
+        calendar.mode = 'range';
+        calendar.range = [new Date(2026, 5, 15), new Date(2026, 5, 20)];
+        await el.updateComplete;
+
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equalDate(initialValue);
+        expect(el.dialog?.open).to.be.true;
       });
 
       it('should show the extra controls area when confirmation is required', async () => {

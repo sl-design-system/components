@@ -1,5 +1,5 @@
 import { getTsProgram, expandTypesPlugin } from 'cem-plugin-expanded-types';
-import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from '../scripts/cem-plugins.js';
+import { excludeStandardMethodsPlugin, methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from '../scripts/cem-plugins.js';
 import { eventDecoratorPlugin } from '../scripts/cem-plugin-event-decorator.js';
 
 export default {
@@ -10,6 +10,7 @@ export default {
   plugins: [
     eventDecoratorPlugin(),
     noPrivateFieldsPlugin(),
+    excludeStandardMethodsPlugin(),
     methodAndFieldPlugin('method'),
     methodAndFieldPlugin('field'),
     sortMembersPlugin(),

@@ -562,6 +562,139 @@ describe('ArrayListDataSource', () => {
       });
     });
 
+    it('should preserve a selected singleton group member in single-selection batches', () => {
+      const source = new ArrayListDataSource([{ id: 1, group: 'A' }], {
+          selects: 'single',
+          groupBy: 'group'
+        }),
+        group = source.items.find(isListDataSourceGroupItem)!,
+        item = source.filteredItems[0];
+
+      source.toggleItems([item], true);
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(item)).to.be.true;
+      expect(source.isSelected(group)).to.be.true;
+      source.toggleItems([item], false);
+      expect(source.selected).to.equal(0);
+      expect(source.isSelected(group)).to.be.false;
+    });
+
+    it('should replace group markers when successive single-selection batches select different groups', () => {
+      const source = new ArrayListDataSource(
+          [
+            { id: 1, group: 'A' },
+            { id: 2, group: 'B' }
+          ],
+          { selects: 'single', groupBy: 'group' }
+        ),
+        [first, second] = source.filteredItems,
+        onSelectionChange = spy();
+
+      source.toggleItems([first], true);
+      source.update();
+      source.addEventListener('sl-selection-change', onSelectionChange);
+      source.toggleItems([second], true);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(first)).to.be.false;
+      expect(source.isSelected(second)).to.be.true;
+      expect(
+        source.items.filter(isListDataSourceDataItem).map(item => item.selected)
+      ).to.deep.equal([false, true]);
+      expect(
+        source.items.filter(isListDataSourceGroupItem).map(group => source.isSelected(group))
+      ).to.deep.equal([false, true]);
+      expect(onSelectionChange).to.have.been.calledOnce;
+    });
+
+    it('should preserve single-selection group markers for an empty batch', () => {
+      const source = new ArrayListDataSource([{ id: 1, group: 'A' }], {
+          selects: 'single',
+          groupBy: 'group'
+        }),
+        item = source.filteredItems[0];
+
+      source.toggleItems([item], true);
+      source.toggleItems([], true);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(item)).to.be.true;
+      expect(source.isSelected(source.items.find(isListDataSourceGroupItem))).to.be.true;
+    });
+
+    it('should preserve single-selection group markers when deselecting an unrelated row', () => {
+      const source = new ArrayListDataSource(
+          [
+            { id: 1, group: 'A' },
+            { id: 2, group: 'B' }
+          ],
+          { selects: 'single', groupBy: 'group' }
+        ),
+        [first, second] = source.filteredItems;
+
+      source.toggleItems([first], true);
+      source.toggleItems([second], false);
+      source.update();
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(first)).to.be.true;
+      expect(
+        source.items.filter(isListDataSourceGroupItem).map(group => source.isSelected(group))
+      ).to.deep.equal([true, false]);
+    });
+
+    it('should use updated unfiltered membership after replacing the dataset', () => {
+      const source = new ArrayListDataSource([{ id: 1, group: 'A' }], {
+        selects: 'multiple',
+        groupBy: 'group'
+      });
+
+      source.toggleItems(source.filteredItems, true);
+      source.setData([
+        { id: 1, group: 'A' },
+        { id: 2, group: 'A' }
+      ]);
+      source.update();
+      source.toggleItems([source.filteredItems[0]], true);
+
+      const group = source.items.find(isListDataSourceGroupItem)!;
+
+      expect(source.selected).to.equal(1);
+      expect(source.isSelected(group)).to.be.false;
+      expect(source.isSelected(source.filteredItems[1])).to.be.false;
+    });
+
+    it('should reconcile many groups without scanning the full dataset for each group', () => {
+      const count = 300,
+        source = new ArrayListDataSource(
+          Array.from({ length: count }, (_, id) => ({ id, group: id })),
+          { selects: 'multiple', groupBy: 'group' }
+        );
+      let membershipReads = 0;
+
+      source.unfilteredItems.forEach(item => {
+        const groupId = item.groupId;
+
+        Object.defineProperty(item, 'groupId', {
+          configurable: true,
+          get: () => {
+            membershipReads++;
+            return groupId;
+          }
+        });
+      });
+      source.toggleItems(source.filteredItems, true);
+
+      expect(source.selected).to.equal(count);
+      expect(
+        source.items.filter(isListDataSourceGroupItem).every(group => source.isSelected(group))
+      ).to.be.true;
+      expect(membershipReads).to.be.at.most(count * 2);
+    });
+
     describe('group select', () => {
       beforeEach(() => {
         ds = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'profession' });
@@ -623,6 +756,109 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelected(group)).to.be.true;
         expect(ds.isSelected(group.members?.at(0))).to.be.true;
         expect(ds.isSelected(group.members?.at(1))).to.be.true;
+      });
+
+      it('should not select the full group when selecting a single filtered member', () => {
+        const groupId = 'Gastroenterologist';
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          filteredMember = filteredGroup.members!.at(0)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.select(filteredMember);
+        ds.update();
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          bob = fullGroup.members!.find(member => member.data.firstName === 'Bob')!,
+          ann = fullGroup.members!.find(member => member.data.firstName === 'Ann')!;
+
+        expect(ds.isSelected(fullGroup)).to.be.false;
+        expect(ds.isSelected(bob)).to.be.true;
+        expect(ds.isSelected(ann)).to.be.false;
+      });
+
+      it('should not keep a full group marker when selecting a filtered group header', () => {
+        const groupId = 'Gastroenterologist';
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === groupId)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.select(filteredGroup);
+        ds.update();
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          bob = fullGroup.members!.find(member => member.data.firstName === 'Bob')!,
+          ann = fullGroup.members!.find(member => member.data.firstName === 'Ann')!;
+
+        expect(ds.isSelected(fullGroup)).to.be.false;
+        expect(fullGroup.selected).to.equal('some');
+        expect(ds.isSelected(bob)).to.be.true;
+        expect(ds.isSelected(ann)).to.be.false;
+        expect(bob.selected).to.be.true;
+        expect(ann.selected).to.be.false;
+      });
+
+      it('should restore selected group state when all unfiltered members are selected again', () => {
+        const groupId = 'Gastroenterologist',
+          fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!;
+
+        ds.select(fullGroup);
+        expect(ds.isSelected(fullGroup)).to.be.true;
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          filteredMember = filteredGroup.members!.at(0)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.deselect(filteredMember);
+        ds.select(filteredMember);
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const restoredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          [firstMember, secondMember] = restoredGroup.members!;
+
+        expect(ds.isSelected(restoredGroup)).to.be.true;
+        expect(ds.isSelected(firstMember)).to.be.true;
+        expect(ds.isSelected(secondMember)).to.be.true;
+
+        ds.toggle(restoredGroup);
+
+        expect(ds.isSelected(restoredGroup)).to.be.false;
+        expect(ds.isSelected(firstMember)).to.be.false;
+        expect(ds.isSelected(secondMember)).to.be.false;
       });
     });
 

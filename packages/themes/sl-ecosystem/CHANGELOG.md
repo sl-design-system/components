@@ -1,0 +1,51 @@
+# @sl-design-system/sl-ecosystem
+
+## 1.0.0
+
+### Major Changes
+
+- [#3749](https://github.com/sl-design-system/components/pull/3749) [`0110da7`](https://github.com/sl-design-system/components/commit/0110da7f9018fcaf261ec92b21d084bd111c53ba) - Rename the Teacher Assistant theme to SL Ecosystem. The package `@sl-design-system/teacher-assistant` is now published as `@sl-design-system/sl-ecosystem`.
+
+  To migrate:
+
+  - Replace the `@sl-design-system/teacher-assistant` dependency with `@sl-design-system/sl-ecosystem`
+  - Update all JS and CSS imports from `@sl-design-system/teacher-assistant/...` to `@sl-design-system/sl-ecosystem/...`
+  - Replace the `data-teacher-assistant-subthemes` attribute with `data-sl-ecosystem-subthemes`
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - The main css file has changed name, which means this release will be a BREAKING CHANGE; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
+  The `light-deprecated.css` and `dark-deprecated.css` files remain unchanged.
+  Additionally a new `typography.css` has been added, that contains styles for body text, headers, label, captions etc. It is optional to use this for the time being.
+
+### Patch Changes
+
+- [#3768](https://github.com/sl-design-system/components/pull/3768) [`bbd090d`](https://github.com/sl-design-system/components/commit/bbd090d1d41e73b6d6c75dfccda7b0b5b965f6d8) - Removed theme switching based on user preference from global.css because this would break in themes without dark mode and was a possible unwanted change in strategy for other themes.
+
+- [#3754](https://github.com/sl-design-system/components/pull/3754) [`0963f3b`](https://github.com/sl-design-system/components/commit/0963f3b7a79d5b5a48da5d36e0c97a2607b347f0) - Fix missing TypeScript declarations (`index.d.ts`) in the published theme packages and expose them via the `types` export condition
+
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+
+This package was previously published as `@sl-design-system/teacher-assistant`.
+
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/icon@1.4.5
+
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/icon@1.4.4
+
+## 0.0.2
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - First version of the Teacher Assistant theme
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3

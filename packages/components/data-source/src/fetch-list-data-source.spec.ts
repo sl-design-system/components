@@ -4,13 +4,631 @@ import { type DataSourceFilter } from './data-source.js';
 import {
   FetchListDataSource,
   type FetchListDataSourceCallback,
-  type FetchListDataSourceCallbackOptions
+  type FetchListDataSourceCallbackOptions,
+  type FetchListDataSourceCallbackResult
 } from './fetch-list-data-source.js';
-import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
+import {
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  ListDataSourcePlaceholder,
+  isListDataSourceGroupItem
+} from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
+
+  it('should recover from empty results without totalItems and without pagination', async () => {
+    ds = new FetchListDataSource({
+      pageSize: 2,
+      pagination: false,
+      fetchPage: ({ filters }) =>
+        Promise.resolve(
+          filters?.length ? { items: [], totalItems: 0 } : { items: people.slice(0, 2) }
+        )
+    });
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(0);
+
+    ds.removeFilter('firstName');
+    ds.update();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(2);
+    expect(ds.items.length).to.equal(2);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should recover from empty results without totalItems and with pagination', async () => {
+    ds = new FetchListDataSource({
+      pageSize: 2,
+      pagination: true,
+      fetchPage: ({ filters }) =>
+        Promise.resolve(
+          filters?.length ? { items: [], totalItems: 0 } : { items: people.slice(0, 2) }
+        )
+    });
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(0);
+
+    ds.removeFilter('firstName');
+    ds.update();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(2);
+    expect(ds.items.length).to.equal(2);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should grow the size to include a fetched page when totalItems is omitted', async () => {
+    ds = new FetchListDataSource({
+      size: 1,
+      pageSize: 2,
+      pagination: true,
+      fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+    });
+
+    ds.setPage(1);
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(4);
+    expect(ds.items.length).to.equal(2);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
+  });
+
+  it('should invalidate an underestimated total after fetching a later page', async () => {
+    const source = new FetchListDataSource<Person>({
+      size: 1,
+      pageSize: 2,
+      pagination: true,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+    });
+
+    source.setPage(1);
+    source.update();
+    void source.items[0];
+    await expect.poll(() => source.size).to.equal(4);
+    source.selectAll();
+    source.deselect(source.items[0]);
+
+    expect(source.totalSize).to.equal(4);
+    expect(source.selected).to.equal(3);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[1])).to.be.true;
+  });
+
+  it('should invalidate an underestimated supplied group size', async () => {
+    const source = new FetchListDataSource<Person>({
+      groups: [{ id: 'A', size: 1, collapsed: false }],
+      pageSize: 2,
+      selects: 'multiple',
+      getId: item => item.id,
+      fetchPage: () => Promise.resolve({ items: people.slice(0, 2) })
+    });
+
+    // Initialize the expanded group's unloaded member slots before requesting its first page.
+    const group = source.items[0] as ListDataSourceGroupItem<Person>;
+    group.members = Array.from({ length: 1 });
+    source.items.push(...group.members);
+
+    void source.items[1];
+    await expect.poll(() => source.size).to.equal(2);
+    source.selectAll();
+    source.deselect(source.items[1]);
+
+    expect(source.totalSize).to.equal(2);
+    expect(source.selected).to.equal(1);
+    expect(source.isSelectAllToggled()).to.be.true;
+    expect(source.isSelected(source.items[2])).to.be.true;
+  });
+
+  it('should preserve a larger known size when totalItems is omitted', async () => {
+    ds = new FetchListDataSource({
+      size: 10,
+      pageSize: 2,
+      pagination: true,
+      fetchPage: () => Promise.resolve({ items: people.slice(2, 4) })
+    });
+
+    ds.setPage(1);
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(10);
+    expect(ds.items.length).to.equal(2);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[2]);
+  });
+
+  it('should reuse unchanged nested options, cycles and function-based filters and sorting', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    const query: { values: string[]; self?: unknown } = { values: ['Regular'] };
+    query.self = query;
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+    const getFetchOptions = ds.getFetchOptions.bind(ds);
+    ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query });
+    ds.addFilter('membership', person => person.membership === 'Regular', ['Regular']);
+    ds.setSort((a, b) => a.firstName.localeCompare(b.firstName), 'asc');
+
+    void ds.items[0];
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledOnce;
+
+    request.resolve({ items: [people[0]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should invalidate a pending request after mutating an array filter in place', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    const values = ['Regular'];
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    ds.addFilter('membership', 'membership', values);
+
+    void ds.items[0];
+    values.push('Premium');
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledTwice;
+
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+    previous.resolve({ items: people, totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+  });
+
+  it('should invalidate a pending request after mutating a nested custom option in place', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    const values = ['Regular'];
+    const query = { membership: { values } };
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    const getFetchOptions = ds.getFetchOptions.bind(ds);
+    ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query });
+
+    void ds.items[0];
+    values.push('Premium');
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledTwice;
+
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+    previous.resolve({ items: people, totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+  });
+
+  it('should reuse a pending page request across updates without pagination', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2, pagination: false });
+
+    void ds.items[0];
+    ds.update();
+    ds.update();
+    void ds.items[0];
+    void ds.items[1];
+
+    expect(fetchPage).to.have.been.calledOnce;
+
+    request.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+    expect((ds.items[1] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+
+    // A completed request must still be invalidated by an explicit update.
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledTwice;
+    await new Promise(resolve => setTimeout(resolve));
+  });
+
+  it('should reuse a pending page request across updates with pagination', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2, pagination: true });
+
+    void ds.items[0];
+    ds.update();
+    ds.update();
+    void ds.items[0];
+    void ds.items[1];
+
+    expect(fetchPage).to.have.been.calledOnce;
+
+    request.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+    expect((ds.items[1] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+
+    // A completed request must still be invalidated by an explicit update.
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledTwice;
+    await new Promise(resolve => setTimeout(resolve));
+  });
+
+  it('should ignore an outdated response after changing the filter', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    void ds.items[0];
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+
+    ds.update();
+    void ds.items[0];
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    const onUpdate = spy();
+    ds.addEventListener('sl-update', onUpdate);
+    previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    expect(onUpdate).not.to.have.been.called;
+  });
+
+  it('should ignore an outdated response after changing the sort', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    void ds.items[0];
+
+    ds.setSort('firstName', 'desc');
+
+    ds.update();
+    void ds.items[0];
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    const onUpdate = spy();
+    ds.addEventListener('sl-update', onUpdate);
+    previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    expect(onUpdate).not.to.have.been.called;
+  });
+
+  it('should ignore an outdated response after changing the page size', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    void ds.items[0];
+
+    ds.setPageSize(3);
+
+    ds.update();
+    void ds.items[0];
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    const onUpdate = spy();
+    ds.addEventListener('sl-update', onUpdate);
+    previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    expect(onUpdate).not.to.have.been.called;
+  });
+
+  it('should ignore an outdated response after changing the fetch callback', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    void ds.items[0];
+
+    ds.fetchPage = () => current.promise;
+
+    ds.update();
+    void ds.items[0];
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    const onUpdate = spy();
+    ds.addEventListener('sl-update', onUpdate);
+    previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    expect(onUpdate).not.to.have.been.called;
+  });
+
+  it('should ignore an outdated response after changing a custom fetch option', async () => {
+    const previous = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const current = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    let calls = 0;
+    const fetchPage = spy(() => (++calls === 1 ? previous.promise : current.promise));
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    void ds.items[0];
+
+    const getFetchOptions = ds.getFetchOptions.bind(ds);
+    ds.getFetchOptions = (...args) => ({ ...getFetchOptions(...args), query: 'changed' });
+
+    ds.update();
+    void ds.items[0];
+    current.resolve({ items: [people[1]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    const onUpdate = spy();
+    ds.addEventListener('sl-update', onUpdate);
+    previous.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[1]);
+    expect(onUpdate).not.to.have.been.called;
+  });
+
+  it('should keep pending requests independent across data source instances', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    const sources = [
+      new FetchListDataSource({ fetchPage, pageSize: 30 }),
+      new FetchListDataSource({ fetchPage, pageSize: 30 })
+    ];
+
+    for (const source of sources) {
+      void source.items[0];
+      source.update();
+      void source.items[0];
+    }
+
+    expect(fetchPage).to.have.been.calledTwice;
+    request.resolve({ items: people, totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect((sources[0].items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+    expect((sources[1].items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should reuse a pending request when an equivalent filter is reapplied', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy(() => request.promise);
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    ds.addFilter('firstName', 'firstName', 'John');
+    void ds.items[0];
+    ds.addFilter('firstName', 'firstName', 'John');
+    ds.update();
+    void ds.items[0];
+
+    expect(fetchPage).to.have.been.calledOnce;
+    request.resolve({ items: [people[0]], totalItems: 1 });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should reuse a pending refetch after clearing an empty filter result', async () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters }) =>
+      filters?.length ? Promise.resolve({ items: [], totalItems: 0 }) : request.promise
+    );
+    ds = new FetchListDataSource({ fetchPage, pageSize: 2 });
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.removeFilter('firstName');
+    ds.update();
+    ds.update();
+
+    expect(fetchPage).to.have.been.calledTwice;
+
+    request.resolve({ items: people.slice(0, 2), totalItems: people.length });
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(people.length);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.equal(people[0]);
+  });
+
+  it('should refetch after removing a filter with no results without pagination', async () => {
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters, page, pageSize }) => {
+      const items = filters?.length ? people.slice(0, 0) : people;
+
+      return Promise.resolve({
+        items: items.slice(page * pageSize, (page + 1) * pageSize),
+        totalItems: items.length
+      });
+    });
+
+    ds = new FetchListDataSource<Person>({ fetchPage, pageSize: 2, pagination: false });
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(0);
+    expect(ds.items.length).to.equal(0);
+
+    ds.removeFilter('firstName');
+    ds.update();
+
+    expect(fetchPage).to.have.been.calledThrice;
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(fetchPage).to.have.been.calledThrice;
+    expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
+    expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
+    expect(ds.size).to.equal(people.length);
+    expect(ds.items.length).to.equal(people.length);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
+  });
+
+  it('should refetch after removing a filter with no results with pagination', async () => {
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters, page, pageSize }) => {
+      const items = filters?.length ? people.slice(0, 0) : people;
+
+      return Promise.resolve({
+        items: items.slice(page * pageSize, (page + 1) * pageSize),
+        totalItems: items.length
+      });
+    });
+
+    ds = new FetchListDataSource<Person>({ fetchPage, pageSize: 2, pagination: true });
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(0);
+    expect(ds.items.length).to.equal(0);
+
+    ds.removeFilter('firstName');
+    ds.update();
+
+    expect(fetchPage).to.have.been.calledThrice;
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(fetchPage).to.have.been.calledThrice;
+    expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
+    expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
+    expect(ds.size).to.equal(people.length);
+    expect(ds.items.length).to.equal(ds.pageSize);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
+  });
+
+  it('should refetch after removing a filter with limited results without pagination', async () => {
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters, page, pageSize }) => {
+      const items = filters?.length ? people.slice(0, 1) : people;
+
+      return Promise.resolve({
+        items: items.slice(page * pageSize, (page + 1) * pageSize),
+        totalItems: items.length
+      });
+    });
+
+    ds = new FetchListDataSource<Person>({ fetchPage, pageSize: 2, pagination: false });
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect(ds.items.length).to.equal(1);
+
+    ds.removeFilter('firstName');
+    ds.update();
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(fetchPage).to.have.been.calledThrice;
+    expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
+    expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
+    expect(ds.size).to.equal(people.length);
+    expect(ds.items.length).to.equal(people.length);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
+  });
+
+  it('should refetch after removing a filter with limited results with pagination', async () => {
+    const fetchPage = spy<FetchListDataSourceCallback<Person>>(({ filters, page, pageSize }) => {
+      const items = filters?.length ? people.slice(0, 1) : people;
+
+      return Promise.resolve({
+        items: items.slice(page * pageSize, (page + 1) * pageSize),
+        totalItems: items.length
+      });
+    });
+
+    ds = new FetchListDataSource<Person>({ fetchPage, pageSize: 2, pagination: true });
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    ds.addFilter('firstName', 'firstName', 'xyz');
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.size).to.equal(1);
+    expect(ds.items.length).to.equal(1);
+
+    ds.removeFilter('firstName');
+    ds.update();
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(fetchPage).to.have.been.calledThrice;
+    expect(fetchPage.lastCall.args[0]).to.include({ page: 0, pageSize: 2 });
+    expect(fetchPage.lastCall.args[0].filters).to.deep.equal([]);
+    expect(ds.size).to.equal(people.length);
+    expect(ds.items.length).to.equal(ds.pageSize);
+    expect((ds.items[0] as ListDataSourceDataItem<Person>).data).to.deep.equal(people[0]);
+  });
 
   it('should provide typed filter options to the fetchPage callback', () => {
     const fetchPage: FetchListDataSourceCallback<Person> = options => {
@@ -290,6 +908,308 @@ describe('FetchListDataSource', () => {
         expect(ds.fetchPage).to.have.been.calledOnce;
         expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 1, pageSize: 2 });
       });
+    });
+  });
+
+  describe('select all with fetched totals', () => {
+    it('should use the fetched total of 5 rows when deselecting', async () => {
+      const rows = Array.from({ length: 5 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 5 }),
+          getId: item => item.id,
+          pageSize: 5,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(5);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 3).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should use the fetched total of 12 rows when deselecting', async () => {
+      const rows = Array.from({ length: 12 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: 12 }),
+          getId: item => item.id,
+          pageSize: 12,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      const loaded = [...source.items];
+
+      loaded.slice(0, 10).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(loaded.slice(-2).every(item => source.isSelected(item))).to.be.true;
+
+      loaded.slice(-2).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should not reset select-all against an estimated total', async () => {
+      const rows = Array.from({ length: 10 }, (_, id) => ({ id })),
+        source = new FetchListDataSource({
+          fetchPage: () => Promise.resolve({ items: rows }),
+          getId: item => item.id,
+          pageSize: 10,
+          selects: 'multiple'
+        });
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      // The server has not supplied a total, so additional selected rows may still exist.
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected({ id: 10, type: 'data' })).to.be.true;
+    });
+
+    it('should use a known total even when the first fetch is filtered', async () => {
+      const source = new FetchListDataSource({
+        size: people.length,
+        filters: [{ id: 'name', by: 'firstName', value: 'Ann' }],
+        fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+      source.selectAll();
+      [...source.items].forEach(item => source.deselect(item));
+
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+
+    it('should update the aggregate lower bound when only one remote group total is known', async () => {
+      const fetchPage = spy(() => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 })),
+        source = new FetchListDataSource<Person>({
+          size: 1,
+          groups: [{ id: 'A', collapsed: false }, { id: 'B' }],
+          pageSize: 2,
+          selects: 'multiple',
+          getId: item => item.id,
+          fetchPage
+        }),
+        group = source.items[0] as ListDataSourceGroupItem<Person>;
+
+      // Initialize the expanded group's unloaded member slot before requesting its first page.
+      group.members = Array.from({ length: 1 });
+      source.items.splice(1, 0, ...group.members);
+      void source.items[1];
+      await expect.poll(() => source.size).to.equal(2);
+
+      source.selectAll();
+      source.deselect(source.items[1]);
+
+      expect(source.totalSize).to.equal(2);
+      expect(source.selected).to.equal(1);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected(source.items[2])).to.be.true;
+      expect(fetchPage).to.have.been.calledOnce;
+      expect(fetchPage).to.have.been.calledWithMatch({ group: 'A' });
+    });
+
+    it('should use the combined known group sizes as the unfiltered total', () => {
+      const source = new FetchListDataSource({
+        groups: [
+          { id: 'A', size: 2 },
+          { id: 'B', size: 3 }
+        ],
+        fetchPage: () => Promise.resolve({ items: [] }),
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      source.selectAll();
+      expect(source.totalSize).to.equal(5);
+      expect(source.selected).to.equal(5);
+      for (let id = 0; id < 5; id++) {
+        source.deselect({ id, type: 'data' });
+      }
+      expect(source.selected).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+    });
+
+    it('should use a filtered total as a lower bound when the supplied total is too small', async () => {
+      const source = new FetchListDataSource<{ id: number }>({
+        size: 1,
+        pageSize: 1,
+        pagination: true,
+        selects: 'multiple',
+        filters: [{ id: 'matching', by: () => true }],
+        getId: item => item.id,
+        fetchPage: () => Promise.resolve({ items: [{ id: 0 }], totalItems: 12 })
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      source.deselect(source.items[0]);
+
+      expect(source.totalSize).to.equal(12);
+      expect(source.selected).to.equal(11);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect(source.isSelected({ id: 11, type: 'data' })).to.be.true;
+    });
+
+    it('should use a filtered total as a lower bound even when the fetched page is empty', async () => {
+      const source = new FetchListDataSource<{ id: number }>({
+        size: 1,
+        pageSize: 1,
+        pagination: true,
+        selects: 'multiple',
+        filters: [{ id: 'matching', by: () => true }],
+        fetchPage: () => Promise.resolve({ items: [], totalItems: 12 })
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(12);
+      source.selectAll();
+      source.deselect({ id: 0, type: 'data' });
+
+      expect(source.totalSize).to.equal(12);
+      expect(source.selected).to.equal(11);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+
+    it('should reset stale exclusions when an unfiltered refresh shrinks the dataset', async () => {
+      let rows = Array.from({ length: 10 }, (_, id) => ({ id }));
+      const source = new FetchListDataSource<{ id: number }>({
+          pageSize: 10,
+          selects: 'multiple',
+          getId: item => item.id,
+          fetchPage: () => Promise.resolve({ items: rows, totalItems: rows.length })
+        }),
+        onSelectionChange = spy(() => ({ total: source.totalSize, selected: source.selected }));
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      [...source.items].slice(0, 8).forEach(item => source.deselect(item));
+      expect(source.selected).to.equal(2);
+
+      source.addEventListener('sl-selection-change', onSelectionChange);
+      rows = rows.slice(8);
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.totalSize).to.equal(2);
+
+      expect(source.selected).to.equal(0);
+      expect(source.selection.size).to.equal(0);
+      expect(source.isSelectAllToggled()).to.be.false;
+      expect([...source.items].every(item => !source.isSelected(item))).to.be.true;
+      expect(onSelectionChange).to.have.been.calledOnce;
+      expect(onSelectionChange.firstCall.returnValue).to.deep.equal({ total: 2, selected: 0 });
+    });
+
+    it('should preserve select-all without exclusions when an unfiltered refresh shrinks the dataset', async () => {
+      let rows = Array.from({ length: 10 }, (_, id) => ({ id }));
+      const source = new FetchListDataSource<{ id: number }>({
+        pageSize: 10,
+        selects: 'multiple',
+        getId: item => item.id,
+        fetchPage: () => Promise.resolve({ items: rows, totalItems: rows.length })
+      });
+
+      void source.items[0];
+      await expect
+        .poll(() => (source.items[0] as ListDataSourceDataItem<{ id: number }>).data)
+        .to.deep.equal(rows[0]);
+      source.selectAll();
+      rows = rows.slice(8);
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.totalSize).to.equal(2);
+
+      expect(source.selected).to.equal(2);
+      expect(source.isSelectAllToggled()).to.be.true;
+      expect([...source.items].every(item => source.isSelected(item))).to.be.true;
+    });
+
+    it('should retain the unfiltered total when a filtered response arrives', async () => {
+      const source = new FetchListDataSource<Person>({
+        fetchPage: ({ filters }) =>
+          Promise.resolve({
+            items: filters?.length ? people.slice(0, 2) : people,
+            totalItems: filters?.length ? 2 : people.length
+          }),
+        getId: item => item.id,
+        pageSize: 10,
+        selects: 'multiple'
+      });
+
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(people.length);
+      source.selectAll();
+      source.addFilter('name', 'firstName', 'Ann');
+      source.update();
+      void source.items[0];
+      await expect.poll(() => source.size).to.equal(2);
+
+      [...source.items].forEach(item => source.deselect(item));
+      expect(source.totalSize).to.equal(people.length);
+      expect(source.selected).to.equal(people.length - 2);
+      expect(source.isSelectAllToggled()).to.be.true;
+    });
+  });
+
+  describe('group selection', () => {
+    beforeEach(() => {
+      ds = new FetchListDataSource<Person>({
+        fetchPage: () => Promise.resolve({ items: [] }),
+        groups: [{ id: 'Premium', label: 'Premium', size: 2 }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+    });
+
+    it('should keep the group selected after update, even when no members are present', () => {
+      const group = ds.items.at(0);
+
+      expect(isListDataSourceGroupItem(group)).to.be.true;
+      if (!isListDataSourceGroupItem(group)) {
+        throw new Error('Expected the first item to be a group');
+      }
+
+      expect(group.members).to.be.undefined;
+
+      ds.select(group);
+      expect(ds.isSelected(group)).to.be.true;
+
+      ds.update();
+
+      const updatedGroup = ds.items.at(0);
+
+      expect(isListDataSourceGroupItem(updatedGroup)).to.be.true;
+      if (!isListDataSourceGroupItem(updatedGroup)) {
+        throw new Error('Expected the first item to remain a group after update');
+      }
+
+      expect(updatedGroup.members).to.be.undefined;
+      expect(ds.isSelected(updatedGroup)).to.be.true;
     });
   });
 });

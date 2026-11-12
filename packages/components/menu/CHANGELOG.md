@@ -1,5 +1,20 @@
 # @sl-design-system/menu
 
+## 1.1.0
+
+### Minor Changes
+
+- [#3670](https://github.com/sl-design-system/components/pull/3670) [`839e31f`](https://github.com/sl-design-system/components/commit/839e31febabf9f351617fc4287673016f0a3742b) - Make it possible to show a selectable/ toggleable menu option with a switch.
+
+### Patch Changes
+
+- [#3732](https://github.com/sl-design-system/components/pull/3732) [`b6659cc`](https://github.com/sl-design-system/components/commit/b6659cc21b5bc6810722dad18a7c265a2487b377) - Fixed issue where deeper nested menu items were not accessible with keyboard navigation
+
+- Updated dependencies [[`839e31f`](https://github.com/sl-design-system/components/commit/839e31febabf9f351617fc4287673016f0a3742b), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/switch@2.1.0
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/button@2.3.2
+
 ## 1.0.1
 
 ### Patch Changes

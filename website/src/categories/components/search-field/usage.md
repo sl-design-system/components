@@ -50,7 +50,6 @@ Avoid using a search field within a page section when dealing with small or limi
 <section>
 
 ## Anatomy
-Search field are a combination of a tab list and a tab panel. The tab list contains the navigation tabs. When there is overflow, it shows the "more button" to open the tabs popover. The tab panel presents content for selected tabs.
 
 |Item|Name| Description | Optional|
 |-|-|-|-|

@@ -182,6 +182,14 @@
   <source>Please select an option.</source>
   <target>Seleziona un'opzione.</target>
 </trans-unit>
+<trans-unit id="sl.toggleGroup.selectOne">
+  <source>Select one</source>
+  <target>Seleziona una voce.</target>
+</trans-unit>
+<trans-unit id="sl.toggleGroup.selectOneOrMore">
+  <source>Select one or more</source>
+  <target>Seleziona una o più voci.</target>
+</trans-unit>
 <trans-unit id="sl.tabs.showAll">
   <source>Show all</source>
   <target>Mostra tutto</target>
@@ -486,10 +494,6 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>Nella riga attivata <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroup">
-  <source>Group</source>
-  <target>Gruppo</target>
-</trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_one">
   <source><x id="0" equiv-text="${over}"/> character too many</source>
   <target><x id="0" equiv-text="${over}"/> carattere troppo</target>
@@ -526,13 +530,29 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Rimuovi almeno <x id="0" equiv-text="${over}"/> caratteri.</target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroupWithName">
-  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
-  <target><x id="0" equiv-text="${this.groupLabel}"/> gruppo</target>
-</trans-unit>
 <trans-unit id="link.opens-in-new-tab">
   <source>opens in a new tab</source>
   <target>si apre in una nuova scheda</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeStartSelected">
+  <source><x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> selected. Select second date.</source>
+  <target><x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> selezionata. Seleziona una seconda data.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeSelected">
+  <source>You selected range from <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> to <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</source>
+  <target>Hai selezionato l'intervallo da <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> a <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeStart">
+  <source>Start of range</source>
+  <target>Inizio dell'intervallo</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeEnd">
+  <source>End of range</source>
+  <target>Fine dell'intervallo</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectGroupLabel">
+  <source>Select group</source>
+  <target>Seleziona gruppo</target>
 </trans-unit>
 </body>
 </file>

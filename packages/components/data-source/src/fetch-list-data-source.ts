@@ -85,6 +85,12 @@ export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceho
 /** Symbol used as the ID for the dummy group when no groups are provided */
 const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
 
+interface PendingFetch<T> {
+  callback: FetchListDataSourceCallback<T>;
+  key: readonly unknown[];
+  promise: Promise<void>;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The default size of the item collection if not explicitly set. */
@@ -101,6 +107,18 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   /** Proxy of the items array. */
   #proxy: Array<ListDataSourceItem<T>> = [];
+
+  /** In-flight requests that can be reused while their fetch options remain unchanged. */
+  #pending = new WeakMap<FetchListDataSourceGroupItem<T>, Map<number, PendingFetch<T>>>();
+
+  /** Whether the unfiltered total is known rather than an estimate. */
+  #totalSizeKnown: boolean;
+
+  /** Known unfiltered totals for individual groups. Filtered responses do not update these. */
+  #unfilteredGroupSizes = new Map<unknown, number>();
+
+  /** Minimum group sizes established by fetched rows, independent of active filters. */
+  #groupSizeLowerBounds = new Map<unknown, number>();
 
   /** The total number of items in the data source. */
   #totalSize: number;
@@ -121,6 +139,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   get totalSize(): number {
     return this.#totalSize;
+  }
+
+  protected override get selectionSize(): number | undefined {
+    return this.#totalSizeKnown ? this.totalSize : undefined;
   }
 
   constructor(options: FetchListDataSourceOptions<T>) {
@@ -169,6 +191,15 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     };
 
     this.#totalSize = options.size ?? FetchListDataSource.defaultSize;
+    this.#totalSizeKnown = options.size !== undefined;
+    if (options.groups || options.size !== undefined) {
+      this.#groups.forEach(group => {
+        if (group.size !== undefined) {
+          this.#unfilteredGroupSizes.set(group.id, group.size);
+        }
+      });
+    }
+    this.#updateTotalSize();
     this.fetchPage = options.fetchPage;
 
     if (typeof options.pageSize === 'number') {
@@ -196,12 +227,32 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.#groups.forEach(group => {
       group.members = undefined;
       group.pages = {};
+
+      this.#pending.get(group)?.forEach((request, page) => {
+        const key = this.#getFetchOptionsKey(this.getFetchOptions(group, page, this.pageSize));
+
+        if (
+          request.callback === this.fetchPage &&
+          request.key.length === key.length &&
+          request.key.every((value, index) => Object.is(value, key[index]))
+        ) {
+          group.pages[page] = request.promise;
+        } else {
+          this.#pending.get(group)!.delete(page);
+        }
+      });
     });
 
     this.#items = this.#createItemsArray();
     this.#proxy = this.#createProxy(this.#items);
 
     if (emitEvent) {
+      // An empty list has no items to access, so it cannot trigger a lazy fetch.
+      // Refetch the current page explicitly to discover items after an update.
+      if (this.#groups.has(FetchListDataSourceDummyGroup) && this.#items.length === 0) {
+        this.#requestFetch(0);
+      }
+
       this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
     }
   }
@@ -351,18 +402,64 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       page = this.pagination ? this.page : Math.floor((n - (group.startIndex ?? 0)) / pageSize);
 
     if (!group.pages[page]) {
-      group.pages[page] = (async () => {
-        const options = this.getFetchOptions(group, page, pageSize),
-          res = await this.fetchPage(options);
+      const options = this.getFetchOptions(group, page, pageSize),
+        callback = this.fetchPage,
+        key = this.#getFetchOptionsKey(options);
 
-        // If the size of the group changes, or pagination is enabled, we need to
-        // recreate the proxy to ensure that the array with items is up to date.
-        let recreateProxy = this.pagination;
+      let pending = this.#pending.get(group);
+      if (!pending) {
+        pending = new Map();
+        this.#pending.set(group, pending);
+      }
 
-        if (res.totalItems !== undefined) {
-          group.size = Number(res.totalItems);
+      const request = (async () => await callback.call(this, options))()
+        .finally(() => {
+          if (pending.get(page)?.promise === request) {
+            pending.delete(page);
+          }
+        })
+        .then(res => {
+          // An update with different options invalidates this response, even if it
+          // arrives after the replacement request has completed.
+          if (group.pages[page] !== request) {
+            return;
+          }
 
-          if (group.size !== group.members?.length) {
+          // If the size of the group changes, or pagination is enabled, we need to
+          // recreate the proxy to ensure that the array with items is up to date.
+          let recreateProxy = this.pagination;
+
+          if (res.totalItems !== undefined) {
+            group.size = Number(res.totalItems);
+          } else if (res.items.length > 0) {
+            // Without a total, fetched items establish a lower bound for the size.
+            group.size = Math.max(
+              group.size ?? group.members?.length ?? 0,
+              page * pageSize + res.items.length
+            );
+          }
+
+          if (!options.filters?.length && res.totalItems !== undefined) {
+            this.#unfilteredGroupSizes.set(group.id, Number(res.totalItems));
+            this.#groupSizeLowerBounds.set(group.id, Number(res.totalItems));
+          } else if (res.items.length > 0 || res.totalItems !== undefined) {
+            const minimumSize = Math.max(
+              this.#groupSizeLowerBounds.get(group.id) ?? 0,
+              res.items.length > 0 ? page * pageSize + res.items.length : 0,
+              Number(res.totalItems ?? 0)
+            );
+
+            this.#groupSizeLowerBounds.set(group.id, minimumSize);
+
+            // Supplied totals can become stale as the remote dataset grows.
+            if ((this.#unfilteredGroupSizes.get(group.id) ?? Infinity) < minimumSize) {
+              this.#unfilteredGroupSizes.delete(group.id);
+              this.#totalSizeKnown = false;
+            }
+          }
+          const selectionChanged = this.#updateTotalSize();
+
+          if (group.size !== undefined && group.size !== group.members?.length) {
             recreateProxy = true;
 
             const members = group.members ?? [];
@@ -372,26 +469,35 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
               group.members[i] = members[i];
             }
           }
-        }
 
-        for (let i = 0; i < res.items.length; i++) {
-          const index = pageSize * page + i,
-            item = res.items[i];
+          for (let i = 0; i < res.items.length; i++) {
+            const index = pageSize * page + i,
+              item = res.items[i];
 
-          group.members![index] = {
-            id: this.#mapping.getId!(item),
-            type: 'data',
-            data: item
-          };
-        }
+            group.members![index] = {
+              id: this.#mapping.getId!(item),
+              type: 'data',
+              data: item
+            };
+          }
 
-        if (recreateProxy) {
-          this.#items = this.#createItemsArray();
-          this.#proxy = this.#createProxy(this.#items);
-        }
+          if (recreateProxy) {
+            this.#items = this.#createItemsArray();
+            this.#proxy = this.#createProxy(this.#items);
+          }
 
-        this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
-      })();
+          if (selectionChanged) {
+            this.dispatchEvent(new CustomEvent('sl-selection-change'));
+          }
+          this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+        });
+
+      group.pages[page] = request;
+      pending.set(page, {
+        callback,
+        key,
+        promise: request
+      });
     }
 
     return {
@@ -399,5 +505,95 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       type: 'data',
       data: ListDataSourcePlaceholder
     } as ListDataSourceDataItem<T>;
+  }
+
+  #updateTotalSize(): boolean {
+    if (this.#unfilteredGroupSizes.size !== this.#groups.size) {
+      const minimumTotal = Array.from(this.#groups.keys()).reduce<number>(
+        (total, id) =>
+          total +
+          Math.max(
+            this.#unfilteredGroupSizes.get(id) ?? 0,
+            this.#groupSizeLowerBounds.get(id) ?? 0
+          ),
+        0
+      );
+
+      if (minimumTotal > this.#totalSize) {
+        this.#totalSize = minimumTotal;
+        this.#totalSizeKnown = false;
+      }
+      return false;
+    }
+
+    const totalSize = Array.from(this.#unfilteredGroupSizes.values()).reduce(
+        (total, size) => total + size,
+        0
+      ),
+      selectionChanged = totalSize < this.#totalSize && this.selection.size > 0;
+
+    // Remote pages cannot establish whether previously stored ids still exist after a shrink.
+    // Reset their selection before publishing the smaller total instead of keeping stale ids.
+    if (selectionChanged) {
+      this.deselectAll(false);
+    }
+    this.#totalSize = totalSize;
+    this.#totalSizeKnown = true;
+
+    return selectionChanged;
+  }
+
+  /**
+   * Capture array and plain-object contents without retaining mutable references. Functions and
+   * symbols keep their identity. Unsupported objects and accessors conservatively prevent request
+   * reuse rather than risk accepting stale data.
+   */
+  #getFetchOptionsKey(options: FetchListDataSourceCallbackOptions<T>): readonly unknown[] {
+    const key: unknown[] = [],
+      seen = new Map<object, number>();
+
+    const visit = (value: unknown): void => {
+      if (value === null || typeof value !== 'object') {
+        key.push(typeof value, value);
+        return;
+      }
+
+      if (seen.has(value)) {
+        key.push('reference', seen.get(value));
+        return;
+      }
+
+      seen.set(value, seen.size);
+      const prototype: unknown = Object.getPrototypeOf(value);
+
+      if (Array.isArray(value)) {
+        key.push('array', value.length);
+      } else if (value instanceof Date) {
+        key.push('date', value.getTime());
+      } else if (prototype === Object.prototype || prototype === null) {
+        key.push('object', prototype);
+      } else {
+        key.push('unsupported', Symbol());
+        return;
+      }
+
+      const properties = Reflect.ownKeys(value).filter(
+        property => Object.getOwnPropertyDescriptor(value, property)?.enumerable
+      );
+      key.push(properties.length);
+
+      for (const property of properties) {
+        const descriptor = Object.getOwnPropertyDescriptor(value, property)!;
+        key.push(property);
+        if ('value' in descriptor) {
+          visit(descriptor.value);
+        } else {
+          key.push('accessor', Symbol());
+        }
+      }
+    };
+
+    visit(options);
+    return key;
   }
 }

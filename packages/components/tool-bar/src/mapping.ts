@@ -170,10 +170,12 @@ export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton | ToolB
   };
 }
 
-// Get the menu item's own label text, excluding any nested submenu content.
+// Get the menu item's own label text, excluding any nested submenu content and comment nodes
+// (such as the marker comments Lit adds for bindings, which would otherwise end up in the label).
 function getMenuItemLabel(menuItem: MenuItem): string | undefined {
   return (
     Array.from(menuItem.childNodes)
+      .filter(node => node.nodeType !== Node.COMMENT_NODE)
       .filter(node => !(node instanceof Element && node.getAttribute('slot') === 'submenu'))
       .map(node => node.textContent?.trim())
       .filter(Boolean)

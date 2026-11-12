@@ -4,6 +4,7 @@ export interface Theme {
   id: string;
   name: string;
   fonts: string[];
+  subthemes?: string[];
   setup(): Promise<void>;
 }
 
@@ -149,11 +150,12 @@ export const themes: Theme[] = [
     }
   },
   {
-    id: 'teacher-assistant',
-    name: 'Teacher Assistant',
-    fonts: ['/themes/teacher-assistant/fonts.css'],
+    id: 'sl-ecosystem',
+    name: 'SL Ecosystem',
+    fonts: ['/themes/sl-ecosystem/fonts.css'],
+    subthemes: ['blue', 'green', 'orange', 'purple', 'teal'],
     setup: async () => {
-      const { setup } = await import('@sl-design-system/teacher-assistant');
+      const { setup } = await import('@sl-design-system/sl-ecosystem');
 
       setup();
     }

@@ -3,6 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { Announcer } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
@@ -59,6 +60,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
+      'sl-announcer': Announcer,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon
@@ -114,6 +116,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
+   * Disables the body scale and translate animation on mobile. The dialog itself still animates and
+   * scrolling remains disabled while it is open.
+   *
+   * @default false
+   */
+  @property({ type: Boolean, attribute: 'disable-body-animation' }) disableBodyAnimation = false;
+
+  /**
    * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the
    * backdrop. We recommend setting this to true when the dialog contains a form that must be
    * submitted or cancelled, to prevent accidental closing when clicking on the backdrop.
@@ -144,6 +154,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (
+      changes.has('disableBodyAnimation') &&
+      this.dialog?.open &&
+      !this.dialog.classList.contains('closing')
+    ) {
+      this.#leaveAnimationAbort?.abort();
+      document.documentElement.classList.remove('sl-dialog-leave');
+      document.documentElement.classList.toggle('sl-dialog-enter', !this.disableBodyAnimation);
+    }
+
     this.#updatePrimaryButtons();
   }
 
@@ -158,6 +178,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
+        <sl-announcer></sl-announcer>
       </dialog>
     `;
   }
@@ -429,7 +450,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onMediaChange = ({ previous, current }: MediaChangeEvent): void => {
-    if (!this.dialog?.open) {
+    if (!this.dialog?.open || this.disableBodyAnimation) {
       return;
     }
 
@@ -502,16 +523,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (opening) {
       // Add class to `<html>` for styling purposes
       document.documentElement.classList.remove('sl-dialog-leave');
-      document.documentElement.classList.add('sl-dialog-enter');
+      document.documentElement.classList.toggle('sl-dialog-enter', !this.disableBodyAnimation);
 
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
+      const wasAnimated = document.documentElement.classList.contains('sl-dialog-enter');
+
       // Remove dialog classes
       document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
 
       // Only play the leave animation on mobile, where the body was scaled
-      if (this.#media.mobile) {
+      if (wasAnimated && this.#media.mobile && !this.disableBodyAnimation) {
         document.documentElement.classList.add('sl-dialog-leave');
 
         this.#listenForLeaveAnimationEnd();

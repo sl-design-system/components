@@ -1,3 +1,29 @@
+export function excludeStandardMethodsPlugin() {
+  const excludedMethods = new Set([
+    'connectedCallback',
+    'disconnectedCallback',
+    'adoptedCallback',
+    'attributeChangedCallback',
+    'formAssociatedCallback',
+    'formDisabledCallback',
+    'formResetCallback',
+    'formStateRestoreCallback'
+  ]);
+
+  return {
+    name: 'exclude-standard-methods-plugin',
+    packageLinkPhase({ customElementsManifest }) {
+      for (const mod of customElementsManifest.modules) {
+        for (const declaration of mod.declarations ?? []) {
+          declaration.members = declaration.members?.filter(
+            member => member.kind !== 'method' || !excludedMethods.has(member.name)
+          );
+        }
+      }
+    }
+  };
+}
+
 export function methodAndFieldPlugin(type) {
   return {
     name: 'method-plugin',

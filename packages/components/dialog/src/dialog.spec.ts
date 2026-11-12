@@ -1,3 +1,4 @@
+import { type Announcer, announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
@@ -26,6 +27,10 @@ describe('sl-dialog', () => {
 
     it('should be inert', () => {
       expect(el.inert).to.be.true;
+    });
+
+    it('should enable body animation by default', () => {
+      expect(el.disableBodyAnimation).to.be.false;
     });
 
     it('should have a closed dialog', () => {
@@ -87,6 +92,20 @@ describe('sl-dialog', () => {
     it('should not be inert', () => {
       expect(el.inert).to.be.false;
     });
+
+    for (const urgency of ['polite', 'assertive'] as const) {
+      it(`should receive ${urgency} announcements inside the modal`, async () => {
+        const announcer = dialog.querySelector<Announcer>('sl-announcer')!;
+        await announcer.updateComplete;
+
+        announce('A validation error', urgency);
+
+        expect(dialog.matches(':modal')).to.be.true;
+        expect(announcer.renderRoot.querySelector(`[aria-live="${urgency}"]`)).to.have.text(
+          'A validation error'
+        );
+      });
+    }
 
     it('should have an open dialog', () => {
       expect(dialog).to.have.attribute('open');
@@ -571,6 +590,109 @@ describe('sl-dialog', () => {
 
       expect(document.documentElement).not.to.have.class('sl-dialog-enter');
       expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+
+    describe('with body animation disabled', () => {
+      beforeEach(async () => {
+        el.setAttribute('disable-body-animation', '');
+        await el.updateComplete;
+      });
+
+      it('should open a modal and lock scrolling without animating the body', () => {
+        el.showModal();
+
+        expect(el.disableBodyAnimation).to.be.true;
+        expect(dialog.matches(':modal')).to.be.true;
+        expect(el.inert).to.be.false;
+        expect(document.documentElement.style.overflow).to.equal('hidden');
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+      });
+
+      it('should close and restore scrolling without a body leave animation', async () => {
+        el.showModal();
+
+        const closed = oneEvent(el, 'sl-close');
+        el.close();
+
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+        await closed;
+
+        expect(dialog.open).to.be.false;
+        expect(el.inert).to.be.true;
+        expect(document.documentElement.style.overflow).to.equal('');
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+      });
+
+      it('should keep body animation disabled across viewport changes', async () => {
+        el.showModal();
+
+        await page.viewport(1024, 768);
+        await el.updateComplete;
+
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+
+        await page.viewport(393, 852);
+        await el.updateComplete;
+
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+        expect(document.documentElement.style.overflow).to.equal('hidden');
+      });
+
+      it('should support toggling body animation while open', async () => {
+        el.showModal();
+
+        el.disableBodyAnimation = false;
+        await el.updateComplete;
+
+        expect(document.documentElement).to.have.class('sl-dialog-enter');
+
+        el.disableBodyAnimation = true;
+        await el.updateComplete;
+
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+        expect(document.documentElement.style.overflow).to.equal('hidden');
+      });
+
+      it('should ignore pending body animation updates during fallback closing', async () => {
+        const supports = stub(CSS, 'supports').callThrough();
+        supports.withArgs('overlay', 'auto').returns(false);
+
+        try {
+          el.showModal();
+
+          const closed = oneEvent(el, 'sl-close');
+          el.disableBodyAnimation = false;
+          el.close();
+          await el.updateComplete;
+
+          expect(dialog.open).to.be.true;
+          expect(dialog).to.have.class('closing');
+          expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+          expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+
+          await closed;
+
+          expect(dialog.open).to.be.false;
+          expect(document.documentElement.style.overflow).to.equal('');
+          expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+          expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+        } finally {
+          supports.restore();
+        }
+      });
+
+      it('should restore scrolling when an open dialog is disconnected', () => {
+        el.showModal();
+        el.remove();
+
+        expect(document.documentElement.style.overflow).to.equal('');
+        expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+        expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+      });
     });
   });
 

@@ -106,6 +106,34 @@ export const Selection: Story = {
   `
 };
 
+export const GroupedMultipleSelection: Story = {
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    return html`
+      <p>
+        This example shows how you can enable multiple selection with a select-all checkbox in the
+        grid header. You can select multiple rows at once by clicking the checkboxes, or select all
+        rows at once using the checkbox in the header. The selection state is preserved even when
+        filtering or grouping the data.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-filter-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
+        <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
+        <sl-grid-filter-column header="Email" path="email"></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const ExplicitOptions: Story = {
   render: (_, { loaded: { students } }) => {
     const schools: GridFilterOption[] = Array.from(

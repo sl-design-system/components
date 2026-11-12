@@ -55,6 +55,12 @@ $transition-timing: 200ms;
     background-color: var(--card-color--active);
   }
 
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--sl-color-border-focused);
+    outline-offset: 4px;
+  }
+
   path {
     fill: var(--heading-color);
   }

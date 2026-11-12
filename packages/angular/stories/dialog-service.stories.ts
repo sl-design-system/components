@@ -89,6 +89,32 @@ export class DialogServiceExampleComponent {
 }
 
 @Component({
+  selector: 'sla-dialog-service-without-body-animation',
+  standalone: true,
+  imports: [ButtonComponent],
+  template: `
+    <h3>Dialog Service without body animation</h3>
+    <p>Open a mobile dialog without scaling or translating the page behind it.</p>
+    <sl-button (click)="openDialog()">Open dialog</sl-button>
+  `
+})
+export class DialogServiceWithoutBodyAnimationComponent {
+  constructor(private dialogService: DialogService) {}
+
+  openDialog(): void {
+    this.dialogService.showModal<ExampleDialogComponent, string>({
+      component: ExampleDialogComponent,
+      data: {
+        title: 'Dialog without body animation',
+        message:
+          'The dialog slides in from the bottom while the page behind it stays in place. This is useful in hybrid mobile apps where part of the interface is native.'
+      },
+      disableBodyAnimation: true
+    });
+  }
+}
+
+@Component({
   selector: 'sla-dialog-form',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
@@ -210,6 +236,7 @@ export default {
         DialogFormComponent,
         DialogFormExampleComponent,
         DialogServiceExampleComponent,
+        DialogServiceWithoutBodyAnimationComponent,
         ExampleDialogComponent,
         FormComponent,
         FormFieldComponent,
@@ -229,6 +256,20 @@ export const DialogServiceExample: StoryFn = () => ({
     'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br aria-hidden="true" /><br aria-hidden="true" />The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br aria-hidden="true" /><br aria-hidden="true" />This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
+
+export const MobileWithoutBodyAnimation: StoryFn = () => ({
+  description:
+    'Pass <code>disableBodyAnimation: true</code> to <strong>DialogService.showModal()</strong> to disable body scaling and translation on mobile. The dialog still animates and retains modal behavior and scroll locking.',
+  template:
+    '<sla-dialog-service-without-body-animation></sla-dialog-service-without-body-animation>'
+});
+
+MobileWithoutBodyAnimation.globals = {
+  viewport: {
+    value: 'iphone14',
+    isRotated: false
+  }
+};
 
 export const FormInDialogExample: StoryFn = () => ({
   description:

@@ -1,4 +1,4 @@
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -58,10 +58,6 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override render(): TemplateResult {
-    const selectGroupLabel = this.groupLabel
-      ? msg(str`${this.groupLabel} group`, { id: 'sl.grid.selectGroupWithName' })
-      : msg('Group', { id: 'sl.grid.selectGroup' });
-
     return html`
       <div part="wrapper">
         <div part="group-heading-wrapper">
@@ -77,10 +73,13 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
           ${
             this.selectable
               ? html`
+                  <span hidden id="select-label">
+                    ${msg('Select group', { id: 'sl.grid.selectGroupLabel' })}
+                  </span>
                   <div part="checkbox">
                     <sl-checkbox
                       @sl-change=${this.#onChange}
-                      aria-label=${selectGroupLabel}
+                      aria-labelledby="select-label group-heading"
                       .checked=${this.selected === 'all'}
                       .indeterminate=${this.selected === 'some'}
                       size="sm"></sl-checkbox>
@@ -88,16 +87,22 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
                 `
               : nothing
           }
+          <span hidden id="toggle-label">
+            ${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+          </span>
           <sl-button
             @click=${this.#onClick}
             aria-expanded=${this.collapsed ? 'false' : 'true'}
-            aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+            aria-labelledby="toggle-label group-heading"
             fill="ghost"
             size="sm">
             <sl-icon name="chevron-down"></sl-icon>
           </sl-button>
-          <div part="group-heading">
-            <slot name="group-heading"></slot>
+          <div id="group-heading" part="group-heading">
+            <slot name="group-heading">
+              <!-- Fallback when a custom renderer does not provide a heading: keeps the name unique for assistive technology -->
+              <span class="visually-hidden">${this.groupLabel}</span>
+            </slot>
           </div>
         </div>
         <div part="actions">

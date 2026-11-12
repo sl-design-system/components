@@ -1,5 +1,15 @@
 # @sl-design-system/angular
 
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031), [`839e31f`](https://github.com/sl-design-system/components/commit/839e31febabf9f351617fc4287673016f0a3742b), [`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a)]:
+  - @sl-design-system/form@1.7.0
+  - @sl-design-system/switch@2.1.0
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/locales@0.5.0
+
 ## 5.0.0
 
 ### Major Changes

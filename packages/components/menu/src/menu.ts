@@ -216,6 +216,13 @@ export class Menu extends LitElement {
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    // Separators are decorative and should not be announced by screen readers.
+    event.target.assignedElements({ flatten: true }).forEach(element => {
+      if (element instanceof HTMLHRElement) {
+        element.setAttribute('aria-hidden', 'true');
+      }
+    });
+
     let menuItems: MenuItem[];
 
     if (this.querySelector('slot:not([name])')) {
@@ -283,9 +290,7 @@ export class Menu extends LitElement {
 
   #propagateEmphasis(): void {
     this.#menuItems?.forEach(item => {
-      if (!(item.variant === 'danger' && item.selectable)) {
-        item.emphasis = this.emphasis;
-      }
+      item.emphasis = this.emphasis;
     });
     const submenus = Array.from<Menu>(this.querySelectorAll('sl-menu'));
     submenus?.forEach(submenu => {

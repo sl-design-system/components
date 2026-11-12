@@ -23,6 +23,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The filtered, grouped and sorted items. */
   #items: Array<ListDataSourceDataItem<T>> = [];
 
+  /** Unfiltered group membership, rebuilt when the dataset changes. */
+  #groupMembers = new Map<unknown, Array<ListDataSourceDataItem<T>>>();
+
   /** The mapped array of items, as provided in the constructor. */
   #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
@@ -34,6 +37,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
+
+  override get filteredItems(): Array<ListDataSourceDataItem<T>> {
+    return this.#items;
+  }
 
   get items() {
     return this.#viewItems;
@@ -153,6 +160,17 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       data: item,
       selected: options.isSelected?.(item)
     }));
+
+    this.#groupMembers.clear();
+    this.#mappedItems.forEach(item => {
+      let members = this.#groupMembers.get(item.groupId);
+
+      if (!members) {
+        members = [];
+        this.#groupMembers.set(item.groupId, members);
+      }
+      members.push(item);
+    });
 
     if (this.#reorderedGroupIds?.length) {
       const availableGroupIds = Array.from(new Set(this.#mappedItems.map(item => item.groupId)));
@@ -394,6 +412,12 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
   }
 
+  protected override areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
+    const members = this.#groupMembers.get(group.id) ?? [];
+
+    return !!members.length && members.every(member => this.isSelected(member));
+  }
+
   #determineGroups(): Map<unknown, ListDataSourceGroupItem> {
     const groups = new Map<unknown, ListDataSourceGroupItem>(),
       groupLabels = new Map<unknown, string>();
@@ -413,8 +437,15 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
         groups.set(group, {
           id: group,
           label,
+          size: 0,
           type: 'group'
         });
+      }
+
+      const groupItem = groups.get(group);
+
+      if (groupItem) {
+        groupItem.size = (groupItem.size ?? 0) + 1;
       }
     });
 

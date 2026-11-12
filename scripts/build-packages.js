@@ -3,7 +3,8 @@ import fg from 'fast-glob';
 import { argv } from 'node:process';
 
 const buildPackages = async path => {
-  const entryPoints = await fg(path);
+  // The extglob in `path` does not exclude `*.d.ts`, so ignore them explicitly
+  const entryPoints = await fg(path, { ignore: ['**/*.d.ts'] });
 
   await build({
     bundle: false,

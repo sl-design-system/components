@@ -1,4 +1,5 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { Preview } from '@storybook/angular-vite';

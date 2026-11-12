@@ -3,6 +3,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { Checkbox } from '@sl-design-system/checkbox';
 import {
   ArrayListDataSource,
   isListDataSourceDataItem,
@@ -13,10 +14,13 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import { createRef, ref } from 'lit/directives/ref.js';
 import '.././register.js';
-import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
+import { type GridColumnDataRenderer } from '../column.js';
+import { type Grid, type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -145,6 +149,100 @@ export const Multiple: Story = {
           <sl-icon name="far-right-to-line"></sl-icon>
           This is another very long action button
         </sl-button>
+      </sl-grid>
+    `;
+  }
+};
+
+export const MultipleWithSummaryRow: Story = {
+  render: (_, { loaded: { students } }) => {
+    interface SubjectRow extends Student {
+      [subject: string]: unknown;
+      class: string;
+      grade: number;
+      profile: string;
+    }
+
+    const subjects = ['AK', 'EC', 'EN', 'NSK1', 'WI', 'VT', 'ZW', 'TE', 'EC2', 'rtF2', 'mgez'],
+      /** Deterministic patterns, so the totals are stable. */
+      patterns: Record<string, (index: number) => boolean> = {
+        AK: () => true,
+        EC: index => index === 2 || index === 6,
+        EN: () => true,
+        NSK1: index => [2, 4, 6, 7].includes(index),
+        WI: index => index === 4,
+        VT: () => true,
+        ZW: index => index === 6,
+        TE: index => [2, 4, 6].includes(index),
+        EC2: index => [2, 4, 6, 7].includes(index),
+        rtF2: () => true,
+        mgez: index => index === 2 || index === 6
+      },
+      grades = [4.1, 7.3, 6.7, 5.5, 7.8, 3.5, 9.2, 6.3, 7.3, 5.5, 3.5],
+      rows: SubjectRow[] = (students as Student[]).slice(0, 11).map((student, index) => ({
+        ...student,
+        class: index === 3 || index === 10 ? 'F5AB' : 'F3CB',
+        grade: grades[index],
+        profile: [3, 6, 9].includes(index) ? '-' : 'N&G',
+        ...Object.fromEntries(subjects.map(subject => [subject, patterns[subject](index)]))
+      })),
+      gridRef = createRef<Grid>(),
+      checkboxRenderer =
+        (subject: string): GridColumnDataRenderer<SubjectRow> =>
+        row =>
+          html`
+            <sl-checkbox
+              @sl-change=${({ detail }: SlChangeEvent<boolean>) => {
+                // Update the data, then re-render the grid so the totals are recalculated
+                row[subject] = detail;
+                gridRef.value?.requestUpdate();
+              }}
+              aria-label="${subject}: ${row.fullName}"
+              ?checked=${row[subject]}
+              size="sm"></sl-checkbox>
+          `;
+
+    return html`
+      <p>
+        This example combines a selection column with a summary row. The summary row is not affected
+        by the selection: it shows the totals of all the rows in the grid. The selection column has
+        no total, so it shows a dash. The checkbox columns use a custom
+        <code>renderer</code>, while <code>summary-type="boolean"</code> calculates the fractions
+        from the underlying values.
+      </p>
+      <sl-grid ${ref(gridRef)} .items=${rows}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          summary-label="students"
+          summary-menu
+          summary-type="text"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
+        <sl-grid-column grow="0" header="Class" path="class" width="80"></sl-grid-column>
+        <sl-grid-column grow="0" header="Profile" path="profile" width="80"></sl-grid-column>
+        ${subjects.map(
+          subject => html`
+            <sl-grid-column
+              grow="0"
+              header=${subject.replace(/2$/, '')}
+              path=${subject}
+              summary-type="boolean"
+              width="70"
+              .renderer=${checkboxRenderer(subject)}
+              .scopedElements=${{ 'sl-checkbox': Checkbox }}></sl-grid-column>
+          `
+        )}
+        <sl-grid-column
+          align="end"
+          grow="0"
+          header="Grade"
+          path="grade"
+          summary-format="average"
+          summary-type="number"
+          width="80"></sl-grid-column>
       </sl-grid>
     `;
   }

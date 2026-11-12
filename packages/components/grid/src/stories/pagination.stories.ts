@@ -10,7 +10,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer } from './story-utils.js';
+import { avatarRenderer, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -272,6 +272,56 @@ export const Manual: Story = {
           @sl-page-size-change=${onPageSizeChange}
           .itemLabel=${'Students'}
           page-size="10"
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
+      </div>
+    `;
+  }
+};
+
+export const SummaryRow: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        The totals in the summary row are calculated for all the rows that match the active filters,
+        across all pages. They don't change when you change the page, the page size or the sorting.
+        When the data is paginated, the label of a column with a
+        <code>summary-label</code> says that the total is for the whole grid.
+      </p>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          summary-format="average"
+          summary-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
           page-sizes="[5,10,15]"></sl-paginator-page-size>
       </div>
     `;

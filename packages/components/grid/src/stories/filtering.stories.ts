@@ -9,7 +9,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
 import { type GridFilterOption } from '../filter-column.js';
-import { avatarRenderer } from './story-utils.js';
+import { avatarRenderer, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -240,6 +240,31 @@ export const Grouped: Story = {
       </sl-grid>
     `;
   }
+};
+
+export const SummaryRow: Story = {
+  loaders: [],
+  render: () => html`
+    <p>
+      This example shows how a summary row works together with filtering. The totals are calculated
+      for the rows that match the active filters, so they change when you filter the grid. Try
+      filtering on a class to see the totals update.
+    </p>
+    <sl-grid .items=${pupils}>
+      <sl-grid-filter-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-type="text"></sl-grid-filter-column>
+      <sl-grid-filter-column header="Class" path="class"></sl-grid-filter-column>
+      <sl-grid-filter-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-format="average"
+        summary-type="number"></sl-grid-filter-column>
+    </sl-grid>
+  `
 };
 
 export const Outside: Story = {

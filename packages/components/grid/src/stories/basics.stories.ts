@@ -22,7 +22,7 @@ import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { type Grid } from '../grid.js';
 import { type GridSummaryTotals, calculateSummaryTotals } from '../summary.js';
-import { avatarRenderer } from './story-utils.js';
+import { type Pupil, avatarRenderer, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -555,41 +555,6 @@ export const ReorderColumns: Story = {
   }
 };
 
-interface Pupil {
-  id: number;
-  name: string;
-  class: string;
-  grade: number;
-  homework: boolean;
-  present: boolean;
-  passed: boolean;
-}
-
-const names = [
-  'Gert Flits',
-  'René Top',
-  'Anna Bos',
-  'Mila de Vries',
-  'Daan Jansen',
-  'Sophie Visser',
-  'Lucas Smit',
-  'Emma Meijer',
-  'Finn Mulder',
-  'Julia Bakker',
-  'Sem Dekker'
-];
-
-/** Deterministic example data, so the totals in the stories (and snapshots) are stable. */
-const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
-  id: index + 1,
-  name: `${names[index % names.length]}${index >= names.length ? ` ${Math.floor(index / names.length) + 1}` : ''}`,
-  class: index % 3 === 0 ? 'F5AB' : 'F3CB',
-  grade: 3 + ((index * 7) % 8) + (index % 2) / 2,
-  homework: index % 3 !== 0,
-  present: index % 5 !== 0,
-  passed: 3 + ((index * 7) % 8) >= 6
-}));
-
 export const SummaryRow: Story = {
   render: () => html`
     <p>
@@ -815,56 +780,6 @@ export const SummaryRowCustomContent: Story = {
             : '-'}></sl-grid-column>
     </sl-grid>
   `
-};
-
-export const SummaryRowPagination: Story = {
-  render: () => {
-    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
-
-    return html`
-      <style>
-        .pagination {
-          align-items: center;
-          display: flex;
-          gap: 1rem;
-          justify-content: space-between;
-          margin-block: 1rem;
-        }
-        sl-paginator {
-          flex: 1;
-          justify-content: center;
-        }
-      </style>
-      <p>
-        The totals are calculated for all the rows that match the active filters, across all pages.
-        They don't change when you change the page, the page size or the sorting. When the data is
-        paginated, the label of a column with a <code>summary-label</code> says that the total is
-        for the whole grid.
-      </p>
-      <sl-grid .dataSource=${ds}>
-        <sl-grid-column
-          header="Student"
-          path="name"
-          summary-label="students"
-          summary-type="text"></sl-grid-column>
-        <sl-grid-column header="Class" path="class"></sl-grid-column>
-        <sl-grid-column
-          align="end"
-          header="Grade"
-          path="grade"
-          summary-format="average"
-          summary-type="number"></sl-grid-column>
-      </sl-grid>
-      <div class="pagination">
-        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
-        <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size
-          .dataSource=${ds}
-          .itemLabel=${'Students'}
-          page-sizes="[5,10,15]"></sl-paginator-page-size>
-      </div>
-    `;
-  }
 };
 
 export const SummaryRowPageTotal: Story = {

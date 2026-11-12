@@ -207,16 +207,16 @@
     --sl-subtheme-light-color-background-secondary-subtlest
   );
   --sl-brand-light-color-background-selected-bold: var(
-    --sl-brand-light-color-background-accent-purple-bold
+    --sl-subtheme-light-color-background-selected-bold
   );
   --sl-brand-light-color-background-selected-interactive-bold: var(
-    --sl-brand-light-color-background-accent-purple-interactive-bold
+    --sl-subtheme-light-color-background-selected-interactive-bold
   );
   --sl-brand-light-color-background-selected-interactive-plain: var(
-    --sl-brand-light-color-background-accent-purple-interactive-plain
+    --sl-subtheme-light-color-background-selected-interactive-plain
   );
   --sl-brand-light-color-background-selected-subtle: var(
-    --sl-brand-light-color-background-accent-purple-subtle
+    --sl-subtheme-light-color-background-selected-subtle
   );
   --sl-brand-light-color-background-selected-subtlest: var(
     --sl-subtheme-light-color-background-selected-subtlest
@@ -301,7 +301,7 @@
   --sl-brand-light-color-border-secondary-plain: var(
     --sl-subtheme-light-color-border-secondary-plain
   );
-  --sl-brand-light-color-border-selected: var(--sl-brand-light-color-border-accent-purple-plain);
+  --sl-brand-light-color-border-selected: var(--sl-subtheme-light-color-border-selected);
   --sl-brand-light-color-foreground-accent-blue-bold: var(--sl-brand-light-color-palette-blue-700);
   --sl-brand-light-color-foreground-accent-blue-onBold: var(
     --sl-brand-light-color-palette-blue-150
@@ -435,13 +435,13 @@
     --sl-subtheme-light-color-foreground-secondary-onBold
   );
   --sl-brand-light-color-foreground-selected-bold: var(
-    --sl-brand-light-color-foreground-accent-purple-bold
+    --sl-subtheme-light-color-foreground-selected-bold
   );
   --sl-brand-light-color-foreground-selected-onBold: var(
-    --sl-brand-light-color-foreground-accent-blue-onBold
+    --sl-subtheme-light-color-foreground-selected-onBold
   );
   --sl-brand-light-color-foreground-selected-plain: var(
-    --sl-brand-light-color-foreground-accent-purple-plain
+    --sl-subtheme-light-color-foreground-selected-plain
   );
   --sl-brand-light-color-foreground-subtle: var(
     --sl-brand-light-color-foreground-accent-grey-subtle
@@ -614,35 +614,35 @@
   --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
   --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
   --sl-brand-space-offset-default: var(--sl-space-075);
-  --sl-brand-text-new-body-lg-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-lg-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-body);
   --sl-brand-text-new-body-lg-fontSize: 16px;
   --sl-brand-text-new-body-lg-fontWeight: 400;
   --sl-brand-text-new-body-lg-lineHeight: 24px;
-  --sl-brand-text-new-body-md-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-md-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-body);
   --sl-brand-text-new-body-md-fontSize: 14px;
   --sl-brand-text-new-body-md-fontWeight: 400;
   --sl-brand-text-new-body-md-lineHeight: 20px;
-  --sl-brand-text-new-body-sm-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-sm-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-body);
   --sl-brand-text-new-body-sm-fontSize: 12px;
   --sl-brand-text-new-body-sm-fontWeight: 400;
   --sl-brand-text-new-body-sm-lineHeight: 16px;
-  --sl-brand-text-new-heading-2xl-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-2xl-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-heading);
   --sl-brand-text-new-heading-2xl-fontSize: 48px;
   --sl-brand-text-new-heading-2xl-fontWeight: SemiBold;
   --sl-brand-text-new-heading-2xl-lineHeight: 48px;
-  --sl-brand-text-new-heading-lg-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-lg-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-heading);
   --sl-brand-text-new-heading-lg-fontSize: 24px;
   --sl-brand-text-new-heading-lg-fontWeight: SemiBold;
   --sl-brand-text-new-heading-lg-lineHeight: 32px;
-  --sl-brand-text-new-heading-md-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-md-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-heading);
   --sl-brand-text-new-heading-md-fontSize: 16px;
   --sl-brand-text-new-heading-md-fontWeight: SemiBold;
   --sl-brand-text-new-heading-md-lineHeight: 20px;
-  --sl-brand-text-new-heading-sm-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-sm-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-heading);
   --sl-brand-text-new-heading-sm-fontSize: 14px;
   --sl-brand-text-new-heading-sm-fontWeight: SemiBold;
   --sl-brand-text-new-heading-sm-lineHeight: 20px;
-  --sl-brand-text-new-heading-xl-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-xl-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-heading);
   --sl-brand-text-new-heading-xl-fontSize: 32px;
   --sl-brand-text-new-heading-xl-fontWeight: SemiBold;
   --sl-brand-text-new-heading-xl-lineHeight: 40px;
@@ -650,10 +650,10 @@
   --sl-brand-text-new-icon-outline-fontWeight: regular;
   --sl-brand-text-new-icon-solid-fontFamily: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-solid-fontWeight: solid;
-  --sl-brand-text-new-input-lg-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-input-lg-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-body);
   --sl-brand-text-new-input-lg-fontSize: 14px;
   --sl-brand-text-new-input-lg-lineHeight: 32px;
-  --sl-brand-text-new-input-md-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-input-md-fontFamily: var(--sl-brand-text-new-typeset-fontFamily-body);
   --sl-brand-text-new-input-md-fontSize: 14px;
   --sl-brand-text-new-input-md-lineHeight: 24px;
   --sl-brand-text-new-typeset-fontFamily-body: 'New Message Text Condensed';

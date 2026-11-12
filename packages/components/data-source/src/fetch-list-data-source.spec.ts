@@ -1292,6 +1292,51 @@ describe('FetchListDataSource', () => {
       expect(ds.isSelected(group.members![3])).to.be.true;
     });
 
+    it('should keep selecting arriving rows when one row of a selected partially loaded group was deselected', async () => {
+      const secondPage = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>();
+
+      ds = new FetchListDataSource<Person>({
+        fetchPage: ({ page }) =>
+          page === 0
+            ? Promise.resolve({ items: people.slice(0, 2), totalItems: 4 })
+            : secondPage.promise,
+        getId: item => item.id,
+        groups: [{ id: 'A' }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+
+      ds.expandGroup('A');
+      ds.update();
+
+      await expect
+        .poll(
+          () =>
+            [...ds.items].filter(
+              i => i.type === 'data' && (i.data as unknown) !== ListDataSourcePlaceholder
+            ).length
+        )
+        .to.equal(2);
+
+      const group = ds.items[0] as ListDataSourceGroupItem<Person>;
+
+      ds.select(group);
+      ds.deselect(group.members![0]);
+
+      expect(ds.isSelected(group.members![0])).to.be.false;
+      expect(ds.isSelected(group.members![1])).to.be.true;
+
+      secondPage.resolve({ items: people.slice(2, 4), totalItems: 4 });
+
+      await expect.poll(() => group.members?.[3]?.data).to.equal(people[3]);
+
+      // Only the explicitly deselected row stays deselected
+      expect(ds.isSelected(group.members![0])).to.be.false;
+      expect(ds.isSelected(group.members![1])).to.be.true;
+      expect(ds.isSelected(group.members![2])).to.be.true;
+      expect(ds.isSelected(group.members![3])).to.be.true;
+    });
+
     it('should deselect the rows of a group that was deselected while all items are selected', async () => {
       ds = new FetchListDataSource<Person>({
         fetchPage: () => Promise.resolve({ items: people.slice(0, 2), totalItems: 2 }),

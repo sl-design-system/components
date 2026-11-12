@@ -199,6 +199,7 @@ export function createPeriod(
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreatePeriodOptions
 ): Calendar {
   const calendar: Calendar = { weeks: [] },
+    normalizedEnd = normalizeDateTime(end),
     weekOptions = {
       disabledDates,
       firstDayOfWeek,
@@ -209,13 +210,13 @@ export function createPeriod(
       showToday
     };
 
-  let nextWeek = createWeek(start, weekOptions);
+  let nextWeek = createWeek(normalizeDateTime(start), weekOptions);
   do {
     calendar.weeks.push(nextWeek);
     const firstDayOfNextWeek = new Date(nextWeek.days[6].date); // last day of current week
     firstDayOfNextWeek.setDate(firstDayOfNextWeek.getDate() + 1); // make it first day of next week
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
-  } while (nextWeek.days[0].date <= end);
+  } while (nextWeek.days[0].date <= normalizedEnd);
 
   // Mark the first and last selectable days in the period
   const allDays = calendar.weeks.flatMap(week => week.days),
@@ -242,8 +243,7 @@ export function createMonth(
   date: Date,
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreateMonthOptions
 ): Calendar {
-  const firstDayOfMonth = new Date(date);
-  firstDayOfMonth.setDate(1);
+  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
   const monthNumber = firstDayOfMonth.getMonth();
   const weekOptions = {
     disabledDates,
@@ -362,6 +362,9 @@ export function createDay(
   }: CreateDayOptions
 ): Day {
   const today = normalizeDateTime(new Date()),
+    normalizedDate = normalizeDateTime(date),
+    normalizedMin = min ? normalizeDateTime(min) : undefined,
+    normalizedMax = max ? normalizeDateTime(max) : undefined,
     indicator = indicatorDates?.find(i => isSameDate(i.date, date)),
     currentMonth = relativeMonth.getMonth(),
     isToday = showToday && isSameDate(date, today);
@@ -370,11 +373,13 @@ export function createDay(
     currentMonth: date.getMonth() === currentMonth,
     date,
     disabled: isDateInList(date, disabledDates),
-    future: date > today,
+    future: normalizedDate > today,
     indicator: indicator ? { color: indicator.color, label: indicator.label } : undefined,
     nextMonth: date.getMonth() > currentMonth,
-    outOfRange: (min && date < min) || (max && date > max),
-    past: date < today,
+    outOfRange:
+      (normalizedMin && normalizedDate < normalizedMin) ||
+      (normalizedMax && normalizedDate > normalizedMax),
+    past: normalizedDate < today,
     previousMonth: date.getMonth() < currentMonth,
     startOfWeek,
     today: isToday,

@@ -46,6 +46,39 @@ describe('sl-skeleton', () => {
     await el.updateComplete;
 
     expect(el).to.have.attribute('effect', 'none');
+    expect(window.getComputedStyle(el).animationName).to.equal('none');
+    expect(window.getComputedStyle(el).backgroundImage).to.equal('none');
+  });
+
+  it('should remove gradient and disable animation when effect is set to none', async () => {
+    expect(window.getComputedStyle(el).backgroundImage).to.contain('linear-gradient');
+
+    el.effect = 'none';
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('effect', 'none');
+    expect(window.getComputedStyle(el).animationName).to.equal('none');
+    expect(window.getComputedStyle(el).backgroundImage).to.equal('none');
+  });
+
+  it('should have no animation or gradient when rendered with effect="none"', async () => {
+    const noneEl = await fixture<Skeleton>(html`<sl-skeleton effect="none"></sl-skeleton>`);
+
+    expect(noneEl).to.have.attribute('effect', 'none');
+    expect(window.getComputedStyle(noneEl).animationName).to.equal('none');
+    expect(window.getComputedStyle(noneEl).backgroundImage).to.equal('none');
+  });
+
+  it("should have a CSS rule for :host([effect='none']) with animation: none and plain background", () => {
+    const stylesheet = Skeleton.styles as CSSStyleSheet;
+    const rules = Array.from(stylesheet.cssRules) as CSSStyleRule[];
+    const noneRule = rules.find(
+      rule => rule.selectorText?.includes('effect') && rule.selectorText?.includes('none')
+    );
+
+    expect(noneRule).to.exist;
+    expect(noneRule?.style.animationName).to.equal('none');
+    expect(noneRule?.style.background).to.contain('var(--sl-color-skeleton-plain)');
   });
 
   it('should not have a default variant', () => {

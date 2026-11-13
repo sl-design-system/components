@@ -1,5 +1,36 @@
 # @sl-design-system/date-field
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3868](https://github.com/sl-design-system/components/pull/3868) [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c) - Normalize date time components when generating calendar days and validating `min`/`max` boundaries so `min` and `max` dates remain selectable regardless of the time of day on `value`, `selected`, `month`, `min`, or `max`.
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Preserve focus restoration when switching between calendar views and safely ignore date ranges from custom slotted calendars.
+
+- [#3833](https://github.com/sl-design-system/components/pull/3833) [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180) - Announce the displayed month and year after scrolling finishes and navigation button labels update, with a short delay to avoid interrupting the announcement. Add an announcer inside the date picker modal so these messages are available to screen readers there.
+
+- [#3796](https://github.com/sl-design-system/components/pull/3796) [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03) - Improve calendar layout, date range selection, and keyboard navigation.
+
+  Layout and styling
+
+  - Keep the header and navigation controls aligned across views and stable as localized labels, fonts, and date constraints change.
+  - Align the weekday headers, day cells, and week numbers. Keep six week rows and end the week number separator at the last visible week.
+  - Use a 24px gap between months and align the second month heading with its grid. Adjust the date field picker padding to match the calendar.
+  - Align range backgrounds with day tiles and blend the hover state into the range preview.
+  - Use equal-width highlights with a 40px height inside 48px month and year tiles. Truncate long month labels when space is limited.
+
+  Selection and navigation
+
+  - Show two years of months and 20 years in the expanded view. Adjust paging, keyboard navigation, and accessible navigation labels to match.
+  - Preserve the browsed month or year and keyboard focus when resizing. Keep selectable dates visible when the previous view overlaps the minimum date.
+  - Highlight months and years that overlap the selected range and expose their pressed states. Keep full accessible names for truncated month labels.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0), [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180), [`15e9297`](https://github.com/sl-design-system/components/commit/15e9297c4b193d9d1b3012fe97c2232b5f11080c), [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/calendar@0.2.0
+  - @sl-design-system/shared@0.14.2
+  - @sl-design-system/form@1.7.1
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @sl-design-system/tool-bar
 
+## 0.4.3
+
+### Patch Changes
+
+- [#3856](https://github.com/sl-design-system/components/pull/3856) [`c1d1f67`](https://github.com/sl-design-system/components/commit/c1d1f67920b238029af172c262258cf5d0da5658) - Fix overflow menu item labels containing Lit marker comments (e.g. `?lit$123456789$ Copy`).
+
+- Updated dependencies [[`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27), [`aeefda9`](https://github.com/sl-design-system/components/commit/aeefda9c87e33fca82e10de1672825cacd1ebfe1)]:
+  - @sl-design-system/menu@1.1.1
+
 ## 0.4.2
 
 ### Patch Changes

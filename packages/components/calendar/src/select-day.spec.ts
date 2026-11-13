@@ -800,6 +800,134 @@ describe('sl-select-day', () => {
 
     afterEach(() => document.body.removeEventListener('sl-announce', announce));
 
+    it('should announce after the previous button label updates without moving focus', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!;
+      const nativeButton = button.shadowRoot!.querySelector('button')!;
+      let labelChangedAt = 0,
+        announcedAt = 0,
+        labelAtAnnouncement: string | null = null;
+
+      const observer = new MutationObserver(() => {
+        labelChangedAt = performance.now();
+      });
+      observer.observe(nativeButton, { attributes: true, attributeFilter: ['aria-label'] });
+
+      const onAnnounce = () => {
+        announcedAt = performance.now();
+        labelAtAnnouncement = nativeButton.getAttribute('aria-label');
+      };
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        button.focus();
+        await userEvent.keyboard('{Enter}');
+
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+
+        expect(labelChangedAt).to.be.greaterThan(0);
+        expect(labelAtAnnouncement).to.equal('Previous month, January 2023');
+        expect(announcedAt - labelChangedAt).to.be.at.least(240);
+        expect(button.matches(':focus-within')).to.be.true;
+      } finally {
+        observer.disconnect();
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
+
+    it('should announce after the next button label updates without moving focus', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!;
+      const nativeButton = button.shadowRoot!.querySelector('button')!;
+      let labelChangedAt = 0,
+        announcedAt = 0,
+        labelAtAnnouncement: string | null = null;
+
+      const observer = new MutationObserver(() => {
+        labelChangedAt = performance.now();
+      });
+      observer.observe(nativeButton, { attributes: true, attributeFilter: ['aria-label'] });
+
+      const onAnnounce = () => {
+        announcedAt = performance.now();
+        labelAtAnnouncement = nativeButton.getAttribute('aria-label');
+      };
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        button.focus();
+        await userEvent.keyboard('{Enter}');
+
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+
+        expect(labelChangedAt).to.be.greaterThan(0);
+        expect(labelAtAnnouncement).to.equal('Next month, May 2023');
+        expect(announcedAt - labelChangedAt).to.be.at.least(240);
+        expect(button.matches(':focus-within')).to.be.true;
+      } finally {
+        observer.disconnect();
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
+
+    it('should cancel an outdated announcement when navigating again', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+      await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+
+      expect((announce.lastCall.firstArg as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'March 2023',
+        urgency: 'polite'
+      });
+    });
+
+    it('should skip a pending announcement when the day view becomes inert', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.inert = true;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(el.isConnected).to.be.true;
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should skip a pending announcement when the month changes without a navigation button', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2023, 4, 1);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should skip a pending announcement when only the year changes', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2024, 3, 1);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 350));
+
+      expect(announce).not.to.have.been.called;
+    });
+
+    it('should still announce when only the day changes within the displayed month', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+      await vi.waitFor(() => expect(el.month).to.equalDate(new Date(2023, 3, 1)));
+
+      el.month = new Date(2023, 3, 15);
+      await el.updateComplete;
+      await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
+
+      expect((announce.lastCall.firstArg as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'April 2023',
+        urgency: 'polite'
+      });
+    });
+
     describe('back', () => {
       it('should show the previous month when using the keyboard', async () => {
         el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus();
@@ -840,10 +968,7 @@ describe('sl-select-day', () => {
       it('should announce the previous month when using the mouse', async () => {
         el.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')?.click();
 
-        // Wait for the announcement to be made from a setTimeout
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        expect(announce).to.have.been.calledOnce;
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
 
         const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 
@@ -897,10 +1022,7 @@ describe('sl-select-day', () => {
       it('should announce the next month when using the mouse', async () => {
         el.renderRoot.querySelector<HTMLElement>('sl-button.next-month')?.click();
 
-        // Wait for the announcement to be made from a setTimeout
-        await new Promise(resolve => setTimeout(resolve, 50));
-
-        expect(announce).to.have.been.calledOnce;
+        await vi.waitFor(() => expect(announce).to.have.been.calledOnce);
 
         const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 

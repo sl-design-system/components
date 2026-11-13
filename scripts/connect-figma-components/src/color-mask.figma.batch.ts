@@ -1,7 +1,7 @@
 import figma from 'figma';
 
 export default {
-  example: figma.code``,
+  example: figma.code`<div></div>`,
   id: figma.batch.id,
   metadata: {
     props: {

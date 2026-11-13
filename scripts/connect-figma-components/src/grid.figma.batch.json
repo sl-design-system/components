@@ -1,0 +1,11 @@
+[
+  {
+    "templateFile": "./grid.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=4584-599514",
+        "id": "grid"
+      }
+    ]
+  }
+]

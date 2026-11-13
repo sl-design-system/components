@@ -91,6 +91,7 @@ sl-indent-guides {
 
   [role='gridcell'] {
     /* pointer-events: none; */
+    cursor: default;
 
     &:active,
     &:hover {

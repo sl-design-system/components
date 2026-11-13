@@ -42,8 +42,25 @@ export const allModes = {
   'sanoma-utbildning': {
     theme: 'sanoma-utbildning'
   },
-  'sl-ecosystem': {
-    theme: 'sl-ecosystem'
+  'sl-ecosystem-blue': {
+    theme: 'sl-ecosystem',
+    subtheme: 'blue'
+  },
+  'sl-ecosystem-green': {
+    theme: 'sl-ecosystem',
+    subtheme: 'green'
+  },
+  'sl-ecosystem-orange': {
+    theme: 'sl-ecosystem',
+    subtheme: 'orange'
+  },
+  'sl-ecosystem-purple': {
+    theme: 'sl-ecosystem',
+    subtheme: 'purple'
+  },
+  'sl-ecosystem-teal': {
+    theme: 'sl-ecosystem',
+    subtheme: 'teal'
   },
   teas: {
     theme: 'teas'

@@ -66,6 +66,24 @@ const preview: Preview = {
       });
 
       return story();
+    },
+    (story, { globals }) => {
+      const { theme = 'sanoma-learning', subtheme } = globals as {
+          theme?: string;
+          subtheme?: string;
+        },
+        body = document.body;
+
+      body
+        .getAttributeNames()
+        .filter(name => name.endsWith('-subthemes'))
+        .forEach(name => body.removeAttribute(name));
+
+      if (subtheme && themes.find(({ id }) => id === theme)?.subthemes?.includes(subtheme)) {
+        body.setAttribute(`data-${theme}-subthemes`, subtheme);
+      }
+
+      return story();
     }
   ],
   loaders: [
@@ -73,6 +91,17 @@ const preview: Preview = {
       await updateTheme(theme);
     }
   ],
+  globalTypes: {
+    subtheme: {
+      name: 'Subtheme',
+      description: 'Subtheme of the current theme',
+      subthemes: Object.fromEntries(
+        themes
+          .filter(({ subthemes }) => subthemes?.length)
+          .map(({ id, subthemes }) => [id, subthemes])
+      )
+    }
+  },
   parameters: {
     pseudo: {
       hover: '.sb-fake-hover *',

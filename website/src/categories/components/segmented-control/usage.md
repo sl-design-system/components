@@ -145,6 +145,8 @@ Sets what each control shows.
   * it isn't placed under tabs, and
   * it isn't next to a primary button.
 
+  Bold emphasis can be also used in applications targeting younger users.
+
 </section>
 
 <section>
@@ -160,10 +162,8 @@ Sets what each control shows.
 
 ## Width
 
-...
-
-* **Hug** (default): ...
-* **Fill**: ...
+* **Hug** (default): width of each control is set by the control with longest content
+* **Fill**: component fills the width of its parent container. use to put more visual emphasis on the component, or to fit it better within page layout.
 
 </section>
 

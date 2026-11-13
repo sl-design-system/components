@@ -260,7 +260,8 @@ caption {
 }
 
 thead,
-tbody {
+tbody,
+tfoot {
   box-sizing: border-box;
 }
 

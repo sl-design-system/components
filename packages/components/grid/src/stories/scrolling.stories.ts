@@ -3,7 +3,7 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer } from './story-utils.js';
+import { avatarRenderer, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -198,6 +198,77 @@ export const BothSticky: Story = {
   `
 };
 
+export const BothStickySummaryRow: Story = {
+  render: (_, { loaded: { students } }) => {
+    // The example students have no numeric or boolean values, so add some deterministic ones
+    const rows = (students as Student[]).map((student, index) => ({
+      ...student,
+      absences: (index * 3) % 7,
+      grade: 4 + ((index * 7) % 12) / 2,
+      homework: index % 3 !== 0,
+      present: index % 5 !== 0
+    }));
+
+    return html`
+      <p>
+        This example combines a sticky header, sticky columns and a summary row in a large grid that
+        scrolls both horizontally and vertically. The summary row sticks to the bottom of the
+        viewport, and its cells in the sticky columns stay in place when you scroll horizontally.
+        The number columns show an average and a sum, the boolean columns a fraction.
+      </p>
+      <style>
+        .container {
+          contain: inline-size;
+        }
+      </style>
+      <div class="container">
+        <sl-grid .items=${rows} row-action="activate">
+          <sl-grid-selection-column sticky></sl-grid-selection-column>
+          <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
+          <sl-grid-column path="group.name" sticky></sl-grid-column>
+          <sl-grid-column
+            grow="3"
+            header="Student"
+            path="fullName"
+            summary-label="students"
+            summary-menu
+            summary-type="text"
+            .renderer=${avatarRenderer}
+            .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            summary-format="average"
+            summary-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Absences"
+            path="absences"
+            summary-type="number"></sl-grid-column>
+          <sl-grid-column
+            header="Homework"
+            path="homework"
+            summary-type="boolean"
+            .renderer=${(row: { homework: boolean }) => (row.homework ? 'Yes' : 'No')}>
+          </sl-grid-column>
+          <sl-grid-column
+            header="Present"
+            path="present"
+            summary-type="boolean"
+            .renderer=${(row: { present: boolean }) => (row.present ? 'Yes' : 'No')}>
+          </sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+          <sl-grid-column path="school.name"></sl-grid-column>
+          <sl-grid-column path="school.address"></sl-grid-column>
+          <sl-grid-column path="school.city"></sl-grid-column>
+          <sl-grid-column path="school.country" sticky summary-type="text"></sl-grid-column>
+        </sl-grid>
+      </div>
+    `;
+  }
+};
+
 export const Horizontal: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>
@@ -225,6 +296,111 @@ export const Horizontal: Story = {
       <sl-grid-column path="school.address"></sl-grid-column>
       <sl-grid-column path="school.city"></sl-grid-column>
       <sl-grid-column path="school.country"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const VerticalOverflowSummaryRow: Story = {
+  render: () => html`
+    <p>
+      This example shows a summary row in a grid with a scrollable container. The header sticks to
+      the top and the summary row sticks to the bottom of the scroll container, so the totals are
+      always visible while you scroll through the rows.
+    </p>
+    <style>
+      sl-grid {
+        block-size: 320px;
+        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+        border-radius: var(--sl-size-borderRadius-default);
+        overflow-y: auto;
+      }
+    </style>
+    <sl-grid .items=${pupils} no-border>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-type="text"></sl-grid-column>
+      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-format="average"
+        summary-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const VerticalOverflowSummaryRowTop: Story = {
+  render: () => html`
+    <p>
+      This example shows a summary row at the top of a scrollable grid. It sticks below the header,
+      so the totals stay visible while you scroll through the rows.
+    </p>
+    <style>
+      sl-grid {
+        block-size: 320px;
+        border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+        border-radius: var(--sl-size-borderRadius-default);
+        overflow-y: auto;
+      }
+    </style>
+    <sl-grid summary-position="top" .items=${pupils} no-border>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        summary-label="students"
+        summary-type="text"></sl-grid-column>
+      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        summary-format="average"
+        summary-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const HorizontalSummaryRow: Story = {
+  render: () => html`
+    <p>
+      This example shows a summary row in a grid that scrolls both horizontally and vertically. The
+      first and last columns are sticky, and the summary cells in those columns stay in place as
+      well.
+    </p>
+    <sl-grid .items=${pupils} style="inline-size: 480px; block-size: 320px; overflow-y: auto">
+      <sl-grid-column
+        grow="0"
+        header="Student"
+        path="name"
+        sticky
+        summary-label="students"
+        summary-type="text"
+        width="200"></sl-grid-column>
+      <sl-grid-column grow="0" header="Class" path="class" width="200"></sl-grid-column>
+      <sl-grid-column
+        grow="0"
+        header="Homework"
+        path="homework"
+        summary-type="boolean"
+        width="200"></sl-grid-column>
+      <sl-grid-column
+        grow="0"
+        header="Present"
+        path="present"
+        summary-type="boolean"
+        width="200"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        grow="0"
+        header="Grade"
+        path="grade"
+        sticky
+        summary-format="average"
+        summary-type="number"
+        width="120"></sl-grid-column>
     </sl-grid>
   `
 };

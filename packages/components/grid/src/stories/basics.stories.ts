@@ -821,6 +821,8 @@ export const SummaryRowPageTotal: Story = {
       <div class="pagination">
         <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
         <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size .dataSource=${ds} .pageSizes=${[5, 10, 20]}>
+        </sl-paginator-page-size>
       </div>
     `;
   }

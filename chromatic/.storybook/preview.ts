@@ -67,6 +67,11 @@ const preview: Preview = {
 
       return story();
     },
+    (story, { globals: { userGroup = 'superuser' } }) => {
+      document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
+
+      return story();
+    },
     (story, { globals }) => {
       const { theme = 'sanoma-learning', subtheme } = globals as {
           theme?: string;
@@ -100,6 +105,20 @@ const preview: Preview = {
           .filter(({ subthemes }) => subthemes?.length)
           .map(({ id, subthemes }) => [id, subthemes])
       )
+    },
+    userGroup: {
+      name: 'Target Group',
+      defaultValue: 'superuser',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'users',
+        items: [
+          { value: 'early', title: 'Early (Draft)' },
+          { value: 'developing', title: 'Developing (Draft)' },
+          { value: 'advanced', title: 'Advanced (Draft)' },
+          { value: 'superuser', title: 'Superuser' }
+        ]
+      }
     }
   },
   parameters: {

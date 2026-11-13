@@ -49,7 +49,7 @@ sl-button {
 table {
   block-size: 100%;
   border-collapse: separate;
-  border-spacing: var(--sl-size-100);
+  border-spacing: 0 var(--sl-size-100);
   box-sizing: content-box;
   inline-size: 100%;
   margin: 0;
@@ -78,6 +78,7 @@ button {
   display: inline-flex;
   font: inherit;
   inline-size: 100%;
+  max-inline-size: 90px;
   outline: none;
   padding: var(--sl-size-050);
   place-items: center;
@@ -113,10 +114,10 @@ button {
     display: flex;
     flex: 1;
     justify-content: center;
-    min-block-size: var(--sl-size-600);
+    min-block-size: var(--sl-size-500);
     min-inline-size: 0;
     outline: transparent solid var(--sl-size-outlineWidth-default);
-    outline-offset: var(--sl-size-outlineOffset-default);
+    outline-offset: calc(var(--sl-size-050) - var(--sl-size-outlineWidth-default));
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
       calc(var(--sl-size-075) - var(--sl-size-borderWidth-action));
 

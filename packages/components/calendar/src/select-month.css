@@ -110,6 +110,7 @@ button {
   display: inline-flex;
   font: inherit;
   inline-size: 100%;
+  max-inline-size: 92px;
   outline: none;
   padding: var(--sl-size-050);
   place-items: center;
@@ -144,10 +145,10 @@ button {
     box-sizing: border-box;
     display: block;
     flex: 1;
-    min-block-size: var(--sl-size-600);
+    min-block-size: var(--sl-size-500);
     min-inline-size: 0;
     outline: transparent solid var(--sl-size-outlineWidth-default);
-    outline-offset: var(--sl-size-outlineOffset-default);
+    outline-offset: calc(var(--sl-size-050) - var(--sl-size-outlineWidth-default));
     overflow: hidden;
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
       calc(var(--sl-size-025) - var(--sl-size-borderWidth-action));

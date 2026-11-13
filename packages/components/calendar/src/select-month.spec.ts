@@ -60,22 +60,21 @@ describe('sl-select-month', () => {
       expect(el.selected).to.be.undefined;
     });
 
-    it('should fill equal-width month tiles with a 48px selection background', async () => {
+    it('should give short and long month labels equal selection backgrounds', async () => {
       el.style.inlineSize = '320px';
-      el.selected = new Date(currentYear, 0, 1);
+      el.locale = 'en';
+      el.range = [new Date(currentYear, 4, 1), new Date(currentYear, 8, 1)];
       await el.updateComplete;
 
-      const selected = el.renderRoot.querySelector<HTMLButtonElement>('button.selected')!,
-        selectedLabel = selected.querySelector('span')!,
-        otherLabel = el.renderRoot.querySelector<HTMLSpanElement>('td:last-child button span')!,
-        selectedBounds = selectedLabel.getBoundingClientRect(),
-        otherBounds = otherLabel.getBoundingClientRect(),
-        buttonBounds = selected.getBoundingClientRect();
+      const may = el.buttons[4].querySelector('span')!.getBoundingClientRect(),
+        september = el.buttons[8].querySelector('span')!.getBoundingClientRect();
 
-      expect(selectedBounds.height).to.equal(48);
-      expect(selectedBounds.width).to.be.closeTo(otherBounds.width, 0.1);
-      expect(selectedBounds.width).to.be.closeTo(buttonBounds.width - 8, 0.1);
-      expect(selectedBounds.width).to.be.greaterThan(60);
+      expect(el.buttons[4]).to.have.attribute('aria-pressed', 'true');
+      expect(el.buttons[8]).to.have.attribute('aria-pressed', 'true');
+      expect(may.height).to.equal(40);
+      expect(september.height).to.equal(may.height);
+      expect(may.width).to.equal(84);
+      expect(september.width).to.equal(may.width);
     });
 
     it('should truncate long German month names in narrow tiles while keeping full accessible names', async () => {

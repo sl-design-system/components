@@ -4,32 +4,18 @@
 '@sl-design-system/locales': patch
 ---
 
-Keep calendar navigation and year controls stationary across localized month names. Reserve space for the longest month name and align day, month and year headers using consistent grid spacing.
+Improve calendar layout, date range selection, and keyboard navigation.
 
-Keep localized calendars within narrow containers, align date cells and week numbers with weekday headings, and refresh header sizing when date constraints change.
+Layout and styling
 
-Reserve a stable year control width for proportional digits and reduce header spacing on narrow screens to keep full month names visible.
+- Keep the header and navigation controls aligned across views and stable as localized labels, fonts, and date constraints change.
+- Align the weekday headers, day cells, and week numbers. Keep six week rows and end the week number separator at the last visible week.
+- Use a 24px gap between months and align the second month heading with its grid. Adjust the date field picker padding to match the calendar.
+- Align range backgrounds with day tiles and blend the hover state into the range preview.
+- Use equal-width highlights with a 40px height inside 48px month and year tiles. Truncate long month labels when space is limited.
 
-Align month and year selector headers with the day view and preserve measured header widths when switching views so navigation buttons stay in place.
+Selection and navigation
 
-Resolve header spacing tokens to pixels before measuring so relative CSS units do not shrink the reserved header width.
-
-Match range and hover preview backgrounds to the Figma design, align range row edges with day tiles, and align the second month header with its calendar grid. Preserve the height of all six week rows and match week number column spacing and picker panel padding to the design.
-
-Preserve font longhands when measuring calendar headers so non-default numeric variants do not truncate month names or reuse stale font measurements.
-
-Use a 24px gap between calendar months and show 20 years in five columns when two months are visible. Keep year paging, keyboard navigation, accessible labels and responsive layouts consistent with the visible grid.
-
-Preserve the browsed year range and focused year when responsive resizing changes the year grid between 12 and 20 years. Recenter only when the calendar year is explicitly changed.
-
-Reserve header label widths with hidden CSS grid samples instead of measuring each month and year string in JavaScript. Labels inherit the control font directly, including numeric variants.
-
-Stop the week number separator at the last visible week while preserving the space reserved for empty week rows.
-
-Show two complete month grids for consecutive years in the two-month range layout, with a 24px gap, year labels, keyboard navigation and responsive switching back to one year. Preserve the focused month when resizing.
-
-Highlight all months and years overlapping the selected date range in the month and year selectors, including accessible pressed states. Reserve stable header space in control containers while keeping short month buttons at their natural width and aligning their labels to the start.
-
-Expand month and year selection backgrounds across equal-width grid cells with a 48px minimum height, keeping the existing theme colors and focus spacing.
-
-Truncate long month labels in narrow selector tiles while preserving full accessible names. Keep selectable months and years visible when collapsing a browsed range with focus on the header.
+- Show two years of months and 20 years in the expanded view. Adjust paging, keyboard navigation, and accessible navigation labels to match.
+- Preserve the browsed month or year and keyboard focus when resizing. Keep selectable dates visible when the previous view overlaps the minimum date.
+- Highlight months and years that overlap the selected range and expose their pressed states. Keep full accessible names for truncated month labels.

@@ -54,7 +54,7 @@ describe('sl-select-year', () => {
       expect(el.selected).to.be.undefined;
     });
 
-    it('should fill equal-width year tiles with a 48px selection background', async () => {
+    it('should fill equal-width year tiles with a 40px selection background', async () => {
       el.style.inlineSize = '320px';
       el.selected = new Date(currentYear, 0, 1);
       await el.updateComplete;
@@ -66,10 +66,11 @@ describe('sl-select-year', () => {
         otherBounds = otherLabel.getBoundingClientRect(),
         buttonBounds = selected.getBoundingClientRect();
 
-      expect(selectedBounds.height).to.equal(48);
+      expect(buttonBounds.height).to.equal(48);
+      expect(selectedBounds.height).to.equal(40);
       expect(selectedBounds.width).to.be.closeTo(otherBounds.width, 0.1);
       expect(selectedBounds.width).to.be.closeTo(buttonBounds.width - 8, 0.1);
-      expect(selectedBounds.width).to.be.greaterThan(60);
+      expect(selectedBounds.width).to.equal(82);
     });
 
     it('should show the selected year when set', async () => {

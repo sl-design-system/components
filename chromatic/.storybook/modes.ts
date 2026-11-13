@@ -44,23 +44,28 @@ export const allModes = {
   },
   'sl-ecosystem-blue': {
     theme: 'sl-ecosystem',
-    subtheme: 'blue'
+    subtheme: 'blue',
+    userGroup: 'superuser'
   },
   'sl-ecosystem-green': {
     theme: 'sl-ecosystem',
-    subtheme: 'green'
+    subtheme: 'green',
+    userGroup: 'superuser'
   },
   'sl-ecosystem-orange': {
     theme: 'sl-ecosystem',
-    subtheme: 'orange'
+    subtheme: 'orange',
+    userGroup: 'superuser'
   },
   'sl-ecosystem-purple': {
     theme: 'sl-ecosystem',
-    subtheme: 'purple'
+    subtheme: 'purple',
+    userGroup: 'superuser'
   },
   'sl-ecosystem-teal': {
     theme: 'sl-ecosystem',
-    subtheme: 'teal'
+    subtheme: 'teal',
+    userGroup: 'superuser'
   },
   teas: {
     theme: 'teas'
@@ -69,3 +74,19 @@ export const allModes = {
     theme: 'tig'
   }
 };
+
+const subthemes = ['blue', 'green', 'orange', 'purple', 'teal'],
+  userGroups = ['early', 'developing', 'advanced', 'superuser'];
+
+export const ecosystemMatrixModes = Object.fromEntries(
+  subthemes.flatMap(subtheme =>
+    userGroups.map(userGroup => [
+      `sl-ecosystem-${subtheme}-${userGroup}`,
+      {
+        theme: 'sl-ecosystem',
+        subtheme,
+        userGroup
+      }
+    ])
+  )
+);

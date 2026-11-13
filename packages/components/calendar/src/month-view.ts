@@ -7,7 +7,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
-import { isDateInList, isSameDate } from '@sl-design-system/shared/date.js';
+import { isDateInList, isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -750,6 +750,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
   #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
+    const normalizedMin = this.min ? normalizeDateTime(this.min) : undefined,
+      normalizedMax = this.max ? normalizeDateTime(this.max) : undefined;
+
     const findEnabledSameWeekday = (current: Date): Date | undefined => {
       const possibleDay = new Date(
         current.getFullYear(),
@@ -757,7 +760,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         current.getDate() + DAYS_IN_WEEK * direction
       );
 
-      if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
+      if (
+        (normalizedMin && possibleDay < normalizedMin) ||
+        (normalizedMax && possibleDay > normalizedMax)
+      ) {
         return undefined;
       }
 

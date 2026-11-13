@@ -8,7 +8,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
-import { isSameDate } from '@sl-design-system/shared/date.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import {
   type SlChangeEvent,
   type SlSelectEvent,
@@ -173,17 +173,17 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month = this.selected;
+      this.month = normalizeDateTime(this.selected);
     } else if (
       (changes.has('range') || (changes.has('mode') && this.mode === 'range')) &&
       this.range?.length &&
       this.mode === 'range' &&
       !this.#rangeChangedInternally
     ) {
-      this.month = this.#normalizeRange(this.range)[0];
+      this.month = normalizeDateTime(this.#normalizeRange(this.range)[0]);
     } else {
       // Otherwise default to the current month.
-      this.month ??= new Date();
+      this.month ??= normalizeDateTime(new Date());
     }
 
     this.#rangeChangedInternally = false;

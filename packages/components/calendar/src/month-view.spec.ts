@@ -533,6 +533,23 @@ describe('sl-month-view', () => {
         5, 6, 7, 8, 9
       ]);
     });
+
+    it('should keep min and max dates selectable regardless of time components on month, min, or max', async () => {
+      el.month = new Date(2027, 6, 1, 12, 30);
+      el.min = new Date(2027, 6, 1, 18, 45);
+      el.max = new Date(2027, 6, 31, 0, 0);
+      await el.updateComplete;
+
+      const currentMonthButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>(
+          'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+        )
+      );
+
+      expect(currentMonthButtons).to.have.length(31);
+      expect(currentMonthButtons.at(0)?.disabled).to.be.false;
+      expect(currentMonthButtons.at(-1)?.disabled).to.be.false;
+    });
   });
 
   describe('disabled dates', () => {

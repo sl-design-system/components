@@ -54,12 +54,14 @@ export interface FlatDataNode {
   level: number;
   name: string;
   badge?: string;
+  disabled?: boolean;
 }
 
 export interface NestedDataNode {
   id: number;
   name: string;
   description?: string;
+  disabled?: boolean;
   children?: NestedDataNode[];
 }
 
@@ -197,6 +199,14 @@ export const flatData: FlatDataNode[] = [
     level: 3,
     name: 'M1A',
     badge: '27'
+  },
+  {
+    id: 13,
+    expandable: false,
+    level: 3,
+    name: 'M1B',
+    badge: '23',
+    disabled: true
   }
 ];
 
@@ -283,7 +293,11 @@ export const nestedData: NestedDataNode[] = [
             name: 'Spanish',
             children: [
               { id: 18, name: 'Basic Greetings', description: 'Everyday words and phrases' },
-              { id: 19, name: 'Verb Conjugation', description: 'Present tense regular verbs' }
+              {
+                id: 19,
+                name: 'Verb Conjugation',
+                description: 'Present tense regular verbs'
+              }
             ]
           }
         ]
@@ -364,6 +378,7 @@ export const Basic: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
@@ -378,6 +393,7 @@ export const Badges: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
@@ -652,6 +668,7 @@ export const Selectable: Story = {
       isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
       // Only the parent nodes are selectable, the leaf nodes are not.
       isSelectable: ({ children }) => !!children,
+      isDisabled: ({ name }) => ['Spanish'].includes(name),
       multiple: true
     }),
     renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {

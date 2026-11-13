@@ -8,6 +8,7 @@ import {
 type TestItem = {
   id: number | string;
   name: string;
+  disabled?: boolean;
   expanded?: boolean;
   selectable?: boolean;
   selected?: boolean;
@@ -49,6 +50,27 @@ describe('NestedTreeDataSource', () => {
 
     it('should have the correct size', () => {
       expect(ds.size).to.equal(3);
+    });
+
+    it('should enable nodes by default', () => {
+      expect(ds.items.every(node => node.disabled === false)).to.be.true;
+    });
+
+    it('should map the disabled state of child nodes', () => {
+      const source = new NestedTreeDataSource(
+        [{ id: 1, disabled: false, children: [{ id: 2, disabled: true }] }],
+        {
+          getChildren: item => ('children' in item ? item.children : undefined),
+          getId: ({ id }) => id,
+          getLabel: ({ id }) => String(id),
+          isDisabled: ({ disabled }) => disabled,
+          isExpandable: item => 'children' in item,
+          isExpanded: () => true
+        }
+      );
+      source.update();
+
+      expect(source.items.map(node => node.disabled)).to.deep.equal([false, true]);
     });
 
     it('should have the correct number of items', () => {
@@ -272,7 +294,7 @@ describe('NestedTreeDataSource', () => {
       loadChildrenSpy = spy((node: TestItem) => {
         if (node.id === 1) {
           return Promise.resolve([
-            { id: 11, name: 'Child 1.1' },
+            { id: 11, name: 'Child 1.1', disabled: true },
             { id: 12, name: 'Child 1.2' }
           ]);
         } else if (node.id === 2) {
@@ -302,6 +324,7 @@ describe('NestedTreeDataSource', () => {
           isExpanded: ({ expanded }) => expanded ?? false,
           isSelected: ({ selected }) => selected ?? false,
           loadChildren: loadChildrenSpy as (node: TestItem) => Promise<TestItem[]>,
+          isDisabled: ({ disabled }) => !!disabled,
           multiple: true
         }
       );
@@ -343,6 +366,47 @@ describe('NestedTreeDataSource', () => {
       expect(parentNode.childrenLoading).to.be.undefined;
       expect(ds.items).to.have.length(5);
     });
+
+    it('should map the disabled state of lazy-loaded children', async () => {
+      const parentNode = ds.items[0];
+
+      ds.expand(parentNode);
+      await parentNode.childrenLoading;
+
+      expect(parentNode.disabled).to.be.false;
+      expect(parentNode.children?.map(child => child.disabled)).to.deep.equal([true, false]);
+      expect(ds.items.find(node => node.id === 11)?.disabled).to.be.true;
+    });
+
+    it.each([false, true])(
+      'should preserve disabled lazy-loaded selection=%s under a selected parent',
+      async selected => {
+        ds = new NestedTreeDataSource<TestItem>([{ id: 1, name: 'Parent' }], {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ id }) => id === 1,
+          isDisabled: ({ disabled }) => !!disabled,
+          isSelected: ({ selected }) => !!selected,
+          loadChildren: () =>
+            Promise.resolve([
+              { id: 11, name: 'Disabled', disabled: true, selected },
+              { id: 12, name: 'Enabled' }
+            ]),
+          multiple: true
+        });
+        ds.select(ds.nodes[0]);
+        ds.expand(ds.nodes[0]);
+        await ds.nodes[0].childrenLoading;
+
+        const [disabled, enabled] = ds.nodes[0].children!;
+
+        expect(disabled.selected).to.equal(selected);
+        expect(ds.selection.has(disabled)).to.equal(selected);
+        expect(enabled.selected).to.be.true;
+        expect(ds.selection.has(enabled)).to.be.true;
+      }
+    );
 
     it('should not call loadChildren again if children are already loaded', async () => {
       const parentNode = ds.items[0];
@@ -428,7 +492,7 @@ describe('NestedTreeDataSource', () => {
       expect(parentNode.childrenLoading).to.be.instanceof(Promise);
     });
 
-    it('should select all lazy loaded children when parent is already selected', async () => {
+    it('should select enabled lazy-loaded children when parent is already selected', async () => {
       const parentNode = ds.items[0];
 
       // Select the parent node before expanding
@@ -446,13 +510,10 @@ describe('NestedTreeDataSource', () => {
       const children = parentNode.children!;
       expect(children).to.have.length(2);
 
-      // When a selected parent is expanded and lazy-loads children, all children
-      // should automatically be selected to maintain consistent selection state
-      expect(children[0].selected).to.be.true; // Child 1.1 should be selected
-      expect(children[1].selected).to.be.true; // Child 1.2 should also be selected
+      expect(children[0].selected).to.be.false;
+      expect(children[1].selected).to.be.true;
 
-      // All children should be in the selection
-      expect(ds.selection.has(children[0])).to.be.true;
+      expect(ds.selection.has(children[0])).to.be.false;
       expect(ds.selection.has(children[1])).to.be.true;
     });
   });

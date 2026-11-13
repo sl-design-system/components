@@ -32,6 +32,7 @@ describe('sl-tree-node', () => {
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
       expect(el.disabled).to.not.be.true;
     });
 
@@ -40,6 +41,20 @@ describe('sl-tree-node', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should remove aria-disabled when enabled again', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-disabled', 'true');
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
     });
 
     it('should not be expandable', () => {
@@ -352,6 +367,58 @@ describe('sl-tree-node', () => {
       expect(onChange).to.have.been.calledTwice;
       expect(onChange.lastCall.firstArg).to.not.be.true;
     });
+  });
+
+  describe.each([false, true])('disabled with multiple=%s', multiple => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node disabled selectable ?multiple=${multiple}>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+
+    it('should not select or emit selection events when node is disabled', async () => {
+      const onSelect = spy(),
+        onChange = spy();
+
+      el.addEventListener('sl-select', onSelect);
+      el.addEventListener('sl-change', onChange);
+
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+      expect(el).to.have.attribute('aria-selected', 'false');
+      expect(onSelect).not.to.have.been.called;
+      expect(onChange).not.to.have.been.called;
+      if (multiple) {
+        expect(el.renderRoot.querySelector('sl-checkbox')).not.to.have.property('checked', true);
+      }
+    });
+
+    it.each(['{Enter}', '{Space}'])(
+      'should not select or emit selection events when pressing %s',
+      async key => {
+        const onSelect = spy(),
+          onChange = spy();
+
+        el.addEventListener('sl-select', onSelect);
+        el.addEventListener('sl-change', onChange);
+        el.focus();
+
+        await userEvent.keyboard(key);
+        await el.updateComplete;
+
+        expect(el.selected).not.to.be.true;
+        expect(el).to.have.attribute('aria-selected', 'false');
+        expect(onSelect).not.to.have.been.called;
+        expect(onChange).not.to.have.been.called;
+        if (multiple) {
+          expect(el.renderRoot.querySelector('sl-checkbox')).not.to.have.property('checked', true);
+        }
+      }
+    );
   });
 
   describe('not selectable', () => {

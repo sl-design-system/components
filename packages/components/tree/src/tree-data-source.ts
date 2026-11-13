@@ -16,6 +16,7 @@ export interface TreeDataSourceNode<T> {
   childrenLoading?: Promise<void>;
   dataNode: T;
   description?: string;
+  disabled?: boolean;
   expandable: boolean;
   expanded: boolean;
   expandedIcon?: string;
@@ -53,6 +54,9 @@ export interface TreeDataSourceMapping<T> {
    * component.
    */
   getLabel(item: T): string;
+
+  /** Returns whether the given node is disabled. Nodes are enabled by default. */
+  isDisabled?(item: T): boolean;
 
   /** Returns whether the given node is expandable. */
   isExpandable(item: T): boolean;
@@ -299,7 +303,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Select all selectable children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
-          if (node.selectable !== false) {
+          if (node.selectable !== false && !node.disabled) {
             node.indeterminate = false;
             node.selected = true;
             this.#selection.add(node);
@@ -335,8 +339,10 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Deselect all children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
-          node.indeterminate = node.selected = false;
-          this.#selection.delete(node);
+          if (!node.disabled) {
+            node.indeterminate = node.selected = false;
+            this.#selection.delete(node);
+          }
 
           if (node.expandable) {
             (node.children || []).forEach(traverse);
@@ -362,7 +368,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Selects all selectable nodes in the tree. */
   selectAll(): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      if (node.selectable !== false) {
+      if (node.selectable !== false && !node.disabled) {
         node.indeterminate = false;
         node.selected = true;
         this.#selection.add(node);
@@ -381,8 +387,10 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Deselects all nodes in the tree. */
   deselectAll(): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      node.indeterminate = node.selected = false;
-      this.#selection.delete(node);
+      if (!node.disabled) {
+        node.indeterminate = node.selected = false;
+        this.#selection.delete(node);
+      }
 
       if (node.expandable) {
         (node.children || []).forEach(traverse);
@@ -596,6 +604,16 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Update the selected and indeterminate state of the given parent node. */
   #updateParent(node: TreeDataSourceNode<T>): void {
     if (!node.children) {
+      return;
+    }
+
+    if (node.disabled) {
+      if (node.selected) {
+        this.#selection.add(node);
+      } else {
+        this.#selection.delete(node);
+      }
+
       return;
     }
 

@@ -166,6 +166,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
      * Virtualizer.
      */
     this.setAttribute('role', 'row');
+    this.#syncAriaDisabled();
 
     if (this.selectable) {
       this.setAttribute('aria-selected', Boolean(this.selected).toString());
@@ -185,6 +186,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       } else {
         this.removeAttribute('aria-expanded');
       }
+    }
+
+    if (changes.has('disabled')) {
+      this.#syncAriaDisabled();
     }
 
     if (changes.has('indeterminate') || changes.has('selectable') || changes.has('selected')) {
@@ -240,6 +245,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       @sl-change=${this.#onChange}
                       ?checked=${this.selected}
                       ?indeterminate=${this.indeterminate}
+                      ?disabled=${this.disabled}
                       exportparts="label"
                       part="checkbox"
                       size="sm">
@@ -278,6 +284,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     this.toggleEvent.emit(this.expanded);
   }
 
+  #syncAriaDisabled(): void {
+    if (this.disabled) {
+      this.setAttribute('aria-disabled', 'true');
+    } else {
+      this.removeAttribute('aria-disabled');
+    }
+  }
+
   #onChange(event: SlChangeEvent<boolean>): void {
     event.preventDefault();
     event.stopPropagation();
@@ -299,7 +313,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
-    if (insideWrapper && this.selectable) {
+    if (insideWrapper && this.selectable && !this.disabled) {
       event.preventDefault();
 
       this.selected = !this.selected;
@@ -320,7 +334,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
 
-      if (!this.selectable) {
+      if (!this.selectable || this.disabled) {
         return;
       }
 

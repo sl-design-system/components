@@ -130,7 +130,11 @@ export class Card extends ScopedElementsMixin(LitElement) {
       <figure><slot name="media" @slotchange=${this.#setMedia}></slot></figure>
       <div class="content">
         <div class="header">
-          <slot class="title md" @slotchange=${this.#setTitle}></slot>
+          <slot
+            class="title md"
+            @slotchange=${this.#setTitle}
+            @focusin=${this.#onTitleFocus}
+            @focusout=${this.#onTitleFocus}></slot>
           <slot name="header"></slot>
         </div>
         <slot name="menu-button" @slotchange=${this.#setMenuButton}></slot>
@@ -291,6 +295,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
       .find((el): el is HTMLAnchorElement => el instanceof HTMLAnchorElement);
 
     this.classList.toggle('sl-has-link', !!this.#titleLink);
+    this.classList.toggle('sl-title-focus-visible', !!this.#titleLink?.matches(':focus-visible'));
   }
 
   #setMenuButton(): void {
@@ -322,6 +327,13 @@ export class Card extends ScopedElementsMixin(LitElement) {
     }
 
     this.#titleLink.click();
+  };
+
+  #onTitleFocus = (event: FocusEvent): void => {
+    this.classList.toggle(
+      'sl-title-focus-visible',
+      event.type === 'focusin' && !!this.#titleLink?.matches(':focus-visible')
+    );
   };
 
   #shouldIgnoreClick(event: MouseEvent): boolean {

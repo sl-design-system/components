@@ -6,6 +6,7 @@ import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { type Card } from './card.js';
 import './register.js';
 
@@ -180,6 +181,65 @@ describe('<sl-card>', () => {
 
     it('should add sl-has-link class if title slot contains a link', () => {
       expect(el.classList.contains('sl-has-link')).to.be.true;
+    });
+
+    it('should toggle the focus-visible class when the title link gains and loses keyboard focus', async () => {
+      const link = el.querySelector('a')!;
+
+      await userEvent.tab();
+      link.focus();
+
+      expect(link.matches(':focus-visible')).to.be.true;
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
+
+      link.blur();
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.false;
+    });
+
+    it('should update the focus-visible class when a focused title link is replaced', async () => {
+      const link = el.querySelector('a')!,
+        titleSlot = el.shadowRoot!.querySelector('slot.title')!,
+        replacement = document.createElement('a');
+
+      await userEvent.tab();
+      link.focus();
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
+
+      const slotChanged = new Promise<void>(resolve =>
+        titleSlot.addEventListener('slotchange', () => resolve(), { once: true })
+      );
+      replacement.href = '#replacement';
+      replacement.textContent = 'Replacement';
+      link.replaceWith(replacement);
+      await slotChanged;
+
+      expect(el.classList.contains('sl-has-link')).to.be.true;
+      expect(replacement.matches(':focus-visible')).to.be.false;
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.false;
+    });
+
+    it('should retain the focus-visible class when the focused title link remains assigned', async () => {
+      const link = el.querySelector('a')!,
+        titleSlot = el.shadowRoot!.querySelector('slot.title')!;
+
+      await userEvent.tab();
+      link.focus();
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
+
+      titleSlot.dispatchEvent(new Event('slotchange'));
+
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
+    });
+
+    it('should not add the focus-visible class when the title link is clicked', async () => {
+      const link = el.querySelector('a')!;
+      link.addEventListener('click', event => event.preventDefault());
+
+      await userEvent.click(link);
+
+      expect(document.activeElement).to.equal(link);
+      expect(link.matches(':focus-visible')).to.be.false;
+      expect(el.classList.contains('sl-title-focus-visible')).to.be.false;
     });
 
     it('should remove sl-has-actions class if actions slot is empty', () => {

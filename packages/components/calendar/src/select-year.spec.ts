@@ -54,6 +54,25 @@ describe('sl-select-year', () => {
       expect(el.selected).to.be.undefined;
     });
 
+    it('should fill equal-width year tiles with a 40px selection background', async () => {
+      el.style.inlineSize = '320px';
+      el.selected = new Date(currentYear, 0, 1);
+      await el.updateComplete;
+
+      const selected = el.renderRoot.querySelector<HTMLButtonElement>('button.selected')!,
+        selectedLabel = selected.querySelector('span')!,
+        otherLabel = el.renderRoot.querySelector<HTMLSpanElement>('td:last-child button span')!,
+        selectedBounds = selectedLabel.getBoundingClientRect(),
+        otherBounds = otherLabel.getBoundingClientRect(),
+        buttonBounds = selected.getBoundingClientRect();
+
+      expect(buttonBounds.height).to.equal(48);
+      expect(selectedBounds.height).to.equal(40);
+      expect(selectedBounds.width).to.be.closeTo(otherBounds.width, 0.1);
+      expect(selectedBounds.width).to.be.closeTo(buttonBounds.width - 8, 0.1);
+      expect(selectedBounds.width).to.equal(82);
+    });
+
     it('should show the selected year when set', async () => {
       el.selected = new Date(currentYear, 0, 1);
       await el.updateComplete;
@@ -114,6 +133,70 @@ describe('sl-select-year', () => {
 
       expect(onSelect).to.have.been.calledOnce;
       expect(onSelect.lastCall.args[0]).to.equalDate(new Date(currentYear - 5, 0, 1));
+    });
+  });
+
+  describe('selected range', () => {
+    it('should highlight both boundary years and every year between them', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 5, 8), new Date(2027, 6, 22)]}></sl-select-year>
+      `);
+
+      const selected = el.renderRoot.querySelectorAll('button.selected');
+
+      expect(Array.from(selected, button => button.textContent?.trim())).to.deep.equal([
+        '2025',
+        '2026',
+        '2027'
+      ]);
+      expect(Array.from(selected, button => button.getAttribute('aria-pressed'))).to.deep.equal([
+        'true',
+        'true',
+        'true'
+      ]);
+    });
+
+    it('should highlight the same years for a reversed range', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2027, 6, 22), new Date(2025, 5, 8)]}></sl-select-year>
+      `);
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['2025', '2026', '2027']);
+    });
+
+    it('should include a year when the range ends on January first', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 11, 31, 23), new Date(2026, 0, 1)]}></sl-select-year>
+      `);
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('button.selected'), button =>
+          button.textContent?.trim()
+        )
+      ).to.deep.equal(['2025', '2026']);
+    });
+
+    it('should remove range highlighting when the range is cleared', async () => {
+      el = await fixture(html`
+        <sl-select-year
+          .year=${new Date(2026, 0, 1)}
+          .range=${[new Date(2025, 5, 8), new Date(2027, 6, 22)]}></sl-select-year>
+      `);
+      el.range = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelectorAll('button.selected')).to.have.lengthOf(0);
+      expect(el.renderRoot.querySelectorAll('button[aria-pressed="true"]')).to.have.lengthOf(0);
     });
   });
 
@@ -333,6 +416,7 @@ describe('sl-select-year', () => {
 
         // ArrowLeft on first button - should do nothing (boundary)
         await userEvent.keyboard('{ArrowLeft}');
+
         expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
 
         // ArrowRight should now work and move to second button
@@ -358,6 +442,221 @@ describe('sl-select-year', () => {
 
         expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
       });
+    });
+  });
+
+  describe('two-month layout', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-select-year number-of-months="2"></sl-select-year>`);
+    });
+
+    it('should render 20 years in four rows of five columns', () => {
+      const rows = el.renderRoot.querySelectorAll('tbody tr');
+
+      expect(el.years).to.have.lengthOf(20);
+      expect(el.years.at(0)).to.equal(currentYear - 5);
+      expect(el.years.at(-1)).to.equal(currentYear + 14);
+      expect(rows).to.have.lengthOf(4);
+      expect(Array.from(rows, row => row.children.length)).to.deep.equal([5, 5, 5, 5]);
+      expect(
+        el.renderRoot.querySelector('td[aria-rowindex="4"][aria-colindex="5"] button')
+      ).to.have.trimmed.text(String(currentYear + 14));
+    });
+
+    it('should move forward by 20 years and describe that step', async () => {
+      const next = el.renderRoot.querySelector<Button>('sl-button:last-of-type')!;
+
+      expect(next.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Go forward 20 years'
+      );
+
+      next.click();
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(currentYear + 15);
+      expect(el.years.at(-1)).to.equal(currentYear + 34);
+    });
+
+    it('should move back by 20 years and describe that step', async () => {
+      const previous = el.renderRoot.querySelector<Button>('sl-button:first-of-type')!;
+
+      expect(previous.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Go back 20 years'
+      );
+
+      previous.click();
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(currentYear - 25);
+      expect(el.years.at(-1)).to.equal(currentYear - 6);
+    });
+
+    it('should move down five years within the grid', async () => {
+      el.buttons[2].focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[7]);
+    });
+
+    it('should keep the column when ArrowUp loads the previous 20 years', async () => {
+      el.buttons[2].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(currentYear - 25);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[17]);
+    });
+
+    it('should keep the column when ArrowDown loads the next 20 years', async () => {
+      el.buttons[17].focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(currentYear + 15);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[2]);
+    });
+
+    it('should respect min and max in the expanded grid', async () => {
+      el.min = new Date(currentYear - 2, 0, 1);
+      el.max = new Date(currentYear + 2, 11, 31);
+      await el.updateComplete;
+
+      const enabled = Array.from(el.buttons).filter(button => !button.disabled),
+        firstYear = el.years[0];
+      enabled[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(enabled.map(button => button.textContent?.trim())).to.deep.equal([
+        String(currentYear - 2),
+        String(currentYear - 1),
+        String(currentYear),
+        String(currentYear + 1),
+        String(currentYear + 2)
+      ]);
+      expect(el.renderRoot.querySelector('sl-button:first-of-type')).to.match(':disabled');
+      expect(el.renderRoot.querySelector('sl-button:last-of-type')).to.match(':disabled');
+      expect(el.years[0]).to.equal(firstYear);
+      expect(el.shadowRoot?.activeElement).to.equal(enabled[0]);
+    });
+
+    it('should preserve the browsed start when collapsing after paging forward', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2041);
+      expect(el.years.at(-1)).to.equal(2052);
+
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2041);
+      expect(el.years.at(-1)).to.equal(2060);
+    });
+
+    it('should preserve the browsed start when collapsing after paging backward', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:first-of-type')!.click();
+      await el.updateComplete;
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2001);
+      expect(el.years.at(-1)).to.equal(2012);
+    });
+
+    it('should retain an enabled year when collapsing a browsed range with header focus', async () => {
+      el.year = new Date(2026, 0, 1);
+      el.min = new Date(2015, 0, 1);
+      await el.updateComplete;
+
+      const previous = el.renderRoot.querySelector<Button>('sl-button:first-of-type')!;
+      previous.click();
+      await el.updateComplete;
+      const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
+      next.focus();
+
+      expect(el.shadowRoot?.activeElement).to.equal(next);
+      expect(el.years.at(0)).to.equal(2001);
+      expect(el.years.at(-1)).to.equal(2020);
+
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years).to.have.lengthOf(12);
+      expect(el.years.at(0)).to.equal(2004);
+      expect(el.years.at(-1)).to.equal(2015);
+      expect(el.buttons[10]).to.match(':disabled');
+      expect(el.buttons[11]).not.to.match(':disabled');
+      expect(el.renderRoot.querySelector('sl-button:first-of-type')).to.match(':disabled');
+    });
+
+    it('should keep a focused year visible when it would fall outside the smaller grid', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.buttons[19].focus();
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2049);
+      expect(el.years.at(-1)).to.equal(2060);
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2060');
+
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2059');
+    });
+
+    it('should preserve focus on the same year when expanding a browsed grid', async () => {
+      el.year = new Date(2026, 0, 1);
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.buttons[7].focus();
+      el.numberOfMonths = 2;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2033);
+      expect(el.years.at(-1)).to.equal(2052);
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2040');
+
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('2045');
+    });
+
+    it('should recenter on an explicit year change even after browsing and resizing', async () => {
+      el.year = new Date(2026, 0, 1);
+      await el.updateComplete;
+      el.renderRoot.querySelector<Button>('sl-button:last-of-type')!.click();
+      await el.updateComplete;
+      el.year = new Date(2030, 0, 1);
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+
+      expect(el.years.at(0)).to.equal(2025);
+      expect(el.years.at(-1)).to.equal(2036);
+    });
+
+    it('should restore the 12-year grid when collapsing to one month', async () => {
+      el.numberOfMonths = 1;
+      await el.updateComplete;
+      el.buttons[1].focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.years).to.have.lengthOf(12);
+      expect(el.renderRoot.querySelector('tbody tr')!.children).to.have.lengthOf(3);
+      expect(el.shadowRoot?.activeElement).to.equal(el.buttons[4]);
     });
   });
 

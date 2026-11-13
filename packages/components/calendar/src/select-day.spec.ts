@@ -30,6 +30,1084 @@ describe('sl-select-day', () => {
 
   afterEach(() => vi.useRealTimers());
 
+  it('should measure rem spacing tokens in pixels with a 16px root font', async () => {
+    const rootStyle = document.documentElement.style,
+      previousFontSize = rootStyle.fontSize;
+    rootStyle.fontSize = '16px';
+    try {
+      const controlsGap = 8,
+        headerGap = 24;
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          style=${`--sl-size-100: ${controlsGap}px; --sl-size-300: ${headerGap}px`}></sl-select-day>
+      `);
+      await document.fonts.ready;
+
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const pixelHeaderSize = el.style.getPropertyValue('--_header-inline-size'),
+        pixelControlsSize = el.style.getPropertyValue('--_header-controls-inline-size');
+
+      el.style.setProperty('--sl-size-100', '0.5rem');
+      el.style.setProperty('--sl-size-300', '1.5rem');
+      // Trigger the same header measurement used when navigating the calendar.
+      el.month = new Date(2026, 8, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+
+      await vi.waitFor(() => {
+        expect(el.style.getPropertyValue('--_header-inline-size')).to.equal(pixelHeaderSize);
+        expect(el.style.getPropertyValue('--_header-controls-inline-size')).to.equal(
+          pixelControlsSize
+        );
+      });
+    } finally {
+      rootStyle.fontSize = previousFontSize;
+    }
+  });
+
+  it('should measure rem spacing tokens in pixels with a 20px root font', async () => {
+    const rootStyle = document.documentElement.style,
+      previousFontSize = rootStyle.fontSize;
+    rootStyle.fontSize = '20px';
+    try {
+      const controlsGap = 10,
+        headerGap = 30;
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          style=${`--sl-size-100: ${controlsGap}px; --sl-size-300: ${headerGap}px`}></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const pixelHeaderSize = el.style.getPropertyValue('--_header-inline-size'),
+        pixelControlsSize = el.style.getPropertyValue('--_header-controls-inline-size');
+      el.style.setProperty('--sl-size-100', '0.5rem');
+      el.style.setProperty('--sl-size-300', '1.5rem');
+      // Trigger the same header measurement used when navigating the calendar.
+      el.month = new Date(2026, 8, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      await vi.waitFor(() => {
+        expect(el.style.getPropertyValue('--_header-inline-size')).to.equal(pixelHeaderSize);
+        expect(el.style.getPropertyValue('--_header-controls-inline-size')).to.equal(
+          pixelControlsSize
+        );
+      });
+    } finally {
+      rootStyle.fontSize = previousFontSize;
+    }
+  });
+
+  const checkHeaderStability = async (locale: string, numberOfMonths: 1 | 2): Promise<void> => {
+    el = await fixture(html`
+      <sl-select-day locale=${locale} number-of-months=${numberOfMonths}></sl-select-day>
+    `);
+
+    await vi.waitFor(() => {
+      expect(el.visibleMonthCount).to.equal(numberOfMonths);
+    });
+
+    await document.fonts.ready;
+
+    await vi.waitFor(() => {
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+    });
+
+    // Font loading and child control updates can schedule a final header measurement.
+    await new Promise(requestAnimationFrame);
+
+    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
+      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
+      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
+      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
+      initialWidth = el.getBoundingClientRect().width,
+      initialYear = year.getBoundingClientRect().left,
+      initialPrevious = previous.getBoundingClientRect().left,
+      initialNext = next.getBoundingClientRect().left;
+
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2026, month, 1);
+      await el.updateComplete;
+      await Promise.all(
+        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
+          label => label.updateComplete
+        )
+      );
+
+      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
+        yearBounds = year.getBoundingClientRect(),
+        previousBounds = previous.getBoundingClientRect(),
+        nextBounds = next.getBoundingClientRect();
+      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
+
+      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
+      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
+      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
+      expect(previousBounds.left).to.equal(initialPrevious);
+      expect(nextBounds.left).to.equal(initialNext);
+      expect(
+        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
+          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
+      ).to.equal(8);
+      expect(nextBounds.left - previousBounds.right).to.equal(4);
+      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
+      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
+
+      if (numberOfMonths === 2) {
+        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
+          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
+          labelStart =
+            label.getBoundingClientRect().left +
+            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
+
+        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
+      }
+    };
+
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  };
+
+  it('should keep header controls stable across all months in en-GB with 1 visible month', async () => {
+    await checkHeaderStability('en-GB', 1);
+  });
+
+  it('should keep header controls stable across all months in en-GB with 2 visible months', async () => {
+    await checkHeaderStability('en-GB', 2);
+  });
+
+  it('should keep header controls stable across all months in nl-NL with 1 visible month', async () => {
+    await checkHeaderStability('nl-NL', 1);
+  });
+
+  it('should keep header controls stable across all months in nl-NL with 2 visible months', async () => {
+    await checkHeaderStability('nl-NL', 2);
+  });
+
+  it('should keep header controls stable across all months in pl-PL with 1 visible month', async () => {
+    await checkHeaderStability('pl-PL', 1);
+  });
+
+  it('should keep header controls stable across all months in pl-PL with 2 visible months', async () => {
+    await checkHeaderStability('pl-PL', 2);
+  });
+
+  it('should keep header controls stable across all months in de-DE with 1 visible month', async () => {
+    await checkHeaderStability('de-DE', 1);
+  });
+
+  it('should keep header controls stable across all months in de-DE with 2 visible months', async () => {
+    await checkHeaderStability('de-DE', 2);
+  });
+
+  it('should keep header controls stable across all months in fi-FI with 1 visible month', async () => {
+    await checkHeaderStability('fi-FI', 1);
+  });
+
+  it('should keep header controls stable across all months in fi-FI with 2 visible months', async () => {
+    await checkHeaderStability('fi-FI', 2);
+  });
+
+  it('should keep navigation stationary across years with 1 preferred months', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="es"
+        number-of-months="1"
+        .month=${new Date(2019, 0, 1)}
+        style="font-family: Georgia, serif; font-variant-numeric: proportional-nums"></sl-select-day>
+    `);
+    await document.fonts.ready;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    await new Promise(requestAnimationFrame);
+    const initialWidth = el.getBoundingClientRect().width,
+      previous = el.renderRoot.querySelector('.previous-month')!,
+      next = el.renderRoot.querySelector('.next-month')!,
+      previousLeft = previous.getBoundingClientRect().left,
+      nextLeft = next.getBoundingClientRect().left;
+    const checkYearNavigation = async (year: number): Promise<void> => {
+      el.month = new Date(year, 0, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+
+      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
+      expect(previous.getBoundingClientRect().left).to.equal(previousLeft);
+      expect(next.getBoundingClientRect().left).to.equal(nextLeft);
+    };
+    await checkYearNavigation(2020);
+    await checkYearNavigation(2021);
+    await checkYearNavigation(2028);
+    await checkYearNavigation(2019);
+  });
+
+  it('should keep navigation stationary across years with 2 preferred months', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="es"
+        number-of-months="2"
+        .month=${new Date(2019, 0, 1)}
+        style="font-family: Georgia, serif; font-variant-numeric: proportional-nums"></sl-select-day>
+    `);
+    await document.fonts.ready;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    await new Promise(requestAnimationFrame);
+    const initialWidth = el.getBoundingClientRect().width,
+      previous = el.renderRoot.querySelector('.previous-month')!,
+      next = el.renderRoot.querySelector('.next-month')!,
+      previousLeft = previous.getBoundingClientRect().left,
+      nextLeft = next.getBoundingClientRect().left;
+    const checkYearNavigation = async (year: number): Promise<void> => {
+      el.month = new Date(year, 0, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+
+      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
+      expect(previous.getBoundingClientRect().left).to.equal(previousLeft);
+      expect(next.getBoundingClientRect().left).to.equal(nextLeft);
+    };
+    await checkYearNavigation(2020);
+    await checkYearNavigation(2021);
+    await checkYearNavigation(2028);
+    await checkYearNavigation(2019);
+  });
+
+  it('should reserve the semibold month width when proportional digits make the font shorthand empty', async () => {
+    const container = await fixture<HTMLDivElement>(html`
+      <div>
+        <span
+          style="display: inline-block; font-family: Georgia, serif; font-size: 20px; font-weight: 600; font-variant-numeric: proportional-nums"
+          >September</span
+        >
+        <sl-select-day
+          locale="en-GB"
+          .month=${new Date(2026, 8, 1)}
+          style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await document.fonts.ready;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+    );
+
+    const button = el.renderRoot.querySelector('.current-month')!,
+      label = button.querySelector('sl-format-date')!,
+      reference = container.querySelector('span')!;
+
+    expect(getComputedStyle(button).font).to.equal('');
+    expect(label.getBoundingClientRect().width).to.be.at.least(
+      reference.getBoundingClientRect().width
+    );
+  });
+
+  it('should load the header font when its computed shorthand is empty', async () => {
+    const loadFont = vi.spyOn(document.fonts, 'load');
+
+    try {
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+      `);
+
+      await vi.waitFor(() => {
+        expect(loadFont).toHaveBeenCalledWith('normal 600 20px Georgia, serif');
+      });
+    } finally {
+      el?.remove();
+      loadFont.mockRestore();
+    }
+  });
+
+  it('should remeasure header controls when document.fonts.ready resolves after firstUpdated', async () => {
+    let resolveFonts!: (fonts: FontFaceSet) => void;
+    const pendingFonts = new Promise<FontFaceSet>(resolve => {
+        resolveFonts = resolve;
+      }),
+      fontsReady = sinon.stub(document.fonts, 'ready').get(() => pendingFonts);
+
+    try {
+      el = await fixture(html`
+        <sl-select-day locale="en-GB" .month=${new Date(2026, 8, 1)}></sl-select-day>
+      `);
+
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+      );
+
+      const initialWidth = Number.parseFloat(
+          el.style.getPropertyValue('--_month-control-inline-size')
+        ),
+        labelSizer = el.renderRoot.querySelector<HTMLElement>('.current-month .label-sizer')!;
+
+      // Simulate wider glyph metrics once the web font finishes loading without triggering Lit updates or host resize.
+      labelSizer.style.letterSpacing = '4px';
+      resolveFonts(document.fonts);
+
+      await vi.waitFor(() => {
+        expect(
+          Number.parseFloat(el.style.getPropertyValue('--_month-control-inline-size'))
+        ).to.be.greaterThan(initialWidth);
+      });
+    } finally {
+      resolveFonts(document.fonts);
+      fontsReady.restore();
+    }
+  });
+
+  it('should resize intrinsic month labels when font size changes with an empty font shorthand', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="en-GB"
+        .month=${new Date(2026, 8, 1)}
+        style="font-family: Georgia, serif; font-size: 20px; font-variant-numeric: proportional-nums"></sl-select-day>
+    `);
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_month-control-inline-size')).not.to.equal('')
+    );
+
+    await document.fonts.ready;
+    await new Promise(requestAnimationFrame);
+    await new Promise(requestAnimationFrame);
+
+    const initialWidth = Number.parseFloat(
+      el.style.getPropertyValue('--_month-control-inline-size')
+    );
+    el.style.fontSize = '24px';
+    el.month = new Date(2027, 8, 1);
+    await el.updateComplete;
+
+    await vi.waitFor(() => {
+      const button = el.renderRoot.querySelector('.current-month')!;
+
+      expect(getComputedStyle(button).font).to.equal('');
+      expect(
+        Number.parseFloat(el.style.getPropertyValue('--_month-control-inline-size'))
+      ).to.be.greaterThan(initialWidth);
+    });
+  });
+
+  it('should show full month names in a mobile date picker in en-GB', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="en-GB"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should show full month names in a mobile date picker in es', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="es"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should show full month names in a mobile date picker in nl-NL', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="nl-NL"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should show full month names in a mobile date picker in pl-PL', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="pl-PL"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should show full month names in a mobile date picker in de-DE', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="de-DE"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should show full month names in a mobile date picker in fi-FI', async () => {
+    // Leave room for the mobile dialog's padding, borders and browser margins.
+    const container = await fixture<HTMLDivElement>(html`
+      <div style="inline-size: 255px">
+        <sl-select-day
+          locale="fi-FI"
+          .month=${new Date(2024, 1, 1)}
+          style="font-family: Arial, sans-serif; font-size: 16px"></sl-select-day>
+      </div>
+    `);
+    el = container.querySelector('sl-select-day')!;
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+    const checkMonth = async (month: number): Promise<void> => {
+      el.month = new Date(2024, month, 1);
+      await el.updateComplete;
+      await new Promise(requestAnimationFrame);
+      await new Promise(requestAnimationFrame);
+      const label = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!,
+        year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+        arrows = el.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+
+      expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+      expect(year.right).to.be.at.most(arrows.left);
+      expect(arrows.right).to.be.at.most(container.getBoundingClientRect().right);
+    };
+    await checkMonth(0);
+    await checkMonth(1);
+    await checkMonth(2);
+    await checkMonth(3);
+    await checkMonth(4);
+    await checkMonth(5);
+    await checkMonth(6);
+    await checkMonth(7);
+    await checkMonth(8);
+    await checkMonth(9);
+    await checkMonth(10);
+    await checkMonth(11);
+  });
+
+  it('should align a short month label to the start of its reserved width without week numbers', async () => {
+    el = await fixture(
+      html`<sl-select-day locale="en-GB" .month=${new Date(2025, 5, 1)}></sl-select-day>`
+    );
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+
+    const label = el.renderRoot.querySelector<LitElement>('.current-month sl-format-date')!;
+    await label.updateComplete;
+    const text = document.createRange();
+    text.selectNodeContents(label.renderRoot);
+
+    expect(text.getBoundingClientRect().left).to.be.closeTo(
+      label.getBoundingClientRect().left,
+      0.5
+    );
+
+    const monthButton = el.renderRoot.querySelector('.current-month')!,
+      reserved = el.renderRoot.querySelector('.month-control')!;
+
+    expect(monthButton.getBoundingClientRect().width).to.be.lessThan(
+      reserved.getBoundingClientRect().width
+    );
+  });
+
+  it('should align a short first month label to the start of its reserved width in a two-month calendar without week numbers', async () => {
+    el = await fixture(
+      html`<sl-select-day
+        locale="en-GB"
+        number-of-months="2"
+        .month=${new Date(2027, 5, 1)}></sl-select-day>`
+    );
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+    await vi.waitFor(() =>
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+    );
+
+    const label = el.renderRoot.querySelector<LitElement>('.current-month sl-format-date')!;
+    await label.updateComplete;
+    const text = document.createRange();
+    text.selectNodeContents(label.renderRoot);
+
+    expect(text.getBoundingClientRect().left).to.be.closeTo(
+      label.getBoundingClientRect().left,
+      0.5
+    );
+
+    const monthButton = el.renderRoot.querySelector('.current-month')!,
+      reserved = el.renderRoot.querySelector('.month-control')!;
+
+    expect(monthButton.getBoundingClientRect().width).to.be.lessThan(
+      reserved.getBoundingClientRect().width
+    );
+  });
+
+  it('should keep two German months with week numbers at 0.9 CSS zoom', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="de"
+        number-of-months="2"
+        show-week-numbers
+        style="zoom: 0.9"></sl-select-day>
+    `);
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+  });
+
+  it('should keep two German months with week numbers at 1 CSS zoom', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="de"
+        number-of-months="2"
+        show-week-numbers
+        style="zoom: 1"></sl-select-day>
+    `);
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+  });
+
+  it('should keep two German months with week numbers at 1.1 CSS zoom', async () => {
+    el = await fixture(html`
+      <sl-select-day
+        locale="de"
+        number-of-months="2"
+        show-week-numbers
+        style="zoom: 1.1"></sl-select-day>
+    `);
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+  });
+
+  it('should keep a 24px gap between both month grids and their weekday headings', async () => {
+    el = await fixture(
+      html`<sl-select-day number-of-months="2" show-week-numbers></sl-select-day>`
+    );
+    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+
+    const months = el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])'),
+      headings = el.renderRoot.querySelectorAll('.days-of-week');
+
+    expect(getComputedStyle(el.scroller!).columnGap).to.equal('24px');
+    expect(
+      months[1].getBoundingClientRect().left - months[0].getBoundingClientRect().right
+    ).to.be.closeTo(24, 0.5);
+    expect(
+      headings[1].getBoundingClientRect().left - headings[0].getBoundingClientRect().right
+    ).to.be.closeTo(24, 0.5);
+  });
+
+  describe('localized layout regressions', () => {
+    it('should center dates below weekdays and connect range backgrounds in a widened month without week numbers', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="de"
+          .month=${new Date(2026, 2, 1)}
+          .range=${[new Date(2026, 2, 2), new Date(2026, 2, 6)]}
+          .rangeSelection=${true}
+          style="font-family: monospace; font-size: 20px"></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      const month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      await month.updateComplete;
+
+      await vi.waitFor(() => {
+        const headings = el.renderRoot.querySelectorAll('.day-of-week'),
+          cells = month.renderRoot.querySelectorAll(
+            'tbody tr:first-child td:not([part="week-number"])'
+          );
+
+        expect(cells).to.have.lengthOf(7);
+
+        const checkDayAlignment = (index: number, cell: Element): void => {
+          const tile = cell.querySelector('button span')!.getBoundingClientRect(),
+            heading = headings[index].getBoundingClientRect();
+
+          expect(tile.left + tile.width / 2).to.be.closeTo(heading.left + heading.width / 2, 0.5);
+        };
+        checkDayAlignment(0, cells[0]);
+        checkDayAlignment(1, cells[1]);
+        checkDayAlignment(2, cells[2]);
+        checkDayAlignment(3, cells[3]);
+        checkDayAlignment(4, cells[4]);
+        checkDayAlignment(5, cells[5]);
+        checkDayAlignment(6, cells[6]);
+        const rangeButtons = month.renderRoot.querySelectorAll<HTMLElement>(
+          'button[part~="in-range"]'
+        );
+
+        expect(rangeButtons.length).to.be.greaterThan(1);
+
+        const first = rangeButtons[0],
+          next = rangeButtons[1],
+          bridge = getComputedStyle(first, '::before'),
+          bridgeEnd =
+            first.getBoundingClientRect().left +
+            Number.parseFloat(bridge.left) +
+            Number.parseFloat(bridge.width);
+        const nextBridgeStart =
+          next.getBoundingClientRect().left +
+          Number.parseFloat(getComputedStyle(next, '::before').left);
+
+        expect(bridgeEnd).to.be.closeTo(nextBridgeStart, 0.5);
+      });
+    });
+
+    it('should fit a localized header into a narrow container with 1 preferred months without week numbers', async () => {
+      const width = 238,
+        container = await fixture<HTMLDivElement>(html`
+          <div style=${`inline-size: ${width}px`}>
+            <sl-select-day
+              locale="de"
+              number-of-months="1"
+              style="font-family: monospace; font-size: 20px"></sl-select-day>
+          </div>
+        `);
+      el = container.querySelector('sl-select-day')!;
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+      await vi.waitFor(() => {
+        const containerBounds = container.getBoundingClientRect(),
+          month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+        const checkContainerBounds = (element: Element): void => {
+          expect(element.getBoundingClientRect().right).to.be.at.most(containerBounds.right + 0.5);
+        };
+        checkContainerBounds(el.renderRoot.querySelector('header')!);
+        checkContainerBounds(el.scroller!);
+        checkContainerBounds(el.renderRoot.querySelector('.weekdays')!);
+        checkContainerBounds(month);
+
+        expect(
+          month.renderRoot.querySelector('table')!.getBoundingClientRect().right
+        ).to.be.at.most(containerBounds.right + 0.5);
+      });
+    });
+
+    it('should fit a localized header into a narrow container with 2 preferred months without week numbers', async () => {
+      const width = 238,
+        container = await fixture<HTMLDivElement>(html`
+          <div style=${`inline-size: ${width}px`}>
+            <sl-select-day
+              locale="de"
+              number-of-months="2"
+              style="font-family: monospace; font-size: 20px"></sl-select-day>
+          </div>
+        `);
+      el = container.querySelector('sl-select-day')!;
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+      await vi.waitFor(() => {
+        const containerBounds = container.getBoundingClientRect(),
+          month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+        const checkContainerBounds = (element: Element): void => {
+          expect(element.getBoundingClientRect().right).to.be.at.most(containerBounds.right + 0.5);
+        };
+        checkContainerBounds(el.renderRoot.querySelector('header')!);
+        checkContainerBounds(el.scroller!);
+        checkContainerBounds(el.renderRoot.querySelector('.weekdays')!);
+        checkContainerBounds(month);
+
+        expect(
+          month.renderRoot.querySelector('table')!.getBoundingClientRect().right
+        ).to.be.at.most(containerBounds.right + 0.5);
+      });
+    });
+
+    it('should center dates below weekdays and connect range backgrounds in a widened month with week numbers', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="de"
+          show-week-numbers
+          .month=${new Date(2026, 2, 1)}
+          .range=${[new Date(2026, 2, 2), new Date(2026, 2, 6)]}
+          .rangeSelection=${true}
+          style="font-family: monospace; font-size: 20px"></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      const month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+      await month.updateComplete;
+      await vi.waitFor(() => {
+        const headings = el.renderRoot.querySelectorAll('.day-of-week'),
+          cells = month.renderRoot.querySelectorAll(
+            'tbody tr:first-child td:not([part="week-number"])'
+          );
+
+        expect(cells).to.have.lengthOf(7);
+
+        const checkDayAlignment = (index: number, cell: Element): void => {
+          const tile = cell.querySelector('button span')!.getBoundingClientRect(),
+            heading = headings[index].getBoundingClientRect();
+
+          expect(tile.left + tile.width / 2).to.be.closeTo(heading.left + heading.width / 2, 0.5);
+        };
+        checkDayAlignment(0, cells[0]);
+        checkDayAlignment(1, cells[1]);
+        checkDayAlignment(2, cells[2]);
+        checkDayAlignment(3, cells[3]);
+        checkDayAlignment(4, cells[4]);
+        checkDayAlignment(5, cells[5]);
+        checkDayAlignment(6, cells[6]);
+        {
+          const heading = el.renderRoot.querySelector('.week-number')!.getBoundingClientRect(),
+            cell = month.renderRoot
+              .querySelector('tbody [part="week-number"]')!
+              .getBoundingClientRect();
+
+          expect(cell.right).to.be.closeTo(heading.right, 0.5);
+        }
+
+        const rangeButtons = month.renderRoot.querySelectorAll<HTMLElement>(
+          'button[part~="in-range"]'
+        );
+
+        expect(rangeButtons.length).to.be.greaterThan(1);
+
+        const first = rangeButtons[0],
+          next = rangeButtons[1],
+          bridge = getComputedStyle(first, '::before'),
+          bridgeEnd =
+            first.getBoundingClientRect().left +
+            Number.parseFloat(bridge.left) +
+            Number.parseFloat(bridge.width);
+        const nextBridgeStart =
+          next.getBoundingClientRect().left +
+          Number.parseFloat(getComputedStyle(next, '::before').left);
+
+        expect(bridgeEnd).to.be.closeTo(nextBridgeStart, 0.5);
+      });
+    });
+
+    it('should fit a localized header into a narrow container with 1 preferred months with week numbers', async () => {
+      const width = 274,
+        container = await fixture<HTMLDivElement>(html`
+          <div style=${`inline-size: ${width}px`}>
+            <sl-select-day
+              locale="de"
+              number-of-months="1"
+              show-week-numbers
+              style="font-family: monospace; font-size: 20px"></sl-select-day>
+          </div>
+        `);
+      el = container.querySelector('sl-select-day')!;
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+      await vi.waitFor(() => {
+        const containerBounds = container.getBoundingClientRect(),
+          month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+        const checkContainerBounds = (element: Element): void => {
+          expect(element.getBoundingClientRect().right).to.be.at.most(containerBounds.right + 0.5);
+        };
+        checkContainerBounds(el.renderRoot.querySelector('header')!);
+        checkContainerBounds(el.scroller!);
+        checkContainerBounds(el.renderRoot.querySelector('.weekdays')!);
+        checkContainerBounds(month);
+
+        expect(
+          month.renderRoot.querySelector('table')!.getBoundingClientRect().right
+        ).to.be.at.most(containerBounds.right + 0.5);
+      });
+    });
+
+    it('should fit a localized header into a narrow container with 2 preferred months with week numbers', async () => {
+      const width = 274,
+        container = await fixture<HTMLDivElement>(html`
+          <div style=${`inline-size: ${width}px`}>
+            <sl-select-day
+              locale="de"
+              number-of-months="2"
+              show-week-numbers
+              style="font-family: monospace; font-size: 20px"></sl-select-day>
+          </div>
+        `);
+      el = container.querySelector('sl-select-day')!;
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+      await vi.waitFor(() => {
+        const containerBounds = container.getBoundingClientRect(),
+          month = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')!;
+        const checkContainerBounds = (element: Element): void => {
+          expect(element.getBoundingClientRect().right).to.be.at.most(containerBounds.right + 0.5);
+        };
+        checkContainerBounds(el.renderRoot.querySelector('header')!);
+        checkContainerBounds(el.scroller!);
+        checkContainerBounds(el.renderRoot.querySelector('.weekdays')!);
+        checkContainerBounds(month);
+
+        expect(
+          month.renderRoot.querySelector('table')!.getBoundingClientRect().right
+        ).to.be.at.most(containerBounds.right + 0.5);
+      });
+    });
+
+    it('should truncate a static localized month label without overlapping the year', async () => {
+      const container = await fixture<HTMLDivElement>(html`
+        <div style="inline-size: 200px">
+          <sl-select-day
+            locale="de"
+            .month=${new Date(2026, 8, 1)}
+            .min=${new Date(2026, 8, 1)}
+            .max=${new Date(2026, 8, 30)}
+            style="font-family: monospace; font-size: 20px"></sl-select-day>
+        </div>
+      `);
+      el = container.querySelector('sl-select-day')!;
+      await el.updateComplete;
+      await vi.waitFor(() => {
+        const month = el.renderRoot.querySelector<HTMLElement>('span.current-month')!,
+          label = month.querySelector<HTMLElement>('sl-format-date')!,
+          year = el.renderRoot.querySelector('.current-year')!;
+
+        expect(label.scrollWidth).to.be.greaterThan(label.clientWidth);
+        expect(label.getBoundingClientRect().right).to.be.at.most(
+          year.getBoundingClientRect().left
+        );
+      });
+    });
+
+    it('should stabilize the header even when loading its font fails', async () => {
+      const loadFont = vi
+        .spyOn(document.fonts, 'load')
+        .mockRejectedValue(new Error('Font unavailable'));
+      try {
+        el = await fixture(html`
+          <sl-select-day
+            locale="en-GB"
+            .month=${new Date(2026, 2, 1)}
+            style="font-family: 'Unavailable calendar font', sans-serif"></sl-select-day>
+        `);
+        await vi.waitFor(() =>
+          expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+        );
+
+        expect(loadFont).toHaveBeenCalled();
+
+        const year = el.renderRoot.querySelector('.current-year')!,
+          next = el.renderRoot.querySelector('.next-month')!,
+          yearLeft = year.getBoundingClientRect().left,
+          nextLeft = next.getBoundingClientRect().left;
+        el.month = new Date(2026, 8, 1);
+        await el.updateComplete;
+        await Promise.all(
+          Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
+            label => label.updateComplete
+          )
+        );
+
+        expect(year.getBoundingClientRect().left).to.be.closeTo(yearLeft, 0.5);
+        expect(next.getBoundingClientRect().left).to.equal(nextLeft);
+      } finally {
+        el?.remove();
+        loadFont.mockRestore();
+      }
+    });
+
+    it('should reserve month width when constraints replace static labels with buttons', async () => {
+      el = await fixture(html`
+        <sl-select-day
+          locale="en-GB"
+          .month=${new Date(2026, 2, 1)}
+          .min=${new Date(2026, 2, 1)}
+          .max=${new Date(2026, 2, 31)}></sl-select-day>
+      `);
+      await document.fonts.ready;
+      await new Promise(requestAnimationFrame);
+
+      expect(el.renderRoot.querySelector('sl-button.current-month')).not.to.exist;
+      expect(el.style.getPropertyValue('--_header-inline-size')).to.equal('');
+
+      el.max = undefined;
+      await el.updateComplete;
+      await vi.waitFor(() =>
+        expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
+      );
+      const year = el.renderRoot.querySelector('.current-year')!.getBoundingClientRect().left;
+      el.month = new Date(2026, 8, 1);
+      await el.updateComplete;
+      await vi.waitFor(() =>
+        expect(
+          el.renderRoot.querySelector('.current-year')!.getBoundingClientRect().left
+        ).to.be.closeTo(year, 0.5)
+      );
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-day></sl-select-day>`);
@@ -53,6 +1131,7 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+
       expect(monthView).to.have.property('readonly', true);
     });
 
@@ -70,6 +1149,7 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
       expect(monthView?.selected).to.equalDate(selectedDate);
     });
 
@@ -87,6 +1167,7 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
       expect(monthView?.disabledDates).to.have.lengthOf(3);
       expect(monthView?.disabledDates?.at(0)).to.equalDate(disabledDates[0]);
       expect(monthView?.disabledDates?.at(1)).to.equalDate(disabledDates[1]);
@@ -111,6 +1192,7 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const monthView = el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])');
+
       expect(monthView?.indicatorDates).to.have.lengthOf(3);
       expect(monthView?.indicatorDates?.at(0)?.date).to.equalDate(indicatorDates[0].date);
       expect(monthView?.indicatorDates?.at(1)?.date).to.equalDate(indicatorDates[1].date);
@@ -129,6 +1211,7 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+
       expect(monthView).to.have.property('showToday', true);
     });
 
@@ -216,6 +1299,7 @@ describe('sl-select-day', () => {
         await el.updateComplete;
 
         const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
+
         expect(weekHeader).to.have.trimmed.text('wk.');
       });
 
@@ -225,6 +1309,7 @@ describe('sl-select-day', () => {
         await el.updateComplete;
 
         const weekHeader = el.renderRoot.querySelector('.days-of-week .week-number');
+
         expect(weekHeader).to.have.trimmed.text('vk');
       });
 
@@ -233,6 +1318,7 @@ describe('sl-select-day', () => {
         await el.updateComplete;
 
         const monthView = el.renderRoot.querySelector('sl-month-view:not([inert])');
+
         expect(monthView).to.have.property('showWeekNumbers', true);
       });
     });
@@ -350,35 +1436,57 @@ describe('sl-select-day', () => {
       expect(monthViews.every(monthView => monthView.hideDaysOtherMonths)).to.be.true;
     });
 
-    for (const restriction of ['min', 'disabled dates'] as const) {
-      it(`should tab into the second month when ${restriction} leaves no enabled dates in the first`, async () => {
-        el.max = new Date(2023, 3, 30);
-        if (restriction === 'min') {
-          el.min = new Date(2023, 3, 1);
-        } else {
-          el.disabledDates = Array.from({ length: 31 }, (_, index) => new Date(2023, 2, index + 1));
-        }
-        await el.updateComplete;
-        await new Promise(resolve => requestAnimationFrame(resolve));
+    it('should tab into the second month when min leaves no enabled dates in the first', async () => {
+      el.max = new Date(2023, 3, 30);
+      {
+        el.min = new Date(2023, 3, 1);
+      }
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
+      after.textContent = 'After calendar';
+      el.after(after);
+      after.focus();
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
 
-        const months = Array.from(
-            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
-          ),
-          after = document.createElement('button');
+      expect(months).to.have.lengthOf(2);
+      expect(months[1].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(months[0].shadowRoot?.activeElement).to.be.null;
 
-        after.textContent = 'After calendar';
-        el.after(after);
-        after.focus();
-        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+      await userEvent.keyboard('{Tab}');
 
-        expect(months).to.have.lengthOf(2);
-        expect(months[1].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
-        expect(months[0].shadowRoot?.activeElement).to.be.null;
+      expect(document.activeElement).to.equal(after);
+    });
 
-        await userEvent.keyboard('{Tab}');
-        expect(document.activeElement).to.equal(after);
-      });
-    }
+    it('should tab into the second month when disabled dates leaves no enabled dates in the first', async () => {
+      el.max = new Date(2023, 3, 30);
+      {
+        el.disabledDates = Array.from({ length: 31 }, (_, index) => new Date(2023, 2, index + 1));
+      }
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
+
+      after.textContent = 'After calendar';
+      el.after(after);
+      after.focus();
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+
+      expect(months).to.have.lengthOf(2);
+      expect(months[1].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(months[0].shadowRoot?.activeElement).to.be.null;
+
+      await userEvent.keyboard('{Tab}');
+
+      expect(document.activeElement).to.equal(after);
+    });
 
     it('should return the tab stop to the first month if the last focused month becomes disabled', async () => {
       const months = Array.from(
@@ -401,37 +1509,63 @@ describe('sl-select-day', () => {
       expect(months[1].shadowRoot?.activeElement).to.be.null;
     });
 
-    for (const backwards of [false, true]) {
-      it(`should discard stale hover when arrow navigation crosses months ${backwards ? 'backwards' : 'forwards'}`, async () => {
-        el.rangeSelection = true;
-        el.rangeStart = backwards ? new Date(2023, 3, 1) : new Date(2023, 2, 31);
-        await el.updateComplete;
+    it('should discard stale hover when arrow navigation crosses months forwards', async () => {
+      el.rangeSelection = true;
+      el.rangeStart = new Date(2023, 2, 31);
+      await el.updateComplete;
 
-        const months = Array.from(
-            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
-          ),
-          origin = months[backwards ? 1 : 0],
-          target = months[backwards ? 0 : 1],
-          endpoint = backwards ? new Date(2023, 2, 31) : new Date(2023, 3, 1),
-          hoveredDate = new Date(2023, backwards ? 2 : 3, 15),
-          hovered = target.renderRoot.querySelector<HTMLButtonElement>(
-            `td[data-date="${hoveredDate.toISOString()}"] button`
-          )!;
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        origin = months[0],
+        target = months[1],
+        endpoint = new Date(2023, 3, 1),
+        hoveredDate = new Date(2023, 3, 15),
+        hovered = target.renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${hoveredDate.toISOString()}"] button`
+        )!;
 
-        origin.focus(el.rangeStart);
-        await userEvent.hover(hovered);
-        expect(el.rangePreview).to.equalDate(hoveredDate);
+      origin.focus(el.rangeStart);
+      await userEvent.hover(hovered);
 
-        await userEvent.keyboard(backwards ? '{ArrowLeft}' : '{ArrowRight}');
-        await el.updateComplete;
-        await target.updateComplete;
+      expect(el.rangePreview).to.equalDate(hoveredDate);
 
-        expect(el.rangePreview).to.equalDate(endpoint);
-        expect(target.shadowRoot?.activeElement)
-          .to.have.attribute('part')
-          .that.contains(backwards ? 'range-start' : 'range-end');
-      });
-    }
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      await target.updateComplete;
+
+      expect(el.rangePreview).to.equalDate(endpoint);
+      expect(target.shadowRoot?.activeElement).to.have.attribute('part').that.contains('range-end');
+    });
+
+    it('should discard stale hover when arrow navigation crosses months backwards', async () => {
+      el.rangeSelection = true;
+      el.rangeStart = new Date(2023, 3, 1);
+      await el.updateComplete;
+      const months = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        origin = months[1],
+        target = months[0],
+        endpoint = new Date(2023, 2, 31),
+        hoveredDate = new Date(2023, 2, 15),
+        hovered = target.renderRoot.querySelector<HTMLButtonElement>(
+          `td[data-date="${hoveredDate.toISOString()}"] button`
+        )!;
+      origin.focus(el.rangeStart);
+      await userEvent.hover(hovered);
+
+      expect(el.rangePreview).to.equalDate(hoveredDate);
+
+      await userEvent.keyboard('{ArrowLeft}');
+      await el.updateComplete;
+      await target.updateComplete;
+
+      expect(el.rangePreview).to.equalDate(endpoint);
+      expect(target.shadowRoot?.activeElement)
+        .to.have.attribute('part')
+        .that.contains('range-start');
+    });
 
     it('should restore a shared preview to the date focused in the other month after unhover', async () => {
       el.rangeSelection = true;
@@ -450,6 +1584,7 @@ describe('sl-select-day', () => {
 
       months[1].focus(new Date(2023, 3, 5));
       await userEvent.hover(hovered);
+
       expect(el.rangePreview).to.equalDate(new Date(2023, 2, 30));
 
       await userEvent.unhover(hovered);
@@ -526,7 +1661,7 @@ describe('sl-select-day', () => {
       expect(months).to.have.lengthOf(2);
       expect(el.renderRoot.querySelector('.weekdays')).to.have.attribute('aria-hidden', 'true');
 
-      for (const month of months) {
+      const checkMonthHeaders = (month: MonthView): void => {
         const header = month.renderRoot.querySelector('thead')!,
           dates = month.renderRoot.querySelector('tbody')!;
 
@@ -536,43 +1671,80 @@ describe('sl-select-day', () => {
         expect(
           header.compareDocumentPosition(dates) & Node.DOCUMENT_POSITION_FOLLOWING
         ).not.to.equal(0);
-      }
+      };
+      checkMonthHeaders(months[0]);
+      checkMonthHeaders(months[1]);
     });
 
-    for (const showWeekNumbers of [false, true]) {
-      it(`should keep navigation aligned with the visible month when resized just below the two-month threshold ${showWeekNumbers ? 'with' : 'without'} week numbers`, async () => {
-        el.showWeekNumbers = showWeekNumbers;
-        el.month = new Date(2023, 8, 15);
+    it('should keep navigation aligned with the visible month when resized just below the two-month threshold without week numbers', async () => {
+      el.showWeekNumbers = false;
+      el.month = new Date(2023, 8, 15);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const header = el.renderRoot.querySelector<HTMLElement>('header')!,
+        fullWidth = el.getBoundingClientRect().width;
+
+      expect(el.visibleMonthCount).to.equal(2);
+      expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+
+      const checkReducedWidth = async (reduction: number): Promise<void> => {
+        el.style.maxInlineSize = `${fullWidth - reduction}px`;
+        await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
         await el.updateComplete;
-        await new Promise(resolve => requestAnimationFrame(resolve));
 
-        const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-          fullWidth = el.getBoundingClientRect().width;
+        const bounds = header.getBoundingClientRect(),
+          monthBounds = el.scroller!.getBoundingClientRect(),
+          nextBounds = el.renderRoot.querySelector('.next-month')!.getBoundingClientRect();
 
-        expect(el.visibleMonthCount).to.equal(2);
-        expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+        expect(bounds.left).to.equal(monthBounds.left);
+        expect(bounds.right).to.equal(monthBounds.right);
+        expect(nextBounds.right).to.be.at.most(monthBounds.right);
+        expect(monthBounds.right - nextBounds.right).to.be.at.most(8);
+      };
+      await checkReducedWidth(1);
+      await checkReducedWidth(10);
+      await checkReducedWidth(50);
+      el.style.removeProperty('max-inline-size');
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      await el.updateComplete;
 
-        for (const reduction of [1, 10, 50]) {
-          el.style.maxInlineSize = `${fullWidth - reduction}px`;
-          await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
-          await el.updateComplete;
+      expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+    });
 
-          const bounds = header.getBoundingClientRect(),
-            monthBounds = el.scroller!.getBoundingClientRect(),
-            nextBounds = el.renderRoot.querySelector('.next-month')!.getBoundingClientRect();
+    it('should keep navigation aligned with the visible month when resized just below the two-month threshold with week numbers', async () => {
+      el.showWeekNumbers = true;
+      el.month = new Date(2023, 8, 15);
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      const header = el.renderRoot.querySelector<HTMLElement>('header')!,
+        fullWidth = el.getBoundingClientRect().width;
 
-          expect(bounds.left).to.equal(monthBounds.left);
-          expect(bounds.right).to.equal(monthBounds.right);
-          expect(nextBounds.right).to.be.at.most(monthBounds.right);
-          expect(monthBounds.right - nextBounds.right).to.be.at.most(8);
-        }
+      expect(el.visibleMonthCount).to.equal(2);
+      expect(header.getBoundingClientRect().width).to.equal(fullWidth);
 
-        el.style.removeProperty('max-inline-size');
-        await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      const checkReducedWidth = async (reduction: number): Promise<void> => {
+        el.style.maxInlineSize = `${fullWidth - reduction}px`;
+        await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
         await el.updateComplete;
-        expect(header.getBoundingClientRect().width).to.equal(fullWidth);
-      });
-    }
+        const bounds = header.getBoundingClientRect(),
+          monthBounds = el.scroller!.getBoundingClientRect(),
+          nextBounds = el.renderRoot.querySelector('.next-month')!.getBoundingClientRect();
+
+        expect(bounds.left).to.equal(monthBounds.left);
+        expect(bounds.right).to.equal(monthBounds.right);
+        expect(nextBounds.right).to.be.at.most(monthBounds.right);
+        expect(monthBounds.right - nextBounds.right).to.be.at.most(8);
+      };
+      await checkReducedWidth(1);
+      await checkReducedWidth(10);
+      await checkReducedWidth(50);
+      el.style.removeProperty('max-inline-size');
+      await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
+      await el.updateComplete;
+
+      expect(header.getBoundingClientRect().width).to.equal(fullWidth);
+    });
 
     it('should collapse to one active month when the available width is too small', async () => {
       el.style.maxInlineSize = '238px';
@@ -598,26 +1770,45 @@ describe('sl-select-day', () => {
       expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
     });
 
-    for (const monthIndex of [0, 1]) {
-      it(`should leave both calendars with Tab from month ${monthIndex + 1} and re-enter with Shift+Tab`, async () => {
-        const monthViews = Array.from(
-            el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
-          ),
-          after = document.createElement('button');
+    it('should leave both calendars with Tab from month 1 and re-enter with Shift+Tab', async () => {
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
 
-        after.textContent = 'After calendar';
-        el.after(after);
-        monthViews[monthIndex].focus(new Date(2023, 2 + monthIndex, 15));
-        await el.updateComplete;
+      after.textContent = 'After calendar';
+      el.after(after);
+      monthViews[0].focus(new Date(2023, 2, 15));
+      await el.updateComplete;
 
-        await userEvent.keyboard('{Tab}');
-        expect(document.activeElement).to.equal(after);
+      await userEvent.keyboard('{Tab}');
 
-        await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
-        expect(monthViews[monthIndex].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
-        expect(monthViews[1 - monthIndex].shadowRoot?.activeElement).to.be.null;
-      });
-    }
+      expect(document.activeElement).to.equal(after);
+
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+
+      expect(monthViews[0].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(monthViews[1].shadowRoot?.activeElement).to.be.null;
+    });
+
+    it('should leave both calendars with Tab from month 2 and re-enter with Shift+Tab', async () => {
+      const monthViews = Array.from(
+          el.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+        ),
+        after = document.createElement('button');
+      after.textContent = 'After calendar';
+      el.after(after);
+      monthViews[1].focus(new Date(2023, 3, 15));
+      await el.updateComplete;
+      await userEvent.keyboard('{Tab}');
+
+      expect(document.activeElement).to.equal(after);
+
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+
+      expect(monthViews[1].shadowRoot?.activeElement?.tagName).to.equal('BUTTON');
+      expect(monthViews[0].shadowRoot?.activeElement).to.be.null;
+    });
 
     it('should leave the dates with Tab after navigating into the second month with arrows', async () => {
       const monthViews = Array.from(
@@ -632,7 +1823,9 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       expect(monthViews[1].shadowRoot?.activeElement).to.have.trimmed.text('1');
+
       await userEvent.keyboard('{Tab}');
+
       expect(document.activeElement).to.equal(after);
     });
 
@@ -690,6 +1883,7 @@ describe('sl-select-day', () => {
           )!;
 
       await firstMonth.updateComplete;
+
       expect(lastDay()).to.have.attribute('part').that.contains('range-month-end');
 
       el.style.maxInlineSize = '300px';
@@ -716,7 +1910,10 @@ describe('sl-select-day', () => {
     });
 
     it('should keep month labels consecutive throughout animated paging', async () => {
-      const labels: Array<{ first: number; second: number }> = [];
+      const labels: Array<{
+        first: number;
+        second: number;
+      }> = [];
       let sampling = true;
       const sample = (): void => {
         labels.push({ first: el.displayMonth!.getMonth(), second: el.nextMonth!.getMonth() });
@@ -739,10 +1936,11 @@ describe('sl-select-day', () => {
     });
 
     it('should recenter the rendered months before painting when scrollend is polyfilled', async () => {
-      let prototype = Object.getPrototypeOf(el.scroller!) as object;
-      while (!Object.hasOwn(prototype, 'onscrollend')) {
-        prototype = Object.getPrototypeOf(prototype) as object;
-      }
+      const findScrollEndPrototype = (prototype: object): object =>
+        Object.hasOwn(prototype, 'onscrollend')
+          ? prototype
+          : findScrollEndPrototype(Object.getPrototypeOf(prototype) as object);
+      const prototype = findScrollEndPrototype(Object.getPrototypeOf(el.scroller!) as object);
       const descriptor = Object.getOwnPropertyDescriptor(prototype, 'onscrollend')!,
         positions: number[] = [];
       let sampling = true;
@@ -1071,6 +2269,7 @@ describe('sl-select-day', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       // The scroll position should be at the center (width * 1)
+
       expect(scroller?.scrollLeft).to.be.greaterThan(0);
     });
 
@@ -1109,6 +2308,7 @@ describe('sl-select-day', () => {
       const monthViews = Array.from(el.renderRoot.querySelectorAll('sl-month-view'));
 
       // Check that the internal state is correct
+
       expect(el.displayMonth).to.equalDate(new Date(2023, 5, 1)); // June
       expect(el.previousMonth).to.equalDate(new Date(2023, 4, 1)); // May
       expect(el.nextMonth).to.equalDate(new Date(2023, 6, 1)); // July
@@ -1129,6 +2329,7 @@ describe('sl-select-day', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       // Current month should be at position 0 (no previous month rendered)
+
       expect(scroller?.scrollLeft).to.equal(0);
     });
 

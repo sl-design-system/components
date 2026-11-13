@@ -180,7 +180,7 @@ dialog {
   display: none;
   margin: var(--sl-size-100) 0 var(--sl-size-100) calc(-1 * var(--sl-size-borderWidth-default));
   opacity: 0;
-  padding: var(--sl-size-100);
+  padding: var(--sl-size-010);
   position-anchor: --field;
   position-area: bottom span-right;
   position-try-fallbacks: flip-block;
@@ -203,7 +203,6 @@ dialog {
 
 sl-button-bar {
   gap: var(--sl-size-300);
-  margin-block-start: var(--sl-size-050);
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 }

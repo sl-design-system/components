@@ -4,7 +4,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import './register.js';
 import { SelectMonth } from './select-month.js';
 
-type Props = Pick<SelectMonth, 'max' | 'min' | 'month' | 'selected' | 'showCurrent'>;
+type Props = Pick<
+  SelectMonth,
+  'max' | 'min' | 'month' | 'numberOfMonths' | 'selected' | 'showCurrent'
+>;
 type Story = StoryObj<Props>;
 
 try {
@@ -25,6 +28,10 @@ export default {
     min: {
       control: 'date'
     },
+    numberOfMonths: {
+      control: 'inline-radio',
+      options: [1, 2]
+    },
     month: {
       control: 'date'
     },
@@ -35,19 +42,24 @@ export default {
       control: 'boolean'
     }
   },
-  render: ({ max, min, month, selected, showCurrent }) => {
+  render: ({ max, min, month, numberOfMonths, selected, showCurrent }) => {
     return html`
       <sl-select-month
         ?show-current=${showCurrent}
         max=${ifDefined(max?.toISOString())}
         min=${ifDefined(min?.toISOString())}
         month=${ifDefined(month?.toISOString())}
+        number-of-months=${ifDefined(numberOfMonths)}
         selected=${ifDefined(selected?.toISOString())}></sl-select-month>
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const TwoMonths: Story = {
+  args: { numberOfMonths: 2 }
+};
 
 export const MinMax: Story = {
   args: {

@@ -354,6 +354,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           { id: 'sl.calendar.daysLabel' }
         )}
         role="grid">
+        <colgroup>
+          ${this.showWeekNumbers ? html`<col class="week-number-column" />` : nothing}
+          <col span="7" />
+        </colgroup>
         ${this.renderHeader()}
         <tbody>
           ${repeat(

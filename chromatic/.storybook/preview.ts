@@ -22,7 +22,8 @@ const singleState = [
   'all--select-year',
   'all--skeleton',
   'all--spinner',
-  'all--tooltip'
+  'all--tooltip',
+  'stress--typography'
 ];
 
 if (!import.meta.env?.DEV) {
@@ -66,6 +67,29 @@ const preview: Preview = {
       });
 
       return story();
+    },
+    (story, { globals: { userGroup = 'superuser' } }) => {
+      document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
+
+      return story();
+    },
+    (story, { globals }) => {
+      const { theme = 'sanoma-learning', subtheme } = globals as {
+          theme?: string;
+          subtheme?: string;
+        },
+        body = document.body;
+
+      body
+        .getAttributeNames()
+        .filter(name => name.endsWith('-subthemes'))
+        .forEach(name => body.removeAttribute(name));
+
+      if (subtheme && themes.find(({ id }) => id === theme)?.subthemes?.includes(subtheme)) {
+        body.setAttribute(`data-${theme}-subthemes`, subtheme);
+      }
+
+      return story();
     }
   ],
   loaders: [
@@ -73,6 +97,31 @@ const preview: Preview = {
       await updateTheme(theme);
     }
   ],
+  globalTypes: {
+    subtheme: {
+      name: 'Subtheme',
+      description: 'Subtheme of the current theme',
+      subthemes: Object.fromEntries(
+        themes
+          .filter(({ subthemes }) => subthemes?.length)
+          .map(({ id, subthemes }) => [id, subthemes])
+      )
+    },
+    userGroup: {
+      name: 'Target Group',
+      defaultValue: 'superuser',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'users',
+        items: [
+          { value: 'early', title: 'Early (Draft)' },
+          { value: 'developing', title: 'Developing (Draft)' },
+          { value: 'advanced', title: 'Advanced (Draft)' },
+          { value: 'superuser', title: 'Superuser' }
+        ]
+      }
+    }
+  },
   parameters: {
     pseudo: {
       hover: '.sb-fake-hover *',

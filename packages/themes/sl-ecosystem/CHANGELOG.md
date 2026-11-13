@@ -1,5 +1,16 @@
 # @sl-design-system/sl-ecosystem
 
+## 1.0.1
+
+### Patch Changes
+
+- [#3789](https://github.com/sl-design-system/components/pull/3789) [`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27) - Add the new tokens to the `sl-ecosystem` theme and to its subthemes (blue, green, orange, purple and teal).
+
+- [#3789](https://github.com/sl-design-system/components/pull/3789) [`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27) - Update themes with the latest design tokens export:
+
+  - The typeset tokens now reference the theme font family token instead of a hard-coded font name,
+  - Reordered the opacity tokens and removed the unused `new-icon` size tokens from the default system tokens.
+
 ## 1.0.0
 
 ### Major Changes

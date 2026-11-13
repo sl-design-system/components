@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.14.2
+
+### Patch Changes
+
+- [#3868](https://github.com/sl-design-system/components/pull/3868) [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c) - Normalize date time components when generating calendar days and validating `min`/`max` boundaries so `min` and `max` dates remain selectable regardless of the time of day on `value`, `selected`, `month`, `min`, or `max`.
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Handle removed attributes in `dateListConverter` so removing a calendar's `range` or `disabled-dates` attribute clears the value without throwing.
+
 ## 0.14.1
 
 ### Patch Changes

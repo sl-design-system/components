@@ -109,13 +109,20 @@ describe('sl-select-day', () => {
     }
   });
 
-  it('should keep header controls stable across all months in en-GB with 1 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="en-GB" number-of-months="1"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
+  const checkHeaderStability = async (locale: string, numberOfMonths: 1 | 2): Promise<void> => {
+    el = await fixture(html`
+      <sl-select-day locale=${locale} number-of-months=${numberOfMonths}></sl-select-day>
+    `);
+
+    await vi.waitFor(() => {
+      expect(el.visibleMonthCount).to.equal(numberOfMonths);
+    });
+
     await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
+
+    await vi.waitFor(() => {
+      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+    });
 
     // Font loading and child control updates can schedule a final header measurement.
     await new Promise(requestAnimationFrame);
@@ -128,6 +135,7 @@ describe('sl-select-day', () => {
       initialYear = year.getBoundingClientRect().left,
       initialPrevious = previous.getBoundingClientRect().left,
       initialNext = next.getBoundingClientRect().left;
+
     const checkMonth = async (month: number): Promise<void> => {
       el.month = new Date(2026, month, 1);
       await el.updateComplete;
@@ -155,7 +163,18 @@ describe('sl-select-day', () => {
       expect(nextBounds.left - previousBounds.right).to.equal(4);
       expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
       expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
+
+      if (numberOfMonths === 2) {
+        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
+          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
+          labelStart =
+            label.getBoundingClientRect().left +
+            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
+
+        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
+      }
     };
+
     await checkMonth(0);
     await checkMonth(1);
     await checkMonth(2);
@@ -168,578 +187,46 @@ describe('sl-select-day', () => {
     await checkMonth(9);
     await checkMonth(10);
     await checkMonth(11);
+  };
+
+  it('should keep header controls stable across all months in en-GB with 1 visible month', async () => {
+    await checkHeaderStability('en-GB', 1);
   });
 
   it('should keep header controls stable across all months in en-GB with 2 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="en-GB" number-of-months="2"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-
-      {
-        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
-          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
-          labelStart =
-            label.getBoundingClientRect().left +
-            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
-
-        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
-      }
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+    await checkHeaderStability('en-GB', 2);
   });
 
-  it('should keep header controls stable across all months in nl-NL with 1 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="nl-NL" number-of-months="1"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+  it('should keep header controls stable across all months in nl-NL with 1 visible month', async () => {
+    await checkHeaderStability('nl-NL', 1);
   });
 
   it('should keep header controls stable across all months in nl-NL with 2 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="nl-NL" number-of-months="2"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-
-      {
-        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
-          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
-          labelStart =
-            label.getBoundingClientRect().left +
-            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
-
-        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
-      }
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+    await checkHeaderStability('nl-NL', 2);
   });
 
-  it('should keep header controls stable across all months in pl-PL with 1 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="pl-PL" number-of-months="1"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+  it('should keep header controls stable across all months in pl-PL with 1 visible month', async () => {
+    await checkHeaderStability('pl-PL', 1);
   });
 
   it('should keep header controls stable across all months in pl-PL with 2 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="pl-PL" number-of-months="2"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-
-      {
-        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
-          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
-          labelStart =
-            label.getBoundingClientRect().left +
-            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
-
-        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
-      }
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+    await checkHeaderStability('pl-PL', 2);
   });
 
-  it('should keep header controls stable across all months in de-DE with 1 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="de-DE" number-of-months="1"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+  it('should keep header controls stable across all months in de-DE with 1 visible month', async () => {
+    await checkHeaderStability('de-DE', 1);
   });
 
   it('should keep header controls stable across all months in de-DE with 2 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="de-DE" number-of-months="2"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-
-      {
-        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
-          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
-          labelStart =
-            label.getBoundingClientRect().left +
-            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
-
-        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
-      }
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+    await checkHeaderStability('de-DE', 2);
   });
 
-  it('should keep header controls stable across all months in fi-FI with 1 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="fi-FI" number-of-months="1"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(1));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+  it('should keep header controls stable across all months in fi-FI with 1 visible month', async () => {
+    await checkHeaderStability('fi-FI', 1);
   });
 
   it('should keep header controls stable across all months in fi-FI with 2 visible months', async () => {
-    el = await fixture(html` <sl-select-day locale="fi-FI" number-of-months="2"></sl-select-day> `);
-    await vi.waitFor(() => expect(el.visibleMonthCount).to.equal(2));
-    await document.fonts.ready;
-    await vi.waitFor(() =>
-      expect(el.style.getPropertyValue('--_header-inline-size')).not.to.equal('')
-    );
-    // Font loading and child control updates can schedule a final header measurement.
-    await new Promise(requestAnimationFrame);
-    const header = el.renderRoot.querySelector<HTMLElement>('header')!,
-      year = el.renderRoot.querySelector<HTMLElement>('.current-year')!,
-      previous = el.renderRoot.querySelector<HTMLElement>('.previous-month')!,
-      next = el.renderRoot.querySelector<HTMLElement>('.next-month')!,
-      initialWidth = el.getBoundingClientRect().width,
-      initialYear = year.getBoundingClientRect().left,
-      initialPrevious = previous.getBoundingClientRect().left,
-      initialNext = next.getBoundingClientRect().left;
-    const checkMonth = async (month: number): Promise<void> => {
-      el.month = new Date(2026, month, 1);
-      await el.updateComplete;
-      await Promise.all(
-        Array.from(el.renderRoot.querySelectorAll('sl-format-date')).map(
-          label => label.updateComplete
-        )
-      );
-      const controls = el.renderRoot.querySelector<HTMLElement>('.month-year-controls')!,
-        yearBounds = year.getBoundingClientRect(),
-        previousBounds = previous.getBoundingClientRect(),
-        nextBounds = next.getBoundingClientRect();
-      const monthLabel = el.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
-
-      expect(monthLabel.scrollWidth).to.be.at.most(monthLabel.clientWidth + 1);
-      expect(el.getBoundingClientRect().width).to.equal(initialWidth);
-      expect(yearBounds.left).to.be.closeTo(initialYear, 1);
-      expect(previousBounds.left).to.equal(initialPrevious);
-      expect(nextBounds.left).to.equal(initialNext);
-      expect(
-        el.renderRoot.querySelector('.year-control')!.getBoundingClientRect().left -
-          el.renderRoot.querySelector('.month-control')!.getBoundingClientRect().right
-      ).to.equal(8);
-      expect(nextBounds.left - previousBounds.right).to.equal(4);
-      expect(controls.getBoundingClientRect().right).to.be.at.most(previousBounds.left);
-      expect(nextBounds.right).to.be.at.most(header.getBoundingClientRect().right);
-
-      {
-        const label = el.renderRoot.querySelector<HTMLElement>('.following-month-label')!,
-          secondMonth = el.renderRoot.querySelectorAll('.days-of-week')[1],
-          labelStart =
-            label.getBoundingClientRect().left +
-            Number.parseFloat(getComputedStyle(label).paddingInlineStart);
-
-        expect(labelStart).to.be.closeTo(secondMonth.getBoundingClientRect().left, 1);
-      }
-    };
-    await checkMonth(0);
-    await checkMonth(1);
-    await checkMonth(2);
-    await checkMonth(3);
-    await checkMonth(4);
-    await checkMonth(5);
-    await checkMonth(6);
-    await checkMonth(7);
-    await checkMonth(8);
-    await checkMonth(9);
-    await checkMonth(10);
-    await checkMonth(11);
+    await checkHeaderStability('fi-FI', 2);
   });
 
   it('should keep navigation stationary across years with 1 preferred months', async () => {

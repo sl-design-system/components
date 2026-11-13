@@ -86,7 +86,7 @@ Use a segmented control only when all answers are no.
 
 <div class="ds-table-wrapper">
 
-| | Tabs | Segmented control | Toggle group |
+| Aspect | Tabs | Segmented control | Toggle group |
 | --- | --- | --- | --- |
 | What changes | Which content is shown | How the content is displayed | What action is applied to the content |
 | Selection model | Always one option selected | Always one option selected | One, several or no options selected |

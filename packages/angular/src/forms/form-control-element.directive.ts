@@ -17,11 +17,15 @@ import { type FormControl } from '@sl-design-system/form';
 export abstract class FormControlElementDirective<T extends HTMLElement & FormControl>
   implements ControlValueAccessor, OnDestroy, OnInit, Validator
 {
+  #onBlur = (): void => this.onTouched();
+
   #onChange = (event: Event): void => {
     this.onChange((event as CustomEvent<T['formValue']>).detail);
     this.onTouched();
     this.changeDetection.markForCheck();
   };
+
+  #onValidate = (): void => this.onValidatorChange();
 
   protected onChange: (value: T['formValue']) => void = () => {};
   protected onTouched: () => void = () => {};
@@ -37,15 +41,15 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   ) {}
 
   ngOnInit(): void {
-    this.element.addEventListener('sl-blur', this.onTouched);
+    this.element.addEventListener('sl-blur', this.#onBlur);
     this.element.addEventListener('sl-change', this.#onChange);
-    this.element.addEventListener('sl-validate', this.onValidatorChange);
+    this.element.addEventListener('sl-validate', this.#onValidate);
   }
 
   ngOnDestroy(): void {
-    this.element.removeEventListener('sl-blur', this.onTouched);
+    this.element.removeEventListener('sl-blur', this.#onBlur);
     this.element.removeEventListener('sl-change', this.#onChange);
-    this.element.removeEventListener('sl-validate', this.onValidatorChange);
+    this.element.removeEventListener('sl-validate', this.#onValidate);
   }
 
   /** Implemented as part of ControlValueAccessor. */

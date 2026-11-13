@@ -79,6 +79,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** Whether the current scroll was initiated by a month navigation button. */
+  #announceAfterScroll = false;
+
   /**
    * Use an intersection observer as a workaround until `scrollsnapchange` events are widely
    * supported.
@@ -255,6 +258,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       clearTimeout(this.#announceTimeoutId);
       this.#announceTimeoutId = undefined;
     }
+
+    this.#announceAfterScroll = false;
 
     super.disconnectedCallback();
   }
@@ -635,13 +640,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onPrevious(): void {
+    this.#prepareMonthAnnouncement();
     this.#scrollToMonth(-1, true);
-    this.#announce(this.previousMonth);
   }
 
   #onNext(): void {
+    this.#prepareMonthAnnouncement();
     this.#scrollToMonth(1, true);
-    this.#announce(this.nextMonth);
   }
 
   async #onScrollEnd(): Promise<void> {
@@ -677,6 +682,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Start observing month views again
     this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
     this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+
+    if (this.#announceAfterScroll) {
+      this.#announceAfterScroll = false;
+      this.#announce(this.month);
+    }
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -725,6 +735,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.toggleEvent.emit('year');
   }
 
+  #prepareMonthAnnouncement(): void {
+    this.#announceAfterScroll = true;
+
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
+    }
+  }
+
   #announce(month?: Date): void {
     if (!month) {
       return;
@@ -735,14 +754,25 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       clearTimeout(this.#announceTimeoutId);
     }
 
-    // Announce if needed, we don't want to have the same message announced twice
+    // The focused navigation button's accessible name changes after scrolling settles.
+    // Give screen readers time to process it before sending the live announcement.
     this.#announceTimeoutId = setTimeout(() => {
+      this.#announceTimeoutId = undefined;
+
+      // The day view stays connected when month/year selection is open. Its delayed
+      // announcement must also be skipped if navigation has since changed the month.
+      if (
+        this.inert ||
+        this.month.getFullYear() !== month.getFullYear() ||
+        this.month.getMonth() !== month.getMonth()
+      ) {
+        return;
+      }
+
       const monthFormatted = format(month, this.locale, { month: 'long', year: 'numeric' });
 
       announce(`${monthFormatted}`, 'polite');
-
-      this.#announceTimeoutId = undefined;
-    }, 50);
+    }, 250);
   }
 
   #canSelectNextMonth(): boolean {

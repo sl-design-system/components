@@ -494,10 +494,6 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>In geactiveerde rij <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroup">
-  <source>Group</source>
-  <target>Groep</target>
-</trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_one">
   <source><x id="0" equiv-text="${over}"/> character too many</source>
   <target><x id="0" equiv-text="${over}"/> teken te veel</target>
@@ -534,10 +530,6 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroupWithName">
-  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
-  <target><x id="0" equiv-text="${this.groupLabel}"/> groep</target>
-</trans-unit>
 <trans-unit id="link.opens-in-new-tab">
   <source>opens in a new tab</source>
   <target>opent in een nieuw tabblad</target>
@@ -557,6 +549,10 @@
 <trans-unit id="sl.calendar.rangeEnd">
   <source>End of range</source>
   <target>Einde van periode</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectGroupLabel">
+  <source>Select group</source>
+  <target>Selecteer groep</target>
 </trans-unit>
 </body>
 </file>

@@ -22,7 +22,8 @@ const singleState = [
   'all--select-year',
   'all--skeleton',
   'all--spinner',
-  'all--tooltip'
+  'all--tooltip',
+  'stress--typography'
 ];
 
 if (!import.meta.env?.DEV) {

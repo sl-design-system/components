@@ -8,11 +8,11 @@ const instance = figma.selectedInstance;
 function getExample() {
   const inverted = checkBooleanProperty(instance.getBoolean('Inverted'), 'Inverted');
 
-  const container = instance.findInstance(
-    `SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`
-  ) as InstanceHandle;
+  const container = instance.findInstance(`SL-breadcrumb ${inverted ? 'inverted' : 'regular'}`);
+  if (container.type !== 'INSTANCE') throw new Error('Missing breadcrumb container instance');
 
-  const homeBreadcrumb = container.findInstance('breadcrumb-home') as InstanceHandle;
+  const homeBreadcrumb = container.findInstance('breadcrumb/home');
+  if (homeBreadcrumb.type !== 'INSTANCE') throw new Error('Missing home breadcrumb instance');
 
   const hideHomeLabel = !checkBooleanProperty(
     homeBreadcrumb.getBoolean('Show label'),

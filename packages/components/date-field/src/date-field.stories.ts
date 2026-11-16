@@ -194,8 +194,8 @@ export const ExtraControls: Story = {
       };
 
       return html`
-        <sl-button @click=${onToday} fill="link">Today</sl-button>
-        <sl-button @click=${onClear} fill="link">Clear</sl-button>
+        <sl-button @click=${onToday} fill="link" variant="primary">Today</sl-button>
+        <sl-button @click=${onClear} fill="link" variant="primary">Clear</sl-button>
       `;
     }
   }

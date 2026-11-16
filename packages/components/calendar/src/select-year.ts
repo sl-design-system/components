@@ -20,6 +20,7 @@ import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.css' with { type: 'css' };
+import { isPeriodInRange } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -49,11 +50,16 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** The focused year to restore after a responsive grid layout change. */
+  #yearToFocus?: number;
+
   /**
    * Number of columns in the years grid. Used by keyboard navigation and the roving tabindex
    * controller to compute row/column movement and focus targets.
    */
-  #cols = 3;
+  get #cols(): number {
+    return this.numberOfMonths === 2 ? 5 : 3;
+  }
 
   /** Focus management. */
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
@@ -86,6 +92,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
+  /** The number of months represented by the calendar. Two months show 20 years in five columns. */
+  @property({ type: Number, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 = 1;
+
+  /** The selected date range. Every overlapping year is highlighted. */
+  @property({ attribute: false }) range?: Date[];
+
   /** The currently selected date. (In order to style current month) */
   @property({ converter: dateConverter }) selected?: Date;
 
@@ -117,14 +129,52 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('year')) {
-      const year = this.year.getFullYear();
+    const yearCount = this.#cols * 4;
 
-      this.#setYears(year - 5, year + 6);
+    if (changes.has('year')) {
+      const start = this.year.getFullYear() - 5;
+
+      this.#setYears(start, start + yearCount - 1);
+    } else if (changes.has('numberOfMonths')) {
+      const focusedIndex = Array.from(this.buttons).findIndex(
+          button => button === this.shadowRoot?.activeElement
+        ),
+        focusedYear = this.years[focusedIndex],
+        browsedStart = this.years[0],
+        start =
+          focusedYear === undefined
+            ? Math.max(browsedStart, (this.min?.getFullYear() ?? browsedStart) - yearCount + 1)
+            : Math.max(browsedStart, focusedYear - yearCount + 1);
+
+      this.#yearToFocus = focusedYear;
+      this.#setYears(start, start + yearCount - 1);
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('years')) {
-      this.#focusGroupController?.clearElementCache();
+    if (changes.has('year') || changes.has('numberOfMonths')) {
+      this.#focusGroupController.directionLength = this.#cols;
+    }
+
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('years') ||
+      changes.has('numberOfMonths')
+    ) {
+      this.#focusGroupController.clearElementCache();
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (this.#yearToFocus !== undefined) {
+      const index = this.years.indexOf(this.#yearToFocus),
+        button = this.buttons[index];
+
+      this.#yearToFocus = undefined;
+      if (button && !button.disabled) {
+        this.#focusGroupController.focusToElement(index);
+      }
     }
   }
 
@@ -138,22 +188,24 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       <header>
         <span>${this.years.at(0)} - ${this.years.at(-1)}</span>
 
-        <sl-button
-          @click=${this.#onPrevious}
-          ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
-          aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
-          aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
+            aria-label=${msg(str`Go back ${this.years.length} years`, { id: 'sl.calendar.previousYears' })}
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
+            aria-label=${msg(str`Go forward ${this.years.length} years`, { id: 'sl.calendar.nextYears' })}
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
       </header>
 
       <table
@@ -178,7 +230,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     const current = year === new Date().getFullYear(),
       disabled =
         (this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()),
-      selected = !!(this.selected && this.selected.getFullYear() === year);
+      selected = this.range?.length
+        ? isPeriodInRange(new Date(year, 0, 1), new Date(year + 1, 0, 1), this.range)
+        : !!(this.selected && this.selected.getFullYear() === year);
 
     return html`
       <td aria-rowindex=${rowIndex + 1} aria-colindex=${colIndex + 1} role="gridcell">
@@ -256,12 +310,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onNext(): void {
-    this.#setYears(this.years.at(-1)! + 1, this.years.at(-1)! + 12);
+    this.#setYears(this.years.at(-1)! + 1, this.years.at(-1)! + this.years.length);
     this.#announce(this.years);
   }
 
   #onPrevious(): void {
-    this.#setYears(this.years.at(0)! - 12, this.years.at(0)! - 1);
+    this.#setYears(this.years.at(0)! - this.years.length, this.years.at(0)! - 1);
     this.#announce(this.years);
   }
 

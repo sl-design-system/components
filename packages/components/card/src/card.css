@@ -213,6 +213,7 @@
   }
 
   :host(.sl-has-link):has(slot.title:focus-within),
+  :host(.sl-has-link.sl-title-focus-visible),
   :host(.sl-has-link:hover) {
     border-color: var(--sl-color-border-input);
     box-shadow: var(--sl-elevation-shadow-overflow);

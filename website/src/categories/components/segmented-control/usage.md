@@ -86,15 +86,15 @@ Use a segmented control only when all answers are no.
 
 <div class="ds-table-wrapper">
 
-| Aspect | Tabs | Segmented control | Toggle group |
-| --- | --- | --- | --- |
-| What changes | Which content is shown | How the content is displayed | What action is applied to the content |
-| Selection model | Always one option selected | Always one option selected | One, several or no options selected |
-| "Nothing selected" valid? | No | No | No |
-| Linkable / routable | Yes | No | No |
-| Option count | Many (with overflow) | 2–5, fixed | Small, fixed |
-| Overflow handling | "More" button | None | None |
-| Content | Label, icon or both | Label, icon or both | Label, icon or both |
+| Aspect | Tabs | Segmented control | Toggle group                           |
+| --- | --- | --- |----------------------------------------|
+| What changes | Which content is shown | How the content is displayed | What action is applied to the content  |
+| Selection model | Always one option selected | Always one option selected | One, several or no options selected    |
+| "Nothing selected" valid? | No | No | Yes                                    |
+| Linkable / routable | Yes | No | No                                     |
+| Option count | Many (with overflow) | 2–5, fixed | Small, fixed                           |
+| Overflow handling | "More" button | Automatically switches to Select | None                                   |
+| Content | Label, icon or both | Label, icon or both | Label, icon or both                    |
 | Typical placement | Above the section it controls | Above or beside the content it renders | Toolbars, above the content it acts on |
 
 {.ds-table .ds-table-align-top}

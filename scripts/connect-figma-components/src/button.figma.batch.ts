@@ -10,14 +10,19 @@ import {
 
 const instance = figma.selectedInstance;
 
-function getExample() {
+function getButton() {
   const slot = instance.getString('slot');
 
-  const buttonVariants = instance.findInstance('button-variants') as InstanceHandle;
+  const buttonVariants = instance.findInstance('button-variants');
+  const variants =
+    buttonVariants.type === 'INSTANCE' ? buttonVariants : instance.findInstance('Variant Button');
+  if (variants.type !== 'INSTANCE') {
+    throw new Error('Missing button variant instance');
+  }
 
   // The default fill is "solid".
   const fill = checkEnum(
-    buttonVariants.getEnum('fill', {
+    variants.getEnum('fill', {
       outline: 'outline',
       ghost: 'ghost',
       link: 'link'
@@ -26,7 +31,7 @@ function getExample() {
 
   // The default variant is "secondary".
   const variant = checkEnum(
-    buttonVariants.getEnum('variant', {
+    variants.getEnum('variant', {
       primary: 'primary',
       secondary: 'secondary',
       success: 'success',
@@ -37,8 +42,8 @@ function getExample() {
     }) || 'secondary'
   );
 
-  const buttonBase = buttonVariants.findInstance('button-base') as InstanceHandle,
-    disabled = checkBooleanProperty(buttonVariants.getBoolean('disabled'), 'disabled');
+  const buttonBase = variants.findInstance('button-base') as InstanceHandle,
+    disabled = checkBooleanProperty(variants.getBoolean('disabled'), 'disabled');
 
   const iconOnly = checkBooleanProperty(buttonBase.getBoolean('icon-only'), 'icon-only'),
     iconStart = checkBooleanProperty(
@@ -63,24 +68,29 @@ function getExample() {
     icon = iconInstance.executeTemplate().example;
   }
 
-  return figma.code`
-    <sl-button
-      ${iconOnly ? `aria-label="${text}"` : ''}
-      ${fill !== 'solid' ? `fill="${fill}"` : ''}
-      ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
-      ${size !== 'md' ? `size="${size}"` : ''}
-      ${typeof slot === 'string' ? `slot="${slot}"` : ''}
-      ${variant !== 'secondary' ? `variant="${variant}"` : ''}
-      ${disabled ? `disabled` : ''}
-    >
-      ${iconStart ? icon : ''}
-      ${!iconOnly ? text : ''}
-      ${iconEnd ? icon : ''}
-    </sl-button>
-  `;
+  return {
+    example: figma.code`
+      <sl-button
+        ${iconOnly ? `aria-label="${text}"` : ''}
+        ${fill !== 'solid' ? `fill="${fill}"` : ''}
+        ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
+        ${size !== 'md' ? `size="${size}"` : ''}
+        ${typeof slot === 'string' ? `slot="${slot}"` : ''}
+        ${variant !== 'secondary' ? `variant="${variant}"` : ''}
+        ${disabled ? `disabled` : ''}
+      >
+        ${iconStart ? icon : ''}
+        ${!iconOnly ? text : ''}
+        ${iconEnd ? icon : ''}
+      </sl-button>
+    `,
+    metadata: { props: { text, fill, variant } }
+  };
 }
 
+const button = getButton();
+
 export default {
-  example: getExample(),
+  ...button,
   id: figma.batch.id
 };

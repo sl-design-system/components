@@ -193,6 +193,7 @@ describe('<sl-card>', () => {
       expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
 
       link.blur();
+
       expect(el.classList.contains('sl-title-focus-visible')).to.be.false;
     });
 
@@ -203,6 +204,7 @@ describe('<sl-card>', () => {
 
       await userEvent.tab();
       link.focus();
+
       expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
 
       const slotChanged = new Promise<void>(resolve =>
@@ -224,6 +226,7 @@ describe('<sl-card>', () => {
 
       await userEvent.tab();
       link.focus();
+
       expect(el.classList.contains('sl-title-focus-visible')).to.be.true;
 
       titleSlot.dispatchEvent(new Event('slotchange'));

@@ -36,25 +36,27 @@ function getIconName(iconContainer: InstanceHandle): string {
 }
 
 function getButtonExample(item: InstanceHandle): string {
-  const buttonVariants = item.findInstance('button-variants', {
-      traverseInstances: true
-    }) as InstanceHandle,
-    buttonBase = buttonVariants.findInstance('button-base', {
-      traverseInstances: true
-    }) as InstanceHandle,
-    disabled =
-      checkEnum(buttonVariants.getEnum('disabled', { off: 'off', on: 'on' }) || 'off') !== 'off',
-    iconOnly = checkBooleanProperty(buttonBase.getBoolean('icon-only'), 'icon-only'),
-    iconStart = checkBooleanProperty(
-      buttonBase.getBoolean('display-icon-start'),
-      'display-icon-start'
-    ),
-    iconEnd = checkBooleanProperty(buttonBase.getBoolean('display-icon-end'), 'display-icon-end'),
-    text = checkStringProperty(buttonBase.getString('text'), 'text'),
-    size = checkEnum(buttonBase.getEnum('size', { sm: 'sm', lg: 'lg' }) || 'md');
+  const button = item.findInstance('sl-button-rectangular', {
+    traverseInstances: true
+  });
+  if (button.type !== 'INSTANCE') throw new Error('Missing Figma button instance');
+
+  const { props = {} } = button.executeTemplate().metadata ?? {},
+    disabled = props.disabled === true,
+    buttonFill = typeof props.fill === 'string' ? props.fill : 'solid',
+    buttonVariant = typeof props.variant === 'string' ? props.variant : 'secondary',
+    toolbarVariant = inverted ? 'inverted' : 'secondary',
+    iconOnly = props.iconOnly === true,
+    iconStart = props.iconStart === true,
+    iconEnd = props.iconEnd === true,
+    text = typeof props.text === 'string' ? props.text : '',
+    size = typeof props.size === 'string' ? props.size : 'md';
 
   let icon;
   if (iconStart || iconEnd) {
+    const buttonBase = button.findInstance('button-base', { traverseInstances: true });
+    if (buttonBase.type !== 'INSTANCE') throw new Error('Missing Figma button base instance');
+
     const iconContainer = buttonBase.findInstance('SL-icon Size', { traverseInstances: true });
     if (iconContainer.type !== 'INSTANCE') throw new Error('Missing Figma icon instance');
 
@@ -64,6 +66,8 @@ function getButtonExample(item: InstanceHandle): string {
   return `
     <sl-button
       ${iconOnly ? `aria-label="${text}"` : ''}
+      ${buttonFill !== fill ? `fill="${buttonFill}"` : ''}
+      ${buttonVariant !== toolbarVariant ? `variant="${buttonVariant}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
       ${disabled ? 'disabled' : ''}
     >

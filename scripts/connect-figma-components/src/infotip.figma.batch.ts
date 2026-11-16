@@ -1,23 +1,15 @@
 // source=packages/components/infotip/src/infotip.ts
 // component=Infotip
 import figma from 'figma';
-import { type InstanceHandle, checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const button = instance.findInstance('sl-button-rectangular', {
       traverseInstances: true
-    }) as InstanceHandle,
-    buttonBase = button.findInstance('button-base', { traverseInstances: true }) as InstanceHandle;
-
-  const size = checkEnum(
-    buttonBase.getEnum('size', {
-      SM: 'sm',
-      MD: 'md',
-      LG: 'lg'
-    }) ?? 'md'
-  );
+    }),
+    { props = {} } = button.executeTemplate().metadata ?? {},
+    size = typeof props.size === 'string' ? props.size : 'md';
 
   return figma.code`
     <sl-infotip

@@ -16,10 +16,10 @@ function getExample() {
       colorInstance?.executeTemplate().metadata?.props ?? {};
 
   const initials = checkStringProperty(instance.getString('initials'), 'initials'),
-    showInitials =
-      checkEnum(
-        instance.getEnum('display-initials', { True: 'true', False: 'false' }) ?? 'false'
-      ) === 'true',
+    avatarContent = checkEnum(
+      instance.getEnum('avatar-content', { image: 'image', initials: 'initials', icon: 'icon' }) ??
+        'initials'
+    ),
     showName = checkBooleanProperty(instance.getBoolean('display-name'), 'display-name'),
     imageOnly = !showName,
     headerPosition = checkStringProperty(instance.getString('header-position'), 'header-position'),
@@ -64,7 +64,7 @@ function getExample() {
       ${emphasis !== 'subtle' ? `emphasis="${emphasis as string}"` : ''}
       ${imageOnly ? 'image-only' : ''}
       ${showName && displayName ? `display-name="${displayName}"` : ''}
-      ${showInitials && initials ? `display-initials="${initials}"` : ''}
+      ${avatarContent === 'initials' && initials ? `display-initials="${initials}"` : ''}
       ${shape !== 'circle' ? `shape="${shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
       ${vertical ? 'vertical' : ''}

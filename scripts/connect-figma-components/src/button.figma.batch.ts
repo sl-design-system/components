@@ -84,7 +84,9 @@ function getButton() {
         ${iconEnd ? icon : ''}
       </sl-button>
     `,
-    metadata: { props: { text, fill, variant } }
+    metadata: {
+      props: { text, fill, variant, disabled, iconOnly, iconStart, iconEnd, size }
+    }
   };
 }
 

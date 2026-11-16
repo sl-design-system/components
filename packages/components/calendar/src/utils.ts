@@ -1,6 +1,18 @@
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isDateInList, isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 
+/** Whether a month or year [start, end) overlaps an inclusive selected date range. */
+export function isPeriodInRange(start: Date, end: Date, range?: Date[]): boolean {
+  if (!range?.length) {
+    return false;
+  }
+
+  const first = range[0].getTime(),
+    last = (range[1] ?? range[0]).getTime();
+
+  return Math.min(first, last) < end.getTime() && Math.max(first, last) >= start.getTime();
+}
+
 export type IndicatorColor = 'blue' | 'red' | 'yellow' | 'green' | 'grey';
 
 export type Indicator = { date: Date; color?: IndicatorColor; label?: string };
@@ -199,6 +211,7 @@ export function createPeriod(
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreatePeriodOptions
 ): Calendar {
   const calendar: Calendar = { weeks: [] },
+    normalizedEnd = normalizeDateTime(end),
     weekOptions = {
       disabledDates,
       firstDayOfWeek,
@@ -209,13 +222,13 @@ export function createPeriod(
       showToday
     };
 
-  let nextWeek = createWeek(start, weekOptions);
+  let nextWeek = createWeek(normalizeDateTime(start), weekOptions);
   do {
     calendar.weeks.push(nextWeek);
     const firstDayOfNextWeek = new Date(nextWeek.days[6].date); // last day of current week
     firstDayOfNextWeek.setDate(firstDayOfNextWeek.getDate() + 1); // make it first day of next week
     nextWeek = createWeek(firstDayOfNextWeek, weekOptions);
-  } while (nextWeek.days[0].date <= end);
+  } while (nextWeek.days[0].date <= normalizedEnd);
 
   // Mark the first and last selectable days in the period
   const allDays = calendar.weeks.flatMap(week => week.days),
@@ -242,7 +255,7 @@ export function createMonth(
   date: Date,
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreateMonthOptions
 ): Calendar {
-  const firstDayOfMonth = new Date(date);
+  const firstDayOfMonth = normalizeDateTime(date);
   firstDayOfMonth.setDate(1);
   const monthNumber = firstDayOfMonth.getMonth();
   const weekOptions = {
@@ -362,6 +375,9 @@ export function createDay(
   }: CreateDayOptions
 ): Day {
   const today = normalizeDateTime(new Date()),
+    normalizedDate = normalizeDateTime(date),
+    normalizedMin = min ? normalizeDateTime(min) : undefined,
+    normalizedMax = max ? normalizeDateTime(max) : undefined,
     indicator = indicatorDates?.find(i => isSameDate(i.date, date)),
     currentMonth = relativeMonth.getMonth(),
     isToday = showToday && isSameDate(date, today);
@@ -370,11 +386,13 @@ export function createDay(
     currentMonth: date.getMonth() === currentMonth,
     date,
     disabled: isDateInList(date, disabledDates),
-    future: date > today,
+    future: normalizedDate > today,
     indicator: indicator ? { color: indicator.color, label: indicator.label } : undefined,
     nextMonth: date.getMonth() > currentMonth,
-    outOfRange: (min && date < min) || (max && date > max),
-    past: date < today,
+    outOfRange:
+      (normalizedMin && normalizedDate < normalizedMin) ||
+      (normalizedMax && normalizedDate > normalizedMax),
+    past: normalizedDate < today,
     previousMonth: date.getMonth() < currentMonth,
     startOfWeek,
     today: isToday,

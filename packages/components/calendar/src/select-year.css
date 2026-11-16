@@ -18,20 +18,28 @@
 
 header {
   align-items: center;
-  display: flex;
-  gap: var(--sl-size-100);
+  display: grid;
+  gap: var(--sl-size-300);
+  grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
   margin-block-end: var(--sl-size-050);
+  /* Extend the header through the selector padding to align with the day view. */
+  margin-block-start: calc(-1 * var(--sl-size-025));
+  margin-inline: calc(-1 * var(--sl-size-025));
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 
-  span {
+  > :first-child {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-    margin-inline-end: auto;
+    grid-column: 1 / span 3;
+    justify-self: start;
   }
+}
 
-  sl-button + sl-button {
-    margin-inline-start: calc(-1 * var(--sl-size-050));
-  }
+.arrows {
+  display: flex;
+  gap: var(--sl-size-050);
+  grid-column: 4 / span 1;
+  justify-self: end;
 }
 
 sl-button {
@@ -41,11 +49,12 @@ sl-button {
 table {
   block-size: 100%;
   border-collapse: separate;
-  border-spacing: var(--sl-size-100);
+  border-spacing: 0 var(--sl-size-100);
   box-sizing: content-box;
   inline-size: 100%;
   margin: 0;
   padding: 0 0 var(--sl-size-100) 0;
+  table-layout: fixed;
 }
 
 td {
@@ -68,6 +77,8 @@ button {
   cursor: pointer;
   display: inline-flex;
   font: inherit;
+  inline-size: 100%;
+  max-inline-size: 90px;
   outline: none;
   padding: var(--sl-size-050);
   place-items: center;
@@ -91,6 +102,7 @@ button {
   }
 
   span {
+    align-items: center;
     background: color-mix(
       in srgb,
       var(--_bg-color),
@@ -98,8 +110,14 @@ button {
     );
     border: var(--sl-size-borderWidth-subtle) solid transparent;
     border-radius: var(--sl-size-borderRadius-default);
+    box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    min-block-size: var(--sl-size-500);
+    min-inline-size: 0;
     outline: transparent solid var(--sl-size-outlineWidth-default);
-    outline-offset: var(--sl-size-outlineOffset-default);
+    outline-offset: calc(var(--sl-size-050) - var(--sl-size-outlineWidth-default));
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
       calc(var(--sl-size-075) - var(--sl-size-borderWidth-action));
 

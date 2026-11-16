@@ -13,6 +13,7 @@ sl-select-year {
 
 sl-select-month,
 sl-select-year {
+  contain: inline-size;
   inline-size: 100%;
 }
 

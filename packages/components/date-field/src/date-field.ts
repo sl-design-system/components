@@ -11,7 +11,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { isSameDate } from '@sl-design-system/shared/date.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
@@ -542,21 +542,24 @@ export class DateField extends LocaleMixin(
   /** @internal */
   override updateInternalValidity(): void {
     const { day, month, year } = this.dateParts,
-      hasCompleteDate = day !== undefined && month !== undefined && year !== undefined;
+      hasCompleteDate = day !== undefined && month !== undefined && year !== undefined,
+      min = this.min ? normalizeDateTime(this.min) : undefined,
+      max = this.max ? normalizeDateTime(this.max) : undefined,
+      value = this.value ? normalizeDateTime(this.value) : undefined;
 
-    if (hasCompleteDate && !this.value) {
+    if (hasCompleteDate && !value) {
       const date = new Date(year, month - 1, day);
 
-      if (this.min && date < this.min) {
-        const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+      if (min && date < min) {
+        const formattedMin = this.#formatter?.format(min) ?? min.toLocaleDateString();
 
         this.setCustomValidity(
           msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
             id: 'sl.dateField.rangeUnderflow'
           })
         );
-      } else if (this.max && date > this.max) {
-        const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+      } else if (max && date > max) {
+        const formattedMax = this.#formatter?.format(max) ?? max.toLocaleDateString();
 
         this.setCustomValidity(
           msg(str`Please select a date that is no later than ${formattedMax}.`, {
@@ -568,18 +571,18 @@ export class DateField extends LocaleMixin(
           msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' })
         );
       }
-    } else if (this.required && !this.value) {
+    } else if (this.required && !value) {
       this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
-    } else if (this.value && this.min && this.value < this.min) {
-      const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+    } else if (value && min && value < min) {
+      const formattedMin = this.#formatter?.format(min) ?? min.toLocaleDateString();
 
       this.setCustomValidity(
         msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
           id: 'sl.dateField.rangeUnderflow'
         })
       );
-    } else if (this.value && this.max && this.value > this.max) {
-      const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+    } else if (value && max && value > max) {
+      const formattedMax = this.#formatter?.format(max) ?? max.toLocaleDateString();
 
       this.setCustomValidity(
         msg(str`Please select a date that is no later than ${formattedMax}.`, {
@@ -1253,10 +1256,12 @@ export class DateField extends LocaleMixin(
       hadValue = this.value !== undefined;
 
     if (day !== undefined && month !== undefined && year !== undefined) {
-      const date = new Date(year, month - 1, day);
+      const date = new Date(year, month - 1, day),
+        min = this.min ? normalizeDateTime(this.min) : undefined,
+        max = this.max ? normalizeDateTime(this.max) : undefined;
 
       if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
-        if ((this.min && date < this.min) || (this.max && date > this.max)) {
+        if ((min && date < min) || (max && date > max)) {
           this.#preserveDateParts = true;
           this.value = undefined;
 

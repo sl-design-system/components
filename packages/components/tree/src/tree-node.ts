@@ -313,6 +313,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
+    const insideExpander = !!event
+      .composedPath()
+      .filter((el): el is HTMLElement => el instanceof HTMLElement)
+      .find(el => el.matches('.expander'));
+
+    if (this.disabled && !insideExpander) {
+      return;
+    }
+
     if (insideWrapper && this.selectable && !this.disabled) {
       event.preventDefault();
 

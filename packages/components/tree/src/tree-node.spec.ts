@@ -176,6 +176,27 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('aria-expanded', 'false');
     });
 
+    it('should expand a disabled node when clicking the expander without selecting it', async () => {
+      const onToggle = spy(),
+        onSelect = spy();
+
+      el.disabled = true;
+      await el.updateComplete;
+      el.addEventListener('sl-toggle', onToggle);
+      el.addEventListener('sl-select', onSelect);
+
+      el.renderRoot
+        .querySelector('.expander-inner')
+        ?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+      expect(el.selected).not.to.be.true;
+      expect(el).to.have.attribute('aria-selected', 'false');
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onSelect).not.to.have.been.called;
+    });
+
     it('should toggle the expanded state when using the keyboard', async () => {
       el.focus();
 

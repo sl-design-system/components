@@ -98,6 +98,10 @@ sl-indent-guides {
       --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
     }
   }
+
+  sl-checkbox::part(wrapper) {
+    color: var(--sl-color-foreground-disabled);
+  }
 }
 
 .expander {

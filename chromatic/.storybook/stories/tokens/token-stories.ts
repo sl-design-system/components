@@ -144,7 +144,10 @@ const appendTokenPreview = (sample: HTMLElement, name: string, value: string): v
   } else if (lowerName.includes('fontweight')) {
     textSample('font-weight', fontWeightAliases[value.toLowerCase()] ?? token);
   } else if (/lineheight|line-height/.test(lowerName)) {
-    textSample('line-height').classList.add('token-text-wrapped');
+    const preview = textSample('line-height');
+
+    preview.classList.add('token-text-wrapped');
+    preview.textContent = 'Learn\nnew';
   } else if (lowerName.includes('letterspacing')) {
     textSample('letter-spacing');
   } else if (
@@ -167,7 +170,7 @@ const appendTokenPreview = (sample: HTMLElement, name: string, value: string): v
 const groupName = (name: string): string => {
   const segments = name.replace(/^--sl-/, '').split('-');
 
-  return segments.slice(0, ['brand', 'subtheme'].includes(segments[0]) ? 4 : 2).join('-');
+  return segments.slice(0, ['brand', 'subtheme'].includes(segments[0]) ? 2 : 1).join('-');
 };
 
 const renderTokenCards = (container: HTMLElement, names: string[]): void => {
@@ -296,7 +299,7 @@ const tokenStyles = html`
       display: grid;
       font-family: system-ui, sans-serif;
       font-size: 14px;
-      gap: 24px;
+      gap: 16px;
       line-height: 1.4;
     }
 
@@ -312,38 +315,46 @@ const tokenStyles = html`
 
     .token-group {
       display: grid;
-      gap: 12px;
+      gap: 8px;
     }
 
     .token-grid {
       display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     }
 
     .token-card {
       border: 1px solid #d0d7de;
       border-radius: 6px;
       display: grid;
-      gap: 4px;
+      align-content: start;
+      column-gap: 8px;
+      grid-template-columns: minmax(0, 1fr) 96px;
       min-inline-size: 0;
-      padding: 8px;
+      padding: 6px;
+      row-gap: 4px;
     }
 
     .token-name {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
+      grid-column: 1 / -1;
+      line-height: 14px;
     }
 
     .token-value {
       color: #59636e;
-      font-size: 12px;
+      font-size: 11px;
+      grid-column: 1;
+      line-height: 14px;
     }
 
     .token-sample {
       align-items: center;
       display: flex;
-      margin-block-start: 8px;
+      grid-column: 2;
+      grid-row: 2;
       min-block-size: 32px;
       min-inline-size: 0;
       overflow: hidden;
@@ -370,7 +381,7 @@ const tokenStyles = html`
     }
 
     .token-swatch {
-      block-size: 40px;
+      block-size: 24px;
       border: 1px solid #d0d7de;
       inline-size: 100%;
     }
@@ -389,8 +400,7 @@ const tokenStyles = html`
         transparent 0 calc(1lh - 1px),
         #d0d7de calc(1lh - 1px) 1lh
       );
-      inline-size: 160px;
-      white-space: normal;
+      white-space: pre;
     }
 
     .token-box {
@@ -398,7 +408,7 @@ const tokenStyles = html`
       block-size: 56px;
       box-sizing: border-box;
       display: block;
-      inline-size: 96px;
+      inline-size: 64px;
       margin: 12px;
     }
 

@@ -25,6 +25,10 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes the bold styling of selected `danger` menu items and hides decorative menu separators from assistive technologies. [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes overflow menu item labels containing Lit marker comments.
 - [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) fixes the contrast of selected hours and minutes in dark mode and returns focus to the field button when the time picker is closed with Escape.
 
+## Component promotions
+
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) has been promoted from `draft` to `preview`.
+
 ## Locales
 
 - [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds Dutch, Italian, Polish and Spanish translations for the calendar date range announcements and the "Select group" label of the group checkbox in the grid.

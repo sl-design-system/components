@@ -781,29 +781,45 @@ export const SummaryRowCustomContent: Story = {
 };
 
 export const SummaryRowEllipsizeText: Story = {
-  render: (_, { loaded: { students } }) => html`
-    <p>
-      This example combines <code>ellipsize-text</code> with a summary row. Text that overflows its
-      column is truncated in the rows as well as in the summary row, and the full text is available
-      in a tooltip.
-    </p>
-    <sl-grid
-      .items=${students}
-      style="max-inline-size: 500px"
-      ellipsize-text
-      column-divider
-      no-skip-links>
-      <sl-grid-column
-        path="firstName"
-        summary-label="students"
-        summary-type="text"
-        width="80"></sl-grid-column>
-      <sl-grid-column path="lastName" width="80"></sl-grid-column>
-      <sl-grid-column path="school.name" summary-type="text" width="100"></sl-grid-column>
-      <sl-grid-column path="school.address" width="100"></sl-grid-column>
-      <sl-grid-column path="school.city" width="65"></sl-grid-column>
-    </sl-grid>
-  `
+  render: (_, { loaded: { students } }) => {
+    // The example students have no boolean values, so add a deterministic one
+    const rows = (students as Student[]).map((student, index) => ({
+      ...student,
+      present: index % 5 !== 0
+    }));
+
+    return html`
+      <p>
+        This example combines <code>ellipsize-text</code> with a summary row. Text that overflows
+        its column is truncated in the rows as well as in the summary row, and the full text is
+        available in a tooltip. When a column also has <code>summary-menu</code>, the menu button
+        always stays visible and only the text is truncated. The menu changes the format of the
+        boolean totals, here the "Present" column.
+      </p>
+      <sl-grid
+        .items=${rows}
+        style="max-inline-size: 500px"
+        ellipsize-text
+        column-divider
+        no-skip-links>
+        <sl-grid-column
+          path="firstName"
+          summary-label="students"
+          summary-menu
+          summary-type="text"
+          width="110"></sl-grid-column>
+        <sl-grid-column path="lastName" width="80"></sl-grid-column>
+        <sl-grid-column path="school.name" summary-type="text" width="100"></sl-grid-column>
+        <sl-grid-column
+          header="Present"
+          path="present"
+          summary-type="boolean"
+          width="90"
+          .renderer=${(row: { present: boolean }) => (row.present ? 'Yes' : 'No')}></sl-grid-column>
+        <sl-grid-column path="school.city" width="65"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const SummaryRowFetch: Story = {

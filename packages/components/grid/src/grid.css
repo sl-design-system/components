@@ -622,6 +622,7 @@ tr[part~='summary-row'] {
     border-block-end: 0;
     border-block-start: var(--_border);
     gap: var(--sl-size-050);
+    min-block-size: var(--sl-size-700); /* 56px, as in the design */
     padding-block: var(--_body-cell-padding-block);
 
     &:first-of-type {

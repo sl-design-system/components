@@ -23,10 +23,10 @@ const singleState = [
   'all--skeleton',
   'all--spinner',
   'all--tooltip',
-  'stress--all-form',
-  'stress--typography',
-  'stress--actions-and-navigation',
-  'stress--content-layout'
+  'all-user-groups--typography',
+  'all-user-groups--all-form',
+  'all-user-groups--actions-and-navigation',
+  'all-user-groups--content-layout'
 ];
 
 if (!import.meta.env?.DEV) {

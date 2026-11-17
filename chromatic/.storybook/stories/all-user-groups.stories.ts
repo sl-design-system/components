@@ -28,7 +28,7 @@ const typographyStyles = [
 ];
 
 export default {
-  title: 'Stress',
+  title: 'All User Groups',
   parameters: {
     chromatic: {
       modes: ecosystemMatrixModes
@@ -89,64 +89,70 @@ export const AllForm = { ...FormAll };
 
 export const ActionsAndNavigation: StoryObj = {
   play: async ({ canvasElement }) => {
-    await document.fonts.ready;
-
-    const menu = canvasElement.querySelector<HTMLElement>('#actions-stress-menu');
-    if (!menu) {
-      throw new Error('The actions stress menu was not rendered');
+    const menuButton = canvasElement.querySelector('sl-menu-button');
+    if (!menuButton) {
+      throw new Error('The user groups menu button was not rendered');
     }
 
-    menu.showPopover();
+    await menuButton.updateComplete;
+    await menuButton.menu.updateComplete;
+    await document.fonts.ready;
+
+    menuButton.menu.showPopover();
+
+    if (!menuButton.menu.matches(':popover-open')) {
+      throw new Error('The user groups menu did not open');
+    }
   },
   render: () => html`
     <style>
-      .actions-stress {
+      .actions-user-groups {
         display: grid;
         gap: 24px;
         max-width: 720px;
       }
 
-      .actions-stress-section {
+      .actions-user-groups {
         display: grid;
         gap: 12px;
         min-width: 0;
       }
 
-      .actions-stress-section h2 {
+      .actions-user-groups h2 {
         margin: 0;
       }
 
-      .actions-stress-buttons,
-      .actions-stress-tags {
+      .actions-user-groups-buttons,
+      .actions-user-groups-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
       }
 
-      .actions-stress-toolbar {
+      .actions-user-groups-toolbar {
         inline-size: 380px;
         max-inline-size: 100%;
       }
 
-      .actions-stress-tags sl-tag {
+      .actions-user-groups-tags sl-tag {
         max-inline-size: 220px;
       }
 
-      .actions-stress-breadcrumbs {
+      .actions-user-groups-breadcrumbs {
         max-inline-size: 480px;
       }
 
-      .actions-stress-menu {
-        margin: auto !important;
-        position: static !important;
+      .actions-user-groups-menu {
+        //margin: auto !important;
+        //position: static !important;
       }
     </style>
 
-    <div class="actions-stress">
-      <section class="actions-stress-section">
+    <div class="actions-user-groups">
+      <section class="actions-user-groups-section">
         <h2 class="heading sm">Buttons</h2>
-        <div class="actions-stress-buttons">
+        <div class="actions-user-groups-buttons">
           <sl-button variant="primary">
             <sl-icon name="far-plus"></sl-icon>
             Create a new learning activity
@@ -161,10 +167,10 @@ export const ActionsAndNavigation: StoryObj = {
         </div>
       </section>
 
-      <section class="actions-stress-section">
+      <section class="actions-user-groups-section">
         <h2 class="heading sm">Toolbar</h2>
         <sl-tool-bar
-          class="actions-stress-toolbar"
+          class="actions-user-groups-toolbar"
           fill="outline"
           aria-label="Learning activity actions">
           <sl-button fill="outline">
@@ -177,18 +183,18 @@ export const ActionsAndNavigation: StoryObj = {
         </sl-tool-bar>
       </section>
 
-      <section class="actions-stress-section">
+      <section class="actions-user-groups-section">
         <h2 class="heading sm">Tags</h2>
-        <div class="actions-stress-tags">
+        <div class="actions-user-groups-tags">
           <sl-tag>Required</sl-tag>
           <sl-tag removable>Draft for the next school year</sl-tag>
           <sl-tag variant="info">Recently updated learning material</sl-tag>
         </div>
       </section>
 
-      <section class="actions-stress-section">
+      <section class="actions-user-groups-section">
         <h2 class="heading sm">Breadcrumbs</h2>
-        <sl-breadcrumbs class="actions-stress-breadcrumbs" aria-label="Breadcrumb">
+        <sl-breadcrumbs class="actions-user-groups-breadcrumbs" aria-label="Breadcrumb">
           <a href="#">Courses</a>
           <a href="#">Language and communication</a>
           <a href="#">Materials for the upcoming school year</a>
@@ -196,16 +202,27 @@ export const ActionsAndNavigation: StoryObj = {
         </sl-breadcrumbs>
       </section>
 
-      <section class="actions-stress-section">
+      <section class="actions-user-groups-section">
         <h2 class="heading sm">Open menu</h2>
-        <sl-menu class="actions-stress-menu" id="actions-stress-menu" popover="manual">
+        <sl-menu-button position="bottom-end">
+          <span slot="button">More settings</span>
+          <sl-menu-item-group selects="single">
+            <sl-menu-item selectable selected shortcut="$mod+Digit1">List</sl-menu-item>
+            <sl-menu-item selectable shortcut="$mod+Digit2">Cards</sl-menu-item>
+          </sl-menu-item-group>
+          <hr />
           <sl-menu-item>
-            <sl-icon name="far-plus"></sl-icon>
-            Create a new learning activity
+            Sort by
+            <sl-menu selects="single" slot="submenu">
+              <sl-menu-item selectable selected>Newest</sl-menu-item>
+              <sl-menu-item selectable>Oldest</sl-menu-item>
+              <sl-menu-item selectable>Name</sl-menu-item>
+            </sl-menu>
           </sl-menu-item>
-          <sl-menu-item>Duplicate selected activity</sl-menu-item>
-          <sl-menu-item>Move to another course</sl-menu-item>
-        </sl-menu>
+          <hr />
+          <sl-menu-item aria-disabled="true">Edit</sl-menu-item>
+          <sl-menu-item>Remove</sl-menu-item>
+        </sl-menu-button>
       </section>
     </div>
   `
@@ -217,19 +234,19 @@ export const ContentLayout: StoryObj = {
   },
   render: () => html`
     <style>
-      .content-layout-stress {
+      .content-layout-user-groups {
         display: grid;
         gap: 24px;
         max-inline-size: 640px;
       }
 
-      .content-layout-stress section {
+      .content-layout-user-groups section {
         display: grid;
         gap: 12px;
         min-inline-size: 0;
       }
 
-      .content-layout-stress h2 {
+      .content-layout-user-groups h2 {
         margin: 0;
       }
 
@@ -243,7 +260,7 @@ export const ContentLayout: StoryObj = {
       }
     </style>
 
-    <div class="content-layout-stress">
+    <div class="content-layout-user-groups">
       <section>
         <h2 class="heading sm">Card</h2>
         <sl-card>

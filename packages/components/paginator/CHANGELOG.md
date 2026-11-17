@@ -1,5 +1,17 @@
 # @sl-design-system/paginator
 
+## 0.2.12
+
+### Patch Changes
+
+- [#3873](https://github.com/sl-design-system/components/pull/3873) [`860592f`](https://github.com/sl-design-system/components/commit/860592f26d2bc17b278959651ae7e7924a28022c) - Changed status to "preview"
+
+- Updated dependencies [[`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27), [`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa), [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769), [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`aeefda9`](https://github.com/sl-design-system/components/commit/aeefda9c87e33fca82e10de1672825cacd1ebfe1), [`40788ea`](https://github.com/sl-design-system/components/commit/40788eab424ba7ae14d569cf0219d7e1cda7c6e3), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/menu@1.1.1
+  - @sl-design-system/data-source@0.4.6
+  - @sl-design-system/shared@0.14.2
+  - @sl-design-system/form@1.7.1
+
 ## 0.2.11
 
 ### Patch Changes

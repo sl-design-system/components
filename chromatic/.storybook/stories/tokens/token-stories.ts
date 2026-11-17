@@ -429,6 +429,91 @@ const tokenStyles = html`
   </style>
 `;
 
+/**
+ * Renders the tokens of one bucket. The gallery is rebuilt every time `globalsKey` changes, because
+ * switching the theme, subtheme or user group in the toolbar rerenders the story without rerunning
+ * its `play` function, and the computed values have to be read again.
+ */
+class TokenGallery extends HTMLElement {
+  bucket: TokenBucket = 'shared';
+  filter: (name: string) => boolean = () => true;
+  layout: 'cards' | 'list' = 'cards';
+
+  #globalsKey?: string;
+  #ready: Promise<void> = Promise.resolve();
+  #refreshScheduled = false;
+  #run = 0;
+
+  get globalsKey(): string | undefined {
+    return this.#globalsKey;
+  }
+
+  set globalsKey(value: string | undefined) {
+    if (value !== this.#globalsKey) {
+      this.#globalsKey = value;
+      this.#scheduleRefresh();
+    }
+  }
+
+  connectedCallback(): void {
+    this.#scheduleRefresh();
+  }
+
+  /** Resolves once the gallery reflects the latest globals. */
+  async whenReady(): Promise<void> {
+    // Let a refresh that was scheduled in the same task start first
+    await Promise.resolve();
+
+    let current: Promise<void>;
+    do {
+      current = this.#ready;
+      await current;
+    } while (current !== this.#ready);
+  }
+
+  // Coalesces the property updates of a single render into one refresh. It runs in a microtask,
+  // so the decorators have already applied the subtheme and user group attributes to `<body>`.
+  #scheduleRefresh(): void {
+    if (this.#refreshScheduled) {
+      return;
+    }
+
+    this.#refreshScheduled = true;
+    queueMicrotask(() => {
+      this.#refreshScheduled = false;
+
+      if (this.isConnected) {
+        this.#ready = this.#refresh(++this.#run);
+      }
+    });
+  }
+
+  async #refresh(run: number): Promise<void> {
+    const names = (await loadTokenBuckets())[this.bucket].filter(this.filter);
+
+    // A newer refresh started while the buckets were loading
+    if (run !== this.#run) {
+      return;
+    }
+
+    this.replaceChildren();
+
+    if (!names.length) {
+      this.textContent = 'No tokens in this bucket.';
+    } else if (this.layout === 'list') {
+      renderTokenList(this, names);
+    } else {
+      renderTokenCards(this, names);
+    }
+
+    await document.fonts.ready;
+  }
+}
+
+if (!customElements.get('token-gallery')) {
+  customElements.define('token-gallery', TokenGallery);
+}
+
 /** Creates a story that renders the tokens of one bucket, optionally narrowed down by `filter`. */
 export const tokenStory = ({
   bucket,
@@ -439,26 +524,22 @@ export const tokenStory = ({
   filter?: (name: string) => boolean;
   layout?: 'cards' | 'list';
 }): StoryObj => ({
+  // Only waits for the gallery, so Chromatic snapshots it once it's filled in
   play: async ({ canvasElement }) => {
-    const container = canvasElement.querySelector<HTMLElement>('[data-token-gallery]');
-    if (!container) {
+    const gallery = canvasElement.querySelector<TokenGallery>('token-gallery');
+    if (!gallery) {
       throw new Error('The token gallery was not rendered');
     }
 
-    const names = (await loadTokenBuckets())[bucket].filter(filter);
-
-    if (!names.length) {
-      container.textContent = 'No tokens in this bucket.';
-    } else if (layout === 'list') {
-      renderTokenList(container, names);
-    } else {
-      renderTokenCards(container, names);
-    }
-
-    await document.fonts.ready;
+    await gallery.whenReady();
   },
-  render: () => html`
+  render: (_, { globals }) => html`
     ${tokenStyles}
-    <div class="token-gallery" data-token-gallery></div>
+    <token-gallery
+      class="token-gallery"
+      .bucket=${bucket}
+      .filter=${filter}
+      .layout=${layout}
+      .globalsKey=${JSON.stringify(globals)}></token-gallery>
   `
 });

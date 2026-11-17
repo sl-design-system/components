@@ -265,6 +265,28 @@ const renderTokenList = (container: HTMLElement, names: string[]): void => {
   }
 };
 
+/** Lists tokens that other themes define but the active theme doesn't, as names only. */
+const renderMissingTokens = (container: HTMLElement, names: string[]): void => {
+  const section = document.createElement('section'),
+    heading = document.createElement('h2'),
+    list = document.createElement('div');
+
+  section.className = 'token-group';
+  heading.textContent = `Not defined in this theme (${names.length})`;
+  list.className = 'token-list token-missing';
+  list.append(
+    ...names.map(name => {
+      const tokenName = document.createElement('code');
+
+      tokenName.textContent = name;
+
+      return tokenName;
+    })
+  );
+  section.append(heading, list);
+  container.append(section);
+};
+
 // The gallery chrome deliberately uses fixed colors and fonts instead of theme tokens, so a
 // theme change only shows up in the previews of the tokens that actually changed.
 const tokenStyles = html`
@@ -426,6 +448,12 @@ const tokenStyles = html`
       max-inline-size: 100%;
       min-inline-size: 1px;
     }
+
+    .token-missing code {
+      color: #59636e;
+      display: block;
+      line-height: 16px;
+    }
   </style>
 `;
 
@@ -500,10 +528,24 @@ class TokenGallery extends HTMLElement {
 
     if (!names.length) {
       this.textContent = 'No tokens in this bucket.';
-    } else if (this.layout === 'list') {
-      renderTokenList(this, names);
+      await document.fonts.ready;
+      return;
+    }
+
+    // The themed bucket holds tokens from every theme, so some don't exist in the active theme
+    const computedStyle = getComputedStyle(document.body),
+      defined = names.filter(name => computedStyle.getPropertyValue(name).trim()),
+      definedNames = new Set(defined),
+      missing = names.filter(name => !definedNames.has(name));
+
+    if (this.layout === 'list') {
+      renderTokenList(this, defined);
     } else {
-      renderTokenCards(this, names);
+      renderTokenCards(this, defined);
+    }
+
+    if (missing.length) {
+      renderMissingTokens(this, missing);
     }
 
     await document.fonts.ready;

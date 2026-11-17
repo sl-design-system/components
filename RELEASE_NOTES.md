@@ -4,6 +4,36 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# November 17, 2026
+
+## New features
+
+- [`segmented-control`](https://github.com/sl-design-system/components/blob/main/packages/components/segmented-control/CHANGELOG.md) adds the new `<sl-segmented-control>` component for switching between a small set of related options. It supports `shape`, `size`, `fill` and `emphasis` properties, icons with an optional selected-icon variant, an `icon-only` mode, and automatically falls back to an `<sl-select>` when there is not enough space for all options.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) adds date range selection to `sl-calendar` with hover previews, keyboard cancellation, accessible range announcements and an optional responsive two-month layout.
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md) adds a `disable-body-animation` attribute to opt out of the body scale and translate animation on mobile, for example in hybrid apps. The dialog still animates and retains modal behavior and scroll locking.
+
+## Bug fixes
+
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) and [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) improve calendar layout, date range selection and keyboard navigation, keep `min` and `max` dates selectable regardless of the time of day on the values, keep the requested month visible when navigating from a day that does not exist in the target month or year, and announce the displayed month and year to screen readers, also inside the date picker modal.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) improves accessibility: column groups are now announced correctly by screen readers, and the toggle button and checkbox in each group header, as well as the row checkboxes in the selection column, now have unique accessible names. It also fixes automatic column widths for custom cell renderers and virtual scrolling (without flashing temporary widths on initial render), the grid body height after filtering or lazy loading, drag-and-drop of grouped rows, keyboard focus preservation when activating or selecting virtualized rows, and missing interactive cell backgrounds for grid row actions.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) refetches an empty `FetchListDataSource` on `update()` so removing a filter that returned no results restores the available items, fixes selection state for filtered, grouped and paginated data, and fixes groups in `FetchListDataSource` not showing their items when expanded.
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md) adds an announcer inside the modal dialog so screen readers can announce form validation errors and other live messages while the rest of the page is inert.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) fixes delayed validation announcements for form controls inside Shadow DOM.
+- [`avatar`](https://github.com/sl-design-system/components/blob/main/packages/components/avatar/CHANGELOG.md) fixes a second, empty native tooltip appearing in Safari when the display name overflows.
+- [`badge`](https://github.com/sl-design-system/components/blob/main/packages/components/badge/CHANGELOG.md) increases the gap and inline padding inside the `md` badge, which can make badges slightly wider.
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) fixes the missing focus indicator for links in the title, and [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) fixes missing keyboard focus indicators on checkboxes inside Grid and other shadow roots in Safari.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes the bold styling of selected `danger` menu items and hides decorative menu separators from assistive technologies. [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes overflow menu item labels containing Lit marker comments.
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) fixes the contrast of selected hours and minutes in dark mode and returns focus to the field button when the time picker is closed with Escape.
+
+## Locales
+
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds Dutch, Italian, Polish and Spanish translations for the calendar date range announcements and the "Select group" label of the group checkbox in the grid.
+
+## Theme updates
+
+- All themes are updated with the latest design tokens export: the typeset tokens now reference the theme font family token instead of a hard-coded font name, and the unused `new-icon` size tokens were removed.
+- [`sl-ecosystem`](https://github.com/sl-design-system/components/blob/main/packages/themes/sl-ecosystem/CHANGELOG.md) adds the new tokens to the theme and to its subthemes (blue, green, orange, purple and teal).
+
 # October 7, 2026
 
 ## Breaking changes

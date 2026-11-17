@@ -184,8 +184,8 @@ Visual treatment of the segmented control. Use the value that matches the contex
 
 Visual treatment of the segmented control. Use the value that matches the context.
 
-* **Outline** (default)
-* **Solid**
+* **Solid** (default)
+* **Outline**
 
 </section>
 

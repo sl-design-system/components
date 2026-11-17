@@ -1,7 +1,6 @@
 import { Avatar } from '@sl-design-system/avatar';
 import { Checkbox } from '@sl-design-system/checkbox';
 import {
-  ArrayListDataSource,
   FetchListDataSource,
   FetchListDataSourceError,
   ListDataSourcePlaceholder
@@ -11,7 +10,6 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
-import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
@@ -782,50 +780,30 @@ export const SummaryRowCustomContent: Story = {
   `
 };
 
-export const SummaryRowPageTotal: Story = {
-  render: () => {
-    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
-
-    return html`
-      <style>
-        .pagination {
-          align-items: center;
-          display: flex;
-          gap: 1rem;
-          justify-content: space-between;
-          margin-block: 1rem;
-        }
-        sl-paginator {
-          flex: 1;
-          justify-content: center;
-        }
-      </style>
-      <p>
-        Set <code>summary-scope="page"</code> to only calculate the totals for the rows on the
-        current page. The label then says "Page total".
-      </p>
-      <sl-grid summary-scope="page" .dataSource=${ds}>
-        <sl-grid-column
-          header="Student"
-          path="name"
-          summary-label="students"
-          summary-type="text"></sl-grid-column>
-        <sl-grid-column header="Class" path="class"></sl-grid-column>
-        <sl-grid-column
-          align="end"
-          header="Grade"
-          path="grade"
-          summary-format="average"
-          summary-type="number"></sl-grid-column>
-      </sl-grid>
-      <div class="pagination">
-        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
-        <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${ds} .pageSizes=${[5, 10, 20]}>
-        </sl-paginator-page-size>
-      </div>
-    `;
-  }
+export const SummaryRowEllipsizeText: Story = {
+  render: (_, { loaded: { students } }) => html`
+    <p>
+      This example combines <code>ellipsize-text</code> with a summary row. Text that overflows its
+      column is truncated in the rows as well as in the summary row, and the full text is available
+      in a tooltip.
+    </p>
+    <sl-grid
+      .items=${students}
+      style="max-inline-size: 500px"
+      ellipsize-text
+      column-divider
+      no-skip-links>
+      <sl-grid-column
+        path="firstName"
+        summary-label="students"
+        summary-type="text"
+        width="80"></sl-grid-column>
+      <sl-grid-column path="lastName" width="80"></sl-grid-column>
+      <sl-grid-column path="school.name" summary-type="text" width="100"></sl-grid-column>
+      <sl-grid-column path="school.address" width="100"></sl-grid-column>
+      <sl-grid-column path="school.city" width="65"></sl-grid-column>
+    </sl-grid>
+  `
 };
 
 export const SummaryRowFetch: Story = {

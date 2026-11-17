@@ -615,10 +615,18 @@ tr[part~='summary-row'] {
   --_body-cell-background: var(--sl-elevation-surface-raised-sunken);
 
   td {
+    /* Always show a divider between the columns, like in the header */
+    background:
+      var(--_vertical-border), var(--_body-cell-background-interactive),
+      var(--_body-cell-background);
     border-block-end: 0;
     border-block-start: var(--_border);
     gap: var(--sl-size-050);
     padding-block: var(--_body-cell-padding-block);
+
+    &:first-of-type {
+      background: var(--_body-cell-background-interactive), var(--_body-cell-background);
+    }
 
     .summary-with-menu {
       align-items: center;
@@ -626,6 +634,10 @@ tr[part~='summary-row'] {
       gap: var(--sl-size-050);
       inline-size: 100%;
       justify-content: space-between;
+    }
+
+    .summary-with-menu > span:first-child {
+      min-inline-size: 0;
     }
 
     sl-menu-button {

@@ -426,7 +426,13 @@ export class GridColumn<T = any> extends LitElement {
    */
   renderSummary(totals?: GridSummaryTotals, options?: { menu?: boolean }): TemplateResult {
     const classes = this.getClasses(),
-      parts = ['summary', ...this.getParts()];
+      parts = ['summary', ...this.getParts()],
+      content = this.renderSummaryContent(totals),
+      // Truncate long text, like in the data cells, and show the full text in a tooltip
+      display =
+        this.ellipsizeText && typeof content === 'string'
+          ? html`<sl-ellipsize-text>${content}</sl-ellipsize-text>`
+          : content;
 
     return html`
       <td
@@ -439,11 +445,11 @@ export class GridColumn<T = any> extends LitElement {
           (options?.menu ?? this.summaryMenu)
             ? html`
                 <span class="summary-with-menu">
-                  <span>${this.renderSummaryContent(totals)}</span>
+                  <span>${display}</span>
                   ${this.renderSummaryMenu()}
                 </span>
               `
-            : this.renderSummaryContent(totals)
+            : display
         }
       </td>
     `;

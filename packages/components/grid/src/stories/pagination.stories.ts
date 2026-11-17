@@ -327,3 +327,51 @@ export const SummaryRow: Story = {
     `;
   }
 };
+
+export const SummaryRowPageTotal: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        Set <code>summary-scope="page"</code> to only calculate the totals for the rows on the
+        current page. The label then says "Page total".
+      </p>
+      <sl-grid summary-scope="page" .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          summary-label="students"
+          summary-type="text"></sl-grid-column>
+        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          summary-format="average"
+          summary-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,20]"></sl-paginator-page-size>
+      </div>
+    `;
+  }
+};

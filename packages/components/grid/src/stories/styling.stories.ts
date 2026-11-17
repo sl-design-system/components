@@ -31,6 +31,8 @@ export const NoBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        summary-label="students"
+        summary-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -50,6 +52,8 @@ export const NoRowBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        summary-label="students"
+        summary-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -69,6 +73,8 @@ export const Striped: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        summary-label="students"
+        summary-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -88,6 +94,8 @@ export const ColumnDivider: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        summary-label="students"
+        summary-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -166,12 +174,17 @@ export const Parts: Story = {
           grow="3"
           header="Student"
           path="fullName"
+          summary-label="students"
+          summary-type="text"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Rating (0-10)"
-          path="grades"
+          parts="grades"
+          path="averageGrade"
+          summary-format="average"
+          summary-type="number"
           .renderer=${ratingRenderer}></sl-grid-column>
       </sl-grid>
     `;

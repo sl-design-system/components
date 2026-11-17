@@ -23,7 +23,10 @@ const singleState = [
   'all--skeleton',
   'all--spinner',
   'all--tooltip',
-  'stress--typography'
+  'stress--all-form',
+  'stress--typography',
+  'stress--actions-and-navigation',
+  'stress--content-layout'
 ];
 
 if (!import.meta.env?.DEV) {
@@ -47,7 +50,7 @@ const preview: Preview = {
           }
         </style>
         ${
-          singleState.includes(data.id)
+          singleState.includes(data.id) || data.title.startsWith('Tokens/')
             ? story()
             : html`<h1>State: Default <small>(including "disabled")</small></h1>
                 ${story()}

@@ -1,5 +1,15 @@
 # @sl-design-system/avatar
 
+## 1.3.3
+
+### Patch Changes
+
+- [#3851](https://github.com/sl-design-system/components/pull/3851) [`2d2e1f9`](https://github.com/sl-design-system/components/commit/2d2e1f9aa644ecc939854969bab53df1a6505cb3) - Fix a second, empty native tooltip appearing in Safari on top of the tooltip when the display name overflows.
+
+- Updated dependencies [[`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`3a25489`](https://github.com/sl-design-system/components/commit/3a254890b32f7391f749d6fbb4e0a004e492d941), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+  - @sl-design-system/badge@1.1.7
+
 ## 1.3.2
 
 ### Patch Changes

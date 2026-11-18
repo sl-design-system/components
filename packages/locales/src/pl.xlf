@@ -119,12 +119,12 @@
   <target>Następny rok, <x id="0" equiv-text="${currentYear + 1}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.previousYears">
-  <source>Go back 12 years</source>
-  <target>Poprzednie 12 lat</target>
+  <source>Go back <x id="0" equiv-text="${this.years.length}"/> years</source>
+  <target>Poprzednie <x id="0" equiv-text="${this.years.length}"/> lat</target>
 </trans-unit>
 <trans-unit id="sl.calendar.nextYears">
-  <source>Go forward 12 years</source>
-  <target>Kolejne 12 lat</target>
+  <source>Go forward <x id="0" equiv-text="${this.years.length}"/> years</source>
+  <target>Kolejne <x id="0" equiv-text="${this.years.length}"/> lat</target>
 </trans-unit>
 <trans-unit id="sl.grid.sortDescending">
   <source>Sort descending</source>

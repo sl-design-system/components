@@ -5,6 +5,7 @@ import {
   type ThemeContexts,
   type TokenBucket,
   type TokenBuckets,
+  appliesToUserGroup,
   classifyTokens,
   contextKey,
   normalizeValue
@@ -302,75 +303,61 @@ const tokenStyles = html`
       gap: 16px;
       line-height: 1.4;
     }
-
     .token-gallery code {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       overflow-wrap: anywhere;
     }
-
     .token-gallery h2 {
       font-size: 16px;
       margin: 0;
     }
-
     .token-group {
       display: grid;
       gap: 8px;
     }
-
     .token-grid {
       display: grid;
       gap: 8px;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     }
-
     .token-card {
       border: 1px solid #d0d7de;
       border-radius: 6px;
       display: grid;
       align-content: start;
-      column-gap: 8px;
-      grid-template-columns: minmax(0, 1fr) 96px;
+      grid-template-rows: repeat(3, auto);
       min-inline-size: 0;
       padding: 6px;
       row-gap: 4px;
     }
-
     .token-name {
       font-size: 11px;
       font-weight: 600;
       grid-column: 1 / -1;
       line-height: 14px;
     }
-
     .token-value {
       color: #59636e;
       font-size: 11px;
       grid-column: 1;
       line-height: 14px;
     }
-
     .token-sample {
       align-items: center;
       display: flex;
-      grid-column: 2;
-      grid-row: 2;
       min-block-size: 32px;
       min-inline-size: 0;
       overflow: hidden;
     }
-
     .token-sample:empty {
       display: none;
     }
-
     .token-bar {
       background: #0969da;
       block-size: 12px;
       display: block;
       max-inline-size: 100%;
     }
-
     .token-square,
     .token-swatch {
       background: #0969da;
@@ -379,22 +366,18 @@ const tokenStyles = html`
       max-block-size: 160px;
       max-inline-size: 100%;
     }
-
     .token-swatch {
       block-size: 24px;
       border: 1px solid #d0d7de;
       inline-size: 100%;
     }
-
     .token-opacity {
       block-size: 40px;
       inline-size: 40px;
     }
-
     .token-text {
       white-space: nowrap;
     }
-
     .token-text-wrapped {
       background: repeating-linear-gradient(
         transparent 0 calc(1lh - 1px),
@@ -402,7 +385,6 @@ const tokenStyles = html`
       );
       white-space: pre;
     }
-
     .token-box {
       background: #fff;
       block-size: 56px;
@@ -411,54 +393,17 @@ const tokenStyles = html`
       inline-size: 64px;
       margin: 12px;
     }
-
     .token-box-outlined {
       border: 2px solid #0969da;
     }
-
     .token-summary {
       margin: 0;
     }
-
     .token-list {
       column-gap: 16px;
       columns: 3;
       font-size: 11px;
     }
-
-    .token-row {
-      align-items: center;
-      break-inside: avoid;
-      display: grid;
-      gap: 6px;
-      grid-template-columns: 24px minmax(0, 1fr) minmax(0, 8rem);
-      line-height: 16px;
-    }
-
-    .token-row code:last-child {
-      color: #59636e;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .token-row-preview {
-      block-size: 10px;
-      display: block;
-    }
-
-    .token-row-color {
-      border: 1px solid #d0d7de;
-      border-radius: 50%;
-      inline-size: 10px;
-    }
-
-    .token-row-length {
-      background: #0969da;
-      max-inline-size: 100%;
-      min-inline-size: 1px;
-    }
-
     .token-missing code {
       color: #59636e;
       display: block;
@@ -476,6 +421,7 @@ class TokenGallery extends HTMLElement {
   bucket: TokenBucket = 'shared';
   filter: (name: string) => boolean = () => true;
   layout: 'cards' | 'list' = 'cards';
+  userGroup = 'superuser';
 
   #globalsKey?: string;
   #ready: Promise<void> = Promise.resolve();
@@ -527,7 +473,9 @@ class TokenGallery extends HTMLElement {
   }
 
   async #refresh(run: number): Promise<void> {
-    const names = (await loadTokenBuckets())[this.bucket].filter(this.filter);
+    const names = (await loadTokenBuckets())[this.bucket]
+      .filter(this.filter)
+      .filter(name => this.bucket !== 'userGroup' || appliesToUserGroup(name, this.userGroup));
 
     // A newer refresh started while the buckets were loading
     if (run !== this.#run) {
@@ -592,6 +540,7 @@ export const tokenStory = ({
       .bucket=${bucket}
       .filter=${filter}
       .layout=${layout}
+      .userGroup=${globals.userGroup ?? 'superuser'}
       .globalsKey=${JSON.stringify(globals)}></token-gallery>
   `
 });

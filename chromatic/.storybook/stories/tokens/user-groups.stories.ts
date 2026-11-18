@@ -4,7 +4,8 @@ import { tokenStory } from './token-stories';
 
 /**
  * Tokens with the same values in every theme, but different values per user group. One theme is
- * enough, so only the 4 user groups of a single subtheme are snapshotted.
+ * enough, so only the 4 user groups of a single subtheme are snapshotted. Group-suffixed tokens are
+ * shown only for the selected group; unsuffixed aliases are shown for every group.
  */
 export default {
   title: 'Tokens/User Groups',

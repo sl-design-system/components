@@ -15,6 +15,12 @@ const MISSING = '<missing>';
 
 export const normalizeValue = (value: string): string => value.replace(/\s+/g, ' ').trim();
 
+export const appliesToUserGroup = (name: string, userGroup: string): boolean => {
+  const suffix = name.match(/-(early|developing|advanced|superuser)$/)?.[1];
+
+  return suffix === undefined || suffix === userGroup;
+};
+
 export const contextKey = (selector: string, conditions: string[]): string => {
   const userGroup = selector.match(/^\[data-user-group=['"]?([\w-]+)['"]?\]$/i)?.[1],
     subtheme = selector.match(/^\[data-[\w-]+-subthemes=['"]?([\w-]+)['"]?\]$/i)?.[1],

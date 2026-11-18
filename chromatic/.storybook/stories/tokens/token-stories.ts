@@ -300,7 +300,7 @@ const tokenStyles = html`
       display: grid;
       font-family: system-ui, sans-serif;
       font-size: 14px;
-      gap: 16px;
+      gap: 10px;
       line-height: 1.4;
     }
     .token-gallery code {
@@ -313,11 +313,11 @@ const tokenStyles = html`
     }
     .token-group {
       display: grid;
-      gap: 8px;
+      gap: 4px;
     }
     .token-grid {
       display: grid;
-      gap: 8px;
+      gap: 4px;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     }
     .token-card {
@@ -331,14 +331,14 @@ const tokenStyles = html`
       row-gap: 4px;
     }
     .token-name {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       grid-column: 1 / -1;
       line-height: 14px;
     }
     .token-value {
       color: #59636e;
-      font-size: 11px;
+      font-size: 10px;
       grid-column: 1;
       line-height: 14px;
     }
@@ -367,7 +367,7 @@ const tokenStyles = html`
       max-inline-size: 100%;
     }
     .token-swatch {
-      block-size: 20px;
+      block-size: 16px;
       border: 1px solid #d0d7de;
       inline-size: 100%;
     }

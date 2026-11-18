@@ -327,7 +327,7 @@ const tokenStyles = html`
       align-content: start;
       grid-template-rows: repeat(3, auto);
       min-inline-size: 0;
-      padding: 6px;
+      padding: 4px;
       row-gap: 4px;
     }
     .token-name {
@@ -367,13 +367,13 @@ const tokenStyles = html`
       max-inline-size: 100%;
     }
     .token-swatch {
-      block-size: 24px;
+      block-size: 20px;
       border: 1px solid #d0d7de;
       inline-size: 100%;
     }
     .token-opacity {
-      block-size: 40px;
-      inline-size: 40px;
+      block-size: 30px;
+      inline-size: 30px;
     }
     .token-text {
       white-space: nowrap;
@@ -387,10 +387,10 @@ const tokenStyles = html`
     }
     .token-box {
       background: #fff;
-      block-size: 56px;
+      block-size: 46px;
       box-sizing: border-box;
       display: block;
-      inline-size: 64px;
+      inline-size: 54px;
       margin: 12px;
     }
     .token-box-outlined {

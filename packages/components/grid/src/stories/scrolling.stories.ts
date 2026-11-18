@@ -3,7 +3,7 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer, pupils } from './story-utils.js';
+import { avatarRenderer, classesSummary, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -321,7 +321,10 @@ export const VerticalOverflowSummaryRow: Story = {
         path="name"
         summary-label="students"
         summary-type="text"></sl-grid-column>
-      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .summary=${classesSummary(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
@@ -352,7 +355,10 @@ export const VerticalOverflowSummaryRowTop: Story = {
         path="name"
         summary-label="students"
         summary-type="text"></sl-grid-column>
-      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .summary=${classesSummary(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
@@ -379,7 +385,12 @@ export const HorizontalSummaryRow: Story = {
         summary-label="students"
         summary-type="text"
         width="200"></sl-grid-column>
-      <sl-grid-column grow="0" header="Class" path="class" width="200"></sl-grid-column>
+      <sl-grid-column
+        grow="0"
+        header="Class"
+        path="class"
+        width="200"
+        .summary=${classesSummary(pupils)}></sl-grid-column>
       <sl-grid-column
         grow="0"
         header="Homework"

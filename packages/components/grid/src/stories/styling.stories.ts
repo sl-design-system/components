@@ -1,4 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
@@ -80,6 +81,35 @@ export const Striped: Story = {
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
+};
+
+export const StripedGrouping: Story = {
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    return html`
+      <p>
+        This example combines grouping with the <code>striped</code> attribute and a summary row.
+        The rows alternate between two background colors, and the summary row shows the total for
+        all the students, not per group.
+      </p>
+      <sl-grid .dataSource=${dataSource} striped>
+        <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          summary-label="students"
+          summary-type="text"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
+        <sl-grid-column header="City" path="school.city"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const ColumnDivider: Story = {

@@ -47,3 +47,10 @@ export const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
   present: index % 5 !== 0,
   passed: 3 + ((index * 7) % 8) >= 6
 }));
+
+/** Summary text with the number of distinct classes, for example "2 classes". */
+export const classesSummary = (rows: Array<{ class: string }>): string => {
+  const count = new Set(rows.map(row => row.class)).size;
+
+  return `${count} ${count === 1 ? 'class' : 'classes'}`;
+};

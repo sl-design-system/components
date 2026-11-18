@@ -612,7 +612,7 @@ tfoot {
 
 /* The summary row with the (grand) totals */
 tr[part~='summary-row'] {
-  --_body-cell-background: var(--sl-elevation-surface-raised-sunken);
+  --_body-cell-background: var(--sl-elevation-surface-raised-alternative);
 
   td {
     /* Always show a divider between the columns, like in the header */

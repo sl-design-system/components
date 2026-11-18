@@ -20,7 +20,7 @@ import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { type Grid } from '../grid.js';
 import { type GridSummaryTotals, calculateSummaryTotals } from '../summary.js';
-import { type Pupil, avatarRenderer, pupils } from './story-utils.js';
+import { type Pupil, avatarRenderer, classesSummary, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -562,13 +562,25 @@ export const SummaryRow: Story = {
       fraction, count or percentage. A dash is shown in columns without a total. The summary row is
       shown at the bottom by default and stays visible while you scroll.
     </p>
+    <p>
+      There is no <code>summary-type</code> for every kind of total. For example, the "Class" column
+      shows how many different classes there are, which can't be calculated from its values by the
+      grid. For such cases, set the <code>summary</code> property on the column to your own text,
+      like <code>.summary=\${'2 classes'}</code>. Calculate the text yourself from your data. The
+      grid doesn't recalculate this text when the rows change, but you can update it: when you set a
+      new value on the <code>summary</code> property, for example after the data or the filters
+      change, the summary row shows the new text.
+    </p>
     <sl-grid .items=${pupils.slice(0, 11)}>
       <sl-grid-column
         header="Student"
         path="name"
         summary-label="students"
         summary-type="text"></sl-grid-column>
-      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .summary=${classesSummary(pupils.slice(0, 11))}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
@@ -666,11 +678,17 @@ export const SummaryRowCheckboxColumns: Story = {
           summary-label="students"
           summary-menu
           summary-type="text"></sl-grid-column>
-        <sl-grid-column grow="0" header="Class" path="class" width="80"></sl-grid-column>
+        <sl-grid-column
+          grow="0"
+          header="Class"
+          path="class"
+          width="100"
+          .summary=${classesSummary(subjectRows)}></sl-grid-column>
         <sl-grid-column grow="0" header="Profile" path="profile" width="80"></sl-grid-column>
         ${subjects.map(
           subject => html`
             <sl-grid-column
+              align="center"
               grow="0"
               header=${subject.replace(/2$/, '')}
               path=${subject}
@@ -705,7 +723,10 @@ export const SummaryRowTop: Story = {
         path="name"
         summary-label="students"
         summary-type="text"></sl-grid-column>
-      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .summary=${classesSummary(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
@@ -732,7 +753,10 @@ export const SummaryRowFormatMenu: Story = {
         summary-label="students"
         summary-menu
         summary-type="text"></sl-grid-column>
-      <sl-grid-column header="Class" path="class"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .summary=${classesSummary(pupils.slice(0, 11))}></sl-grid-column>
       <sl-grid-column
         header="Homework"
         path="homework"
@@ -863,7 +887,10 @@ export const SummaryRowFetch: Story = {
           summary-label="students"
           summary-menu
           summary-type="text"></sl-grid-column>
-        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .summary=${classesSummary(pupils)}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"

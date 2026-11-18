@@ -7,12 +7,12 @@ const totals = (sum: number) => ({
   grade: { evaluated: 2, nonEmpty: 2, sum, totalRecords: 2, trueCount: 0 }
 });
 
-describe('summary', () => {
-  it('should not provide a summary for an ArrayListDataSource', () => {
-    expect(new ArrayListDataSource(people).summary).to.be.undefined;
+describe('grand totals', () => {
+  it('should not provide grand totals for an ArrayListDataSource', () => {
+    expect(new ArrayListDataSource(people).grandTotals).to.be.undefined;
   });
 
-  it('should not have a summary before the first page is fetched', () => {
+  it('should not have grand totals before the first page is fetched', () => {
     const ds = new FetchListDataSource({
       pageSize: 2,
       fetchPage: () =>
@@ -22,16 +22,16 @@ describe('summary', () => {
         })
     });
 
-    expect(ds.summary).to.be.undefined;
+    expect(ds.grandTotals).to.be.undefined;
   });
 
-  it('should store the summary returned by the fetch callback', async () => {
+  it('should store the grand totals returned by the fetch callback', async () => {
     const ds = new FetchListDataSource({
       pageSize: 2,
       fetchPage: () =>
         Promise.resolve({
           items: people.slice(0, 2),
-          summary: totals(10),
+          grandTotals: totals(10),
           totalItems: people.length
         })
     });
@@ -39,16 +39,16 @@ describe('summary', () => {
     void ds.items[0];
     await new Promise(resolve => setTimeout(resolve));
 
-    expect(ds.summary).to.deep.equal(totals(10));
+    expect(ds.grandTotals).to.deep.equal(totals(10));
   });
 
-  it('should replace the summary with the latest response after the filters change', async () => {
+  it('should replace the grand totals with the latest response after the filters change', async () => {
     const ds = new FetchListDataSource({
       pageSize: 2,
       fetchPage: ({ filters }) =>
         Promise.resolve({
           items: people.slice(0, 2),
-          summary: totals(filters?.length ? 3 : 10),
+          grandTotals: totals(filters?.length ? 3 : 10),
           totalItems: people.length
         })
     });
@@ -61,16 +61,16 @@ describe('summary', () => {
     void ds.items[0];
     await new Promise(resolve => setTimeout(resolve));
 
-    expect(ds.summary).to.deep.equal(totals(3));
+    expect(ds.grandTotals).to.deep.equal(totals(3));
   });
 
-  it('should dispatch sl-update when the summary arrives', async () => {
+  it('should dispatch sl-update when the grand totals arrive', async () => {
     const ds = new FetchListDataSource({
       pageSize: 2,
       fetchPage: () =>
         Promise.resolve({
           items: people.slice(0, 2),
-          summary: totals(10),
+          grandTotals: totals(10),
           totalItems: 5
         })
     });

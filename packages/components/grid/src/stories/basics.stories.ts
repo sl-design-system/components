@@ -18,9 +18,9 @@ import { createRef, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
+import { type GridGrandTotals, calculateGrandTotals } from '../grand-totals.js';
 import { type Grid } from '../grid.js';
-import { type GridSummaryTotals, calculateSummaryTotals } from '../summary.js';
-import { type Pupil, avatarRenderer, classesSummary, pupils } from './story-utils.js';
+import { type Pupil, avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -553,49 +553,50 @@ export const ReorderColumns: Story = {
   }
 };
 
-export const SummaryRow: Story = {
+export const GrandTotalsRow: Story = {
   render: () => html`
     <p>
-      A summary row shows the totals of the columns. Set <code>summary-type</code> on a column to
-      show a total: <code>number</code> columns show the sum (or the average),
-      <code>text</code> columns the number of non-empty values and <code>boolean</code> columns a
-      fraction, count or percentage. A dash is shown in columns without a total. The summary row is
-      shown at the bottom by default and stays visible while you scroll.
+      A grand totals row shows the totals of the columns. Set
+      <code>grand-totals-type</code> on a column to show a total: <code>number</code> columns show
+      the sum (or the average), <code>text</code> columns the number of non-empty values and
+      <code>boolean</code> columns a fraction, count or percentage. A dash is shown in columns
+      without a total. The grand totals row is shown at the bottom by default and stays visible
+      while you scroll.
     </p>
     <p>
-      There is no <code>summary-type</code> for every kind of total. For example, the "Class" column
-      shows how many different classes there are, which can't be calculated from its values by the
-      grid. For such cases, set the <code>summary</code> property on the column to your own text,
-      like <code>.summary=\${'2 classes'}</code>. Calculate the text yourself from your data. The
-      grid doesn't recalculate this text when the rows change, but you can update it: when you set a
-      new value on the <code>summary</code> property, for example after the data or the filters
-      change, the summary row shows the new text.
+      There is no <code>grand-totals-type</code> for every kind of total. For example, the "Class"
+      column shows how many different classes there are, which can't be calculated from its values
+      by the grid. For such cases, set the <code>grandTotals</code> property on the column to your
+      own text, like <code>.grandTotals=\${'2 classes'}</code>. Calculate the text yourself from
+      your data. The grid doesn't recalculate this text when the rows change, but you can update it:
+      when you set a new value on the <code>grandTotals</code> property, for example after the data
+      or the filters change, the grand totals row shows the new text.
     </p>
     <sl-grid .items=${pupils.slice(0, 11)}>
       <sl-grid-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-type="text"></sl-grid-column>
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
       <sl-grid-column
         header="Class"
         path="class"
-        .summary=${classesSummary(pupils.slice(0, 11))}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils.slice(0, 11))}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
       <sl-grid-column
         header="Homework"
         path="homework"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
       <sl-grid-column
         header="Present"
         path="present"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
     </sl-grid>
   `
@@ -644,7 +645,7 @@ const subjects = ['AK', 'EC', 'EN', 'NSK1', 'WI', 'VT', 'ZW', 'TE', 'EC2', 'rtF2
     ...Object.fromEntries(subjects.map(subject => [subject, subjectPattern[subject](index)]))
   }));
 
-export const SummaryRowCheckboxColumns: Story = {
+export const GrandTotalsRowCheckboxColumns: Story = {
   render: () => {
     const gridRef = createRef<Grid>(),
       checkboxRenderer =
@@ -665,25 +666,25 @@ export const SummaryRowCheckboxColumns: Story = {
     return html`
       <p>
         A grand total row for a grid with many boolean columns. There is no dedicated column type
-        for checkboxes, so the columns use a <code>renderer</code> that renders an
-        <code>sl-checkbox</code>, while <code>summary-type="boolean"</code> calculates the fractions
-        from the underlying values. Use the menu beside the label to switch between fractions,
-        counts and percentages.
+        for checkboxes, so the columns use a
+        <code>renderer</code> that renders an <code>sl-checkbox</code>, while
+        <code>grand-totals-type="boolean"</code> calculates the fractions from the underlying
+        values. Use the menu beside the label to switch between fractions, counts and percentages.
       </p>
       <sl-grid ${ref(gridRef)} .items=${subjectRows}>
         <sl-grid-column
           grow="3"
           header="Student"
           path="name"
-          summary-label="students"
-          summary-menu
-          summary-type="text"></sl-grid-column>
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
         <sl-grid-column
           grow="0"
           header="Class"
           path="class"
           width="100"
-          .summary=${classesSummary(subjectRows)}></sl-grid-column>
+          .grandTotals=${classesGrandTotals(subjectRows)}></sl-grid-column>
         <sl-grid-column grow="0" header="Profile" path="profile" width="80"></sl-grid-column>
         ${subjects.map(
           subject => html`
@@ -692,7 +693,7 @@ export const SummaryRowCheckboxColumns: Story = {
               grow="0"
               header=${subject.replace(/2$/, '')}
               path=${subject}
-              summary-type="boolean"
+              grand-totals-type="boolean"
               width="70"
               .renderer=${checkboxRenderer(subject)}
               .scopedElements=${{ 'sl-checkbox': Checkbox }}></sl-grid-column>
@@ -703,100 +704,100 @@ export const SummaryRowCheckboxColumns: Story = {
           grow="0"
           header="Grade"
           path="grade"
-          summary-format="average"
-          summary-type="number"
+          grand-totals-format="average"
+          grand-totals-type="number"
           width="80"></sl-grid-column>
       </sl-grid>
     `;
   }
 };
 
-export const SummaryRowTop: Story = {
+export const GrandTotalsRowTop: Story = {
   render: () => html`
     <p>
-      Use <code>summary-position="top"</code> to show the summary row below the header. It sticks to
-      the header when you scroll.
+      Use <code>grand-totals-position="top"</code> to show the grand totals row below the header. It
+      sticks to the header when you scroll.
     </p>
-    <sl-grid summary-position="top" .items=${pupils}>
+    <sl-grid grand-totals-position="top" .items=${pupils}>
       <sl-grid-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-type="text"></sl-grid-column>
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
       <sl-grid-column
         header="Class"
         path="class"
-        .summary=${classesSummary(pupils)}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `
 };
 
-export const SummaryRowFormatMenu: Story = {
+export const GrandTotalsRowFormatMenu: Story = {
   render: () => html`
     <p>
-      Add <code>summary-menu</code> to a column to show a menu beside its total. The menu changes
-      the format of all boolean totals that don't have a fixed <code>summary-format</code>. The
-      format only changes how the total is displayed, never the calculated value or the number of
-      records it is relative to. You can also set the format on the grid with
-      <code>summary-format</code>.
+      Add <code>grand-totals-menu</code> to a column to show a menu beside its total. The menu
+      changes the format of all boolean totals that don't have a fixed
+      <code>grand-totals-format</code>. The format only changes how the total is displayed, never
+      the calculated value or the number of records it is relative to. You can also set the format
+      on the grid with <code>grand-totals-format</code>.
     </p>
     <sl-grid .items=${pupils.slice(0, 11)}>
       <sl-grid-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-menu
-        summary-type="text"></sl-grid-column>
+        grand-totals-label="students"
+        grand-totals-menu
+        grand-totals-type="text"></sl-grid-column>
       <sl-grid-column
         header="Class"
         path="class"
-        .summary=${classesSummary(pupils.slice(0, 11))}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils.slice(0, 11))}></sl-grid-column>
       <sl-grid-column
         header="Homework"
         path="homework"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
       <sl-grid-column
         header="Present"
         path="present"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
       <sl-grid-column
         header="Passed (always a count)"
         path="passed"
-        summary-format="count"
-        summary-type="boolean"
+        grand-totals-format="count"
+        grand-totals-type="boolean"
         .renderer=${(pupil: Pupil) => (pupil.passed ? 'Yes' : 'No')}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `
 };
 
-export const SummaryRowCustomContent: Story = {
+export const GrandTotalsRowCustomContent: Story = {
   render: () => html`
     <p>
-      Use the <code>summary</code> property to replace the calculated total with a string or a
+      Use the <code>grandTotals</code> property to replace the calculated total with a string or a
       renderer function. The renderer receives the raw totals of the column.
     </p>
     <sl-grid .items=${pupils.slice(0, 11)}>
-      <sl-grid-column header="Student" path="name" .summary=${'Totals'}></sl-grid-column>
+      <sl-grid-column header="Student" path="name" .grandTotals=${'Totals'}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-type="number"
-        .summary=${(totals?: GridSummaryTotals) =>
+        grand-totals-type="number"
+        .grandTotals=${(totals?: GridGrandTotals) =>
           totals?.evaluated
             ? `${(totals.sum / totals.evaluated).toFixed(1)} on average`
             : '-'}></sl-grid-column>
@@ -804,7 +805,7 @@ export const SummaryRowCustomContent: Story = {
   `
 };
 
-export const SummaryRowEllipsizeText: Story = {
+export const GrandTotalsRowEllipsizeText: Story = {
   render: (_, { loaded: { students } }) => {
     // The example students have no boolean values, so add a deterministic one
     const rows = (students as Student[]).map((student, index) => ({
@@ -814,11 +815,11 @@ export const SummaryRowEllipsizeText: Story = {
 
     return html`
       <p>
-        This example combines <code>ellipsize-text</code> with a summary row. Text that overflows
-        its column is truncated in the rows as well as in the summary row, and the full text is
-        available in a tooltip. When a column also has <code>summary-menu</code>, the menu button
-        always stays visible and only the text is truncated. The menu changes the format of the
-        boolean totals, here the "Present" column.
+        This example combines <code>ellipsize-text</code> with a grand totals row. Text that
+        overflows its column is truncated in the rows as well as in the grand totals row, and the
+        full text is available in a tooltip. When a column also has <code>grand-totals-menu</code>,
+        the menu button always stays visible and only the text is truncated. The menu changes the
+        format of the boolean totals, here the "Present" column.
       </p>
       <sl-grid
         .items=${rows}
@@ -828,16 +829,16 @@ export const SummaryRowEllipsizeText: Story = {
         no-skip-links>
         <sl-grid-column
           path="firstName"
-          summary-label="students"
-          summary-menu
-          summary-type="text"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"
           width="110"></sl-grid-column>
         <sl-grid-column path="lastName" width="80"></sl-grid-column>
-        <sl-grid-column path="school.name" summary-type="text" width="100"></sl-grid-column>
+        <sl-grid-column path="school.name" grand-totals-type="text" width="100"></sl-grid-column>
         <sl-grid-column
           header="Present"
           path="present"
-          summary-type="boolean"
+          grand-totals-type="boolean"
           width="90"
           .renderer=${(row: { present: boolean }) => (row.present ? 'Yes' : 'No')}></sl-grid-column>
         <sl-grid-column path="school.city" width="65"></sl-grid-column>
@@ -846,17 +847,17 @@ export const SummaryRowEllipsizeText: Story = {
   }
 };
 
-export const SummaryRowFetch: Story = {
+export const GrandTotalsRowFetch: Story = {
   render: () => {
     const ds = new FetchListDataSource<Pupil>({
       pageSize: 10,
       fetchPage: ({ page, pageSize }) => {
         // A real server calculates the totals for all the records matching the filters. The
         // totals are the raw values, so the format can be changed without fetching again.
-        const summary = {
-          name: calculateSummaryTotals(pupils.map(pupil => pupil.name)),
-          grade: calculateSummaryTotals(pupils.map(pupil => pupil.grade)),
-          present: calculateSummaryTotals(pupils.map(pupil => pupil.present))
+        const grandTotals = {
+          name: calculateGrandTotals(pupils.map(pupil => pupil.name)),
+          grade: calculateGrandTotals(pupils.map(pupil => pupil.grade)),
+          present: calculateGrandTotals(pupils.map(pupil => pupil.present))
         };
 
         return new Promise(resolve =>
@@ -864,7 +865,7 @@ export const SummaryRowFetch: Story = {
             () =>
               resolve({
                 items: pupils.slice(page * pageSize, page * pageSize + pageSize),
-                summary,
+                grandTotals,
                 totalItems: pupils.length
               }),
             500
@@ -876,31 +877,31 @@ export const SummaryRowFetch: Story = {
     return html`
       <p>
         A <code>FetchListDataSource</code> doesn't have all the rows, so it can't calculate the
-        totals itself. Return the raw totals as <code>summary</code> from the
+        totals itself. Return the raw totals as <code>grandTotals</code> from the
         <code>fetchPage</code> callback, next to <code>items</code> and <code>totalItems</code>. The
-        summary row shows a dash until the totals have arrived.
+        grand totals row shows a dash until the totals have arrived.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-column
           header="Student"
           path="name"
-          summary-label="students"
-          summary-menu
-          summary-type="text"></sl-grid-column>
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
         <sl-grid-column
           header="Class"
           path="class"
-          .summary=${classesSummary(pupils)}></sl-grid-column>
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"
           path="grade"
-          summary-format="average"
-          summary-type="number"></sl-grid-column>
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
         <sl-grid-column
           header="Present"
           path="present"
-          summary-type="boolean"
+          grand-totals-type="boolean"
           .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
       </sl-grid>
     `;

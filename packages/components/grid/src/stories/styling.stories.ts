@@ -32,8 +32,8 @@ export const NoBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
-        summary-label="students"
-        summary-type="text"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -53,8 +53,8 @@ export const NoRowBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
-        summary-label="students"
-        summary-type="text"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -74,8 +74,8 @@ export const Striped: Story = {
         grow="3"
         header="Student"
         path="fullName"
-        summary-label="students"
-        summary-type="text"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -92,9 +92,9 @@ export const StripedGrouping: Story = {
 
     return html`
       <p>
-        This example combines grouping with the <code>striped</code> attribute and a summary row.
-        The rows alternate between two background colors, and the summary row shows the total for
-        all the students, not per group.
+        This example combines grouping with the <code>striped</code> attribute and a grand totals
+        row. The rows alternate between two background colors, and the grand totals row shows the
+        total for all the students, not per group.
       </p>
       <sl-grid .dataSource=${dataSource} striped>
         <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
@@ -102,8 +102,8 @@ export const StripedGrouping: Story = {
           grow="3"
           header="Student"
           path="fullName"
-          summary-label="students"
-          summary-type="text"
+          grand-totals-label="students"
+          grand-totals-type="text"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column header="City" path="school.city"></sl-grid-column>
@@ -124,8 +124,8 @@ export const ColumnDivider: Story = {
         grow="3"
         header="Student"
         path="fullName"
-        summary-label="students"
-        summary-type="text"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -184,10 +184,11 @@ export const Parts: Story = {
       </style>
       <p>
         This example shows how you can customize the rendering of the grid by using CSS parts. This
-        is a combination of the <code>itemParts</code> property on <code>sl-grid</code> to customize
-        the parts of <code>tr</code> elements and the CSS parts on <code>td</code> elements. A
-        column automatically gets a part name based on the <code>path</code> property of the column.
-        In this case, the column with the path <code>grades</code> will get the part name
+        is a combination of the
+        <code>itemParts</code> property on <code>sl-grid</code> to customize the parts of
+        <code>tr</code> elements and the CSS parts on <code>td</code> elements. A column
+        automatically gets a part name based on the <code>path</code> property of the column. In
+        this case, the column with the path <code>grades</code> will get the part name
         <code>grades</code>. You can customize this further by setting the
         <code>parts</code> property on the column.
       </p>
@@ -204,8 +205,8 @@ export const Parts: Story = {
           grow="3"
           header="Student"
           path="fullName"
-          summary-label="students"
-          summary-type="text"
+          grand-totals-label="students"
+          grand-totals-type="text"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column
@@ -213,8 +214,8 @@ export const Parts: Story = {
           header="Rating (0-10)"
           parts="grades"
           path="averageGrade"
-          summary-format="average"
-          summary-type="number"
+          grand-totals-format="average"
+          grand-totals-type="number"
           .renderer=${ratingRenderer}></sl-grid-column>
       </sl-grid>
     `;

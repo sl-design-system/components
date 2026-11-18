@@ -183,11 +183,11 @@ export const LazyLoad: Story = {
         }
       </style>
       <p>
-        This example shows how you can combine <code>FetchListDataSource</code> with pagination to
-        lazy load data when you change pages. You should try to make sure the
-        <code>pageSize</code> in the grid is the same as the batch size from the remote endpoint.
-        That way each page will only need 1 endpoint call. It uses data from
-        <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
+        This example shows how you can combine
+        <code>FetchListDataSource</code> with pagination to lazy load data when you change pages.
+        You should try to make sure the <code>pageSize</code> in the grid is the same as the batch
+        size from the remote endpoint. That way each page will only need 1 endpoint call. It uses
+        data from <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
@@ -278,9 +278,12 @@ export const Manual: Story = {
   }
 };
 
-export const SummaryRow: Story = {
+export const GrandTotalsRow: Story = {
   render: () => {
-    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+    const ds = new ArrayListDataSource(pupils, {
+      pagination: true,
+      pageSize: 5
+    });
 
     return html`
       <style>
@@ -297,24 +300,24 @@ export const SummaryRow: Story = {
         }
       </style>
       <p>
-        The totals in the summary row are calculated for all the rows that match the active filters,
-        across all pages. They don't change when you change the page, the page size or the sorting.
-        When the data is paginated, the label of a column with a
-        <code>summary-label</code> says that the total is for the whole grid.
+        The totals in the grand totals row are calculated for all the rows that match the active
+        filters, across all pages. They don't change when you change the page, the page size or the
+        sorting. When the data is paginated, the label of a column with a
+        <code>grand-totals-label</code> says that the total is for the whole grid.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-column
           header="Student"
           path="name"
-          summary-label="students"
-          summary-type="text"></sl-grid-column>
+          grand-totals-label="students"
+          grand-totals-type="text"></sl-grid-column>
         <sl-grid-column header="Class" path="class"></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"
           path="grade"
-          summary-format="average"
-          summary-type="number"></sl-grid-column>
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
@@ -328,9 +331,12 @@ export const SummaryRow: Story = {
   }
 };
 
-export const SummaryRowPageTotal: Story = {
+export const GrandTotalsRowPageTotal: Story = {
   render: () => {
-    const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+    const ds = new ArrayListDataSource(pupils, {
+      pagination: true,
+      pageSize: 5
+    });
 
     return html`
       <style>
@@ -347,22 +353,22 @@ export const SummaryRowPageTotal: Story = {
         }
       </style>
       <p>
-        Set <code>summary-scope="page"</code> to only calculate the totals for the rows on the
+        Set <code>grand-totals-scope="page"</code> to only calculate the totals for the rows on the
         current page. The label then says "Page total".
       </p>
-      <sl-grid summary-scope="page" .dataSource=${ds}>
+      <sl-grid grand-totals-scope="page" .dataSource=${ds}>
         <sl-grid-column
           header="Student"
           path="name"
-          summary-label="students"
-          summary-type="text"></sl-grid-column>
+          grand-totals-label="students"
+          grand-totals-type="text"></sl-grid-column>
         <sl-grid-column header="Class" path="class"></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"
           path="grade"
-          summary-format="average"
-          summary-type="number"></sl-grid-column>
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>

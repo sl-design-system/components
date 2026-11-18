@@ -101,10 +101,11 @@ export const Multiple: Story = {
     return html`
       <p>
         This example shows how you can select multiple rows by toggling the checkbox in the first
-        column. If you add an <code>sl-grid-selection-column</code> element, it will automatically
-        enable multi selection for you. When you have selected multiple rows, you can perform bulk
-        actions on them by using the floating tool-bar at the bottom of the grid. You can add bulk
-        actions by using the <code>bulk-actions</code> slot.
+        column. If you add an
+        <code>sl-grid-selection-column</code> element, it will automatically enable multi selection
+        for you. When you have selected multiple rows, you can perform bulk actions on them by using
+        the floating tool-bar at the bottom of the grid. You can add bulk actions by using the
+        <code>bulk-actions</code> slot.
       </p>
       <sl-grid .items=${(students as Student[]).slice(0, 5)}>
         <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
@@ -154,7 +155,7 @@ export const Multiple: Story = {
   }
 };
 
-export const MultipleWithSummaryRow: Story = {
+export const MultipleWithGrandTotalsRow: Story = {
   render: (_, { loaded: { students } }) => {
     interface SubjectRow extends Student {
       [subject: string]: unknown;
@@ -204,11 +205,11 @@ export const MultipleWithSummaryRow: Story = {
 
     return html`
       <p>
-        This example combines a selection column with a summary row. The summary row is not affected
-        by the selection: it shows the totals of all the rows in the grid. The selection column has
-        no total, so it shows a dash. The checkbox columns use a custom
-        <code>renderer</code>, while <code>summary-type="boolean"</code> calculates the fractions
-        from the underlying values.
+        This example combines a selection column with a grand totals row. The grand totals row is
+        not affected by the selection: it shows the totals of all the rows in the grid. The
+        selection column has no total, so it shows a dash. The checkbox columns use a custom
+        <code>renderer</code>, while <code>grand-totals-type="boolean"</code> calculates the
+        fractions from the underlying values.
       </p>
       <sl-grid ${ref(gridRef)} .items=${rows}>
         <sl-grid-selection-column></sl-grid-selection-column>
@@ -216,9 +217,9 @@ export const MultipleWithSummaryRow: Story = {
           grow="3"
           header="Student"
           path="fullName"
-          summary-label="students"
-          summary-menu
-          summary-type="text"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column grow="0" header="Class" path="class" width="80"></sl-grid-column>
@@ -229,7 +230,7 @@ export const MultipleWithSummaryRow: Story = {
               grow="0"
               header=${subject.replace(/2$/, '')}
               path=${subject}
-              summary-type="boolean"
+              grand-totals-type="boolean"
               width="70"
               .renderer=${checkboxRenderer(subject)}
               .scopedElements=${{ 'sl-checkbox': Checkbox }}></sl-grid-column>
@@ -240,8 +241,8 @@ export const MultipleWithSummaryRow: Story = {
           grow="0"
           header="Grade"
           path="grade"
-          summary-format="average"
-          summary-type="number"
+          grand-totals-format="average"
+          grand-totals-type="number"
           width="80"></sl-grid-column>
       </sl-grid>
     `;
@@ -457,7 +458,9 @@ export const MultipleRow: Story = {
             ...student,
             id: `${student.id}-copy`,
             lastName: `${student.lastName} (copy)`,
-            fullName: `${student.firstName}${student.infix ? ` ${student.infix}` : ''} ${student.lastName} (copy)`
+            fullName: `${student.firstName}${
+              student.infix ? ` ${student.infix}` : ''
+            } ${student.lastName} (copy)`
           };
 
           return [student, copy];
@@ -499,7 +502,8 @@ export const MultipleRow: Story = {
       <p>
         This example shows how you can select multiple rows at a time, but not just by toggling the
         checkbox at the start of the row, but by clicking anywhere on the row. This is done by
-        setting the <code>row-action</code> property to the <code>select</code> value.
+        setting the
+        <code>row-action</code> property to the <code>select</code> value.
       </p>
       <p>
         This example also shows how you can perform bulk actions on the selected rows by using the
@@ -580,7 +584,9 @@ export const WithLinks: Story = {
         grid.activeRow = undefined; // Reset selected student when selection changes
         activeStudent = undefined;
 
-        selection.innerText = `You have selected ${selected} ${selected > 1 ? 'students' : 'student'}.`;
+        selection.innerText = `You have selected ${selected} ${
+          selected > 1 ? 'students' : 'student'
+        }.`;
       } else {
         selection.innerText = 'You have not activated or selected anybody yet.';
       }

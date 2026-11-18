@@ -242,27 +242,27 @@ export const Grouped: Story = {
   }
 };
 
-export const SummaryRow: Story = {
+export const GrandTotalsRow: Story = {
   loaders: [],
   render: () => html`
     <p>
-      This example shows how a summary row works together with filtering. The totals are calculated
-      for the rows that match the active filters, so they change when you filter the grid. Try
-      filtering on a class to see the totals update.
+      This example shows how a grand totals row works together with filtering. The totals are
+      calculated for the rows that match the active filters, so they change when you filter the
+      grid. Try filtering on a class to see the totals update.
     </p>
     <sl-grid .items=${pupils}>
       <sl-grid-filter-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-type="text"></sl-grid-filter-column>
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-filter-column>
       <sl-grid-filter-column header="Class" path="class"></sl-grid-filter-column>
       <sl-grid-filter-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-filter-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-filter-column>
     </sl-grid>
   `
 };

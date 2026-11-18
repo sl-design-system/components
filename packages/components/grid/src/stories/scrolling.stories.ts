@@ -3,7 +3,7 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer, classesSummary, pupils } from './story-utils.js';
+import { avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -114,13 +114,14 @@ export const Both: Story = {
       </style>
       <p>
         This example shows how you can have a large grid where you can both scroll horizontally as
-        well as vertically. Here there is no <code>overflow</code> on the grid itself, but when grid
-        detects that the rows are wider than the grid itself, it will enable horizontal scrolling.
-        Vertical scrolling is done via the page itself. Since you generally don't want to
-        horizontally scroll the page but only the contents of the grid, horizontal scrolling is
-        handled by the grid itself. It also will use the custom <code>sl-scrollbar</code> component
-        for horizontal scrolling. That ensures that the horizontal scrollbar is always visible and
-        not just when you've scrolled to the bottom of the page.
+        well as vertically. Here there is no
+        <code>overflow</code> on the grid itself, but when grid detects that the rows are wider than
+        the grid itself, it will enable horizontal scrolling. Vertical scrolling is done via the
+        page itself. Since you generally don't want to horizontally scroll the page but only the
+        contents of the grid, horizontal scrolling is handled by the grid itself. It also will use
+        the custom <code>sl-scrollbar</code> component for horizontal scrolling. That ensures that
+        the horizontal scrollbar is always visible and not just when you've scrolled to the bottom
+        of the page.
       </p>
       <p>
         This example also shows how you can make the grid header sticky at an offset from the top of
@@ -198,7 +199,7 @@ export const BothSticky: Story = {
   `
 };
 
-export const BothStickySummaryRow: Story = {
+export const BothStickyGrandTotalsRow: Story = {
   render: (_, { loaded: { students } }) => {
     // The example students have no numeric or boolean values, so add some deterministic ones
     const rows = (students as Student[]).map((student, index) => ({
@@ -211,10 +212,10 @@ export const BothStickySummaryRow: Story = {
 
     return html`
       <p>
-        This example combines a sticky header, sticky columns and a summary row in a large grid that
-        scrolls both horizontally and vertically. The summary row sticks to the bottom of the
-        viewport, and its cells in the sticky columns stay in place when you scroll horizontally.
-        The number columns show an average and a sum, the boolean columns a fraction.
+        This example combines a sticky header, sticky columns and a grand totals row in a large grid
+        that scrolls both horizontally and vertically. The grand totals row sticks to the bottom of
+        the viewport, and its cells in the sticky columns stay in place when you scroll
+        horizontally. The number columns show an average and a sum, the boolean columns a fraction.
       </p>
       <style>
         .container {
@@ -230,39 +231,39 @@ export const BothStickySummaryRow: Story = {
             grow="3"
             header="Student"
             path="fullName"
-            summary-label="students"
-            summary-menu
-            summary-type="text"
+            grand-totals-label="students"
+            grand-totals-menu
+            grand-totals-type="text"
             .renderer=${avatarRenderer}
             .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
           <sl-grid-column
             align="end"
             header="Grade"
             path="grade"
-            summary-format="average"
-            summary-type="number"></sl-grid-column>
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
           <sl-grid-column
             align="end"
             header="Absences"
             path="absences"
-            summary-type="number"></sl-grid-column>
+            grand-totals-type="number"></sl-grid-column>
           <sl-grid-column
             header="Homework"
             path="homework"
-            summary-type="boolean"
+            grand-totals-type="boolean"
             .renderer=${(row: { homework: boolean }) => (row.homework ? 'Yes' : 'No')}>
           </sl-grid-column>
           <sl-grid-column
             header="Present"
             path="present"
-            summary-type="boolean"
+            grand-totals-type="boolean"
             .renderer=${(row: { present: boolean }) => (row.present ? 'Yes' : 'No')}>
           </sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>
           <sl-grid-column path="school.name"></sl-grid-column>
           <sl-grid-column path="school.address"></sl-grid-column>
           <sl-grid-column path="school.city"></sl-grid-column>
-          <sl-grid-column path="school.country" sticky summary-type="text"></sl-grid-column>
+          <sl-grid-column path="school.country" sticky grand-totals-type="text"></sl-grid-column>
         </sl-grid>
       </div>
     `;
@@ -300,12 +301,12 @@ export const Horizontal: Story = {
   `
 };
 
-export const VerticalOverflowSummaryRow: Story = {
+export const VerticalOverflowGrandTotalsRow: Story = {
   render: () => html`
     <p>
-      This example shows a summary row in a grid with a scrollable container. The header sticks to
-      the top and the summary row sticks to the bottom of the scroll container, so the totals are
-      always visible while you scroll through the rows.
+      This example shows a grand totals row in a grid with a scrollable container. The header sticks
+      to the top and the grand totals row sticks to the bottom of the scroll container, so the
+      totals are always visible while you scroll through the rows.
     </p>
     <style>
       sl-grid {
@@ -319,27 +320,27 @@ export const VerticalOverflowSummaryRow: Story = {
       <sl-grid-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-type="text"></sl-grid-column>
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
       <sl-grid-column
         header="Class"
         path="class"
-        .summary=${classesSummary(pupils)}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `
 };
 
-export const VerticalOverflowSummaryRowTop: Story = {
+export const VerticalOverflowGrandTotalsRowTop: Story = {
   render: () => html`
     <p>
-      This example shows a summary row at the top of a scrollable grid. It sticks below the header,
-      so the totals stay visible while you scroll through the rows.
+      This example shows a grand totals row at the top of a scrollable grid. It sticks below the
+      header, so the totals stay visible while you scroll through the rows.
     </p>
     <style>
       sl-grid {
@@ -349,32 +350,32 @@ export const VerticalOverflowSummaryRowTop: Story = {
         overflow-y: auto;
       }
     </style>
-    <sl-grid summary-position="top" .items=${pupils} no-border>
+    <sl-grid grand-totals-position="top" .items=${pupils} no-border>
       <sl-grid-column
         header="Student"
         path="name"
-        summary-label="students"
-        summary-type="text"></sl-grid-column>
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
       <sl-grid-column
         header="Class"
         path="class"
-        .summary=${classesSummary(pupils)}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
       <sl-grid-column
         align="end"
         header="Grade"
         path="grade"
-        summary-format="average"
-        summary-type="number"></sl-grid-column>
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `
 };
 
-export const HorizontalSummaryRow: Story = {
+export const HorizontalGrandTotalsRow: Story = {
   render: () => html`
     <p>
-      This example shows a summary row in a grid that scrolls both horizontally and vertically. The
-      first and last columns are sticky, and the summary cells in those columns stay in place as
-      well.
+      This example shows a grand totals row in a grid that scrolls both horizontally and vertically.
+      The first and last columns are sticky, and the grand totals cells in those columns stay in
+      place as well.
     </p>
     <sl-grid .items=${pupils} style="inline-size: 480px; block-size: 320px; overflow-y: auto">
       <sl-grid-column
@@ -382,26 +383,26 @@ export const HorizontalSummaryRow: Story = {
         header="Student"
         path="name"
         sticky
-        summary-label="students"
-        summary-type="text"
+        grand-totals-label="students"
+        grand-totals-type="text"
         width="200"></sl-grid-column>
       <sl-grid-column
         grow="0"
         header="Class"
         path="class"
         width="200"
-        .summary=${classesSummary(pupils)}></sl-grid-column>
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
       <sl-grid-column
         grow="0"
         header="Homework"
         path="homework"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         width="200"></sl-grid-column>
       <sl-grid-column
         grow="0"
         header="Present"
         path="present"
-        summary-type="boolean"
+        grand-totals-type="boolean"
         width="200"></sl-grid-column>
       <sl-grid-column
         align="end"
@@ -409,8 +410,8 @@ export const HorizontalSummaryRow: Story = {
         header="Grade"
         path="grade"
         sticky
-        summary-format="average"
-        summary-type="number"
+        grand-totals-format="average"
+        grand-totals-type="number"
         width="120"></sl-grid-column>
     </sl-grid>
   `

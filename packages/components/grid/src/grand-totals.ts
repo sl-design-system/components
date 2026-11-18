@@ -1,14 +1,14 @@
-/** The kind of data a summary is calculated for. */
-export type GridSummaryType = 'number' | 'text' | 'boolean';
+/** The kind of data the grand totals are calculated for. */
+export type GridGrandTotalsType = 'number' | 'text' | 'boolean';
 
 /** The format in which a total is displayed. Formats only change the display, not the totals. */
-export type GridSummaryFormat = 'sum' | 'average' | 'count' | 'fraction' | 'percentage';
+export type GridGrandTotalsFormat = 'sum' | 'average' | 'count' | 'fraction' | 'percentage';
 
 /**
  * The raw totals for a single column. These are independent of the display format, so changing the
  * format never requires recalculating (or fetching) the totals.
  */
-export interface GridSummaryTotals {
+export interface GridGrandTotals {
   /** The number of values that could be evaluated as a number (numeric columns). */
   evaluated: number;
 
@@ -25,22 +25,19 @@ export interface GridSummaryTotals {
   trueCount: number;
 }
 
-/** The raw totals for all columns of a grid, keyed by column path. */
-export type GridSummary = Record<string, GridSummaryTotals>;
-
-const FORMATS: Record<GridSummaryType, GridSummaryFormat[]> = {
+const FORMATS: Record<GridGrandTotalsType, GridGrandTotalsFormat[]> = {
   boolean: ['fraction', 'count', 'percentage'],
   number: ['sum', 'average'],
   text: ['count']
 };
 
-/** Returns the formats that are available for the given summary type. */
-export function getSummaryFormats(type: GridSummaryType): GridSummaryFormat[] {
+/** Returns the formats that are available for the given grand totals type. */
+export function getGrandTotalsFormats(type: GridGrandTotalsType): GridGrandTotalsFormat[] {
   return [...FORMATS[type]];
 }
 
-/** Returns the default format for the given summary type. */
-export function getDefaultSummaryFormat(type: GridSummaryType): GridSummaryFormat {
+/** Returns the default format for the given grand totals type. */
+export function getDefaultGrandTotalsFormat(type: GridGrandTotalsType): GridGrandTotalsFormat {
   return FORMATS[type][0];
 }
 
@@ -48,11 +45,11 @@ export function getDefaultSummaryFormat(type: GridSummaryType): GridSummaryForma
  * Returns the format to use: the requested one if it is available for the type, otherwise the
  * default format for the type.
  */
-export function resolveSummaryFormat(
-  type: GridSummaryType,
-  format?: GridSummaryFormat
-): GridSummaryFormat {
-  return format && FORMATS[type].includes(format) ? format : getDefaultSummaryFormat(type);
+export function resolveGrandTotalsFormat(
+  type: GridGrandTotalsType,
+  format?: GridGrandTotalsFormat
+): GridGrandTotalsFormat {
+  return format && FORMATS[type].includes(format) ? format : getDefaultGrandTotalsFormat(type);
 }
 
 /** Returns the numeric value, or `undefined` if the value cannot be evaluated as a number. */
@@ -81,8 +78,8 @@ function isEmpty(value: unknown): boolean {
  * from the evaluation in the same way for all formats. The `totalRecords` always counts all
  * records, so fractions and percentages keep the same denominator.
  */
-export function calculateSummaryTotals(values: unknown[]): GridSummaryTotals {
-  const totals: GridSummaryTotals = {
+export function calculateGrandTotals(values: unknown[]): GridGrandTotals {
+  const totals: GridGrandTotals = {
     evaluated: 0,
     nonEmpty: 0,
     sum: 0,
@@ -114,17 +111,17 @@ export function calculateSummaryTotals(values: unknown[]): GridSummaryTotals {
  * Formats the totals for display. Returns `'-'` when the total does not apply for the type and
  * format, or when there is nothing to evaluate.
  */
-export function formatSummary(
-  totals: GridSummaryTotals | undefined,
-  type: GridSummaryType,
-  format?: GridSummaryFormat,
+export function formatGrandTotals(
+  totals: GridGrandTotals | undefined,
+  type: GridGrandTotalsType,
+  format?: GridGrandTotalsFormat,
   locale?: string
 ): string {
   if (!totals) {
     return '-';
   }
 
-  const resolved = resolveSummaryFormat(type, format),
+  const resolved = resolveGrandTotalsFormat(type, format),
     number = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 });
 
   switch (resolved) {
@@ -148,7 +145,7 @@ export function formatSummary(
   }
 }
 
-/** Where the summary row is displayed. */
-export type GridSummaryPosition = 'top' | 'bottom';
+/** Where the grand totals row is displayed. */
+export type GridGrandTotalsPosition = 'top' | 'bottom';
 /** Which rows the totals are calculated for: all rows matching the filters, or the current page. */
-export type GridSummaryScope = 'all' | 'page';
+export type GridGrandTotalsScope = 'all' | 'page';

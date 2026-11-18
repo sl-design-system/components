@@ -14,15 +14,15 @@ import {
 import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { type Grid } from './grid.js';
 import {
-  type GridSummaryFormat,
-  type GridSummaryTotals,
-  type GridSummaryType,
-  formatSummary,
-  getSummaryFormats,
-  resolveSummaryFormat
-} from './summary.js';
+  type GridGrandTotals,
+  type GridGrandTotalsFormat,
+  type GridGrandTotalsType,
+  formatGrandTotals,
+  getGrandTotalsFormats,
+  resolveGrandTotalsFormat
+} from './grand-totals.js';
+import { type Grid } from './grid.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -47,10 +47,10 @@ export type GridColumnHeaderRenderer<T = any> = (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
-/** Custom renderer type for the cells in the summary row. */
+/** Custom renderer type for the cells in the grand totals row. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GridColumnSummaryRenderer<T = any> = (
-  totals: GridSummaryTotals | undefined,
+export type GridColumnGrandTotalsRenderer<T = any> = (
+  totals: GridGrandTotals | undefined,
   column: GridColumn<T>
 ) => string | undefined | TemplateResult;
 
@@ -204,34 +204,38 @@ export class GridColumn<T = any> extends LitElement {
   @property({ type: Boolean }) sticky?: boolean;
 
   /**
-   * Custom content for the cell of this column in the summary row. When set, this replaces the
-   * content that is calculated from `summaryType`.
+   * Custom content for the cell of this column in the grand totals row. When set, this replaces the
+   * content that is calculated from `grandTotalsType`.
    */
-  @property({ attribute: false }) summary?: string | GridColumnSummaryRenderer<T>;
+  @property({ attribute: false }) grandTotals?: string | GridColumnGrandTotalsRenderer<T>;
 
   /**
    * The format in which the total is displayed. Setting this fixes the format for this column; the
-   * format menu does not change it. When not set, the default for the `summaryType` is used. For
-   * boolean columns, the format follows the `summaryFormat` of the grid.
+   * format menu does not change it. When not set, the default for the `grandTotalsType` is used.
+   * For boolean columns, the format follows the `grandTotalsFormat` of the grid.
    */
-  @property({ attribute: 'summary-format' }) summaryFormat?: GridSummaryFormat;
+  @property({ attribute: 'grand-totals-format' })
+  grandTotalsFormat?: GridGrandTotalsFormat;
 
   /** A label that is displayed after the total, for example "students". */
-  @property({ attribute: 'summary-label' }) summaryLabel?: string;
+  @property({ attribute: 'grand-totals-label' }) grandTotalsLabel?: string;
 
   /**
    * Shows a menu beside the total of this column, so the user can change the format of the totals
    * of all boolean columns in the grid. When no column sets this, the menu is shown automatically
-   * in the first column of the summary row if there are boolean totals without a fixed format.
+   * in the first column of the grand totals row if there are boolean totals without a fixed
+   * format.
    */
-  @property({ type: Boolean, attribute: 'summary-menu' }) summaryMenu?: boolean;
+  @property({ type: Boolean, attribute: 'grand-totals-menu' })
+  grandTotalsMenu?: boolean;
 
   /**
    * The kind of data in this column, which determines what the total shows and which formats are
    * available: `number` (sum or average), `text` (count of non-empty values) or `boolean` (count,
-   * fraction or percentage). Columns without a type show a dash in the summary row.
+   * fraction or percentage). Columns without a type show a dash in the grand totals row.
    */
-  @property({ attribute: 'summary-type' }) summaryType?: GridSummaryType;
+  @property({ attribute: 'grand-totals-type' })
+  grandTotalsType?: GridGrandTotalsType;
 
   /** Whether this column is the first or last sticky column. */
   @state() stickyOrder?: 'first' | 'last';
@@ -420,14 +424,15 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /**
-   * This method renders the `<td>` element for the summary row. Override this method if you want to
-   * customize how the summary cell is rendered. Do not override this if you only want to change the
-   * content; use the `summary`, `summaryType` and `summaryFormat` properties for that.
+   * This method renders the `<td>` element for the grand totals row. Override this method if you
+   * want to customize how the grand totals cell is rendered. Do not override this if you only want
+   * to change the content; use the `grandTotals`, `grandTotalsType` and `grandTotalsFormat`
+   * properties for that.
    */
-  renderSummary(totals?: GridSummaryTotals, options?: { menu?: boolean }): TemplateResult {
+  renderGrandTotals(totals?: GridGrandTotals, options?: { menu?: boolean }): TemplateResult {
     const classes = this.getClasses(),
-      parts = ['summary', ...this.getParts()],
-      content = this.renderSummaryContent(totals),
+      parts = ['grand-totals', ...this.getParts()],
+      content = this.renderGrandTotalsContent(totals),
       // Truncate long text, like in the data cells, and show the full text in a tooltip
       display =
         this.ellipsizeText && typeof content === 'string'
@@ -442,11 +447,11 @@ export class GridColumn<T = any> extends LitElement {
         part=${parts.join(' ')}
         role="cell">
         ${
-          (options?.menu ?? this.summaryMenu)
+          (options?.menu ?? this.grandTotalsMenu)
             ? html`
-                <span class="summary-with-menu">
+                <span class="grand-totals-with-menu">
                   <span>${display}</span>
-                  ${this.renderSummaryMenu()}
+                  ${this.renderGrandTotalsMenu()}
                 </span>
               `
             : display
@@ -455,53 +460,56 @@ export class GridColumn<T = any> extends LitElement {
     `;
   }
 
-  /** Renders the content of the summary cell; the calculated total or the custom content. */
-  renderSummaryContent(totals?: GridSummaryTotals): string | undefined | TemplateResult {
-    if (typeof this.summary === 'function') {
-      return this.summary(totals, this);
-    } else if (typeof this.summary === 'string') {
-      return this.summary;
-    } else if (!this.summaryType) {
+  /** Renders the content of the grand totals cell; the calculated total or the custom content. */
+  renderGrandTotalsContent(totals?: GridGrandTotals): string | undefined | TemplateResult {
+    if (typeof this.grandTotals === 'function') {
+      return this.grandTotals(totals, this);
+    } else if (typeof this.grandTotals === 'string') {
+      return this.grandTotals;
+    } else if (!this.grandTotalsType) {
       return '-';
     }
 
-    const format = this.getSummaryFormat(),
-      value = formatSummary(totals, this.summaryType, format, this.#getLocale());
+    const format = this.getGrandTotalsFormat(),
+      value = formatGrandTotals(totals, this.grandTotalsType, format, this.#getLocale());
 
     if (value === '-') {
       return value;
     }
 
-    const prefix = format === 'average' ? `${msg('avg.', { id: 'sl.grid.summary.average' })} ` : '',
-      suffix = this.summaryLabel ? ` ${this.summaryLabel}${this.#getScopeLabel()}` : '';
+    const prefix =
+        format === 'average' ? `${msg('avg.', { id: 'sl.grid.grandTotals.average' })} ` : '',
+      suffix = this.grandTotalsLabel ? ` ${this.grandTotalsLabel}${this.#getScopeLabel()}` : '';
 
     return `${prefix}${value}${suffix}`;
   }
 
   /** Renders the menu for changing the format of the totals. */
-  renderSummaryMenu(): TemplateResult {
-    const format = resolveSummaryFormat('boolean', this.grid?.summaryFormat),
+  renderGrandTotalsMenu(): TemplateResult {
+    const format = resolveGrandTotalsFormat('boolean', this.grid?.grandTotalsFormat),
       labels: Record<string, string> = {
-        count: msg('Count', { id: 'sl.grid.summary.format.count' }),
-        fraction: msg('Fractions', { id: 'sl.grid.summary.format.fraction' }),
+        count: msg('Count', { id: 'sl.grid.grandTotals.format.count' }),
+        fraction: msg('Fractions', {
+          id: 'sl.grid.grandTotals.format.fraction'
+        }),
         percentage: msg('Percentage', {
-          id: 'sl.grid.summary.format.percentage'
+          id: 'sl.grid.grandTotals.format.percentage'
         })
       };
 
     return html`
       <sl-menu-button
-        aria-label=${msg('Summary format', {
-          id: 'sl.grid.summary.formatMenu'
+        aria-label=${msg('Grand totals format', {
+          id: 'sl.grid.grandTotals.formatMenu'
         })}
         fill="ghost"
         size="sm">
         <sl-icon name="angle-down" slot="button"></sl-icon>
         <sl-menu-item-group selects="single">
-          ${getSummaryFormats('boolean').map(
+          ${getGrandTotalsFormats('boolean').map(
             option => html`
               <sl-menu-item
-                @sl-select=${(event: Event) => this.#onSummaryFormatSelect(event, option)}
+                @sl-select=${(event: Event) => this.#onGrandTotalsFormatSelect(event, option)}
                 ?selected=${option === format}
                 selectable>
                 ${labels[option]}
@@ -514,14 +522,15 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   /** Returns the format that applies to this column's total. */
-  getSummaryFormat(): GridSummaryFormat | undefined {
-    if (!this.summaryType) {
+  getGrandTotalsFormat(): GridGrandTotalsFormat | undefined {
+    if (!this.grandTotalsType) {
       return undefined;
     }
 
-    return resolveSummaryFormat(
-      this.summaryType,
-      this.summaryFormat ?? (this.summaryType === 'boolean' ? this.grid?.summaryFormat : undefined)
+    return resolveGrandTotalsFormat(
+      this.grandTotalsType,
+      this.grandTotalsFormat ??
+        (this.grandTotalsType === 'boolean' ? this.grid?.grandTotalsFormat : undefined)
     );
   }
 
@@ -613,14 +622,14 @@ export class GridColumn<T = any> extends LitElement {
       return '';
     }
 
-    return this.grid.summaryScope === 'page'
-      ? ` (${msg('Page total', { id: 'sl.grid.summary.pageTotal' })})`
-      : ` (${msg('on the Grid', { id: 'sl.grid.summary.onTheGrid' })})`;
+    return this.grid.grandTotalsScope === 'page'
+      ? ` (${msg('Page total', { id: 'sl.grid.grandTotals.pageTotal' })})`
+      : ` (${msg('on the Grid', { id: 'sl.grid.grandTotals.onTheGrid' })})`;
   }
 
-  #onSummaryFormatSelect(event: Event, format: GridSummaryFormat): void {
+  #onGrandTotalsFormatSelect(event: Event, format: GridGrandTotalsFormat): void {
     if (this.grid) {
-      this.grid.summaryFormat = format;
+      this.grid.grandTotalsFormat = format;
     }
 
     // The menu item group stops the `sl-select` event, so the menu button never gets a chance

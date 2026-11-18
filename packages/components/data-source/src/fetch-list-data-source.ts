@@ -26,12 +26,12 @@ export interface FetchListDataSourceCallbackResult<T> {
   items: T[];
 
   /**
-   * Optional raw totals for the summary row of a grid, for all the items matching the active
-   * filters (not just the fetched page). Use the same shape as `GridSummary` in the grid package:
-   * `{ [path]: { evaluated, sum, nonEmpty, trueCount, totalRecords } }`. Provide raw values, not
-   * formatted strings, so the format can be changed without fetching again.
+   * Optional raw totals for the grand totals row of a grid, for all the items matching the active
+   * filters (not just the fetched page). Use the same shape as `GridGrandTotals` in the grid
+   * package: `{ [path]: { evaluated, sum, nonEmpty, trueCount, totalRecords } }`. Provide raw
+   * values, not formatted strings, so the format can be changed without fetching again.
    */
-  summary?: Record<string, unknown>;
+  grandTotals?: Record<string, unknown>;
 
   totalItems?: number;
 }
@@ -161,8 +161,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The total number of items in the data source. */
   #totalSize: number;
 
-  /** The raw totals for the summary row, as returned by the latest fetch. */
-  #summary?: Record<string, unknown>;
+  /** The raw totals for the grand totals row, as returned by the latest fetch. */
+  #grandTotals?: Record<string, unknown>;
 
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
@@ -178,8 +178,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return Array.from(this.#groups.values()).reduce((acc, group) => acc + (group.size ?? 0), 0);
   }
 
-  override get summary(): Record<string, unknown> | undefined {
-    return this.#summary;
+  override get grandTotals(): Record<string, unknown> | undefined {
+    return this.#grandTotals;
   }
 
   get totalSize(): number {
@@ -201,7 +201,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             ...group,
             id: group.id ?? group,
             type: 'group',
-            members: Array.from({ length: group.size ?? FetchListDataSource.defaultSize }),
+            members: Array.from({
+              length: group.size ?? FetchListDataSource.defaultSize
+            }),
             pages: {}
           }
         ])
@@ -221,7 +223,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           {
             id: FetchListDataSourceDummyGroup,
             type: 'group',
-            members: Array.from({ length: options.size ?? FetchListDataSource.defaultSize }),
+            members: Array.from({
+              length: options.size ?? FetchListDataSource.defaultSize
+            }),
             pages: {},
             size: options.size ?? FetchListDataSource.defaultSize
           }
@@ -576,8 +580,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           let recreateProxy = this.pagination || !this.#groups.has(FetchListDataSourceDummyGroup);
 
           // The totals depend on the filters, not on the page; the latest response wins.
-          if (res.summary) {
-            this.#summary = res.summary;
+          if (res.grandTotals) {
+            this.#grandTotals = res.grandTotals;
           }
 
           if (res.totalItems !== undefined) {

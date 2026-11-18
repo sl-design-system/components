@@ -587,7 +587,7 @@ tfoot {
   overflow: hidden;
   position: sticky;
 
-  /* Keep the scrollbar in place when the summary row above it is scrolled horizontally */
+  /* Keep the scrollbar in place when the grand totals row above it is scrolled horizontally */
   tr.scrollbar {
     inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
     inset-inline-start: 0;
@@ -610,8 +610,8 @@ tfoot {
   }
 }
 
-/* The summary row with the (grand) totals */
-tr[part~='summary-row'] {
+/* The grand totals row with the (grand) totals */
+tr[part~='grand-totals-row'] {
   --_body-cell-background: var(--sl-elevation-surface-raised-alternative);
 
   td {
@@ -629,7 +629,7 @@ tr[part~='summary-row'] {
       background: var(--_body-cell-background-interactive), var(--_body-cell-background);
     }
 
-    .summary-with-menu {
+    .grand-totals-with-menu {
       align-items: center;
       display: flex;
       gap: var(--sl-size-050);
@@ -637,7 +637,7 @@ tr[part~='summary-row'] {
       justify-content: space-between;
     }
 
-    .summary-with-menu > span:first-child {
+    .grand-totals-with-menu > span:first-child {
       min-inline-size: 0;
     }
 

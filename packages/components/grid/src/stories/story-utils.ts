@@ -40,7 +40,9 @@ const pupilNames = [
 /** Deterministic example data, so the totals in the stories (and snapshots) are stable. */
 export const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
   id: index + 1,
-  name: `${pupilNames[index % pupilNames.length]}${index >= pupilNames.length ? ` ${Math.floor(index / pupilNames.length) + 1}` : ''}`,
+  name: `${pupilNames[index % pupilNames.length]}${
+    index >= pupilNames.length ? ` ${Math.floor(index / pupilNames.length) + 1}` : ''
+  }`,
   class: index % 3 === 0 ? 'F5AB' : 'F3CB',
   grade: 3 + ((index * 7) % 8) + (index % 2) / 2,
   homework: index % 3 !== 0,
@@ -48,8 +50,8 @@ export const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
   passed: 3 + ((index * 7) % 8) >= 6
 }));
 
-/** Summary text with the number of distinct classes, for example "2 classes". */
-export const classesSummary = (rows: Array<{ class: string }>): string => {
+/** Grand totals text with the number of distinct classes, for example "2 classes". */
+export const classesGrandTotals = (rows: Array<{ class: string }>): string => {
   const count = new Set(rows.map(row => row.class)).size;
 
   return `${count} ${count === 1 ? 'class' : 'classes'}`;

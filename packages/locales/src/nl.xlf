@@ -554,31 +554,31 @@
   <source>Select group</source>
   <target>Selecteer groep</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.average">
+<trans-unit id="sl.grid.grandTotals.average">
   <source>avg.</source>
   <target>gem.</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.format.count">
+<trans-unit id="sl.grid.grandTotals.format.count">
   <source>Count</source>
   <target>Aantal</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.format.fraction">
+<trans-unit id="sl.grid.grandTotals.format.fraction">
   <source>Fractions</source>
   <target>Breuken</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.format.percentage">
+<trans-unit id="sl.grid.grandTotals.format.percentage">
   <source>Percentage</source>
   <target>Percentage</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.formatMenu">
-  <source>Summary format</source>
+<trans-unit id="sl.grid.grandTotals.formatMenu">
+  <source>Grand totals format</source>
   <target>Weergave van totalen</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.pageTotal">
+<trans-unit id="sl.grid.grandTotals.pageTotal">
   <source>Page total</source>
   <target>Paginatotaal</target>
 </trans-unit>
-<trans-unit id="sl.grid.summary.onTheGrid">
+<trans-unit id="sl.grid.grandTotals.onTheGrid">
   <source>on the Grid</source>
   <target>in de tabel</target>
 </trans-unit>

@@ -369,7 +369,7 @@ const tokenStyles = html`
     .token-swatch {
       block-size: 16px;
       border: 1px solid #d0d7de;
-      inline-size: 100%;
+      flex: 1 1 auto;
     }
     .token-opacity {
       block-size: 30px;

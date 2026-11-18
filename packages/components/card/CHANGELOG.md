@@ -1,5 +1,14 @@
 # @sl-design-system/card
 
+## 2.0.7
+
+### Patch Changes
+
+- [#3859](https://github.com/sl-design-system/components/pull/3859) [`c61bb93`](https://github.com/sl-design-system/components/commit/c61bb939254e7a30b49f11b0029f51c7abdbc9e1) - Fixes missing focus indicator for links in the title (that makes the whole card clickable).
+
+- Updated dependencies [[`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27), [`aeefda9`](https://github.com/sl-design-system/components/commit/aeefda9c87e33fca82e10de1672825cacd1ebfe1)]:
+  - @sl-design-system/menu@1.1.1
+
 ## 2.0.6
 
 ### Patch Changes

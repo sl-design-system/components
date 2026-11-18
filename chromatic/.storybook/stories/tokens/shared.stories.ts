@@ -4,13 +4,20 @@ import { tokenStory } from './token-stories';
 
 /**
  * Tokens with the same value in every theme, subtheme and user group. One snapshot is enough: if a
- * theme starts to deviate, the token moves to the themed bucket and both snapshots change.
+ * theme starts to deviate, the token moves to the themed bucket and both snapshots change. Use an
+ * explicit theme so the snapshot doesn't depend on the toolbar's initial selection.
  */
 export default {
   title: 'Tokens/Shared',
   parameters: {
     chromatic: {
-      modes: { default: allModes.default }
+      modes: {
+        'sanoma-learning': {
+          ...allModes.default,
+          ...allModes['sanoma-learning'],
+          userGroup: 'superuser'
+        }
+      }
     }
   }
 } satisfies Meta;

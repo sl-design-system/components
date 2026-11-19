@@ -113,3 +113,81 @@ const pageSizes = [5, 10, 15, 20];
 
 // students: Student[] loaded via getStudents({ count: 50 })
 ```
+
+## Grand totals row
+
+The totals in the grand totals row are calculated for all the rows that match the active filters, across all pages. They do not change when you change the page, the page size or the sorting.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-column
+    header="Student"
+    path="name"
+    grand-totals-label="students"
+    grand-totals-type="text"></sl-grid-column>
+  <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+  <sl-grid-column
+    align="end"
+    header="Grade"
+    path="grade"
+    grand-totals-format="average"
+    grand-totals-type="number"></sl-grid-column>
+</sl-grid>
+<div class="pagination">
+  <sl-paginator-status [dataSource]="ds" itemLabel="students"></sl-paginator-status>
+  <sl-paginator [dataSource]="ds"></sl-paginator>
+  <sl-paginator-page-size
+    [dataSource]="ds"
+    itemLabel="Students"
+    [pageSizes]="pageSizes"></sl-paginator-page-size>
+</div>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+const classes = classesGrandTotals(pupils); // for example "2 classes"
+const pageSizes = [5, 10, 15];
+```
+
+## Grand totals row page total
+
+Set `grand-totals-scope="page"` to only calculate the totals for the rows on the current page. The label then says "Page total".
+
+### Template
+
+```html
+<sl-grid grand-totals-scope="page" [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-column
+    header="Student"
+    path="name"
+    grand-totals-label="students"
+    grand-totals-type="text"></sl-grid-column>
+  <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+  <sl-grid-column
+    align="end"
+    header="Grade"
+    path="grade"
+    grand-totals-format="average"
+    grand-totals-type="number"></sl-grid-column>
+</sl-grid>
+<div class="pagination">
+  <sl-paginator-status [dataSource]="ds" itemLabel="students"></sl-paginator-status>
+  <sl-paginator [dataSource]="ds"></sl-paginator>
+  <sl-paginator-page-size
+    [dataSource]="ds"
+    itemLabel="Students"
+    [pageSizes]="pageSizes"></sl-paginator-page-size>
+</div>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(pupils, { pagination: true, pageSize: 5 });
+const classes = classesGrandTotals(pupils); // for example "2 classes"
+const pageSizes = [5, 10, 20];
+```

@@ -78,6 +78,74 @@ This pattern is useful when the page should not scroll and the grid must manage 
 }
 ```
 
+## Vertical overflow grand totals row
+
+A grand totals row in a grid with a scrollable container. The header sticks to the top and the grand totals row sticks to the bottom of the scroll container, so the totals are always visible while you scroll through the rows.
+
+### Template
+
+```html
+<style>
+  .overflow-grid {
+    block-size: 320px;
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-radius: var(--sl-size-borderRadius-default);
+    overflow-y: auto;
+  }
+</style>
+<sl-grid [items]="items" class="overflow-grid" [noBorder]="true" [noSkipLinks]="true">
+  <sl-grid-column
+    header="Student"
+    path="name"
+    grand-totals-label="students"
+    grand-totals-type="text"></sl-grid-column>
+  <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+  <sl-grid-column
+    align="end"
+    header="Grade"
+    path="grade"
+    grand-totals-format="average"
+    grand-totals-type="number"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  classes: string; // for example "2 classes"
+  items: Pupil[];
+}
+```
+
+## Vertical overflow grand totals row at the top
+
+A grand totals row at the top of a scrollable grid. It sticks below the header, so the totals stay visible while you scroll through the rows. Use the same styles and props as above.
+
+### Template
+
+```html
+<sl-grid
+  grand-totals-position="top"
+  [items]="items"
+  class="overflow-grid"
+  [noBorder]="true"
+  [noSkipLinks]="true">
+  <sl-grid-column
+    header="Student"
+    path="name"
+    grand-totals-label="students"
+    grand-totals-type="text"></sl-grid-column>
+  <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+  <sl-grid-column
+    align="end"
+    header="Grade"
+    path="grade"
+    grand-totals-format="average"
+    grand-totals-type="number"></sl-grid-column>
+</sl-grid>
+```
+
 ## Horizontal
 
 Horizontal scrolling with fixed-width columns and constrained inline size.

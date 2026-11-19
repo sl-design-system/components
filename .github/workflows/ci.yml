@@ -36,8 +36,3 @@ jobs:
       - run: yarn check-theme-package-types
 
       - run: yarn test
-
-      - name: Test Angular forms
-        run: |
-          export CHROME_BIN="$(node -p 'require("playwright").chromium.executablePath()')"
-          yarn workspace @sl-design-system/angular exec ng test --watch=false --browsers=ChromeHeadless

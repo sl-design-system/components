@@ -13,6 +13,7 @@ import { type CheckboxGroup } from '@sl-design-system/checkbox';
 import '@sl-design-system/checkbox/register.js';
 import { type RadioGroup } from '@sl-design-system/radio-group';
 import '@sl-design-system/radio-group/register.js';
+import { of } from 'rxjs';
 import { CheckboxGroupDirective } from './checkbox-group.directive';
 import { RadioGroupDirective } from './radio-group.directive';
 
@@ -133,5 +134,19 @@ describe('form control groups with Angular reactive forms', () => {
     await stabilize();
     expect(checkboxes.boxes?.every(box => box.disabled)).toBeTrue();
     expect(radio.radios?.every(option => option.disabled)).toBeTrue();
+  });
+
+  it('should run async validation once when changing from one valid option to another', async () => {
+    fixture.detectChanges();
+    await stabilize();
+    const control = fixture.componentInstance.form.controls.radio;
+    const validator = jasmine.createSpy('validator').and.returnValue(of(null));
+    control.addAsyncValidators(validator);
+
+    radio.querySelector<HTMLElement>('sl-radio[value="1"]')!.click();
+    await stabilize();
+
+    expect(control.value).toBe('1');
+    expect(validator).toHaveBeenCalledTimes(1);
   });
 });

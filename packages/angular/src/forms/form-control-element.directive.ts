@@ -17,6 +17,9 @@ import { type FormControl } from '@sl-design-system/form';
 export abstract class FormControlElementDirective<T extends HTMLElement & FormControl>
   implements ControlValueAccessor, OnDestroy, OnInit, Validator
 {
+  // Angular already runs validation on value changes. Only notify it of a different result.
+  #lastValidationResult?: string;
+
   #onBlur = (): void => this.onTouched();
 
   #onChange = (event: Event): void => {
@@ -25,7 +28,15 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
     this.changeDetection.markForCheck();
   };
 
-  #onValidate = (): void => this.onValidatorChange();
+  #onValidate = (): void => {
+    if (
+      this.#lastValidationResult === undefined ||
+      this.#lastValidationResult !== JSON.stringify(this.getValidationErrors())
+    ) {
+      this.onValidatorChange();
+      this.changeDetection.markForCheck();
+    }
+  };
 
   protected onChange: (value: T['formValue']) => void = () => {};
   protected onTouched: () => void = () => {};
@@ -73,7 +84,14 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   }
 
   /** Implemented as part of Validator. */
-  validate(_control: AbstractControl): ValidationErrors | null {
+  validate(_control?: AbstractControl): ValidationErrors | null {
+    const errors = this.getValidationErrors();
+    this.#lastValidationResult = JSON.stringify(errors);
+
+    return errors;
+  }
+
+  protected getValidationErrors(): ValidationErrors | null {
     return null;
   }
 

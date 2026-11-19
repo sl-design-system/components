@@ -86,5 +86,14 @@
         "id": "menu-button"
       }
     ]
+  },
+  {
+    "templateFile": "./segmented-control.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19973-64128",
+        "id": "segmented-control"
+      }
+    ]
   }
 ]

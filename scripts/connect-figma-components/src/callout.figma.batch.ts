@@ -1,0 +1,42 @@
+// source=packages/components/callout/src/callout.ts
+// component=Callout
+import figma from 'figma';
+import { checkEnum, checkStringProperty } from './_shared/figma-assertions.js';
+
+const instance = figma.selectedInstance;
+
+function getExample() {
+  const density = checkEnum(
+    instance.getEnum('Density', {
+      Default: 'default',
+      Relaxed: 'relaxed'
+    }) ?? 'default'
+  );
+
+  const description = checkStringProperty(instance.getString('Description'), 'Description'),
+    title = checkStringProperty(instance.getString('Title'), 'Title'),
+    variant = checkStringProperty(instance.getString('variant'), 'variant') ?? 'info';
+
+  const swapSlot = instance.getInstanceSwap('Swap Slot');
+
+  let slotted;
+  if (swapSlot) {
+    slotted = swapSlot.executeTemplate().example;
+  }
+
+  return figma.code`
+    <sl-callout
+      ${density !== 'default' ? `density="${density}"` : ''}
+      ${variant !== 'info' ? `variant="${variant}"` : ''}
+    >
+      ${title ? `<h1 slot="title">${title}</h1>` : ''}
+      ${description ? `<p>${description}</p>` : ''}
+      ${slotted}
+    </sl-callout>
+  `;
+}
+
+export default {
+  example: getExample(),
+  id: figma.batch.id
+};

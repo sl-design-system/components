@@ -98,14 +98,16 @@
 
 :host(:state(clearable):state(has-selection)) {
   .wrapper {
-    padding-inline-end: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
+    padding-inline-end: calc(
+      1lh + (var(--sl-size-100) + var(--sl-size-050) - var(--sl-size-borderWidth-default)) * 2
+    );
   }
 
   .status {
     border-inline-start: var(--sl-size-borderWidth-default) solid
       var(--sl-color-border-neutral-subtle);
     margin-inline-start: 0;
-    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+    padding-inline-start: calc(var(--sl-size-100) + var(--sl-size-050));
   }
 }
 

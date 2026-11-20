@@ -165,6 +165,8 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     // that would mess up the virtualization.
     return html`
       <div
+        aria-colcount="1"
+        aria-rowcount=${this.dataSource?.items.length ?? 0}
         aria-controls=${ifDefined(rootIds)}
         aria-owns=${ifDefined(rootIds)}
         part="wrapper"
@@ -202,6 +204,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                       virtualizer.measureElement as RefOrCallback<Element>
                     ) /* must be *after* data-index */
                   }
+                  ?disabled=${item.disabled}
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
                   ?indeterminate=${item.indeterminate}
@@ -212,6 +215,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
+                  .rowIndex=${virtualItem.index + 1}
                   .type=${item.type}
                   aria-controls=${ifDefined(
                     item.children?.map(child => String(child.id)).join(' ')

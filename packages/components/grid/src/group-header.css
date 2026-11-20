@@ -86,3 +86,13 @@ sl-button {
   margin-inline-start: var(--sl-size-100);
   padding-block: var(--sl-size-125);
 }
+
+/* Hidden from view, but still included in the accessible name (unlike `hidden`). */
+.visually-hidden {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}

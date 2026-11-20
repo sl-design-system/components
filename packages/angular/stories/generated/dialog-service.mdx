@@ -289,6 +289,73 @@ export class ExampleDialogComponent {
 }
 ```
 
+## Mobile Without Body Animation
+
+Pass <code>disableBodyAnimation: true</code> to <strong>DialogService.showModal()</strong> to disable body scaling and translation on mobile. The dialog still animates and retains modal behavior and scroll locking.
+
+
+```typescript
+import { DialogRef, DialogService } from '@sl-design-system/angular';
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { DialogComponent } from '@sl-design-system/angular/dialog';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import { TextAreaDirective, TextFieldDirective } from '@sl-design-system/angular/forms';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+
+@Component({
+  selector: 'sla-dialog-service-without-body-animation',
+  template: `<h3>Dialog Service without body animation</h3>
+  <p>Open a mobile dialog without scaling or translating the page behind it.</p>
+  <sl-button (click)="openDialog()">Open dialog</sl-button>`,
+  imports: [ButtonComponent]
+})
+export class DialogServiceWithoutBodyAnimationComponent {
+
+  constructor(private dialogService: DialogService) {}
+
+  openDialog(): void {
+    this.dialogService.showModal<ExampleDialogComponent, string>({
+      component: ExampleDialogComponent,
+      data: {
+        title: 'Dialog without body animation',
+        message:
+          'The dialog slides in from the bottom while the page behind it stays in place. This is useful in hybrid mobile apps where part of the interface is native.'
+      },
+      disableBodyAnimation: true
+    });
+  }
+
+}
+```
+
+**Referenced Components:**
+
+The examples above use the following custom component(s):
+
+
+```typescript
+@Component({
+  standalone: true,
+  imports: [ButtonComponent, CommonModule],
+  template: `<h1 slot="title">{{ data.title }}</h1>
+  <p>{{ data.message }}</p>
+  <div>Example content.</div>
+  <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
+  <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">
+    Confirm
+  </sl-button>`
+})
+export class ExampleDialogComponent {
+
+  constructor(
+    public dialogRef: DialogRef<string>,
+    @Inject('DIALOG_DATA') public data: { title: string; message: string }
+  ) {}
+
+}
+```
+
 ## Form In Dialog Example
 
 This example demonstrates how to use a form inside a dialog opened with the DialogService.

@@ -119,12 +119,12 @@
   <target>Año siguiente, <x id="0" equiv-text="${currentYear + 1}"/></target>
 </trans-unit>
 <trans-unit id="sl.calendar.previousYears">
-  <source>Go back 12 years</source>
-  <target>Retroceder 12 años</target>
+  <source>Go back <x id="0" equiv-text="${this.years.length}"/> years</source>
+  <target>Retroceder <x id="0" equiv-text="${this.years.length}"/> años</target>
 </trans-unit>
 <trans-unit id="sl.calendar.nextYears">
-  <source>Go forward 12 years</source>
-  <target>Avanzar 12 años</target>
+  <source>Go forward <x id="0" equiv-text="${this.years.length}"/> years</source>
+  <target>Avanzar <x id="0" equiv-text="${this.years.length}"/> años</target>
 </trans-unit>
 <trans-unit id="sl.grid.sortDescending">
   <source>Sort descending</source>
@@ -514,10 +514,6 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>En la fila activada <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroup">
-  <source>Group</source>
-  <target>Grupo</target>
-</trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_one">
   <source><x id="0" equiv-text="${over}"/> character too many</source>
   <target><x id="0" equiv-text="${over}"/> carácter demasiado</target>
@@ -554,10 +550,6 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Elimina al menos <x id="0" equiv-text="${over}"/> caracteres.</target>
 </trans-unit>
-<trans-unit id="sl.grid.selectGroupWithName">
-  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
-  <target><x id="0" equiv-text="${this.groupLabel}"/> grupo</target>
-</trans-unit>
 <trans-unit id="link.opens-in-new-tab">
   <source>opens in a new tab</source>
   <target>se abre en una nueva pestaña</target>
@@ -577,6 +569,10 @@
 <trans-unit id="sl.calendar.rangeEnd">
   <source>End of range</source>
   <target>Fin del intervalo</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectGroupLabel">
+  <source>Select group</source>
+  <target>Seleccionar grupo</target>
 </trans-unit>
 </body>
 </file>

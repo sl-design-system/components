@@ -290,9 +290,7 @@ export class Menu extends LitElement {
 
   #propagateEmphasis(): void {
     this.#menuItems?.forEach(item => {
-      if (!(item.variant === 'danger' && item.selectable)) {
-        item.emphasis = this.emphasis;
-      }
+      item.emphasis = this.emphasis;
     });
     const submenus = Array.from<Menu>(this.querySelectorAll('sl-menu'));
     submenus?.forEach(submenu => {

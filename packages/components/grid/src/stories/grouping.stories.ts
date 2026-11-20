@@ -212,7 +212,8 @@ export const Selection: Story = {
     return html`
       <p>This example shows how you combine grouping with selection.</p>
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-selection-column
+          .formControlLabel=${(student: Student) => student.fullName}></sl-grid-selection-column>
         <sl-grid-sort-column
           header="Student"
           path="fullName"
@@ -237,7 +238,8 @@ export const Both: Story = {
       <p>This example shows how you combine grouping with drag and drop and selection.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
-        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-selection-column
+          .formControlLabel=${(student: Student) => student.fullName}></sl-grid-selection-column>
         <sl-grid-sort-column
           header="Student"
           path="fullName"

@@ -29,6 +29,18 @@
   --sl-subtheme-light-color-background-secondary-subtlest: var(
     --sl-brand-light-color-background-accent-green-subtlest
   );
+  --sl-subtheme-light-color-background-selected-bold: var(
+    --sl-brand-light-color-background-accent-green-bold
+  );
+  --sl-subtheme-light-color-background-selected-interactive-bold: var(
+    --sl-brand-light-color-background-accent-green-interactive-bold
+  );
+  --sl-subtheme-light-color-background-selected-interactive-plain: var(
+    --sl-brand-light-color-background-accent-green-interactive-plain
+  );
+  --sl-subtheme-light-color-background-selected-subtle: var(
+    --sl-brand-light-color-background-accent-green-subtle
+  );
   --sl-subtheme-light-color-background-selected-subtlest: var(
     --sl-brand-light-color-background-accent-green-subtlest
   );
@@ -44,6 +56,7 @@
   --sl-subtheme-light-color-border-secondary-plain: var(
     --sl-brand-light-color-border-accent-green-plain
   );
+  --sl-subtheme-light-color-border-selected: var(--sl-brand-light-color-border-accent-green-plain);
   --sl-subtheme-light-color-foreground-brand: var(
     --sl-brand-light-color-foreground-accent-green-plain
   );
@@ -58,6 +71,15 @@
   );
   --sl-subtheme-light-color-foreground-secondary-onBold: var(
     --sl-brand-light-color-foreground-accent-green-bold
+  );
+  --sl-subtheme-light-color-foreground-selected-bold: var(
+    --sl-brand-light-color-foreground-accent-green-bold
+  );
+  --sl-subtheme-light-color-foreground-selected-onBold: var(
+    --sl-brand-light-color-foreground-accent-green-onBold
+  );
+  --sl-subtheme-light-color-foreground-selected-plain: var(
+    --sl-brand-light-color-foreground-accent-green-plain
   );
   --sl-subtheme-light-color-foreground-subtheme: var(
     --sl-brand-light-color-foreground-accent-green-bold

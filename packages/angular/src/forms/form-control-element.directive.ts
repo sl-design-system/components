@@ -17,10 +17,49 @@ import { type FormControl } from '@sl-design-system/form';
 export abstract class FormControlElementDirective<T extends HTMLElement & FormControl>
   implements ControlValueAccessor, OnDestroy, OnInit, Validator
 {
-  #onChange = (event: Event): void => {
-    this.onChange((event as CustomEvent<T['formValue']>).detail);
+  #lastValidation?: {
+    control?: AbstractControl;
+    errors: string;
+    touched?: boolean;
+  };
+
+  #onBlur = (): void => {
     this.onTouched();
+
+    const lastValidation = this.#lastValidation;
+    if (lastValidation?.control && lastValidation.touched !== lastValidation.control.touched) {
+      this.#onValidate();
+    }
+  };
+
+  #onChange = (event: Event): void => {
+    const updateOn = this.#lastValidation?.control?.updateOn;
+
+    // Touch change-driven controls first so their validators see it in the same pass.
+    if (updateOn === 'change') {
+      this.onTouched();
+    }
+
+    this.onChange((event as CustomEvent<T['formValue']>).detail);
+
+    // Angular commits blur-driven controls when the component actually loses focus.
+    if (updateOn === 'submit' || updateOn === undefined) {
+      this.onTouched();
+    }
+
     this.changeDetection.markForCheck();
+  };
+
+  #onValidate = (): void => {
+    const lastValidation = this.#lastValidation;
+    if (
+      !lastValidation ||
+      lastValidation.touched !== lastValidation.control?.touched ||
+      lastValidation.errors !== JSON.stringify(this.getValidationErrors())
+    ) {
+      this.onValidatorChange();
+      this.changeDetection.markForCheck();
+    }
   };
 
   protected onChange: (value: T['formValue']) => void = () => {};
@@ -37,15 +76,15 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   ) {}
 
   ngOnInit(): void {
-    this.element.addEventListener('sl-blur', this.onTouched);
+    this.element.addEventListener('sl-blur', this.#onBlur);
     this.element.addEventListener('sl-change', this.#onChange);
-    this.element.addEventListener('sl-validate', this.onValidatorChange);
+    this.element.addEventListener('sl-validate', this.#onValidate);
   }
 
   ngOnDestroy(): void {
-    this.element.removeEventListener('sl-blur', this.onTouched);
+    this.element.removeEventListener('sl-blur', this.#onBlur);
     this.element.removeEventListener('sl-change', this.#onChange);
-    this.element.removeEventListener('sl-validate', this.onValidatorChange);
+    this.element.removeEventListener('sl-validate', this.#onValidate);
   }
 
   /** Implemented as part of ControlValueAccessor. */
@@ -69,7 +108,14 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   }
 
   /** Implemented as part of Validator. */
-  validate(_control: AbstractControl): ValidationErrors | null {
+  validate(control?: AbstractControl): ValidationErrors | null {
+    const errors = this.getValidationErrors();
+    this.#lastValidation = { control, errors: JSON.stringify(errors), touched: control?.touched };
+
+    return errors;
+  }
+
+  protected getValidationErrors(): ValidationErrors | null {
     return null;
   }
 

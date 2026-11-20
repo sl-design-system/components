@@ -895,12 +895,51 @@ export class AllFormControlsReactiveBlurComponent {
   }
 }
 
+@Component({
+  selector: 'sla-form-control-groups-reactive',
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    CheckboxComponent,
+    CheckboxGroupComponent,
+    CheckboxGroupDirective,
+    RadioComponent,
+    RadioGroupComponent,
+    RadioGroupDirective
+  ],
+  template: `
+    <form [formGroup]="formGroup">
+      <sl-checkbox-group
+        aria-label="Checkbox options"
+        formControlName="checkboxGroup"
+        [required]="true">
+        <sl-checkbox value="1">One</sl-checkbox>
+        <sl-checkbox value="2">Two</sl-checkbox>
+      </sl-checkbox-group>
+      <sl-radio-group aria-label="Radio options" formControlName="radioGroup" [required]="true">
+        <sl-radio value="1">One</sl-radio>
+        <sl-radio value="2">Two</sl-radio>
+      </sl-radio-group>
+      <button type="button" (click)="formGroup.reset()">Reset</button>
+    </form>
+    <pre>{{ formGroup.value | json }}</pre>
+    <p>Form status: {{ formGroup.status }}</p>
+  `
+})
+export class FormControlGroupsReactiveComponent {
+  formGroup = new FormGroup({
+    checkboxGroup: new FormControl(['1'], { nonNullable: true }),
+    radioGroup: new FormControl('2', { nonNullable: true })
+  });
+}
+
 export default {
   title: 'Components/Forms',
   decorators: [
     moduleMetadata({
       imports: [
         AllFormControlsReactiveComponent,
+        FormControlGroupsReactiveComponent,
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsReactiveBlurComponent,
         AllFormControlsTemplateComponent,
@@ -931,6 +970,12 @@ export default {
 export const AllReactive: StoryFn = () => ({
   description: 'An example form that includes all form controls using reactive forms.',
   template: '<sla-all-form-controls-reactive></sla-all-form-controls-reactive>'
+});
+
+export const GroupsReactiveInitialValues: StoryFn = () => ({
+  description:
+    'Checkbox and radio groups rendered immediately with formControlName and synchronous initial values. Open this story directly or reload it to check initialization on a cold page load.',
+  template: '<sla-form-control-groups-reactive></sla-form-control-groups-reactive>'
 });
 
 export const AllEmptyReactive: StoryFn = () => ({

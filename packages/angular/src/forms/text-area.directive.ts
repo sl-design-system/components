@@ -27,7 +27,7 @@ export class TextAreaDirective extends FormControlElementDirective<TextArea> {
     super(elementRef, changeDetection);
   }
 
-  override validate(): ValidationErrors | null {
+  protected override getValidationErrors(): ValidationErrors | null {
     if (this.element.valid) {
       return null;
     } else if (this.element.validity.tooLong) {

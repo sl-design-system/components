@@ -150,10 +150,18 @@ export class RadioGroup<T = any> extends FormControlMixin(ElementInternalsMixin(
   /** The value for the radio group, to be used in forms. */
   @property() override value?: T;
 
+  constructor() {
+    super();
+
+    // Reactive forms can read validity before the element is connected.
+    this.setFormControlElement(this);
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.elementInternals.role = 'radiogroup';
+    // Restore the invalid listener after reconnection as well.
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message

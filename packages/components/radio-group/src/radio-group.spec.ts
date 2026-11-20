@@ -12,6 +12,30 @@ import './register.js';
 describe('sl-radio-group', () => {
   let el: RadioGroup;
 
+  describe('initialization before connection', () => {
+    it('should support synchronous form validation before being connected', async () => {
+      el = document.createElement('sl-radio-group');
+      el.name = 'option';
+      el.formValue = '2';
+
+      // Angular reactive forms can validate immediately after writing the initial value.
+      expect(el.isConnected).to.be.false;
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+      expect(el.formControlElement).to.equal(el);
+
+      el.innerHTML = `
+        <sl-radio value="1">Option 1</sl-radio>
+        <sl-radio value="2">Option 2</sl-radio>
+      `;
+      await fixture(el);
+
+      expect(el.formValue).to.equal('2');
+      await expect.poll(() => el.radios?.map(radio => radio.checked)).toEqual([false, true]);
+      expect(el.valid).to.be.true;
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`

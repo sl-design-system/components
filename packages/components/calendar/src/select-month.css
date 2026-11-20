@@ -18,16 +18,56 @@
 
 header {
   align-items: center;
-  display: flex;
-  gap: var(--sl-size-100);
+  display: grid;
+  gap: var(--sl-size-300);
+  grid-template-columns: repeat(3, minmax(0, 1fr)) max-content;
   margin-block-end: var(--sl-size-050);
+  /* Extend the header through the selector padding to align with the day view. */
+  margin-block-start: calc(-1 * var(--sl-size-025));
+  margin-inline: calc(-1 * var(--sl-size-025));
   padding-block: var(--sl-size-025);
   padding-inline: var(--sl-size-050) var(--sl-size-025);
 
-  .current-year {
+  > .current-year {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-    margin-inline-end: auto;
+    grid-column: 1 / span 3;
+    justify-self: start;
   }
+}
+
+:host([number-of-months='2']) header {
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  > .current-year {
+    grid-column: 1 / span 2;
+  }
+}
+
+.following-year-label {
+  color: var(--sl-color-foreground-subtlest);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  grid-column: 3;
+  padding-inline-start: calc(var(--sl-size-300) / 2);
+}
+
+.month-grids {
+  display: grid;
+  flex: 1;
+  gap: var(--sl-size-300);
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 0;
+}
+
+:host([number-of-months='2']) .month-grids {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.arrows {
+  display: flex;
+  gap: var(--sl-size-050);
+  grid-column: 4 / span 1;
+  justify-self: end;
 }
 
 sl-button {
@@ -36,7 +76,6 @@ sl-button {
 
 .current-year {
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  margin-inline-end: auto;
 }
 
 table {
@@ -47,6 +86,7 @@ table {
   inline-size: 100%;
   margin: 0;
   padding: 0 0 var(--sl-size-100) 0;
+  table-layout: fixed;
 }
 
 td {
@@ -69,6 +109,8 @@ button {
   cursor: pointer;
   display: inline-flex;
   font: inherit;
+  inline-size: 100%;
+  max-inline-size: 92px;
   outline: none;
   padding: var(--sl-size-050);
   place-items: center;
@@ -92,6 +134,7 @@ button {
   }
 
   span {
+    align-content: center;
     background: color-mix(
       in srgb,
       var(--_bg-color),
@@ -99,10 +142,18 @@ button {
     );
     border: var(--sl-size-borderWidth-subtle) solid transparent;
     border-radius: var(--sl-size-borderRadius-default);
+    box-sizing: border-box;
+    display: block;
+    flex: 1;
+    min-block-size: var(--sl-size-500);
+    min-inline-size: 0;
     outline: transparent solid var(--sl-size-outlineWidth-default);
-    outline-offset: var(--sl-size-outlineOffset-default);
+    outline-offset: calc(var(--sl-size-050) - var(--sl-size-outlineWidth-default));
+    overflow: hidden;
     padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle))
       calc(var(--sl-size-025) - var(--sl-size-borderWidth-action));
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 0.2s ease-in-out;

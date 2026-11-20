@@ -9,7 +9,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
 import { type GridFilterOption } from '../filter-column.js';
-import { avatarRenderer, pupils } from './story-utils.js';
+import { avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -256,7 +256,10 @@ export const GrandTotalsRow: Story = {
         path="name"
         grand-totals-label="students"
         grand-totals-type="text"></sl-grid-filter-column>
-      <sl-grid-filter-column header="Class" path="class"></sl-grid-filter-column>
+      <sl-grid-filter-column
+        header="Class"
+        path="class"
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-filter-column>
       <sl-grid-filter-column
         align="end"
         header="Grade"

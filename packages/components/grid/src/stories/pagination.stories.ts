@@ -10,7 +10,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer, pupils } from './story-utils.js';
+import { avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -311,7 +311,10 @@ export const GrandTotalsRow: Story = {
           path="name"
           grand-totals-label="students"
           grand-totals-type="text"></sl-grid-column>
-        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"
@@ -362,7 +365,10 @@ export const GrandTotalsRowPageTotal: Story = {
           path="name"
           grand-totals-label="students"
           grand-totals-type="text"></sl-grid-column>
-        <sl-grid-column header="Class" path="class"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Grade"

@@ -219,6 +219,17 @@ export class SearchField extends TextField {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (
+      changes.has('autocomplete') &&
+      (this.autocomplete === 'list' || this.autocomplete === 'both')
+    ) {
+      const { fontFamily, fontSize } = getComputedStyle(this);
+
+      // Start loading the bold font before the first suggestions need it.
+      void this.ownerDocument.fonts.load(`bold ${fontSize} ${fontFamily}`).catch(() => undefined);
+    }
+
     if (
       this.#suggestionsDirty ||
       [

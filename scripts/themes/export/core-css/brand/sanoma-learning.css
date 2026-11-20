@@ -1178,6 +1178,6 @@
   --sl-display-fontFamily: 'New Message';
   --sl-heading-fontFamily: 'New Message';
   --sl-label-fontFamily: 'New Message';
-  --sl-text-fontFamily: 'New Message Text Condensed';
+  --sl-text-fontFamily: 'New Message Text Condensed', sans-serif;
   --sl-title-fontFamily: 'New Message';
 }

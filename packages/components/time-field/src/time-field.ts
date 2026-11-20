@@ -1123,6 +1123,14 @@ export class TimeField extends FormControlMixin(
       return;
     }
 
+    // Keep the caret collapsed in individual parts to avoid text-selection announcements
+    // competing with the spinbutton's name and value. CSS highlights the focused part.
+    // Select-all still uses a text range so the complete time can be copied.
+    if (span.getAttribute('role') === 'spinbutton') {
+      selection.collapse(span, 0);
+      return;
+    }
+
     selection.removeAllRanges();
 
     // Prefer setBaseAndExtent when available (consistent with other components),

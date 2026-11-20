@@ -93,7 +93,7 @@ Use a segmented control only when all answers are no.
 | **What changes** | Which content is shown | How the content is displayed | What action is applied to the content  |
 | **Selection model** | Always one option selected | Always one option selected | One, several or no options selected    |
 | **"Nothing selected" valid?** | No | No | Yes                                    |
-| **Linkable** / routable | Yes | No | No                                     |
+| **Linkable / routable** | Yes | No | No                                     |
 | **Option count** | Many (with overflow) | 2–5, fixed | Small, fixed                           |
 | **Overflow handling** | "More" button | Automatically switches to Select | None                                   |
 | **Content** | Label, icon or both | Label, icon or both | Label, icon or both                    |

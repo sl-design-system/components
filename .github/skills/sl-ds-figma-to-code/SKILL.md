@@ -20,6 +20,7 @@ Setup check
 5 Context file  .github/sl-ds-figma-to-code.md read, or missing: drafted at the end
 6 App           its URL opened with the browser tool for the check: the project's verify skill, the client's browser tools, playwright-cli or Playwright MCP
 7 Commands      lint, type-check and unit tests, from the context file or package.json
+8 sl-ds setup   installed @sl-design-system/* packages and versions from the lockfile; a theme's theme.css loaded and its setup() called; register.js imports or the Angular wrappers; or no sl-ds in the project
 ```
 
 Mark each line `ok`, `route`, `question`, `failed` or `n/a`, with what the call returned.
@@ -54,12 +55,15 @@ The first that fits wins:
 - Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every `sl-*` tag in it, with its attributes, slots and events, exists in the installed package (its `custom-elements.json`) and the order above allows it.
   Standard HTML elements and global attributes, such as `h1`, `slot`, `class` or `aria-label`, are not in that file; do not check them there.
   Otherwise build the element from the design data and put the mapping on the design-system list.
-- Before using an sl-ds component the project does not use yet, read its status: `componentStatus` in `website/src/categories/components/<name>/<name>.json` on `main` of github.com/sl-design-system/components; no such file means it is undocumented, so treat it as not Stable.
+- Before using an sl-ds component the project does not use yet, read its status: `status` in `node_modules/@sl-design-system/<name>/package.json` when it is installed, else in `packages/components/<name>/package.json` on `main` of github.com/sl-design-system/components; no `status` means treat it as not Stable.
 - Ask before adding a UI library or a package, before using an sl-ds component that is not `stable`, before building something custom that sl-ds might cover, and before moving away from the project's convention.
 
 ## 4. Fit the project
 
 - Follow the repository's instructions, the context file (its styling line above all) and the nearest similar screen.
+- Values: a Figma variable becomes the matching semantic sl-ds token, such as `var(--sl-color-background-*)` or `var(--sl-color-foreground-*)`, or the project's own token where the context file says so.
+  Never a palette token (`--sl-color-palette-*`) or a raw hex, px or font value; a value with no token goes in the summary.
+- An sl-ds component the project does not use yet needs its package, its `register.js` import or wrapper, and nothing else; [references/frameworks.md](references/frameworks.md) has how, per framework.
 - Where the project has its own skill for a step, such as planning or browser verification, use it for that step.
 - Change only what the ticket and the design ask; list anything else you notice instead of changing it.
 
@@ -67,6 +71,7 @@ The first that fits wins:
 
 - Visual: on the running app (ask before starting any server or backend), take a screenshot of the changed area and compare it with the design, item by item from your list.
   Save screenshots in the folder the context file names, else ask; never next to the source.
+  Missing icons, an unstyled component or the wrong font point to the sl-ds setup, not the design: check line 8 again before changing code.
 - Code: the project's lint on the changed files, the type-check and the affected unit tests.
   Fix what your change broke, and report what was broken before.
 - Accessibility: in the accessibility tree of the changed area, every interactive element has a role and a name, images have alt text or are marked decorative, and fields have labels.
@@ -87,3 +92,12 @@ The first that fits wins:
 
 If `.github/sl-ds-figma-to-code.md` was missing, draft it from [templates/project-context.md](templates/project-context.md) with what this run learned, show it, and write it only after the developer agrees.
 If it exists and this run learned something new, propose the change.
+
+## 8. Improve this skill
+
+When the work ends, look back once: did this skill cause a problem?
+For example, the developer corrected a component choice or a check the skill should have caught, a command, path or tool name here was wrong, or a step did not fit the design.
+If so, show what happened in two lines and the smallest change to this file that would have prevented it, as a diff.
+With the developer's yes, hand it to the sl-ds-feedback skill as a General issue titled `[sl-ds-figma-to-code] <what went wrong>`; only the skill's text and generic examples, nothing from the product.
+Never change this file on your own.
+If nothing went wrong, say nothing.

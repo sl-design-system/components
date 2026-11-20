@@ -202,7 +202,7 @@ Visual treatment of the segmented control. Use the value that matches the contex
 ## Content guidelines
 
 * Use short, clear labels.
-* Keep labels to 1–2 words in English. They may be longer in Dutch, Finnish or Polish and break the layout.
+* Keep labels to 1–2 words. They may be longer in other languages and break the layout.
 * If labels can't be shortened without losing clarity, use Select or Combobox.
 * Use the icon-only only when icons remain clear.
 * Replace with Select when the control no longer fits.

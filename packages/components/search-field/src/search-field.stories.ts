@@ -229,34 +229,42 @@ export const SuggestionsInFlow: Story = {
   `
 };
 
-/** Listen for edits, then replace suggestions independently of sl-search. */
+/** Listen for edits and clears, then replace suggestions independently of sl-search. */
 export const AsyncSuggestions: Story = {
   render: () => {
     let previousQuery: string | undefined, timer: ReturnType<typeof setTimeout> | undefined;
+
+    const updateSuggestions = (event: Event): void => {
+      const field = event.currentTarget as SearchField,
+        value = field.value,
+        query = value?.trim() ? value : undefined;
+
+      if (query === previousQuery) return;
+      previousQuery = query;
+      clearTimeout(timer);
+      field.loading = query !== undefined;
+
+      if (query === undefined) {
+        field.suggestions = [];
+        return;
+      }
+
+      timer = setTimeout(() => {
+        if (field.isConnected && field.value === query) {
+          field.suggestions = ['García', 'Garden', 'Garland'];
+          field.loading = false;
+        }
+      }, 700);
+    };
+
     return html`
       <sl-search-field
         aria-label="Search"
         autocomplete="both"
         placeholder="Try Gar"
         .suggestions=${[]}
-        @sl-change=${(event: Event) => {
-          const field = event.currentTarget as SearchField,
-            query = field.value;
-          if (query === previousQuery) return;
-          previousQuery = query;
-          clearTimeout(timer);
-          field.loading = !!query?.trim();
-          if (!field.loading) {
-            field.suggestions = [];
-            return;
-          }
-          timer = setTimeout(() => {
-            if (field.isConnected && field.value === query) {
-              field.suggestions = ['García', 'Garden', 'Garland'];
-              field.loading = false;
-            }
-          }, 700);
-        }}></sl-search-field>
+        @sl-change=${updateSuggestions}
+        @sl-clear=${updateSuggestions}></sl-search-field>
     `;
   }
 };

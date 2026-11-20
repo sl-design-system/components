@@ -5,7 +5,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import './register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
 import { AsyncSuggestions } from './search-field.stories.js';
@@ -1255,6 +1255,25 @@ describe('sl-search-field', () => {
       await userEvent.keyboard('{Enter}');
 
       expect(el.value).to.equal('García');
+    });
+
+    it('reloads async suggestions when the same query is pasted after clearing', async () => {
+      el = await fixture(AsyncSuggestions.render!({} as never, {} as never));
+      const input = page.getByRole('searchbox').and(page.getByPlaceholder('Try Gar'));
+
+      await input.fill('Gar');
+      expect(el.loading).to.be.true;
+
+      await userEvent.click(el.renderRoot.querySelector('button')!);
+      expect(el.loading).to.be.false;
+      expect(el.suggestions).to.deep.equal([]);
+
+      await input.fill('Gar');
+      expect(el.loading).to.be.true;
+
+      await expect.poll(() => el.loading).toBe(false);
+      expect(el.suggestions).to.deep.equal(['García', 'Garden', 'Garland']);
+      expect(options()).to.have.length(3);
     });
 
     it('refreshes suggestion labels and status after a locale-only update', async () => {

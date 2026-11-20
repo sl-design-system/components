@@ -112,11 +112,13 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       this.filter = item => {
         const itemValue = getValueByPath(item, this.column.path!);
 
-        if (typeof itemValue !== 'string') {
+        if (typeof itemValue !== 'string' && typeof itemValue !== 'number') {
           return false;
         }
 
-        return itemValue.toLowerCase().includes((this.value?.toString() ?? '').toLowerCase());
+        return String(itemValue)
+          .toLowerCase()
+          .includes((this.value?.toString() ?? '').toLowerCase());
       };
     }
 

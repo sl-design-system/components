@@ -260,7 +260,8 @@ caption {
 }
 
 thead,
-tbody {
+tbody,
+tfoot {
   box-sizing: border-box;
 }
 
@@ -586,12 +587,19 @@ tfoot {
   overflow: hidden;
   position: sticky;
 
-  td {
-    border: 0;
-    display: flex;
-    flex: 1;
-    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
-    padding: 0 !important;
+  /* Keep the scrollbar in place when the grand totals row above it is scrolled horizontally */
+  tr.scrollbar {
+    inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+    inset-inline-start: 0;
+    position: sticky;
+
+    td {
+      border: 0;
+      display: flex;
+      flex: 1;
+      max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+      padding: 0 !important;
+    }
   }
 
   sl-scrollbar {
@@ -599,6 +607,43 @@ tfoot {
     inline-size: var(--sl-grid-scrollbar-inline-size);
     margin-inline: var(--sl-grid-scrollbar-margin-inline);
     position: relative;
+  }
+}
+
+/* The grand totals row with the (grand) totals */
+tr[part~='grand-totals-row'] {
+  --_body-cell-background: var(--sl-elevation-surface-raised-alternative);
+
+  td {
+    /* Always show a divider between the columns, like in the header */
+    background:
+      var(--_vertical-border), var(--_body-cell-background-interactive),
+      var(--_body-cell-background);
+    border-block-end: 0;
+    border-block-start: var(--_border);
+    gap: var(--sl-size-050);
+    min-block-size: var(--sl-size-700); /* 56px, as in the design */
+    padding-block: var(--_body-cell-padding-block);
+
+    &:first-of-type {
+      background: var(--_body-cell-background-interactive), var(--_body-cell-background);
+    }
+
+    .grand-totals-with-menu {
+      align-items: center;
+      display: flex;
+      gap: var(--sl-size-050);
+      inline-size: 100%;
+      justify-content: space-between;
+    }
+
+    .grand-totals-with-menu > span:first-child {
+      min-inline-size: 0;
+    }
+
+    sl-menu-button {
+      margin-block: calc(var(--_body-cell-padding-block) * -1);
+    }
   }
 }
 

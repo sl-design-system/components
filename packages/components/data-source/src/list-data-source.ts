@@ -178,6 +178,15 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#filters;
   }
 
+  /**
+   * Raw totals for the grand totals row of a grid, keyed by column path, for all items matching the
+   * active filters. Data sources that cannot compute the totals from `filteredItems` (such as
+   * remote data sources) provide them here. Returns `undefined` when not available.
+   */
+  get grandTotals(): Record<string, unknown> | undefined {
+    return undefined;
+  }
+
   get groupBy() {
     return this.#groupBy;
   }
@@ -261,7 +270,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#selects = options.selects;
 
     if (options.sortBy) {
-      this.#sort = { by: options.sortBy, direction: options.sortDirection ?? 'asc' };
+      this.#sort = {
+        by: options.sortBy,
+        direction: options.sortDirection ?? 'asc'
+      };
     }
 
     if (this.#groupBy && this.#pagination) {

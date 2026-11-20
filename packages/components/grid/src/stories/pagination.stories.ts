@@ -10,7 +10,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
-import { avatarRenderer } from './story-utils.js';
+import { avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -183,11 +183,11 @@ export const LazyLoad: Story = {
         }
       </style>
       <p>
-        This example shows how you can combine <code>FetchListDataSource</code> with pagination to
-        lazy load data when you change pages. You should try to make sure the
-        <code>pageSize</code> in the grid is the same as the batch size from the remote endpoint.
-        That way each page will only need 1 endpoint call. It uses data from
-        <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
+        This example shows how you can combine
+        <code>FetchListDataSource</code> with pagination to lazy load data when you change pages.
+        You should try to make sure the <code>pageSize</code> in the grid is the same as the batch
+        size from the remote endpoint. That way each page will only need 1 endpoint call. It uses
+        data from <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${ds}>
         <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
@@ -273,6 +273,128 @@ export const Manual: Story = {
           .itemLabel=${'Students'}
           page-size="10"
           page-sizes="[5,10,15]"></sl-paginator-page-size>
+      </div>
+    `;
+  }
+};
+
+export const GrandTotalsRow: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, {
+      pagination: true,
+      pageSize: 5
+    });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        The totals in the grand totals row are calculated for all the rows that match the active
+        filters, across all pages. They don't change when you change the page, the page size or the
+        sorting. When the data is paginated, the label of a column with a
+        <code>grand-totals-label</code> says that the total is for the whole grid.
+      </p>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-type="text"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Trip fee paid (€)"
+          path="tripFee"
+          grand-totals-format="sum"
+          grand-totals-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
+      </div>
+    `;
+  }
+};
+
+export const GrandTotalsRowPageTotal: Story = {
+  render: () => {
+    const ds = new ArrayListDataSource(pupils, {
+      pagination: true,
+      pageSize: 5
+    });
+
+    return html`
+      <style>
+        .pagination {
+          align-items: center;
+          display: flex;
+          gap: 1rem;
+          justify-content: space-between;
+          margin-block: 1rem;
+        }
+        sl-paginator {
+          flex: 1;
+          justify-content: center;
+        }
+      </style>
+      <p>
+        Set <code>grand-totals-scope="page"</code> to only calculate the totals for the rows on the
+        current page. The label then says "Page total".
+      </p>
+      <sl-grid grand-totals-scope="page" .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-type="text"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Trip fee paid (€)"
+          path="tripFee"
+          grand-totals-format="sum"
+          grand-totals-type="number"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size
+          .dataSource=${ds}
+          .itemLabel=${'Students'}
+          page-sizes="[5,10,20]"></sl-paginator-page-size>
       </div>
     `;
   }

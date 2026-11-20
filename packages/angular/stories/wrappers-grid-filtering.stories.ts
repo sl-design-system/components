@@ -176,3 +176,60 @@ export const Grouped: StoryObj = {
     };
   }
 };
+
+export const GrandTotalsRow: StoryObj = {
+  loaders: [
+    async () => {
+      const { students } = await getStudents({ count: 40 });
+
+      return { students };
+    }
+  ],
+  render: (_, { loaded }) => {
+    const students = loaded['students'] as Student[];
+
+    const count = (values: Array<string | undefined>, singular: string, plural: string): string => {
+      const total = new Set(values.filter(Boolean)).size;
+
+      return `${total} ${total === 1 ? singular : plural}`;
+    };
+
+    return {
+      description:
+        'The grand totals row only counts the rows that match the active filters. Change a filter and the Student total updates. The Group and School columns have no calculated total, so they use the grandTotals input with your own text, here the number of distinct groups and schools in all the data. The grid does not recalculate this text when the filters change.',
+      props: {
+        groups: count(
+          students.map(student => student.group?.name),
+          'group',
+          'groups'
+        ),
+        schools: count(
+          students.map(student => student.school.name),
+          'school',
+          'schools'
+        ),
+        students
+      },
+      template: `
+        <sl-grid [items]="students" [noSkipLinks]="true">
+          <sl-grid-filter-column
+            path="fullName"
+            header="Student"
+            value="ma"
+            grand-totals-label="students"
+            grand-totals-type="text"></sl-grid-filter-column>
+          <sl-grid-filter-column
+            path="group.name"
+            header="Group"
+            [grandTotals]="groups"></sl-grid-filter-column>
+          <sl-grid-filter-column
+            path="school.id"
+            header="School"
+            labelPath="school.name"
+            mode="select"
+            [grandTotals]="schools"></sl-grid-filter-column>
+        </sl-grid>
+      `
+    };
+  }
+};

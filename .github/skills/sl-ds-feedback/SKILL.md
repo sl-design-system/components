@@ -36,7 +36,7 @@ Mark each line `ok`, `question`, `failed` or `n/a`, with what the call returned.
 
 ## 2. Check
 
-- The component's status: `componentStatus` in `website/src/categories/components/<name>/<name>.json`; no such file means it is undocumented, so treat it as not Stable.
+- The component's status: `status` in the installed `node_modules/@sl-design-system/<name>/package.json`, and in `packages/components/<name>/package.json` on `main` when it is not installed or to see whether a newer release changed it; no `status` means treat it as not Stable.
   If a `stable` component covers the need, tell the developer, no issue needed; a `preview` one is available but its API may change, and the need may be a request to make it Stable; never suggest a `draft` one.
 - For a bug or a missing feature, compare the installed version with `packages/components/<name>/CHANGELOG.md` (newest first).
   If a newer release has it, the advice is to upgrade.
@@ -73,3 +73,12 @@ If you are not sure about a match, show the closest two or three and let the dev
   - New issue: `issue_write` with `method: "create"`, or write the body to a temporary file outside the repository and run `gh api -X POST repos/sl-design-system/components/issues -f 'title=<title>' -F 'body=@<file>'`, with `-f 'labels[]=<label>'` for each of the form's `labels` and `-f 'type=<type>'` when the form has a `type` (only the bug form does). Quote substituted values safely for the shell.
 - Then give the links.
   If GitHub dropped the form's labels or type, which it does for users without push access, say that the issue is in but without the `triage` label.
+
+## 6. Improve this skill
+
+When the items are sent or skipped, look back once: did this skill cause a problem?
+For example, the developer rewrote a draft in a way the skill should have caught, a search missed a duplicate they knew, or a command here was wrong.
+If so, show what happened in two lines and the smallest change to this file that would have prevented it, as a diff.
+With the developer's yes, take it through steps 3 to 5 as a General issue titled `[sl-ds-feedback] <what went wrong>`, with only the skill's text and generic examples.
+Never change this file on your own.
+If nothing went wrong, say nothing.

@@ -11,6 +11,7 @@
   --_week-number-column-size: calc(var(--sl-size-450) + var(--sl-size-200));
   --_week-number-column-padding-inline: var(--sl-size-025);
 
+  box-sizing: border-box;
   display: inline-flex;
   flex-direction: column;
   inline-size: var(--_month-inline-size);

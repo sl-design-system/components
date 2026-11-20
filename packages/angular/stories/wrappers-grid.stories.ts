@@ -533,6 +533,12 @@ export const GrandTotalsRow: StoryObj = {
             grand-totals-format="average"
             grand-totals-type="number"></sl-grid-column>
           <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
             header="Homework"
             path="homework"
             grand-totals-type="boolean"
@@ -567,6 +573,12 @@ export const GrandTotalsRowTop: StoryObj = {
             header="Grade"
             path="grade"
             grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
             grand-totals-type="number"></sl-grid-column>
         </sl-grid>
       `
@@ -618,6 +630,12 @@ export const GrandTotalsRowFormatMenu: StoryObj = {
             header="Grade"
             path="grade"
             grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
             grand-totals-type="number"></sl-grid-column>
         </sl-grid>
       `

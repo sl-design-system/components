@@ -10,6 +10,7 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
+import { Radio } from '@sl-design-system/radio-group';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
@@ -558,10 +559,11 @@ export const GrandTotalsRow: Story = {
     <p>
       A grand totals row shows the totals of the columns. Set
       <code>grand-totals-type</code> on a column to show a total: <code>number</code> columns show
-      the sum (or the average), <code>text</code> columns the number of non-empty values and
-      <code>boolean</code> columns a fraction, count or percentage. A dash is shown in columns
-      without a total. The grand totals row is shown at the bottom by default and stays visible
-      while you scroll.
+      the sum (<code>grand-totals-format="sum"</code>, the default) or the average
+      (<code>grand-totals-format="average"</code>), <code>text</code> columns the number of
+      non-empty values and <code>boolean</code> columns a fraction, count or percentage. A dash is
+      shown in columns without a total. The grand totals row is shown at the bottom by default and
+      stays visible while you scroll.
     </p>
     <p>
       There is no <code>grand-totals-type</code> for every kind of total. For example, the "Class"
@@ -587,6 +589,12 @@ export const GrandTotalsRow: Story = {
         header="Grade"
         path="grade"
         grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
         grand-totals-type="number"></sl-grid-column>
       <sl-grid-column
         header="Homework"
@@ -712,6 +720,92 @@ export const GrandTotalsRowCheckboxColumns: Story = {
   }
 };
 
+interface LevelRow {
+  above: boolean;
+  below: boolean;
+  grade: number;
+  name: string;
+  onTrack: boolean;
+}
+
+const levels = [
+    { header: 'Below level', key: 'below' },
+    { header: 'On track', key: 'onTrack' },
+    { header: 'Above level', key: 'above' }
+  ] as const,
+  levelRows: LevelRow[] = pupils.slice(0, 11).map(({ grade, name }) => ({
+    above: grade >= 8,
+    below: grade < 5.5,
+    grade,
+    name,
+    onTrack: grade >= 5.5 && grade < 8
+  }));
+
+export const GrandTotalsRowRadioColumns: Story = {
+  render: () => {
+    const gridRef = createRef<Grid>(),
+      radioRenderer =
+        (key: (typeof levels)[number]['key'], header: string): GridColumnDataRenderer<LevelRow> =>
+        row =>
+          html`
+            <sl-radio
+              @click=${() => {
+                // A row has exactly one level: update the data, then re-render the grid so the
+                // totals are recalculated
+                for (const level of levels) {
+                  row[level.key] = level.key === key;
+                }
+
+                gridRef.value?.requestUpdate();
+              }}
+              .checked=${row[key]}
+              size="sm">
+              <span
+                style="block-size: 1px; clip-path: inset(50%); inline-size: 1px; overflow: hidden; position: absolute; white-space: nowrap">
+                ${header}: ${row.name}
+              </span>
+            </sl-radio>
+          `;
+
+    return html`
+      <p>
+        This example is similar to the one with checkboxes, but every student can only have one
+        level, so only one radio button per row is checked. The columns use a
+        <code>renderer</code> that renders an <code>sl-radio</code>, while
+        <code>grand-totals-type="boolean"</code> calculates the totals from the underlying values.
+        Because there is exactly one choice per row, the totals of the level columns always add up
+        to the number of students. Select another level to see the totals update.
+      </p>
+      <sl-grid ${ref(gridRef)} .items=${levelRows}>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
+        ${levels.map(
+          ({ header, key }) => html`
+            <sl-grid-column
+              align="center"
+              header=${header}
+              path=${key}
+              grand-totals-type="boolean"
+              .renderer=${radioRenderer(key, header)}
+              .scopedElements=${{ 'sl-radio': Radio }}></sl-grid-column>
+          `
+        )}
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const GrandTotalsRowTop: Story = {
   render: () => html`
     <p>
@@ -733,6 +827,12 @@ export const GrandTotalsRowTop: Story = {
         header="Grade"
         path="grade"
         grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
         grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `
@@ -779,6 +879,12 @@ export const GrandTotalsRowFormatMenu: Story = {
         header="Grade"
         path="grade"
         grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
         grand-totals-type="number"></sl-grid-column>
     </sl-grid>
   `

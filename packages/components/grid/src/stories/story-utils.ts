@@ -18,6 +18,7 @@ export interface Pupil {
   name: string;
   class: string;
   grade: number;
+  tripFee: number;
   homework: boolean;
   present: boolean;
   passed: boolean;
@@ -45,6 +46,7 @@ export const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
   }`,
   class: index % 3 === 0 ? 'F5AB' : 'F3CB',
   grade: 3 + ((index * 7) % 8) + (index % 2) / 2,
+  tripFee: ((index * 5) % 7) * 5,
   homework: index % 3 !== 0,
   present: index % 5 !== 0,
   passed: 3 + ((index * 7) % 8) >= 6

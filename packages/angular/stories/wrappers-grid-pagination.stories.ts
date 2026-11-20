@@ -179,6 +179,12 @@ export const GrandTotalsRow: StoryObj = {
             path="grade"
             grand-totals-format="average"
             grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
+            grand-totals-type="number"></sl-grid-column>
         </sl-grid>
         <div class="pagination">
           <sl-paginator-status [dataSource]="ds" itemLabel="students"></sl-paginator-status>
@@ -214,6 +220,12 @@ export const GrandTotalsRowPageTotal: StoryObj = {
             header="Grade"
             path="grade"
             grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
             grand-totals-type="number"></sl-grid-column>
         </sl-grid>
         <div class="pagination">

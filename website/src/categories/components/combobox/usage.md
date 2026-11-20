@@ -56,6 +56,8 @@ Our combobox comes with multi-selection capabilities that provide a clear overvi
 <section>
 
 ## When Not to Use
+
+When the task is to search or filter content by a phrase, use [Search field](/categories/components/search-field/usage). Its optional suggestions assist a query while allowing users to search their own words. Combobox is intended for choosing a form value.
 Avoid a Combobox when users would benefit more from seeing all options at once for quick selection.
 
 ### Fully Visible Selection:

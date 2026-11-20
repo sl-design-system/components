@@ -60,10 +60,12 @@ eleventyNavigation:
 
 ## Similar components
 
+Segmented control has similar behaviour to 2 other components: Tabs and Toggle group. To ensure good user experience and accessibility it is important to choose the appropriate component for a given scenario.
+
 ### Differences
 
-* **Tabs** change which content is shown. One section is always active. Can be linked to.
 * **Segmented control** changes how the content is presented. One section is always active.
+* **Tabs** change which content is shown. One section is always active. Can be linked to.
 * **Toggle group** applies an action to content, or filters the content (chips variant). Any number of sections can be active, including none.
 
 ### How to decide
@@ -203,9 +205,8 @@ Visual treatment of the segmented control. Use the value that matches the contex
 
 * Use short, clear labels.
 * Keep labels to 1–2 words. They may be longer in other languages and break the layout.
-* If labels can't be shortened without losing clarity, use Select or Combobox.
-* Use the icon-only only when icons remain clear.
-* Replace with Select when the control no longer fits.
+* Use the icon-only variant only when icons for the provided options are universally recognizable.
+* Replace with Select when there isn't enough horizontal space for a Segmented control.
 
 </section>
 
@@ -219,15 +220,5 @@ Visual treatment of the segmented control. Use the value that matches the contex
 - [Radio group](/categories/components/radio-group/usage): for a choice that is part of a form.
 - [Switch](/categories/components/switch/usage): for a single on/off setting.
 - [Combobox](/categories/components/combobox/usage): for long option labels.
-
-</section>
-
-<section>
-
-## Open questions
-
-* Selecting an option display a detail view - is that a case for seg. control or tabs?
-* The Similar components section at the top doubles the Related components section. Should they be merged, or should one be removed?
-* Do we need a Behavior section in this doc?
 
 </section>

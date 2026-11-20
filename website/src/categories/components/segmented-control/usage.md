@@ -88,14 +88,14 @@ Use a segmented control only when all answers are no.
 
 | Aspect | Tabs | Segmented control | Toggle group                           |
 | --- | --- | --- |----------------------------------------|
-| What changes | Which content is shown | How the content is displayed | What action is applied to the content  |
-| Selection model | Always one option selected | Always one option selected | One, several or no options selected    |
-| "Nothing selected" valid? | No | No | Yes                                    |
-| Linkable / routable | Yes | No | No                                     |
-| Option count | Many (with overflow) | 2–5, fixed | Small, fixed                           |
-| Overflow handling | "More" button | Automatically switches to Select | None                                   |
-| Content | Label, icon or both | Label, icon or both | Label, icon or both                    |
-| Typical placement | Above the section it controls | Above or beside the content it renders | Toolbars, above the content it acts on |
+| **What changes** | Which content is shown | How the content is displayed | What action is applied to the content  |
+| **Selection model** | Always one option selected | Always one option selected | One, several or no options selected    |
+| **"Nothing selected" valid?** | No | No | Yes                                    |
+| **Linkable** / routable | Yes | No | No                                     |
+| **Option count** | Many (with overflow) | 2–5, fixed | Small, fixed                           |
+| **Overflow handling** | "More" button | Automatically switches to Select | None                                   |
+| **Content** | Label, icon or both | Label, icon or both | Label, icon or both                    |
+| **Typical placement** | Above the section it controls | Above or beside the content it renders | Toolbars, above the content it acts on |
 
 {.ds-table .ds-table-align-top}
 
@@ -213,12 +213,12 @@ Visual treatment of the segmented control. Use the value that matches the contex
 
 ## Related components
 
-* **Tabs**: change which content is shown. Use for navigation, linkable options or a different subject.
-* **Toggle group**: applies actions to content. Any number of options can be active, including none.
-* **Select**: for more than 5 options, and the fallback when the segmented control doesn't fit.
-* **Radio group**: for a choice that is part of a form.
-* **Switch**: for a single on/off setting.
-* **Combobox**: for long option labels.
+- [Tabs](/categories/components/tabs/usage): change which content is shown. Use for navigation, linkable options or a different subject.
+- [Toggle group](/categories/components/toggle-group/usage): applies actions to content. Any number of options can be active, including none.
+- [Select](/categories/components/select/usage): for more than 5 options, and the fallback when the segmented control doesn't fit.
+- [Radio group](/categories/components/radio-group/usage): for a choice that is part of a form.
+- [Switch](/categories/components/switch/usage): for a single on/off setting.
+- [Combobox](/categories/components/combobox/usage): for long option labels.
 
 </section>
 

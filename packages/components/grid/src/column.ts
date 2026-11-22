@@ -244,8 +244,9 @@ export class GridColumn<T = any> extends LitElement {
    * @internal The role for the header cell. Headers inside a column group are exposed as cells, so
    * VoiceOver reads them only once and doesn't pair them with the wrong group header.
    */
-  get headerRole(): 'cell' | 'columnheader' {
-    return this.groupHeaderIds.length > 0 ? 'cell' : 'columnheader';
+  get headerRole(): 'cell' | 'columnheader' | 'gridcell' {
+    if (!this.groupHeaderIds.length) return 'columnheader';
+    return this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell';
   }
 
   /** @internal The scope for the header cell; only column headers have a scope. */
@@ -342,24 +343,26 @@ export class GridColumn<T = any> extends LitElement {
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
         <td
+          data-grid-column=${this.headerCellId}
           aria-labelledby=${ifDefined(labelledBy)}
           aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           part=${parts.join(' ')}
-          role="cell">
+          role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
       return html`
         <td
+          data-grid-column=${this.headerCellId}
           aria-labelledby=${ifDefined(labelledBy)}
           aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           part=${parts.join(' ')}
-          role="cell">
+          role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
           ${data}
         </td>
       `;

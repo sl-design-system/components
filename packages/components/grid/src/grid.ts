@@ -48,6 +48,7 @@ import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
 import { GridFlowLayout } from './flow-layout.js';
 import styles from './grid.css' with { type: 'css' };
 import { GridGroupHeader } from './group-header.js';
+import { GridKeyboardNavigation } from './keyboard-navigation.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
 import { type GridSorter, type SlSorterRegisterEvent } from './sorter.js';
@@ -153,6 +154,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The active column sizing task, shared by automatic and manual requests. */
   #columnWidthCalculation?: Promise<void>;
+
+  #keyboard = new GridKeyboardNavigation(this);
 
   /** The column definitions. */
   #columnDefinitions: Array<GridColumn<T>> = [];
@@ -303,6 +306,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Custom renderer for group headers. */
   @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
 
+  /** Enable cell navigation with the arrow keys and a single tab stop for the table. */
+  @property({ attribute: 'keyboard-navigation' }) keyboardNavigation?: 'arrows';
+
+  /** Number of rows traversed by Page Up and Page Down in arrow navigation mode. */
+  @property({ type: Number, attribute: 'keyboard-page-size' }) keyboardPageSize = 10;
+
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
 
@@ -379,6 +388,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#resizeObserver.observe(this);
+    this.#keyboard.refresh();
+    this.addEventListener('keydown', this.#keyboard.onNavigationKeyDown, true);
 
     if (this.hasUpdated && !this.#initialColumnWidthsReady) {
       void this.#initializeColumnWidths();
@@ -386,6 +397,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    this.removeEventListener('keydown', this.#keyboard.onNavigationKeyDown, true);
+    this.#keyboard.disconnect();
     this.#initialColumnWidthsGeneration++;
     this.#dataSource?.removeEventListener('sl-update', this.#onDataSourceUpdate);
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
@@ -481,7 +494,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#setColumnAccessibility(this.#columnDefinitions);
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    if (this.keyboardNavigation === 'arrows') {
+      this.#keyboard.refresh();
+    } else if (changes.has('keyboardNavigation')) {
+      this.#keyboard.disconnect();
+    }
+  }
+
+  get #headerRowCount(): number {
+    return this.#headerRows.reduce(
+      (count, columns) => count + Math.max(0, ...columns.map(column => column.headerRowCount)),
+      0
+    );
+  }
+
   override render(): TemplateResult {
+    const arrows = this.keyboardNavigation === 'arrows',
+      headerCount = this.#headerRowCount;
+    let headerOffset = 0;
     return html`
       <slot
         @sl-column-update=${this.#onColumnUpdate}
@@ -491,7 +522,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ${this.renderStyles()}
       </style>
       ${
-        !this.noSkipLinks
+        !arrows && !this.noSkipLinks
           ? html`
               <a
                 id="table-start"
@@ -504,9 +535,31 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : nothing
       }
+      ${
+        arrows
+          ? html`
+              <span id="grid-access-instructions" hidden
+                >${msg(
+                  'Press Enter or Space to access controls. Use Tab to move between controls. Press Escape to return to grid navigation.',
+                  { id: 'sl.grid.accessInstructions' }
+                )}</span
+              >
+              <span id="grid-edit-instructions" hidden
+                >${msg('Press Enter or Space to edit. Press Escape to return to grid navigation.', {
+                  id: 'sl.grid.editInstructions'
+                })}</span
+              >
+            `
+          : nothing
+      }
       <table
+        @click=${{ handleEvent: this.#keyboard.onClick, capture: true }}
+        @focusin=${this.#keyboard.onFocusIn}
+        @focusout=${this.#keyboard.onFocusOut}
+        @pointerdown=${{ handleEvent: this.#keyboard.onPointerDown, capture: true }}
+        aria-label=${ifDefined(arrows ? (this.getAttribute('aria-label') ?? undefined) : undefined)}
         aria-colcount=${this.#headerRows.at(-1)?.length || 0}
-        aria-rowcount=${this.dataSource?.items.length || 0}
+        aria-rowcount=${(this.dataSource?.items.length ?? 0) + (arrows ? headerCount : 0)}
         part="table"
         style=${
           !this.#initialColumnWidthsReady &&
@@ -514,7 +567,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ? 'visibility: hidden'
             : nothing
         }
-        role="table">
+        role=${arrows ? 'grid' : 'table'}>
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -522,10 +575,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-sorter-change=${this.#onSorterChange}
           @sl-sorter-register=${this.#onSorterRegister}
           part="thead">
-          ${this.#headerRows.map(row => this.renderHeaderRow(row))}
+          ${this.#headerRows.map(row => {
+            const result = this.renderHeaderRow(row, headerOffset);
+            headerOffset += Math.max(0, ...row.map(column => column.headerRowCount));
+            return result;
+          })}
         </thead>
         <tbody
           id="tbody"
+          tabindex=${ifDefined(arrows ? -1 : undefined)}
           part="tbody"
           @rangeChanged=${() => this.#scheduleColumnWidthCalculation(true)}>
           ${virtualize({
@@ -574,7 +632,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
 
       ${
-        !this.noSkipLinks
+        !arrows && !this.noSkipLinks
           ? html`
               <a
                 id="table-end"
@@ -632,15 +690,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderHeaderRow(columns: GridColumn[]): TemplateResult {
+  renderHeaderRow(columns: GridColumn[], offset = 0): TemplateResult {
     const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0);
 
-    // Intentionally, `aria-rowindex` is not a global position in the table: header rows and body
-    // rows each start counting at 1. NVDA announced the wrong row index otherwise (see #3377).
+    // In table mode, header and body indices each start at 1 for NVDA (see #3377).
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
-          <tr aria-rowindex=${rowIndex + 1} role="row">
+          <tr
+            aria-rowindex=${rowIndex + 1 + (this.keyboardNavigation === 'arrows' ? offset : 0)}
+            role="row">
             ${repeat(
               columns,
               col => col,
@@ -693,7 +752,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        aria-rowindex=${index + 1}
+        aria-rowindex=${index + 1 + (this.keyboardNavigation === 'arrows' ? this.#headerRowCount : 0)}
         aria-selected=${ariaSelected}
         index=${index}
         role="row"
@@ -726,12 +785,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
-        aria-rowindex=${index + 1}
+        aria-rowindex=${index + 1 + (this.keyboardNavigation === 'arrows' ? this.#headerRowCount : 0)}
         .draggable=${groupDraggable}
         role="row"
         part="group"
         index=${index}>
-        <td part="group-header" role="cell">
+        <td part="group-header" role=${this.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
@@ -973,7 +1032,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (index) {
       const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
-        rowNumber = Number(index) + headerRowCount;
+        rowNumber = Number(index) + (this.keyboardNavigation === 'arrows' ? 0 : headerRowCount);
 
       // Use 'assertive' so the user knows right away which row they are in
       announce(

@@ -64,6 +64,43 @@ export const Basic: Story = {
   }
 };
 
+export const ArrowNavigation: Story = {
+  render: () => html`
+    <p>
+      Tab into the grid, then use the arrow keys to move between cells. Press Enter or Space to edit
+      a note or access its row actions.
+    </p>
+    <p><button type="button">Before the grid</button></p>
+    <sl-grid
+      aria-label="Invoices"
+      keyboard-navigation="arrows"
+      .items=${Array.from({ length: 25 }, (_, index) => ({
+        invoice: 1042 + index,
+        customer: ['Acme', 'Northwind', 'Contoso'][index % 3],
+        note: index === 0 ? 'Payment pending' : ''
+      }))}>
+      <sl-grid-sort-column header="Invoice" path="invoice" width="100"></sl-grid-sort-column>
+      <sl-grid-column header="Customer" path="customer" width="140"></sl-grid-column>
+      <sl-grid-text-field-column header="Note" path="note" width="180"></sl-grid-text-field-column>
+      <sl-grid-column
+        header="Actions"
+        width="330"
+        .renderer=${({ invoice }: { invoice: number }) => html`
+          <span data-grid-actions-label="invoice ${invoice}">
+            <sl-menu-button>
+              <span slot="button">Options</span>
+              <sl-menu-item>Download</sl-menu-item>
+            </sl-menu-button>
+            <button type="button" aria-disabled="true">Archive</button>
+          </span>
+        `}
+        .scopedElements=${{ 'sl-menu-button': MenuButtonComponent, 'sl-menu-item': MenuItem }}>
+      </sl-grid-column>
+    </sl-grid>
+    <p><button type="button">After the grid</button></p>
+  `
+};
+
 export const ColumnGroups: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>

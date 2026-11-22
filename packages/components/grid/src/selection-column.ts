@@ -116,6 +116,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
     return html`
       <td
+        aria-colindex=${String(this.columnIndex)}
+        data-grid-column=${this.headerCellId}
         @click=${this.#onClick}
         aria-labelledby=${ifDefined(
           // Only the group header(s); the leaf header contains the "Select all rows" checkbox
@@ -124,7 +126,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         class=${ifDefined(classes.join(' ') || undefined)}
         headers=${this.headerIds}
         part="data selection"
-        role="cell">
+        role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
         ${
           rowLabel
             ? html`

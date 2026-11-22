@@ -554,6 +554,18 @@
   <source>Select group</source>
   <target>Seleziona gruppo</target>
 </trans-unit>
+<trans-unit id="sl.grid.sortingAscending">
+  <source><x id="0" equiv-text="${columnName}"/> sorting ascending</source>
+  <target><x id="0" equiv-text="${columnName}"/>, ordinamento crescente</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortingDescending">
+  <source><x id="0" equiv-text="${columnName}"/> sorting descending</source>
+  <target><x id="0" equiv-text="${columnName}"/>, ordinamento decrescente</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortingRemoved">
+  <source><x id="0" equiv-text="${columnName}"/> sorting removed</source>
+  <target><x id="0" equiv-text="${columnName}"/>, ordinamento rimosso</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

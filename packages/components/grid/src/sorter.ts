@@ -1,15 +1,16 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import {
   type DataSourceSortDirection,
   type DataSourceSortFunction
 } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getNameByPath } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
@@ -113,6 +114,63 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   #onClick(): void {
     this.#toggleDirection();
     this.sorterChangeEvent.emit({ column: this.column, direction: this.direction });
+    this.#announceSort();
+  }
+
+  #announceSort(): void {
+    const columnName = this.#getColumnName();
+
+    if (!columnName) {
+      return;
+    }
+
+    const message =
+      this.direction === 'asc'
+        ? msg(str`${columnName} sorting ascending`, { id: 'sl.grid.sortingAscending' })
+        : this.direction === 'desc'
+          ? msg(str`${columnName} sorting descending`, { id: 'sl.grid.sortingDescending' })
+          : msg(str`${columnName} sorting removed`, { id: 'sl.grid.sortingRemoved' });
+
+    announce(message, 'polite');
+  }
+
+  #getColumnName(): string {
+    const nodes =
+        this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ??
+        Array.from(this.childNodes),
+      slottedText = nodes
+        .map(node => this.#getNodeText(node))
+        .filter(Boolean)
+        .join(' ');
+
+    return (
+      slottedText || this.column?.headerLabelText || (this.path ? getNameByPath(this.path) : '')
+    );
+  }
+
+  #getNodeText(node: Node): string {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent?.trim() ?? '';
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const element = node as HTMLElement;
+
+      if (
+        element.localName === 'sl-infotip' ||
+        element.localName === 'sl-tooltip' ||
+        element.getAttribute('aria-hidden') === 'true'
+      ) {
+        return '';
+      }
+
+      return Array.from(element.childNodes)
+        .map(child => this.#getNodeText(child))
+        .filter(Boolean)
+        .join(' ');
+    }
+
+    return '';
   }
 
   #toggleDirection(): void {

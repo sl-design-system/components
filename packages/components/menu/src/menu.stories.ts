@@ -543,7 +543,7 @@ export const All: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger
           </sl-menu-item>
-          <sl-menu-item variant="danger" selected>
+          <sl-menu-item variant="danger" selected selectable>
             <sl-icon name="far-trash"></sl-icon>
             Danger, selected
           </sl-menu-item>
@@ -574,7 +574,7 @@ export const All: Story = {
         </sl-menu-item>
         <sl-menu-item-group heading="Group heading">
           <sl-menu-item variant="danger">Danger</sl-menu-item>
-          <sl-menu-item variant="danger" selected>Danger, selected</sl-menu-item>
+          <sl-menu-item variant="danger" selected selectable>Danger, selected</sl-menu-item>
           <sl-menu-item aria-disabled="true" variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>

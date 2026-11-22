@@ -8,7 +8,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
-import { isSameDate } from '@sl-design-system/shared/date.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import {
   type SlChangeEvent,
   type SlSelectEvent,
@@ -134,6 +134,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The view the calendar is currently showing. */
   @state() view: 'day' | 'month' | 'year' = 'day';
 
+  /** @internal The number of months that fit in the responsive day view. */
+  @state() visibleMonthCount: 1 | 2 = 1;
+
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
 
@@ -170,17 +173,17 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month = this.selected;
+      this.month = normalizeDateTime(this.selected);
     } else if (
       (changes.has('range') || (changes.has('mode') && this.mode === 'range')) &&
       this.range?.length &&
       this.mode === 'range' &&
       !this.#rangeChangedInternally
     ) {
-      this.month = this.#normalizeRange(this.range)[0];
+      this.month = normalizeDateTime(this.#normalizeRange(this.range)[0]);
     } else {
       // Otherwise default to the current month.
-      this.month ??= new Date();
+      this.month ??= normalizeDateTime(new Date());
     }
 
     this.#rangeChangedInternally = false;
@@ -201,6 +204,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .indicatorDates=${this.indicatorDates}
         .month=${this.month}
         .numberOfMonths=${this.numberOfMonths}
+        .visibleMonthCountChange=${this.#onVisibleMonthCountChange}
         .range=${this.range}
         .rangeSelection=${this.mode === 'range'}
         .rangeStart=${this.rangeStart}
@@ -220,8 +224,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .month=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-month>
@@ -233,8 +239,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-year
               @sl-select=${this.#onSelectYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .year=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
@@ -279,6 +287,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
     `;
   }
+
+  #onVisibleMonthCountChange = (count: 1 | 2): void => {
+    this.visibleMonthCount = count;
+  };
 
   /**
    * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus

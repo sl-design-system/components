@@ -263,6 +263,14 @@ describe('mapMenuItemToItem', () => {
     expect(item.visible).to.equal(true);
   });
 
+  it('should not include Lit marker comments in the label', async () => {
+    const label = 'Copy',
+      el = await fixture<MenuItem>(html`<sl-menu-item>${label}</sl-menu-item>`),
+      item = mapMenuItemToItem(el);
+
+    expect(item.label).to.equal('Copy');
+  });
+
   it('should map an aria-disabled menu item', async () => {
     const el = await fixture<MenuItem>(
         html`<sl-menu-item aria-disabled="true">Rename...</sl-menu-item>`
@@ -385,5 +393,18 @@ describe('mapElementsToItems', () => {
     const items = mapElementsToItems([]);
 
     expect(items).to.deep.equal([]);
+  });
+
+  it('should not include Lit marker comments in the label', async () => {
+    const label = 'Copy',
+      el = await fixture<MenuButton>(html`
+        <sl-menu-button>
+          <span slot="button">Actions</span>
+          <sl-menu-item>${label}</sl-menu-item>
+        </sl-menu-button>
+      `),
+      [item] = mapElementsToItems([el]) as ToolBarItemMenu[];
+
+    expect((item.menuItems[0] as ToolBarItemButton).label).to.equal('Copy');
   });
 });

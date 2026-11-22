@@ -1,3 +1,4 @@
+import { type Announcer } from '@sl-design-system/announcer';
 import { type Calendar } from '@sl-design-system/calendar';
 import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -382,6 +383,31 @@ describe('sl-date-field', () => {
   });
 
   describe('dialog', () => {
+    const getMaxDateButton = async (): Promise<HTMLButtonElement> => {
+      await vi.waitFor(() => expect(el.dialog?.open).to.be.true);
+      await el.updateComplete;
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      await calendar.updateComplete;
+
+      const selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+
+      const monthView = selectDay.renderRoot.querySelector<RenderRootElement>(
+        'sl-month-view:not([inert])'
+      )!;
+      await monthView.updateComplete;
+
+      const button = Array.from(
+        monthView.renderRoot.querySelectorAll<HTMLButtonElement>(
+          'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+        )
+      ).find(button => button.textContent?.trim() === '31');
+
+      expect(button).to.exist;
+      return button!;
+    };
+
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
@@ -515,6 +541,114 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should announce the previous month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
+    });
+
+    it('should announce the previous month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
+    });
+
     it('should cancel a pending open when hidePicker is called before updateComplete resolves', async () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 
@@ -646,6 +780,67 @@ describe('sl-date-field', () => {
         'max',
         maxDate.toISOString()
       );
+    });
+
+    it('should keep the max date selectable when value is the first day of the month with a non-midnight time', async () => {
+      el.min = new Date(2027, 3, 1);
+      el.max = new Date(2027, 6, 31);
+      el.value = new Date(2027, 6, 1, 12, 0, 0);
+      await el.updateComplete;
+
+      el.showPicker();
+      const day31Button = await getMaxDateButton();
+
+      expect(day31Button.disabled).to.be.false;
+
+      day31Button.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(new Date(2027, 6, 31));
+    });
+
+    it('should keep max selectable after editing July 2 to July 1 with the keyboard and reloading the saved value', async () => {
+      const min = new Date(2027, 3, 1),
+        max = new Date(2027, 6, 31);
+      el.min = min;
+      el.max = max;
+      el.value = new Date(2027, 6, 2);
+      await el.updateComplete;
+
+      el.showPicker();
+      expect((await getMaxDateButton()).disabled).to.be.false;
+      el.hidePicker();
+      await vi.waitFor(() => expect(el.renderRoot.querySelector('sl-calendar')).to.be.null);
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      el.renderRoot.querySelector<HTMLElement>('[role="spinbutton"][aria-label="Day"]')!.focus();
+      await userEvent.keyboard('{ArrowDown}{Tab}');
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(new Date(2027, 6, 1));
+      expect(el.value?.getHours()).to.equal(0);
+      expect(onChange).to.have.been.called;
+      expect((onChange.lastCall.args[0] as CustomEvent<Date>).detail).to.equalDate(
+        new Date(2027, 6, 1)
+      );
+
+      // Simulate saving and reopening the form with the persisted date.
+      const savedValue = new Date(el.value.getTime());
+      el = await fixture(html`
+        <sl-date-field required aria-label="Date" .min=${min} .max=${max} .value=${savedValue}>
+        </sl-date-field>
+      `);
+      el.showPicker();
+
+      const day31Button = await getMaxDateButton();
+      expect(day31Button.disabled).to.be.false;
+      day31Button.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(max);
+      expect(el.valid).to.be.true;
     });
 
     it('should pass month to calendar', async () => {
@@ -2357,6 +2552,20 @@ describe('sl-date-field', () => {
       el.min = new Date(2026, 5, 1);
       el.max = new Date(2026, 5, 30);
       el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should ignore time components when comparing value against min and max', async () => {
+      el.min = new Date(2027, 3, 1, 18, 0, 0);
+      el.max = new Date(2027, 6, 31, 0, 0, 0);
+      el.value = new Date(2027, 6, 31, 12, 0, 0);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+
+      el.value = new Date(2027, 3, 1, 0, 0, 0);
       await el.updateComplete;
 
       expect(el.valid).to.be.true;

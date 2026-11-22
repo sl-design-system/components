@@ -1,6 +1,7 @@
 import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import '@sl-design-system/announcer/register.js';
 import { Infotip } from '@sl-design-system/infotip';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -235,7 +236,11 @@ describe('sl-sort-column', () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
           <sl-grid-sort-column path="firstName" direction="asc"></sl-grid-sort-column>
-          <sl-grid-sort-column path="lastName" hide-header-text></sl-grid-sort-column>
+          <sl-grid-sort-column
+            header="Surname"
+            path="lastName"
+            hide-header-text
+            form-control-column-label="Action"></sl-grid-sort-column>
         </sl-grid>
       `);
       await waitForGridToRenderData(el);
@@ -248,13 +253,69 @@ describe('sl-sort-column', () => {
 
       expect(onAnnounce).to.have.been.calledOnce;
       expect(onAnnounce).to.have.been.calledWithMatch({
-        detail: { message: 'Last name sorting ascending', urgency: 'polite' }
+        detail: { message: 'Surname sorting ascending', urgency: 'polite' }
       });
       await expect
         .poll(() =>
           Array.from(el.renderRoot.querySelectorAll('th'), th => th.getAttribute('aria-sort'))
         )
         .to.deep.equal([null, 'ascending']);
+    });
+
+    it('should use the explicit accessible name of a hidden custom header', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            hide-header-text
+            .header=${() => html`<span>Student</span>`}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const header = el.renderRoot.querySelector('th')!,
+        sorter = header.querySelector<GridSorter>('sl-grid-sorter')!;
+
+      expect(header.getAttribute('aria-label')).to.equal('First name');
+      sorter.renderRoot.querySelector('sl-button')!.click();
+
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect(onAnnounce).to.have.been.calledWithMatch({
+        detail: { message: 'First name sorting ascending', urgency: 'polite' }
+      });
+    });
+
+    it.each([
+      ['hidden elements', html`<span hidden>Internal note</span>`],
+      [
+        'menu buttons',
+        html`
+          <sl-menu-button aria-label="Student options">
+            <sl-menu-item>Option 1</sl-menu-item>
+          </sl-menu-button>
+        `
+      ]
+    ])('should omit %s from custom header announcements', async (_, auxiliaryContent) => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            .header=${() => html`<span>Student</span>${auxiliaryContent}`}
+            .scopedElements=${{
+              'sl-menu-button': MenuButton,
+              'sl-menu-item': MenuItem
+            }}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!;
+      sorter.renderRoot.querySelector('sl-button')!.click();
+
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect(onAnnounce).to.have.been.calledWithMatch({
+        detail: { message: 'Student sorting ascending', urgency: 'polite' }
+      });
     });
   });
 

@@ -135,6 +135,12 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #getColumnName(): string {
+    const headerAriaLabel = this.column?.headerAriaLabel;
+
+    if (headerAriaLabel) {
+      return headerAriaLabel;
+    }
+
     const nodes =
         this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ??
         Array.from(this.childNodes),
@@ -143,9 +149,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
         .filter(Boolean)
         .join(' ');
 
-    return (
-      slottedText || this.column?.headerLabelText || (this.path ? getNameByPath(this.path) : '')
-    );
+    return slottedText || (this.path ? getNameByPath(this.path) : '');
   }
 
   #getNodeText(node: Node): string {
@@ -154,10 +158,12 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (node.nodeType === Node.ELEMENT_NODE) {
-      const element = node as HTMLElement;
+      const element = node as Element;
 
       if (
+        element.hasAttribute('hidden') ||
         element.localName === 'sl-infotip' ||
+        element.localName === 'sl-menu-button' ||
         element.localName === 'sl-tooltip' ||
         element.getAttribute('aria-hidden') === 'true'
       ) {

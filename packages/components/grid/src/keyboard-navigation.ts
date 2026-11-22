@@ -141,15 +141,8 @@ export class GridKeyboardNavigation {
           }
         }
         const target =
-            editButton ??
-            access ??
-            controls.find(control => !isDisabled(control)) ??
-            (controls.length === 1 ? controls[0] : undefined) ??
-            element,
+            editButton ?? access ?? controls.find(control => !isDisabled(control)) ?? element,
           cell = { element, start, end: start + span - 1, controls, target, access, editor };
-        if (!editButton && !access && controls.length === 1 && isDisabled(controls[0])) {
-          this.#prepareDisabledControls(cell);
-        }
         cells.push(cell);
         this.#cells.set(element, cell);
       });
@@ -212,6 +205,9 @@ export class GridKeyboardNavigation {
     managed.add(table);
     this.#tabIndices.forEach((value, element) => {
       if (!managed.has(element)) {
+        if (this.#temporarilyEnabled.delete(element)) {
+          element.setAttribute('disabled', '');
+        }
         this.#restoreTabIndex(element, value);
         this.#tabIndices.delete(element);
       }
@@ -366,7 +362,12 @@ export class GridKeyboardNavigation {
       const controls = cell.editor
           ? [cell.editor]
           : cell.controls.filter(control => !control.matches(':disabled')),
-        index = controls.findIndex(control => event.composedPath().includes(control));
+        current = event
+          .composedPath()
+          .find(
+            (node): node is HTMLElement => node instanceof HTMLElement && controls.includes(node)
+          ),
+        index = current ? controls.indexOf(current) : -1;
       controls[index + (event.shiftKey ? -1 : 1)]?.focus();
     }
   }
@@ -482,9 +483,10 @@ export class GridKeyboardNavigation {
         if (controls.length === before && isControl(node)) {
           controls.push(node);
         }
-      } else if (isControl(node)) {
-        controls.push(node);
       } else {
+        if (isControl(node)) {
+          controls.push(node);
+        }
         Array.from(node.children).forEach(walk);
       }
     };
@@ -616,11 +618,8 @@ export class GridKeyboardNavigation {
       else cell.editor.value = draft ?? '';
       cell.editor.hidden = true;
     }
-    cell.controls.forEach(control => {
-      if (this.#temporarilyEnabled.delete(control)) {
-        control.setAttribute('disabled', '');
-      }
-    });
+    this.#temporarilyEnabled.forEach(control => control.setAttribute('disabled', ''));
+    this.#temporarilyEnabled.clear();
     cell.target.hidden = false;
     if (restoreFocus) cell.target.focus();
     if (refresh) this.refresh();

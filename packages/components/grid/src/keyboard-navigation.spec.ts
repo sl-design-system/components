@@ -275,7 +275,7 @@ describe('sl-grid arrow navigation', () => {
     expect(grid.shadowRoot!.activeElement).toBe(access);
   });
 
-  it('focuses a single disabled button in a cell with aria-disabled and blocks activation', async () => {
+  it('focuses the cell and preserves native disabled on a single disabled button while adding aria-disabled', async () => {
     let clicked = false;
 
     const wrapper = await fixture<HTMLDivElement>(html`
@@ -302,18 +302,62 @@ describe('sl-grid arrow navigation', () => {
     const grid = wrapper.querySelector('sl-grid')!;
     await waitForGridToRenderData(grid);
 
-    const button = grid.tbody.rows[0].querySelector('button')!;
+    const cell = grid.tbody.rows[0].cells[0],
+      button = cell.querySelector('button')!;
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
     await userEvent.tab();
     await userEvent.keyboard('{ArrowDown}');
 
-    expect(grid.shadowRoot!.activeElement).toBe(button);
+    expect(grid.shadowRoot!.activeElement).toBe(cell);
+    expect(button.disabled).toBe(true);
     expect(button.getAttribute('aria-disabled')).toBe('true');
 
     await userEvent.keyboard('{Enter} ');
 
     expect(clicked).toBe(false);
+  });
+
+  it('manages nested focusable descendants and supports Shift+Tab back to the parent control', async () => {
+    const wrapper = await fixture<HTMLDivElement>(html`
+      <div>
+        <button id="before" type="button">Before</button>
+        <sl-grid keyboard-navigation="arrows" .items=${[{}]}>
+          <sl-grid-column
+            header="Details"
+            width="240"
+            .renderer=${() => html`
+              <details open>
+                <summary>Summary <a href="#nested">Nested link</a></summary>
+              </details>
+            `}></sl-grid-column>
+        </sl-grid>
+        <button id="after" type="button">After</button>
+      </div>
+    `);
+
+    const grid = wrapper.querySelector('sl-grid')!;
+    await waitForGridToRenderData(grid);
+
+    const cell = grid.tbody.rows[0].cells[0],
+      summary = cell.querySelector('summary')!,
+      link = cell.querySelector('a')!;
+
+    expect(link.getAttribute('tabindex')).toBe('-1');
+
+    wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(summary);
+
+    await userEvent.tab();
+
+    expect(grid.shadowRoot!.activeElement).toBe(link);
+
+    await userEvent.tab({ shift: true });
+
+    expect(grid.shadowRoot!.activeElement).toBe(summary);
   });
 
   it('moves focus to the bulk actions toolbar on Tab when a row is selected', async () => {

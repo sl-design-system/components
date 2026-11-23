@@ -313,6 +313,13 @@ export class RichTextEditor extends FormControlMixin(
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    // The editable lives in light DOM, so the toolbar points at it by element reference; an
+    // `aria-controls` id can't reach across the shadow boundary.
+    const toolbar = this.renderRoot.querySelector<HTMLElement>('[part="toolbar"]');
+    if (toolbar) {
+      toolbar.ariaControlsElements = [this.#content];
+    }
+
     if ((changes.has('disabled') || changes.has('readonly')) && this.view) {
       // New node views make ProseMirror redraw them, so checkboxes pick up the new state.
       this.view.setProps({
@@ -383,7 +390,6 @@ export class RichTextEditor extends FormControlMixin(
       <div
         @keydown=${this.#onToolbarKeydown}
         @mousedown=${this.#onToolbarMousedown}
-        aria-controls=${`${this.#id}-content`}
         aria-label=${msg('Formatting', { id: 'sl.richTextEditor.toolbar' })}
         part="toolbar"
         role="toolbar">

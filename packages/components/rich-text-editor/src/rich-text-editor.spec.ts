@@ -79,7 +79,7 @@ describe('sl-rich-text-editor', () => {
       const toolbar = el.renderRoot.querySelector('[role="toolbar"]');
 
       expect(toolbar).to.exist;
-      expect(toolbar).to.have.attribute('aria-controls', content(el).id);
+      expect((toolbar as HTMLElement).ariaControlsElements).to.deep.equal([content(el)]);
     });
 
     it('should have a text style select', () => {

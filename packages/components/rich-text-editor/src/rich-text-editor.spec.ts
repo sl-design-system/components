@@ -3,8 +3,8 @@ import '@sl-design-system/form/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { TextSelection } from 'prosemirror-state';
-import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { type SinonStub, spy, stub } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { DEFAULT_FEATURES, resolveFeatures } from './features.js';
 import './register.js';
 import { type RichTextEditor } from './rich-text-editor.js';
@@ -428,6 +428,113 @@ describe('sl-rich-text-editor', () => {
         'Write your feedback…'
       );
       expect(el.value).to.equal('');
+    });
+  });
+
+  describe('touch', () => {
+    let matchMedia: SinonStub;
+
+    beforeEach(async () => {
+      const original = window.matchMedia.bind(window);
+
+      // Pretend to be a phone: a coarse pointer
+      matchMedia = stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          features="default character-count"
+          .value=${'<ul><li><p>Light absorption</p></li></ul><p>Plants turn light into energy.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    const focusEditor = async (): Promise<void> => {
+      content(el).focus();
+      await el.updateComplete;
+    };
+
+    it('should not show a toolbar at rest', () => {
+      expect(el.renderRoot.querySelector('[role="toolbar"]')).not.to.exist;
+      expect(el.matches(':state(docked)')).to.be.false;
+    });
+
+    it('should dock the toolbar while editing', async () => {
+      await focusEditor();
+
+      expect(el.matches(':state(docked)')).to.be.true;
+      expect(el.renderRoot.querySelector('[role="toolbar"]')).to.exist;
+      expect(getComputedStyle(el.renderRoot.querySelector('[role="toolbar"]')!).position).to.equal(
+        'fixed'
+      );
+    });
+
+    it('should hide the footer while docked', async () => {
+      expect(el.renderRoot.querySelector('[part="footer"]')).to.exist;
+
+      await focusEditor();
+
+      expect(el.renderRoot.querySelector('[part="footer"]')).not.to.exist;
+    });
+
+    it('should leave the text style select out of the docked toolbar', async () => {
+      await focusEditor();
+
+      expect(el.renderRoot.querySelector('sl-select')).not.to.exist;
+    });
+
+    it('should not show tooltips on touch', async () => {
+      await focusEditor();
+
+      const items = Array.from(el.renderRoot.querySelectorAll('[data-toolbar-item]'));
+
+      expect(items.length).to.be.greaterThan(0);
+      expect(items.some(item => item.hasAttribute('tooltip'))).to.be.false;
+    });
+
+    it('should put the list buttons first when the caret is in a list', async () => {
+      await focusEditor();
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, 4))
+      );
+      await el.updateComplete;
+
+      expect(toolbarLabels(el)[0]).to.equal('Bulleted list');
+    });
+
+    it('should keep the default order outside a list', async () => {
+      await focusEditor();
+
+      const end = el.view!.state.doc.content.size - 1;
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, end))
+      );
+      await el.updateComplete;
+
+      expect(toolbarLabels(el)[0]).to.equal('Bold');
+    });
+
+    it('should hide the keyboard with the hide keyboard button', async () => {
+      await focusEditor();
+
+      const button = el.renderRoot.querySelector<HTMLElement>('.hide-keyboard');
+      expect(button).to.exist;
+
+      button!.click();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(document.activeElement).not.to.equal(content(el));
+      expect(el.matches(':state(docked)')).to.be.false;
     });
   });
 

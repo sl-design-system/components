@@ -6,6 +6,7 @@ import {
   faCode,
   faIndent,
   faItalic,
+  faKeyboardDown,
   faLink,
   faListCheck,
   faListOl,
@@ -56,6 +57,7 @@ import {
   nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { baseKeymap, toggleMark } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
@@ -64,6 +66,7 @@ import { EditorState, Plugin, TextSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet, type EditorProps, EditorView } from 'prosemirror-view';
 import { TaskItemView, buildChecklistKeymap, taskIdsPlugin } from './checklist.js';
 import { setHTML } from './commands.js';
+import { DockedToolbarController } from './docked-toolbar.js';
 import { type RichTextEditorFeature, resolveFeatures } from './features.js';
 import { buildInputRules } from './input-rules.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
@@ -95,6 +98,7 @@ const icons = (
     faCode,
     faIndent,
     faItalic,
+    faKeyboardDown,
     faLink,
     faListCheck,
     faListOl,
@@ -170,6 +174,12 @@ export class RichTextEditor extends FormControlMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Docks the toolbar above the on-screen keyboard on touch devices. */
+  #dock = new DockedToolbarController(this, {
+    toolbar: () => this.renderRoot.querySelector<HTMLElement>('[part="toolbar"]'),
+    view: () => this.view
+  });
+
   /** The light DOM element ProseMirror renders into. */
   #content = document.createElement('div');
 
@@ -208,6 +218,12 @@ export class RichTextEditor extends FormControlMixin(
 
   /** @internal Whether the editor has no content. */
   @state() @cssState() empty = true;
+
+  /** @internal Whether the toolbar is docked above the on-screen keyboard. */
+  @cssState()
+  get docked(): boolean {
+    return this.#dock.docked;
+  }
 
   /**
    * Which features this editor has, as a space-separated list of tokens read left to right: a name
@@ -346,13 +362,16 @@ export class RichTextEditor extends FormControlMixin(
 
   override render(): TemplateResult {
     const state = this.view?.state,
-      showCount = this.#features.has('character-count');
+      showCount = this.#features.has('character-count'),
+      // On touch devices the toolbar only shows while editing, docked above the keyboard.
+      showToolbar = !this.readonly && (!this.#dock.touch || this.#dock.docked);
 
     return html`
-      ${this.readonly ? nothing : this.#renderToolbar(state)}
+      ${showToolbar ? this.#renderToolbar(state) : nothing}
       <slot name="content"></slot>
       ${
-        showCount || this.querySelector('[slot="footer"]')
+        // The footer hides while the keyboard is open, so the space goes to the text.
+        !this.#dock.docked && (showCount || this.querySelector('[slot="footer"]'))
           ? html`
               <div part="footer">
                 <slot name="footer"></slot>
@@ -380,11 +399,22 @@ export class RichTextEditor extends FormControlMixin(
   }
 
   #renderToolbar(state?: EditorState): TemplateResult {
-    const disabled = !!this.disabled;
+    const disabled = !!this.disabled,
+      docked = this.#dock.docked;
 
-    const groups = TOOLBAR_GROUPS.map(group =>
+    let groups = TOOLBAR_GROUPS.map(group =>
       this.#toolbarItems.filter(item => item.group === group)
     ).filter(items => items.length);
+
+    // A phone has no Tab key, so with the caret in a list, the list and indent buttons come first
+    // in the docked toolbar, where they're visible without scrolling.
+    if (docked && state) {
+      const lists = groups.find(items => items[0].group === 'lists');
+
+      if (lists?.some(item => item.isActive?.(state))) {
+        groups = [lists, ...groups.filter(items => items !== lists)];
+      }
+    }
 
     return html`
       <div
@@ -393,53 +423,75 @@ export class RichTextEditor extends FormControlMixin(
         aria-label=${msg('Formatting', { id: 'sl.richTextEditor.toolbar' })}
         part="toolbar"
         role="toolbar">
+        <div class="items">
+          ${
+            // Opening the select would close the keyboard, so the docked toolbar leaves it out.
+            !docked && this.#features.has('headings') && this.view?.state.schema.nodes.heading
+              ? html`
+                  <sl-select
+                    @sl-blur=${this.#stopInnerEvent}
+                    @sl-focus=${this.#stopInnerEvent}
+                    @sl-form-control=${this.#stopInnerEvent}
+                    @sl-update-state=${this.#stopInnerEvent}
+                    @sl-update-validity=${this.#stopInnerEvent}
+                    @sl-validate=${this.#stopInnerEvent}
+                    @sl-change=${this.#onBlockTypeChange}
+                    .value=${state ? getBlockType(state) : 'p'}
+                    ?disabled=${disabled}
+                    aria-label=${msg('Text style', { id: 'sl.richTextEditor.textStyle' })}
+                    class="block-type"
+                    data-toolbar-item>
+                    <sl-option value="p"
+                      >${msg('Paragraph', { id: 'sl.richTextEditor.paragraph' })}</sl-option
+                    >
+                    <sl-option value="h2"
+                      >${msg('Heading 1', { id: 'sl.richTextEditor.heading1' })}</sl-option
+                    >
+                    <sl-option value="h3"
+                      >${msg('Heading 2', { id: 'sl.richTextEditor.heading2' })}</sl-option
+                    >
+                    <sl-option value="h4"
+                      >${msg('Heading 3', { id: 'sl.richTextEditor.heading3' })}</sl-option
+                    >
+                  </sl-select>
+                  <hr />
+                `
+              : nothing
+          }
+          ${groups.map(
+            (items, index) => html`
+              ${index > 0 ? html`<hr />` : nothing}
+              ${items.map(item => this.#renderToolbarItem(item, state, disabled))}
+            `
+          )}
+          <slot name="toolbar-end"></slot>
+        </div>
         ${
-          this.#features.has('headings') && this.view?.state.schema.nodes.heading
+          // iOS Safari shows its own Done button above the keyboard; elsewhere we add one.
+          docked && !this.#dock.hasSystemKeyboardBar
             ? html`
-                <sl-select
-                  @sl-blur=${this.#stopInnerEvent}
-                  @sl-focus=${this.#stopInnerEvent}
-                  @sl-form-control=${this.#stopInnerEvent}
-                  @sl-update-state=${this.#stopInnerEvent}
-                  @sl-update-validity=${this.#stopInnerEvent}
-                  @sl-validate=${this.#stopInnerEvent}
-                  @sl-change=${this.#onBlockTypeChange}
-                  .value=${state ? getBlockType(state) : 'p'}
-                  ?disabled=${disabled}
-                  aria-label=${msg('Text style', { id: 'sl.richTextEditor.textStyle' })}
-                  class="block-type"
-                  data-toolbar-item>
-                  <sl-option value="p"
-                    >${msg('Paragraph', { id: 'sl.richTextEditor.paragraph' })}</sl-option
-                  >
-                  <sl-option value="h2"
-                    >${msg('Heading 1', { id: 'sl.richTextEditor.heading1' })}</sl-option
-                  >
-                  <sl-option value="h3"
-                    >${msg('Heading 2', { id: 'sl.richTextEditor.heading2' })}</sl-option
-                  >
-                  <sl-option value="h4"
-                    >${msg('Heading 3', { id: 'sl.richTextEditor.heading3' })}</sl-option
-                  >
-                </sl-select>
-                <hr />
+                <sl-button
+                  @click=${() => this.#content.blur()}
+                  aria-label=${msg('Hide keyboard', { id: 'sl.richTextEditor.hideKeyboard' })}
+                  class="hide-keyboard"
+                  fill="ghost">
+                  <sl-icon name="far-keyboard-down"></sl-icon>
+                </sl-button>
               `
             : nothing
         }
-        ${groups.map(
-          (items, index) => html`
-            ${index > 0 ? html`<hr />` : nothing}
-            ${items.map(item => this.#renderToolbarItem(item, state, disabled))}
-          `
-        )}
-        <slot name="toolbar-end"></slot>
       </div>
     `;
   }
 
   #renderToolbarItem(item: ToolbarItem, state: EditorState | undefined, disabled: boolean) {
     const enabled = !disabled && !!state && item.isEnabled(state),
-      tooltip = item.shortcut ? `${item.label} (${item.shortcut})` : item.label;
+      // Tooltips are for hover-capable devices; on touch the buttons keep their accessible name.
+      tooltip = this.#dock.touch
+        ? undefined
+        : item.shortcut
+          ? `${item.label} (${item.shortcut})`
+          : item.label;
 
     if (item.toggle) {
       return html`
@@ -451,7 +503,7 @@ export class RichTextEditor extends FormControlMixin(
           data-toolbar-item
           fill="outline"
           id=${`${this.#id}-${item.id}`}
-          tooltip=${tooltip}>
+          tooltip=${ifDefined(tooltip)}>
           <sl-icon name=${`far-${item.icon}`} slot="default"></sl-icon>
           <sl-icon name=${`fas-${item.icon}`} slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -465,7 +517,7 @@ export class RichTextEditor extends FormControlMixin(
         aria-label=${item.label}
         data-toolbar-item
         fill="ghost"
-        tooltip=${tooltip}>
+        tooltip=${ifDefined(tooltip)}>
         <sl-icon name=${`far-${item.icon}`}></sl-icon>
       </sl-button>
     `;
@@ -688,6 +740,7 @@ export class RichTextEditor extends FormControlMixin(
         return;
       }
 
+      this.#dock.setFocused(false);
       this.blurEvent.emit();
       this.updateState({ touched: true });
 
@@ -713,6 +766,8 @@ export class RichTextEditor extends FormControlMixin(
   }
 
   #onFocus(): void {
+    this.#dock.setFocused(true);
+
     if (!this.matches(':focus-within') || this.#valueOnFocus === undefined) {
       this.#valueOnFocus = this.#value;
     }

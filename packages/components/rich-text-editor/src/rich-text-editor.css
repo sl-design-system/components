@@ -81,6 +81,58 @@
   }
 }
 
+/* Lays the items out in the toolbar row itself; only the docked toolbar gives them their own row. */
+.items {
+  display: contents;
+}
+
+/*
+ * On touch devices, while editing, the toolbar docks above the on-screen keyboard. The docked
+ * toolbar controller sets its block start and width from the visual viewport; it sits right
+ * above that line.
+ */
+:host(:state(docked)) [part='toolbar'] {
+  --_tap-size: calc(var(--sl-size-500) + var(--sl-size-050));
+
+  background: var(--sl-color-background-neutral-subtlest);
+  border-block-end: 0;
+  border-block-start: var(--_divider);
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  gap: 0;
+  padding: 0;
+  position: fixed;
+  transform: translateY(-100%);
+  z-index: 1;
+
+  .items {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    gap: var(--sl-size-025);
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--sl-size-050);
+    scrollbar-width: none;
+  }
+
+  hr {
+    display: none;
+  }
+
+  sl-button::part(button),
+  sl-toggle-button::part(button) {
+    box-sizing: border-box;
+    min-block-size: var(--_tap-size);
+    min-inline-size: var(--_tap-size);
+  }
+
+  .hide-keyboard {
+    border-inline-start: var(--_divider);
+    flex: none;
+  }
+}
+
 /* Toolbar buttons only show a border while pressed, so the row reads as icons, not boxes. */
 sl-toggle-button:not([pressed])::part(button) {
   border-color: transparent;

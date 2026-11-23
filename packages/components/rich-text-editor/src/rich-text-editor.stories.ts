@@ -113,6 +113,16 @@ export const Basic: Story = {
   }
 };
 
+export const Mobile: Story = {
+  ...Basic,
+  globals: {
+    viewport: {
+      value: 'mobile',
+      isRotated: false
+    }
+  }
+};
+
 export const Checklist: Story = {
   args: {
     features: 'headings bold italic link bullet-list ordered-list checklist quote history',

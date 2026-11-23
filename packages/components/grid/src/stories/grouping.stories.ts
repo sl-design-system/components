@@ -65,6 +65,34 @@ export const Basic: Story = {
   }
 };
 
+export const StickyGroupHeaders: Story = {
+  render: () => {
+    const students = Array.from({ length: 120 }, (_, index) => ({
+        name: `Student ${index + 1}`,
+        email: `student${index + 1}@example.com`,
+        group: index < 60 ? 'Class A' : 'Class B'
+      })),
+      dataSource = new ArrayListDataSource(students, {
+        groupBy: 'group',
+        selects: 'multiple'
+      });
+
+    return html`
+      <p>Scroll vertically and horizontally to see the current group remain available.</p>
+      <div style="block-size: 320px; inline-size: 450px; overflow: auto">
+        <sl-grid
+          .dataSource=${dataSource}
+          .groupHeaderRenderer=${addStudentGroupHeaderRenderer}
+          .scopedElements=${{ 'sl-button': Button }}>
+          <sl-grid-selection-column sticky></sl-grid-selection-column>
+          <sl-grid-column header="Student" path="name" sticky width="200"></sl-grid-column>
+          <sl-grid-column header="Email" path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      </div>
+    `;
+  }
+};
+
 export const Collapsed: Story = {
   loaders: [
     async () => {

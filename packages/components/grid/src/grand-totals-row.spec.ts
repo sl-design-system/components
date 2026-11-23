@@ -199,6 +199,60 @@ describe('sl-grid grand totals row', () => {
     });
   });
 
+  describe('property changes after render', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="name"></sl-grid-column>
+          <sl-grid-column path="grade" grand-totals-type="number"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = students;
+      await wait(el);
+    });
+
+    it('should update the row when custom content is set later', async () => {
+      const column = el.querySelector('sl-grid-column')!;
+
+      column.grandTotals = '5 students';
+      await wait(el);
+
+      expect(getCells()).to.deep.equal(['5 students', '30']);
+
+      column.grandTotals = '6 students';
+      await wait(el);
+
+      expect(getCells()).to.deep.equal(['6 students', '30']);
+    });
+
+    it('should render the row when the first grand totals property is set later', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="name"></sl-grid-column>
+          <sl-grid-column path="grade"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = students;
+      await wait(el);
+
+      expect(el.renderRoot.querySelector('tr[part~="grand-totals-row"]')).not.to.exist;
+
+      el.querySelectorAll('sl-grid-column')[1].grandTotalsType = 'number';
+      await wait(el);
+
+      expect(getCells()).to.deep.equal(['-', '30']);
+    });
+
+    it('should update the row when the type or format changes', async () => {
+      const column = el.querySelectorAll('sl-grid-column')[1];
+
+      column.grandTotalsFormat = 'average';
+      await wait(el);
+
+      expect(getCells()).to.deep.equal(['-', 'avg. 6']);
+    });
+  });
+
   describe('formats', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -381,6 +435,47 @@ describe('sl-grid grand totals row', () => {
       await wait(el);
 
       expect(getCells()).to.deep.equal(['5', '30']);
+    });
+  });
+
+  describe('column groups', () => {
+    it('should label the totals cells by their group and column headers', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column-group header="Results">
+            <sl-grid-column path="name" grand-totals-type="text"></sl-grid-column>
+            <sl-grid-column path="grade" grand-totals-type="number"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+      el.items = students;
+      await wait(el);
+
+      const cells = el.renderRoot.querySelectorAll('tr[part~="grand-totals-row"] td');
+
+      expect(cells).to.have.length(2);
+      cells.forEach(cell => {
+        const ids = cell.getAttribute('aria-labelledby')?.split(' ') ?? [];
+
+        expect(ids).to.have.length(2);
+        ids.forEach(id => expect(el.renderRoot.querySelector(`#${id}`)).to.exist);
+      });
+    });
+
+    it('should not set aria-labelledby on totals cells outside a group', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="grade" grand-totals-type="number"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = students;
+      await wait(el);
+
+      expect(
+        el.renderRoot
+          .querySelector('tr[part~="grand-totals-row"] td')
+          ?.hasAttribute('aria-labelledby')
+      ).to.be.false;
     });
   });
 

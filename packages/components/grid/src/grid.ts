@@ -1802,6 +1802,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    * matching the active filters (not only the current page, unless `grandTotalsScope` is `page`)
    * and never over group rows. Data sources that don't have all the rows available (such as the
    * `FetchListDataSource`) provide the raw totals themselves.
+   *
+   * The totals are calculated on every render, so they always reflect in-place edits of the rows
+   * (followed by `requestUpdate()`), without having to invalidate a cache. That costs time
+   * proportional to the number of rows and totals columns. For very large datasets, use a
+   * `FetchListDataSource` that returns the raw totals from the server instead.
    */
   #calculateGrandTotals(columns: Array<GridColumn<T>>): Map<GridColumn<T>, GridGrandTotals> {
     const dataSource = this.dataSource,

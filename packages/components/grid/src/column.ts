@@ -11,7 +11,14 @@ import {
   getNameByPath,
   getValueByPath
 } from '@sl-design-system/shared';
-import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResult,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import {
@@ -275,6 +282,23 @@ export class GridColumn<T = any> extends LitElement {
     super.disconnectedCallback();
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    // The grid renders the grand totals cells, so it needs to render again when a property that
+    // affects them changes after the initial render, for example when custom content arrives
+    // asynchronously.
+    if (
+      changes.has('grandTotals') ||
+      changes.has('grandTotalsFormat') ||
+      changes.has('grandTotalsLabel') ||
+      changes.has('grandTotalsMenu') ||
+      changes.has('grandTotalsType')
+    ) {
+      this.#grid?.requestUpdate();
+    }
+  }
+
   /**
    * This method is called when the contents of the grid has changed. This happens when the items
    * property is directly set or when the data source has changed.
@@ -290,6 +314,19 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal */
   get headerCellId(): string {
     return this.#headerCellId;
+  }
+
+  /**
+   * @internal The `aria-labelledby` value for data and grand totals cells. Grouped leaf headers are
+   * plain cells, so they can't be found as column headers. Name the cell by its group header(s) and
+   * column header instead (e.g. "Name First name"); the rendered value is still read as the
+   * content. This applies to every cell in a grouped column, including empty cells and cells with
+   * custom templates.
+   */
+  get cellLabelledBy(): string | undefined {
+    return this.groupHeaderIds.length > 0
+      ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+      : undefined;
   }
 
   /** @internal */
@@ -387,14 +424,7 @@ export class GridColumn<T = any> extends LitElement {
     const classes = this.getClasses(item.data),
       data = this.getDisplayValue(item.data),
       parts = ['data', ...this.getParts(item.data)],
-      // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
-      // data cell by its group header(s) and column header instead (e.g. "Name First name"); the
-      // rendered value is still read as the content. This applies to every cell in a grouped
-      // column, including empty cells and cells with custom templates.
-      labelledBy =
-        this.groupHeaderIds.length > 0
-          ? [...this.groupHeaderIds, this.headerCellId].join(' ')
-          : undefined;
+      labelledBy = this.cellLabelledBy;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
@@ -441,6 +471,7 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <td
+        aria-labelledby=${ifDefined(this.cellLabelledBy)}
         aria-colindex=${String(this.columnIndex)}
         class=${ifDefined(classes.join(' ') || undefined)}
         headers=${this.headerIds}

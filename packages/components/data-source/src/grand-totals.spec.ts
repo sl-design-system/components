@@ -64,6 +64,30 @@ describe('grand totals', () => {
     expect(ds.grandTotals).to.deep.equal(totals(3));
   });
 
+  it('should clear the grand totals when a later response omits them', async () => {
+    const ds = new FetchListDataSource({
+      pageSize: 2,
+      fetchPage: ({ filters }) =>
+        Promise.resolve({
+          items: people.slice(0, 2),
+          ...(filters?.length ? {} : { grandTotals: totals(10) }),
+          totalItems: people.length
+        })
+    });
+
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.grandTotals).to.deep.equal(totals(10));
+
+    ds.addFilter('firstName', 'firstName', 'Ann');
+    ds.update();
+    void ds.items[0];
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(ds.grandTotals).to.be.undefined;
+  });
+
   it('should dispatch sl-update when the grand totals arrive', async () => {
     const ds = new FetchListDataSource({
       pageSize: 2,

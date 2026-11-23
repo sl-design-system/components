@@ -30,6 +30,9 @@ export interface FetchListDataSourceCallbackResult<T> {
    * filters (not just the fetched page). Use the same shape as `GridGrandTotals` in the grid
    * package: `{ [path]: { evaluated, sum, nonEmpty, trueCount, totalRecords } }`. Provide raw
    * values, not formatted strings, so the format can be changed without fetching again.
+   *
+   * Return the totals with every response. A response without `grandTotals` clears the totals, so
+   * the grid shows a dash instead of totals for a previous query.
    */
   grandTotals?: Record<string, unknown>;
 
@@ -579,10 +582,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           // it also needs to be recreated when a group refetches pages it already had a size for.
           let recreateProxy = this.pagination || !this.#groups.has(FetchListDataSourceDummyGroup);
 
-          // The totals depend on the filters, not on the page; the latest response wins.
-          if (res.grandTotals) {
-            this.#grandTotals = res.grandTotals;
-          }
+          // The totals depend on the filters, not on the page; the latest response wins. A response
+          // without totals clears them, so stale totals are never shown for different filters.
+          this.#grandTotals = res.grandTotals;
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);

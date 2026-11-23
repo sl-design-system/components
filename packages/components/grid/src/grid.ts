@@ -1432,12 +1432,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }),
       item = row ? this.dataSource?.items[Number(row.getAttribute('index'))] : undefined,
       // A group header at the boundary is already visible in its original row.
-      group =
+      candidateGroup =
         item?.type === 'group'
           ? row?.getBoundingClientRect().top === boundary
             ? undefined
             : item
-          : item?.group;
+          : item?.group,
+      group =
+        candidateGroup && !this.dataSource?.isGroupCollapsed(candidateGroup.id)
+          ? candidateGroup
+          : undefined;
 
     const headerInset = parseFloat(getComputedStyle(this.thead).insetBlockStart);
     this.style.setProperty(

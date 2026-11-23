@@ -1,0 +1,127 @@
+:host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+  --_divider: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border: var(--sl-size-borderWidth-default) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
+
+  /* A block-level field with the toolbar, content and footer stacked */
+  display: flex;
+  flex-direction: column;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+:host(:hover:not(:focus-within)) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+/* The ring goes around the whole field, also while the toolbar has focus. */
+:host(:focus-within) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) {
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+}
+
+:host([readonly]) {
+  --_bg-color: var(--sl-color-background-neutral-subtlest);
+  --_border: var(--sl-color-border-disabled);
+
+  cursor: auto;
+}
+
+:host([disabled]) {
+  --_divider: var(--sl-size-borderWidth-default) solid var(--sl-color-border-disabled);
+
+  background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-disabled);
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, :focus-within)) {
+    transition: 200ms ease-in-out;
+    transition-property: background, border, outline-color;
+  }
+}
+
+[part='toolbar'] {
+  align-items: center;
+  border-block-end: var(--_divider);
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-050);
+  padding: var(--sl-size-075) var(--sl-size-100);
+
+  hr {
+    align-self: stretch;
+    border: 0;
+    border-inline-start: var(--_divider);
+    margin: var(--sl-size-050) var(--sl-size-050);
+  }
+}
+
+/* Toolbar buttons only show a border while pressed, so the row reads as icons, not boxes. */
+sl-toggle-button:not([pressed])::part(button) {
+  border-color: transparent;
+}
+
+.block-type {
+  inline-size: calc(var(--sl-size-1000) + var(--sl-size-400));
+}
+
+slot[name='content'] {
+  display: block;
+  flex: 1;
+}
+
+[part='footer'] {
+  align-items: center;
+  border-block-start: var(--_divider);
+  color: var(--sl-color-foreground-subtle);
+  cursor: default;
+  display: flex;
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  gap: var(--sl-size-200);
+  justify-content: space-between;
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+  padding: var(--sl-size-100) var(--sl-size-200);
+}
+
+:host([disabled]) [part='footer'] {
+  color: var(--sl-color-foreground-disabled);
+}
+
+.count {
+  margin-inline-start: auto;
+}
+
+.link-form {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+
+  sl-text-field {
+    inline-size: calc(var(--sl-size-1000) * 3);
+  }
+}

@@ -1,15 +1,15 @@
 ---
-title: Editor specs
+title: Rich text editor specs
 tags: specs
 eleventyNavigation:
-  parent: Editor
-  key: EditorSpecs
+  parent: Rich text editor
+  key: RichTextEditorSpecs
 ---
 <section>
 
-## Editor specs content
+## Rich text editor specs content
 
-This is the editor specs content
+This is the rich text editor specs content
 
 </section>
 

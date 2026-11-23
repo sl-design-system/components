@@ -1,0 +1,142 @@
+/*
+ * Styles for the editable content. The editable lives in light DOM (so native selection, IME and
+ * autocorrect work everywhere), so this sheet is adopted by the editor's root node and every rule
+ * is scoped to the `.sl-rich-text-editor-content` class.
+ */
+.sl-rich-text-editor-content {
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  min-block-size: calc(var(--sl-size-1000) * 2);
+  outline: none;
+  overflow-wrap: break-word;
+  padding: var(--sl-size-200) var(--sl-size-250);
+  white-space: pre-wrap;
+
+  > :first-child {
+    margin-block-start: 0;
+  }
+
+  > :last-child {
+    margin-block-end: 0;
+  }
+
+  :where(p) {
+    margin-block: 0 var(--sl-size-150);
+  }
+
+  :where(h1, h2, h3, h4) {
+    font-family: var(--sl-text-new-typeset-fontFamily-heading);
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    margin-block: var(--sl-size-200) var(--sl-size-100);
+  }
+
+  :where(h1, h2) {
+    font-size: var(--sl-text-new-heading-lg-fontSize);
+    line-height: var(--sl-text-new-heading-lg-lineHeight);
+  }
+
+  :where(h3, h4) {
+    font-size: var(--sl-text-new-heading-md-fontSize);
+    line-height: var(--sl-text-new-heading-md-lineHeight);
+  }
+
+  :where(ul, ol) {
+    margin-block: 0 var(--sl-size-150);
+    padding-inline-start: var(--sl-size-300);
+  }
+
+  :where(li > p) {
+    margin-block: 0;
+  }
+
+  :where(blockquote) {
+    border-inline-start: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-bold);
+    color: var(--sl-color-foreground-subtle);
+    margin: 0 0 var(--sl-size-150);
+    padding-block: var(--sl-size-050);
+    padding-inline-start: var(--sl-size-200);
+
+    > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  :where(code) {
+    background: var(--sl-color-background-neutral-subtlest);
+    border-radius: var(--sl-size-borderRadius-sm);
+    font-family: monospace;
+    font-size: 0.875em;
+    padding: var(--sl-size-010) var(--sl-size-075);
+  }
+
+  :where(a) {
+    color: var(--sl-color-link-idle);
+    text-decoration: underline;
+  }
+
+  /* The placeholder is a decoration on the empty first block, never part of the value. */
+  .placeholder::before {
+    block-size: 0;
+    color: var(--sl-color-foreground-subtlest);
+    content: attr(data-placeholder);
+    float: inline-start;
+    pointer-events: none;
+  }
+
+  /* Checklist */
+  :where(ul[data-type='task-list']) {
+    list-style: none;
+    padding-inline-start: 0;
+
+    /* Nested items sit under the parent's text, one checkbox column further in. */
+    :where(ul[data-type='task-list']) {
+      margin-block-end: 0;
+      padding-inline-start: var(--sl-size-075);
+    }
+  }
+
+  .task-item {
+    align-items: start;
+    display: flex;
+    gap: var(--sl-size-050);
+  }
+
+  /* A 44px tap area around a regular sized checkbox, pulled into the line so rows stay compact. */
+  .task-box {
+    --_tap-size: calc(var(--sl-size-500) + var(--sl-size-050));
+
+    align-items: center;
+    block-size: var(--_tap-size);
+    cursor: pointer;
+    display: flex;
+    flex: none;
+    inline-size: var(--_tap-size);
+    justify-content: center;
+    margin-block: calc((1lh - var(--_tap-size)) / 2);
+    margin-inline-start: calc(var(--sl-size-150) * -1);
+    user-select: none;
+
+    input {
+      accent-color: var(--sl-color-background-selected-bold);
+      block-size: var(--sl-size-250);
+      cursor: inherit;
+      inline-size: var(--sl-size-250);
+      margin: 0;
+    }
+
+    input:disabled {
+      cursor: default;
+    }
+  }
+
+  .task-content {
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  /* Ticked items stay in place; the filled box is the main signal, the strike-through supports it. */
+  .task-item[data-checked='true'] > .task-content > p {
+    color: var(--sl-color-foreground-subtle);
+    text-decoration: line-through;
+  }
+}

@@ -4,8 +4,10 @@ import {
   type Mark,
   type MarkSpec,
   type NodeSpec,
-  type Node as PMNode
+  type Node as PMNode,
+  Schema
 } from 'prosemirror-model';
+import { type RichTextEditorFeature } from './features.js';
 
 export declare type EditorMarks =
   | 'link'
@@ -29,7 +31,9 @@ export declare type EditorNodes =
   | 'hardBreak'
   | 'listItem'
   | 'orderedList'
-  | 'bulletList';
+  | 'bulletList'
+  | 'taskList'
+  | 'taskItem';
 
 const SLOT = 0; // https://prosemirror.net/docs/guide/#schema.serialization_and_parsing
 
@@ -233,7 +237,7 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
   /** A blockquote (`<blockquote>`) which wraps one or more blocks. */
   blockquote: {
     attrs: Object.assign({}, commonAttributes()),
-    content: 'inline*',
+    content: 'block+',
     defining: true,
     group: 'block',
     parseDOM: [{ tag: 'blockquote', getAttrs: getAttributes }],
@@ -257,27 +261,45 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     parseDOM: [
       {
         tag: 'h1',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 1 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 1
+        })
       },
       {
         tag: 'h2',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 2 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 2
+        })
       },
       {
         tag: 'h3',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 3 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 3
+        })
       },
       {
         tag: 'h4',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 4 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 4
+        })
       },
       {
         tag: 'h5',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 5 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 5
+        })
       },
       {
         tag: 'h6',
-        getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 6 })
+        getAttrs: (node: string | HTMLElement) => ({
+          ...getAttributes(node),
+          level: 6
+        })
       }
     ],
     toDOM: (node: PMNode): DOMOutputSpec => {
@@ -381,5 +403,89 @@ export const nodes: Record<EditorNodes, NodeSpec> = {
     group: 'block',
     parseDOM: [{ tag: 'ul', getAttrs: getAttributes }],
     toDOM: (): DOMOutputSpec => ['ul', SLOT]
+  },
+  /** A checklist. Represented as `<ul data-type="task-list">`; it only holds task items. */
+  taskList: {
+    content: 'taskItem+',
+    group: 'block',
+    parseDOM: [{ tag: 'ul[data-type="task-list"]', priority: 60 }],
+    toDOM: (): DOMOutputSpec => ['ul', { 'data-type': 'task-list' }, SLOT]
+  },
+  /**
+   * A checklist item with a `checked` state and a stable `id`. The id survives edits, so anything
+   * keyed on it stays attached to the right item. Represented as `<li data-task="id"
+   * data-checked="true|false">`.
+   */
+  taskItem: {
+    attrs: { checked: { default: false }, id: { default: null } },
+    content: 'paragraph block*',
+    defining: true,
+    parseDOM: [
+      {
+        tag: 'li[data-task]',
+        priority: 60,
+        getAttrs: (dom: HTMLElement) => ({
+          checked: dom.getAttribute('data-checked') === 'true',
+          id: dom.getAttribute('data-task') || null
+        })
+      }
+    ],
+    toDOM: (node: PMNode): DOMOutputSpec => [
+      'li',
+      {
+        'data-checked': String(node.attrs.checked),
+        'data-task': (node.attrs.id as string | null) ?? ''
+      },
+      SLOT
+    ]
   }
+};
+
+/** The schema nodes and marks each feature needs. Paragraphs, text and line breaks are always there. */
+const FEATURE_SCHEMA: Record<
+  RichTextEditorFeature,
+  { marks?: EditorMarks[]; nodes?: EditorNodes[] }
+> = {
+  bold: { marks: ['strong'] },
+  italic: { marks: ['em'] },
+  underline: { marks: ['underline'] },
+  strike: { marks: ['strikethrough'] },
+  code: { marks: ['code'] },
+  link: { marks: ['link'] },
+  headings: { nodes: ['heading'] },
+  'bullet-list': { nodes: ['bulletList', 'listItem'] },
+  'ordered-list': { nodes: ['orderedList', 'listItem'] },
+  checklist: { nodes: ['taskList', 'taskItem'] },
+  quote: { nodes: ['blockquote'] },
+  history: {},
+  'character-count': {}
+};
+
+const CORE_NODES: EditorNodes[] = ['doc', 'paragraph', 'text', 'hardBreak'];
+
+const pick = <K extends string, V>(source: Record<K, V>, names: Set<K>): Record<string, V> =>
+  Object.fromEntries(
+    (Object.keys(source) as K[]).filter(key => names.has(key)).map(key => [key, source[key]])
+  );
+
+/**
+ * Builds a schema that only holds what the given features can make, so content that needs a missing
+ * feature can't be typed or pasted. Nodes and marks are added in a fixed order, so the same set of
+ * features always gives the same schema.
+ */
+export const buildSchema = (
+  features: Set<RichTextEditorFeature>
+): Schema<EditorNodes, EditorMarks> => {
+  const nodeNames = new Set<EditorNodes>(CORE_NODES),
+    markNames = new Set<EditorMarks>();
+
+  features.forEach(feature => {
+    FEATURE_SCHEMA[feature].nodes?.forEach(name => nodeNames.add(name));
+    FEATURE_SCHEMA[feature].marks?.forEach(name => markNames.add(name));
+  });
+
+  return new Schema({
+    nodes: pick(nodes, nodeNames),
+    marks: pick(marks, markNames)
+  });
 };

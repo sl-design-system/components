@@ -31,6 +31,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon, type IconDefinition } from '@sl-design-system/icon';
@@ -516,7 +517,9 @@ export class RichTextEditor extends FormControlMixin(
       plugins: [
         buildInputRules(schema),
         ...(this.#features.has('history') ? [history()] : []),
-        ...(taskItem ? [keymap(buildChecklistKeymap(taskItem)), taskIdsPlugin(taskItem)] : []),
+        ...(taskItem
+          ? [keymap(buildChecklistKeymap(taskItem, this.#announceToggle)), taskIdsPlugin(taskItem)]
+          : []),
         keymap(buildListKeymap(schema)),
         keymap(this.#buildEditorKeymap(schema)),
         keymap(buildKeymap(schema)),
@@ -574,11 +577,24 @@ export class RichTextEditor extends FormControlMixin(
     this.#onDocChange();
   }
 
+  /** Tells screen reader users the new state of an item ticked with Ctrl/⌘+Enter. */
+  #announceToggle = (checked: boolean, text: string): void => {
+    announce(
+      checked
+        ? msg(str`${text}, checked`, { id: 'sl.richTextEditor.taskChecked' })
+        : msg(str`${text}, not checked`, { id: 'sl.richTextEditor.taskUnchecked' }),
+      'polite'
+    );
+  };
+
   #buildNodeViews(schema: Schema): EditorProps['nodeViews'] {
     return schema.nodes.taskItem
       ? {
           taskItem: (node, view, getPos) =>
-            new TaskItemView(node, view, getPos, () => this.#editable)
+            new TaskItemView(node, view, getPos, {
+              canToggle: () => this.#editable,
+              emptyLabel: msg('Checklist item', { id: 'sl.richTextEditor.checklistItem' })
+            })
         }
       : {};
   }

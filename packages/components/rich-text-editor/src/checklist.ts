@@ -1,5 +1,5 @@
 import { type Checkbox } from '@sl-design-system/checkbox';
-import { type NodeType, type Node as PMNode } from 'prosemirror-model';
+import { type NodeType, type Node as PMNode, type ResolvedPos } from 'prosemirror-model';
 import { liftListItem, sinkListItem, splitListItem } from 'prosemirror-schema-list';
 import { type Command, Plugin } from 'prosemirror-state';
 import { type EditorView, type NodeView } from 'prosemirror-view';
@@ -71,12 +71,42 @@ export const toggleTaskAtCaret =
   };
 
 /** Keyboard shortcuts for checklists. Each one returns `false` outside a checklist item. */
-export const buildChecklistKeymap = (taskItem: NodeType): Record<string, Command> => ({
+export const buildChecklistKeymap = (
+  taskItem: NodeType,
+  onToggle?: (checked: boolean, text: string) => void
+): Record<string, Command> => ({
   Enter: splitListItem(taskItem, { checked: false, id: null }),
   Tab: sinkListItem(taskItem),
   'Shift-Tab': liftListItem(taskItem),
-  'Mod-Enter': toggleTaskAtCaret(taskItem)
+  // The checkbox that changes doesn't have focus, so report the new state for screen readers.
+  'Mod-Enter': (state, dispatch) =>
+    toggleTaskAtCaret(taskItem)(
+      state,
+      dispatch &&
+        (tr => {
+          dispatch(tr);
+
+          const item = findTaskItem(tr.doc.resolve(tr.selection.from), taskItem);
+          if (item) {
+            onToggle?.(!!item.attrs.checked, itemText(item));
+          }
+        })
+    )
 });
+
+/** Returns the closest checklist item around a position. */
+const findTaskItem = ($pos: ResolvedPos, taskItem: NodeType): PMNode | undefined => {
+  for (let depth = $pos.depth; depth > 0; depth--) {
+    if ($pos.node(depth).type === taskItem) {
+      return $pos.node(depth);
+    }
+  }
+
+  return undefined;
+};
+
+/** The text of an item's own first paragraph, without the text of nested items. */
+const itemText = (node: PMNode): string => node.firstChild?.textContent.trim() ?? '';
 
 /** Form events `sl-checkbox` emits that must not leave the editor. */
 const CHECKBOX_EVENTS = [
@@ -88,6 +118,13 @@ const CHECKBOX_EVENTS = [
   'sl-update-validity',
   'sl-validate'
 ];
+
+export interface TaskItemViewOptions {
+  /** Whether the checkboxes can be toggled. */
+  canToggle(): boolean;
+  /** The checkbox's accessible name when its item has no text yet. */
+  emptyLabel: string;
+}
 
 /**
  * Renders a checklist item with an `<sl-checkbox>`. The checkbox sits outside the editable content
@@ -115,7 +152,7 @@ export class TaskItemView implements NodeView {
     node: PMNode,
     view: EditorView,
     getPos: () => number | undefined,
-    readonly canToggle: () => boolean
+    readonly options: TaskItemViewOptions
   ) {
     this.node = node;
 
@@ -158,6 +195,9 @@ export class TaskItemView implements NodeView {
 
     this.dom.append(this.#boxWrapper, this.contentDOM);
     this.#render();
+
+    // The checkbox creates its input once it is connected
+    void this.box.updateComplete.then(() => this.#syncTabIndex());
   }
 
   update(node: PMNode): boolean {
@@ -180,17 +220,28 @@ export class TaskItemView implements NodeView {
   }
 
   #render(): void {
-    const checked = !!this.node.attrs.checked,
-      id = (this.node.attrs.id as string | null) ?? '';
+    const checked = !!this.node.attrs.checked;
 
     this.box.checked = checked;
-    this.box.disabled = !this.canToggle();
+    this.box.disabled = !this.options.canToggle();
     this.dom.dataset.checked = String(checked);
 
-    // Label the checkbox by the item's text, so it reads "Read chapter 4.2, checkbox, not checked".
-    if (id) {
-      this.contentDOM.id = `sl-rich-text-editor-task-${id}`;
-      this.box.setAttribute('aria-labelledby', this.contentDOM.id);
+    // Name the checkbox after its item's own text, so it reads "Read chapter 4.2, checkbox, not
+    // checked", without the text of any nested items.
+    this.box.setAttribute('aria-label', itemText(this.node) || this.options.emptyLabel);
+
+    this.#syncTabIndex();
+  }
+
+  /**
+   * While editing, the checkboxes are not Tab stops: Tab indents items or leaves the editor, and
+   * Ctrl/⌘+Enter ticks the item the caret is in. They can still be clicked or tapped.
+   */
+  #syncTabIndex(): void {
+    const input = this.box.querySelector('input');
+
+    if (input) {
+      input.tabIndex = -1;
     }
   }
 }

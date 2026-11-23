@@ -242,15 +242,77 @@ describe('sl-rich-text-editor', () => {
       expect(boxes[1].checked).to.be.false;
     });
 
-    it('should label each checkbox by its item text', async () => {
+    it('should name each checkbox by its item text', async () => {
       const input = content(el).querySelector('sl-checkbox input')!;
 
-      // The checkbox forwards its label to the inner input after it has rendered
+      // The checkbox forwards its name to the inner input after it has rendered
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      expect(input.ariaLabelledByElements?.map(label => label.textContent)).to.deep.equal([
-        'Read chapter 4.2'
-      ]);
+      expect(input).to.have.attribute('aria-label', 'Read chapter 4.2');
+    });
+
+    it('should not include nested items in the checkbox name', async () => {
+      el.value =
+        '<ul data-type="task-list"><li data-task="a" data-checked="false"><p>Answer questions 1–5</p><ul data-type="task-list"><li data-task="b" data-checked="false"><p>Draw the Calvin cycle</p></li></ul></li></ul>';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const inputs = content(el).querySelectorAll('sl-checkbox input');
+
+      expect(inputs[0]).to.have.attribute('aria-label', 'Answer questions 1–5');
+      expect(inputs[1]).to.have.attribute('aria-label', 'Draw the Calvin cycle');
+    });
+
+    it('should name the checkbox of an empty item', async () => {
+      el.value =
+        '<ul data-type="task-list"><li data-task="a" data-checked="false"><p></p></li></ul>';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(content(el).querySelector('sl-checkbox input')).to.have.attribute(
+        'aria-label',
+        'Checklist item'
+      );
+    });
+
+    it('should keep the checkboxes out of the Tab order while editing', async () => {
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const inputs = Array.from(
+        content(el).querySelectorAll<HTMLInputElement>('sl-checkbox input')
+      );
+
+      expect(inputs).to.have.length(2);
+      expect(inputs.every(input => input.tabIndex === -1)).to.be.true;
+    });
+
+    it('should announce the new state when ticking with Ctrl/⌘+Enter', async () => {
+      const onAnnounce = spy(),
+        mac = /Mac/.test(navigator.platform),
+        view = el.view!;
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        view.dispatch(view.state.tr.setSelection(TextSelection.create(view.state.doc, 3)));
+        content(el).dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            ctrlKey: !mac,
+            key: 'Enter',
+            metaKey: mac
+          })
+        );
+        await el.updateComplete;
+
+        expect(el.value).to.contain('<li data-checked="false" data-task="a">');
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(
+          (onAnnounce.firstCall.args[0] as CustomEvent<{ message: string }>).detail.message
+        ).to.equal('Read chapter 4.2, not checked');
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
     });
 
     it('should not let the checkbox events leave the editor', async () => {

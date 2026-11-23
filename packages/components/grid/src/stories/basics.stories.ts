@@ -746,17 +746,25 @@ export const GrandTotalsRowRadioColumns: Story = {
     const gridRef = createRef<Grid>(),
       radioRenderer =
         (key: (typeof levels)[number]['key'], header: string): GridColumnDataRenderer<LevelRow> =>
-        row =>
-          html`
-            <sl-radio
-              @click=${() => {
-                // A row has exactly one level: update the data, then re-render the grid so the
-                // totals are recalculated
-                for (const level of levels) {
-                  row[level.key] = level.key === key;
-                }
+        row => {
+          // A row has exactly one level: update the data, then re-render the grid so the
+          // totals are recalculated
+          const select = () => {
+            for (const level of levels) {
+              row[level.key] = level.key === key;
+            }
 
-                gridRef.value?.requestUpdate();
+            gridRef.value?.requestUpdate();
+          };
+
+          return html`
+            <sl-radio
+              @click=${select}
+              @keydown=${(event: KeyboardEvent) => {
+                // The radio checks itself on Enter and Space without dispatching a click
+                if (['Enter', ' '].includes(event.key)) {
+                  select();
+                }
               }}
               .checked=${row[key]}
               size="sm">
@@ -766,6 +774,7 @@ export const GrandTotalsRowRadioColumns: Story = {
               </span>
             </sl-radio>
           `;
+        };
 
     return html`
       <p>

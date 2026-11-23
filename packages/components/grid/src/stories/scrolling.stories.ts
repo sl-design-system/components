@@ -373,46 +373,52 @@ export const VerticalOverflowGrandTotalsRowTop: Story = {
 export const HorizontalGrandTotalsRow: Story = {
   render: () => html`
     <p>
-      This example shows a grand totals row in a grid that scrolls both horizontally and vertically.
-      The first and last columns are sticky, and the grand totals cells in those columns stay in
-      place as well.
+      This example shows how horizontal scrolling works with a grand totals row. There are only a
+      few rows, so there is no need to vertically scroll. The grid will automatically detect that
+      the rows are wider than the grid itself and will enable horizontal scrolling. The grand totals
+      row scrolls along with the columns. There is nothing you need to do for this.
     </p>
-    <sl-grid .items=${pupils} style="inline-size: 480px; block-size: 320px; overflow-y: auto">
+    <style>
+      html {
+        display: block;
+      }
+    </style>
+    <sl-grid .items=${pupils.slice(0, 5)}>
       <sl-grid-column
-        grow="0"
         header="Student"
         path="name"
-        sticky
         grand-totals-label="students"
         grand-totals-type="text"
-        width="200"></sl-grid-column>
+        width="250"></sl-grid-column>
       <sl-grid-column
-        grow="0"
         header="Class"
         path="class"
-        width="200"
-        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
+        width="250"
+        .grandTotals=${classesGrandTotals(pupils.slice(0, 5))}></sl-grid-column>
       <sl-grid-column
-        grow="0"
         header="Homework"
         path="homework"
         grand-totals-type="boolean"
-        width="200"></sl-grid-column>
+        width="250"></sl-grid-column>
       <sl-grid-column
-        grow="0"
         header="Present"
         path="present"
         grand-totals-type="boolean"
-        width="200"></sl-grid-column>
+        width="250"></sl-grid-column>
       <sl-grid-column
         align="end"
-        grow="0"
         header="Grade"
         path="grade"
-        sticky
         grand-totals-format="average"
         grand-totals-type="number"
-        width="120"></sl-grid-column>
+        width="250"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
+        grand-totals-type="number"
+        width="250"></sl-grid-column>
     </sl-grid>
   `
 };

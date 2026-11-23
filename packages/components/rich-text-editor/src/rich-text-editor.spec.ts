@@ -234,19 +234,34 @@ describe('sl-rich-text-editor', () => {
       `);
     });
 
-    it('should render a real checkbox per item', () => {
-      const boxes = content(el).querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+    it('should render an sl-checkbox per item', () => {
+      const boxes = content(el).querySelectorAll('sl-checkbox');
 
       expect(boxes).to.have.length(2);
       expect(boxes[0].checked).to.be.true;
       expect(boxes[1].checked).to.be.false;
     });
 
-    it('should label each checkbox by its item text', () => {
-      const box = content(el).querySelector('input[type="checkbox"]')!,
-        label = el.querySelector(`#${box.getAttribute('aria-labelledby')}`);
+    it('should label each checkbox by its item text', async () => {
+      const input = content(el).querySelector('sl-checkbox input')!;
 
-      expect(label).to.have.trimmed.text('Read chapter 4.2');
+      // The checkbox forwards its label to the inner input after it has rendered
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input.ariaLabelledByElements?.map(label => label.textContent)).to.deep.equal([
+        'Read chapter 4.2'
+      ]);
+    });
+
+    it('should not let the checkbox events leave the editor', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      content(el).querySelectorAll('sl-checkbox')[1].click();
+      await el.updateComplete;
+
+      expect(onChange).not.to.have.been.called;
+      expect(el.value).to.contain('<li data-checked="true" data-task="b">');
     });
 
     it('should keep the checkbox out of the editable text', () => {
@@ -256,16 +271,14 @@ describe('sl-rich-text-editor', () => {
     });
 
     it('should toggle an item and keep its id', async () => {
-      content(el).querySelectorAll<HTMLInputElement>('input[type="checkbox"]')[1].click();
+      content(el).querySelectorAll('sl-checkbox')[1].click();
       await el.updateComplete;
 
       expect(el.value).to.contain('<li data-checked="true" data-task="b">');
     });
 
     it('should make the toggle undoable', async () => {
-      const box = content(el).querySelectorAll<HTMLInputElement>('input[type="checkbox"]')[1];
-
-      box.click();
+      content(el).querySelectorAll('sl-checkbox')[1].click();
       await el.updateComplete;
 
       const undo = el.renderRoot.querySelector('sl-button')!;
@@ -288,7 +301,7 @@ describe('sl-rich-text-editor', () => {
       el.readonly = true;
       await el.updateComplete;
 
-      const boxes = content(el).querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+      const boxes = content(el).querySelectorAll('sl-checkbox');
 
       expect(Array.from(boxes).every(box => box.disabled)).to.be.true;
     });

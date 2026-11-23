@@ -1,3 +1,4 @@
+import { type Checkbox } from '@sl-design-system/checkbox';
 import { type NodeType, type Node as PMNode } from 'prosemirror-model';
 import { liftListItem, sinkListItem, splitListItem } from 'prosemirror-schema-list';
 import { type Command, Plugin } from 'prosemirror-state';
@@ -77,16 +78,38 @@ export const buildChecklistKeymap = (taskItem: NodeType): Record<string, Command
   'Mod-Enter': toggleTaskAtCaret(taskItem)
 });
 
+/** Form events `sl-checkbox` emits that must not leave the editor. */
+const CHECKBOX_EVENTS = [
+  'sl-blur',
+  'sl-change',
+  'sl-focus',
+  'sl-form-control',
+  'sl-update-state',
+  'sl-update-validity',
+  'sl-validate'
+];
+
 /**
- * Renders a checklist item with a real checkbox. The checkbox lives outside the editable content in
- * a non-editable label, so the editor never treats it as text. Cancelling `mousedown` keeps the
- * caret (and a phone's keyboard) where it is; the click that follows still toggles the box.
+ * Renders a checklist item with an `<sl-checkbox>`. The checkbox sits outside the editable content
+ * in a non-editable wrapper, so the editor never treats it as text, and it is labelled by the
+ * item's text rather than wrapping it: a checkbox toggles on any click inside it, which would make
+ * the text impossible to edit.
+ *
+ * The checkbox's own form events stay inside the editor, so a surrounding `<sl-form>` only sees the
+ * editor. After a pointer toggle the editor takes focus back, so the caret (and a phone's keyboard)
+ * stay where they were; a keyboard toggle leaves focus on the checkbox.
  */
 export class TaskItemView implements NodeView {
-  box: HTMLInputElement;
+  box: Checkbox;
   contentDOM: HTMLElement;
   dom: HTMLLIElement;
   node: PMNode;
+
+  /** The non-editable wrapper around the checkbox; also the 44 × 44 px tap area. */
+  #boxWrapper: HTMLElement;
+
+  /** Whether the current toggle started with a pointer. */
+  #pointerToggle = false;
 
   constructor(
     node: PMNode,
@@ -99,26 +122,41 @@ export class TaskItemView implements NodeView {
     this.dom = document.createElement('li');
     this.dom.className = 'task-item';
 
-    const label = document.createElement('label');
-    label.contentEditable = 'false';
-    label.className = 'task-box';
-    label.addEventListener('mousedown', event => event.preventDefault());
+    this.#boxWrapper = document.createElement('span');
+    this.#boxWrapper.contentEditable = 'false';
+    this.#boxWrapper.className = 'task-box';
+    this.#boxWrapper.addEventListener('pointerdown', () => (this.#pointerToggle = true));
+    this.#boxWrapper.addEventListener('mousedown', event => event.preventDefault());
 
-    this.box = document.createElement('input');
-    this.box.type = 'checkbox';
-    this.box.addEventListener('change', () => {
+    // Clicks on the tap area around the checkbox toggle it too.
+    this.#boxWrapper.addEventListener('click', event => {
+      if (event.target === this.#boxWrapper && !this.box.disabled) {
+        this.box.click();
+      }
+    });
+
+    this.box = document.createElement('sl-checkbox');
+    this.box.addEventListener('sl-change', () => {
       const pos = getPos();
 
       if (pos !== undefined) {
         toggleTaskAt(this.node.type, pos)(view.state, view.dispatch);
       }
+
+      if (this.#pointerToggle) {
+        view.focus();
+      }
+      this.#pointerToggle = false;
     });
-    label.append(this.box);
+    CHECKBOX_EVENTS.forEach(type =>
+      this.#boxWrapper.addEventListener(type, event => event.stopPropagation())
+    );
+    this.#boxWrapper.append(this.box);
 
     this.contentDOM = document.createElement('div');
     this.contentDOM.className = 'task-content';
 
-    this.dom.append(label, this.contentDOM);
+    this.dom.append(this.#boxWrapper, this.contentDOM);
     this.#render();
   }
 
@@ -134,7 +172,7 @@ export class TaskItemView implements NodeView {
   }
 
   stopEvent(event: Event): boolean {
-    return event.target === this.box;
+    return event.target instanceof Node && this.#boxWrapper.contains(event.target);
   }
 
   ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }): boolean {

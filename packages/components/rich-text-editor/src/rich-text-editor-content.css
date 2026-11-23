@@ -115,18 +115,10 @@
     margin-block: calc((1lh - var(--_tap-size)) / 2);
     margin-inline-start: calc(var(--sl-size-150) * -1);
     user-select: none;
+  }
 
-    input {
-      accent-color: var(--sl-color-background-selected-bold);
-      block-size: var(--sl-size-250);
-      cursor: inherit;
-      inline-size: var(--sl-size-250);
-      margin: 0;
-    }
-
-    input:disabled {
-      cursor: default;
-    }
+  .task-box:has(sl-checkbox[disabled]) {
+    cursor: default;
   }
 
   .task-content {

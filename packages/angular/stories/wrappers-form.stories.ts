@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
 import { ComboboxComponent } from '@sl-design-system/angular/combobox';
 import { DateFieldComponent } from '@sl-design-system/angular/date-field';
@@ -27,49 +27,84 @@ const createSearchAutocompleteProps = () => {
   };
 };
 
-const createSearchAsyncProps = () => {
-  const state = signal({ suggestions: [] as string[], loading: false, unavailable: false }),
-    response = signal('available'),
-    searchedQuery = signal('');
-  let previousQuery: string | undefined,
-    timer: ReturnType<typeof setTimeout> | undefined,
-    field: SearchFieldElement | undefined;
-  const loadSuggestions = (query: string, force = false): void => {
-    if (!force && query === previousQuery) return;
-    previousQuery = query;
-    clearTimeout(timer);
+@Component({
+  selector: 'sla-search-field-async-example',
+  imports: [SearchFieldComponent],
+  template: `
+    <div style="display: grid; gap: 1rem; max-width: 32rem">
+      <label for="search-suggestion-response">Suggestion response</label>
+      <select
+        id="search-suggestion-response"
+        [value]="response()"
+        (change)="onResponseChange($event)">
+        <option value="available">Suggestions available</option>
+        <option value="empty">No suggestions</option>
+        <option value="unavailable">Suggestions unavailable</option>
+      </select>
+      <sl-search-field
+        aria-label="Search students"
+        autocomplete="both"
+        suggestion-placement="flow"
+        placeholder="Try Gar"
+        [suggestions]="state().suggestions"
+        [loading]="state().loading"
+        [unavailable]="state().unavailable"
+        (slChange)="onEdit($event)"
+        (slClear)="onClear()"
+        (slSearch)="onSearch($event)"></sl-search-field>
+      <p aria-live="polite">Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
+    </div>
+  `
+})
+export class SearchFieldAsyncExampleComponent {
+  readonly state = signal({ suggestions: [] as string[], loading: false, unavailable: false });
+  readonly response = signal('available');
+  readonly searchedQuery = signal('');
+
+  #previousQuery?: string;
+  #timer?: ReturnType<typeof setTimeout>;
+  #field?: SearchFieldElement;
+
+  onEdit(event: SlChangeEvent<string>): void {
+    this.#field = event.target as SearchFieldElement;
+    this.#loadSuggestions(event.detail ?? '');
+  }
+
+  onClear(): void {
+    this.#loadSuggestions('');
+  }
+
+  onResponseChange(event: Event): void {
+    this.response.set((event.target as HTMLSelectElement).value);
+    this.#loadSuggestions(this.#previousQuery ?? '', true);
+  }
+
+  onSearch(event: SlSearchEvent): void {
+    this.searchedQuery.set(event.detail);
+  }
+
+  #loadSuggestions(query: string, force = false): void {
+    if (!force && query === this.#previousQuery) return;
+    this.#previousQuery = query;
+    clearTimeout(this.#timer);
 
     if (Array.from(query.replace(/\s/g, '')).length < 3) {
-      state.set({ suggestions: [], loading: false, unavailable: false });
+      this.state.set({ suggestions: [], loading: false, unavailable: false });
       return;
     }
 
-    state.update(current => ({ ...current, loading: true, unavailable: false }));
-    const requestedResponse = response();
-    timer = setTimeout(() => {
-      if (!field?.isConnected) return;
-      state.set({
+    this.state.update(current => ({ ...current, loading: true, unavailable: false }));
+    const requestedResponse = this.response();
+    this.#timer = setTimeout(() => {
+      if (!this.#field?.isConnected || this.#field.value !== query) return;
+      this.state.set({
         suggestions: requestedResponse === 'available' ? ['García', 'Garden', 'Garland'] : [],
         loading: false,
         unavailable: requestedResponse === 'unavailable'
       });
     }, 700);
-  };
-  return {
-    state,
-    response,
-    searchedQuery,
-    onEdit: (event: SlChangeEvent<string>) => {
-      field = event.target as SearchFieldElement;
-      loadSuggestions(event.detail ?? '');
-    },
-    onResponseChange: (event: Event) => {
-      response.set((event.target as HTMLSelectElement).value);
-      loadSuggestions(previousQuery ?? '', true);
-    },
-    onSearch: (event: SlSearchEvent) => searchedQuery.set(event.detail)
-  };
-};
+  }
+}
 
 export default {
   title: 'Wrappers/Form',
@@ -198,31 +233,11 @@ export const SearchFieldAutocomplete: StoryObj = {
 
 /** A simulated provider with cancellation, query deduplication and response states. */
 export const SearchFieldAsyncSuggestions: StoryObj = {
+  decorators: [moduleMetadata({ imports: [SearchFieldAsyncExampleComponent] })],
   render: () => ({
     description:
-      'Suggestions load independently of search. Changing response cancels the pending simulation. Repeated slChange events for an unchanged query do not restart loading. Empty and unavailable suggestions still allow searching.',
-    props: createSearchAsyncProps(),
-    template: `
-      <div style="display: grid; gap: 1rem; max-width: 32rem">
-        <label for="search-suggestion-response">Suggestion response</label>
-        <select id="search-suggestion-response" [value]="response()" (change)="onResponseChange($event)">
-          <option value="available">Suggestions available</option>
-          <option value="empty">No suggestions</option>
-          <option value="unavailable">Suggestions unavailable</option>
-        </select>
-        <sl-search-field
-          aria-label="Search students"
-          autocomplete="both"
-          suggestion-placement="flow"
-          placeholder="Try Gar"
-          [suggestions]="state().suggestions"
-          [loading]="state().loading"
-          [unavailable]="state().unavailable"
-          (slChange)="onEdit($event)"
-          (slSearch)="onSearch($event)"></sl-search-field>
-        <p aria-live="polite">Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
-      </div>
-    `
+      'Suggestions load independently of search. Clearing the field cancels the pending request and resets the suggestion state. Paste the same query again to start a new request.',
+    template: '<sla-search-field-async-example></sla-search-field-async-example>'
   })
 };
 

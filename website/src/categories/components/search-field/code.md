@@ -53,7 +53,9 @@ Enter in the field searches only the typed words. Right Arrow or End explicitly 
 
 `sl-search` continues to emit the current query 300 ms after editing, immediately on Enter, and immediately after choosing a list suggestion. An unaccepted inline suffix is rendered as a visual overlay. The proposed phrase and acceptance keys are exposed through a live announcement and an accessible description that preserves existing field descriptions. It is excluded from the query, `value`, the native input value, form submission and validation.
 
-For asynchronous data, listen for `sl-change`, set `loading` while fetching phrases, then update `suggestions`. Set `unavailable` when fetching fails. Ignore stale responses in your data provider. Loading, empty and unavailable states describe suggestions; the typed query can still be searched. Browser autofill is disabled so it does not compete with these suggestions.
+For asynchronous data, listen for `sl-change`, set `loading` while fetching phrases, then update `suggestions`. Set `unavailable` when fetching fails. Cancel or ignore earlier requests when the query changes. When the field emits `sl-clear`, cancel the pending request or ignore its response, clear `suggestions`, and reset `loading` and `unavailable`. Reset any remembered query so the same phrase can be requested again after clearing.
+
+Loading, empty and unavailable states describe suggestions. Users can still search the typed query in each of these states. The native input uses `autocomplete="off"` to avoid competing browser suggestions.
 
 </section>
 

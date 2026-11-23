@@ -167,6 +167,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The raw totals for the grand totals row, as returned by the latest fetch. */
   #grandTotals?: Record<string, unknown>;
 
+  /** The key of the filters the current `#grandTotals` were fetched for. */
+  #grandTotalsKey?: readonly unknown[];
+
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
 
@@ -331,6 +334,22 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   update(emitEvent = true): void {
+    // The totals only apply to the filters they were fetched for. Drop them when the filters have
+    // changed, so they are not shown next to rows of a different query (or after a failed fetch).
+    if (this.#grandTotals) {
+      const key = this.#getFiltersKey(Array.from(this.filters.values())),
+        previous = this.#grandTotalsKey;
+
+      if (
+        !previous ||
+        previous.length !== key.length ||
+        !previous.every((value, index) => Object.is(value, key[index]))
+      ) {
+        this.#grandTotals = undefined;
+        this.#grandTotalsKey = undefined;
+      }
+    }
+
     // Reset the cached items
     this.#groups.forEach(group => {
       group.members = undefined;
@@ -585,6 +604,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
           // The totals depend on the filters, not on the page; the latest response wins. A response
           // without totals clears them, so stale totals are never shown for different filters.
           this.#grandTotals = res.grandTotals;
+          this.#grandTotalsKey = res.grandTotals
+            ? this.#getFiltersKey(options.filters ?? [])
+            : undefined;
 
           if (res.totalItems !== undefined) {
             group.size = Number(res.totalItems);
@@ -726,6 +748,11 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.#totalSizeKnown = true;
 
     return selectionChanged;
+  }
+
+  /** Returns a comparable key for the given filters. */
+  #getFiltersKey(filters: Array<DataSourceFilter<T>>): readonly unknown[] {
+    return this.#getFetchOptionsKey({ filters, group: undefined, page: 0, pageSize: 0 });
   }
 
   /**

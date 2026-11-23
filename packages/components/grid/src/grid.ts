@@ -1811,7 +1811,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #calculateGrandTotals(columns: Array<GridColumn<T>>): Map<GridColumn<T>, GridGrandTotals> {
     const dataSource = this.dataSource,
       totals = new Map<GridColumn<T>, GridGrandTotals>(),
-      rows = (this.grandTotalsScope === 'page' ? dataSource?.items : dataSource?.filteredItems)
+      // Only read `items` when paginated: without pagination the items of a remote data source
+      // span the whole dataset, and reading them would fetch every unloaded page
+      rows = (
+        this.grandTotalsScope === 'page' && dataSource?.pagination
+          ? dataSource.items
+          : dataSource?.filteredItems
+      )
         ?.filter((item): item is ListDataSourceDataItem<T> => isListDataSourceDataItem(item))
         .filter(item => (item.data as unknown) !== ListDataSourcePlaceholder)
         .map(item => item.data);

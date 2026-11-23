@@ -4,6 +4,7 @@ import '@sl-design-system/form/register.js';
 import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { undoDepth } from 'prosemirror-history';
 import { TextSelection } from 'prosemirror-state';
 import { type SinonStub, spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -18,6 +19,8 @@ const toolbarLabels = (el: RichTextEditor): string[] =>
       item.shadowRoot?.querySelector('button')?.getAttribute('aria-label') ??
       ''
   );
+
+const undoDepthOf = (el: RichTextEditor): number => undoDepth(el.view!.state) as number;
 
 const content = (el: RichTextEditor): HTMLElement =>
   el.querySelector<HTMLElement>('.sl-rich-text-editor-content')!;
@@ -649,6 +652,120 @@ describe('sl-rich-text-editor', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(form.controls).to.have.length(1);
+    });
+  });
+
+  describe('full screen', () => {
+    let matchMedia: SinonStub;
+
+    beforeEach(async () => {
+      const original = window.matchMedia.bind(window);
+
+      matchMedia = stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          aria-label="Description"
+          .value=${'<p>Read chapter 4.2.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    const dialog = (): HTMLDialogElement | null =>
+      el.renderRoot.querySelector<HTMLDialogElement>('dialog.expanded');
+
+    it('should show a full-screen button at rest on touch', () => {
+      const button = el.renderRoot.querySelector('sl-button.expand');
+
+      expect(button).to.exist;
+      // sl-button forwards its aria-label to the native button inside it
+      expect(button!.shadowRoot!.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Edit Description full screen'
+      );
+    });
+
+    it('should not show a full-screen button on desktop unless expandable', async () => {
+      matchMedia.restore();
+      el = await fixture(html`<sl-rich-text-editor></sl-rich-text-editor>`);
+
+      expect(el.renderRoot.querySelector('sl-button.expand')).not.to.exist;
+
+      el.expandable = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-button.expand')).to.exist;
+      matchMedia = stub(window, 'matchMedia').callThrough();
+    });
+
+    it('should open full screen with the same editable', async () => {
+      const onExpand = spy(),
+        editable = content(el);
+
+      el.addEventListener('sl-expand', onExpand);
+      el.renderRoot.querySelector<HTMLElement>('sl-button.expand')!.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.true;
+      expect(dialog()?.open).to.be.true;
+      expect(dialog()).to.contain.text('Description');
+      expect(content(el)).to.equal(editable);
+      expect(dialog()!.querySelector('slot[name="content"]')).to.exist;
+      expect(onExpand).to.have.been.calledOnce;
+    });
+
+    it('should keep the undo history in full screen', async () => {
+      el.view!.dispatch(el.view!.state.tr.insertText('!', 1));
+      await el.expand();
+
+      expect(el.renderRoot.querySelector('sl-button[aria-label="Undo"]')).to.exist;
+      expect(undoDepthOf(el)).to.equal(1);
+    });
+
+    it('should return to the form with Done', async () => {
+      const onCollapse = spy();
+
+      el.addEventListener('sl-collapse', onCollapse);
+      await el.expand();
+      dialog()!.querySelector<HTMLElement>('.expanded-done')!.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+      expect(dialog()).not.to.exist;
+      expect(el.renderRoot.querySelector('slot[name="content"]')?.parentNode).to.equal(
+        el.renderRoot
+      );
+      expect(onCollapse).to.have.been.calledOnce;
+    });
+
+    it('should return to the form on Escape', async () => {
+      await el.expand();
+      dialog()!.dispatchEvent(new Event('cancel', { cancelable: true }));
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+    });
+
+    it('should not expand when read-only', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+      await el.expand();
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+      expect(el.renderRoot.querySelector('sl-button.expand')).not.to.exist;
     });
   });
 

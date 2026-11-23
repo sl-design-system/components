@@ -9,6 +9,8 @@ export interface DockedToolbarConfig {
   toolbar(): HTMLElement | null;
   /** Returns the ProseMirror view. */
   view(): EditorView | undefined;
+  /** Returns the element that scrolls the text, if not the page (such as a full-screen dialog). */
+  scroller?(): HTMLElement | null | undefined;
 }
 
 /**
@@ -139,10 +141,12 @@ export class DockedToolbarController implements ReactiveController {
       top = vv.offsetTop + CARET_MARGIN,
       bottom = vv.offsetTop + vv.height - toolbar.offsetHeight - CARET_MARGIN;
 
+    const scroller = this.#config.scroller?.() ?? window;
+
     if (caret.bottom > bottom) {
-      window.scrollBy(0, caret.bottom - bottom);
+      scroller.scrollBy(0, caret.bottom - bottom);
     } else if (caret.top < top) {
-      window.scrollBy(0, caret.top - top);
+      scroller.scrollBy(0, caret.top - top);
     }
   }
 }

@@ -4,6 +4,7 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
   --_divider: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  --_tap-size: calc(var(--sl-size-500) + var(--sl-size-050));
 
   background: color-mix(
     in srgb,
@@ -20,6 +21,9 @@
   flex-direction: column;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
+
+  /* For the full-screen button in the corner */
+  position: relative;
 }
 
 :host(:hover:not(:focus-within)) {
@@ -92,8 +96,6 @@
  * above that line.
  */
 :host(:state(docked)) [part='toolbar'] {
-  --_tap-size: calc(var(--sl-size-500) + var(--sl-size-050));
-
   background: var(--sl-color-background-neutral-subtlest);
   border-block-end: 0;
   border-block-start: var(--_divider);
@@ -127,10 +129,70 @@
     min-inline-size: var(--_tap-size);
   }
 
-  .hide-keyboard {
-    border-inline-start: var(--_divider);
+  /* Buttons pinned at the end of the docked toolbar, after a divider */
+  .pinned {
     flex: none;
   }
+
+  .items + .pinned {
+    border-inline-start: var(--_divider);
+  }
+}
+
+/* The full-screen button in the corner of the field, while not editing */
+.expand {
+  inset-block-start: var(--sl-size-025);
+  inset-inline-end: var(--sl-size-025);
+  position: absolute;
+}
+
+/* Keep the text clear of the full-screen button */
+slot[name='content']:has(~ .expand) {
+  padding-inline-end: var(--_tap-size);
+}
+
+/* Full screen: the same editable, shown in a modal dialog that covers the page */
+dialog.expanded {
+  background: var(--sl-color-background-input-plain);
+  block-size: 100%;
+  border: 0;
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  flex-direction: column;
+  inline-size: 100%;
+  inset: 0;
+  margin: 0;
+  max-block-size: none;
+  max-inline-size: none;
+  padding: 0;
+
+  &[open] {
+    display: flex;
+  }
+
+  header {
+    align-items: center;
+    border-block-end: var(--_divider);
+    display: flex;
+    flex: none;
+    justify-content: space-between;
+    min-block-size: calc(var(--sl-size-600) + var(--sl-size-100));
+    padding-block: 0;
+    padding-inline: var(--sl-size-200) var(--sl-size-100);
+  }
+
+  h2 {
+    font-size: var(--sl-text-new-heading-sm-fontSize);
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    line-height: var(--sl-text-new-heading-sm-lineHeight);
+    margin: 0;
+  }
+}
+
+.expanded-body {
+  flex: 1;
+  min-block-size: 0;
+  overflow-y: auto;
 }
 
 /* Toolbar buttons only show a border while pressed, so the row reads as icons, not boxes. */

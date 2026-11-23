@@ -4,6 +4,7 @@ import {
   faBlockQuote,
   faBold,
   faCode,
+  faDownLeftAndUpRightToCenter,
   faIndent,
   faItalic,
   faKeyboardDown,
@@ -13,7 +14,8 @@ import {
   faListUl,
   faOutdent,
   faStrikethrough,
-  faUnderline
+  faUnderline,
+  faUpRightAndDownLeftFromCenter
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faBlockQuote as fasBlockQuote,
@@ -84,7 +86,16 @@ import {
 } from './toolbar.js';
 import { createContentNode, getHTML } from './utils.js';
 
+export type SlCollapseEvent = CustomEvent<void>;
+
+export type SlExpandEvent = CustomEvent<void>;
+
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-collapse': SlCollapseEvent;
+    'sl-expand': SlExpandEvent;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-rich-text-editor': RichTextEditor;
   }
@@ -98,6 +109,7 @@ const icons = (
     faBlockQuote,
     faBold,
     faCode,
+    faDownLeftAndUpRightToCenter,
     faIndent,
     faItalic,
     faKeyboardDown,
@@ -108,6 +120,7 @@ const icons = (
     faOutdent,
     faStrikethrough,
     faUnderline,
+    faUpRightAndDownLeftFromCenter,
     fasBlockQuote,
     fasBold,
     fasCode,
@@ -181,7 +194,9 @@ export class RichTextEditor extends FormControlMixin(
   /** Docks the toolbar above the on-screen keyboard on touch devices. */
   #dock = new DockedToolbarController(this, {
     toolbar: () => this.renderRoot.querySelector<HTMLElement>('[part="toolbar"]'),
-    view: () => this.view
+    view: () => this.view,
+    scroller: () =>
+      this.expanded ? this.renderRoot.querySelector<HTMLElement>('.expanded-body') : undefined
   });
 
   /** The light DOM element ProseMirror renders into. */
@@ -207,6 +222,12 @@ export class RichTextEditor extends FormControlMixin(
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
+
+  /** @internal Emits when the editor returns from full screen. */
+  @event({ name: 'sl-collapse' }) collapseEvent!: EventEmitter<SlCollapseEvent>;
+
+  /** @internal Emits when the editor opens full screen. */
+  @event({ name: 'sl-expand' }) expandEvent!: EventEmitter<SlExpandEvent>;
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
@@ -238,6 +259,15 @@ export class RichTextEditor extends FormControlMixin(
    * @default 'default'
    */
   @property() features?: string;
+
+  /**
+   * Whether the editor can be opened full screen, for longer texts on small screens. Shows a
+   * full-screen button in the field and in the docked toolbar. Defaults to on for touch devices.
+   */
+  @property({ type: Boolean }) expandable?: boolean;
+
+  /** @internal Whether the editor is open full screen. */
+  @state() @cssState() expanded = false;
 
   /** @internal The link popover's anchor id. */
   @state() linkHref = '';
@@ -379,9 +409,50 @@ export class RichTextEditor extends FormControlMixin(
       // On touch devices the toolbar only shows while editing, docked above the keyboard.
       showToolbar = !this.readonly && (!this.#dock.touch || this.#dock.docked);
 
+    const toolbar = showToolbar ? this.#renderToolbar(state) : nothing,
+      content = html`<slot name="content"></slot>`;
+
     return html`
-      ${showToolbar ? this.#renderToolbar(state) : nothing}
-      <slot name="content"></slot>
+      ${this.expanded ? nothing : toolbar} ${this.expanded ? nothing : content}
+      ${
+        // On touch, the field has a full-screen button in its corner while not editing.
+        this.#canExpand && !this.expanded && !this.#dock.docked
+          ? html`
+              <sl-button
+                @click=${() => void this.expand()}
+                aria-label=${this.#expandLabel}
+                class="expand"
+                fill="ghost">
+                <sl-icon name="far-up-right-and-down-left-from-center"></sl-icon>
+              </sl-button>
+            `
+          : nothing
+      }
+      ${
+        // The same editable is shown in a full-screen dialog, so content, caret and undo history
+        // carry over; only the slot it is shown through moves.
+        this.expanded
+          ? html`
+              <dialog
+                @cancel=${this.#onExpandedCancel}
+                aria-labelledby="expanded-title"
+                class="expanded">
+                <header>
+                  <h2 id="expanded-title">${this.#fieldLabel}</h2>
+                  <sl-button
+                    @click=${() => void this.collapse()}
+                    class="expanded-done"
+                    fill="link"
+                    variant="primary">
+                    ${msg('Done', { id: 'sl.richTextEditor.done' })}
+                  </sl-button>
+                </header>
+                <div class="expanded-body">${content}</div>
+                ${toolbar}
+              </dialog>
+            `
+          : nothing
+      }
       ${
         // The footer hides while the keyboard is open, so the space goes to the text.
         !this.#dock.docked && (showCount || this.querySelector('[slot="footer"]'))
@@ -415,6 +486,34 @@ export class RichTextEditor extends FormControlMixin(
   /** Whether the given feature is enabled. */
   hasFeature(feature: RichTextEditorFeature): boolean {
     return this.#features.has(feature);
+  }
+
+  /** Opens the editor full screen, keeping its content, caret and undo history. */
+  async expand(): Promise<void> {
+    if (this.expanded || !this.#canExpand) {
+      return;
+    }
+
+    this.expanded = true;
+    await this.updateComplete;
+
+    this.renderRoot.querySelector<HTMLDialogElement>('dialog.expanded')?.showModal();
+    this.view?.focus();
+    this.expandEvent.emit();
+  }
+
+  /** Returns from full screen to the form, with the editor focused. */
+  async collapse(): Promise<void> {
+    if (!this.expanded) {
+      return;
+    }
+
+    this.renderRoot.querySelector<HTMLDialogElement>('dialog.expanded')?.close();
+    this.expanded = false;
+    await this.updateComplete;
+
+    this.view?.focus();
+    this.collapseEvent.emit();
   }
 
   #renderToolbar(state?: EditorState): TemplateResult {
@@ -492,11 +591,34 @@ export class RichTextEditor extends FormControlMixin(
                 <sl-button
                   @click=${() => this.#content.blur()}
                   aria-label=${msg('Hide keyboard', { id: 'sl.richTextEditor.hideKeyboard' })}
-                  class="hide-keyboard"
+                  class="pinned hide-keyboard"
                   fill="ghost">
                   <sl-icon name="far-keyboard-down"></sl-icon>
                 </sl-button>
               `
+            : nothing
+        }
+        ${
+          docked && this.#canExpand
+            ? this.expanded
+              ? html`
+                  <sl-button
+                    @click=${() => void this.collapse()}
+                    aria-label=${msg('Back to the form', { id: 'sl.richTextEditor.collapse' })}
+                    class="pinned collapse"
+                    fill="ghost">
+                    <sl-icon name="far-down-left-and-up-right-to-center"></sl-icon>
+                  </sl-button>
+                `
+              : html`
+                  <sl-button
+                    @click=${() => void this.expand()}
+                    aria-label=${this.#expandLabel}
+                    class="pinned expand-docked"
+                    fill="ghost">
+                    <sl-icon name="far-up-right-and-down-left-from-center"></sl-icon>
+                  </sl-button>
+                `
             : nothing
         }
       </div>
@@ -641,6 +763,34 @@ export class RichTextEditor extends FormControlMixin(
         </form>
       </sl-popover>
     `;
+  }
+
+  /** Whether the full-screen button is available. */
+  get #canExpand(): boolean {
+    return (this.expandable ?? this.#dock.touch) && this.#editable;
+  }
+
+  /** The label of the field, as `sl-form-field` or `aria-label` gives it. */
+  get #fieldLabel(): string {
+    const labelId = this.getAttribute('data-label-id'),
+      root = this.getRootNode() as Document | ShadowRoot,
+      label = labelId ? root.getElementById?.(labelId)?.textContent?.trim() : undefined;
+
+    return label || this.getAttribute('aria-label') || '';
+  }
+
+  get #expandLabel(): string {
+    const label = this.#fieldLabel;
+
+    return label
+      ? msg(str`Edit ${label} full screen`, { id: 'sl.richTextEditor.expandLabel' })
+      : msg('Edit full screen', { id: 'sl.richTextEditor.expand' });
+  }
+
+  /** Escape, or the back gesture on Android, returns to the form. */
+  #onExpandedCancel(event: Event): void {
+    event.preventDefault();
+    void this.collapse();
   }
 
   get #editable(): boolean {

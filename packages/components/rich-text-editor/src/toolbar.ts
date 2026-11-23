@@ -1,6 +1,6 @@
 import { lift, setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, redoDepth, undo, undoDepth } from 'prosemirror-history';
-import { type MarkType, type NodeType, type Schema } from 'prosemirror-model';
+import { type MarkType, type NodeType, type ResolvedPos, type Schema } from 'prosemirror-model';
 import { liftListItem, sinkListItem, wrapInList } from 'prosemirror-schema-list';
 import { type Command, type EditorState } from 'prosemirror-state';
 import { type RichTextEditorFeature } from './features.js';
@@ -318,4 +318,52 @@ export const buildToolbarItems = (
   }
 
   return items;
+};
+
+export interface LinkRange {
+  from: number;
+  to: number;
+  href: string;
+}
+
+/**
+ * Returns the whole link around a position, so editing a link with the caret in it changes all of
+ * it rather than just the caret position. Returns `undefined` when the position isn't in a link.
+ */
+export const linkRangeAt = ($pos: ResolvedPos, type: MarkType): LinkRange | undefined => {
+  const { parent } = $pos;
+  let index = $pos.index();
+
+  // At the end of a link, the caret sits after its last text node.
+  if (index === parent.childCount || !type.isInSet(parent.child(index).marks)) {
+    if (index > 0 && type.isInSet(parent.child(index - 1).marks)) {
+      index--;
+    } else {
+      return undefined;
+    }
+  }
+
+  const mark = type.isInSet(parent.child(index).marks)!;
+  let start = index,
+    end = index + 1;
+
+  while (start > 0 && mark.isInSet(parent.child(start - 1).marks)) {
+    start--;
+  }
+
+  while (end < parent.childCount && mark.isInSet(parent.child(end).marks)) {
+    end++;
+  }
+
+  let from = $pos.start();
+  for (let i = 0; i < start; i++) {
+    from += parent.child(i).nodeSize;
+  }
+
+  let to = from;
+  for (let i = start; i < end; i++) {
+    to += parent.child(i).nodeSize;
+  }
+
+  return { from, to, href: (mark.attrs.href as string) ?? '' };
 };

@@ -1,5 +1,7 @@
+import { type Dialog } from '@sl-design-system/dialog';
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { TextSelection } from 'prosemirror-state';
@@ -535,6 +537,118 @@ describe('sl-rich-text-editor', () => {
 
       expect(document.activeElement).not.to.equal(content(el));
       expect(el.matches(':state(docked)')).to.be.false;
+    });
+  });
+
+  describe('link sheet', () => {
+    let matchMedia: SinonStub;
+
+    const coarsePointer = (): SinonStub => {
+      const original = window.matchMedia.bind(window);
+
+      return stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+    };
+
+    const sheet = (): Dialog => el.renderRoot.querySelector<Dialog>('sl-dialog.link-sheet')!;
+
+    const field = (name: 'text' | 'url'): TextField =>
+      el.renderRoot.querySelector<TextField>(`.link-${name}`)!;
+
+    const openSheetAt = async (pos: number): Promise<void> => {
+      content(el).focus();
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, pos))
+      );
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('sl-toggle-button[id$="-link"]')!.click();
+      await el.updateComplete;
+    };
+
+    beforeEach(async () => {
+      matchMedia = coarsePointer();
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          .value=${'<p>Read <a href="https://example.com/4-2">chapter 4.2</a> first.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    it('should use a sheet instead of the popover on touch', () => {
+      expect(sheet()).to.exist;
+      expect(el.renderRoot.querySelector('sl-popover')).not.to.exist;
+    });
+
+    it('should edit the whole link the caret is in', async () => {
+      await openSheetAt(9);
+
+      expect(sheet().renderRoot.querySelector('dialog')?.open).to.be.true;
+      expect(sheet()).to.contain.text('Edit link');
+      expect(field('text').value).to.equal('chapter 4.2');
+      expect(field('url').value).to.equal('https://example.com/4-2');
+      expect(sheet().querySelector('sl-button.link-remove')).to.exist;
+    });
+
+    it('should apply the new text and address', async () => {
+      await openSheetAt(9);
+
+      field('text').value = 'chapter 4.3';
+      field('url').value = 'https://example.com/4-3';
+      sheet().querySelector<HTMLElement>('sl-button.link-apply')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(
+        '<p>Read <a href="https://example.com/4-3">chapter 4.3</a> first.</p>'
+      );
+    });
+
+    it('should remove the link but keep its text', async () => {
+      await openSheetAt(9);
+
+      sheet().querySelector<HTMLElement>('sl-button.link-remove')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('<p>Read chapter 4.2 first.</p>');
+    });
+
+    it('should add a link without a remove button outside a link', async () => {
+      await openSheetAt(2);
+
+      expect(sheet()).to.contain.text('Add link');
+      expect(field('text').value).to.equal('');
+      expect(sheet().querySelector('sl-button.link-remove')).not.to.exist;
+    });
+
+    it('should leave the content alone when cancelled', async () => {
+      await openSheetAt(9);
+
+      field('url').value = 'https://example.com/other';
+      sheet().querySelector<HTMLElement>('sl-button.link-cancel')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(
+        '<p>Read <a href="https://example.com/4-2">chapter 4.2</a> first.</p>'
+      );
+    });
+
+    it('should keep the sheet fields out of a surrounding form', async () => {
+      const form = await fixture<Form>(html`
+        <sl-form><sl-rich-text-editor name="description"></sl-rich-text-editor></sl-form>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(form.controls).to.have.length(1);
     });
   });
 

@@ -168,6 +168,17 @@ slot[name='content'] {
   margin-inline-start: auto;
 }
 
+.link-sheet-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+
+  /* iOS Safari zooms the page into any focused input smaller than 16px. */
+  sl-text-field {
+    font-size: var(--sl-text-new-body-lg-fontSize);
+  }
+}
+
 .link-form {
   align-items: center;
   display: flex;

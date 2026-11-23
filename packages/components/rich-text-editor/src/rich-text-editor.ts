@@ -34,7 +34,8 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { FormControlMixin } from '@sl-design-system/form';
+import { Dialog } from '@sl-design-system/dialog';
+import { FormControlMixin, FormField } from '@sl-design-system/form';
 import { Icon, type IconDefinition } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { Option, Select } from '@sl-design-system/select';
@@ -78,6 +79,7 @@ import {
   type ToolbarItem,
   buildToolbarItems,
   getBlockType,
+  linkRangeAt,
   setBlockTypeCommand
 } from './toolbar.js';
 import { createContentNode, getHTML } from './utils.js';
@@ -166,6 +168,8 @@ export class RichTextEditor extends FormControlMixin(
       'sl-option': Option,
       'sl-popover': Popover,
       'sl-select': Select,
+      'sl-dialog': Dialog,
+      'sl-form-field': FormField,
       'sl-text-field': TextField,
       'sl-toggle-button': ToggleButton
     };
@@ -237,6 +241,15 @@ export class RichTextEditor extends FormControlMixin(
 
   /** @internal The link popover's anchor id. */
   @state() linkHref = '';
+
+  /** @internal Whether the link sheet edits an existing link (rather than adding one). */
+  @state() linkEditing = false;
+
+  /** @internal The text of the link in the link sheet. */
+  @state() linkText = '';
+
+  /** The range the link sheet applies to. */
+  #linkRange?: { from: number; to: number };
 
   /** @internal The link popover. */
   @query('sl-popover') linkPopover?: Popover;
@@ -384,7 +397,13 @@ export class RichTextEditor extends FormControlMixin(
             `
           : nothing
       }
-      ${this.#features.has('link') && !this.readonly ? this.#renderLinkPopover() : nothing}
+      ${
+        this.#features.has('link') && !this.readonly
+          ? this.#dock.touch
+            ? this.#renderLinkSheet()
+            : this.#renderLinkPopover()
+          : nothing
+      }
     `;
   }
 
@@ -527,6 +546,76 @@ export class RichTextEditor extends FormControlMixin(
     return this.maxLength ? `${this.characterCount} / ${this.maxLength}` : `${this.characterCount}`;
   }
 
+  /**
+   * On touch devices links are added and edited in a bottom sheet with the link text and address,
+   * instead of the popover; the dialog slides up from the bottom on small screens.
+   */
+  #renderLinkSheet(): TemplateResult {
+    return html`
+      <sl-dialog
+        @sl-cancel=${this.#onLinkSheetCancel}
+        @sl-close=${this.#stopInnerEvent}
+        class="link-sheet"
+        disable-body-animation>
+        <span slot="title">
+          ${
+            this.linkEditing
+              ? msg('Edit link', { id: 'sl.richTextEditor.editLink' })
+              : msg('Add link', { id: 'sl.richTextEditor.addLink' })
+          }
+        </span>
+        <form
+          @sl-blur=${this.#stopInnerEvent}
+          @sl-change=${this.#stopInnerEvent}
+          @sl-focus=${this.#stopInnerEvent}
+          @sl-form-control=${this.#stopInnerEvent}
+          @sl-form-field=${this.#stopInnerEvent}
+          @sl-update-state=${this.#stopInnerEvent}
+          @sl-update-validity=${this.#stopInnerEvent}
+          @sl-validate=${this.#stopInnerEvent}
+          @keydown=${this.#onLinkSheetKeydown}
+          @submit=${this.#onLinkSheetSubmit}
+          class="link-sheet-form">
+          <sl-form-field .label=${msg('Text', { id: 'sl.richTextEditor.linkText' })}>
+            <sl-text-field .value=${this.linkText} class="link-text"></sl-text-field>
+          </sl-form-field>
+          <sl-form-field .label=${msg('Web address', { id: 'sl.richTextEditor.webAddress' })}>
+            <sl-text-field .value=${this.linkHref} class="link-url" placeholder="https://">
+              <input enterkeyhint="done" inputmode="url" slot="input" type="url" />
+            </sl-text-field>
+          </sl-form-field>
+        </form>
+        <!-- On phones the dialog puts these in its header (Cancel left, Apply right) and sets their fill -->
+        <sl-button
+          @click=${() => this.#closeLinkSheet()}
+          class="link-cancel"
+          slot="primary-actions">
+          ${msg('Cancel', { id: 'sl.richTextEditor.cancelLink' })}
+        </sl-button>
+        <sl-button
+          @click=${this.#onLinkSheetSubmit}
+          class="link-apply"
+          slot="primary-actions"
+          variant="primary">
+          ${msg('Apply', { id: 'sl.richTextEditor.applyLink' })}
+        </sl-button>
+        ${
+          this.linkEditing
+            ? html`
+                <sl-button
+                  @click=${this.#onLinkSheetRemove}
+                  class="link-remove"
+                  slot="secondary-actions"
+                  variant="danger">
+                  ${msg('Remove link', { id: 'sl.richTextEditor.removeLink' })}
+                </sl-button>
+              `
+            : nothing
+        }
+      </sl-dialog>
+    `;
+  }
+
   #renderLinkPopover(): TemplateResult {
     return html`
       <sl-popover
@@ -663,7 +752,7 @@ export class RichTextEditor extends FormControlMixin(
 
     if (schema.marks.link) {
       keys['Mod-k'] = () => {
-        this.#openLinkPopover();
+        this.#openLink();
         return true;
       };
     }
@@ -830,12 +919,13 @@ export class RichTextEditor extends FormControlMixin(
     if (item.id === 'link') {
       const link = this.view.state.schema.marks.link;
 
-      if (item.isActive?.(this.view.state) && link) {
-        // Clicking an active link button removes the link.
+      // On desktop, clicking an active link button removes the link; on touch the link sheet opens,
+      // which has its own Remove link button.
+      if (item.isActive?.(this.view.state) && link && !this.#dock.touch) {
         const { from, to } = this.view.state.selection;
         this.view.dispatch(this.view.state.tr.removeMark(from, to, link));
       } else {
-        this.#openLinkPopover();
+        this.#openLink();
         return;
       }
     } else {
@@ -884,6 +974,15 @@ export class RichTextEditor extends FormControlMixin(
     }
   }
 
+  /** Opens the link sheet on touch devices and the link popover elsewhere. */
+  #openLink(): void {
+    if (this.#dock.touch) {
+      this.#openLinkSheet();
+    } else {
+      this.#openLinkPopover();
+    }
+  }
+
   #openLinkPopover(): void {
     const view = this.view,
       link = view?.state.schema.marks.link;
@@ -895,6 +994,87 @@ export class RichTextEditor extends FormControlMixin(
     const { $from } = view.state.selection;
     this.linkHref = (link.isInSet($from.marks())?.attrs.href as string | undefined) ?? '';
     this.linkPopover.showPopover();
+  }
+
+  #openLinkSheet(): void {
+    const view = this.view,
+      link = view?.state.schema.marks.link,
+      sheet = this.renderRoot.querySelector<Dialog>('sl-dialog.link-sheet');
+
+    if (!view || !link || !sheet) {
+      return;
+    }
+
+    const { selection, doc } = view.state,
+      existing = linkRangeAt(selection.$from, link),
+      range = selection.empty && existing ? existing : { from: selection.from, to: selection.to };
+
+    this.#linkRange = { from: range.from, to: range.to };
+    this.linkEditing = !!existing;
+    this.linkHref = existing?.href ?? '';
+    this.linkText = doc.textBetween(range.from, range.to, ' ');
+
+    sheet.showModal();
+  }
+
+  #closeLinkSheet(): void {
+    this.renderRoot.querySelector<Dialog>('sl-dialog.link-sheet')?.close();
+    this.#linkRange = undefined;
+
+    // Return focus after the tap or key event is done, so it doesn't land in the editor's text.
+    const view = this.view;
+    setTimeout(() => view?.focus());
+  }
+
+  #onLinkSheetCancel(event: Event): void {
+    event.stopPropagation();
+    this.#closeLinkSheet();
+  }
+
+  /** Enter (Done on a phone keyboard) in either field applies the link. */
+  #onLinkSheetKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && !event.isComposing) {
+      this.#onLinkSheetSubmit(event);
+    }
+  }
+
+  #onLinkSheetRemove(): void {
+    const view = this.view,
+      link = view?.state.schema.marks.link;
+
+    if (view && link && this.#linkRange) {
+      view.dispatch(view.state.tr.removeMark(this.#linkRange.from, this.#linkRange.to, link));
+    }
+
+    this.#closeLinkSheet();
+  }
+
+  #onLinkSheetSubmit(event: Event): void {
+    event.preventDefault();
+
+    const view = this.view,
+      link = view?.state.schema.marks.link,
+      range = this.#linkRange;
+
+    if (!view || !link || !range) {
+      return;
+    }
+
+    const href = (this.renderRoot.querySelector<TextField>('.link-url')?.value ?? '').trim(),
+      text = (this.renderRoot.querySelector<TextField>('.link-text')?.value ?? '').trim() || href;
+
+    if (text) {
+      // Keep the other marks at the start of the range, and swap the link for the new one.
+      const marks = link.removeFromSet(view.state.doc.resolve(range.from).marks()),
+        node = view.state.schema.text(text, href ? [...marks, link.create({ href })] : marks),
+        tr = view.state.tr.replaceRangeWith(range.from, range.to, node);
+
+      view.dispatch(
+        tr.setSelection(TextSelection.create(tr.doc, range.from + text.length)).scrollIntoView()
+      );
+    }
+
+    this.#closeLinkSheet();
   }
 
   /**

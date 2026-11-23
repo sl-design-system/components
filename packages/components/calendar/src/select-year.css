@@ -46,11 +46,12 @@ sl-button {
   user-select: none;
 }
 
+/* Fill the space below the header without overflowing the host in Safari. */
 table {
-  block-size: 100%;
   border-collapse: separate;
   border-spacing: 0 var(--sl-size-100);
   box-sizing: content-box;
+  flex: 1;
   inline-size: 100%;
   margin: 0;
   padding: 0 0 var(--sl-size-100) 0;

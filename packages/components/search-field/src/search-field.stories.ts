@@ -111,6 +111,18 @@ export const Large: Story = {
 
 export const CustomIcon: Story = {
   name: 'Icon',
+  parameters: {
+    controls: {
+      exclude: [
+        'autocomplete',
+        'matching',
+        'suggestionThreshold',
+        'suggestionPlacement',
+        'loading',
+        'unavailable'
+      ]
+    }
+  },
   render: ({ disabled, placeholder, shape, size, value }) => {
     Icon.register(faPoo);
 
@@ -250,7 +262,22 @@ export const SuggestionsInFlow: Story = {
 
 /** Listen for edits and clears, then replace suggestions independently of sl-search. */
 export const AsyncSuggestions: Story = {
-  render: () => {
+  args: { autocomplete: 'both', placeholder: 'Try Gar' },
+  parameters: {
+    // Loading is driven by the simulated request, so its control would be overwritten.
+    controls: { exclude: ['loading'] }
+  },
+  render: ({
+    autocomplete,
+    disabled,
+    matching,
+    placeholder,
+    shape,
+    size,
+    suggestionPlacement,
+    suggestionThreshold,
+    unavailable
+  }) => {
     let previousQuery: string | undefined, timer: ReturnType<typeof setTimeout> | undefined;
 
     const updateSuggestions = (event: Event): void => {
@@ -279,8 +306,15 @@ export const AsyncSuggestions: Story = {
     return html`
       <sl-search-field
         aria-label="Search"
-        autocomplete="both"
-        placeholder="Try Gar"
+        .autocomplete=${autocomplete}
+        .matching=${matching}
+        .suggestionThreshold=${suggestionThreshold}
+        .suggestionPlacement=${suggestionPlacement}
+        .unavailable=${unavailable}
+        ?disabled=${disabled}
+        .placeholder=${placeholder}
+        .shape=${shape}
+        .size=${size}
         .suggestions=${[]}
         @sl-change=${updateSuggestions}
         @sl-clear=${updateSuggestions}></sl-search-field>
@@ -290,7 +324,22 @@ export const AsyncSuggestions: Story = {
 
 /** Compare how the same phrases are offered; type Gar into each field. */
 export const AutocompleteModes: Story = {
-  render: () => html`
+  args: { placeholder: 'Try Gar', suggestionPlacement: 'flow' },
+  parameters: {
+    // Each field shows a different mode, so a single autocomplete control does not apply.
+    controls: { exclude: ['autocomplete'] }
+  },
+  render: ({
+    disabled,
+    loading,
+    matching,
+    placeholder,
+    shape,
+    size,
+    suggestionPlacement,
+    suggestionThreshold,
+    unavailable
+  }) => html`
     <div style="display: grid; gap: 2rem; max-width: 30rem">
       ${(['off', 'inline', 'list', 'both'] as const).map(
         mode => html`
@@ -299,8 +348,15 @@ export const AutocompleteModes: Story = {
             <sl-search-field
               aria-label=${`Search with ${mode} autocomplete`}
               .autocomplete=${mode}
-              suggestion-placement="flow"
-              placeholder="Try Gar"
+              .matching=${matching}
+              .suggestionThreshold=${suggestionThreshold}
+              .suggestionPlacement=${suggestionPlacement}
+              .loading=${loading}
+              .unavailable=${unavailable}
+              ?disabled=${disabled}
+              .placeholder=${placeholder}
+              .shape=${shape}
+              .size=${size}
               .suggestions=${['García', 'Garden', 'Garland']}></sl-search-field>
           </div>
         `
@@ -316,11 +372,33 @@ export const LoadingSuggestions: Story = {
 
 /** Type Gar to see an empty suggestion response; the typed words can still be searched. */
 export const EmptySuggestions: Story = {
-  render: () => html`
+  args: { autocomplete: 'list', placeholder: 'Type Gar to show an empty response' },
+  render: ({
+    autocomplete,
+    disabled,
+    loading,
+    matching,
+    placeholder,
+    shape,
+    size,
+    suggestionPlacement,
+    suggestionThreshold,
+    unavailable,
+    value
+  }) => html`
     <sl-search-field
       aria-label="Search"
-      autocomplete="list"
-      placeholder="Type Gar to show an empty response"
+      .autocomplete=${autocomplete}
+      .matching=${matching}
+      .suggestionThreshold=${suggestionThreshold}
+      .suggestionPlacement=${suggestionPlacement}
+      .loading=${loading}
+      .unavailable=${unavailable}
+      ?disabled=${disabled}
+      .placeholder=${placeholder}
+      .shape=${shape}
+      .size=${size}
+      .value=${value}
       .suggestions=${[]}></sl-search-field>
   `
 };

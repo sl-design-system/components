@@ -212,15 +212,34 @@ export const Autocomplete: Story = {
 };
 
 export const SuggestionsInFlow: Story = {
-  args: { ...Autocomplete.args, suggestionPlacement: 'flow' },
-  render: () => html`
+  args: { ...Autocomplete.args, suggestionPlacement: 'flow', placeholder: 'Try High' },
+  render: ({
+    autocomplete,
+    disabled,
+    loading,
+    matching,
+    placeholder,
+    shape,
+    size,
+    suggestionPlacement,
+    suggestionThreshold,
+    unavailable,
+    value
+  }) => html`
     <div style="max-width: 30rem">
       <sl-search-field
         aria-label="Search"
-        autocomplete="both"
-        suggestion-placement="flow"
-        matching="contains"
-        placeholder="Try High">
+        .autocomplete=${autocomplete}
+        .matching=${matching}
+        .suggestionThreshold=${suggestionThreshold}
+        .suggestionPlacement=${suggestionPlacement}
+        .loading=${loading}
+        .unavailable=${unavailable}
+        ?disabled=${disabled}
+        .placeholder=${placeholder}
+        .shape=${shape}
+        .size=${size}
+        .value=${value}>
         <option>High West Institute</option>
         <option>Elementary High School</option>
       </sl-search-field>

@@ -1,4 +1,7 @@
+import { type Button } from '@sl-design-system/button';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
@@ -79,14 +82,14 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.tab();
     await userEvent.keyboard('{ArrowDown}{ArrowRight}{Enter}');
 
-    const editor = grid.tbody.querySelector<HTMLInputElement>('[data-grid-editor]')!,
+    const editor = grid.tbody.querySelector<TextField>('[data-grid-editor]')!,
       button = grid.tbody.querySelector('[data-grid-edit]');
 
-    expect(grid.shadowRoot!.activeElement).toBe(editor);
+    expect(grid.shadowRoot!.activeElement).toBe(editor.input);
 
     await userEvent.keyboard('{End} changed{Tab}');
 
-    expect(grid.shadowRoot!.activeElement).toBe(editor);
+    expect(grid.shadowRoot!.activeElement).toBe(editor.input);
 
     await userEvent.keyboard('{Escape}');
 
@@ -107,7 +110,8 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.keyboard('{ArrowDown}{End}{Enter}');
 
     const cell = grid.tbody.rows[0].cells[2],
-      [entry, disabled, enabled] = cell.querySelectorAll('button'),
+      entry = cell.querySelector('[data-grid-access]'),
+      [disabled, enabled] = cell.querySelectorAll('button'),
       link = cell.querySelector('a');
 
     expect(grid.shadowRoot!.activeElement).toBe(enabled);
@@ -204,7 +208,7 @@ describe('sl-grid arrow navigation', () => {
     const { grid } = await mount();
 
     const cell = grid.tbody.rows[0].cells[2],
-      [, , openButton] = cell.querySelectorAll('button');
+      [, openButton] = cell.querySelectorAll('button');
 
     let clicked = false;
     openButton.addEventListener('click', () => {
@@ -214,7 +218,7 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.click(openButton);
 
     expect(clicked).toBe(true);
-    expect(cell.querySelector<HTMLButtonElement>('[data-grid-access]')?.hidden).toBe(true);
+    expect(cell.querySelector<HTMLElement>('[data-grid-access]')?.hidden).toBe(true);
     expect(grid.shadowRoot!.activeElement).toBe(openButton);
   });
 
@@ -245,9 +249,10 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.tab();
     await userEvent.keyboard('{ArrowDown}');
 
-    const access = grid.tbody.rows[0].querySelector('[data-grid-access]');
+    const access = grid.tbody.rows[0].querySelector<Button>('[data-grid-access]')!;
 
     expect(grid.shadowRoot!.activeElement).toBe(access);
+    expect(access.button.getAttribute('aria-label')).toBe('Edit Status, row 1');
 
     await userEvent.tab();
 
@@ -385,5 +390,70 @@ describe('sl-grid arrow navigation', () => {
     const cancelSelection = grid.shadowRoot!.querySelector('[part="bulk-actions"] sl-button');
 
     expect(grid.shadowRoot!.activeElement).toBe(cancelSelection);
+  });
+
+  it('keeps arrow navigation working while the bulk actions are shown', async () => {
+    const wrapper = await fixture<HTMLDivElement>(html`
+      <div>
+        <button id="before" type="button">Before</button>
+        <sl-grid keyboard-navigation="arrows" .items=${[{ name: 'Item 1' }, { name: 'Item 2' }]}>
+          <sl-grid-selection-column width="40"></sl-grid-selection-column>
+          <sl-grid-column path="name" width="140"></sl-grid-column>
+        </sl-grid>
+      </div>
+    `);
+
+    const grid = wrapper.querySelector('sl-grid')!;
+    await waitForGridToRenderData(grid);
+
+    wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown} ');
+
+    await expect
+      .poll(() => grid.shadowRoot!.querySelector('[part="bulk-actions"]')?.matches(':popover-open'))
+      .toBe(true);
+
+    await userEvent.keyboard('{ArrowRight}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(grid.tbody.rows[0].cells[1]);
+
+    await userEvent.keyboard('{ArrowDown}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(grid.tbody.rows[1].cells[1]);
+  });
+
+  it('names the actions of a group row after the group', async () => {
+    const dataSource = new ArrayListDataSource(
+      [
+        { name: 'Item 1', group: 'Group A' },
+        { name: 'Item 2', group: 'Group A' }
+      ],
+      { groupBy: 'group' }
+    );
+
+    const grid = await fixture<Grid>(html`
+      <sl-grid keyboard-navigation="arrows" .dataSource=${dataSource}>
+        <sl-grid-selection-column width="40"></sl-grid-selection-column>
+        <sl-grid-column path="name" width="140"></sl-grid-column>
+      </sl-grid>
+    `);
+    await waitForGridToRenderData(grid);
+
+    const access = grid.tbody.querySelector<Button>('tr[part~="group"] [data-grid-access]')!;
+    await access.updateComplete;
+
+    expect(access.button.getAttribute('aria-label')).toBe('Actions for Group A');
+  });
+
+  it('saves the edit when focus leaves the cell', async () => {
+    const { grid, items } = await mount();
+
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown}{ArrowRight}{Enter}{End} changed');
+    await userEvent.click(grid.tbody.rows[1].cells[0]);
+
+    expect(items[0].note).toBe('Original changed');
+    expect(grid.tbody.querySelector<TextField>('[data-grid-editor]')?.hidden).toBe(true);
   });
 });

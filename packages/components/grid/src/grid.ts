@@ -384,6 +384,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
 
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-label'];
+  }
+
+  override attributeChangedCallback(name: string, old: string | null, value: string | null): void {
+    super.attributeChangedCallback(name, old, value);
+
+    // The table mirrors the label of the grid in arrow navigation mode.
+    if (name === 'aria-label') {
+      this.requestUpdate();
+    }
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -790,7 +804,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         role="row"
         part="group"
         index=${index}>
-        <td part="group-header" role=${this.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
+        <td
+          aria-colindex=${ifDefined(this.keyboardNavigation === 'arrows' ? '1' : undefined)}
+          part="group-header"
+          role=${this.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}

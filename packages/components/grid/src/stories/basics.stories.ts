@@ -91,7 +91,7 @@ export const ArrowNavigation: Story = {
               <span slot="button">Options</span>
               <sl-menu-item>Download</sl-menu-item>
             </sl-menu-button>
-            <button type="button" aria-disabled="true">Archive</button>
+            <sl-button aria-disabled="true">Archive</sl-button>
           </span>
         `}
         .scopedElements=${{ 'sl-menu-button': MenuButtonComponent, 'sl-menu-item': MenuItem }}>

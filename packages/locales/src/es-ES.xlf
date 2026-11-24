@@ -554,6 +554,50 @@
   <source>Select group</source>
   <target>Seleccionar grupo</target>
 </trans-unit>
+<trans-unit id="sl.grid.accessInstructions">
+  <source>Press Enter or Space to access controls. Use Tab to move between controls. Press Escape to return to grid navigation.</source>
+  <target>Pulsa Intro o Espacio para acceder a los controles. Usa Tab para moverte entre los controles. Pulsa Escape para volver a la navegación de la cuadrícula.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editInstructions">
+  <source>Press Enter or Space to edit. Press Escape to return to grid navigation.</source>
+  <target>Pulsa Intro o Espacio para editar. Pulsa Escape para volver a la navegación de la cuadrícula.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editCell">
+  <source>Edit <x id="0" equiv-text="${context}"/></source>
+  <target>Editar <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.editCellFallback">
+  <source>Edit cell</source>
+  <target>Editar celda</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionsForCell">
+  <source>Actions for <x id="0" equiv-text="${context}"/></source>
+  <target>Acciones para <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cellActions">
+  <source>Cell actions</source>
+  <target>Acciones de la celda</target>
+</trans-unit>
+<trans-unit id="sl.grid.edit">
+  <source>Edit</source>
+  <target>Editar</target>
+</trans-unit>
+<trans-unit id="sl.grid.actions">
+  <source>Actions</source>
+  <target>Acciones</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionCellContext">
+  <source><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, row <x id="1" equiv-text="${row}"/></source>
+  <target><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, fila <x id="1" equiv-text="${row}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cell">
+  <source>Cell</source>
+  <target>Celda</target>
+</trans-unit>
+<trans-unit id="sl.grid.editEmptyCell">
+  <source>Edit empty cell</source>
+  <target>Editar celda vacía</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

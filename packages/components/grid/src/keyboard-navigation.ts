@@ -1,7 +1,18 @@
 import { msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { type ForwardAriaMixinInterface } from '@sl-design-system/shared/mixins/forward-aria.js';
 import { type Grid } from './grid.js';
+
+declare global {
+  interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
+  }
+}
 
 interface Position {
   row: number;
@@ -11,21 +22,33 @@ interface Position {
   columnId?: string;
 }
 
+type Editor = HTMLElement & { value?: string };
+
 interface Cell {
   element: HTMLTableCellElement;
   start: number;
   end: number;
   controls: HTMLElement[];
   target: HTMLElement;
-  access?: HTMLButtonElement;
-  editor?: HTMLInputElement;
+  access?: HTMLElement;
+  editor?: Editor;
 }
 
 const controlSelector =
   'a[href], button, input:not([type="hidden"]), select, textarea, summary, [contenteditable="true"], [tabindex], [role="button"], [role="link"], [role="combobox"]';
 
+const disabledSelector = ':disabled, [disabled], [aria-disabled="true"]';
+
 function isDisabled(control: HTMLElement): boolean {
-  return control.matches(':disabled, [disabled], [aria-disabled="true"]');
+  // Components such as `<sl-button>` forward `aria-disabled` to an element in their shadow root.
+  const proxy = (control as Partial<ForwardAriaMixinInterface>).getProxyTarget?.();
+
+  return control.matches(disabledSelector) || !!proxy?.matches(disabledSelector);
+}
+
+/** Returns the visible text of an element, ignoring the contents of `<style>` and hidden elements. */
+function visibleText(element: Element): string {
+  return ((element as HTMLElement).innerText ?? '').replace(/\s+/g, ' ').trim();
 }
 
 export class GridKeyboardNavigation {
@@ -36,7 +59,7 @@ export class GridKeyboardNavigation {
   #tabIndices = new Map<HTMLElement, string | null>();
   #disabledControls = new Set<HTMLElement>();
   #temporarilyEnabled = new Set<HTMLElement>();
-  #accessButtons = new Map<HTMLTableCellElement, HTMLButtonElement>();
+  #accessButtons = new Map<HTMLTableCellElement, HTMLElement>();
   #observers = new Map<Node, MutationObserver>();
   #move = 0;
   #parkingFocus = false;
@@ -83,35 +106,49 @@ export class GridKeyboardNavigation {
           span = row.part.contains('group')
             ? Number(table.getAttribute('aria-colcount')) || 1
             : element.colSpan,
-          editor = element.querySelector<HTMLInputElement>('[data-grid-editor]') ?? undefined,
+          editor = element.querySelector<Editor>('[data-grid-editor]') ?? undefined,
           controls = this.#getControls(element, roots),
-          editButton = element.querySelector<HTMLButtonElement>('[data-grid-edit]'),
-          needsAccess =
-            !editButton &&
-            (controls.length > 1 ||
-              controls.some(control =>
-                control.matches(
-                  'select, textarea, [role="combobox"], [contenteditable="true"], input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"], [type="reset"])'
-                )
-              ));
-        let access: HTMLButtonElement | undefined;
+          editButton = element.querySelector<HTMLElement>('[data-grid-edit]'),
+          editable = (control: HTMLElement): boolean =>
+            control.matches(
+              'select, textarea, [role="combobox"], [contenteditable="true"], input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"], [type="reset"])'
+            ),
+          singleEditable = controls.length === 1 && editable(controls[0]),
+          needsAccess = !editButton && (controls.length > 1 || singleEditable);
+        let access: HTMLElement | undefined;
         if (needsAccess) {
           accessCells.add(element);
           access = this.#accessButtons.get(element);
           if (!access) {
-            access = document.createElement('button');
-            access.type = 'button';
+            access = this.grid.shadowRoot!.createElement('sl-button');
             access.dataset.gridAccess = '';
-            access.setAttribute('aria-describedby', 'grid-access-instructions');
-            access.textContent = msg('Actions', { id: 'sl.grid.actions' });
+            access.setAttribute('fill', 'outline');
+            access.setAttribute('size', 'sm');
             element.prepend(access);
             this.#accessButtons.set(element, access);
           }
-          const context = this.#getCellContext(element, start);
-          const label = context
-            ? msg(str`Actions for ${context}`, { id: 'sl.grid.actionsForCell' })
-            : msg('Cell actions', { id: 'sl.grid.cellActions' });
-          access.setAttribute('aria-label', label);
+          const context = this.#getCellContext(element, start),
+            label = singleEditable
+              ? context
+                ? msg(str`Edit ${context}`, { id: 'sl.grid.editCell' })
+                : msg('Edit cell', { id: 'sl.grid.editCellFallback' })
+              : context
+                ? msg(str`Actions for ${context}`, { id: 'sl.grid.actionsForCell' })
+                : msg('Cell actions', { id: 'sl.grid.cellActions' }),
+            text = singleEditable
+              ? msg('Edit', { id: 'sl.grid.edit' })
+              : msg('Actions', { id: 'sl.grid.actions' }),
+            describedBy = singleEditable ? 'grid-edit-instructions' : 'grid-access-instructions';
+          // `<sl-button>` moves ARIA attributes to its internal button, so track what was set.
+          if (access.dataset.gridLabel !== label) {
+            access.dataset.gridLabel = label;
+            access.setAttribute('aria-label', label);
+          }
+          if (access.dataset.gridDescribedby !== describedBy) {
+            access.dataset.gridDescribedby = describedBy;
+            access.setAttribute('aria-describedby', describedBy);
+          }
+          if (access.textContent !== text) access.textContent = text;
           managed.add(access);
         }
 
@@ -127,7 +164,6 @@ export class GridKeyboardNavigation {
           managed.add(control);
         });
         managed.add(element);
-        if (editor) managed.add(editor);
         if (editButton) managed.add(editButton);
         controls.forEach(control => {
           if (this.#disabledControls.has(control) && !disabledControls.has(control)) {
@@ -136,8 +172,10 @@ export class GridKeyboardNavigation {
         });
         if (access) {
           const accessDisabled = String(controls.every(isDisabled));
-          if (access.getAttribute('aria-disabled') !== accessDisabled) {
-            access.setAttribute('aria-disabled', accessDisabled);
+          if (access.dataset.gridDisabled !== accessDisabled) {
+            access.dataset.gridDisabled = accessDisabled;
+            // `<sl-button>` treats any `aria-disabled` attribute as disabled, so clear it instead.
+            access.ariaDisabled = accessDisabled === 'true' ? 'true' : null;
           }
         }
         const target =
@@ -259,7 +297,7 @@ export class GridKeyboardNavigation {
     }
     const cell = this.#eventCell(event);
     if (!cell || this.#session?.cell.element === cell.element) return;
-    if (this.#session) this.#finish(false, false);
+    if (this.#session) this.#leave();
 
     const row = this.#rowIndex(cell.element);
     if (
@@ -286,7 +324,7 @@ export class GridKeyboardNavigation {
     // A popup can briefly leave focus on the body before restoring it to its trigger.
     queueMicrotask(() => {
       if (this.#session === session && !session.cell.element.matches(':focus-within')) {
-        this.#finish(false, false);
+        this.#leave();
       }
     });
   };
@@ -495,23 +533,23 @@ export class GridKeyboardNavigation {
   }
 
   #getCellContext(cell: HTMLTableCellElement, column: number): string {
+    const context =
+      cell.querySelector('[data-grid-actions-label]')?.getAttribute('data-grid-actions-label') ||
+      // Group rows span all columns, so the group label describes them better than a header.
+      cell.querySelector('sl-grid-group-header')?.getAttribute('group-label');
+    if (context) return context;
+
     const header = Array.from(this.grid.thead.rows)
         .reverse()
         .flatMap(row => Array.from(row.cells))
         .find(header => header.id && Number(header.getAttribute('aria-colindex')) === column),
-      label = header?.getAttribute('aria-label') || header?.textContent?.trim(),
-      row = this.#rowIndex(cell) + 1,
-      context = cell
-        .querySelector('[data-grid-actions-label]')
-        ?.getAttribute('data-grid-actions-label');
-    return (
-      context ||
-      (row > 0
-        ? msg(str`${label || msg('Cell', { id: 'sl.grid.cell' })}, row ${row}`, {
-            id: 'sl.grid.actionCellContext'
-          })
-        : label || '')
-    );
+      label = header && (header.getAttribute('aria-label') || visibleText(header)),
+      row = this.#rowIndex(cell) + 1;
+    return row > 0
+      ? msg(str`${label || msg('Cell', { id: 'sl.grid.cell' })}, row ${row}`, {
+          id: 'sl.grid.actionCellContext'
+        })
+      : label || '';
   }
 
   #rowIndex(cell: HTMLTableCellElement): number {
@@ -585,7 +623,7 @@ export class GridKeyboardNavigation {
 
   #enter(cell: Cell): void {
     if (this.#session?.cell.element === cell.element) return;
-    this.#finish(false, false);
+    this.#leave();
     this.#active = this.#position(this.#rowIndex(cell.element), cell);
     this.#session = { cell, draft: cell.editor?.value };
     cell.target.hidden = true;
@@ -625,9 +663,18 @@ export class GridKeyboardNavigation {
     if (refresh) this.refresh();
   }
 
+  /** Ends the session because focus moved elsewhere; pending edits are kept. */
+  #leave(): void {
+    this.#finish(!!this.#session?.cell.editor, false);
+  }
+
   #hasOpenPopup(event: Event): boolean {
-    return event
-      .composedPath()
+    const path = event.composedPath(),
+      table = path.indexOf(this.grid.table);
+
+    // Only look inside the cell; the grid itself hosts popovers such as the bulk actions.
+    return path
+      .slice(0, table < 0 ? path.length : table)
       .some(
         node =>
           node instanceof HTMLElement &&
@@ -643,6 +690,10 @@ export class GridKeyboardNavigation {
       this.#tabIndices.set(element, element.getAttribute('tabindex'));
     if (element.getAttribute('tabindex') !== String(value))
       element.setAttribute('tabindex', String(value));
+    // `<sl-button>` applies its `tabIndex` property to the button in its shadow root.
+    if (element.matches('[data-grid-access], [data-grid-edit]') && element.tabIndex !== value) {
+      element.tabIndex = value;
+    }
   }
 
   #restoreTabIndex(element: HTMLElement, value: string | null): void {

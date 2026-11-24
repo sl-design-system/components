@@ -32,8 +32,8 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
       value = getValueByPath(item.data, this.path!);
     if (this.grid?.keyboardNavigation === 'arrows') {
       const unavailable = item.id === ListDataSourcePlaceholder,
-        emptyLabel = msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' }),
-        label = String(value ?? '').trim() || emptyLabel;
+        text = String(value ?? '').trim(),
+        label = text || msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' });
       return html`
         <td
           aria-colindex=${String(this.columnIndex)}
@@ -43,31 +43,24 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
           headers=${this.headerIds}
           part="data text-field"
           role="gridcell">
-          <button
+          <sl-button
+            .ariaDisabled=${unavailable ? 'true' : null}
             aria-describedby="grid-edit-instructions"
-            aria-disabled=${String(unavailable)}
             aria-label=${label}
             data-grid-edit
-            type="button"
-            .textContent=${label}></button>
-          <input
+            fill="ghost">
+            ${text}
+          </sl-button>
+          <sl-text-field
             @sl-grid-edit-commit=${(event: Event) => {
-              const input = event.currentTarget as HTMLInputElement,
-                button = input.previousElementSibling as HTMLButtonElement | null,
-                nextLabel = input.value.trim() || emptyLabel;
-              this.#setValue(item.data, input.value);
-              if (button) {
-                button.ariaLabel = nextLabel;
-                button.textContent = nextLabel;
-              }
+              this.#setValue(item.data, (event.currentTarget as TextField).value ?? '');
               this.grid?.requestUpdate();
             }}
             aria-label=${this.getFormControlLabel(item.data)}
             data-grid-editor
             ?disabled=${unavailable}
             hidden
-            type="text"
-            .value=${String(value ?? '')} />
+            .value=${String(value ?? '')}></sl-text-field>
         </td>
       `;
     }

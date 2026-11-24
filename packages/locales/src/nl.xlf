@@ -554,6 +554,50 @@
   <source>Select group</source>
   <target>Selecteer groep</target>
 </trans-unit>
+<trans-unit id="sl.grid.accessInstructions">
+  <source>Press Enter or Space to access controls. Use Tab to move between controls. Press Escape to return to grid navigation.</source>
+  <target>Druk op Enter of Spatie om de bedieningselementen te openen. Gebruik Tab om tussen de bedieningselementen te navigeren. Druk op Escape om terug te keren naar de rasternavigatie.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editInstructions">
+  <source>Press Enter or Space to edit. Press Escape to return to grid navigation.</source>
+  <target>Druk op Enter of Spatie om te bewerken. Druk op Escape om terug te keren naar de rasternavigatie.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editCell">
+  <source>Edit <x id="0" equiv-text="${context}"/></source>
+  <target><x id="0" equiv-text="${context}"/> bewerken</target>
+</trans-unit>
+<trans-unit id="sl.grid.editCellFallback">
+  <source>Edit cell</source>
+  <target>Cel bewerken</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionsForCell">
+  <source>Actions for <x id="0" equiv-text="${context}"/></source>
+  <target>Acties voor <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cellActions">
+  <source>Cell actions</source>
+  <target>Celacties</target>
+</trans-unit>
+<trans-unit id="sl.grid.edit">
+  <source>Edit</source>
+  <target>Bewerken</target>
+</trans-unit>
+<trans-unit id="sl.grid.actions">
+  <source>Actions</source>
+  <target>Acties</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionCellContext">
+  <source><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, row <x id="1" equiv-text="${row}"/></source>
+  <target><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, rij <x id="1" equiv-text="${row}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cell">
+  <source>Cell</source>
+  <target>Cel</target>
+</trans-unit>
+<trans-unit id="sl.grid.editEmptyCell">
+  <source>Edit empty cell</source>
+  <target>Lege cel bewerken</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

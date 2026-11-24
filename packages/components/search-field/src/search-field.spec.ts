@@ -8,7 +8,11 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import './register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
-import { AsyncSuggestions } from './search-field.stories.js';
+import meta, { AsyncSuggestions } from './search-field.stories.js';
+
+const asyncSuggestionsArgs = { ...meta.args, ...AsyncSuggestions.args } as Parameters<
+  NonNullable<typeof AsyncSuggestions.render>
+>[0];
 
 describe('sl-search-field', () => {
   let el: SearchField;
@@ -1240,7 +1244,7 @@ describe('sl-search-field', () => {
     });
 
     it('keeps the loaded async story suggestions available during keyboard navigation', async () => {
-      el = await fixture(AsyncSuggestions.render!({} as never, {} as never));
+      el = await fixture(AsyncSuggestions.render!(asyncSuggestionsArgs, {} as never));
       await userEvent.type(el.input, 'Gar');
 
       await expect.poll(() => el.loading).toBe(false);
@@ -1258,7 +1262,7 @@ describe('sl-search-field', () => {
     });
 
     it('reloads async suggestions when the same query is pasted after clearing', async () => {
-      el = await fixture(AsyncSuggestions.render!({} as never, {} as never));
+      el = await fixture(AsyncSuggestions.render!(asyncSuggestionsArgs, {} as never));
       const input = page.getByRole('searchbox').and(page.getByPlaceholder('Try Gar'));
 
       await input.fill('Gar');

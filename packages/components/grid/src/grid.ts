@@ -134,6 +134,23 @@ export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 /**
  * Data grid component. This component is designed to be highly customizable and can be used to
  * display a wide variety of data. It supports sorting, filtering, grouping, and more.
+ *
+ * @csspart table - The table element
+ * @csspart thead - The table header element containing the header rows
+ * @csspart tbody - The scrollable table body element containing the data rows
+ * @csspart row - A data row (`<tr>`) in the table body
+ * @csspart odd - A data row with an odd index; combined with `row`
+ * @csspart even - A data row with an even index; combined with `row`
+ * @csspart selected - A selected data row; combined with `row`
+ * @csspart active - The active data row (when `row-action` is `activate`); combined with `row`
+ * @csspart dragging - The data row that is currently being dragged; combined with `row`
+ * @csspart group - A group row (`<tr>`) in the table body
+ * @csspart group-header - The cell containing the group header in a group row
+ * @csspart grand-totals-row - The row containing the grand totals
+ * @csspart bulk-actions - The popover with the selection status and bulk actions
+ *
+ * @slot default - The column definitions of the grid (such as `<sl-grid-column>`)
+ * @slot bulk-actions - Actions shown in the tool-bar when one or more rows are selected
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {

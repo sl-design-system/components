@@ -4,6 +4,12 @@ export type GridGrandTotalsType = 'number' | 'text' | 'boolean';
 /** The format in which a total is displayed. Formats only change the display, not the totals. */
 export type GridGrandTotalsFormat = 'sum' | 'average' | 'count' | 'fraction' | 'percentage';
 
+/** Where the grand totals row is displayed. */
+export type GridGrandTotalsPosition = 'top' | 'bottom';
+
+/** Which rows the totals are calculated for: all rows matching the filters, or the current page. */
+export type GridGrandTotalsScope = 'all' | 'page';
+
 /**
  * The raw totals for a single column. These are independent of the display format, so changing the
  * format never requires recalculating (or fetching) the totals.
@@ -144,8 +150,3 @@ export function formatGrandTotals(
         : '-';
   }
 }
-
-/** Where the grand totals row is displayed. */
-export type GridGrandTotalsPosition = 'top' | 'bottom';
-/** Which rows the totals are calculated for: all rows matching the filters, or the current page. */
-export type GridGrandTotalsScope = 'all' | 'page';

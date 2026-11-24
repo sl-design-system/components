@@ -80,6 +80,18 @@ export type SlColumnUpdateEvent<T = any> = CustomEvent<{
 
 let nextHeaderCellId = 0;
 
+/**
+ * The base column component for the grid. It defines how the header, data and grand totals cells of
+ * a column are rendered. The cells are rendered by the parent grid, so the parts below are exposed
+ * on the grid.
+ *
+ * @csspart header - The header cell (`<th>`) of the column
+ * @csspart data - A data cell (`<td>`) of the column
+ * @csspart grand-totals - The cell (`<td>`) of the column in the grand totals row
+ * @csspart placeholder - A data cell of a row that is still loading; combined with `data`
+ * @csspart <path> - The dasherized `path` of the column (dots replaced by dashes), set on every cell of the column
+ * @csspart <custom> - Any custom parts set via the `parts` property
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */

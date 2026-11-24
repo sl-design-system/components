@@ -23,7 +23,7 @@ const pupilNames = [
   'Sem Dekker'
 ];
 
-/** Deterministic example data, so the totals in the stories are stable. */
+/** Fixed example data, so the totals in the stories always stay the same. */
 export const pupils: Pupil[] = Array.from({ length: 33 }, (_, index) => ({
   class: index % 3 === 0 ? 'F5AB' : 'F3CB',
   grade: 3 + ((index * 7) % 8) + (index % 2) / 2,

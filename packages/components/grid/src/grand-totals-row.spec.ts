@@ -327,7 +327,6 @@ describe('sl-grid grand totals row', () => {
           ?.querySelector('sl-button')
           ?.shadowRoot?.querySelector('button');
 
-      // The aria-label is forwarded to the native button inside the menu button
       expect(native?.getAttribute('aria-label')).to.equal('Grand totals format');
     });
   });

@@ -8,6 +8,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
+import { Basic, Selectable } from './tree.stories.js';
 
 declare global {
   interface ARIAMixin {
@@ -96,6 +97,152 @@ const nestedData: NestedDataNode[] = [
 
 describe('sl-tree', () => {
   let el: Tree;
+
+  it('should toggle H3B disabled state in the Basic story while its branch is collapsed', async () => {
+    const source = new FlatTreeDataSource(
+        [
+          { id: 1, name: 'Parent', level: 0 },
+          { id: 2, name: 'H3B', level: 1 }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ level }) => level === 0,
+          isExpanded: () => true,
+          isSelected: ({ name }) => name === 'H3B'
+        }
+      ),
+      content = Basic.render!({ dataSource: source, hideGuides: false }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      parent = source.nodes[0],
+      node = parent.children![0];
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(node.disabled).to.be.true;
+    expect(node.selected).to.be.true;
+    expect(tree.renderRoot.querySelector('[id="2"]')).to.have.attribute('aria-disabled', 'true');
+
+    source.collapse(parent);
+    await tree.updateComplete;
+    await userEvent.click(checkbox);
+
+    expect(node.disabled).to.be.false;
+    expect(node.selected).to.be.true;
+
+    source.expand(parent);
+    await tree.updateComplete;
+
+    expect(tree.renderRoot.querySelector('[id="2"]')).not.to.have.attribute('aria-disabled');
+  });
+
+  it('should toggle Biology disabled state in the Selectable story while its branch is collapsed', async () => {
+    const source = new NestedTreeDataSource<NestedDataNode>(
+        [{ id: 1, name: 'Science', children: [{ id: 2, name: 'Biology' }] }],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children,
+          isExpanded: () => true,
+          isSelected: ({ name }) => name === 'Biology',
+          multiple: true
+        }
+      ),
+      content = Selectable.render!({ dataSource: source, hideGuides: true }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      parent = source.nodes[0],
+      node = parent.children![0];
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(node.disabled).to.be.true;
+    expect(node.selected).to.be.true;
+    expect(tree.renderRoot.querySelector('[id="2"]')).to.have.attribute('aria-disabled', 'true');
+
+    source.collapse(parent);
+    await tree.updateComplete;
+    await userEvent.click(checkbox);
+
+    expect(node.disabled).to.be.false;
+    expect(node.selected).to.be.true;
+
+    source.expand(parent);
+    await tree.updateComplete;
+
+    expect(tree.renderRoot.querySelector('[id="2"]')).not.to.have.attribute('aria-disabled');
+  });
+
+  it('should update Science to indeterminate when Biology is re-enabled after selecting Science', async () => {
+    const source = new NestedTreeDataSource<NestedDataNode>(
+        [
+          {
+            id: 1,
+            name: 'Science',
+            children: [
+              { id: 2, name: 'Biology', children: [{ id: 4, name: 'Cell Structure' }] },
+              { id: 3, name: 'Chemistry', children: [{ id: 5, name: 'Chemical Bonding' }] }
+            ]
+          }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children,
+          isSelectable: ({ children }) => !!children,
+          isExpanded: ({ name }) => name === 'Science',
+          multiple: true
+        }
+      ),
+      content = Selectable.render!({ dataSource: source, hideGuides: true }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      science = source.nodes[0],
+      [biology, chemistry] = science.children!,
+      scienceRow = tree.renderRoot.querySelector<HTMLElement>('sl-tree-node[id="1"]')!;
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(biology.disabled).to.be.true;
+    expect(biology.selected).not.to.be.true;
+
+    scienceRow.focus();
+    await userEvent.keyboard('{Space}');
+    await tree.updateComplete;
+    await expect.poll(() => scienceRow.getAttribute('aria-selected')).to.equal('true');
+
+    expect(science.selected).to.be.true;
+    expect(science.indeterminate).to.be.false;
+    expect(source.selection.has(science)).to.be.true;
+    expect(chemistry.selected).to.be.true;
+    expect(biology.selected).not.to.be.true;
+    expect(scienceRow.shadowRoot?.querySelector('sl-checkbox')).to.have.property('checked', true);
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+    await expect.poll(() => scienceRow.getAttribute('aria-selected')).to.equal('false');
+
+    expect(biology.disabled).to.be.false;
+    expect(biology.selected).not.to.be.true;
+    expect(chemistry.selected).to.be.true;
+    expect(science.selected).to.be.false;
+    expect(science.indeterminate).to.be.true;
+    expect(source.selection.has(science)).to.be.false;
+    expect(scienceRow.shadowRoot?.querySelector('sl-checkbox')).to.have.property(
+      'indeterminate',
+      true
+    );
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

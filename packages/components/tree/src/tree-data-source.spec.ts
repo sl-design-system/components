@@ -135,6 +135,47 @@ describe('TreeDataSource', () => {
       expect(source.selection.has(unselected)).to.be.false;
     });
 
+    it('should keep a parent selected after synchronizing an unchecked disabled child', () => {
+      const source = new NestedTreeDataSource(
+          [
+            {
+              id: 1,
+              disabled: false,
+              children: [
+                { id: 2, disabled: false },
+                { id: 3, disabled: true }
+              ]
+            }
+          ],
+          {
+            getId: ({ id }) => id,
+            getLabel: ({ id }) => String(id),
+            getChildren: item => ('children' in item ? item.children : undefined),
+            isDisabled: ({ disabled }) => disabled,
+            isExpandable: item => 'children' in item,
+            multiple: true
+          }
+        ),
+        parent = source.nodes[0],
+        [enabled, disabled] = parent.children!;
+
+      source.select(parent);
+
+      expect(parent.selected).to.be.true;
+      expect(parent.indeterminate).to.be.false;
+      expect(source.selection.has(parent)).to.be.true;
+      expect(enabled.selected).to.be.true;
+      expect(disabled.selected).not.to.be.true;
+
+      source.update();
+
+      expect(enabled.selected).to.be.true;
+      expect(disabled.selected).not.to.be.true;
+      expect(parent.selected).to.be.true;
+      expect(parent.indeterminate).to.be.false;
+      expect(source.selection.has(parent)).to.be.true;
+    });
+
     it('should preserve disabled descendants during bulk selection updates', () => {
       const [selected, unselected, enabled] = source.nodes[0].children!;
 
@@ -274,6 +315,34 @@ describe('TreeDataSource', () => {
 
         ds.select(ds.nodes[1]);
         expect(ds.selection.size).to.equal(1);
+      });
+
+      it('should replace an initially selected disabled node when selecting an enabled node', () => {
+        const source = new NestedTreeDataSource(
+            [
+              { id: 1, disabled: true, selected: true },
+              { id: 2, disabled: false, selected: false }
+            ],
+            {
+              getId: ({ id }) => id,
+              getLabel: ({ id }) => String(id),
+              getChildren: () => undefined,
+              isDisabled: ({ disabled }) => disabled,
+              isExpandable: () => false,
+              isSelected: ({ selected }) => selected
+            }
+          ),
+          [disabled, enabled] = source.nodes;
+
+        expect(source.multiple).not.to.be.true;
+        expect(disabled.selected).to.be.true;
+        expect(source.selection.has(disabled)).to.be.true;
+
+        source.select(enabled);
+
+        expect(disabled.selected).to.be.false;
+        expect(enabled.selected).to.be.true;
+        expect(Array.from(source.selection)).to.deep.equal([enabled]);
       });
 
       it('should allow deselecting the currently selected node', () => {

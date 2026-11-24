@@ -306,7 +306,7 @@ export const nestedData: NestedDataNode[] = [
   }
 ];
 
-export default {
+const meta = {
   title: 'Navigation/Tree',
   excludeStories: ['flatData', 'nestedData'],
   parameters: {
@@ -372,6 +372,42 @@ export default {
   }
 } satisfies Meta<Props>;
 
+export default meta;
+
+const renderWithDisabledToggle = (args: Props, label: string) => {
+  const findNode = (
+      nodes: Array<TreeDataSourceNode<unknown>>
+    ): TreeDataSourceNode<unknown> | undefined => {
+      for (const node of nodes) {
+        if (node.label === label) {
+          return node;
+        }
+
+        const child = findNode(node.children ?? []);
+        if (child) {
+          return child;
+        }
+      }
+
+      return undefined;
+    },
+    node = findNode(args.dataSource?.nodes ?? []),
+    onChange = (event: Event) => {
+      if (node) {
+        node.disabled = (event.target as HTMLInputElement).checked;
+        args.dataSource?.update();
+      }
+    };
+
+  return html`
+    <label>
+      <input type="checkbox" .checked=${!!node?.disabled} @change=${onChange} />
+      Disable ${label}
+    </label>
+    ${meta.render(args)}
+  `;
+};
+
 export const Basic: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
@@ -383,7 +419,8 @@ export const Basic: Story = {
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
     })
-  }
+  },
+  render: args => renderWithDisabledToggle(args, 'H3B')
 };
 
 export const Badges: Story = {
@@ -689,7 +726,8 @@ export const Selectable: Story = {
     },
     hideGuides: true,
     maxWidth: '350px'
-  }
+  },
+  render: args => renderWithDisabledToggle(args, 'Biology')
 };
 
 export const Skeleton: Story = {

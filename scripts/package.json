@@ -8,7 +8,7 @@
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
     "import-tokens": "yarn workspace @sl-design-system/scripts-themes import-tokens",
-    "studio-auth": "yarn exec studio auth login",
+    "studio-auth": "yarn workspace @sl-design-system/scripts-themes studio-auth",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

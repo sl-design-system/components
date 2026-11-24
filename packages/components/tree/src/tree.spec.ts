@@ -370,6 +370,9 @@ describe('sl-tree', () => {
 
     expect(el.renderRoot.querySelectorAll('sl-tree-node').length).to.be.lessThan(101);
     expect(el.wrapper).to.have.attribute('aria-rowcount', '101');
+    el.renderRoot.querySelectorAll('sl-tree-node').forEach(node => {
+      expect(node.ariaRowIndex).to.equal(String(Number(node.getAttribute('data-index')) + 1));
+    });
   });
 
   describe('accessibility', () => {

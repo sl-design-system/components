@@ -215,7 +215,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
-                  .rowIndex=${virtualItem.index + 1}
                   .type=${item.type}
                   aria-controls=${ifDefined(
                     item.children?.map(child => String(child.id)).join(' ')
@@ -229,7 +228,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                       ? (item.parent.children?.indexOf(item) ?? -1) + 1
                       : (this.dataSource?.nodes.indexOf(item) ?? -1) + 1
                   }
-                  aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
+                  aria-rowindex=${virtualItem.index + 1}
                   aria-setsize=${ifDefined(
                     item.parent ? item.parent.children?.length : this.dataSource?.size
                   )}

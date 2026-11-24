@@ -52,11 +52,17 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Observe changes inside custom headers, including edits to existing text nodes. */
+  #headerObserver = new MutationObserver(() => this.requestUpdate());
+
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
+
+  /** @internal The accessible label of a visually hidden column header. */
+  @property({ attribute: false }) headerAriaLabel?: string;
 
   /** The path to the field to sort on. */
   @property() path?: string;
@@ -73,7 +79,20 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#headerObserver.observe(this, {
+      attributeFilter: ['aria-hidden', 'hidden', 'slot'],
+      characterData: true,
+      childList: true,
+      subtree: true
+    });
+    this.requestUpdate();
     this.sorterRegisterEvent.emit();
+  }
+
+  override disconnectedCallback(): void {
+    this.#headerObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -81,13 +100,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <slot></slot>
       <sl-button
         @click=${this.#onClick}
-        aria-label=${
-          this.direction === 'asc'
-            ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
-            : this.direction === 'desc'
-              ? msg('Remove sort', { id: 'sl.grid.removeSort' })
-              : msg('Sort ascending', { id: 'sl.grid.sortAscending' })
-        }
+        aria-label=${this.#getButtonLabel()}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
         variant=${ifDefined(this.direction ? 'primary' : undefined)}>
@@ -109,6 +122,25 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
    */
   reset(): void {
     this.direction = undefined;
+  }
+
+  #getButtonLabel(): string {
+    const columnName = this.#getColumnName();
+
+    switch (this.direction) {
+      case 'asc':
+        return columnName
+          ? msg(str`Sort descending by ${columnName}`, { id: 'sl.grid.sortDescendingByColumn' })
+          : msg('Sort descending', { id: 'sl.grid.sortDescending' });
+      case 'desc':
+        return columnName
+          ? msg(str`Remove sorting for ${columnName}`, { id: 'sl.grid.removeSortByColumn' })
+          : msg('Remove sort', { id: 'sl.grid.removeSort' });
+      default:
+        return columnName
+          ? msg(str`Sort ascending by ${columnName}`, { id: 'sl.grid.sortAscendingByColumn' })
+          : msg('Sort ascending', { id: 'sl.grid.sortAscending' });
+    }
   }
 
   #onClick(): void {
@@ -135,7 +167,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #getColumnName(): string {
-    const headerAriaLabel = this.column?.headerAriaLabel;
+    const headerAriaLabel = this.headerAriaLabel ?? this.column?.headerAriaLabel;
 
     if (headerAriaLabel) {
       return headerAriaLabel;

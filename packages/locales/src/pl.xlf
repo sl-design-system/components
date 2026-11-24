@@ -566,6 +566,18 @@
   <source><x id="0" equiv-text="${columnName}"/> sorting removed</source>
   <target><x id="0" equiv-text="${columnName}"/>, sortowanie usunięte</target>
 </trans-unit>
+<trans-unit id="sl.grid.sortAscendingByColumn">
+  <source>Sort ascending by <x id="0" equiv-text="${columnName}"/></source>
+  <target>Sortuj rosnąco według kolumny <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.sortDescendingByColumn">
+  <source>Sort descending by <x id="0" equiv-text="${columnName}"/></source>
+  <target>Sortuj malejąco według kolumny <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.removeSortByColumn">
+  <source>Remove sorting for <x id="0" equiv-text="${columnName}"/></source>
+  <target>Usuń sortowanie według kolumny <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
 </body>
 </file>
 </xliff>

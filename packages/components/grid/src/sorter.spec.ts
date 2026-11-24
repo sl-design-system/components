@@ -37,7 +37,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the inner button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Sort ascending'
+        'Sort ascending by Name'
       );
     });
 
@@ -86,6 +86,14 @@ describe('sl-grid-sorter', () => {
     });
   });
 
+  it('should fall back to the action when the column has no name', async () => {
+    el = await fixture(html`<sl-grid-sorter></sl-grid-sorter>`);
+
+    expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
+      'Sort ascending'
+    );
+  });
+
   describe('register', () => {
     it('should emit a sorter register event when the sorter is inserted into the DOM', () => {
       const container = document.createElement('div'),
@@ -113,7 +121,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Sort descending'
+        'Sort descending by Name'
       );
     });
 
@@ -174,7 +182,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Remove sort'
+        'Remove sorting for Name'
       );
     });
 

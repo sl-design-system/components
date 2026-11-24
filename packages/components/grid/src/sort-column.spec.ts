@@ -2,6 +2,7 @@ import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import '@sl-design-system/announcer/register.js';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -175,22 +176,37 @@ describe('sl-sort-column', () => {
 
       expect(onAnnounce).not.to.have.been.called;
 
-      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!;
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!,
+        getButtonName = () => getForwardedAccessibleName(button),
+        getAriaSort = () => el.renderRoot.querySelector('th')!.getAttribute('aria-sort');
 
-      for (const ariaSort of ['ascending', 'descending', null]) {
-        sorter.renderRoot.querySelector('sl-button')!.click();
-        await expect
-          .poll(() => el.renderRoot.querySelector('th')!.getAttribute('aria-sort'))
-          .to.equal(ariaSort);
-      }
+      await expect.poll(getButtonName).to.equal('Sort ascending by Student');
 
-      expect(
-        onAnnounce.getCalls().map(call => (call.args[0] as SlAnnounceEvent).detail)
-      ).to.deep.equal([
-        { message: 'Student sorting ascending', urgency: 'polite' },
-        { message: 'Student sorting descending', urgency: 'polite' },
-        { message: 'Student sorting removed', urgency: 'polite' }
-      ]);
+      button.click();
+      await expect.poll(getAriaSort).to.equal('ascending');
+      await expect.poll(getButtonName).to.equal('Sort descending by Student');
+      expect((onAnnounce.firstCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting ascending',
+        urgency: 'polite'
+      });
+
+      button.click();
+      await expect.poll(getAriaSort).to.equal('descending');
+      await expect.poll(getButtonName).to.equal('Remove sorting for Student');
+      expect((onAnnounce.secondCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting descending',
+        urgency: 'polite'
+      });
+
+      button.click();
+      await expect.poll(getAriaSort).to.equal(null);
+      await expect.poll(getButtonName).to.equal('Sort ascending by Student');
+      expect((onAnnounce.thirdCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting removed',
+        urgency: 'polite'
+      });
+      expect(onAnnounce.callCount).to.equal(3);
     });
 
     it('should update the live region when sorting with Space without moving focus', async () => {
@@ -224,12 +240,14 @@ describe('sl-sort-column', () => {
       const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
         button = sorter.renderRoot.querySelector('sl-button')!;
 
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
       await userEvent.keyboard('{Space}');
 
       expect(announcer.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
         'Student sorting ascending'
       );
       expect(button.shadowRoot!.activeElement).to.equal(button.button);
+      expect(getForwardedAccessibleName(button)).to.equal('Sort descending by Student');
     });
 
     it('should announce only the newly sorted column when switching columns', async () => {
@@ -274,10 +292,12 @@ describe('sl-sort-column', () => {
       await waitForGridToRenderData(el);
 
       const header = el.renderRoot.querySelector('th')!,
-        sorter = header.querySelector<GridSorter>('sl-grid-sorter')!;
+        sorter = header.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!;
 
       expect(header.getAttribute('aria-label')).to.equal('First name');
-      sorter.renderRoot.querySelector('sl-button')!.click();
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by First name');
+      button.click();
 
       expect(onAnnounce).to.have.been.calledOnce;
       expect(onAnnounce).to.have.been.calledWithMatch({
@@ -309,14 +329,51 @@ describe('sl-sort-column', () => {
       `);
       await waitForGridToRenderData(el);
 
-      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!;
-      sorter.renderRoot.querySelector('sl-button')!.click();
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!;
+
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
+      button.click();
 
       expect(onAnnounce).to.have.been.calledOnce;
       expect(onAnnounce).to.have.been.calledWithMatch({
         detail: { message: 'Student sorting ascending', urgency: 'polite' }
       });
     });
+  });
+
+  it('should update the button name when a custom header changes', async () => {
+    const renderHeader = (name: string) => () => html`<span>${name}</span>`;
+
+    el = await fixture(html`
+      <sl-grid .items=${ITEMS}>
+        <sl-grid-sort-column
+          path="firstName"
+          .header=${renderHeader('Student')}></sl-grid-sort-column>
+      </sl-grid>
+    `);
+    await waitForGridToRenderData(el);
+
+    const column = el.querySelector('sl-grid-sort-column')!,
+      button = column.sorterElement!.renderRoot.querySelector('sl-button')!;
+
+    expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
+
+    column.header = renderHeader('Learner');
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Learner');
+
+    column.hideHeaderText = true;
+    column.header = 'Student';
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Student');
+
+    column.header = 'Learner';
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Learner');
   });
 
   describe('scopedElements', () => {

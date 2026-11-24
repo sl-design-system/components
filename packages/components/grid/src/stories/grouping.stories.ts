@@ -26,7 +26,12 @@ const addStudentGroupHeaderRenderer = (item: ListDataSourceGroupItem): TemplateR
   return html`
     <span slot="group-heading">${item.label} (${item.count})</span>
     <span hidden id=${labelId}>Add student to ${item.label}</span>
-    <sl-button aria-labelledby=${labelId} size="sm">Add student</sl-button>
+    <sl-button
+      aria-labelledby=${labelId}
+      size="sm"
+      @click=${() => console.log(`Add student to ${item.label}`)}
+      >Add student</sl-button
+    >
   `;
 };
 

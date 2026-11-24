@@ -7,6 +7,7 @@ import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-de
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
@@ -18,6 +19,9 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridTextFieldColumn<T = any> extends GridColumn<T> {
+  /** Hint shown in an empty field and on its edit button in arrow navigation mode. */
+  @property() placeholder?: string;
+
   /** @internal */
   override get baseScopedElements(): Record<string, typeof HTMLElement> {
     return { 'sl-text-field': TextField };
@@ -33,7 +37,8 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
     if (this.grid?.keyboardNavigation === 'arrows') {
       const unavailable = item.id === ListDataSourcePlaceholder,
         text = String(value ?? '').trim(),
-        label = text || msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' });
+        hint = unavailable ? undefined : this.placeholder,
+        label = text || hint || msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' });
       return html`
         <td
           aria-colindex=${String(this.columnIndex)}
@@ -49,7 +54,7 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
             aria-label=${label}
             data-grid-edit
             fill="ghost">
-            ${text}
+            ${!text && hint ? html`<span part="placeholder">${hint}</span>` : text}
           </sl-button>
           <sl-text-field
             @sl-grid-edit-commit=${(event: Event) => {
@@ -60,6 +65,7 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
             data-grid-editor
             ?disabled=${unavailable}
             hidden
+            placeholder=${ifDefined(hint)}
             .value=${String(value ?? '')}></sl-text-field>
         </td>
       `;
@@ -75,6 +81,7 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
         <sl-text-field
           @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item.data)}
           aria-label=${this.getFormControlLabel(item.data)}
+          placeholder=${ifDefined(this.placeholder)}
           .value=${value}></sl-text-field>
       </td>
     `;

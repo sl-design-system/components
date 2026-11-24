@@ -68,7 +68,9 @@ export const ArrowNavigation: Story = {
   render: () => html`
     <p>
       Tab into the grid, then use the arrow keys to move between cells. Press Enter or Space to edit
-      a note or access its row actions.
+      a note or access its row actions. While interacting with actions, Tab and Shift+Tab stay in
+      the cell and skip hidden controls. Escape closes an open menu first; press it again to return
+      to grid navigation.
     </p>
     <p><button type="button">Before the grid</button></p>
     <sl-grid
@@ -81,20 +83,31 @@ export const ArrowNavigation: Story = {
       }))}>
       <sl-grid-sort-column header="Invoice" path="invoice" width="100"></sl-grid-sort-column>
       <sl-grid-column header="Customer" path="customer" width="140"></sl-grid-column>
-      <sl-grid-text-field-column header="Note" path="note" width="180"></sl-grid-text-field-column>
+      <sl-grid-text-field-column
+        header="Note"
+        path="note"
+        placeholder="Add a note"
+        width="180"></sl-grid-text-field-column>
       <sl-grid-column
         header="Actions"
-        width="330"
+        width="270"
         .renderer=${({ invoice }: { invoice: number }) => html`
           <span data-grid-actions-label="invoice ${invoice}">
-            <sl-menu-button>
+            <sl-menu-button size="sm">
               <span slot="button">Options</span>
               <sl-menu-item>Download</sl-menu-item>
             </sl-menu-button>
-            <sl-button aria-disabled="true">Archive</sl-button>
+            <sl-button aria-disabled="true" size="sm">Archive</sl-button>
           </span>
         `}
-        .scopedElements=${{ 'sl-menu-button': MenuButtonComponent, 'sl-menu-item': MenuItem }}>
+        .scopedElements=${{ 'sl-menu-button': MenuButtonComponent, 'sl-menu-item': MenuItem }}
+        .renderStyles=${() => css`
+          & [data-grid-actions-label] {
+            align-items: center;
+            display: inline-flex;
+            gap: var(--sl-size-100);
+          }
+        `}>
       </sl-grid-column>
     </sl-grid>
     <p><button type="button">After the grid</button></p>

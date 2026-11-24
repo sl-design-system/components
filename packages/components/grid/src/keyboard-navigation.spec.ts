@@ -107,14 +107,19 @@ describe('sl-grid arrow navigation', () => {
     const { grid } = await mount();
 
     await userEvent.tab();
-    await userEvent.keyboard('{ArrowDown}{End}{Enter}');
+    await userEvent.keyboard('{ArrowDown}{End}');
 
     const cell = grid.tbody.rows[0].cells[2],
-      entry = cell.querySelector('[data-grid-access]'),
+      entry = cell.querySelector<HTMLElement>('[data-grid-access]')!,
       [disabled, enabled] = cell.querySelectorAll('button'),
-      link = cell.querySelector('a');
+      link = cell.querySelector('a'),
+      { x, y } = enabled.getBoundingClientRect();
+
+    await userEvent.keyboard('{Enter}');
 
     expect(grid.shadowRoot!.activeElement).toBe(enabled);
+    expect(entry.checkVisibility({ visibilityProperty: true })).toBe(false);
+    expect(enabled.getBoundingClientRect()).toMatchObject({ x, y });
 
     await userEvent.tab({ shift: true });
     await userEvent.tab({ shift: true });
@@ -132,6 +137,125 @@ describe('sl-grid arrow navigation', () => {
 
     expect(grid.shadowRoot!.activeElement).toBe(entry);
     expect(disabled.disabled).toBe(true);
+  });
+
+  it('shows the placeholder for an empty cell without saving it as the value', async () => {
+    const item = { note: '' },
+      grid = await fixture<Grid>(html`
+        <sl-grid keyboard-navigation="arrows" .items=${[item]}>
+          <sl-grid-text-field-column
+            path="note"
+            placeholder="Add a note"
+            width="180"></sl-grid-text-field-column>
+        </sl-grid>
+      `);
+    await waitForGridToRenderData(grid);
+
+    const entry = grid.tbody.querySelector<Button>('[data-grid-edit]')!,
+      editor = grid.tbody.querySelector<TextField>('[data-grid-editor]')!;
+
+    expect(entry.textContent?.trim()).toBe('Add a note');
+
+    entry.focus();
+    await userEvent.keyboard('{Enter}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(editor.input);
+    expect(editor.input.placeholder).toBe('Add a note');
+    expect(editor.input.value).toBe('');
+
+    await userEvent.keyboard('{Enter}');
+
+    expect(item.note).toBe('');
+    expect(entry.textContent?.trim()).toBe('Add a note');
+
+    await userEvent.keyboard('{Enter}Paid{Enter}');
+
+    expect(item.note).toBe('Paid');
+    expect(entry.textContent?.trim()).toBe('Paid');
+  });
+
+  it('edits a single native text input through its value button and restores cancelled changes', async () => {
+    const item = { note: 'Original' },
+      grid = await fixture<Grid>(html`
+        <sl-grid keyboard-navigation="arrows" .items=${[item]}>
+          <sl-grid-column
+            header="Note"
+            width="220"
+            .renderer=${() => html`
+              <input
+                aria-label="Note"
+                .value=${item.note}
+                @input=${(event: Event) => (item.note = (event.target as HTMLInputElement).value)} />
+            `}></sl-grid-column>
+        </sl-grid>
+      `);
+    await waitForGridToRenderData(grid);
+
+    const cell = grid.tbody.rows[0].cells[0],
+      entry = cell.querySelector<Button>('[data-grid-access]')!,
+      input = cell.querySelector('input')!;
+
+    grid.thead.rows[0].cells[0].focus();
+    await userEvent.keyboard('{ArrowDown}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(entry);
+    expect(entry.textContent).toBe('Original');
+    expect(entry.button.getAttribute('aria-label')).toBe('Original');
+    expect(input.checkVisibility()).toBe(false);
+
+    await userEvent.keyboard('{Space}{End} draft{Tab}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(input);
+
+    await userEvent.keyboard('{Escape}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(entry);
+    expect(input.value).toBe('Original');
+    expect(item.note).toBe('Original');
+
+    await userEvent.keyboard('{Enter}{End} saved{Enter}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(entry);
+    expect(entry.textContent).toBe('Original saved');
+    expect(item.note).toBe('Original saved');
+
+    await userEvent.keyboard('{Enter}');
+    await userEvent.clear(input);
+    await userEvent.keyboard('{Enter}');
+
+    expect(entry.button.getAttribute('aria-label')).toBe('Edit empty cell');
+  });
+
+  it('skips CSS-hidden controls on entry and when tabbing in either direction', async () => {
+    const grid = await fixture<Grid>(html`
+      <sl-grid keyboard-navigation="arrows" .items=${[{}]}>
+        <sl-grid-column
+          header="Actions"
+          width="250"
+          .renderer=${() => html`
+            <button style="visibility: hidden">Hidden first</button>
+            <button>Open</button>
+            <span style="visibility: hidden"><button>Hidden middle</button></span>
+            <button>More</button>
+          `}></sl-grid-column>
+      </sl-grid>
+    `);
+    await waitForGridToRenderData(grid);
+
+    const [, open, , more] = grid.tbody.rows[0].querySelectorAll('button');
+
+    grid.thead.rows[0].cells[0].focus();
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(open);
+
+    await userEvent.tab();
+
+    expect(grid.shadowRoot!.activeElement).toBe(more);
+
+    await userEvent.tab({ shift: true });
+
+    expect(grid.shadowRoot!.activeElement).toBe(open);
   });
 
   it('lets a menu consume the first Escape before leaving the cell', async () => {
@@ -175,6 +299,31 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.keyboard('{Escape}');
 
     expect(grid.shadowRoot!.activeElement?.hasAttribute('data-grid-access')).toBe(true);
+
+    await userEvent.keyboard('{Enter}{ArrowDown}');
+
+    await expect.poll(() => menuButton.menu.matches(':popover-open')).toBe(true);
+
+    const cell = grid.tbody.rows[0].cells[0],
+      access = cell.querySelector<HTMLElement>('[data-grid-access]')!;
+
+    await userEvent.tab({ shift: true });
+
+    expect(access.hidden).toBe(true);
+    expect(cell.contains(grid.shadowRoot!.activeElement)).toBe(true);
+
+    await userEvent.tab();
+
+    expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('button'));
+    expect(menuButton.menu.matches(':popover-open')).toBe(false);
+
+    await userEvent.tab();
+
+    expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('button'));
+
+    await userEvent.keyboard('{Escape}');
+
+    expect(grid.shadowRoot!.activeElement).toBe(access);
   });
 
   it('keeps the column when paging and focuses an offscreen row with Ctrl+End', async () => {

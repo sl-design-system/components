@@ -657,12 +657,19 @@ table[role='grid'] {
     outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
   }
 
-  :is([data-grid-access], [data-grid-edit], [data-grid-editor])[hidden] {
+  :is([data-grid-access], [data-grid-edit], [data-grid-editor])[hidden],
+  input[data-grid-inactive-input] {
     display: none;
   }
 
   [data-grid-access] {
     margin-inline-end: var(--sl-size-100);
+  }
+
+  /* Keep the row actions in place while the access button is hidden. */
+  [data-grid-access='actions'][hidden] {
+    display: inline-flex;
+    visibility: hidden;
   }
 
   /* The edit button shows the value of the cell, so it should read like the other cells. */
@@ -681,5 +688,9 @@ table[role='grid'] {
 
   [data-grid-editor] {
     inline-size: 100%;
+  }
+
+  [data-grid-edit] [part='placeholder'] {
+    color: var(--sl-color-foreground-subtlest);
   }
 }

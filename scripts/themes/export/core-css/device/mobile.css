@@ -28,6 +28,21 @@
     --sl-caption-md-lineHeight-superuser: var(
       --sl-computed-mobile-caption-md-line-Height-superuser
     );
+    --sl-computed-space-adaptive-010: var(--sl-computed-mobile-space-adaptive-010);
+    --sl-computed-space-adaptive-025: var(--sl-computed-mobile-space-adaptive-025);
+    --sl-computed-space-adaptive-050: var(--sl-computed-mobile-space-adaptive-050);
+    --sl-computed-space-adaptive-075: var(--sl-computed-mobile-space-adaptive-075);
+    --sl-computed-space-adaptive-100: var(--sl-computed-mobile-space-adaptive-100);
+    --sl-computed-space-adaptive-125: var(--sl-computed-mobile-space-adaptive-125);
+    --sl-computed-space-adaptive-150: var(--sl-computed-mobile-space-adaptive-150);
+    --sl-computed-space-adaptive-200: var(--sl-computed-mobile-space-adaptive-200);
+    --sl-computed-space-adaptive-300: var(--sl-computed-mobile-space-adaptive-300);
+    --sl-computed-space-adaptive-400: var(--sl-computed-mobile-space-adaptive-400);
+    --sl-computed-space-adaptive-500: var(--sl-computed-mobile-space-adaptive-500);
+    --sl-computed-space-adaptive-600: var(--sl-computed-mobile-space-adaptive-600);
+    --sl-computed-space-adaptive-700: var(--sl-computed-mobile-space-adaptive-700);
+    --sl-computed-space-adaptive-800: var(--sl-computed-mobile-space-adaptive-800);
+    --sl-computed-space-adaptive-1000: var(--sl-computed-mobile-space-adaptive-1000);
     --sl-display-lg-fontSize: var(--sl-display-lg-fontSize-userGroup);
     --sl-display-lg-fontSize-advanced: var(--sl-computed-mobile-display-lg-font-Size-advanced);
     --sl-display-lg-fontSize-developing: var(--sl-computed-mobile-display-lg-font-Size-developing);
@@ -142,6 +157,7 @@
     --sl-label-sm-lineHeight-developing: var(--sl-computed-mobile-label-sm-line-Height-developing);
     --sl-label-sm-lineHeight-early: var(--sl-computed-mobile-label-sm-line-Height-early);
     --sl-label-sm-lineHeight-superuser: var(--sl-computed-mobile-label-sm-line-Height-superuser);
+    --sl-space-device-multiplier: 0.75;
     --sl-text-lg-fontSize: var(--sl-text-lg-fontSize-userGroup);
     --sl-text-lg-fontSize-advanced: var(--sl-computed-mobile-text-lg-font-Size-advanced);
     --sl-text-lg-fontSize-developing: var(--sl-computed-mobile-text-lg-font-Size-developing);

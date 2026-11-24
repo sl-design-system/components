@@ -70,11 +70,14 @@ export class GridKeyboardNavigation {
   #move = 0;
   #parkingFocus = false;
   #pointerDown = false;
+  #pointerListeners?: AbortController;
 
   constructor(private grid: Grid) {}
 
   disconnect(): void {
     this.#move++;
+    this.#pointerListeners?.abort();
+    this.#pointerListeners = undefined;
     this.#pointerDown = false;
     this.#finish(false, false);
     this.#observers.forEach(observer => observer.disconnect());
@@ -294,7 +297,16 @@ export class GridKeyboardNavigation {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ['aria-disabled', 'disabled', 'hidden', 'inert', 'href', 'class', 'style']
+        attributeFilter: [
+          'aria-disabled',
+          'disabled',
+          'hidden',
+          'inert',
+          'href',
+          'class',
+          'style',
+          'open'
+        ]
       });
       this.#observers.set(root, observer);
     });
@@ -302,17 +314,24 @@ export class GridKeyboardNavigation {
 
   onPointerDown = (): void => {
     if (this.grid.keyboardNavigation !== 'arrows') return;
+    this.#pointerListeners?.abort();
+    const listeners = new AbortController();
+    this.#pointerListeners = listeners;
     this.#pointerDown = true;
     const clear = (): void => {
+      listeners.abort();
+      // Wait for click, without finishing a newer interaction or a disconnected grid.
       setTimeout(() => {
+        if (this.#pointerListeners !== listeners) return;
+        this.#pointerListeners = undefined;
         this.#pointerDown = false;
         if (this.#session?.cell.access) {
           this.#session.cell.access.hidden = true;
         }
       });
     };
-    window.addEventListener('mouseup', clear, { once: true });
-    window.addEventListener('pointercancel', clear, { once: true });
+    window.addEventListener('mouseup', clear, { signal: listeners.signal });
+    window.addEventListener('pointercancel', clear, { signal: listeners.signal });
   };
 
   onFocusIn = (event: FocusEvent): void => {

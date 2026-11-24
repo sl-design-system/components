@@ -514,6 +514,56 @@ describe('sl-grid arrow navigation', () => {
     expect(grid.shadowRoot!.activeElement).toBe(summary);
   });
 
+  it('keeps a single tab stop when details are opened and closed', async () => {
+    const wrapper = await fixture<HTMLDivElement>(html`
+      <div>
+        <button id="before">Before</button>
+        <sl-grid keyboard-navigation="arrows" .items=${[{}]}>
+          <sl-grid-column
+            header="Details"
+            width="240"
+            .renderer=${() => html`
+              <details>
+                <summary>Details</summary>
+                <a href="#more">More</a>
+              </details>
+            `}></sl-grid-column>
+        </sl-grid>
+        <button id="after">After</button>
+      </div>
+    `);
+
+    const grid = wrapper.querySelector('sl-grid')!;
+    await waitForGridToRenderData(grid);
+
+    const cell = grid.tbody.rows[0].cells[0],
+      details = cell.querySelector('details')!,
+      summary = details.querySelector('summary')!;
+
+    wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+
+    expect(details.open).toBe(true);
+
+    await userEvent.tab();
+
+    expect(document.activeElement?.id).toBe('after');
+
+    await userEvent.tab({ shift: true });
+
+    expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('[data-grid-access]'));
+
+    await userEvent.keyboard('{Enter}{Enter}');
+
+    expect(details.open).toBe(false);
+    expect(grid.shadowRoot!.activeElement).toBe(summary);
+
+    await userEvent.tab({ shift: true });
+
+    expect(document.activeElement?.id).toBe('before');
+  });
+
   it('moves focus to the bulk actions toolbar on Tab when a row is selected', async () => {
     const wrapper = await fixture<HTMLDivElement>(html`
       <div>

@@ -47,7 +47,13 @@ A panel is a bordered box with an optional header section.
 
 ```html
 <sl-panel>
-    <span slot="header">Panel Title</span>
+    <span slot="heading">Panel Title</span>
+    <sl-button fill="ghost" slot="actions" tooltip="Copy">
+        <sl-icon name="far-copy"></sl-icon>
+    </sl-button>
+    <sl-button fill="ghost" slot="actions" tooltip="Book">
+        <sl-icon name="far-book"> </sl-icon>
+    </sl-button>
     <p>This is the panel content area.</p>
     <p>You can add any content here.</p>
   </sl-panel>

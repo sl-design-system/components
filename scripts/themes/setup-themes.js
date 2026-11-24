@@ -20,7 +20,7 @@ const setupTheme = async (theme, globalCss, typographyCss) => {
     `./export/core-css/user-group/early.css`,
     `./export/core-css/user-group/developing.css`,
     `./export/core-css/user-group/advanced.css`,
-    `./export/core-css/user-group/superuser.css`,
+    `./export/core-css/user-group/poweruser.css`,
     `./export/core-css/color/light.css`,
     `./export/core-css/color/dark.css`,
     `./export/core-css/system/default.css`,

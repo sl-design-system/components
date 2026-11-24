@@ -421,7 +421,7 @@ class TokenGallery extends HTMLElement {
   bucket: TokenBucket = 'shared';
   filter: (name: string) => boolean = () => true;
   layout: 'cards' | 'list' = 'cards';
-  userGroup = 'superuser';
+  userGroup = 'poweruser';
 
   #globalsKey?: string;
   #ready: Promise<void> = Promise.resolve();
@@ -540,7 +540,7 @@ export const tokenStory = ({
       .bucket=${bucket}
       .filter=${filter}
       .layout=${layout}
-      .userGroup=${globals.userGroup ?? 'superuser'}
+      .userGroup=${globals.userGroup ?? 'poweruser'}
       .globalsKey=${JSON.stringify(globals)}></token-gallery>
   `
 });

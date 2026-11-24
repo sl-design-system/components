@@ -24,8 +24,8 @@ style = document.createElement('style');
 style.innerText = await commands.readFile('./packages/themes/sanoma-learning/theme.css');
 document.head.appendChild(style);
 
-// Set the user group to superuser for testing purposes
-document.body.setAttribute('data-user-group', 'superuser');
+// Set the user group to poweruser for testing purposes
+document.body.setAttribute('data-user-group', 'poweruser');
 
 // Load the fonts for the SL light theme using a link tag to preserve relative paths
 const link = document.createElement('link');

@@ -52,10 +52,14 @@ The first that fits wins:
 3. Another library the project already uses, when no Stable sl-ds component fits.
 4. Custom, from the project's tokens and building blocks.
 
-- Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every `sl-*` tag in it, with its attributes, slots and events, exists in the installed package (its `custom-elements.json`) and the order above allows it.
-  Standard HTML elements and global attributes, such as `h1`, `slot`, `class` or `aria-label`, are not in that file; do not check them there.
+- Code Connect output is a suggestion, not an order, and this overrides Figma's skill: use a snippet only if every `sl-*` tag in it, with its attributes, slots and events, exists in the `custom-elements.json` of the installed package that defines that tag, and the order above allows it.
+  A snippet can span packages: `sl-select` is in `select`, `sl-option` in `listbox` and `sl-form-field` in `form`; find each tag's package by its `tagName` in `node_modules/@sl-design-system/*/custom-elements.json`.
+  Standard HTML elements and global attributes, such as `h1`, `slot`, `class` or `aria-label`, are not in those files; do not check them there.
   Otherwise build the element from the design data and put the mapping on the design-system list.
 - Before using an sl-ds component the project does not use yet, read its status: `status` in `node_modules/@sl-design-system/<name>/package.json` when it is installed, else in `packages/components/<name>/package.json` on `main` of github.com/sl-design-system/components; no `status` means treat it as not Stable.
+  The status that counts is the status of the component you choose for the element.
+  A tag that the chosen component's package lists in its `dependencies` and uses as its child or part, such as `sl-option` (from `listbox`) inside `sl-select`, takes that component's status; do not ask about it separately.
+  A tag that stands on its own in the snippet, such as `sl-form-field` around the select, is a component in its own right: check its status and add its own `register.js` import.
 - Ask before adding a UI library or a package, before using an sl-ds component that is not `stable`, before building something custom that sl-ds might cover, and before moving away from the project's convention.
 
 ## 4. Fit the project

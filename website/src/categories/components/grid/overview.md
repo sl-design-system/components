@@ -5,26 +5,14 @@ eleventyNavigation:
   parent: Grid
   key: GridOverview
 ---
-<style>
-.grid-wrapper {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-</style>
-
 <section>
 <div class="ds-example">
-<div class="grid-wrapper">
-<sl-grid id="grid-example">
+<sl-grid id="grid-overview-example">
 <sl-grid-column path="firstName"></sl-grid-column>
 <sl-grid-column path="lastName"></sl-grid-column>
 <sl-grid-column path="email"></sl-grid-column>
-<sl-grid-column path="address.phone"></sl-grid-column>
 <sl-grid-column path="profession"></sl-grid-column>
-</div>
 </sl-grid>
-
 </div>
 
 <div class="ds-code">
@@ -43,60 +31,48 @@ eleventyNavigation:
 
 <section>
 
-## Lorem ipsum dolor sit amet
+## What is a grid?
 
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+A grid presents data in rows and columns. Each row represents one item, and each column shows one property of that item. Users can scan the data, compare items and, depending on the configuration, act on them.
 
-<div class=ds-do-dont>
-
-<div class="ds-success">
-
-![Alt text example](/assets/images/example-do.svg "do picture"){.ds-do-dont__picture}
-
-<div class="ds-success__content">
-
-### Do
-  
-Place text here
-
-</div>
-
-</div>
-
-<div class="ds-danger">
-
-![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
-
-<div class="ds-danger__content">
-
-### Don't
-      
-Place text here
-
-</div>
-
-</div>
-
-</div>
-</section>
-
-<section>
-
-## Key Points
-
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-  
-### Resources
-
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+This page covers the basics of the grid: its structure and how to display data. Features such as sorting, filtering, selection and grouping are documented separately.
 
 </section>
 
 <section>
 
-## Lorem ipsum dolor sit amet
-  
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+## Anatomy
+
+A basic grid is made of the following parts:
+
+1. **Header row**: contains the column headers, which describe the data in each column.
+2. **Column**: defines which property of the data is shown and how it is displayed.
+3. **Row**: shows one item of the data.
+4. **Cell**: shows the value of a single property for a single row.
+
+</section>
+
+<section>
+
+## Data
+
+The grid gets its data from a data source. There are two ways to provide data:
+
+- **`items`**: the simplest option. Set an array of objects and the grid wraps it in an in-memory data source for you. Use this when you have all the data available.
+- **`dataSource`**: provide your own data source when you need more control, for example `ArrayListDataSource` for data in memory, or `FetchListDataSource` to load data from a server in pages.
+
+The grid renders whatever the data source provides. When the data source changes, the grid updates its rows automatically.
+
+</section>
+
+<section>
+
+## Key points
+
+- Every column maps to a property of the data using its `path`. Nested properties are supported, for example `address.phone`.
+- The header text of a column is derived from its `path`, or can be set explicitly with the `header` property.
+- Use `striped` to make long rows easier to follow, or `no-border` and `no-row-border` for a lighter look.
+- Use `ellipsize-text` to keep rows on a single line when cell content is long.
 
 </section>
 
@@ -104,37 +80,19 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 ## Related
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+- Use the [paginator](/components/paginator/) to split large data sets over multiple pages.
 
 </section>
 
 <script>
-const grid = document.querySelector("#grid-example");
+const overviewGrid = document.querySelector("#grid-overview-example");
 
 requestAnimationFrame(() => {
-  grid.items = [
-  {
-    "firstName": "Aria",
-    "lastName": "Bailey",
-    "email": "aria.bailey@company.com",
-    "id": "0",
-    "profession": "Endocrinologist"
-  },
-  {
-    "firstName": "Aaliyah",
-    "lastName": "Butler",
-    "email": "aaliyah.butler@company.com",
-    "id": "1",
-    "profession": "Nephrologist"
-  },
-  {
-    "firstName": "Eleanor",
-    "lastName": "Price",
-    "email": "eleanor.price@company.com",
-    "id": "2",
-    "profession": "Ophthalmologist",
-  }
+  overviewGrid.items = [
+    { id: "0", firstName: "Aria", lastName: "Bailey", email: "aria.bailey@company.com", profession: "Endocrinologist" },
+    { id: "1", firstName: "Aaliyah", lastName: "Butler", email: "aaliyah.butler@company.com", profession: "Nephrologist" },
+    { id: "2", firstName: "Eleanor", lastName: "Price", email: "eleanor.price@company.com", profession: "Ophthalmologist" }
   ];
 });
 </script>
+

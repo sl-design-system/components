@@ -7,24 +7,23 @@ eleventyNavigation:
 ---
 <section>
 
-## Grid specs content
+## Anatomy
 
-This is the grid specs content
-
-</section>
-
-<section>
-
-## Lorem ipsum dolor sit amet
-
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+A basic grid consists of a header row with column headers, followed by one row per item. Each row contains one cell per column.
 
 </section>
 
 <section>
 
-## Lorem ipsum dolor sit amet
+## Options
 
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+| Option | Description |
+| ------ | ----------- |
+| Default | Rows are separated by a border. |
+| Striped | Alternating rows have a different background to make long rows easier to follow. |
+| No border | The outer border of the grid is removed. |
+| No row border | The borders between rows are removed. |
+| Ellipsize text | Cell content is kept on a single line and truncated with an ellipsis. |
 
 </section>
+

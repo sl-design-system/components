@@ -277,3 +277,23 @@ $transition-timing: 300ms;
   line-height: 1.6rem;
   padding: 0.1rem 0.4rem;
 }
+
+// Keeps the callout the same width as `ds-component-status` and the tab group
+.ds-component__callout {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-block-start: 2.4rem;
+}
+
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-component__callout {
+    column-gap: 7.2rem;
+    grid-template-columns: 6fr 1fr;
+  }
+}
+
+@media screen and (min-width: $xxl-breakpoint) {
+  .ds-component__callout {
+    grid-template-columns: 88rem 1fr;
+  }
+}

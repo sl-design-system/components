@@ -13,6 +13,7 @@
   gap: var(--_gap);
   inline-size: min(var(--_inline-size), 100vw - 2 * var(--_margin));
   inset: auto var(--_margin) var(--_margin) auto;
+  interpolate-size: allow-keywords;
   margin: 0;
   overflow: visible;
   padding: 0;
@@ -69,14 +70,24 @@
 }
 
 sl-notification {
+  --_easing: cubic-bezier(0.25, 0, 0.3, 1);
+
   @media (prefers-reduced-motion: no-preference) {
+    /* Let `display` (and the size) transition too, so collapsing the pile animates like expanding */
     transition:
-      opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1),
-      translate 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+      opacity 0.2s var(--_easing),
+      translate 0.2s var(--_easing),
+      block-size 0.2s var(--_easing),
+      padding-block 0.2s var(--_easing),
+      border-block-width 0.2s var(--_easing),
+      margin-block 0.2s var(--_easing),
+      display 0.2s allow-discrete;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: opacity 0.2s linear;
+    transition:
+      opacity 0.2s linear,
+      display 0.2s allow-discrete;
   }
 
   @starting-style {
@@ -85,8 +96,27 @@ sl-notification {
   }
 }
 
+/*
+ * Notifications behind the front one of a collapsed pile. They fold into the front card: fade out,
+ * slide towards it and shrink to nothing (cancelling the gap), before `display: none` kicks in.
+ */
 sl-notification[hidden] {
+  block-size: 0;
+  border-block-width: 0;
   display: none;
+  margin-block-end: calc(var(--_gap) * -1);
+  opacity: 0;
+  padding-block: 0;
+  translate: 0 var(--sl-size-200);
+
+  @media (prefers-reduced-motion: reduce) {
+    translate: none;
+  }
+}
+
+:host([position^='top']:not(:state(small))) sl-notification[hidden] {
+  margin-block: calc(var(--_gap) * -1) 0;
+  translate: 0 calc(var(--sl-size-200) * -1);
 }
 
 sl-notification.leaving {
@@ -105,6 +135,15 @@ sl-notification.leaving {
   display: flex;
   flex-direction: column;
   margin-block-end: calc(var(--_gap) * -1);
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Appear once the cards behind the front one have folded away */
+    transition: opacity 0.15s cubic-bezier(0.25, 0, 0.3, 1) 0.15s;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
 }
 
 :host([position^='top']:not(:state(small))) .edges {

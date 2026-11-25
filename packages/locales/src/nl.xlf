@@ -554,6 +554,70 @@
   <source>Select group</source>
   <target>Selecteer groep</target>
 </trans-unit>
+<trans-unit id="sl.notification.buttonLabelOverflow">
+  <source>Notifications, more than <x id="0" equiv-text="${max}"/> unread</source>
+  <target>Meldingen, meer dan <x id="0" equiv-text="${max}"/> ongelezen</target>
+</trans-unit>
+<trans-unit id="sl.notification.buttonLabel">
+  <source>Notifications, <x id="0" equiv-text="${this.count}"/> unread</source>
+  <target>Meldingen, <x id="0" equiv-text="${this.count}"/> ongelezen</target>
+</trans-unit>
+<trans-unit id="sl.notification.emptyTitle">
+  <source>You’re all caught up</source>
+  <target>Je bent helemaal bij</target>
+</trans-unit>
+<trans-unit id="sl.notification.emptyText">
+  <source>No unread notifications.</source>
+  <target>Geen ongelezen meldingen.</target>
+</trans-unit>
+<trans-unit id="sl.notification.earlier">
+  <source>Earlier</source>
+  <target>Eerder</target>
+</trans-unit>
+<trans-unit id="sl.notification.showEarlier">
+  <source>Show earlier notifications</source>
+  <target>Eerdere meldingen tonen</target>
+</trans-unit>
+<trans-unit id="sl.notification.end">
+  <source>No more notifications</source>
+  <target>Geen meldingen meer</target>
+</trans-unit>
+<trans-unit id="sl.notification.unread">
+  <source>Unread</source>
+  <target>Ongelezen</target>
+</trans-unit>
+<trans-unit id="sl.notification.hasAction">
+  <source>Has action</source>
+  <target>Heeft actie</target>
+</trans-unit>
+<trans-unit id="sl.notification.justNow">
+  <source>Just now</source>
+  <target>Zojuist</target>
+</trans-unit>
+<trans-unit id="sl.notification.title">
+  <source>Notifications</source>
+  <target>Meldingen</target>
+</trans-unit>
+<trans-unit id="sl.notification.markAllRead">
+  <source>Mark all as read</source>
+  <target>Alles als gelezen markeren</target>
+</trans-unit>
+<trans-unit id="sl.notification.close">
+  <source>Close notifications</source>
+  <target>Meldingen sluiten</target>
+</trans-unit>
+<trans-unit id="sl.notification.moreViewAll">
+  <source><x id="0" equiv-text="${hidden}"/> more · View all</source>
+  <target>Nog <x id="0" equiv-text="${hidden}"/> · Alles bekijken</target>
+</trans-unit>
+<trans-unit id="sl.notification.shortcutHint">
+  <source>Press <x id="0" equiv-text="${this.shortcut ?? 'F8'}"/> to go to notifications.</source>
+  <target>Druk op <x id="0" equiv-text="${this.shortcut ?? 'F8'}"/> om naar de meldingen te gaan.</target>
+</trans-unit>
+<trans-unit id="sl.notification.dismiss">
+  <source>Dismiss notification</source>
+  <target>Melding sluiten</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

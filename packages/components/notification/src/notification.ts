@@ -108,6 +108,12 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
   /** Whether the pointer is over the element. */
   #hovered = false;
 
+  /** Whether the notification has closed; its timer never runs again. */
+  #closed = false;
+
+  /** Whether the timer needs to start over from the full duration on the next update. */
+  #restart = false;
+
   /** The timeout id of the running timer. */
   #timer?: ReturnType<typeof setTimeout>;
 
@@ -223,7 +229,12 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
     this.removeEventListener('pointerenter', this.#onPointerEnter);
     this.removeEventListener('pointerleave', this.#onPointerLeave);
 
-    this.#stopTimer();
+    // The stack moves itself into modal dialogs and back; don't stop the timer for such a move
+    queueMicrotask(() => {
+      if (!this.isConnected) {
+        this.#stopTimer();
+      }
+    });
 
     super.disconnectedCallback();
   }
@@ -240,12 +251,26 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
     if (changes.has('label')) {
       this.elementInternals.ariaLabel = this.label ?? null;
     }
+
+    // Decide whether the timer runs before rendering, so the `running` state is part of this update
+    const running =
+      this.isConnected && !this.#closed && this.timeout > 0 && !this.paused && !this.suspended;
+
+    this.#restart ||= running && (!this.running || changes.has('duration') || changes.has('label'));
+    this.running = running;
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    this.#syncTimer(changes.has('duration') || changes.has('label'));
+    // Only (re)start or clear the actual timer here; the bar needs to be rendered first
+    if (this.running && this.#restart) {
+      this.#startTimer();
+    } else if (!this.running && this.#timer) {
+      this.#clearTimer();
+    }
+
+    this.#restart = false;
   }
 
   override render(): TemplateResult {
@@ -287,6 +312,7 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
    * the element is no longer needed.
    */
   close(reason: NotificationCloseReason = 'api'): void {
+    this.#closed = true;
     this.#stopTimer();
 
     this.notification?.dismiss(reason);
@@ -379,23 +405,11 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
     }
   }
 
-  /** Starts or stops the timer, depending on the state of the notification. */
-  #syncTimer(restart = false): void {
-    const shouldRun = this.isConnected && this.timeout > 0 && !this.paused && !this.suspended;
-
-    if (shouldRun && (!this.running || restart)) {
-      this.#startTimer();
-    } else if (!shouldRun && this.running) {
-      this.#stopTimer();
-    }
-  }
-
   #startTimer(): void {
-    this.#stopTimer();
+    this.#clearTimer();
 
     const timeout = this.timeout;
 
-    this.running = true;
     this.#timer = setTimeout(() => {
       this.#timer = undefined;
       this.close('timeout');
@@ -409,7 +423,14 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
     });
   }
 
+  /** Stops the timer outside of an update, for example when closing or disconnecting. */
   #stopTimer(): void {
+    this.#clearTimer();
+    this.running = false;
+  }
+
+  /** Clears the timeout and the animation of the bar, without touching any state. */
+  #clearTimer(): void {
     if (this.#timer) {
       clearTimeout(this.#timer);
       this.#timer = undefined;
@@ -417,6 +438,5 @@ export class NotificationElement extends ScopedElementsMixin(ElementInternalsMix
 
     this.#animation?.cancel();
     this.#animation = undefined;
-    this.running = false;
   }
 }

@@ -2,9 +2,11 @@ import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+import { defaultClientConditions } from 'vite';
 
 export default defineConfig({
   plugins: [importCssSheet()],
+  resolve: { conditions: [...defaultClientConditions, '@sl-design-system/source'] },
   test: {
     onConsoleLog: log => {
       return !(

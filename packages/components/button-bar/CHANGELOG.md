@@ -1,5 +1,66 @@
 # @sl-design-system/button-bar
 
+## 1.6.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button@2.3.1
+
+## 1.6.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Declare dependencies that were previously missing from `package.json`
+
+  These packages imported modules they never declared, relying on those packages happening to be present in the monorepo's hoisted `node_modules`. That works inside this repository, but it leaves consumers to install the transitive dependencies themselves, and it breaks under strict installers such as pnpm or Yarn PnP.
+
+  Newly declared runtime dependencies:
+
+  - `calendar`, `combobox`, `listbox`, `message-dialog`, `time-field` → `@sl-design-system/shared`
+  - `card` → `@sl-design-system/menu`, `@sl-design-system/toggle-button`
+  - `emoji` → `@sl-design-system/search-field`, `@sl-design-system/tabs`
+  - `form` → `@sl-design-system/icon`
+  - `paginator` → `@sl-design-system/data-source`, `@sl-design-system/listbox`
+  - `panel`, `toggle-button` → `@sl-design-system/button`
+  - `tree` → `@sl-design-system/menu`
+
+  Newly declared peer dependencies:
+
+  - `card`, `checkbox`, `editor`, `radio-group`, `toggle-group` → `@open-wc/scoped-elements`
+  - `text-area`, `time-field`, `tree` → `@lit/localize`
+  - `paginator` → `lit`
+
+  Existing dependency ranges were also brought up to date: `editor` on `@sl-design-system/form` and `@sl-design-system/shared`, `emoji` and `form` on `@sl-design-system/shared`, and `tree` on `@sl-design-system/skeleton`.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707)]:
+  - @sl-design-system/button@2.3.0
+
+## 1.5.1
+
+### Patch Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Fix not giving buttons enough time to set the icon-only state
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+
 ## 1.5.0
 
 ### Minor Changes
@@ -122,6 +183,7 @@
 ### Patch Changes
 
 - [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - - Make `icon-only` take nested slotted buttons into account
+
   - Add `--sl-button-bar-align` and `--sl-button-bar-direction` public CSS API
 
 - [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies

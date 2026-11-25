@@ -21,5 +21,8 @@ export function isDateInList(date: Date, list?: Date[] | string): boolean {
 }
 
 export function normalizeDateTime(date: Date): Date {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const normalized = new Date(date);
+  normalized.setHours(0, 0, 0, 0);
+
+  return normalized;
 }

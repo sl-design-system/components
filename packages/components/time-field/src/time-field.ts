@@ -817,7 +817,7 @@ export class TimeField extends FormControlMixin(
 
       // Restore focus after the popover closes (browser handles closing via native popover API)
       requestAnimationFrame(() => {
-        this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+        this.button?.focus();
       });
     } else if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();
@@ -1255,6 +1255,12 @@ export class TimeField extends FormControlMixin(
 
       if (hadValue) {
         this.changeEvent.emit(this.value ?? '');
+      }
+
+      // Mark dirty when the user has entered any partial time data, not only when a complete
+      // value existed before; this ensures validate-on-blur skips the error only when the user
+      // has truly not interacted with the field at all.
+      if (hadValue || hour !== undefined || minute !== undefined) {
         this.updateState({ dirty: true });
       }
 

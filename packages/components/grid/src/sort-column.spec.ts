@@ -38,10 +38,11 @@ describe('sl-sort-column', () => {
       expect(headerRowCount).to.deep.equal([1, 1, 1]);
     });
 
-    it('should set the role of the th elements to "columnheader"', () => {
+    it('should render native column headers with scope', () => {
       const ths = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(ths.every(th => th.role === 'columnheader')).to.be.true;
+      expect(ths.every(th => th.tagName === 'TH')).to.be.true;
+      expect(ths.every(th => th.getAttribute('scope') === 'col')).to.be.true;
     });
 
     it('should not have aria-sort set on the th elements', () => {
@@ -164,6 +165,26 @@ describe('sl-sort-column', () => {
 
       expect(column.scopedElements).to.have.property('sl-grid-sorter', GridSorter);
       expect(column.scopedElements).to.have.property('sl-other-element');
+    });
+  });
+
+  describe('custom header renderer', () => {
+    it('should render the result of the header renderer', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            .header=${(column: GridSortColumn) => html`
+              <span data-testid="custom-header">${column.path}</span>
+            `}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter');
+
+      expect(sorter?.querySelector('[data-testid="custom-header"]')).to.have.text('firstName');
     });
   });
 });

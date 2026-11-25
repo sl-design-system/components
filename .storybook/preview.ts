@@ -5,7 +5,7 @@ import '@sl-design-system/announcer/register.js';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-import { type Mode, themes, updateTheme } from './themes.js';
+import { themes, updateTheme } from './themes.js';
 
 // Load the CSS Anchor Positioning polyfill if needed
 if (!('anchorName' in document.documentElement.style)) {
@@ -120,11 +120,44 @@ const preview: Preview = {
       }
 
       return story();
+    },
+    (story, { globals: { userGroup = 'superuser' } }) => {
+      document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
+
+      return story();
+    },
+    (story, { globals: { mode = 'light' } }) => {
+      // If you remove this it takes the user preference from the system.
+      document.documentElement.style.setProperty('--color-scheme', mode);
+
+      return story();
+    },
+    (story, { globals }) => {
+      const { theme = 'sanoma-learning', subtheme } = globals as {
+          theme?: string;
+          subtheme?: string;
+        },
+        body = document.body;
+
+      body
+        .getAttributeNames()
+        .filter(name => name.endsWith('-subthemes'))
+        .forEach(name => body.removeAttribute(name));
+
+      if (subtheme && themes.find(({ id }) => id === theme)?.subthemes?.includes(subtheme)) {
+        body.setAttribute(`data-${theme}-subthemes`, subtheme);
+      }
+
+      return story();
+    },
+    (story, { globals: { viewport } }) => {
+      document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
+      return story();
     }
   ],
   loaders: [
-    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      await updateTheme(theme, mode as Mode);
+    async ({ globals: { theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme);
     }
   ],
   globalTypes: {
@@ -135,6 +168,20 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'paintbrush',
         items: themes.map(({ id, name }) => ({ value: id, title: name }))
+      }
+    },
+    userGroup: {
+      name: 'Target Group',
+      defaultValue: 'superuser',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'users',
+        items: [
+          { value: 'early', title: 'Early (Draft)' },
+          { value: 'developing', title: 'Developing (Draft)' },
+          { value: 'advanced', title: 'Advanced (Draft)' },
+          { value: 'superuser', title: 'Superuser' }
+        ]
       }
     },
     mode: {
@@ -149,6 +196,17 @@ const preview: Preview = {
           { value: 'dark', icon: 'moon', title: 'Dark mode' }
         ]
       }
+    },
+    // No toolbar here: the subtheme selector is rendered by manager.ts, only for themes with subthemes
+    subtheme: {
+      name: 'Subtheme',
+      description: 'Subtheme of the current theme',
+      // Read by manager.ts, so the manager doesn't have to import (and bundle) themes.ts
+      subthemes: Object.fromEntries(
+        themes
+          .filter(({ subthemes }) => subthemes?.length)
+          .map(({ id, subthemes }) => [id, subthemes])
+      )
     },
     locale: {
       name: 'Locale',

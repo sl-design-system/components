@@ -52,7 +52,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-form>
+      <sl-form announce-errors="false">
         <sl-form-field label="First name">
           <sl-text-field name="firstName" required></sl-text-field>
         </sl-form-field>

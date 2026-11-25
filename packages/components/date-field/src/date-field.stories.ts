@@ -26,6 +26,7 @@ type Props = Pick<
   | 'size'
   | 'value'
 > & {
+  description?: string | TemplateResult;
   hint?: string | TemplateResult;
   label?: string;
   reportValidity?: boolean;
@@ -48,6 +49,9 @@ export default {
     width: 'fit-content'
   },
   argTypes: {
+    description: {
+      table: { disable: true }
+    },
     hint: {
       table: { disable: true }
     },
@@ -79,6 +83,7 @@ export default {
     }
   },
   render: ({
+    description,
     disabled,
     hint,
     label,
@@ -104,6 +109,7 @@ export default {
     };
 
     return html`
+      ${description ? html`<p>${description}</p>` : nothing}
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
@@ -163,6 +169,12 @@ export const ExplicitWidth: Story = {
 
 export const ExtraControls: Story = {
   args: {
+    description: html`
+      This example shows extra controls rendered below the calendar when
+      <code>require-confirmation</code> is enabled. The <code>Today</code> button selects today in
+      the calendar, the <code>Clear</code> button clears the selection, and the separate Confirm
+      button applies the chosen date to the field.
+    `,
     requireConfirmation: true,
     slot: () => {
       const onClear = (): void => {
@@ -182,9 +194,33 @@ export const ExtraControls: Story = {
       };
 
       return html`
-        <sl-button @click=${onToday} fill="link">Today</sl-button>
-        <sl-button @click=${onClear} fill="link">Clear</sl-button>
+        <sl-button @click=${onToday} fill="link" variant="primary">Today</sl-button>
+        <sl-button @click=${onClear} fill="link" variant="primary">Clear</sl-button>
       `;
+    }
+  }
+};
+
+export const HidePicker: Story = {
+  args: {
+    description: html`
+      This example shows how a custom action can use the <code>hide-picker</code> attribute to run
+      its click handler and then automatically close the calendar popup. The
+      <code>hide-picker</code> attribute only closes the popup, it does not set a value by itself.
+      In this example, the click handler sets the date field value to today before the picker is
+      closed.
+    `,
+    requireConfirmation: false,
+    slot: () => {
+      const onToday = (event: Event & { target: HTMLElement }): void => {
+        const dateField = event.target.closest<DateField>('sl-date-field');
+
+        if (dateField) {
+          dateField.value = new Date();
+        }
+      };
+
+      return html`<sl-button @click=${onToday} fill="link" hide-picker>Today</sl-button>`;
     }
   }
 };
@@ -222,18 +258,40 @@ export const Required: Story = {
   }
 };
 
+export const ValidateOnBlur: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Enter a date and clear it, then leave the
+        field to see the required validation on blur.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field hint="Required field" label="Date">
+          <sl-date-field required></sl-date-field>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const SelectOnly: Story = {
   args: {
     selectOnly: true,
     slot: () => {
-      const onClear = (): void => {
-        const dateField = document.querySelector('sl-date-field')!;
+      const onClear = (event: Event & { target: HTMLElement }): void => {
+        const dateField = event.target.closest<DateField>('sl-date-field')!;
 
         dateField.value = undefined;
-        dateField.hidePicker();
       };
 
-      return html`<sl-button @click=${onClear} fill="link">Clear date</sl-button>`;
+      return html`<sl-button @click=${onClear} fill="link" hide-picker>Clear date</sl-button>`;
     }
   }
 };

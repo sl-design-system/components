@@ -51,7 +51,7 @@ jobs:
         with:
           autoAcceptChanges: main
           exitOnceUploaded: true
-          onlyChanged: true
+          onlyChanged: false
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           storybookBaseDir: chromatic
           storybookBuildDir: chromatic/storybook-static

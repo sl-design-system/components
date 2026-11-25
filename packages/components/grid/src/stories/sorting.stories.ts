@@ -1,6 +1,7 @@
 import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
+import { Infotip } from '@sl-design-system/infotip';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
@@ -40,6 +41,31 @@ export const Basic: Story = {
       </sl-grid>
     `;
   }
+};
+
+export const CustomHeader: Story = {
+  render: (_, { loaded: { students } }) => html`
+    <p>
+      This example shows how to customize a sortable column header by setting the
+      <code>header</code> property of <code>sl-grid-sort-column</code> to a renderer function. If
+      you use custom elements in the header, add them to the column's
+      <code>scopedElements</code> property.
+    </p>
+    <sl-grid .items=${students}>
+      <sl-grid-sort-column
+        path="firstName"
+        .header=${() => html`
+          <span>First name</span>
+          <sl-infotip describes="First name" size="sm">
+            Sort students by their first name
+          </sl-infotip>
+        `}
+        .scopedElements=${{ 'sl-infotip': Infotip }}>
+      </sl-grid-sort-column>
+      <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+      <sl-grid-column path="email"></sl-grid-column>
+    </sl-grid>
+  `
 };
 
 export const DataSource: Story = {

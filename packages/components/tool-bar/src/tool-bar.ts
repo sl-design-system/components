@@ -81,8 +81,29 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
   /** Timeout for debouncing forceRecalculation calls. */
   #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
 
+  /** Animation frame for batching item resize recalculations. */
+  #itemResizeFrame?: ReturnType<typeof requestAnimationFrame>;
+
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.refresh());
+
+  /** Observe size changes of slotted items, such as font or theme changes. */
+  #itemResizeObserver = new ResizeObserver(() => {
+    if (this.#itemResizeFrame) {
+      return;
+    }
+
+    this.#itemResizeFrame = requestAnimationFrame(() => {
+      this.#itemResizeFrame = undefined;
+
+      if (!this.wrapper || !this.isConnected) {
+        return;
+      }
+
+      this.#needsMeasurement = true;
+      this.#onResize();
+    });
+  });
 
   /**
    * Whether the toolbar is wider than its parent and needs CSS containment to measure available
@@ -98,6 +119,9 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
 
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
+
+  /** Whether the current resize pass is retrying with fresh item measurements. */
+  #remeasuringAfterOverflow = false;
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
@@ -194,15 +218,23 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
       attributes: true,
       attributeFilter: ['aria-disabled', 'disabled']
     });
+
+    this.#observeItems();
   }
 
   override disconnectedCallback(): void {
     this.#mutationObserver.disconnect();
+    this.#itemResizeObserver.disconnect();
     this.#resizeObserver.disconnect();
 
     if (this.#forceRecalculationTimeout) {
       clearTimeout(this.#forceRecalculationTimeout);
       this.#forceRecalculationTimeout = undefined;
+    }
+
+    if (this.#itemResizeFrame) {
+      cancelAnimationFrame(this.#itemResizeFrame);
+      this.#itemResizeFrame = undefined;
     }
 
     // Reset measurements to ensure clean state on reconnect
@@ -337,6 +369,7 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
     }
 
     this.items = mapElementsToItems(elements);
+    this.#observeItems();
     this.#needsMeasurement = true;
     this.#fitContent = false;
     this.#lastHostWidth = 0;
@@ -439,6 +472,15 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
 
     applyVisibility(this.items);
     this.menuItems = hiddenItems;
+
+    if (hasWrapperOverflow(this.wrapper) && !this.#remeasuringAfterOverflow) {
+      this.#remeasuringAfterOverflow = true;
+      this.#needsMeasurement = true;
+      this.#onResize();
+      return;
+    }
+
+    this.#remeasuringAfterOverflow = false;
 
     if (this.menuItems.length > 0 && this.parentElement) {
       this.#resizeObserver.observe(this.parentElement);
@@ -562,5 +604,11 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
 
     // If measurements failed, we need to try again later when the items are visible
     this.#needsMeasurement = !widths;
+  }
+
+  #observeItems(): void {
+    this.#itemResizeObserver.disconnect();
+
+    this.items.forEach(item => this.#itemResizeObserver.observe(item.element));
   }
 }

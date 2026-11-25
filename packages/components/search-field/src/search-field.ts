@@ -77,12 +77,12 @@ export class SearchField extends TextField {
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {
-    return this.value && !this.disabled
+    return this.value && !this.disabled && !this.readonly
       ? html`
           <button
             @click=${this.#onClick}
-            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}
-            tabindex="-1">
+            @keydown=${this.#onClearButtonKeydown}
+            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}>
             <sl-icon name="circle-xmark"></sl-icon>
             <sl-icon name="circle-xmark-solid"></sl-icon>
           </button>
@@ -99,8 +99,24 @@ export class SearchField extends TextField {
   }
 
   #onClick(): void {
-    this.clear();
-    this.input.focus();
+    this.#clearAndFocusInput();
+  }
+
+  #onClearButtonKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.#clearAndFocusInput();
+
+      return;
+    }
+
+    if (event.key !== 'Enter') {
+      return;
+    }
+
+    event.stopPropagation();
   }
 
   #onInput(): void {
@@ -123,6 +139,11 @@ export class SearchField extends TextField {
 
       this.clear();
     }
+  }
+
+  #clearAndFocusInput(): void {
+    this.clear();
+    this.input.focus();
   }
 
   #startDebounceTimer(): void {

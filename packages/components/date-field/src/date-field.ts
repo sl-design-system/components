@@ -3,6 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { Announcer } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
@@ -10,7 +11,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { isSameDate } from '@sl-design-system/shared/date.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
@@ -56,6 +57,9 @@ type DatePartType = 'day' | 'month' | 'year';
  * A form component that allows the user to pick a date from a calendar. Uses individual spinbutton
  * inputs per date part for improved accessibility.
  *
+ * @slot - Optional action controls rendered below the calendar. Add `hide-picker` to a control to
+ *   close the picker automatically after it is clicked.
+ * @slot calendar - Optional custom calendar content.
  * @cssState has-focus - Set when the date field has focus.
  * @cssState has-value - Set when the date field has a value.
  * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.
@@ -70,6 +74,7 @@ export class DateField extends LocaleMixin(
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
+      'sl-announcer': Announcer,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-calendar': Calendar,
@@ -86,6 +91,9 @@ export class DateField extends LocaleMixin(
   #events = new EventsController(this, {
     click: this.#onClick
   });
+
+  /** Tracks calendar view transitions while the dialog is open. */
+  #calendarView: 'day' | 'month' | 'year' = 'day';
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
@@ -222,7 +230,9 @@ export class DateField extends LocaleMixin(
 
   /**
    * When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to
-   * confirm their date selection.
+   * confirm their date selection before it is applied. Custom action controls can still close the
+   * picker with `hide-picker`. If such an action should also commit a value without using
+   * "Confirm", its click handler needs to set the value itself.
    */
   @property({ type: Boolean, attribute: 'require-confirmation' }) requireConfirmation?: boolean;
 
@@ -432,6 +442,7 @@ export class DateField extends LocaleMixin(
         @keydown=${this.#onKeydown}
         aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
         id="dialog">
+        <sl-announcer></sl-announcer>
         ${
           this.calendarVisible
             ? html`
@@ -452,7 +463,7 @@ export class DateField extends LocaleMixin(
                 ${
                   hasExtraControls
                     ? html`
-                        <sl-button-bar>
+                        <sl-button-bar @click=${this.#onActionClick}>
                           <slot></slot>
                           ${
                             this.requireConfirmation
@@ -531,21 +542,24 @@ export class DateField extends LocaleMixin(
   /** @internal */
   override updateInternalValidity(): void {
     const { day, month, year } = this.dateParts,
-      hasCompleteDate = day !== undefined && month !== undefined && year !== undefined;
+      hasCompleteDate = day !== undefined && month !== undefined && year !== undefined,
+      min = this.min ? normalizeDateTime(this.min) : undefined,
+      max = this.max ? normalizeDateTime(this.max) : undefined,
+      value = this.value ? normalizeDateTime(this.value) : undefined;
 
-    if (hasCompleteDate && !this.value) {
+    if (hasCompleteDate && !value) {
       const date = new Date(year, month - 1, day);
 
-      if (this.min && date < this.min) {
-        const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+      if (min && date < min) {
+        const formattedMin = this.#formatter?.format(min) ?? min.toLocaleDateString();
 
         this.setCustomValidity(
           msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
             id: 'sl.dateField.rangeUnderflow'
           })
         );
-      } else if (this.max && date > this.max) {
-        const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+      } else if (max && date > max) {
+        const formattedMax = this.#formatter?.format(max) ?? max.toLocaleDateString();
 
         this.setCustomValidity(
           msg(str`Please select a date that is no later than ${formattedMax}.`, {
@@ -557,18 +571,18 @@ export class DateField extends LocaleMixin(
           msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' })
         );
       }
-    } else if (this.required && !this.value) {
+    } else if (this.required && !value) {
       this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
-    } else if (this.value && this.min && this.value < this.min) {
-      const formattedMin = this.#formatter?.format(this.min) ?? this.min.toLocaleDateString();
+    } else if (value && min && value < min) {
+      const formattedMin = this.#formatter?.format(min) ?? min.toLocaleDateString();
 
       this.setCustomValidity(
         msg(str`Please select a date that is no earlier than ${formattedMin}.`, {
           id: 'sl.dateField.rangeUnderflow'
         })
       );
-    } else if (this.value && this.max && this.value > this.max) {
-      const formattedMax = this.#formatter?.format(this.max) ?? this.max.toLocaleDateString();
+    } else if (value && max && value > max) {
+      const formattedMax = this.#formatter?.format(max) ?? max.toLocaleDateString();
 
       this.setCustomValidity(
         msg(str`Please select a date that is no later than ${formattedMax}.`, {
@@ -627,6 +641,8 @@ export class DateField extends LocaleMixin(
         this.requestUpdate();
       }
 
+      this.#calendarView = this.#getCalendarView();
+
       requestAnimationFrame(() => {
         if (this.dialog?.open) {
           this.calendar?.focus();
@@ -645,11 +661,11 @@ export class DateField extends LocaleMixin(
     }
   }
 
-  #onChange(event: SlChangeEvent<Date>): void {
+  #onChange(event: SlChangeEvent<Date | Date[]>): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.requireConfirmation) {
+    if (this.requireConfirmation || Array.isArray(event.detail)) {
       return;
     }
 
@@ -664,7 +680,27 @@ export class DateField extends LocaleMixin(
     }
   }
 
+  #onActionClick(event: Event): void {
+    const action = event
+      .composedPath()
+      .find(
+        (target): target is HTMLElement =>
+          target instanceof HTMLElement &&
+          this.contains(target) &&
+          target.slot !== 'calendar' &&
+          target.hasAttribute('hide-picker')
+      );
+
+    if (action) {
+      this.hidePicker();
+    }
+  }
+
   #onConfirm(): void {
+    if (this.calendar?.mode === 'range') {
+      return;
+    }
+
     const selected = this.calendar?.selected;
 
     if (this.value !== selected && !isSameDate(this.value, selected)) {
@@ -942,6 +978,8 @@ export class DateField extends LocaleMixin(
   }
 
   #onClose(): void {
+    this.#calendarView = 'day';
+
     // Wait until all dialog animations have resolved before hiding the calendar
     // to prevent it being removed from the DOM too early.
     void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
@@ -953,7 +991,13 @@ export class DateField extends LocaleMixin(
 
   /** Handles clicks on the dialog backdrop to implement light dismiss. */
   #onDialogClick(event: MouseEvent): void {
-    if (!this.dialog || event.target !== this.dialog) {
+    if (!this.dialog) {
+      return;
+    }
+
+    void this.#syncCalendarFocusAfterModeSwitch();
+
+    if (event.target !== this.dialog) {
       return;
     }
 
@@ -1034,6 +1078,59 @@ export class DateField extends LocaleMixin(
         this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
+  }
+
+  #focusFirstSelectableDayOfDisplayedMonth(): void {
+    type RenderRootElement = HTMLElement & { renderRoot: ShadowRoot };
+
+    const calendar = this.calendar,
+      selectDay = calendar?.renderRoot.querySelector<RenderRootElement>('sl-select-day'),
+      monthView = selectDay?.renderRoot.querySelector<RenderRootElement>(
+        'sl-month-view:not([inert])'
+      );
+
+    if (!calendar?.month || !monthView?.shadowRoot) {
+      return;
+    }
+
+    const displayMonth = calendar.month,
+      buttons = Array.from(
+        monthView.shadowRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button')
+      ),
+      selectableDays = buttons
+        .filter(button => !button.disabled)
+        .map(button => {
+          const cell = button.closest<HTMLElement>('td[data-date]'),
+            date = cell?.dataset.date ? new Date(cell.dataset.date) : undefined;
+
+          return { button, date };
+        })
+        .filter(
+          (candidate): candidate is { button: HTMLButtonElement; date: Date } =>
+            !!candidate.date &&
+            candidate.date.getMonth() === displayMonth.getMonth() &&
+            candidate.date.getFullYear() === displayMonth.getFullYear()
+        );
+
+    if (selectableDays.length === 0) {
+      return;
+    }
+
+    const selected = calendar.selected,
+      selectedDay = selected
+        ? selectableDays.find(candidate => isSameDate(candidate.date, selected))
+        : undefined,
+      firstDay =
+        selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0],
+      focusTarget = selectedDay ?? firstDay;
+
+    focusTarget.button.focus();
+  }
+
+  #getCalendarView(): 'day' | 'month' | 'year' {
+    const view = (this.calendar as Calendar | undefined)?.view;
+
+    return view === 'month' || view === 'year' ? view : 'day';
   }
 
   /** Returns the formatted date string for the select-all input. */
@@ -1128,23 +1225,53 @@ export class DateField extends LocaleMixin(
     });
   }
 
+  async #syncCalendarFocusAfterModeSwitch(): Promise<void> {
+    if (!this.dialog?.open || !this.calendar) {
+      return;
+    }
+
+    await this.calendar.updateComplete;
+
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    const view = this.#getCalendarView(),
+      shouldRestoreDayFocus = this.#calendarView !== 'day' && view === 'day';
+
+    this.#calendarView = view;
+
+    if (!shouldRestoreDayFocus) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      this.#focusFirstSelectableDayOfDisplayedMonth();
+    });
+  }
+
   /** Tries to set the value if all date parts are defined, or clears it. */
   #trySetValue(): void {
     const { day, month, year } = this.dateParts,
       hadValue = this.value !== undefined;
 
     if (day !== undefined && month !== undefined && year !== undefined) {
-      const date = new Date(year, month - 1, day);
+      const date = new Date(year, month - 1, day),
+        min = this.min ? normalizeDateTime(this.min) : undefined,
+        max = this.max ? normalizeDateTime(this.max) : undefined;
 
       if (date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year) {
-        if ((this.min && date < this.min) || (this.max && date > this.max)) {
+        if ((min && date < min) || (max && date > max)) {
           this.#preserveDateParts = true;
           this.value = undefined;
 
           if (hadValue) {
             this.changeEvent.emit(this.value);
-            this.updateState({ dirty: true });
           }
+
+          // The user entered a complete date value, so this is an interaction that should
+          // mark the field dirty even when no previous valid value existed.
+          this.updateState({ dirty: true });
 
           this.updateValidity();
         } else {
@@ -1159,8 +1286,11 @@ export class DateField extends LocaleMixin(
 
         if (hadValue) {
           this.changeEvent.emit(this.value);
-          this.updateState({ dirty: true });
         }
+
+        // The user completed all date parts, but the resulting date is impossible.
+        // Treat this as user interaction and mark the field dirty.
+        this.updateState({ dirty: true });
 
         this.updateValidity();
       }
@@ -1170,6 +1300,12 @@ export class DateField extends LocaleMixin(
 
       if (hadValue) {
         this.changeEvent.emit(this.value);
+      }
+
+      // Mark dirty when the user has entered any partial date data, not only when a complete
+      // value existed before; this ensures validate-on-blur skips the error only when the user
+      // has truly not interacted with the field at all.
+      if (hadValue || day !== undefined || month !== undefined || year !== undefined) {
         this.updateState({ dirty: true });
       }
 

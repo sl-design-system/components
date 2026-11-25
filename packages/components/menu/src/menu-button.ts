@@ -86,6 +86,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   /** @internal Emits when the menu opens or closes. The event detail is `true` when open and `false` when closed. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
   /**
    * Whether the button is disabled; when set no interaction is possible.
    *
@@ -251,8 +252,9 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   #onMenuClick(event: Event): void {
     const menuItem = event.composedPath().find(el => el instanceof MenuItem);
 
-    // Only hide the menu if the user clicked on a menu item
-    if (menuItem) {
+    // Selectable menu items toggle their own state instead of triggering an action,
+    // so clicking them should not close the menu.
+    if (menuItem && !menuItem.selectable) {
       const focusVisible = menuItem.matches(':focus-visible');
 
       // Pass the source, so we know if we need to focus the button in #onToggle

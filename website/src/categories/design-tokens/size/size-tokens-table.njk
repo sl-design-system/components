@@ -3,23 +3,20 @@
 <table class="ds-table"><thead>
 <tr>
   <th>Value</th>
-  <th>Token title</th>
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for property in tokens.core.size -%}{% if property[1]['$value']%}{% if property[1]['$description'] %}
+{% for property in tokens.size -%}
 <tr>
   <td>
-    {{property[0]}}
     <div class="ds-tokens__size-example">
-      <div class="ds-tokens__size" style="width: {{ property[1]['$value'] }}px; height: {{ property[1]['$value'] }}px;"></div>
-      <code>{{ property[1]['$value'] }}{% if property[1]['$value'] != 0 %}px{% endif %}</code>
+      <div class="ds-tokens__size" style="width: {{ property.value }}; height: {{ property.value }};"></div>
+      <code>{{ property.value }}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ property[1]['$description'] | tokenDescription }}</td>
-  <td><code>{{ property[1]['$description'] | tokenName }}</code></td>
+  <td><code>{{ property.token }}</code></td>
 </tr>
-{% endif %}{% endif %}{% endfor -%}
+{% endfor -%}
 </tbody>
 </table>
 </section>

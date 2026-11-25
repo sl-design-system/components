@@ -166,6 +166,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    */
   #sort?: DataSourceSort<T>;
 
+  /**
+   * All filtered items before pagination or collapsing groups, when available synchronously. Remote
+   * data sources can leave this undefined to avoid fetching unloaded items.
+   */
+  get filteredItems(): U[] | undefined {
+    return undefined;
+  }
+
   get filters() {
     return this.#filters;
   }
@@ -322,6 +330,22 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#sort = undefined;
   }
 
+  /** The known unfiltered total used to detect when select-all has been fully deselected. */
+  protected get selectionSize(): number | undefined {
+    return this.totalSize;
+  }
+
+  /**
+   * Returns whether all members in the provided group are selected.
+   *
+   * Subclasses can override this to evaluate unfiltered group membership.
+   */
+  protected areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
+    // Members that are not loaded yet (e.g. pages that are not fetched yet) are not selected, so
+    // the group is never inferred to be fully selected while some of its members are missing
+    return !group.members?.length || group.members.every(member => this.isSelected(member));
+  }
+
   /**
    * Selects the item. Whether it is added to the selection or replaces any previously selected item
    * is based on the `selects` value.
@@ -338,23 +362,38 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
         this.#selection.delete(item.id);
       }
     } else {
-      if (this.#selects === 'single') {
+      // Marking a group only reconciles its marker, it must not clear the selected row
+      if (this.#selects === 'single' && (update || item.type !== 'group')) {
         this.#selection.clear();
       }
 
       if (item.type === 'group') {
-        this.#groupSelection.add(item.id);
+        if (!update) {
+          this.#groupSelection.add(item.id);
+        }
       } else {
         this.#selection.add(item.id);
       }
     }
 
     if (update) {
-      if (isListDataSourceGroupItem(item)) {
-        item.members?.forEach(member => this.select(member, false));
+      if (isListDataSourceGroupItem<T>(item)) {
+        item.members?.forEach(member => member && this.select(member, false));
+
+        // With multiple selection, explicitly selecting a group selects the group, even if not all
+        // members are loaded yet. With single selection only one member can be selected.
+        if (
+          (this.#selects === 'multiple' && item.members?.some(member => !member)) ||
+          this.areAllGroupMembersSelected(item)
+        ) {
+          this.select(item, false);
+        } else {
+          this.deselect(item, false);
+        }
       } else if (
-        isListDataSourceDataItem(item) &&
-        item.group?.members?.every(member => this.isSelected(member))
+        isListDataSourceDataItem<T>(item) &&
+        !!item.group &&
+        this.areAllGroupMembersSelected(item.group)
       ) {
         this.select(item.group, false);
       }
@@ -379,7 +418,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
 
       // If all items have been manually deselected, turn off select all mode
-      if (this.#selection.size === this.size) {
+      if (this.#selection.size === this.selectionSize) {
         this.deselectAll(false);
       }
     } else {
@@ -391,10 +430,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     }
 
     if (update) {
-      if (isListDataSourceGroupItem(item)) {
-        item.members?.forEach(member => this.deselect(member, false));
+      if (isListDataSourceGroupItem<T>(item)) {
+        item.members?.forEach(member => member && this.deselect(member, false));
       } else if (
-        isListDataSourceDataItem(item) &&
+        isListDataSourceDataItem<T>(item) &&
         item.group?.members?.some(member => !this.isSelected(member))
       ) {
         this.deselect(item.group, false);
@@ -419,13 +458,46 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       this.deselect(item, update);
     }
 
-    if (isListDataSourceGroupItem(item)) {
-      item.members?.forEach(member => this.toggle(member, force, false));
+    if (isListDataSourceGroupItem<T>(item)) {
+      item.members?.forEach(member => member && this.toggle(member, force, false));
     }
 
     if (update) {
       this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
+  }
+
+  /** Sets selection for a batch of data items and emits a single selection event. */
+  toggleItems(items: Array<ListDataSourceDataItem<T>>, force: boolean): void {
+    if (this.#selects === undefined) {
+      return;
+    }
+
+    const groups = new Set<ListDataSourceGroupItem<T>>();
+
+    if (this.#selects === 'single' && force && items.length > 0) {
+      this.#groupSelection.clear();
+    }
+
+    items.forEach(item => {
+      this.toggle(item, force, false);
+
+      if (item.group) {
+        groups.add(item.group);
+      }
+    });
+
+    // Reconcile markers after the batch against the entire group, including hidden members.
+    groups.forEach(group => {
+      // In select-all mode, group markers represent deselections.
+      if (this.areAllGroupMembersSelected(group) !== !!this.#selectAll) {
+        this.#groupSelection.add(group.id);
+      } else {
+        this.#groupSelection.delete(group.id);
+      }
+    });
+
+    this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
 
   /**

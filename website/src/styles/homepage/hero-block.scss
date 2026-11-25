@@ -17,6 +17,12 @@
     margin-bottom: 0.8rem;
   }
 
+  .header-anchor:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--sl-color-border-inverted);
+    outline-offset: 2px;
+  }
+
   p {
     font-size: 20px;
     font-weight: 400;

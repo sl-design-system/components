@@ -3,13 +3,7 @@
   "arrowParens": "avoid",
   "bracketSameLine": true,
   "htmlWhitespaceSensitivity": "css",
-  "ignorePatterns": [
-    "*dist",
-    "*generated",
-    "packages/components/shared/src/vendor",
-    "packages/tokens/src/tokens",
-    "website"
-  ],
+  "ignorePatterns": ["*dist", "*generated", "packages/components/shared/src/vendor", "website"],
   "insertFinalNewline": true,
   "jsdoc": true,
   "printWidth": 100,

@@ -1,5 +1,78 @@
 # @sl-design-system/locales
 
+## 0.5.1
+
+### Patch Changes
+
+- [#3796](https://github.com/sl-design-system/components/pull/3796) [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03) - Improve calendar layout, date range selection, and keyboard navigation.
+
+  Layout and styling
+
+  - Keep the header and navigation controls aligned across views and stable as localized labels, fonts, and date constraints change.
+  - Align the weekday headers, day cells, and week numbers. Keep six week rows and end the week number separator at the last visible week.
+  - Use a 24px gap between months and align the second month heading with its grid. Adjust the date field picker padding to match the calendar.
+  - Align range backgrounds with day tiles and blend the hover state into the range preview.
+  - Use equal-width highlights with a 40px height inside 48px month and year tiles. Truncate long month labels when space is limited.
+
+  Selection and navigation
+
+  - Show two years of months and 20 years in the expanded view. Adjust paging, keyboard navigation, and accessible navigation labels to match.
+  - Preserve the browsed month or year and keyboard focus when resizing. Keep selectable dates visible when the previous view overlaps the minimum date.
+  - Highlight months and years that overlap the selected range and expose their pressed states. Keep full accessible names for truncated month labels.
+
+- [#3830](https://github.com/sl-design-system/components/pull/3830) [`356d520`](https://github.com/sl-design-system/components/commit/356d5207031d9b7bc6477527522e7bd57811b8f2) - Add translations for the "Select group" label of the group checkbox in the grid (`sl.grid.selectGroupLabel`) and remove the unused `sl.grid.selectGroup` and `sl.grid.selectGroupWithName` translations.
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Add Dutch, Italian, Polish and Spanish translations for calendar date range announcements and boundary descriptions.
+
+## 0.5.0
+
+### Minor Changes
+
+- [#3756](https://github.com/sl-design-system/components/pull/3756) [`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a) - New Dutch, Italian, Spanish and Polish translations for `sl-toggle-group`:
+
+  - `sl.toggleGroup.selectOne`,
+  - `sl.toggleGroup.selectOneOrMore`.
+
+## 0.4.2
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+## 0.4.1
+
+### Patch Changes
+
+- [#3650](https://github.com/sl-design-system/components/pull/3650) [`9d4d49b`](https://github.com/sl-design-system/components/commit/9d4d49be891a01f1c36895fe816ae451689dfc33) - Fixed the mobile paginator select accessible label so it no longer includes the zero-based internal page index.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+## 0.4.0
+
+### Minor Changes
+
+- [#3526](https://github.com/sl-design-system/components/pull/3526) [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92) - New translations for `sl-text-area`:
+
+  - `sl.textArea.charCountTooMany_one`,
+  - `sl.textArea.charCountTooMany_few`,
+  - `sl.textArea.charCountTooMany_other`,
+  - `sl.textArea.charCountRemaining_one`,
+  - `sl.textArea.charCountRemaining_few`,
+  - `sl.textArea.charCountRemaining_other`,
+  - `sl.textArea.validation.tooLong_one`,
+  - `sl.textArea.validation.tooLong_few`,
+  - `sl.textArea.validation.tooLong_other`
+
+  in Dutch, Italian, Spanish and Polish.
+
+- [#3544](https://github.com/sl-design-system/components/pull/3544) [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c) - New translations for `sl.paginator.itemsPerPageAriaLabel` and `sl.grid.selectGroup` in Dutch, Italian, Spanish and Polish.
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Add translations for `sl.grid.selectGroupWithName` in Dutch, Italian, Polish and Spanish.
+
 ## 0.3.2
 
 ### Patch Changes

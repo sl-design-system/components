@@ -1,24 +1,24 @@
 <section class="ds-tokens">
 <h2 class="ds-tokens__heading">Color</h2>
-{% for palette in tokens.base.color.palette -%}
+{% for palette in tokens.palette -%}
 <h3 class="ds-tokens__heading">{{ palette[0] }}</h3>
 <table class="ds-table"><thead>
 <tr>
   <th>Example</th>
-  <th>Token title</th>
+  <th>Step</th>
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for color in palette[1] -%}{% if color[1]['$description'] %}
+{% for color in palette[1] -%}
 <tr>
   <td>
-    <div class="ds-tokens__color" style="background-color: {{ color[1]['$value'] }}"></div>
-    <code>{{ color[1]['$value'] }}</code>
+    <div class="ds-tokens__color" style="background-color: {{ color.value }}"></div>
+    <code>{{ color.value }}</code>
   </td>
-  <td class="ds-tokens__description">{{ color[1]['$description'] | tokenDescription }}</td>
-  <td>{% if color[1]['$description'] %}<code>{{ color[1]['$description'] | tokenName }}{% endif %}</code></td>
+  <td class="ds-tokens__description">{{ color.step }}</td>
+  <td><code>{{ color.token }}</code></td>
 </tr>
-{% endif %}{% endfor -%}
+{% endfor -%}
 </tbody>
 </table>
 {% endfor -%}

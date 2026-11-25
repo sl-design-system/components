@@ -110,9 +110,9 @@ export const IconOnly: Story = {
 export const All: Story = {
   render: () => {
     const buttons = html`
-      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
+      <sl-button disabled><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
       <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-      <sl-button><sl-icon name="face-smile"></sl-icon> Baz</sl-button>
+      <sl-button variant="primary"><sl-icon name="face-smile"></sl-icon> Baz</sl-button>
     `;
 
     return html`

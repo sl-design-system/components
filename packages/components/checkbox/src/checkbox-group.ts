@@ -205,7 +205,13 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     this.focusEvent.emit();
   }
 
-  #onFocusout(): void {
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
@@ -270,8 +276,10 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   }
 
   #updateValidity(): void {
+    const isEmptyRequired = this.required && !this.boxes?.some(box => box.checked);
+
     this.elementInternals.setValidity(
-      { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
+      { valueMissing: isEmptyRequired },
       msg('Please check at least one option.', {
         id: 'sl.checkbox.validation.valueMissingMultiple'
       })

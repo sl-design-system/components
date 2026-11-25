@@ -3,6 +3,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
+import axe from 'axe-core';
 import { type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -121,6 +122,7 @@ describe('sl-month-view', () => {
       expect(el.showWeekNumbers).to.be.true;
 
       const weekNumbers = el.renderRoot.querySelectorAll('[part~="week-number"]');
+
       expect(weekNumbers.length).to.be.greaterThan(0);
     });
 
@@ -152,6 +154,7 @@ describe('sl-month-view', () => {
       await el.updateComplete;
 
       const weekdays = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]'));
+
       expect(weekdays.map(th => th.textContent?.trim())).to.deep.equal([
         'Sun',
         'Mon',
@@ -192,6 +195,139 @@ describe('sl-month-view', () => {
       );
 
       expect(daysFromOtherMonths).to.have.length(0);
+
+      const emptyCells = Array.from(el.renderRoot.querySelectorAll('td[role="gridcell"]')).filter(
+        cell => !cell.querySelector('button')
+      );
+
+      expect(emptyCells.length).to.be.greaterThan(0);
+      expect(emptyCells.every(cell => cell.getAttribute('aria-hidden') === 'true')).to.be.true;
+      expect(el.renderRoot.querySelector('td[data-date]')).not.to.have.attribute('aria-hidden');
+    });
+
+    it('should hide the week number for a row without visible days', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const lastWeekNumber = Array.from(
+        el.renderRoot.querySelectorAll<HTMLElement>('td[part~="week-number"]')
+      ).at(-1);
+
+      expect(lastWeekNumber).to.have.trimmed.text('');
+      expect(lastWeekNumber).not.to.have.attribute('aria-label');
+      expect(lastWeekNumber).to.have.attribute('aria-hidden', 'true');
+    });
+
+    it('should stop the week separator before an empty row at 100% zoom', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumbers = el.renderRoot.querySelectorAll<HTMLElement>(
+          'tbody [part~="week-number"]'
+        ),
+        lastVisible = weekNumbers[4],
+        empty = weekNumbers[5];
+
+      expect(getComputedStyle(lastVisible, '::after').content).to.equal('""');
+      expect(getComputedStyle(empty, '::after').content).to.equal('none');
+      expect(empty.getBoundingClientRect().height).to.be.closeTo(
+        lastVisible.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
+    it('should stop the week separator before an empty row at 125% zoom', async () => {
+      el.style.zoom = '1.25';
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const weekNumbers = el.renderRoot.querySelectorAll<HTMLElement>(
+          'tbody [part~="week-number"]'
+        ),
+        lastVisible = weekNumbers[4],
+        empty = weekNumbers[5];
+
+      expect(getComputedStyle(lastVisible, '::after').content).to.equal('""');
+      expect(getComputedStyle(empty, '::after').content).to.equal('none');
+      expect(empty.getBoundingClientRect().height).to.be.closeTo(
+        lastVisible.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
+    it('should retain the separator in the sixth row when it contains dates', async () => {
+      el.month = new Date(2025, 2, 1);
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+
+      const lastWeekNumber = el.renderRoot.querySelector(
+        'tbody tr:last-child [part~="week-number"]'
+      )!;
+
+      expect(lastWeekNumber).not.to.have.attribute('aria-hidden');
+      expect(getComputedStyle(lastWeekNumber, '::after').content).to.equal('""');
+    });
+
+    it('should preserve six full week rows when dates from other months are hidden', async () => {
+      el.hideDaysOtherMonths = true;
+      await el.updateComplete;
+
+      const firstRow = el.renderRoot.querySelector('tr.days')!,
+        lastRow = el.renderRoot.querySelector('tr.days:last-child')!;
+
+      expect(el.renderRoot.querySelectorAll('tr.days')).to.have.lengthOf(6);
+      expect(lastRow).to.have.attribute('aria-hidden', 'true');
+      expect(lastRow.getBoundingClientRect().height).to.be.closeTo(
+        firstRow.getBoundingClientRect().height,
+        0.5
+      );
+    });
+
+    it('should expose rows only when they contain visible days', async () => {
+      el.hideDaysOtherMonths = true;
+      await el.updateComplete;
+
+      const rows = Array.from(el.renderRoot.querySelectorAll('tr.days')),
+        emptyRows = rows.filter(row => !row.querySelector('button')),
+        visibleRows = rows.filter(row => row.querySelector('button'));
+
+      expect(emptyRows).not.to.be.empty;
+      expect(emptyRows.every(row => row.getAttribute('aria-hidden') === 'true')).to.be.true;
+      expect(visibleRows.every(row => !row.hasAttribute('aria-hidden'))).to.be.true;
+
+      el.hideDaysOtherMonths = false;
+      await el.updateComplete;
+
+      expect(rows.every(row => !row.hasAttribute('aria-hidden'))).to.be.true;
+    });
+
+    it('should satisfy aria-required-children with hidden dates without week numbers', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = false;
+      await el.updateComplete;
+
+      const results = await axe.run(el, {
+        runOnly: { type: 'rule', values: ['aria-required-children'] }
+      });
+
+      expect(results.violations).to.be.empty;
+      expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
+    });
+
+    it('should satisfy aria-required-children with hidden dates with week numbers', async () => {
+      el.hideDaysOtherMonths = true;
+      el.showWeekNumbers = true;
+      await el.updateComplete;
+      const results = await axe.run(el, {
+        runOnly: { type: 'rule', values: ['aria-required-children'] }
+      });
+
+      expect(results.violations).to.be.empty;
+      expect(results.passes.some(result => result.id === 'aria-required-children')).to.be.true;
     });
   });
 
@@ -316,7 +452,7 @@ describe('sl-month-view', () => {
     it('should apply "day" to the day buttons', () => {
       const days = Array.from(el.renderRoot.querySelectorAll('button[part~="day"]'));
 
-      expect(days).to.be.length(7 * 6);
+      expect(days).to.be.length(42);
     });
 
     it('should apply "previous-month" to days from previous month', () => {
@@ -396,6 +532,23 @@ describe('sl-month-view', () => {
         27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4,
         5, 6, 7, 8, 9
       ]);
+    });
+
+    it('should keep min and max dates selectable regardless of time components on month, min, or max', async () => {
+      el.month = new Date(2027, 6, 1, 12, 30);
+      el.min = new Date(2027, 6, 1, 18, 45);
+      el.max = new Date(2027, 6, 31, 0, 0);
+      await el.updateComplete;
+
+      const currentMonthButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>(
+          'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+        )
+      );
+
+      expect(currentMonthButtons).to.have.length(31);
+      expect(currentMonthButtons.at(0)?.disabled).to.be.false;
+      expect(currentMonthButtons.at(-1)?.disabled).to.be.false;
     });
   });
 
@@ -479,6 +632,415 @@ describe('sl-month-view', () => {
     });
   });
 
+  describe('date range', () => {
+    const getDayButton = (date: Date): HTMLButtonElement | null =>
+      el.renderRoot.querySelector(`td[data-date="${date.toISOString()}"] button`);
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
+      el.rangeSelection = true;
+      await el.updateComplete;
+    });
+
+    it('should keep a continuous selected range at the start of a single month', async () => {
+      const start = new Date(2023, 1, 27),
+        end = new Date(2023, 2, 5),
+        boundaries = [new Date(2023, 1, 28), new Date(2023, 2, 1)];
+      {
+        el.range = [start, end];
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous selected range at the end of a single month', async () => {
+      const start = new Date(2023, 2, 29),
+        end = new Date(2023, 3, 6),
+        boundaries = [new Date(2023, 2, 31), new Date(2023, 3, 1)];
+      {
+        el.range = [start, end];
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous preview at the start of a single month', async () => {
+      const start = new Date(2023, 1, 27),
+        end = new Date(2023, 2, 5),
+        boundaries = [new Date(2023, 1, 28), new Date(2023, 2, 1)];
+      {
+        el.rangeStart = start;
+        el.rangePreview = end;
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should keep a continuous preview at the end of a single month', async () => {
+      const start = new Date(2023, 2, 29),
+        end = new Date(2023, 3, 6),
+        boundaries = [new Date(2023, 2, 31), new Date(2023, 3, 1)];
+      {
+        el.rangeStart = start;
+        el.rangePreview = end;
+      }
+      await el.updateComplete;
+      const checkBoundary = (date: Date): void => {
+        const button = getDayButton(date)!;
+
+        expect(button).to.have.attribute('part').that.contains('in-range');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-start');
+        expect(button).to.have.attribute('part').that.does.not.contain('range-month-end');
+        expect(getComputedStyle(button, '::before').backgroundImage).to.equal('none');
+      };
+      checkBoundary(boundaries[0]);
+      checkBoundary(boundaries[1]);
+    });
+
+    it('should align week row backgrounds with the day tiles in a widened selected range', async () => {
+      el.style.inlineSize = '600px';
+      el.range = [new Date(2023, 2, 17), new Date(2023, 2, 28)];
+      await el.updateComplete;
+
+      const rowEnd = getDayButton(new Date(2023, 2, 19))!,
+        rowEndBounds = rowEnd.getBoundingClientRect(),
+        rowEndTile = rowEnd.querySelector('span')!.getBoundingClientRect(),
+        rowEndBridge = getComputedStyle(rowEnd, '::before');
+
+      expect(rowEndBounds.right - Number.parseFloat(rowEndBridge.right)).to.be.closeTo(
+        rowEndTile.right,
+        0.5
+      );
+
+      const rowStart = getDayButton(new Date(2023, 2, 20))!,
+        rowStartBounds = rowStart.getBoundingClientRect(),
+        rowStartTile = rowStart.querySelector('span')!.getBoundingClientRect(),
+        rowStartBridge = getComputedStyle(rowStart, '::before');
+
+      expect(rowStartBounds.left + Number.parseFloat(rowStartBridge.left)).to.be.closeTo(
+        rowStartTile.left,
+        0.5
+      );
+    });
+
+    it('should align week row backgrounds with the day tiles in a widened preview', async () => {
+      el.style.inlineSize = '600px';
+      el.rangeStart = new Date(2023, 2, 17);
+      el.rangePreview = new Date(2023, 2, 28);
+      await el.updateComplete;
+
+      const rowEnd = getDayButton(new Date(2023, 2, 19))!,
+        rowEndBounds = rowEnd.getBoundingClientRect(),
+        rowEndTile = rowEnd.querySelector('span')!.getBoundingClientRect(),
+        rowEndBridge = getComputedStyle(rowEnd, '::before');
+
+      expect(rowEndBounds.right - Number.parseFloat(rowEndBridge.right)).to.be.closeTo(
+        rowEndTile.right,
+        0.5
+      );
+
+      const rowStart = getDayButton(new Date(2023, 2, 20))!,
+        rowStartBounds = rowStart.getBoundingClientRect(),
+        rowStartTile = rowStart.querySelector('span')!.getBoundingClientRect(),
+        rowStartBridge = getComputedStyle(rowStart, '::before');
+
+      expect(rowStartBounds.left + Number.parseFloat(rowStartBridge.left)).to.be.closeTo(
+        rowStartTile.left,
+        0.5
+      );
+    });
+
+    it('should render a range in chronological order', async () => {
+      el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.contains('range-end');
+    });
+
+    it('should not mark range boundaries with a time component as in-range', async () => {
+      const start = new Date(2023, 2, 17, 12),
+        end = new Date(2023, 2, 22, 12);
+      el.range = [start, end];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+    });
+
+    it('should preview the range when another date is hovered', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const end = getDayButton(new Date(2023, 2, 22))!;
+      await userEvent.hover(end);
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 17))).to.have.attribute('aria-pressed', 'true');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(end).to.have.attribute('part').that.contains('range-end');
+      expect(end).to.have.attribute('part').that.contains('range-preview');
+      expect(end).to.have.attribute('aria-pressed', 'false');
+      expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
+    });
+
+    it('should update former preview endpoints immediately without fading over the range', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 22))!,
+        tile = endpoint.querySelector('span')!;
+
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
+      await userEvent.hover(getDayButton(new Date(2023, 2, 23))!);
+      await el.updateComplete;
+
+      expect(endpoint).to.have.attribute('part').that.contains('in-range');
+      expect(getComputedStyle(tile).transitionDuration).to.equal('0s');
+      expect(tile.getAnimations()).to.be.empty;
+
+      await userEvent.hover(getDayButton(new Date(2023, 2, 20))!);
+      await el.updateComplete;
+
+      expect(endpoint).to.have.attribute('part').that.does.not.contain('range-preview');
+      expect(getComputedStyle(tile).transitionDuration).to.equal('0s');
+      expect(tile.getAnimations()).to.be.empty;
+    });
+
+    it('should mark the prospective second selection when previewing backwards', async () => {
+      const initialSelection = getDayButton(new Date(2023, 2, 22))!,
+        previewEnd = getDayButton(new Date(2023, 2, 17))!;
+
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+      await userEvent.hover(previewEnd);
+      await el.updateComplete;
+
+      expect(previewEnd).to.have.attribute('part').that.contains('range-start');
+      expect(previewEnd).to.have.attribute('aria-pressed', 'false');
+      expect(initialSelection).to.have.attribute('part').that.contains('range-end');
+      expect(initialSelection).to.have.attribute('aria-pressed', 'true');
+    });
+
+    it('should connect the range bridge under the hover preview tile when selecting forwards', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 22))!;
+
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
+
+      expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the hover preview tile when selecting backwards', async () => {
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 17))!;
+
+      await userEvent.hover(endpoint);
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
+
+      expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the focus preview tile when selecting forwards', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 22))!;
+
+      endpoint.focus();
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeEnd = buttonBounds.right - Number.parseFloat(bridge.insetInlineEnd);
+
+      expect(bridgeEnd).to.be.at.least((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should connect the range bridge under the focus preview tile when selecting backwards', async () => {
+      el.rangeStart = new Date(2023, 2, 22);
+      await el.updateComplete;
+
+      const endpoint = getDayButton(new Date(2023, 2, 17))!;
+
+      endpoint.focus();
+      await el.updateComplete;
+
+      const bridge = getComputedStyle(endpoint, '::before'),
+        buttonBounds = endpoint.getBoundingClientRect(),
+        tile = endpoint.querySelector('span')!,
+        tileBounds = tile.getBoundingClientRect(),
+        tileStyle = getComputedStyle(tile);
+
+      expect(endpoint).to.have.attribute('part').that.contains('range-preview');
+
+      expect(getComputedStyle(endpoint).getPropertyValue('--_bg-color').trim()).to.equal(
+        getComputedStyle(endpoint).getPropertyValue('--sl-color-background-primary-subtlest').trim()
+      );
+      expect(tileStyle.backgroundImage).to.contain('linear-gradient');
+      expect(tileStyle.backgroundColor).to.match(/^rgb\(/);
+
+      const bridgeStart = buttonBounds.left + Number.parseFloat(bridge.insetInlineStart);
+
+      expect(bridgeStart).to.be.at.most((tileBounds.left + tileBounds.right) / 2);
+    });
+
+    it('should ignore hover after keyboard navigation takes over a pointer preview', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const focused = getDayButton(new Date(2023, 2, 20))!,
+        hovered = getDayButton(new Date(2023, 2, 24))!;
+
+      focused.focus();
+      await userEvent.hover(hovered);
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+      await userEvent.unhover(hovered);
+      await userEvent.hover(hovered);
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 21)))
+        .to.have.attribute('part')
+        .that.contains('range-end');
+      expect(hovered).to.have.attribute('part').that.does.not.contain('range-preview');
+    });
+
+    it('should restore the focused preview after a pointer preview ends', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const focusedEnd = getDayButton(new Date(2023, 2, 20))!,
+        hoveredEnd = getDayButton(new Date(2023, 2, 22))!;
+
+      focusedEnd.focus();
+      await el.updateComplete;
+      await userEvent.hover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(hoveredEnd).to.have.attribute('part').that.contains('range-end');
+
+      await userEvent.unhover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-end');
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-preview');
+      expect(hoveredEnd).to.have.attribute('part').that.does.not.contain('range-preview');
+    });
+
+    it('should add descriptions only to the completed range boundaries', async () => {
+      el.range = [new Date(2023, 2, 17), new Date(2023, 2, 22)];
+      await el.updateComplete;
+
+      const start = getDayButton(new Date(2023, 2, 17)),
+        middle = getDayButton(new Date(2023, 2, 18)),
+        end = getDayButton(new Date(2023, 2, 22)),
+        startDescription = el.renderRoot.querySelector('#range-start-description'),
+        endDescription = el.renderRoot.querySelector('#range-end-description');
+
+      expect(start?.ariaDescribedByElements).to.include(startDescription);
+      expect(middle?.ariaDescribedByElements ?? []).to.be.empty;
+      expect(end?.ariaDescribedByElements).to.include(endDescription);
+      expect(startDescription).to.have.trimmed.text('Start of range');
+      expect(endDescription).to.have.trimmed.text('End of range');
+      expect(startDescription).to.have.attribute('aria-hidden', 'true');
+      expect(endDescription).to.have.attribute('aria-hidden', 'true');
+    });
+  });
+
   describe('indicator dates', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-month-view></sl-month-view>`);
@@ -505,6 +1067,27 @@ describe('sl-month-view', () => {
 
       expect(tooltip).to.match('sl-tooltip');
       expect(tooltip).to.have.trimmed.text('Special day');
+    });
+
+    it('should preserve the indicator description when the date becomes a range boundary', async () => {
+      const start = new Date(2023, 2, 13);
+
+      el.indicatorDates = [{ date: start, label: 'Special day' }];
+      await el.updateComplete;
+
+      el.rangeSelection = true;
+      el.range = [start, new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector<HTMLElement>(
+          `td[data-date="${start.toISOString()}"] button`
+        ),
+        tooltip = el.renderRoot.querySelector(`sl-tooltip[for="${start.toISOString()}"]`),
+        rangeDescription = el.renderRoot.querySelector('#range-start-description');
+
+      expect(tooltip).to.match('sl-tooltip');
+      expect(button?.ariaDescribedByElements).to.include(tooltip);
+      expect(button?.ariaDescribedByElements).to.include(rangeDescription);
     });
 
     it('should only show one tooltip at a time and maintain ARIA stability', async () => {
@@ -549,6 +1132,7 @@ describe('sl-month-view', () => {
       await userEvent.unhover(button14);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay + 50));
+
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)
@@ -672,6 +1256,15 @@ describe('sl-month-view', () => {
 
       expect(selected).to.exist;
       expect(selected).to.have.attribute('aria-pressed', 'true');
+    });
+
+    it('should set aria-hidden="true" on the table when the host is aria-hidden', async () => {
+      el.setAttribute('aria-hidden', 'true');
+      await el.updateComplete;
+
+      const table = el.renderRoot.querySelector('table');
+
+      expect(table).to.have.attribute('aria-hidden', 'true');
     });
   });
 

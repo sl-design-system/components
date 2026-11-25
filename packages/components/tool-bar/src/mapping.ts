@@ -120,7 +120,8 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
 
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
   const label = getMenuButtonLabel(menuButton),
-    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el =>
+    // Only look at direct children so items nested inside a submenu aren't flattened into this menu.
+    menuItems = Array.from(menuButton.querySelectorAll<MenuItem>(':scope > sl-menu-item')).map(el =>
       mapMenuItemToItem(el)
     ),
     disabled = isForwardedDisabled(menuButton);
@@ -137,16 +138,49 @@ export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
   };
 }
 
-export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton {
+export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton | ToolBarItemMenu {
+  const ariaDisabled = menuItem.getAttribute('aria-disabled') === 'true',
+    icon = menuItem.querySelector('sl-icon')?.getAttribute('name'),
+    submenu = menuItem.querySelector(':scope > sl-menu[slot="submenu"]');
+
+  if (submenu) {
+    return {
+      element: menuItem,
+      type: 'menu',
+      ariaDisabled,
+      disabled: false,
+      icon,
+      label: getMenuItemLabel(menuItem),
+      menuItems: Array.from(submenu.querySelectorAll<MenuItem>(':scope > sl-menu-item')).map(el =>
+        mapMenuItemToItem(el)
+      ),
+      visible: true
+    };
+  }
+
   return {
     element: menuItem,
     type: 'button',
-    disabled: menuItem.hasAttribute('disabled'),
-    icon: menuItem.querySelector('sl-icon')?.getAttribute('name'),
-    label: menuItem.textContent?.trim() || undefined,
+    ariaDisabled,
+    disabled: false,
+    icon,
+    label: getMenuItemLabel(menuItem),
     visible: true,
     click: () => menuItem.click()
   };
+}
+
+// Get the menu item's own label text, excluding any nested submenu content and comment nodes
+// (such as the marker comments Lit adds for bindings, which would otherwise end up in the label).
+function getMenuItemLabel(menuItem: MenuItem): string | undefined {
+  return (
+    Array.from(menuItem.childNodes)
+      .filter(node => node.nodeType !== Node.COMMENT_NODE)
+      .filter(node => !(node instanceof Element && node.getAttribute('slot') === 'submenu'))
+      .map(node => node.textContent?.trim())
+      .filter(Boolean)
+      .join(' ') || undefined
+  );
 }
 
 export function mapElementsToItems(elements: Element[]): ToolBarItem[] {

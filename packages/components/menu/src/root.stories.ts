@@ -24,7 +24,7 @@ export const Example: Story = {
           <sl-icon name="far-rocket"></sl-icon>
           Default
         </sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">
           <sl-icon name="far-rocket"></sl-icon>
           Default, disabled
         </sl-menu-item>
@@ -37,7 +37,7 @@ export const Example: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-gear"></sl-icon>
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
@@ -50,7 +50,7 @@ export const Example: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger
           </sl-menu-item>
-          <sl-menu-item disabled variant="danger">
+          <sl-menu-item aria-disabled="true" variant="danger">
             <sl-icon name="far-trash"></sl-icon>
             Danger, disabled
           </sl-menu-item>

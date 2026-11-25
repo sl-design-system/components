@@ -1,5 +1,70 @@
 # @sl-design-system/data-source
 
+## 0.4.6
+
+### Patch Changes
+
+- [#3777](https://github.com/sl-design-system/components/pull/3777) [`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa) - Refetch an empty `FetchListDataSource` on `update()` so removing a filter that returned no results restores the available items, including when pagination is enabled.
+
+  Reuse pending page requests across updates with unchanged fetch options to avoid duplicate network calls. Ignore responses from requests invalidated by changes to filters, sorting, page size, custom options, or the fetch callback.
+
+- [#3806](https://github.com/sl-design-system/components/pull/3806) [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769) - Limit the grid header selection toggle to filtered array data and calculate its checked state from those results. Preserve hidden selections when deselecting filtered rows, including grouped and paginated data.
+
+  Synchronize group selection markers after filtered batch changes. Use known unfiltered remote totals when resetting select-all, without treating estimated or filtered counts as the complete dataset.
+
+  Invalidate underestimated remote totals when fetched rows exceed them. Index unfiltered group membership for efficient batch reconciliation, preserve single-selection group members, and disable the select-all checkbox for empty results.
+
+  Recalculate aggregate lower bounds after every remote response, including filtered totals, empty pages, and partially known group totals. Reset stored selection ids when an unfiltered refresh shrinks the dataset, while preserving select-all without exclusions.
+
+- [#3839](https://github.com/sl-design-system/components/pull/3839) [`40788ea`](https://github.com/sl-design-system/components/commit/40788eab424ba7ae14d569cf0219d7e1cda7c6e3) - Fix issues with groups in `FetchListDataSource`:
+
+  - The items of a group that starts collapsed are now loaded and shown when you expand it,
+  - Groups that were already expanded keep showing their items when you expand another group.
+
+- Updated dependencies [[`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
+## 0.4.5
+
+### Patch Changes
+
+- [#3723](https://github.com/sl-design-system/components/pull/3723) [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15) - Fix grouped selection state when selecting filtered rows or groups and clearing filters.
+
+## 0.4.4
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/shared@0.14.1
+
+## 0.4.3
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/shared@0.14.0
+
+## 0.4.2
+
+### Patch Changes
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Improve `ArrayListDataSource` item order handling.
+
+  - Keep the new row order when items are reordered.
+  - Allow moving whole groups in grouped data.
+  - Keep group order after `update()`.
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+
 ## 0.4.1
 
 ### Patch Changes
@@ -77,6 +142,7 @@
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements to the `data-source` package:
 
   #### DataSource
+
   - Now a fully `abstract` class without any implementation details
   - Removed the `id` parameter for `setSort()`
   - Changed the `DataSourceSort` interface to be simpler:
@@ -93,6 +159,7 @@
   Instead of `<sl-grid>` using `ListDataSource` _and_ having a `GridViewModel` class _and_ using `SelectionController`, `ListDataSource` now is setup to handle all the view model logic internally. This means `<sl-grid>` no longer needs a separate view model and selection controller.
 
   If you try to combine grouping with pagination, it will log a warning to the console. Grouping and pagination are not compatible with each other. You can either group or paginate, but not both at the same time.
+
   - Added `ListDataSourceItem`, `ListDataSourceDataItem` and `ListDataSourceGroupItem` view model types
   - Added constructor options for filtering, grouping, pagination and sorting
   - Added the ability to customize how groups are sorted by adding `groupSortBy` and `groupSortDirection` options
@@ -103,11 +170,13 @@
   - Changed `reorder()` to be an abstract method
 
   #### ArrayListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Implemented group sorting
   - Implemented selection logic for groups (selected, unselected, indeterminate)
 
   #### FetchListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Added `groups` constructor option when you want to use groups, but lazy load the data
   - Added ability to lazy load group items (per page)
@@ -118,6 +187,7 @@
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
 
 - [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Several bug fixes:
+
   - Fix text being parsed as floating point numbers during sorting
   - Fix the `DataSourceFilterFunction` to include the value in the function
 
@@ -169,6 +239,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

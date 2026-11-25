@@ -2,7 +2,6 @@ import {
   type DataSourceSortDirection,
   type DataSourceSortFunction
 } from '@sl-design-system/data-source';
-import { getNameByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -83,17 +82,20 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
     return html`
       <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         aria-sort=${ifDefined(this.ariaSorting)}
+        id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader"
-        scope="col">
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
         <sl-grid-sorter
           ${ref(this.#sorterRef)}
           .column=${this}
           .direction=${this.direction}
           .path=${this.path}
           .sorter=${this.sorter}>
-          ${this.header ?? getNameByPath(this.path)}
+          ${this.renderHeaderLabel()}
         </sl-grid-sorter>
       </th>
     `;

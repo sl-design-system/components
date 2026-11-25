@@ -79,7 +79,8 @@
 
 /* stylelint-disable color-no-hex */
 
-:root {
+body {
+  --color-scheme: light;
   --angle: url('../assets/icons/angle-right-black.svg');
   --angle-active: invert(33%) sepia(70%) saturate(3459%) hue-rotate(219deg) brightness(101%) contrast(105%);
   --background-color: var(--ds-color-white);
@@ -108,8 +109,8 @@
   --danger-color: var(--ds-color-danger);
   --error-icon: url('../assets/icons/error-dark.svg');
   --filter-color: rgb(34 34 34 / 12%);
-  --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
-  --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
+  --focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
+  --navigation-focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
   --hamburger-filter: brightness(3.5);
   --hamburger-icon: url('../assets/icons/hamburger.svg');
   --heading-background: var(--ds-color-blue);
@@ -161,6 +162,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --color-scheme: dark;
+  }
+
+  body {
     --angle: url('../assets/icons/angle-right.svg');
     --angle-active: brightness(0) saturate(100%) invert(45%) sepia(57%) saturate(3117%) hue-rotate(210deg)
       brightness(107%) contrast(101%);
@@ -190,8 +195,8 @@
     --danger-color: var(--ds-color-red);
     --error-icon: url('../assets/icons/error.svg');
     --filter-color: rgb(34 34 34 / 64%);
-    --focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 32%);
-    --navigation-focus-box-shadow: 0 0 0 3px rgb(var(--ds-color-blue-rgb) / 64%);
+    --focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
+    --navigation-focus-box-shadow: 0 0 0 2px var(--sl-color-border-focused);
     --hamburger-filter: brightness(0.6);
     --hamburger-icon: url('../assets/icons/hamburger-light.svg');
     --heading-background: var(--ds-color-blueberry);

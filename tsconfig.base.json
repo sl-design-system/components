@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "customConditions": ["@sl-design-system/source"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "experimentalDecorators": true,

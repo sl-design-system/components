@@ -12,6 +12,7 @@ type Props = Pick<
   | 'max'
   | 'min'
   | 'month'
+  | 'numberOfMonths'
   | 'readonly'
   | 'selected'
   | 'showToday'
@@ -51,6 +52,10 @@ export default {
     month: {
       control: 'date'
     },
+    numberOfMonths: {
+      control: 'inline-radio',
+      options: [1, 2]
+    },
     readonly: {
       control: 'boolean'
     },
@@ -71,6 +76,7 @@ export default {
     max,
     min,
     month,
+    numberOfMonths,
     readonly,
     selected,
     showToday,
@@ -86,11 +92,18 @@ export default {
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
+      number-of-months=${ifDefined(numberOfMonths)}
       selected=${ifDefined(selected?.toISOString())}></sl-select-day>
   `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const TwoMonths: Story = {
+  args: {
+    numberOfMonths: 2
+  }
+};
 
 export const DisabledDates: Story = {
   args: {

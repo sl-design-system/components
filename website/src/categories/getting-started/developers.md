@@ -86,7 +86,7 @@ Or if you use `yarn`:
 
 To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
-Please note that the webfonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the webfonts in your application.
+Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. It is up to you to load the (web)fonts in your application.
 
 You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
 
@@ -115,20 +115,20 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 <div class="ds-code">
 
 ```html
-<link href="./node_modules/@sl-design-system/sanoma-learning/light.css" rel="stylesheet">
+<link href="./node_modules/@sl-design-system/sanoma-learning/theme.css" rel="stylesheet">
 ```
 
 </div>
 
 The theme packages also support package exports, meaning you can import the stylesheet directly from the package (if your build system supports it):
 
+<div class="ds-code">
+
 ```scss
-@import '@sl-design-system/sanoma-learning/light.css';
+@import '@sl-design-system/sanoma-learning/theme.css';
 ```
 
-If your theme supports dark mode you can also use `dark.css`.
-
-If you need to have more control over theming, you can use the split files in the `css` and `scss` folders of the theme package. These folders contain split files for the base, light and dark theme. You can include these files in your application as you see fit.
+</div>
 
 If you are working in an Angular application you can do this by adding the theme stylesheet in your `angular.json`, as explained [in the official Angular documentation](https://angular.io/guide/workspace-config#styles-and-scripts-configuration).
 
@@ -145,6 +145,36 @@ To initialize the theme you need to run theme's `setup` function in a global JS 
 </div>
 
 When you're using Angular this can be done in `main.ts` in the root folder of your application for example.
+
+### Dark mode
+If your theme has a dark mode version both the tokens for light and dark mode are in the theme.css file. You can set `style="--color-scheme: light;"` or `style="--color-scheme: dark;"` on the HTML tag of your page to force a certain color mode.
+
+<div class="ds-code">
+
+```html
+<html style="--color-scheme: dark;">
+
+```
+
+</div>
+
+If you want the theme in your application to follow the user preference, simply add this in your global style sheet:
+
+<div class="ds-code">
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-scheme: dark;
+    color-scheme: dark;
+  }
+}
+```
+
+</div>
+
+This can also be used in addition to setting the `--color-scheme` on the root, for example if you want your page to follow the user preference by default but still want to offer them the option to change the mode in your application.
+
 
 ### Deprecated tokens
 
@@ -265,12 +295,6 @@ When you still encounter problems with the loading and using of your fonts you c
 
 Please make sure you have added the `setup()` method as described in the [Setup a theme](#setup-a-theme) section. This method also initializes the icon set.
 
-### How do I use the dark mode of the theme?
-
-This only applies to themes that support dark mode.
-When you include the `all.css` file both light and dark mode are included and triggered by the system or browser preference (using `@media (prefers-color-scheme: dark)`). If you want to control the use of the light and dark mode you can load the `light.css` and `dark.css` based on the condition you want. Don't forget to also include `base.css` in addition to the light and dark file. You won't need `all.css` when using the separate files.
-
-Another option is not to directly include the css files, but use the SCSS mixins we provide: `@mixin sl-theme-base`, `@mixin sl-theme-light` and `@mixin sl-theme-dark` in their respective `.scss` files in the theme. Those mixins print the list of tokens so you can wrap the tokens with whatever selector you want to achieve the theme switching.
 
 ### How do I setup my Bitbucket pipeline to work with the SLDS packages?
 

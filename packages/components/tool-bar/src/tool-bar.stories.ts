@@ -24,6 +24,7 @@ import {
   faUnderline as fasUnderline,
   faUniversalAccess as fasUniversalAccess
 } from '@fortawesome/pro-solid-svg-icons';
+import { msg } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -217,13 +218,21 @@ export const Basic: Story = {
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-trash"></sl-icon>
           Remove (disabled)
         </sl-menu-item>
         <sl-menu-item>
           <sl-icon name="far-paste"></sl-icon>
           Paste special...
+        </sl-menu-item>
+        <sl-menu-item>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>North</sl-menu-item>
+            <sl-menu-item>Middle</sl-menu-item>
+            <sl-menu-item>South</sl-menu-item>
+          </sl-menu>
         </sl-menu-item>
       </sl-menu-button>
     `
@@ -330,13 +339,13 @@ export const InvertedContained: Story = {
       <sl-button fill="outline">Action 5</sl-button>
       <sl-button fill="outline">Action 6</sl-button>
     `,
-    width: '400px'
+    width: '414px'
   }
 };
 
 export const ClickEvents: Story = {
   args: {
-    width: '240px',
+    width: '250px',
     enableLogging: true,
     description:
       'This example shows a tool bar with buttons that log click events to the console to show how to handle click events on buttons and menu items.',
@@ -387,6 +396,30 @@ export const Overflow: Story = {
     contained: true,
     description: 'This example shows a tool bar with many items that overflow into a menu.',
     width: '100px'
+  }
+};
+
+export const SingleMenuButton: Story = {
+  args: {
+    description:
+      'This example shows a tool bar that contains only a single menu button. The tool bar should not show an overflow menu, since the menu button fits. Resize the tool bar by dragging its right edge: when it becomes too narrow for the menu button, the button moves into the overflow menu, and when you make it wider again the menu button should reappear. The menu item labels use <code>msg()</code> from <code>@lit/localize</code> to imitate translated content, which verifies that the overflow menu shows clean labels without Lit marker comments.',
+    items: () => html`
+      <sl-menu-button>
+        <span slot="button">Actions</span>
+        <sl-menu-item>
+          <sl-icon name="far-copy"></sl-icon>
+          ${msg('Copy')}
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-paste"></sl-icon>
+          ${msg('Paste')}
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          ${msg('Edit')}
+        </sl-menu-item>
+      </sl-menu-button>
+    `
   }
 };
 

@@ -1,5 +1,109 @@
 # @sl-design-system/calendar
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Add date range selection to `sl-calendar` with hover previews, keyboard cancellation, accessible range announcements and an optional responsive two-month layout.
+
+### Patch Changes
+
+- [#3868](https://github.com/sl-design-system/components/pull/3868) [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c) - Normalize date time components when generating calendar days and validating `min`/`max` boundaries so `min` and `max` dates remain selectable regardless of the time of day on `value`, `selected`, `month`, `min`, or `max`.
+
+- [#3833](https://github.com/sl-design-system/components/pull/3833) [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180) - Announce the displayed month and year after scrolling finishes and navigation button labels update, with a short delay to avoid interrupting the announcement. Add an announcer inside the date picker modal so these messages are available to screen readers there.
+
+- [#3810](https://github.com/sl-design-system/components/pull/3810) [`15e9297`](https://github.com/sl-design-system/components/commit/15e9297c4b193d9d1b3012fe97c2232b5f11080c) - Keep the requested month visible when navigating from a day that does not exist in the target month or year, including in date fields.
+
+- [#3796](https://github.com/sl-design-system/components/pull/3796) [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03) - Improve calendar layout, date range selection, and keyboard navigation.
+
+  Layout and styling
+
+  - Keep the header and navigation controls aligned across views and stable as localized labels, fonts, and date constraints change.
+  - Align the weekday headers, day cells, and week numbers. Keep six week rows and end the week number separator at the last visible week.
+  - Use a 24px gap between months and align the second month heading with its grid. Adjust the date field picker padding to match the calendar.
+  - Align range backgrounds with day tiles and blend the hover state into the range preview.
+  - Use equal-width highlights with a 40px height inside 48px month and year tiles. Truncate long month labels when space is limited.
+
+  Selection and navigation
+
+  - Show two years of months and 20 years in the expanded view. Adjust paging, keyboard navigation, and accessible navigation labels to match.
+  - Preserve the browsed month or year and keyboard focus when resizing. Keep selectable dates visible when the previous view overlaps the minimum date.
+  - Highlight months and years that overlap the selected range and expose their pressed states. Keep full accessible names for truncated month labels.
+
+- Updated dependencies [[`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
+## 0.1.3
+
+### Patch Changes
+
+- [#3718](https://github.com/sl-design-system/components/pull/3718) [`2f66df5`](https://github.com/sl-design-system/components/commit/2f66df5d450242a8182477939a849a848f5e4beb) - Improved calendar accessibility: when `<sl-month-view>` has `aria-hidden="true"`, its internal `<table>` now also gets `aria-hidden="true"`.
+
+## 0.1.2
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/format-date@0.1.9
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/tooltip@3.0.2
+
+## 0.1.1
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Declare dependencies that were previously missing from `package.json`
+
+  These packages imported modules they never declared, relying on those packages happening to be present in the monorepo's hoisted `node_modules`. That works inside this repository, but it leaves consumers to install the transitive dependencies themselves, and it breaks under strict installers such as pnpm or Yarn PnP.
+
+  Newly declared runtime dependencies:
+
+  - `calendar`, `combobox`, `listbox`, `message-dialog`, `time-field` → `@sl-design-system/shared`
+  - `card` → `@sl-design-system/menu`, `@sl-design-system/toggle-button`
+  - `emoji` → `@sl-design-system/search-field`, `@sl-design-system/tabs`
+  - `form` → `@sl-design-system/icon`
+  - `paginator` → `@sl-design-system/data-source`, `@sl-design-system/listbox`
+  - `panel`, `toggle-button` → `@sl-design-system/button`
+  - `tree` → `@sl-design-system/menu`
+
+  Newly declared peer dependencies:
+
+  - `card`, `checkbox`, `editor`, `radio-group`, `toggle-group` → `@open-wc/scoped-elements`
+  - `text-area`, `time-field`, `tree` → `@lit/localize`
+  - `paginator` → `lit`
+
+  Existing dependency ranges were also brought up to date: `editor` on `@sl-design-system/form` and `@sl-design-system/shared`, `emoji` and `form` on `@sl-design-system/shared`, and `tree` on `@sl-design-system/skeleton`.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/format-date@0.1.8
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 0.1.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Use the new tooltip implementation
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/tooltip@3.0.0
+  - @sl-design-system/format-date@0.1.7
+
 ## 0.0.10
 
 ### Patch Changes

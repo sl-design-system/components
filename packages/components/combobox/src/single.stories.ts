@@ -137,6 +137,33 @@ export const Disabled: Story = {
   }
 };
 
+export const ValidateOnBlur: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Pick a value and clear it, then leave the
+        field to see the required validation on blur.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field label="Component">
+          <sl-combobox required>
+            <sl-listbox>
+              ${components.map(component => html`<sl-option>${component}</sl-option>`)}
+            </sl-listbox>
+          </sl-combobox>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const DisabledOptions: Story = {
   args: {
     label: 'Subject',

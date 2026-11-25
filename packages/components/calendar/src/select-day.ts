@@ -26,9 +26,9 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { MonthView } from './month-view.js';
+import { MonthView, type RangePreviewSource } from './month-view.js';
 import styles from './select-day.css' with { type: 'css' };
-import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
+import { Indicator, createCalendar, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -41,6 +41,18 @@ const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): numb
     requiredColumnSize = Math.max(minimumColumnSize, Math.ceil(scrollWidth));
 
   return requiredColumnSize > minimumColumnSize ? requiredColumnSize : undefined;
+};
+
+/** Resolve a spacing custom property in its element's context, including rem, em and calc(). */
+const getCustomPropertyPixelSize = (element: HTMLElement, property: string): number => {
+  const measure = document.createElement('span');
+  measure.style.cssText = `position: absolute; visibility: hidden; inline-size: var(${property})`;
+  measure.setAttribute('aria-hidden', 'true');
+  element.append(measure);
+  const size = Number.parseFloat(getComputedStyle(measure).inlineSize);
+  measure.remove();
+
+  return size;
 };
 
 @localized()
@@ -67,6 +79,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** Whether the current scroll was initiated by a month navigation button. */
+  #announceAfterScroll = false;
+
   /**
    * Use an intersection observer as a workaround until `scrollsnapchange` events are widely
    * supported.
@@ -76,15 +91,23 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
 
+  /** Animation frame used to update the responsive month count outside ResizeObserver delivery. */
+  #resizeFrame?: number;
+
   /**
    * Use a resize observer as a cross browser solution to know when to initialize the intersection
    * observer and also to know when to center the current month in the scroller during
    * initialization.
    */
-  #resizeObserver = new ResizeObserver(async () => {
+  #resizeObserver = new ResizeObserver(() => {
     if (!this.#intersectionObserver) {
       this.#intersectionObserver = new IntersectionObserver(
         entries => {
+          // Commit both month labels together after scrolling has settled.
+          if (this.visibleMonthCount === 2) {
+            return;
+          }
+
           // Find the first month view that is at least 50% visible
           const visibleEntry = entries
             .filter(entry => entry.isIntersecting)
@@ -103,8 +126,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         { root: this.scroller, threshold: [0, 0.5, 1] }
       );
 
-      await this.#updateMonthViews();
+      void this.#updateMonthViews();
     }
+
+    if (this.#resizeFrame) {
+      cancelAnimationFrame(this.#resizeFrame);
+    }
+    this.#resizeFrame = requestAnimationFrame(() => {
+      this.#resizeFrame = undefined;
+      void this.#updateHeaderAfterRender();
+      this.#updateVisibleMonthCount();
+    });
   });
 
   /** The list of dates that should be set as disabled. */
@@ -112,6 +144,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
+
+  /** @internal The month containing the most recently focused day. */
+  @state() focusedMonth?: Date;
 
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
@@ -146,14 +181,39 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The month that is shown. */
   @property({ converter: dateConverter }) month = new Date();
 
+  /** The preferred number of consecutive months to show. Collapses to one when space is limited. */
+  @property({ type: Number, reflect: true, attribute: 'number-of-months' }) numberOfMonths: 1 | 2 =
+    1;
+
   /** @internal The next month in the calendar. */
   @state() nextMonth?: Date;
 
   /** @internal The previous month in the calendar. */
   @state() previousMonth?: Date;
 
+  /** @internal The number of months that currently fit in the available space. */
+  @state() visibleMonthCount: 1 | 2 = 1;
+
+  /** @internal Reports responsive month count changes to the calendar's other views. */
+  @property({ attribute: false }) visibleMonthCountChange?: (count: 1 | 2) => void;
+
   /** Will disable selecting a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
+
+  /** The selected date range. */
+  @property({ attribute: false }) range?: Date[];
+
+  /** @internal The shared preview endpoint for all visible month views. */
+  @state() rangePreview?: Date;
+
+  /** @internal Whether keyboard input controls the preview across both months. */
+  @state() keyboardRangeSelection = false;
+
+  /** Whether selecting a range is enabled. */
+  @property({ attribute: false }) rangeSelection?: boolean;
+
+  /** The first date selected while composing a range. */
+  @property({ attribute: false }) rangeStart?: Date;
 
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
@@ -186,6 +246,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
 
+    if (this.#resizeFrame) {
+      cancelAnimationFrame(this.#resizeFrame);
+      this.#resizeFrame = undefined;
+    }
+
     this.#intersectionObserver?.disconnect();
     this.#intersectionObserver = undefined;
 
@@ -194,7 +259,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.#announceTimeoutId = undefined;
     }
 
+    this.#announceAfterScroll = false;
+
     super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    void document.fonts.ready.then(() => {
+      if (this.isConnected) {
+        void this.#updateHeaderAfterRender();
+      }
+    });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -221,7 +298,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (changes.has('rangeStart') && !this.rangeStart) {
+      this.rangePreview = undefined;
+      this.keyboardRangeSelection = false;
+    }
+
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('month') ||
+      changes.has('numberOfMonths') ||
+      changes.has('visibleMonthCount')
+    ) {
       this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
       this.#observedMonths = undefined;
     }
@@ -229,6 +317,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (
+      changes.has('locale') ||
+      changes.has('showWeekNumbers') ||
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('month')
+    ) {
+      void this.#updateHeaderAfterRender();
+    }
 
     if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
       this.#updateWeekNumberColumnSize();
@@ -245,14 +343,30 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       requestAnimationFrame(() => this.#scrollToMonth(0));
     }
 
-    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+    if (
+      changes.has('max') ||
+      changes.has('min') ||
+      changes.has('month') ||
+      changes.has('numberOfMonths') ||
+      changes.has('visibleMonthCount')
+    ) {
       void this.#updateMonthViews();
     }
   }
 
   override render(): TemplateResult {
-    const canSelectNextMonth = this.#canSelectNextMonth(),
+    const canShowNextMonth = this.#isMonthAtOrBeforeMax(this.nextMonth),
       canSelectPreviousMonth = this.#canSelectPreviousMonth(),
+      showTwoMonths = this.visibleMonthCount === 2 && canShowNextMonth,
+      isSecondMonthTabbable =
+        showTwoMonths &&
+        this.#hasEnabledDates(this.nextMonth) &&
+        (isSameDate(this.focusedMonth, this.nextMonth) || !this.#hasEnabledDates(this.month)),
+      followingMonth = this.nextMonth
+        ? new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth() + 1)
+        : undefined,
+      canRenderFollowingMonth = showTwoMonths && this.#isMonthAtOrBeforeMax(followingMonth),
+      canSelectNextMonth = canShowNextMonth && (!showTwoMonths || canRenderFollowingMonth),
       canSelectNextYear = this.displayMonth
         ? !this.max || (this.max && this.displayMonth.getFullYear() + 1 <= this.max.getFullYear())
         : false,
@@ -261,115 +375,103 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         : false;
 
     return html`
-      <header>
+      <header class=${showTwoMonths ? '' : 'single-month'}>
+        <div class="month-year-controls">
+          <div class="month-control">
+            ${
+              canSelectPreviousMonth || canShowNextMonth
+                ? html`
+                    <sl-button
+                      @click=${this.#onToggleMonthSelect}
+                      aria-label=${msg(
+                        str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
+                        {
+                          id: 'sl.calendar.changeMonth'
+                        }
+                      )}
+                      class="current-month"
+                      fill="link"
+                      variant="secondary">
+                      ${this.#renderMonthLabel()}
+                      <sl-icon name="caret-down-solid"></sl-icon>
+                    </sl-button>
+                  `
+                : html`<span class="current-month"> ${this.#renderMonthLabel()} </span>`
+            }
+          </div>
+          <div class="year-control">
+            ${
+              canSelectPreviousYear || canSelectNextYear
+                ? html`
+                    <sl-button
+                      @click=${this.#onToggleYearSelect}
+                      aria-label=${msg(
+                        str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
+                        {
+                          id: 'sl.calendar.changeYear'
+                        }
+                      )}
+                      class="current-year"
+                      fill="link"
+                      variant="secondary">
+                      ${this.#renderYearLabel()}
+                      <sl-icon name="caret-down-solid"></sl-icon>
+                    </sl-button>
+                  `
+                : html`<span class="current-year"> ${this.#renderYearLabel()} </span>`
+            }
+          </div>
+        </div>
         ${
-          canSelectPreviousMonth || canSelectNextMonth
+          showTwoMonths
             ? html`
-                <sl-button
-                  @click=${this.#onToggleMonthSelect}
-                  aria-label=${msg(
-                    str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
-                    {
-                      id: 'sl.calendar.changeMonth'
-                    }
-                  )}
-                  class="current-month"
-                  fill="link"
-                  variant="secondary">
+                <span aria-hidden="true" class="following-month-label">
                   <sl-format-date
-                    .date=${this.displayMonth}
+                    .date=${this.nextMonth}
                     locale=${ifDefined(this.locale)}
                     month="long"></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-month">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    month="long"></sl-format-date>
-                </span>
-              `
-        }
-        ${
-          canSelectPreviousYear || canSelectNextYear
-            ? html`
-                <sl-button
-                  @click=${this.#onToggleYearSelect}
-                  aria-label=${msg(
-                    str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
-                    {
-                      id: 'sl.calendar.changeYear'
-                    }
-                  )}
-                  class="current-year"
-                  fill="link"
-                  variant="secondary">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`
-                <span class="current-year">
-                  <sl-format-date
-                    .date=${this.displayMonth}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"></sl-format-date>
-                </span>
-              `
-        }
-
-        <sl-button
-          @click=${this.#onPrevious}
-          ?disabled=${!canSelectPreviousMonth}
-          aria-label=${msg(
-            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.previousMonth' }
-          )}
-          class="previous-month"
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-left"></sl-icon>
-        </sl-button>
-        <sl-button
-          @click=${this.#onNext}
-          ?disabled=${!canSelectNextMonth}
-          aria-label=${msg(
-            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
-            { id: 'sl.calendar.nextMonth' }
-          )}
-          class="next-month"
-          fill="ghost"
-          variant="secondary">
-          <sl-icon name="chevron-right"></sl-icon>
-        </sl-button>
-      </header>
-
-      <div class="days-of-week" role="list">
-        ${
-          this.showWeekNumbers
-            ? html`
-                <span
-                  aria-label=${msg('Week', { id: 'sl.calendar.week' })}
-                  class="week-number"
-                  role="listitem">
-                  ${this.localizedWeekOfYear}
                 </span>
               `
             : nothing
         }
-        ${this.weekDays.map(
-          day => html`
-            <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
-          `
-        )}
+
+        <div class="arrows">
+          <sl-button
+            @click=${this.#onPrevious}
+            ?disabled=${!canSelectPreviousMonth}
+            aria-label=${msg(
+              str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.previousMonth' }
+            )}
+            class="previous-month"
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-left"></sl-icon>
+          </sl-button>
+          <sl-button
+            @click=${this.#onNext}
+            ?disabled=${!canSelectNextMonth}
+            aria-label=${msg(
+              str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+              { id: 'sl.calendar.nextMonth' }
+            )}
+            class="next-month"
+            fill="ghost"
+            variant="secondary">
+            <sl-icon name="chevron-right"></sl-icon>
+          </sl-button>
+        </div>
+      </header>
+
+      <div aria-hidden="true" class="weekdays ${showTwoMonths ? '' : 'single-month'}">
+        ${Array.from({ length: showTwoMonths ? 2 : 1 }, () => this.#renderDaysOfWeek())}
       </div>
 
-      <div @scrollend=${this.#onScrollEnd} class="scroller" tabindex="-1">
+      <div
+        @focusin=${this.#onMonthFocusIn}
+        @scrollend=${this.#onScrollEnd}
+        class="scroller ${showTwoMonths ? '' : 'single-month'}"
+        tabindex="-1">
         ${
           canSelectPreviousMonth
             ? html`
@@ -377,9 +479,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
                   ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
                   aria-hidden="true"
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert
                   locale=${ifDefined(this.locale)}
@@ -398,35 +507,94 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabledDates=${this.disabledDates}
           .indicatorDates=${this.indicatorDates}
+          .range=${this.range}
+          .rangePreview=${this.rangePreview}
+          .keyboardRangeSelection=${this.keyboardRangeSelection}
+          .rangePreviewChange=${this.#onRangePreview}
+          .rangeSelection=${this.rangeSelection}
+          .rangeStart=${this.rangeStart}
           autofocus
+          ?hide-days-other-months=${showTwoMonths}
+          exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
-          selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+          selected=${ifDefined(this.selected?.toISOString())}
+          tabindex=${ifDefined(isSecondMonthTabbable ? '-1' : undefined)}></sl-month-view>
         ${
-          canSelectNextMonth
+          canShowNextMonth
+            ? html`
+                <sl-month-view
+                  @sl-change=${this.#onChange}
+                  @sl-select=${this.#onSelect}
+                  ?readonly=${this.readonly}
+                  ?show-today=${this.showToday}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
+                  .disabledDates=${this.disabledDates}
+                  .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
+                  .rangePreviewChange=${this.#onRangePreview}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
+                  aria-hidden=${ifDefined(showTwoMonths ? undefined : 'true')}
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  ?inert=${!showTwoMonths}
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.nextMonth?.toISOString())}
+                  selected=${ifDefined(this.selected?.toISOString())}
+                  tabindex=${ifDefined(isSecondMonthTabbable ? undefined : '-1')}></sl-month-view>
+              `
+            : nothing
+        }
+        ${
+          canRenderFollowingMonth
             ? html`
                 <sl-month-view
                   ?readonly=${this.readonly}
                   ?show-today=${this.showToday}
                   ?show-week-numbers=${this.showWeekNumbers}
+                  ?hide-days-other-months=${showTwoMonths}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangePreview=${this.rangePreview}
+                  .keyboardRangeSelection=${this.keyboardRangeSelection}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
                   aria-hidden="true"
+                  exportparts="in-range, range-end, range-month-end, range-month-start, range-preview, range-row-end, range-row-start, range-start"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert
                   locale=${ifDefined(this.locale)}
                   max=${ifDefined(this.max?.toISOString())}
                   min=${ifDefined(this.min?.toISOString())}
-                  month=${ifDefined(this.nextMonth?.toISOString())}
+                  month=${ifDefined(followingMonth?.toISOString())}
                   selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
               `
             : nothing
         }
       </div>
     `;
+  }
+
+  #onMonthFocusIn(event: FocusEvent): void {
+    const monthView = event.composedPath().find(target => target instanceof MonthView);
+
+    if (monthView instanceof MonthView) {
+      const focusedMonth = new Date(monthView.month.getFullYear(), monthView.month.getMonth());
+
+      if (!isSameDate(this.focusedMonth, focusedMonth)) {
+        this.focusedMonth = focusedMonth;
+      }
+    }
   }
 
   #onChange(event: SlChangeEvent<Date>): void {
@@ -451,6 +619,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
     }
 
+    const visibleMonthView = Array.from(
+      this.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')
+    ).find(monthView =>
+      isSameDate(new Date(monthView.month.getFullYear(), monthView.month.getMonth()), newMonth)
+    );
+
+    if (visibleMonthView) {
+      visibleMonthView.keyboardRangeSelection = this.keyboardRangeSelection;
+      visibleMonthView.focus(event.detail);
+      return;
+    }
+
     this.month = newMonth;
 
     // Wait until the new month has rendered before focusing the month view
@@ -460,34 +640,41 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onPrevious(): void {
+    this.#prepareMonthAnnouncement();
     this.#scrollToMonth(-1, true);
-    this.#announce(this.previousMonth);
   }
 
   #onNext(): void {
+    this.#prepareMonthAnnouncement();
     this.#scrollToMonth(1, true);
-    this.#announce(this.nextMonth);
   }
 
   async #onScrollEnd(): Promise<void> {
-    if (!this.displayMonth || isSameDate(this.month, this.displayMonth)) {
+    const monthViews = Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view')),
+      monthIndex = Math.round((this.scroller?.scrollLeft ?? 0) / this.#getMonthStep()),
+      firstVisibleMonth = monthViews.at(monthIndex)?.month,
+      displayMonth = firstVisibleMonth ? normalizeDateTime(firstVisibleMonth) : this.displayMonth;
+
+    if (!displayMonth || isSameDate(this.month, displayMonth)) {
       return;
     }
+
+    this.displayMonth = displayMonth;
 
     // Stop observing month views while we adjust the scroll position
     this.#observedMonths?.forEach(mv => this.#intersectionObserver?.unobserve(mv));
     this.#observedMonths = undefined;
 
     // Update the month, so it rerenders the month-views
-    this.month = normalizeDateTime(this.displayMonth);
+    this.month = displayMonth;
 
-    if ('onscrollend' in this.scroller!) {
-      await this.updateComplete;
-    } else {
-      // Safari <= 26 only: wait for the scroller and month views to be rendered
-      await new Promise(requestAnimationFrame);
-      await new Promise(requestAnimationFrame);
-    }
+    // Render and recenter in the same paint, including when scrollend is polyfilled.
+    await this.updateComplete;
+    await Promise.all(
+      Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view')).map(
+        monthView => monthView.updateComplete
+      )
+    );
 
     // Now instantly scroll back to the center month (so the user doesn't notice)
     this.#scrollToMonth(0);
@@ -495,6 +682,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     // Start observing month views again
     this.#observedMonths = this.renderRoot.querySelectorAll('sl-month-view');
     this.#observedMonths.forEach(mv => this.#intersectionObserver?.observe(mv));
+
+    if (this.#announceAfterScroll) {
+      this.#announceAfterScroll = false;
+      this.#announce(this.month);
+    }
   }
 
   #onSelect(event: SlSelectEvent<Date>): void {
@@ -504,12 +696,52 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.selectEvent.emit(event.detail);
   }
 
+  #onRangePreview = (date: Date | undefined, source: RangePreviewSource): void => {
+    if (source === 'keyboard') {
+      this.keyboardRangeSelection = true;
+    } else if (source === 'pointer') {
+      this.keyboardRangeSelection = false;
+    } else if (source === 'hover' && this.keyboardRangeSelection) {
+      return;
+    }
+
+    this.rangePreview =
+      date ??
+      Array.from(this.renderRoot.querySelectorAll<MonthView>('sl-month-view:not([inert])')).find(
+        monthView => monthView.focusedDate
+      )?.focusedDate;
+  };
+
+  #hasEnabledDates(month?: Date): boolean {
+    if (!month || this.readonly) {
+      return false;
+    }
+
+    return createCalendar(month, {
+      disabledDates: this.disabledDates,
+      firstDayOfWeek: this.firstDayOfWeek,
+      max: this.max,
+      min: this.min
+    }).weeks.some(week =>
+      week.days.some(day => day.currentMonth && !day.disabled && !day.outOfRange)
+    );
+  }
+
   #onToggleMonthSelect(): void {
     this.toggleEvent.emit('month');
   }
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
+  }
+
+  #prepareMonthAnnouncement(): void {
+    this.#announceAfterScroll = true;
+
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
+    }
   }
 
   #announce(month?: Date): void {
@@ -522,29 +754,39 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       clearTimeout(this.#announceTimeoutId);
     }
 
-    // Announce if needed, we don't want to have the same message announced twice
+    // The focused navigation button's accessible name changes after scrolling settles.
+    // Give screen readers time to process it before sending the live announcement.
     this.#announceTimeoutId = setTimeout(() => {
+      this.#announceTimeoutId = undefined;
+
+      // The day view stays connected when month/year selection is open. Its delayed
+      // announcement must also be skipped if navigation has since changed the month.
+      if (
+        this.inert ||
+        this.month.getFullYear() !== month.getFullYear() ||
+        this.month.getMonth() !== month.getMonth()
+      ) {
+        return;
+      }
+
       const monthFormatted = format(month, this.locale, { month: 'long', year: 'numeric' });
 
       announce(`${monthFormatted}`, 'polite');
-
-      this.#announceTimeoutId = undefined;
-    }, 50);
+    }, 250);
   }
 
   #canSelectNextMonth(): boolean {
-    if (!this.nextMonth) {
+    if (!this.#isMonthAtOrBeforeMax(this.nextMonth)) {
       return false;
     }
 
-    if (!this.max) {
+    if (this.visibleMonthCount === 1) {
       return true;
     }
 
-    const nextMonthNormalized = new Date(this.nextMonth.getFullYear(), this.nextMonth.getMonth()),
-      maxMonthNormalized = new Date(this.max.getFullYear(), this.max.getMonth());
+    const followingMonth = new Date(this.nextMonth!.getFullYear(), this.nextMonth!.getMonth() + 1);
 
-    return nextMonthNormalized <= maxMonthNormalized;
+    return this.#isMonthAtOrBeforeMax(followingMonth);
   }
 
   #canSelectPreviousMonth(): boolean {
@@ -570,7 +812,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const { width } = this.scroller.getBoundingClientRect(),
+    const step = this.#getMonthStep(),
       canSelectPrevious = this.#canSelectPreviousMonth(),
       canSelectNext = this.#canSelectNextMonth();
 
@@ -586,21 +828,224 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     } else if (month === 1) {
       // Scroll to next month
       if (canSelectPrevious && canSelectNext) {
-        left = width * 2; // position 2
+        left = step * 2; // position 2
       } else if (canSelectNext) {
-        left = width; // position 1
+        left = step; // position 1
       } else {
-        left = width * currentMonthPosition; // stay at current
+        left = step * currentMonthPosition; // stay at current
       }
     } else {
       // month === 0, scroll to current month
-      left = width * currentMonthPosition;
+      left = step * currentMonthPosition;
     }
 
     if (smooth) {
       this.scroller.scrollTo({ left, behavior: 'smooth' });
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
+    }
+  }
+
+  #getMonthStep(): number {
+    const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
+      width =
+        (monthView ? Number.parseFloat(getComputedStyle(monthView).width) : undefined) ??
+        (this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).width) : 0),
+      gap = Number.parseFloat(getComputedStyle(this.scroller!).columnGap) || 0;
+
+    return width + gap;
+  }
+
+  #isMonthAtOrBeforeMax(month?: Date): boolean {
+    if (!month) {
+      return false;
+    }
+
+    const normalized = new Date(month.getFullYear(), month.getMonth());
+
+    return !this.max || normalized <= new Date(this.max.getFullYear(), this.max.getMonth());
+  }
+
+  #renderDaysOfWeek(): TemplateResult {
+    return html`
+      <div class="days-of-week" role="list">
+        ${
+          this.showWeekNumbers
+            ? html`
+                <span
+                  aria-label=${msg('Week', { id: 'sl.calendar.week' })}
+                  class="week-number"
+                  role="listitem">
+                  ${this.localizedWeekOfYear}
+                </span>
+              `
+            : nothing
+        }
+        ${this.weekDays.map(
+          day => html`
+            <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
+          `
+        )}
+      </div>
+    `;
+  }
+
+  #updateVisibleMonthCount(): void {
+    const monthView = this.renderRoot.querySelector<MonthView>('sl-month-view'),
+      // Compare CSS sizes in the same coordinate space as the gap and scroll offsets.
+      // Bounding rectangles include Storybook's CSS zoom, while computed gaps do not.
+      availableWidth = Number.parseFloat(getComputedStyle(this).width),
+      monthWidth = monthView ? Number.parseFloat(getComputedStyle(monthView).width) : 0,
+      gap = this.scroller ? Number.parseFloat(getComputedStyle(this.scroller).columnGap) || 0 : 0,
+      nextCount =
+        this.numberOfMonths === 2 &&
+        this.#isMonthAtOrBeforeMax(this.nextMonth) &&
+        monthWidth > 0 &&
+        // Allow subpixel rounding at the exact two-month boundary.
+        availableWidth + 0.5 >= monthWidth * 2 + gap
+          ? 2
+          : 1;
+
+    if (this.visibleMonthCount !== nextCount) {
+      this.visibleMonthCount = nextCount;
+      this.visibleMonthCountChange?.(nextCount);
+    }
+  }
+
+  /** Let CSS reserve the intrinsic width of every localized month in the label's own font. */
+  #renderMonthLabel(): TemplateResult {
+    return html`
+      <span class="control-label">
+        <span aria-hidden="true" class="label-sizer">
+          ${Array.from(
+            { length: 12 },
+            (_, month) => html`
+              <span class="label-sample"
+                >${format(new Date(2026, month, 1), this.locale, { month: 'long' })}</span
+              >
+            `
+          )}
+        </span>
+        <sl-format-date
+          .date=${this.displayMonth}
+          locale=${ifDefined(this.locale)}
+          month="long"></sl-format-date>
+      </span>
+    `;
+  }
+
+  /** Reserve the widest year digits without relying on tabular figures or measuring each string. */
+  #renderYearLabel(): TemplateResult {
+    const label = format(this.displayMonth!, this.locale, { year: 'numeric' }),
+      digits = new Intl.NumberFormat(this.locale, { useGrouping: false });
+
+    return html`
+      <span class="control-label">
+        <span aria-hidden="true" class="label-sizer">
+          ${Array.from(
+            { length: 10 },
+            (_, digit) => html`
+              <span class="label-sample"
+                >${label.replace(/\p{Decimal_Number}/gu, digits.format(digit))}</span
+              >
+            `
+          )}
+        </span>
+        <sl-format-date
+          .date=${this.displayMonth}
+          locale=${ifDefined(this.locale)}
+          year="numeric"></sl-format-date>
+      </span>
+    `;
+  }
+
+  /** Wait for newly rendered controls and date labels before measuring them. */
+  async #updateHeaderAfterRender(): Promise<void> {
+    const controls = Array.from(
+      this.renderRoot.querySelectorAll<LitElement>('header sl-button, header sl-format-date')
+    );
+    await Promise.all(controls.map(control => control.updateComplete));
+    // Buttons determine their icon-only size in their first animation frame.
+    await new Promise(requestAnimationFrame);
+    await Promise.all(controls.map(control => control.updateComplete));
+    const monthButton = this.renderRoot.querySelector('.current-month'),
+      monthStyle = monthButton ? getComputedStyle(monthButton) : undefined,
+      font = monthStyle
+        ? `${monthStyle.fontStyle} ${monthStyle.fontWeight} ${monthStyle.fontSize} ${monthStyle.fontFamily}`
+        : '';
+    if (font) {
+      // Measure the fallback font as well when the web font cannot be loaded.
+      await document.fonts.load(font).catch(() => undefined);
+    }
+    if (this.isConnected) {
+      this.#updateHeaderSize();
+    }
+  }
+
+  /** Reserve room for the longest localized month before the user starts navigating. */
+  #updateHeaderSize(): void {
+    const header = this.renderRoot.querySelector<HTMLElement>('header'),
+      monthButton = this.renderRoot.querySelector<HTMLElement>('sl-button.current-month'),
+      year = this.renderRoot.querySelector<HTMLElement>('.current-year'),
+      arrows = this.renderRoot.querySelector<HTMLElement>('.arrows');
+
+    if (!header || !monthButton || !year || !arrows) {
+      this.style.removeProperty('--_header-inline-size');
+      this.style.removeProperty('--_month-control-inline-size');
+      this.style.removeProperty('--_year-control-inline-size');
+      this.style.removeProperty('--_header-controls-inline-size');
+      return;
+    }
+
+    // Date fields keep their calendar in a closed dialog until the picker opens.
+    if (year.getBoundingClientRect().width === 0) {
+      return;
+    }
+
+    // CSS lays out the samples together, so these are two reads regardless of sample count.
+    const monthWidth = Number.parseFloat(
+        getComputedStyle(monthButton.querySelector('.label-sizer')!).inlineSize
+      ),
+      yearWidth = Number.parseFloat(
+        getComputedStyle(year.querySelector('.label-sizer')!).inlineSize
+      );
+
+    const button = monthButton.shadowRoot?.querySelector('button'),
+      buttonStyle = button ? getComputedStyle(button) : undefined,
+      headerStyle = getComputedStyle(header),
+      iconWidth = Number.parseFloat(getComputedStyle(monthButton.querySelector('sl-icon')!).width),
+      monthControlWidth =
+        monthWidth +
+        iconWidth +
+        (Number.parseFloat(buttonStyle?.columnGap ?? '') || 0) +
+        (Number.parseFloat(buttonStyle?.borderInlineStartWidth ?? '') || 0) +
+        (Number.parseFloat(buttonStyle?.borderInlineEndWidth ?? '') || 0),
+      yearButton = year.shadowRoot?.querySelector('button'),
+      yearButtonStyle = yearButton ? getComputedStyle(yearButton) : undefined,
+      yearIcon = year.querySelector('sl-icon'),
+      yearControlWidth = Math.ceil(
+        yearWidth +
+          (yearIcon ? Number.parseFloat(getComputedStyle(yearIcon).width) : 0) +
+          (Number.parseFloat(yearButtonStyle?.columnGap ?? '') || 0) +
+          (Number.parseFloat(yearButtonStyle?.borderInlineStartWidth ?? '') || 0) +
+          (Number.parseFloat(yearButtonStyle?.borderInlineEndWidth ?? '') || 0)
+      ),
+      controlsWidth =
+        Math.ceil(monthControlWidth) +
+        yearControlWidth +
+        getCustomPropertyPixelSize(monthButton.parentElement!, '--_controls-gap') +
+        Number.parseFloat(getComputedStyle(arrows).width),
+      headerPadding =
+        (Number.parseFloat(headerStyle.paddingInlineStart) || 0) +
+        (Number.parseFloat(headerStyle.paddingInlineEnd) || 0);
+
+    this.style.setProperty('--_month-control-inline-size', `${Math.ceil(monthControlWidth)}px`);
+    this.style.setProperty('--_year-control-inline-size', `${yearControlWidth}px`);
+    this.style.setProperty('--_header-controls-inline-size', `${Math.ceil(controlsWidth) + 1}px`);
+    const inlineSize = `${Math.ceil(controlsWidth + headerPadding) + getCustomPropertyPixelSize(header, '--_header-gap') + 1}px`;
+    if (this.style.getPropertyValue('--_header-inline-size') !== inlineSize) {
+      this.style.setProperty('--_header-inline-size', inlineSize);
+      this.#scrollToMonth(0);
     }
   }
 
@@ -619,7 +1064,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const requiredColumnSize = getRequiredColumnSize(
-      weekNumber.getBoundingClientRect().width,
+      weekNumber.offsetWidth,
       weekNumber.scrollWidth
     );
 
@@ -631,6 +1076,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   async #updateMonthViews(): Promise<void> {
     // Make sure the scroller and month views elements have been updated
     await new Promise(requestAnimationFrame);
+
+    this.#updateVisibleMonthCount();
     await new Promise(requestAnimationFrame);
 
     // Center the current month initially

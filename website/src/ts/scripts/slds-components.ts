@@ -1,4 +1,4 @@
-import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faSlack, faStorybook  } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
@@ -31,6 +31,9 @@ import {
   faBadgeCheck as farBadgeCheck,
   faBellExclamation as farBellExclamation,
   faBold as farBold,
+  faCalendarDay as farCalendarDay,
+  faCalendarDays as farCalendarDays,
+  faCalendarWeek as farCalendarWeek,
   faGear as farGear,
   faGrid as farGrid,
   faItalic as farItalic,
@@ -46,6 +49,9 @@ import {
   faBadgeCheck as fasBadgeCheck,
   faBellExclamation as fasBellExclamation,
   faBold as fasBold,
+  faCalendarDay as fasCalendarDay,
+  faCalendarDays as fasCalendarDays,
+  faCalendarWeek as fasCalendarWeek,
   faGear as fasGear,
   faGrid as fasGrid,
   faHeart as fasHeart,
@@ -79,6 +85,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/inline-message/register.js';
+import '@sl-design-system/link/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
@@ -91,6 +98,7 @@ import '@sl-design-system/progress-bar/register.js';
 import '@sl-design-system/radio-group/register.js';
 import { setup } from '@sl-design-system/sanoma-learning';
 import '@sl-design-system/search-field/register.js';
+import '@sl-design-system/segmented-control/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
@@ -140,27 +148,34 @@ Icon.register(
   faScreenUsers,
   faSlack,
   faSparkles,
+  faStorybook,
   faTrash,
   faTruckFast,
   faXmark,
   farBadgeCheck,
   farBellExclamation,
   farBold,
-  farGrid,
+  farCalendarDay,
+  farCalendarDays,
+  farCalendarWeek,
   farGear,
+  farGrid,
   farItalic,
   farListUl,
   farUnderline,
   fasBadgeCheck,
   fasBellExclamation,
   fasBold,
-  fasGrid,
+  fasCalendarDay,
+  fasCalendarDays,
+  fasCalendarWeek,
   fasGear,
+  fasGrid,
   fasHeart,
   fasItalic,
   fasListUl,
+  fasOctagonXmark,
   fasUnderline,
-  fasOctagonXmark
 );
 
 declare global {

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'packages/tokens/src/**'
+      - 'scripts/themes/export/**'
     types: [opened, synchronize, reopened, closed]
 
   push:

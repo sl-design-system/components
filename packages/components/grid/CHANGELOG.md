@@ -1,5 +1,186 @@
 # @sl-design-system/grid
 
+## 0.8.5
+
+### Patch Changes
+
+- [#3765](https://github.com/sl-design-system/components/pull/3765) [`74d5c80`](https://github.com/sl-design-system/components/commit/74d5c80c84539584c30b740dc45a461036486df2) - Fix column headers and cells being announced incorrectly by screen readers for column groups.
+
+  Accessibility improvements:
+
+  - Headers inside a column group are now exposed as cells, so VoiceOver reads them only once and no longer pairs them with the wrong group header.
+  - Group headers now have `aria-colindex` and `aria-colspan` and can be focused.
+  - Cells in a column group are now named by their group header(s) and column header, for example "Name First name Sophie".
+  - Form controls (text field and select) in grouped columns now include the group header(s) in their label.
+  - Columns with `hide-header-text` now set `aria-label` on the header, also for column groups.
+  - `aria-sort` is only set on headers that are real column headers.
+  - Hidden columns are now counted in `aria-colcount` and `aria-colindex`, as they are still rendered.
+
+  Fixes:
+
+  - Adding or removing a column in a column group now updates the header rows, accessibility attributes and column widths.
+  - Removing a sorted or filtered column from a column group now also removes its sort or filter from the data source.
+  - Header cells are now keyed by column, so removing a column no longer mixes up the filter and sort controls of the remaining columns.
+
+- [#3817](https://github.com/sl-design-system/components/pull/3817) [`2d53fc7`](https://github.com/sl-design-system/components/commit/2d53fc7408744df9189ea7245cc1daf758754475) - Accessibility improvement: the toggle button in each group header now has a unique name that includes the name of the group, for example "Toggle group Allergist". The name is set with `aria-labelledby`, so it also works with a custom `groupHeaderRenderer`.
+
+- [#3780](https://github.com/sl-design-system/components/pull/3780) [`a374c93`](https://github.com/sl-design-system/components/commit/a374c937778204c10f379a667af6a6697c9f5ea4) - Measure automatic column widths after custom cell renderers and fonts are ready, using the full intrinsic content width. Grow automatic columns when virtual scrolling renders longer content, retaining their widths when scrolling back to shorter rows.
+
+- [#3806](https://github.com/sl-design-system/components/pull/3806) [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769) - Limit the grid header selection toggle to filtered array data and calculate its checked state from those results. Preserve hidden selections when deselecting filtered rows, including grouped and paginated data.
+
+  Synchronize group selection markers after filtered batch changes. Use known unfiltered remote totals when resetting select-all, without treating estimated or filtered counts as the complete dataset.
+
+  Invalidate underestimated remote totals when fetched rows exceed them. Index unfiltered group membership for efficient batch reconciliation, preserve single-selection group members, and disable the select-all checkbox for empty results.
+
+  Recalculate aggregate lower bounds after every remote response, including filtered totals, empty pages, and partially known group totals. Reset stored selection ids when an unfiltered refresh shrinks the dataset, while preserving select-all without exclusions.
+
+- [#3788](https://github.com/sl-design-system/components/pull/3788) [`ec51ec7`](https://github.com/sl-design-system/components/commit/ec51ec77fdde2a8e2a5c45ce2099b75bfed04abc) - Fix incorrect grid body height after filtering or lazy loading changes the rendered rows, preventing clipped wrapped text and excess space below the last row.
+
+- [#3830](https://github.com/sl-design-system/components/pull/3830) [`356d520`](https://github.com/sl-design-system/components/commit/356d5207031d9b7bc6477527522e7bd57811b8f2) - Accessibility improvements:
+
+  - The checkbox in each group header now has a unique name that includes the name of the group, for example "Select group Allergist",
+  - The row checkboxes in `sl-grid-selection-column` now have a unique name that includes the row context, for example "Select row John Doe". Use the `formControlLabel` property of the column to provide the row label. Without `formControlLabel`, the row checkboxes keep the generic name "Select row".
+
+- [#3787](https://github.com/sl-design-system/components/pull/3787) [`f328d4a`](https://github.com/sl-design-system/components/commit/f328d4a2ad8d7d0e630c5ece7dd507eed4c8c343) - Prevent auto-sized columns from flashing their temporary widths on initial render. Reveal the table after the initial virtualized rows, custom cell content, fonts, and column measurements are ready.
+
+- [#3815](https://github.com/sl-design-system/components/pull/3815) [`c4af0c9`](https://github.com/sl-design-system/components/commit/c4af0c92d450700b4868e231bec457314a92b408) - Fix grouped rows becoming non-draggable after their first drag and drop. Groups now remain draggable after reordering, both when expanded and collapsed.
+
+- [#3805](https://github.com/sl-design-system/components/pull/3805) [`1eeafbc`](https://github.com/sl-design-system/components/commit/1eeafbc02edd3075f47dff544b4187057e71302a) - Preserve rendered rows and the dragging indicator while reordering so consecutive native drag-and-drop gestures complete without interruption.
+
+  Keep loading placeholders keyed separately while retaining stable keys for loaded rows.
+
+- [#3802](https://github.com/sl-design-system/components/pull/3802) [`bdb01c6`](https://github.com/sl-design-system/components/commit/bdb01c60ffd1540c1e7ad28e75e8ffe3e25544ca) - Preserve keyboard focus when activating, selecting or deselecting grid rows by using stable item IDs when rendering virtualized rows, and prevent view jumps when scrolling and selecting rows in Firefox.
+
+  Invalidate cached row heights after content edits, including in-place mutations, and retain small measured changes to the scroll extent.
+
+  Bound content snapshots so records referencing large shared collections do not undermine virtualization.
+
+- [#3801](https://github.com/sl-design-system/components/pull/3801) [`121bce5`](https://github.com/sl-design-system/components/commit/121bce5f8519644717cc780f33ff3d82178642c4) - Fix missing interactive cell backgrounds for grid row actions by resolving the overlay on each cell, restoring hover feedback and the active and selected row colors.
+
+  Keep activated rows highlighted when the pointer leaves the row by applying the same opaque base background as selected rows, independently of the interactive overlay opacity.
+
+- Updated dependencies [[`c1d1f67`](https://github.com/sl-design-system/components/commit/c1d1f67920b238029af172c262258cf5d0da5658), [`2d22d25`](https://github.com/sl-design-system/components/commit/2d22d2522183f5ad64a011fea4faee6f22d99caa), [`05327d3`](https://github.com/sl-design-system/components/commit/05327d3870c98211d30eb01e6b8d3cb2e7be9769), [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`40788ea`](https://github.com/sl-design-system/components/commit/40788eab424ba7ae14d569cf0219d7e1cda7c6e3), [`9d41e31`](https://github.com/sl-design-system/components/commit/9d41e3153731587d3c77bc2416adb6345192b65b), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/tool-bar@0.4.3
+  - @sl-design-system/data-source@0.4.6
+  - @sl-design-system/shared@0.14.2
+  - @sl-design-system/checkbox@2.4.3
+
+## 0.8.4
+
+### Patch Changes
+
+- [#3723](https://github.com/sl-design-system/components/pull/3723) [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15) - Fix grouped selection state when selecting filtered rows or groups and clearing filters.
+
+- Updated dependencies [[`ccab9a2`](https://github.com/sl-design-system/components/commit/ccab9a2576fe970febfa730c690eb71bac12559a), [`b6659cc`](https://github.com/sl-design-system/components/commit/b6659cc21b5bc6810722dad18a7c265a2487b377), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`dc0e426`](https://github.com/sl-design-system/components/commit/dc0e42689c470426303a311eacaa71d3b1a30b15), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/toggle-group@1.1.0
+  - @sl-design-system/tool-bar@0.4.2
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/data-source@0.4.5
+  - @sl-design-system/button@2.3.2
+
+## 0.8.3
+
+### Patch Changes
+
+- [#3692](https://github.com/sl-design-system/components/pull/3692) [`8804103`](https://github.com/sl-design-system/components/commit/88041037c9b7e70c84cfbdb3d3916051945fa186) - Fix custom header renderers in sortable grid columns.
+
+- [#3693](https://github.com/sl-design-system/components/pull/3693) [`c808f17`](https://github.com/sl-design-system/components/commit/c808f176e9ca3c91d113de02639c9d19b6fc073d) - Prevent native draggable content inside grid cells from starting row drag and drop unless the current pointer gesture originated from a drag handle.
+
+- [#3717](https://github.com/sl-design-system/components/pull/3717) [`1568062`](https://github.com/sl-design-system/components/commit/1568062e5c9811ba4dd829a20dfb521057d4b765) - Use the default cursor for non-draggable grid group-header rows.
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706), [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706), [`f01a4ed`](https://github.com/sl-design-system/components/commit/f01a4ed4cafd0534748a6932a02fee275cb57343)]:
+  - @sl-design-system/select@2.4.2
+  - @sl-design-system/checkbox@2.4.2
+  - @sl-design-system/search-field@1.0.2
+
+## 0.8.2
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/announcer@0.1.3
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/checkbox@2.4.1
+  - @sl-design-system/data-source@0.4.4
+  - @sl-design-system/ellipsize-text@0.1.2
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/listbox@0.2.3
+  - @sl-design-system/scrollbar@0.1.4
+  - @sl-design-system/search-field@1.0.1
+  - @sl-design-system/select@2.4.1
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/skeleton@1.1.2
+  - @sl-design-system/text-field@1.7.2
+  - @sl-design-system/toggle-group@1.0.1
+  - @sl-design-system/tool-bar@0.4.1
+  - @sl-design-system/tooltip@3.0.2
+
+## 0.8.1
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3592](https://github.com/sl-design-system/components/pull/3592) [`f822368`](https://github.com/sl-design-system/components/commit/f8223686ea9c82e1546c9e90feb0bcd0b6301484) - Fix group headers so custom group headers follow sticky start columns during horizontal scrolling.
+
+- Updated dependencies [[`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a), [`8ac4830`](https://github.com/sl-design-system/components/commit/8ac48302219897f50b0dbae07690c588a8380e69), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`f5207d1`](https://github.com/sl-design-system/components/commit/f5207d132805c4a4e6f7253057babb8cc70705c4), [`108c0c7`](https://github.com/sl-design-system/components/commit/108c0c735a95df8659be1417fb463b02ac651fe8), [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8)]:
+  - @sl-design-system/tool-bar@0.4.0
+  - @sl-design-system/announcer@0.1.2
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/checkbox@2.4.0
+  - @sl-design-system/data-source@0.4.3
+  - @sl-design-system/ellipsize-text@0.1.1
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/listbox@0.2.2
+  - @sl-design-system/scrollbar@0.1.3
+  - @sl-design-system/search-field@1.0.0
+  - @sl-design-system/select@2.4.0
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/skeleton@1.1.1
+  - @sl-design-system/text-field@1.7.1
+  - @sl-design-system/toggle-group@1.0.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 0.8.0
+
+### Minor Changes
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Improve drag-and-drop behavior for grouped grids.
+
+  - Add support for dragging complete group rows (`tr[part~='group']`) and dropping them to reorder groups.
+  - Let users drop rows on a group header to move rows into that group.
+  - Add `group-label` to `sl-grid-group-header` so the group checkbox gets a clear `aria-label` (for example, `School A group`).
+  - Fix `sl-grid-drop` `position` in `between` mode — was always `'after'`, now correctly `'before'` or `'after'`.
+  - Improve drag feedback and refresh timing so reordered rows become visible immediately after drop.
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Use the new tooltip implementation
+
+### Patch Changes
+
+- [#3544](https://github.com/sl-design-system/components/pull/3544) [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c) - Add missing `aria-label` to `sl-grid-filter` and `sl-grid-group-header`.
+
+- [#3570](https://github.com/sl-design-system/components/pull/3570) [`dcace67`](https://github.com/sl-design-system/components/commit/dcace67b5d3102aee3de52c08e43e978d4567b2c) - Fix grid rows shrinking when hovering ellipsized cell content.
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`eb6b814`](https://github.com/sl-design-system/components/commit/eb6b814cc0b4b8dc93c4e0338194761e86bfd713), [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/toggle-group@0.1.0
+  - @sl-design-system/data-source@0.4.2
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/select@2.3.0
+  - @sl-design-system/checkbox@2.3.0
+  - @sl-design-system/search-field@0.3.0
+  - @sl-design-system/ellipsize-text@0.1.0
+  - @sl-design-system/tooltip@3.0.0
+  - @sl-design-system/tool-bar@0.3.1
+  - @sl-design-system/announcer@0.1.1
+
 ## 0.7.5
 
 ### Patch Changes
@@ -32,6 +213,7 @@
 - [#3379](https://github.com/sl-design-system/components/pull/3379) [`a470889`](https://github.com/sl-design-system/components/commit/a47088978b07ef027090972b93394c6c2ad58b01) - Added a `hide-header-text` property to Grid columns so header text can be visually hidden while remaining available to assistive technologies.
 
 - [#3390](https://github.com/sl-design-system/components/pull/3390) [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f) - Accessibility improvements for row activation and selection:
+
   - Added `aria-selected` to the active/selected row in activate and single-select modes.
   - The grid now announces row activation and deactivation to screen readers.
   - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).
@@ -254,6 +436,7 @@
 ### Minor Changes
 
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements:
+
   - New visual styles throughout all components
   - Refactored to use the new `ListDataSource` class and view model types
   - Removed `SelectionController` since that logic is now part of `ListDataSource`
@@ -276,6 +459,7 @@
   This change removes the `activatable-row` property and instead leaves it to the user to set the `activeRow` property on the `sl-grid` component. The examples in Storybook now also use a button with an avatar to activate the row, which is more accessible than using a checkbox. This fixes the issue we had before where we could not find a solution how to make the row activatable with the keyboard, while also keeping the checkbox for selection. Now, the row can be activated with the keyboard by focusing the button and pressing Enter or Space. And at the same time, the checkbox can still be used for selection.
 
 - [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Grid improvements:
+
   - Add "Cancel selection" button to the bulk action toolbar
   - Add `column` argument to `GridColumnHeaderRenderer` type
   - Fix missing aria-label on a selection column checkbox
@@ -299,6 +483,7 @@
 ### Patch Changes
 
 - [#2077](https://github.com/sl-design-system/components/pull/2077) [`778e8a1`](https://github.com/sl-design-system/components/commit/778e8a1ae5dc7908e5c000a620b8143883c75a91) - - Adds option to have no skip table links
+
   - Fixes issue for Safari (an other browsers that don't support native anchor positioning) where to "Skip to start of table" link was positioned incorrectly
 
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
@@ -399,6 +584,7 @@
 - [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
 
 - [#1653](https://github.com/sl-design-system/components/pull/1653) [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e) - Improve horizontal scrolling experience:
+
   - Add shadows to the left and right of the grid when it is scrollable
   - Add the new `<sl-scrollbar>` when the grid is horizontally scrollable
   - Make sure the scrollbar is always visible (sticky at the bottom of the grid)
@@ -424,6 +610,7 @@
 - [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
 
 - [#1616](https://github.com/sl-design-system/components/pull/1616) [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960) - Improved accessibilty of the table;
+
   - Added aria-rowindex and aria-rowcount;
   - Improved keyboardnavigation, including skip table links
   - Changed the way selecting works; active row by clicking on the entire row and selecting a row by checking the checkbox
@@ -440,6 +627,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

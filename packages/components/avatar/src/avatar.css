@@ -309,3 +309,16 @@ slot:not([name]) {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/*
+ * Safari shows a native tooltip for text truncated with `text-overflow: ellipsis`, on top of the
+ * sl-tooltip. Adding an empty block-level pseudo-element after the text prevents Safari from
+ * showing its native tooltip, without changing how the text is truncated.
+ */
+:host(:not([vertical])) [part='name'],
+slot:not([name]) {
+  &::after {
+    content: '';
+    display: block;
+  }
+}

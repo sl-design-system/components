@@ -1,5 +1,129 @@
 # @sl-design-system/date-field
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3868](https://github.com/sl-design-system/components/pull/3868) [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c) - Normalize date time components when generating calendar days and validating `min`/`max` boundaries so `min` and `max` dates remain selectable regardless of the time of day on `value`, `selected`, `month`, `min`, or `max`.
+
+- [#3727](https://github.com/sl-design-system/components/pull/3727) [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0) - Preserve focus restoration when switching between calendar views and safely ignore date ranges from custom slotted calendars.
+
+- [#3833](https://github.com/sl-design-system/components/pull/3833) [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180) - Announce the displayed month and year after scrolling finishes and navigation button labels update, with a short delay to avoid interrupting the announcement. Add an announcer inside the date picker modal so these messages are available to screen readers there.
+
+- [#3796](https://github.com/sl-design-system/components/pull/3796) [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03) - Improve calendar layout, date range selection, and keyboard navigation.
+
+  Layout and styling
+
+  - Keep the header and navigation controls aligned across views and stable as localized labels, fonts, and date constraints change.
+  - Align the weekday headers, day cells, and week numbers. Keep six week rows and end the week number separator at the last visible week.
+  - Use a 24px gap between months and align the second month heading with its grid. Adjust the date field picker padding to match the calendar.
+  - Align range backgrounds with day tiles and blend the hover state into the range preview.
+  - Use equal-width highlights with a 40px height inside 48px month and year tiles. Truncate long month labels when space is limited.
+
+  Selection and navigation
+
+  - Show two years of months and 20 years in the expanded view. Adjust paging, keyboard navigation, and accessible navigation labels to match.
+  - Preserve the browsed month or year and keyboard focus when resizing. Keep selectable dates visible when the previous view overlaps the minimum date.
+  - Highlight months and years that overlap the selected range and expose their pressed states. Keep full accessible names for truncated month labels.
+
+- Updated dependencies [[`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0), [`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`6e6e6de`](https://github.com/sl-design-system/components/commit/6e6e6de025a8278a342471d0681a87b100291854), [`8e09ebd`](https://github.com/sl-design-system/components/commit/8e09ebd7ccd2adf63ef4a9dd6a33874295341180), [`15e9297`](https://github.com/sl-design-system/components/commit/15e9297c4b193d9d1b3012fe97c2232b5f11080c), [`c334cbd`](https://github.com/sl-design-system/components/commit/c334cbdffe62c4f3c4faef9172ef825b95b8ae03), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/calendar@0.2.0
+  - @sl-design-system/shared@0.14.2
+  - @sl-design-system/form@1.7.1
+
+## 0.4.0
+
+### Minor Changes
+
+- [#3740](https://github.com/sl-design-system/components/pull/3740) [`57cd33d`](https://github.com/sl-design-system/components/commit/57cd33dbe1afb6a8cf5294a1528a21b83c9b1504) - Add a `hide-picker` attribute for custom action controls slotted into `<sl-date-field>` so they can close the calendar popup after handling their own click.
+
+  This makes it easy to build actions like 'Today' or 'Clear' that update the field and then dismiss the picker automatically.
+
+### Patch Changes
+
+- Updated dependencies [[`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031), [`f2e06b9`](https://github.com/sl-design-system/components/commit/f2e06b99db6014649e20cf6edff9660b5ebe4031), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/form@1.7.0
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/button@2.3.2
+
+## 0.3.2
+
+### Patch Changes
+
+- [#3709](https://github.com/sl-design-system/components/pull/3709) [`9cb15fb`](https://github.com/sl-design-system/components/commit/9cb15fb00aa1b447b0ea2910f65126457fc494b1) - Accessibility improvement: in the date-field calendar dialog, when returning from month/year selection, focus now moves to the selected day when it is enabled; otherwise it moves to the first day of the displayed month if enabled, or the first selectable day in that month.
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-date-field` behavior when `validate-on-blur` is enabled on the parent `sl-form`:
+
+  - The field is now correctly marked as dirty after user interaction, including partial date input and complete but invalid or out-of-range date input. This prevents required validation from being incorrectly suppressed on blur after the user has interacted with the field.
+
+- Updated dependencies [[`2f66df5`](https://github.com/sl-design-system/components/commit/2f66df5d450242a8182477939a849a848f5e4beb), [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/calendar@0.1.3
+  - @sl-design-system/form@1.6.0
+
+## 0.3.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/button-bar@1.6.1
+  - @sl-design-system/calendar@0.1.2
+  - @sl-design-system/form@1.5.1
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/text-field@1.7.2
+
+## 0.3.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3649](https://github.com/sl-design-system/components/pull/3649) [`030a5d4`](https://github.com/sl-design-system/components/commit/030a5d41b03201c45d3b357f9725f2188374db64) - Fix clearing preserved date parts when the date field value is externally set to `undefined`.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/button-bar@1.6.0
+  - @sl-design-system/calendar@0.1.1
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/text-field@1.7.1
+
+## 0.2.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+  A new `size` property that defaults to `md` but also accepts `lg`.
+  New styling of the field button.
+
+### Patch Changes
+
+- [#3582](https://github.com/sl-design-system/components/pull/3582) [`f28ec84`](https://github.com/sl-design-system/components/commit/f28ec84fceec18eb920d5e76a59304f564577f92) - Fixes incorrect text color in year select dialog
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/button-bar@1.5.1
+  - @sl-design-system/calendar@0.1.0
+  - @sl-design-system/form@1.4.3
+
 ## 0.1.5
 
 ### Patch Changes

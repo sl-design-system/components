@@ -7,7 +7,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
-import { isDateInList, isSameDate } from '@sl-design-system/shared/date.js';
+import { isDateInList, isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -21,6 +21,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { repeat } from 'lit/directives/repeat.js';
 import styles from './month-view.css' with { type: 'css' };
 import {
   type Calendar,
@@ -30,6 +31,8 @@ import {
   getWeekdayNames,
   indicatorConverter
 } from './utils.js';
+
+export type RangePreviewSource = 'keyboard' | 'pointer' | 'focus' | 'hover';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -56,6 +59,14 @@ const DAYS_IN_WEEK = 7;
  * @csspart next-month - The day button for a day in the next month.
  * @csspart out-of-range - The day button for a date outside the min/max range.
  * @csspart previous-month - The day button for a day in the previous month.
+ * @csspart range-end - The last day in a selected range.
+ * @csspart range-month-end - A range bridge fading out at the end of a month.
+ * @csspart range-month-start - A range bridge fading in at the start of a month.
+ * @csspart range-preview - A day shown while previewing an unfinished range.
+ * @csspart range-row-end - A range bridge ending at the edge of a week row.
+ * @csspart range-row-start - A range bridge starting at the edge of a week row.
+ * @csspart range-start - The first day in a selected range.
+ * @csspart in-range - A day between the start and end of a selected range.
  * @csspart selected - The day button for the selected date.
  * @csspart today - The day button for today's date.
  * @csspart week-day - The week day header cell.
@@ -65,8 +76,8 @@ const DAYS_IN_WEEK = 7;
 export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override get observedAttributes(): string[] {
-    // Observe the `inert` attribute to update the roving tabindex
-    return [...(super.observedAttributes ?? []), 'inert'];
+    // Observe attributes that affect keyboard focus behavior and a11y attributes in render output.
+    return [...(super.observedAttributes ?? []), 'aria-hidden', 'inert'];
   }
 
   /** @internal */
@@ -88,6 +99,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The current month. */
   #month = new Date();
+
+  /** The focused date currently previewed while composing a range. */
+  @state() focusedDate?: Date;
+
+  /** The hovered date currently previewed while composing a range. */
+  @state() hoveredDate?: Date;
 
   /** Manage focus group for day buttons. */
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
@@ -202,6 +219,24 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
+  /** The selected date range. */
+  @property({ attribute: false }) range?: Date[];
+
+  /** The temporary end date while composing a range across calendar views. */
+  @property({ attribute: false }) rangePreview?: Date;
+
+  /** @internal Whether keyboard input controls the current range preview. */
+  @property({ attribute: false }) keyboardRangeSelection = false;
+
+  /** @internal Reports a local range preview so sibling month views can stay in sync. */
+  protected rangePreviewChange?: (date: Date | undefined, source: RangePreviewSource) => void;
+
+  /** Whether selecting a range is enabled. */
+  @property({ attribute: false }) rangeSelection?: boolean;
+
+  /** The first date selected while composing a range. */
+  @property({ attribute: false }) rangeStart?: Date;
+
   /** You can customize how a day is rendered by providing a custom renderer callback. */
   @property({ attribute: false }) renderer?: MonthViewRenderer;
 
@@ -242,10 +277,20 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (name === 'inert') {
       this.#focusGroupController.clearElementCache();
     }
+
+    if (name === 'aria-hidden' && oldValue !== newValue) {
+      this.requestUpdate();
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('rangeStart') && !this.rangeStart) {
+      this.keyboardRangeSelection = false;
+      this.focusedDate = undefined;
+      this.hoveredDate = undefined;
+    }
 
     if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
@@ -285,34 +330,71 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    this.#updateRangeDescriptions();
+  }
+
   override render(): TemplateResult {
+    const ariaHidden = this.getAttribute('aria-hidden') === 'true' ? 'true' : undefined;
+
     return html`
+      <span aria-hidden="true" class="visually-hidden" id="range-start-description">
+        ${msg('Start of range', { id: 'sl.calendar.rangeStart' })}
+      </span>
+      <span aria-hidden="true" class="visually-hidden" id="range-end-description">
+        ${msg('End of range', { id: 'sl.calendar.rangeEnd' })}
+      </span>
       <table
+        class=${this.rangeSelection ? 'range-selection' : ''}
+        aria-hidden=${ifDefined(ariaHidden)}
         aria-label=${msg(
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
           { id: 'sl.calendar.daysLabel' }
         )}
         role="grid">
+        <colgroup>
+          ${this.showWeekNumbers ? html`<col class="week-number-column" />` : nothing}
+          <col span="7" />
+        </colgroup>
         ${this.renderHeader()}
         <tbody>
-          ${this.calendar?.weeks.map(
-            week => html`
-              <tr class="days" role="row">
-                ${
-                  this.showWeekNumbers
-                    ? html`
-                        <td
-                          aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
-                          part="week-number"
-                          role="rowheader">
-                          ${week.number}
-                        </td>
-                      `
-                    : nothing
-                }
-                ${week.days.map(day => this.renderDay(day))}
-              </tr>
-            `
+          ${repeat(
+            this.calendar?.weeks ?? [],
+            week => week.days[0].date.toISOString(),
+            week => {
+              const hasVisibleDay = week.days.some(day => !day.previousMonth && !day.nextMonth);
+
+              return html`
+                <tr
+                  aria-hidden=${ifDefined(this.hideDaysOtherMonths && !hasVisibleDay ? 'true' : undefined)}
+                  class="days"
+                  role="row">
+                  ${
+                    this.showWeekNumbers
+                      ? this.hideDaysOtherMonths && !hasVisibleDay
+                        ? html`<td aria-hidden="true" part="week-number" role="rowheader"></td>`
+                        : html`
+                            <td
+                              aria-label=${msg(str`Week ${week.number}`, {
+                                id: 'sl.monthView.week'
+                              })}
+                              part="week-number"
+                              role="rowheader">
+                              ${week.number}
+                            </td>
+                          `
+                      : nothing
+                  }
+                  ${repeat(
+                    week.days,
+                    day => day.date.toISOString(),
+                    day => this.renderDay(day)
+                  )}
+                </tr>
+              `;
+            }
           )}
         </tbody>
       </table>
@@ -348,11 +430,17 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (this.renderer) {
       template = this.renderer(day, this);
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
-      return html`<td role="gridcell"></td>`;
+      return html`<td aria-hidden="true" role="gridcell"></td>`;
     }
 
     const parts = this.getDayParts(day),
-      selected = parts.includes('selected');
+      selected =
+        parts.includes('selected') ||
+        (this.rangeStart
+          ? isSameDate(day.date, this.rangeStart)
+          : parts.includes('range-start') ||
+            parts.includes('range-end') ||
+            parts.includes('in-range'));
 
     // If the custom renderer returned `undefined`, we fall back to the default rendering
     if (!template) {
@@ -361,14 +449,23 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       template =
         this.readonly || day.disabled || day.outOfRange
           ? html`
-              <button aria-label=${this.getDayLabel(day)} disabled part=${parts.join(' ')}>
+              <button
+                aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
+                aria-label=${this.getDayLabel(day)}
+                aria-pressed=${selected.toString()}
+                disabled
+                part=${parts.join(' ')}>
                 <span>${day.date.getDate()}</span>
               </button>
             `
           : html`
               <button
+                @blur=${this.#clearFocusedRangePreview}
                 @click=${(event: Event & { target: HTMLElement }) => this.#onClick(event, day)}
+                @focus=${() => this.#setFocusedRangePreview(day)}
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
+                @pointerenter=${() => this.#setHoveredRangePreview(day)}
+                @pointerleave=${this.#clearHoveredRangePreview}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                 aria-label=${this.getDayLabel(day)}
@@ -408,9 +505,133 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       day.outOfRange ? 'out-of-range' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
-      this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
+      this.selected && isSameDate(day.date, this.selected) ? 'selected' : '',
+      ...this.#getRangeParts(day.date)
     ].filter(part => part !== '');
   };
+
+  #getRangeParts(date: Date): string[] {
+    if (!this.rangeSelection) {
+      return [];
+    }
+
+    const previewDate =
+        this.rangePreview ??
+        (this.keyboardRangeSelection ? this.focusedDate : (this.hoveredDate ?? this.focusedDate)),
+      activeRange =
+        this.rangeStart && previewDate
+          ? [this.rangeStart, previewDate]
+          : this.rangeStart
+            ? [this.rangeStart, this.rangeStart]
+            : this.range && this.range.length >= 2
+              ? this.range
+              : undefined;
+
+    if (!activeRange?.[0]) {
+      return [];
+    }
+
+    const first = activeRange[0],
+      second = activeRange[1] ?? first,
+      [start, end] = first.getTime() <= second.getTime() ? [first, second] : [second, first],
+      parts: string[] = [];
+
+    if (isSameDate(date, start)) {
+      parts.push('range-start');
+    }
+    if (isSameDate(date, end)) {
+      parts.push('range-end');
+    }
+    if (!isSameDate(date, start) && !isSameDate(date, end) && date > start && date < end) {
+      parts.push('in-range');
+    }
+
+    const dayColumn = (date.getDay() - this.firstDayOfWeek + DAYS_IN_WEEK) % DAYS_IN_WEEK,
+      hasLeadingBridge = date > start && date <= end,
+      hasTrailingBridge = date >= start && date < end,
+      isFirstDayOfMonth = date.getDate() === 1,
+      isLastDayOfMonth =
+        new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() === date.getDate();
+
+    if (dayColumn === 0 && hasLeadingBridge) {
+      parts.push('range-row-start');
+    }
+    if (dayColumn === DAYS_IN_WEEK - 1 && hasTrailingBridge) {
+      parts.push('range-row-end');
+    }
+    if (this.hideDaysOtherMonths && isFirstDayOfMonth && hasLeadingBridge) {
+      parts.push('range-month-start');
+    }
+    if (this.hideDaysOtherMonths && isLastDayOfMonth && hasTrailingBridge) {
+      parts.push('range-month-end');
+    }
+    if (this.rangeStart && parts.length) {
+      parts.push('range-preview');
+    }
+
+    return parts;
+  }
+
+  #updateRangeDescriptions(): void {
+    const startDescription = this.renderRoot.querySelector('#range-start-description'),
+      endDescription = this.renderRoot.querySelector('#range-end-description');
+
+    if (!startDescription || !endDescription) {
+      return;
+    }
+
+    this.renderRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button').forEach(button => {
+      const current = button.ariaDescribedByElements ?? [],
+        descriptions = current.filter(
+          description => description !== startDescription && description !== endDescription
+        );
+
+      if (!this.rangeStart && button.part.contains('range-start')) {
+        descriptions.push(startDescription);
+      }
+      if (!this.rangeStart && button.part.contains('range-end')) {
+        descriptions.push(endDescription);
+      }
+
+      if (
+        descriptions.length !== current.length ||
+        descriptions.some((description, index) => description !== current[index])
+      ) {
+        button.ariaDescribedByElements = descriptions;
+      }
+    });
+  }
+
+  #setFocusedRangePreview(day: Day): void {
+    if (this.rangeStart && !this.readonly) {
+      this.focusedDate = day.date;
+      this.#emitRangePreview('focus');
+    }
+  }
+
+  #setHoveredRangePreview(day: Day): void {
+    if (this.rangeStart && !this.readonly && !this.keyboardRangeSelection) {
+      this.hoveredDate = day.date;
+      this.#emitRangePreview('hover');
+    }
+  }
+
+  #clearFocusedRangePreview(): void {
+    this.focusedDate = undefined;
+    this.#emitRangePreview('focus');
+  }
+
+  #clearHoveredRangePreview(): void {
+    this.hoveredDate = undefined;
+    this.#emitRangePreview('hover');
+  }
+
+  #emitRangePreview(source: RangePreviewSource): void {
+    this.rangePreviewChange?.(
+      this.keyboardRangeSelection ? this.focusedDate : (this.hoveredDate ?? this.focusedDate),
+      source
+    );
+  }
 
   /** @internal */
   override focus(options?: FocusOptions): void;
@@ -434,11 +655,19 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const button = event.target.closest('button');
 
     if (!button?.disabled) {
+      if (this.rangeSelection) {
+        this.keyboardRangeSelection = false;
+        this.hoveredDate = day.date;
+        this.rangePreviewChange?.(day.date, 'pointer');
+      }
+
       const isAlreadySelected = this.selected && isSameDate(day.date, this.selected);
 
-      if (!isAlreadySelected) {
+      if (!isAlreadySelected || this.rangeSelection) {
         this.selectEvent.emit(day.date);
-        this.selected = day.date;
+        if (!this.rangeSelection) {
+          this.selected = day.date;
+        }
       }
     }
 
@@ -450,6 +679,16 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent, day: Day): void {
+    if (
+      this.rangeSelection &&
+      (event.key.startsWith('Arrow') || ['Home', 'End', 'Enter', ' '].includes(event.key))
+    ) {
+      this.keyboardRangeSelection = true;
+      this.hoveredDate = undefined;
+      this.focusedDate = day.date;
+      this.rangePreviewChange?.(day.date, 'keyboard');
+    }
+
     if (event.key === 'ArrowLeft' && day.firstActiveDayOfMonth) {
       event.preventDefault();
       event.stopPropagation();
@@ -503,12 +742,17 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.stopPropagation();
 
       this.selectEvent.emit(day.date);
-      this.selected = day.date;
+      if (!this.rangeSelection) {
+        this.selected = day.date;
+      }
     }
   }
 
   /** Nearest enabled same-weekday date (weekly steps: -1 or 1) */
   #getEnabledSameWeekday(start: Date, direction: 1 | -1): Date | undefined {
+    const normalizedMin = this.min ? normalizeDateTime(this.min) : undefined,
+      normalizedMax = this.max ? normalizeDateTime(this.max) : undefined;
+
     const findEnabledSameWeekday = (current: Date): Date | undefined => {
       const possibleDay = new Date(
         current.getFullYear(),
@@ -516,7 +760,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         current.getDate() + DAYS_IN_WEEK * direction
       );
 
-      if ((this.min && possibleDay < this.min) || (this.max && possibleDay > this.max)) {
+      if (
+        (normalizedMin && possibleDay < normalizedMin) ||
+        (normalizedMax && possibleDay > normalizedMax)
+      ) {
         return undefined;
       }
 

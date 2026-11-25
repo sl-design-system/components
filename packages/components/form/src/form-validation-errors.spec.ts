@@ -2,7 +2,7 @@ import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { query } from 'lit/decorators.js';
-import { spy, stub } from 'sinon';
+import { stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FormController } from './form-controller.js';
 import { type FormValidationErrors } from './form-validation-errors.js';
@@ -95,24 +95,17 @@ describe('sl-form-validation-errors', () => {
       expect(inlineMessage).to.contain.text('The following fields have errors:');
     });
 
-    it('should link to the invalid controls', () => {
-      const links = Array.from(el.errors.renderRoot.querySelectorAll<HTMLAnchorElement>('li a'));
+    it('should render the invalid control labels as plain text with comma spacing', () => {
+      const inlineMessage = el.errors.renderRoot.querySelector('sl-inline-message'),
+        message = inlineMessage?.textContent?.replace(/\s+/g, ' ').trim();
 
-      expect(links).to.have.length(2);
-      expect(links.map(l => l.hash)).to.deep.equal([
-        '#sl-form-field-control-6',
-        '#sl-form-field-control-7'
-      ]);
-      expect(links.map(l => l.textContent?.trim())).to.deep.equal(['Foo', 'Bar']);
+      expect(message).to.equal('The following fields have errors: Foo, Bar.');
     });
 
-    it('should focus the control when the link is clicked', () => {
-      const textField = el.renderRoot.querySelector('sl-text-field')!,
-        focusSpy = spy(textField, 'focus');
+    it('should not render inaccessible validation links', () => {
+      const links = el.errors.renderRoot.querySelectorAll('a');
 
-      el.errors.renderRoot.querySelector<HTMLAnchorElement>('li a')?.click();
-
-      expect(focusSpy).to.have.been.called;
+      expect(links).to.have.length(0);
     });
   });
 

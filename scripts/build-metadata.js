@@ -3,6 +3,7 @@ import fg from 'fast-glob';
 import fs from 'fs';
 import { basename, join, resolve } from 'path';
 import {
+  excludeStandardMethodsPlugin,
   methodAndFieldPlugin,
   noPrivateFieldsPlugin,
   sortMembersPlugin,
@@ -29,6 +30,7 @@ const buildManifest = async component => {
   const plugins = [
     ...(litPlugin() || []),
     eventDecoratorPlugin(),
+    excludeStandardMethodsPlugin(),
     methodAndFieldPlugin('method'),
     methodAndFieldPlugin('field'),
     noPrivateFieldsPlugin(),

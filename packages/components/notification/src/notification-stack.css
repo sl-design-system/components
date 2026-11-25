@@ -90,9 +90,27 @@ sl-notification {
       display 0.2s allow-discrete;
   }
 
+  /* Flex items don't shrink below their content by default; let them fold away completely */
+  min-block-size: 0;
+
+  /*
+   * A new notification grows in from nothing at the edge of the screen, so it doesn't push the
+   * others away first; the gap before it grows along.
+   */
   @starting-style {
+    block-size: 0;
+    border-block-width: 0;
+    margin-block-start: calc(var(--_gap) * -1);
     opacity: 0;
+    padding-block: 0;
     translate: 0 var(--sl-size-200);
+  }
+}
+
+:host([position^='top']:not(:state(small))) sl-notification {
+  @starting-style {
+    margin-block: 0 calc(var(--_gap) * -1);
+    translate: 0 calc(var(--sl-size-200) * -1);
   }
 }
 
@@ -119,8 +137,13 @@ sl-notification[hidden] {
   translate: 0 calc(var(--sl-size-200) * -1);
 }
 
+/* A notification that was closed folds away in place, so the others move along smoothly */
 sl-notification.leaving {
+  block-size: 0;
+  border-block-width: 0;
+  margin-block-end: calc(var(--_gap) * -1);
   opacity: 0;
+  padding-block: 0;
   pointer-events: none;
   translate: 0 var(--sl-size-200);
 
@@ -129,20 +152,22 @@ sl-notification.leaving {
   }
 }
 
+:host([position^='top']:not(:state(small))) sl-notification.leaving {
+  margin-block: calc(var(--_gap) * -1) 0;
+  translate: 0 calc(var(--sl-size-200) * -1);
+}
+
 /* The edges of the cards behind the front notification of a collapsed pile */
 .edges {
   cursor: pointer;
   display: flex;
   flex-direction: column;
+
+  /* Edges touch the front card; without edges this cancels the extra gap around them */
   margin-block-end: calc(var(--_gap) * -1);
 
-  @media (prefers-reduced-motion: no-preference) {
-    /* Appear once the cards behind the front one have folded away */
-    transition: opacity 0.15s cubic-bezier(0.25, 0, 0.3, 1) 0.15s;
-
-    @starting-style {
-      opacity: 0;
-    }
+  &:not(.has-edges) {
+    pointer-events: none;
   }
 }
 
@@ -165,8 +190,21 @@ sl-notification.leaving {
   box-sizing: border-box;
   margin-inline: calc(var(--_inset) * var(--sl-size-100));
 
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      block-size 0.2s cubic-bezier(0.25, 0, 0.3, 1),
+      border-width 0.2s cubic-bezier(0.25, 0, 0.3, 1),
+      opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
   &:last-child {
     background: var(--sl-elevation-surface-raised-default);
+  }
+
+  &.off {
+    block-size: 0;
+    border-width: 0;
+    opacity: 0;
   }
 }
 

@@ -273,12 +273,15 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
   }
 
   override render(): TemplateResult {
-    const persistent = this.#rendered.filter(n => n.persistent),
+    const isLeaving = (n: Notification): boolean => this.#leaving.has(n),
+      persistent = this.#rendered.filter(n => n.persistent),
       timed = this.#rendered.filter(n => !n.persistent),
-      front = timed.at(-1),
+      // Notifications that are animating out don't count; the next one takes their place right away
+      staying = timed.filter(n => !isLeaving(n)),
+      front = staying.at(-1),
       maxVisible = this.small ? MAX_VISIBLE_SMALL : (this.maxVisible ?? 5),
-      hidden = this.expanded ? Math.max(0, timed.length - maxVisible) : 0,
-      edges = this.expanded ? 0 : Math.min(MAX_EDGES, timed.length - 1);
+      hidden = this.expanded ? Math.max(0, staying.length - maxVisible) : 0,
+      edges = this.expanded ? 0 : Math.min(MAX_EDGES, staying.length - 1);
 
     return html`
       <div part="persistent">
@@ -303,24 +306,31 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
           n => n.id,
           (n, index) => {
             const isFront = n === front,
-              visible = this.expanded ? index >= hidden : isFront;
+              visible = isLeaving(n) || (this.expanded ? staying.indexOf(n) >= hidden : isFront);
 
-            return html`
-              ${
-                isFront && edges > 0
-                  ? html`
-                      <div @click=${this.#onEdgeClick} class="edges" aria-hidden="true">
-                        ${Array.from({ length: edges }).map(
-                          (_, i) => html`<div class="edge" style="--_inset: ${edges - i}"></div>`
-                        )}
-                      </div>
-                    `
-                  : nothing
-              }
-              ${this.#renderNotification(n, !visible, !isFront || this.expanded)}
-            `;
+            return this.#renderNotification(n, !visible, !isFront || this.expanded, index * 2);
           }
         )}
+        ${
+          // The edges of the cards behind the front one; always rendered, so they can animate
+          front
+            ? html`
+                <div
+                  @click=${this.#onEdgeClick}
+                  aria-hidden="true"
+                  class=${classMap({ edges: true, 'has-edges': edges > 0 })}
+                  style="order: ${timed.indexOf(front) * 2 - 1}">
+                  ${Array.from({ length: MAX_EDGES }).map(
+                    (_, i) => html`
+                      <div
+                        class=${classMap({ edge: true, off: i < MAX_EDGES - edges })}
+                        style="--_inset: ${MAX_EDGES - i}"></div>
+                    `
+                  )}
+                </div>
+              `
+            : nothing
+        }
       </div>
     `;
   }
@@ -337,7 +347,12 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
     this.expanded = false;
   }
 
-  #renderNotification(notification: Notification, hidden: boolean, suspended = false) {
+  #renderNotification(
+    notification: Notification,
+    hidden: boolean,
+    suspended = false,
+    order?: number
+  ): TemplateResult {
     return html`
       <sl-notification
         @sl-close=${this.#onClose}
@@ -345,6 +360,7 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
         .suspended=${suspended}
         class=${classMap({ leaving: this.#leaving.has(notification) })}
         data-id=${notification.id}
+        style=${order === undefined ? nothing : `order: ${order}`}
         ?hidden=${hidden}></sl-notification>
     `;
   }

@@ -54,12 +54,14 @@ export interface FlatDataNode {
   level: number;
   name: string;
   badge?: string;
+  disabled?: boolean;
 }
 
 export interface NestedDataNode {
   id: number;
   name: string;
   description?: string;
+  disabled?: boolean;
   children?: NestedDataNode[];
 }
 
@@ -197,6 +199,14 @@ export const flatData: FlatDataNode[] = [
     level: 3,
     name: 'M1A',
     badge: '27'
+  },
+  {
+    id: 13,
+    expandable: false,
+    level: 3,
+    name: 'M1B',
+    badge: '23',
+    disabled: true
   }
 ];
 
@@ -283,7 +293,11 @@ export const nestedData: NestedDataNode[] = [
             name: 'Spanish',
             children: [
               { id: 18, name: 'Basic Greetings', description: 'Everyday words and phrases' },
-              { id: 19, name: 'Verb Conjugation', description: 'Present tense regular verbs' }
+              {
+                id: 19,
+                name: 'Verb Conjugation',
+                description: 'Present tense regular verbs'
+              }
             ]
           }
         ]
@@ -292,7 +306,7 @@ export const nestedData: NestedDataNode[] = [
   }
 ];
 
-export default {
+const meta = {
   title: 'Navigation/Tree',
   excludeStories: ['flatData', 'nestedData'],
   parameters: {
@@ -358,17 +372,55 @@ export default {
   }
 } satisfies Meta<Props>;
 
+export default meta;
+
+const renderWithDisabledToggle = (args: Props, label: string) => {
+  const findNode = (
+      nodes: Array<TreeDataSourceNode<unknown>>
+    ): TreeDataSourceNode<unknown> | undefined => {
+      for (const node of nodes) {
+        if (node.label === label) {
+          return node;
+        }
+
+        const child = findNode(node.children ?? []);
+        if (child) {
+          return child;
+        }
+      }
+
+      return undefined;
+    },
+    node = findNode(args.dataSource?.nodes ?? []),
+    onChange = (event: Event) => {
+      if (node) {
+        node.disabled = (event.target as HTMLInputElement).checked;
+        args.dataSource?.update();
+      }
+    };
+
+  return html`
+    <label>
+      <input type="checkbox" .checked=${!!node?.disabled} @change=${onChange} />
+      Disable ${label}
+    </label>
+    ${meta.render(args)}
+  `;
+};
+
 export const Basic: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
     })
-  }
+  },
+  render: args => renderWithDisabledToggle(args, 'H3B')
 };
 
 export const Badges: Story = {
@@ -378,6 +430,7 @@ export const Badges: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
+      isDisabled: ({ disabled }) => !!disabled,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['Location A', 'Upper school', 'HAVO', 'VWO'].includes(name),
       isSelected: ({ name }) => name === 'H3B'
@@ -652,6 +705,7 @@ export const Selectable: Story = {
       isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
       // Only the parent nodes are selectable, the leaf nodes are not.
       isSelectable: ({ children }) => !!children,
+      isDisabled: ({ name }) => ['Spanish'].includes(name),
       multiple: true
     }),
     renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {
@@ -672,7 +726,8 @@ export const Selectable: Story = {
     },
     hideGuides: true,
     maxWidth: '350px'
-  }
+  },
+  render: args => renderWithDisabledToggle(args, 'Biology')
 };
 
 export const Skeleton: Story = {

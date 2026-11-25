@@ -53,9 +53,16 @@
     }
   }
 
+  /* One line high, so the icon is centred on the first line of text, like in the notification */
+  .icon {
+    align-items: center;
+    block-size: 1lh;
+    display: inline-flex;
+    flex: none;
+  }
+
   sl-icon {
     color: var(--sl-color-foreground-info-bold);
-    flex: none;
   }
 
   &[data-variant='success'] sl-icon {

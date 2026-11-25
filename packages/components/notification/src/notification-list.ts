@@ -220,7 +220,7 @@ export class NotificationList extends ScopedElementsMixin(LitElement) {
         data-variant=${variant}
         part="row"
         tabindex=${index === this.focusIndex ? '0' : '-1'}>
-        <sl-icon .name=${ICONS[variant]} size="md"></sl-icon>
+        <span class="icon"><sl-icon .name=${ICONS[variant]} size="md"></sl-icon></span>
         <div class="text">
           <div class="header">
             <span class="label">

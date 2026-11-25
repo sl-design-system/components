@@ -96,8 +96,8 @@ export class NotificationButton extends ScopedElementsMixin(ElementInternalsMixi
   /** Cleans up the positioning of the popover. */
   #cleanup?: () => void;
 
-  /** When the popover was last closed. */
-  #lastClosed = 0;
+  /** When the popover was last closed; never, until it has been opened and closed once. */
+  #lastClosed = -Infinity;
 
   /** Media queries for the breakpoints; resizing while open reopens in the new mode. */
   #media?: MediaQueryList[];

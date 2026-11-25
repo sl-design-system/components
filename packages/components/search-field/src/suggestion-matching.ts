@@ -8,7 +8,9 @@ export function matchSuggestion(
       .toLocaleLowerCase()
       .replace(/ς/g, 'σ')
       .normalize('NFD')
+      // Removes the combining marks of decomposed letters such as ö, å, é, ñ and ç.
       .replace(/\p{M}/gu, '')
+      // Letters without a Unicode decomposition need an explicit Latin equivalent.
       .replace(
         /[łøæœßðþ]/g,
         letter => ({ ł: 'l', ø: 'o', æ: 'ae', œ: 'oe', ß: 'ss', ð: 'd', þ: 'th' })[letter]!

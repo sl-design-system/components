@@ -47,11 +47,13 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 ## Autocomplete announcements and focus
 
-Inline proposals are announced through a polite live region and added to the input's accessible description, including the Right Arrow / End acceptance instructions. Existing descriptions, such as a field hint, are preserved. Unaccepted proposals are excluded from the input value, form submission and native validation.
+- **Inline proposals** are announced through `sl-announcer`, so make sure `<sl-announcer>` is present in your application. The proposal and how to accept it are also added to the input's accessible description, next to existing descriptions such as a hint. Proposals that are not accepted are excluded from the value, form submission and validation.
+- **Suggestion modes** are exposed on the input with `aria-autocomplete`. While the suggestion list is visible, the input refers to it with `aria-controls`.
+- **The suggestion list** is a separate, focusable listbox. The active option is identified with `aria-activedescendant`. Moving through the list with the arrow keys does not select a phrase or change the query. `aria-selected` is only `true` for the option that exactly matches the text in the field.
+- **Updating suggestions** keeps the active phrase when it is still available. If no options remain, focus returns to the input.
+- **Loading, empty and unavailable messages** are about suggestions, not about the search results, and use a status region. Searching the typed words stays available.
 
-The input has the `searchbox` role. Suggestions use a separate, focusable listbox: its active option is identified with `aria-activedescendant`, while `aria-selected` is true only for an option whose phrase exactly matches the text in the field. Moving focus with the arrow keys does not select a phrase or change the query. The focused row has a focus outline and side indicator; selection styling is reserved for a matching query. Updating suggestions preserves the active phrase when it remains available. If no options remain, focus returns to the input.
-
-Loading, empty and unavailable messages describe suggestions, not the results of the search. They use a status region; searching with the typed words remains available. Keep the field's label and any persistent instructions meaningful without relying on placeholder text.
+Keep the field's label and any instructions meaningful without relying on placeholder text.
 
 </section>
 
@@ -69,9 +71,6 @@ Loading, empty and unavailable messages describe suggestions, not the results of
 |`aria-labelledby`|string|Used to connect with single header/element that describes the search field, when there is no label component connected to.|
 |`aria-required`	|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |
 |`aria-disabled`|boolean|Announces the search field component as disabled with a screen reader. See [Note 1] below.|
-|`aria-autocomplete`|`none`, `inline`, `list`, `both`|Managed on the input to describe the configured suggestion mode.|
-|`aria-controls`|ID reference|Managed on the input while the suggestion list is visible and contains options.|
-|`aria-describedby`|ID references|Includes an inline proposal and acceptance instructions while a proposal is available, preserving existing descriptions.|
 
 {.ds-table .ds-table-align-top}
 

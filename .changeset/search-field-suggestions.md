@@ -1,13 +1,25 @@
 ---
 '@sl-design-system/search-field': minor
-'@sl-design-system/locales': patch
-'@sl-design-system/sanoma-learning': patch
 ---
 
-Add optional inline and list suggestions to the search field, with prefix or contains matching, configurable thresholds and placement, and loading, empty and unavailable states. Keep typed queries separate from unaccepted completions and support explicit keyboard and pointer selection of suggested searches.
+Add optional suggested searches to `sl-search-field`.
 
-Render inline proposals separately from the native input so form submission, validation and text selection use only accepted text. Preserve active suggestions across updates, hide closed lists in flow layouts, refresh localized suggestion messages and handle Unicode case folding and partial character expansions correctly. Deduplicate requests in the asynchronous example.
+Autocomplete
 
-Preserve inherited Enter-to-submit behavior for native forms and `sl-form`, expose inline proposals through a localized accessible description and live announcement, and preserve selected phrases independently of keyboard focus when suggestion lists are rebuilt.
+- New `autocomplete` modes: `off` (default), `inline`, `list` and `both`.
+- New `matching` property: `starts-with` (default) or `contains`. Matching ignores case, accents and repeated whitespace.
+- New `suggestion-threshold` (default `3`) and `suggestion-placement` (`overlay` or `flow`) properties.
+- Suggestions can be supplied as native `<option>` elements or through the `suggestions` property.
+- New `loading` and `unavailable` properties for asynchronous suggestions.
 
-Load the bold font when list autocomplete is enabled. Keep suggestion text visible in Sanoma Learning with a sans-serif fallback while the font loads.
+Behavior
+
+- Enter searches the typed words. An inline proposal is only accepted with Right Arrow or End.
+- Unaccepted inline proposals are not part of `value`, form submission or validation.
+- Suggestions can be chosen with the keyboard or the pointer. Inline and list suggestions respect `maxlength`.
+- The suggestion list waits for the bold font (up to 300 ms) before it is first shown, so the emphasised text does not change font.
+
+Accessibility
+
+- Inline proposals are announced through `sl-announcer`.
+- Loading, empty and unavailable states are exposed in a status message.

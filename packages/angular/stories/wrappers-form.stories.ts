@@ -11,6 +11,7 @@ import { SwitchComponent } from '@sl-design-system/angular/switch';
 import { TextAreaComponent } from '@sl-design-system/angular/text-area';
 import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
+import { announce } from '@sl-design-system/announcer';
 import {
   type SlSearchEvent,
   type SearchField as SearchFieldElement
@@ -18,29 +19,36 @@ import {
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
+const announceSearchedPhrase = (query: string): void => {
+  announce(`Searched phrase: ${query || 'No search yet'}`);
+};
+
 const createSearchAutocompleteProps = () => {
   const searchedQuery = signal('');
+
   return {
     suggestions: ['García', 'García Ruiz', 'High West Institute', 'Elementary High School'],
     searchedQuery,
-    onSearch: (event: SlSearchEvent) => searchedQuery.set(event.detail)
+    onSearch: (event: SlSearchEvent) => {
+      searchedQuery.set(event.detail);
+      announceSearchedPhrase(event.detail);
+    }
   };
 };
 
 @Component({
   selector: 'sla-search-field-async-example',
-  imports: [SearchFieldComponent],
+  imports: [OptionComponent, SearchFieldComponent, SelectComponent],
   template: `
     <div style="display: grid; gap: 1rem; max-width: 32rem">
-      <label for="search-suggestion-response">Suggestion response</label>
-      <select
-        id="search-suggestion-response"
+      <sl-select
+        aria-label="Suggestion response"
         [value]="response()"
-        (change)="onResponseChange($event)">
-        <option value="available">Suggestions available</option>
-        <option value="empty">No suggestions</option>
-        <option value="unavailable">Suggestions unavailable</option>
-      </select>
+        (slChange)="onResponseChange($event)">
+        <sl-option value="available">Suggestions available</sl-option>
+        <sl-option value="empty">No suggestions</sl-option>
+        <sl-option value="unavailable">Suggestions unavailable</sl-option>
+      </sl-select>
       <sl-search-field
         aria-label="Search students"
         autocomplete="both"
@@ -52,7 +60,7 @@ const createSearchAutocompleteProps = () => {
         (slChange)="onEdit($event)"
         (slClear)="onClear()"
         (slSearch)="onSearch($event)"></sl-search-field>
-      <p aria-live="polite">Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
+      <p>Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
     </div>
   `
 })
@@ -75,12 +83,13 @@ export class SearchFieldAsyncExampleComponent {
   }
 
   onResponseChange(event: Event): void {
-    this.response.set((event.target as HTMLSelectElement).value);
+    this.response.set((event as CustomEvent<string | undefined>).detail ?? 'available');
     this.#loadSuggestions(this.#previousQuery ?? '', true);
   }
 
   onSearch(event: SlSearchEvent): void {
     this.searchedQuery.set(event.detail);
+    announceSearchedPhrase(event.detail);
   }
 
   #loadSuggestions(query: string, force = false): void {
@@ -225,7 +234,7 @@ export const SearchFieldAutocomplete: StoryObj = {
           placeholder="Try Gar or High"
           [suggestions]="suggestions"
           (slSearch)="onSearch($event)"></sl-search-field>
-        <p aria-live="polite">Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
+        <p>Searched phrase: {{ searchedQuery() || 'No search yet' }}</p>
       </div>
     `
   })

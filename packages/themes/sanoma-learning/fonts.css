@@ -23,7 +23,6 @@
 }
 
 @font-face {
-  font-display: swap;
   font-family: 'New Message Text Condensed';
   font-weight: 600;
   src: url('./fonts/NewMessage-Text-Condensed-SemiBold.woff2') format('woff2');

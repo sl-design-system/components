@@ -1,9 +1,10 @@
 import { configureLocalization, str } from '@lit/localize';
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { type Form as SlForm } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import './register.js';
@@ -363,6 +364,60 @@ describe('sl-search-field', () => {
     });
   });
 
+  describe('bold font loading', () => {
+    const list = () => el.querySelector('sl-listbox');
+
+    it('shows the list only after the bold font has loaded', async () => {
+      let resolveFont!: (faces: FontFace[]) => void;
+      const checkStub = stub(document.fonts, 'check').returns(false),
+        loadStub = stub(document.fonts, 'load').returns(
+          new Promise<FontFace[]>(resolve => (resolveFont = resolve))
+        );
+
+      try {
+        el = await fixture(
+          html`<sl-search-field
+            aria-label="Search"
+            autocomplete="list"
+            .suggestions=${['García']}></sl-search-field>`
+        );
+        await userEvent.type(el.input, 'Gar');
+        await el.updateComplete;
+
+        expect(loadStub).to.have.been.calledOnce;
+        expect(list()?.hidden ?? true).to.be.true;
+
+        resolveFont([]);
+
+        await expect.poll(() => list()?.hidden).to.equal(false);
+        expect(list()!.querySelectorAll('sl-option')).to.have.length(1);
+      } finally {
+        checkStub.restore();
+        loadStub.restore();
+      }
+    });
+
+    it('shows the list with a fallback font when the bold font takes too long', async () => {
+      const checkStub = stub(document.fonts, 'check').returns(false),
+        loadStub = stub(document.fonts, 'load').returns(new Promise<FontFace[]>(() => undefined));
+
+      try {
+        el = await fixture(
+          html`<sl-search-field
+            aria-label="Search"
+            autocomplete="list"
+            .suggestions=${['García']}></sl-search-field>`
+        );
+        await userEvent.type(el.input, 'Gar');
+
+        await expect.poll(() => list()?.hidden, { timeout: 1000 }).to.equal(false);
+      } finally {
+        checkStub.restore();
+        loadStub.restore();
+      }
+    });
+  });
+
   describe('suggestions', () => {
     const phrases = ['García', 'High West Institute', 'Elementary High School'];
     const list = () => el.querySelector('sl-listbox')!;
@@ -599,9 +654,11 @@ describe('sl-search-field', () => {
     it('dismisses the suffix with Delete while preserving typed words', async () => {
       await userEvent.type(el.input, 'Gar');
       await userEvent.keyboard('{Delete}');
+      await el.updateComplete;
 
       expect(el.value).to.equal('Gar');
       expect(el.input.value).to.equal('Gar');
+      expect(suffix()).to.be.undefined;
     });
 
     it('does not complete a contains match that is not a prefix', async () => {
@@ -739,22 +796,10 @@ describe('sl-search-field', () => {
 
       expect(getComputedStyle(el).paddingInlineStart).to.equal('0px');
       expect(getComputedStyle(el).paddingInlineEnd).to.equal('0px');
-      expect(field.getBoundingClientRect().left).to.be.closeTo(
-        el.getBoundingClientRect().left,
-        0.1
-      );
-      expect(field.getBoundingClientRect().right).to.be.closeTo(
-        el.getBoundingClientRect().right,
-        0.1
-      );
-      expect(list().getBoundingClientRect().left).to.be.closeTo(
-        field.getBoundingClientRect().left,
-        0.1
-      );
-      expect(list().getBoundingClientRect().width).to.be.closeTo(
-        field.getBoundingClientRect().width,
-        0.1
-      );
+      expect(field.getBoundingClientRect().left).to.equal(el.getBoundingClientRect().left);
+      expect(field.getBoundingClientRect().right).to.equal(el.getBoundingClientRect().right);
+      expect(list().getBoundingClientRect().left).to.equal(field.getBoundingClientRect().left);
+      expect(list().getBoundingClientRect().width).to.equal(field.getBoundingClientRect().width);
     });
 
     it('removes outer padding from an explicitly medium pill field', async () => {
@@ -1326,7 +1371,7 @@ describe('sl-search-field', () => {
         await setLocale('pl');
         await el.updateComplete;
 
-        expect(el.querySelector('[slot="inline-announcement"]')?.textContent).to.equal(
+        expect(el.querySelector('[slot="inline-description"]')?.textContent).to.equal(
           'Sugerowane uzupełnienie: García. Naciśnij strzałkę w prawo lub End, aby zaakceptować.'
         );
       } finally {
@@ -1460,7 +1505,9 @@ describe('sl-search-field', () => {
       expect(submit).not.to.have.been.called;
     });
 
-    it('exposes an inline-only proposal as a live accessible description without replacing other descriptions', async () => {
+    it('announces an inline-only proposal and describes it without replacing other descriptions', async () => {
+      const onAnnounce = spy();
+      document.body.addEventListener('sl-announce', onAnnounce);
       el.autocomplete = 'inline';
       const hint = document.createElement('p');
       hint.id = 'search-hint';
@@ -1471,23 +1518,20 @@ describe('sl-search-field', () => {
 
       await expect.poll(suffix).to.equal('cía');
 
-      const announcement = el.querySelector<HTMLElement>('[slot="inline-announcement"]')!;
+      const description = el.querySelector<HTMLElement>('[slot="inline-description"]')!;
 
-      expect(announcement.getAttribute('role')).to.equal('status');
-      expect(announcement.getAttribute('aria-live')).to.equal('polite');
-      expect(announcement.textContent).to.equal(
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect((onAnnounce.firstCall.args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Suggested completion: García. Press Right Arrow or End to accept.'
+      );
+      expect(description.hidden).to.be.true;
+      expect(description.textContent).to.equal(
         'Suggested completion: García. Press Right Arrow or End to accept.'
       );
       expect(el.input.getAttribute('aria-describedby')?.split(' ')).to.deep.equal([
         hint.id,
-        announcement.id
+        description.id
       ]);
-      expect(announcement.hidden).to.be.false;
-      expect(getComputedStyle(announcement).display).not.to.equal('none');
-      expect(getComputedStyle(announcement.assignedSlot!).display).not.to.equal('none');
-      expect(getComputedStyle(announcement.assignedSlot!).visibility).not.to.equal('hidden');
-      expect(announcement.assignedSlot!.getBoundingClientRect().height).to.equal(1);
-      expect(announcement.assignedSlot!.getBoundingClientRect().width).to.equal(1);
       expect(el.input.value).to.equal('Gar');
       expect(list().hidden).to.be.true;
 
@@ -1495,8 +1539,11 @@ describe('sl-search-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('García');
-      expect(announcement.textContent).to.equal('');
+      expect(description.textContent).to.equal('');
       expect(el.input.getAttribute('aria-describedby')).to.equal(hint.id);
+      expect(onAnnounce).to.have.been.calledOnce;
+
+      document.body.removeEventListener('sl-announce', onAnnounce);
     });
 
     it('ignores Enter during composition', () => {

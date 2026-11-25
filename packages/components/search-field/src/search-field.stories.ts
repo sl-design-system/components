@@ -170,54 +170,6 @@ export const Complete: Story = {
   `
 };
 
-export const All: Story = {
-  render: () => html`
-    <style>
-      .wrapper {
-        align-items: center;
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: auto 1fr 1fr;
-      }
-
-      .section-header {
-        grid-column: 1 / -1;
-        font-weight: 600;
-        padding-top: 0.5rem;
-      }
-    </style>
-    <div class="wrapper">
-      <span></span>
-      <span style="justify-self: center">md</span>
-      <span style="justify-self: center">lg</span>
-
-      <span>Empty</span>
-      <sl-search-field placeholder="Placeholder"></sl-search-field>
-      <sl-search-field placeholder="Placeholder" size="lg"></sl-search-field>
-
-      <span>Value</span>
-      <sl-search-field aria-label="Search" value="Value"></sl-search-field>
-      <sl-search-field aria-label="Search" size="lg" value="Value"></sl-search-field>
-
-      <span>Readonly</span>
-      <sl-search-field aria-label="Search" readonly value="Value"></sl-search-field>
-      <sl-search-field aria-label="Search" readonly size="lg" value="Value"></sl-search-field>
-
-      <span>Disabled</span>
-      <sl-search-field aria-label="Search" disabled value="Value"></sl-search-field>
-      <sl-search-field aria-label="Search" disabled size="lg" value="Value"></sl-search-field>
-
-      <span>Empty (pill)</span>
-      <sl-search-field placeholder="Placeholder" shape="pill"></sl-search-field>
-      <sl-search-field placeholder="Placeholder" shape="pill" size="lg"></sl-search-field>
-
-      <span>Value (pill)</span>
-      <sl-search-field aria-label="Search" shape="pill" value="Value"></sl-search-field>
-      <sl-search-field aria-label="Search" shape="pill" size="lg" value="Value"></sl-search-field>
-    </div>
-  `
-};
-
 /** Type Gar or High. Enter searches your words; Right Arrow/End accepts inline completion. */
 export const Autocomplete: Story = {
   args: { autocomplete: 'both', placeholder: 'Try Gar or High', matching: 'contains' }
@@ -410,4 +362,52 @@ export const UnavailableSuggestions: Story = {
     unavailable: true,
     placeholder: 'Type Gar to show unavailable suggestions'
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <style>
+      .wrapper {
+        align-items: center;
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: auto 1fr 1fr;
+      }
+
+      .section-header {
+        grid-column: 1 / -1;
+        font-weight: 600;
+        padding-top: 0.5rem;
+      }
+    </style>
+    <div class="wrapper">
+      <span></span>
+      <span style="justify-self: center">md</span>
+      <span style="justify-self: center">lg</span>
+
+      <span>Empty</span>
+      <sl-search-field placeholder="Placeholder"></sl-search-field>
+      <sl-search-field placeholder="Placeholder" size="lg"></sl-search-field>
+
+      <span>Value</span>
+      <sl-search-field aria-label="Search" value="Value"></sl-search-field>
+      <sl-search-field aria-label="Search" size="lg" value="Value"></sl-search-field>
+
+      <span>Readonly</span>
+      <sl-search-field aria-label="Search" readonly value="Value"></sl-search-field>
+      <sl-search-field aria-label="Search" readonly size="lg" value="Value"></sl-search-field>
+
+      <span>Disabled</span>
+      <sl-search-field aria-label="Search" disabled value="Value"></sl-search-field>
+      <sl-search-field aria-label="Search" disabled size="lg" value="Value"></sl-search-field>
+
+      <span>Empty (pill)</span>
+      <sl-search-field placeholder="Placeholder" shape="pill"></sl-search-field>
+      <sl-search-field placeholder="Placeholder" shape="pill" size="lg"></sl-search-field>
+
+      <span>Value (pill)</span>
+      <sl-search-field aria-label="Search" shape="pill" value="Value"></sl-search-field>
+      <sl-search-field aria-label="Search" shape="pill" size="lg" value="Value"></sl-search-field>
+    </div>
+  `
 };

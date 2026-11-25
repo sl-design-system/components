@@ -34,7 +34,22 @@ When using the search field as a standalone component, please wrap the search fi
 
 ## Suggested searches
 
-Enable suggestions with `autocomplete="inline"`, `"list"` or `"both"`. The default is `"off"`. Supply phrases as native options or set the `suggestions` property to an array of strings. An explicitly supplied array takes precedence over native options.
+Suggestions help users complete a name or discover a useful search phrase. Choosing a suggestion is always optional: users can still search their own words.
+
+### Enable suggestions
+
+Set `autocomplete` to one of the following modes:
+
+|Mode|Behavior|
+|-|-|
+|`off`|No suggestions. This is the default.|
+|`inline`|Proposes the rest of a phrase that starts with the typed words, directly in the field.|
+|`list`|Shows matching phrases in a list below the field.|
+|`both`|Combines the inline proposal and the list.|
+
+{.ds-table .ds-table-align-top}
+
+Supply the phrases as native `<option>` elements, or set the `suggestions` property to an array of strings. When both are present, the `suggestions` property is used.
 
 ```html
 <sl-search-field aria-label="Search" autocomplete="both" matching="contains">
@@ -43,19 +58,41 @@ Enable suggestions with `autocomplete="inline"`, `"list"` or `"both"`. The defau
 </sl-search-field>
 ```
 
-`matching="starts-with"` filters by prefix and emphasises the remaining text. `matching="contains"` filters anywhere in a phrase and emphasises the match. Matching ignores case, accents and repeated whitespace. Inline completion always requires a prefix match and preserves the words as typed.
+### Configuration
 
-Inline proposals and list choices respect `maxlength`. Values that would exceed the limit are not offered, and changing the limit refreshes the suggestions. Accepted phrases are never truncated.
+|Property|Default|Description|
+|-|-|-|
+|`matching`|`starts-with`|`starts-with` shows phrases that start with the typed words and emphasises the rest. `contains` shows phrases containing the typed words anywhere and emphasises the match. Inline proposals always need a `starts-with` match.|
+|`suggestion-threshold`|`3`|Number of non-space characters before suggestions appear.|
+|`suggestion-placement`|`overlay`|`overlay` shows the list on top of the following content. `flow` pushes the following content down.|
+|`loading`|`false`|Shows a loading message while suggestions are fetched.|
+|`unavailable`|`false`|Shows a message when suggestions could not be fetched.|
 
-Suggestions start after three non-space characters by default. Set `suggestion-threshold="1"` or `"2"` to start earlier. The default `suggestion-placement="overlay"` covers following content; `"flow"` moves it down.
+{.ds-table .ds-table-align-top}
 
-Enter in the field searches only the typed words. Right Arrow or End explicitly accepts the proposed suffix, making it editable text. Tab moves through the Clear button to the suggestion list; Up/Down also moves focus from the field to the list. Arrow keys and Home/End navigate the list, and Enter searches the focused phrase. Escape dismisses a visible inline proposal, suggestion list or suggestion status; from the list it returns focus to the field. If none is visible, Escape clears the field immediately.
+Good to know:
 
-`sl-search` continues to emit the current query 300 ms after editing, immediately on Enter, and immediately after choosing a list suggestion. An unaccepted inline suffix is rendered as a visual overlay. The proposed phrase and acceptance keys are exposed through a live announcement and an accessible description that preserves existing field descriptions. It is excluded from the query, `value`, the native input value, form submission and validation.
+- Matching ignores case, accents and repeated whitespace.
+- Suggestions respect `maxlength`. Phrases that are too long are not offered and are never truncated.
+- The native input uses `autocomplete="off"`, so browser suggestions do not compete with the field's own suggestions.
 
-For asynchronous data, listen for `sl-change`, set `loading` while fetching phrases, then update `suggestions`. Set `unavailable` when fetching fails. Cancel or ignore earlier requests when the query changes. When the field emits `sl-clear`, cancel the pending request or ignore its response, clear `suggestions`, and reset `loading` and `unavailable`. Reset any remembered query so the same phrase can be requested again after clearing.
+### Typed words and accepted suggestions
 
-Loading, empty and unavailable states describe suggestions. Users can still search the typed query in each of these states. The native input uses `autocomplete="off"` to avoid competing browser suggestions.
+- **Enter** searches only the typed words.
+- **Right Arrow** or **End** accepts the inline proposal, which then becomes editable text.
+- An inline proposal that is not accepted is never part of `value`, form submission or validation.
+- `sl-search` is emitted 300 ms after typing stops, immediately on Enter and immediately after choosing a suggestion from the list.
+
+See the [accessibility tab](/categories/components/search-field/accessibility) for all keyboard interactions.
+
+### Asynchronous suggestions
+
+1. Listen for `sl-change` and start fetching suggestions for the new query. Cancel or ignore the previous request.
+2. Set `loading` while fetching.
+3. Set `suggestions` when the response arrives, or set `unavailable` when the request fails.
+4. On `sl-clear`, cancel the pending request, clear `suggestions` and reset `loading` and `unavailable`.
+
+Loading, empty and unavailable messages are about suggestions, not about search results. Users can still search the typed words in each of these states.
 
 </section>
 

@@ -1,5 +1,6 @@
 import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Listbox, Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
@@ -26,15 +27,33 @@ export type SearchFieldMatching = 'starts-with' | 'contains';
 
 let nextSuggestionId = 0;
 
+/** Maximum time to wait for the bold font before showing suggestions with a fallback font. */
+const BOLD_FONT_TIMEOUT = 300;
+
 export type SearchFieldShape = 'rect' | 'pill';
 
 export type SearchFieldSize = 'md' | 'lg';
 
 /**
- * Search field component.
+ * Search field component with optional suggested searches.
  *
- * @slot default - Native option elements supplying suggested search phrases.
+ * ```html
+ * <sl-search-field aria-label="Search" autocomplete="both">
+ *   <option>García</option>
+ *   <option>High West Institute</option>
+ * </sl-search-field>
+ * ```
+ *
+ * @slot default - Native `<option>` elements supplying suggested search phrases. Ignored when the
+ *   `suggestions` property is set.
+ * @slot prefix - Content shown before the input. Defaults to a search icon.
  * @slot input - The slot for the input element
+ * @slot suffix - Content shown after the input. Defaults to the clear button when there is a value.
+ * @slot suggestions - Used internally for the suggestion list and its loading, empty and
+ *   unavailable status message. Do not slot your own content here.
+ * @slot inline-description - Used internally for the accessible description of an inline
+ *   proposal. Do not slot your own content here.
+ * @csspart field - Wrapper around the input and its prefix and suffix, excluding the suggestion list.
  */
 export class SearchField extends TextField {
   /** @internal */
@@ -72,11 +91,13 @@ export class SearchField extends TextField {
 
   #listbox?: Listbox;
   #message?: HTMLDivElement;
-  #inlineAnnouncement?: HTMLDivElement;
+  #inlineDescription?: HTMLDivElement;
   #options: Option[] = [];
   #activeIndex = -1;
   @state() private inlineValue?: string;
   #composing = false;
+  #boldFontReady = false;
+  #boldFontLoading = false;
   #suggestionsDirty = true;
   #sourceObserver = new MutationObserver(records => {
     if (
@@ -106,8 +127,9 @@ export class SearchField extends TextField {
       if (
         this.input.selectionStart !== this.value?.length ||
         this.input.selectionEnd !== this.value?.length
-      )
+      ) {
         this.#discardInline();
+      }
     },
     scroll: { handler: () => this.requestUpdate(), options: true },
     compositionstart: () => {
@@ -120,7 +142,9 @@ export class SearchField extends TextField {
       this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     },
     pointerdown: (event: PointerEvent) => {
-      if (event.target === this.input) this.#discardInline();
+      if (event.target === this.input) {
+        this.#discardInline();
+      }
     }
   });
 
@@ -139,14 +163,12 @@ export class SearchField extends TextField {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.#inlineAnnouncement) {
-      this.#inlineAnnouncement = document.createElement('div');
-      this.#inlineAnnouncement.id = `sl-search-inline-${nextSuggestionId++}`;
-      this.#inlineAnnouncement.slot = 'inline-announcement';
-      this.#inlineAnnouncement.setAttribute('role', 'status');
-      this.#inlineAnnouncement.setAttribute('aria-live', 'polite');
-      this.#inlineAnnouncement.setAttribute('aria-atomic', 'true');
-      this.append(this.#inlineAnnouncement);
+    if (!this.#inlineDescription) {
+      this.#inlineDescription = document.createElement('div');
+      this.#inlineDescription.id = `sl-search-inline-${nextSuggestionId++}`;
+      this.#inlineDescription.slot = 'inline-description';
+      this.#inlineDescription.hidden = true;
+      this.append(this.#inlineDescription);
     }
 
     this.#sourceObserver.observe(this, {
@@ -179,7 +201,7 @@ export class SearchField extends TextField {
     return html`
       <div class="field" part="field">${super.render()}</div>
       <slot name="suggestions" class="suggestions"></slot>
-      <slot name="inline-announcement" class="inline-announcement"></slot>
+      <slot name="inline-description"></slot>
       <slot
         @slotchange=${() => {
           this.#suggestionsDirty = true;
@@ -214,20 +236,17 @@ export class SearchField extends TextField {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-    if (this.disabled || this.readonly || this.autocomplete === 'off') this.suggestionOpen = false;
+
+    if (this.disabled || this.readonly || this.autocomplete === 'off') {
+      this.suggestionOpen = false;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (
-      changes.has('autocomplete') &&
-      (this.autocomplete === 'list' || this.autocomplete === 'both')
-    ) {
-      const { fontFamily, fontSize } = getComputedStyle(this);
-
-      // Start loading the bold font before the first suggestions need it.
-      void this.ownerDocument.fonts.load(`bold ${fontSize} ${fontFamily}`).catch(() => undefined);
+    if (changes.has('autocomplete')) {
+      this.#loadBoldFont();
     }
 
     if (
@@ -249,6 +268,7 @@ export class SearchField extends TextField {
       this.#suggestionsDirty = false;
       this.#renderSuggestions();
     }
+
     this.#updateSuggestionText();
   }
 
@@ -263,7 +283,43 @@ export class SearchField extends TextField {
   }
 
   protected override onKeydown(event: KeyboardEvent): void {
-    if (!this.#composing && !event.isComposing) super.onKeydown(event);
+    if (!this.#composing && !event.isComposing) {
+      super.onKeydown(event);
+    }
+  }
+
+  #loadBoldFont(): void {
+    if (
+      this.#boldFontReady ||
+      this.#boldFontLoading ||
+      (this.autocomplete !== 'list' && this.autocomplete !== 'both')
+    ) {
+      return;
+    }
+
+    const { fontFamily, fontSize } = getComputedStyle(this),
+      font = `bold ${fontSize} ${fontFamily}`,
+      fonts = this.ownerDocument.fonts;
+
+    if (fonts.check(font)) {
+      this.#boldFontReady = true;
+
+      return;
+    }
+
+    this.#boldFontLoading = true;
+
+    void Promise.race([
+      fonts.load(font),
+      new Promise(resolve => setTimeout(resolve, BOLD_FONT_TIMEOUT))
+    ])
+      .catch(() => undefined)
+      .then(() => {
+        this.#boldFontLoading = false;
+        this.#boldFontReady = true;
+        this.#suggestionsDirty = true;
+        this.requestUpdate();
+      });
   }
 
   #getSuggestions(): string[] {
@@ -277,6 +333,7 @@ export class SearchField extends TextField {
 
   #fitsMaxLength(value: string): boolean {
     const limit = this.maxLength;
+
     return (
       typeof limit !== 'number' || !Number.isInteger(limit) || limit < 0 || value.length <= limit
     );
@@ -284,6 +341,7 @@ export class SearchField extends TextField {
 
   #renderSuggestions(): void {
     this.#discardInline();
+
     const query = this.value ?? '',
       eligible =
         this.suggestionOpen &&
@@ -297,123 +355,193 @@ export class SearchField extends TextField {
         eligible && !this.loading && !this.unavailable
           ? this.#getSuggestions().filter(label => {
               const match = matchSuggestion(label, query);
+
               return match && (this.matching === 'contains' || match.prefix);
             })
           : [],
       listPhrases = phrases.filter(label => this.#fitsMaxLength(label)),
-      showList = eligible && (this.autocomplete === 'list' || this.autocomplete === 'both');
+      // Wait for the bold font, so the emphasised text does not change font after the list appears.
+      showList =
+        eligible &&
+        this.#boldFontReady &&
+        (this.autocomplete === 'list' || this.autocomplete === 'both');
 
-    if (!this.#listbox) {
-      this.#listbox = this.shadowRoot!.createElement('sl-listbox');
-      this.#listbox.id = `sl-search-suggestions-${nextSuggestionId++}`;
-      this.#listbox.slot = 'suggestions';
-      this.#listbox.addEventListener('focus', () =>
-        this.#setActive(Math.max(0, this.#activeIndex))
-      );
-      this.#listbox.addEventListener('keydown', event => this.#onListKeyDown(event));
-      this.append(this.#listbox);
-      this.#message = document.createElement('div');
-      this.#message.slot = 'suggestions';
-      this.#message.setAttribute('role', 'status');
-      this.append(this.#message);
+    this.#createListbox();
+    this.#renderOptions(query, showList ? listPhrases : []);
+
+    const hasOptions = this.#options.length > 0;
+
+    this.#listbox!.hidden = !hasOptions;
+    this.#listbox!.tabIndex = hasOptions ? 0 : -1;
+    this.#message!.hidden = !showList || hasOptions;
+
+    if (hasOptions) {
+      this.input.setAttribute('aria-controls', this.#listbox!.id);
+    } else {
+      this.input.removeAttribute('aria-controls');
     }
 
-    const listFocused = this.#listbox.matches(':focus'),
-      activeValue: unknown = this.#options[this.#activeIndex]?.value,
-      selectedIndex = listPhrases.indexOf(query);
-    this.#options = showList
-      ? listPhrases.map((label, index) => {
-          const option = this.shadowRoot!.createElement('sl-option'),
-            { start, end } = matchSuggestion(label, query)!;
-          option.id = `${this.#listbox!.id}-${nextSuggestionId++}`;
-          option.value = label;
-          option.selected = index === selectedIndex;
-          option.setAttribute('aria-selected', String(option.selected));
-          const before = label.slice(0, start),
-            match = label.slice(start, end),
-            after = label.slice(end);
-          const strong = document.createElement('strong');
-          strong.textContent = this.matching === 'contains' ? match : after;
-          const phrase = document.createElement('span');
-          if (this.matching === 'contains') phrase.append(before, strong, after);
-          else phrase.append(match, strong);
-          option.append(phrase);
-          option.addEventListener('pointerdown', event => event.preventDefault());
-          option.addEventListener('click', () => this.#acceptSuggestion(label));
-          return option;
-        })
-      : [];
-    this.#listbox.replaceChildren(...this.#options);
-    if (listFocused && !this.#options.length) this.input.focus();
-    this.#listbox.hidden = !showList || !listPhrases.length;
-    this.#listbox.tabIndex = showList && listPhrases.length ? 0 : -1;
-    this.#activeIndex = -1;
-    this.#listbox.removeAttribute('aria-activedescendant');
-    if (listFocused && this.#options.length)
-      this.#setActive(
-        Math.max(
-          0,
-          this.#options.findIndex(option => option.value === activeValue)
-        )
-      );
-    this.#message!.hidden = !showList || !!listPhrases.length;
-    if (showList && listPhrases.length) this.input.setAttribute('aria-controls', this.#listbox.id);
-    else this.input.removeAttribute('aria-controls');
+    if (eligible && (this.autocomplete === 'inline' || this.autocomplete === 'both')) {
+      this.#proposeInline(query, phrases);
+    }
+  }
 
+  #createListbox(): void {
+    if (this.#listbox) {
+      return;
+    }
+
+    this.#listbox = this.shadowRoot!.createElement('sl-listbox');
+    this.#listbox.id = `sl-search-suggestions-${nextSuggestionId++}`;
+    this.#listbox.slot = 'suggestions';
+    this.#listbox.addEventListener('focus', () => this.#setActive(Math.max(0, this.#activeIndex)));
+    this.#listbox.addEventListener('keydown', event => this.#onListKeyDown(event));
+    this.append(this.#listbox);
+
+    this.#message = document.createElement('div');
+    this.#message.slot = 'suggestions';
+    this.#message.setAttribute('role', 'status');
+    this.append(this.#message);
+  }
+
+  #renderOptions(query: string, phrases: string[]): void {
+    const listbox = this.#listbox!,
+      listFocused = listbox.matches(':focus'),
+      activeValue: unknown = this.#options[this.#activeIndex]?.value,
+      selectedIndex = phrases.indexOf(query);
+
+    this.#options = phrases.map((label, index) =>
+      this.#createOption(label, query, index === selectedIndex)
+    );
+    listbox.replaceChildren(...this.#options);
+
+    this.#activeIndex = -1;
+    listbox.removeAttribute('aria-activedescendant');
+
+    if (!listFocused) {
+      return;
+    }
+
+    if (this.#options.length) {
+      const activeIndex = this.#options.findIndex(option => option.value === activeValue);
+
+      this.#setActive(Math.max(0, activeIndex));
+    } else {
+      this.input.focus();
+    }
+  }
+
+  #createOption(label: string, query: string, selected: boolean): Option {
+    const option = this.shadowRoot!.createElement('sl-option'),
+      { start, end } = matchSuggestion(label, query)!,
+      phrase = document.createElement('span'),
+      strong = document.createElement('strong');
+
+    option.id = `${this.#listbox!.id}-${nextSuggestionId++}`;
+    option.value = label;
+    option.selected = selected;
+    option.setAttribute('aria-selected', String(selected));
+
+    if (this.matching === 'contains') {
+      strong.textContent = label.slice(start, end);
+      phrase.append(label.slice(0, start), strong, label.slice(end));
+    } else {
+      strong.textContent = label.slice(end);
+      phrase.append(label.slice(start, end), strong);
+    }
+
+    option.append(phrase);
+    option.addEventListener('pointerdown', event => event.preventDefault());
+    option.addEventListener('click', () => this.#acceptSuggestion(label));
+
+    return option;
+  }
+
+  #proposeInline(query: string, phrases: string[]): void {
     if (
-      eligible &&
-      !this.#composing &&
-      (this.autocomplete === 'inline' || this.autocomplete === 'both') &&
-      this.input.matches(':focus') &&
-      query === query.trim() &&
-      this.input.selectionStart === query.length &&
-      this.input.selectionEnd === query.length
+      this.#composing ||
+      !this.input.matches(':focus') ||
+      query !== query.trim() ||
+      this.input.selectionStart !== query.length ||
+      this.input.selectionEnd !== query.length
     ) {
-      const completion = phrases.find(label => {
-        const match = matchSuggestion(label, query)!;
-        return (
-          match.prefix &&
-          match.complete &&
-          match.end < label.length &&
-          this.#fitsMaxLength(query + label.slice(match.end))
-        );
-      });
-      if (completion) {
-        this.inlineValue = query + completion.slice(matchSuggestion(completion, query)!.end);
-      }
+      return;
+    }
+
+    const completion = phrases.find(label => {
+      const match = matchSuggestion(label, query)!;
+
+      return (
+        match.prefix &&
+        match.complete &&
+        match.end < label.length &&
+        this.#fitsMaxLength(query + label.slice(match.end))
+      );
+    });
+
+    if (completion) {
+      this.inlineValue = query + completion.slice(matchSuggestion(completion, query)!.end);
     }
   }
 
   #updateSuggestionText(): void {
-    if (this.#inlineAnnouncement) {
-      const announcement = this.inlineValue
-        ? msg(str`Suggested completion: ${this.inlineValue}. Press Right Arrow or End to accept.`, {
-            id: 'sl.searchField.inlineCompletion'
-          })
-        : '';
-      if (this.#inlineAnnouncement.textContent !== announcement)
-        this.#inlineAnnouncement.textContent = announcement;
-      const descriptions = new Set(
-        (this.input.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean)
-      );
-      if (announcement) descriptions.add(this.#inlineAnnouncement.id);
-      else descriptions.delete(this.#inlineAnnouncement.id);
-      if (descriptions.size)
-        this.input.setAttribute('aria-describedby', [...descriptions].join(' '));
-      else this.input.removeAttribute('aria-describedby');
-    }
+    this.#updateInlineDescription();
+
     this.#listbox?.setAttribute(
       'aria-label',
       msg('Suggested searches', { id: 'sl.searchField.suggestions' })
     );
-    if (this.#message) {
-      this.#message.textContent = this.#message.hidden
-        ? ''
-        : this.loading
-          ? msg('Finding suggestions…', { id: 'sl.searchField.loading' })
-          : this.unavailable
-            ? msg('Suggestions unavailable', { id: 'sl.searchField.unavailable' })
-            : msg('No suggested searches', { id: 'sl.searchField.empty' });
+
+    if (!this.#message) {
+      return;
+    }
+
+    if (this.#message.hidden) {
+      this.#message.textContent = '';
+    } else if (this.loading) {
+      this.#message.textContent = msg('Finding suggestions…', { id: 'sl.searchField.loading' });
+    } else if (this.unavailable) {
+      this.#message.textContent = msg('Suggestions unavailable', {
+        id: 'sl.searchField.unavailable'
+      });
+    } else {
+      this.#message.textContent = msg('No suggested searches', { id: 'sl.searchField.empty' });
+    }
+  }
+
+  #updateInlineDescription(): void {
+    if (!this.#inlineDescription) {
+      return;
+    }
+
+    const description = this.inlineValue
+      ? msg(str`Suggested completion: ${this.inlineValue}. Press Right Arrow or End to accept.`, {
+          id: 'sl.searchField.inlineCompletion'
+        })
+      : '';
+
+    if (this.#inlineDescription.textContent !== description) {
+      this.#inlineDescription.textContent = description;
+
+      if (description) {
+        announce(description);
+      }
+    }
+
+    const descriptions = new Set(
+      (this.input.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean)
+    );
+
+    if (description) {
+      descriptions.add(this.#inlineDescription.id);
+    } else {
+      descriptions.delete(this.#inlineDescription.id);
+    }
+
+    if (descriptions.size) {
+      this.input.setAttribute('aria-describedby', [...descriptions].join(' '));
+    } else {
+      this.input.removeAttribute('aria-describedby');
     }
   }
 
@@ -433,8 +561,10 @@ export class SearchField extends TextField {
       !this.disabled &&
       !this.readonly &&
       !this.suggestionOpen
-    )
+    ) {
+      this.#loadBoldFont();
       this.suggestionOpen = true;
+    }
   }
 
   #onFocusOut(event: FocusEvent): void {
@@ -448,11 +578,15 @@ export class SearchField extends TextField {
   }
 
   #setActive(index: number): void {
-    if (!this.#options.length) return;
+    if (!this.#options.length) {
+      return;
+    }
+
     this.#activeIndex = (index + this.#options.length) % this.#options.length;
     this.#options.forEach((option, i) => {
       option.toggleAttribute('current', i === this.#activeIndex);
     });
+
     this.#listbox!.setAttribute('aria-activedescendant', this.#options[this.#activeIndex].id);
     this.#options[this.#activeIndex].scrollIntoView({ block: 'nearest' });
   }
@@ -481,7 +615,9 @@ export class SearchField extends TextField {
   }
 
   #acceptSuggestion(label: string): void {
-    if (!this.#fitsMaxLength(label)) return;
+    if (!this.#fitsMaxLength(label)) {
+      return;
+    }
 
     this.#clearDebounceTimer();
     this.#discardInline();
@@ -553,7 +689,11 @@ export class SearchField extends TextField {
   protected override onInput(event: Event & { target: HTMLInputElement }): void {
     this.inlineValue = undefined;
     super.onInput(event);
-    if (this.#composing) return;
+
+    if (this.#composing) {
+      return;
+    }
+
     this.suggestionOpen = this.autocomplete !== 'off';
     this.#suggestionsDirty = true;
     this.requestUpdate();
@@ -578,12 +718,17 @@ export class SearchField extends TextField {
       event.preventDefault();
       const completion = this.inlineValue;
       this.#discardInline();
-      if (!this.#fitsMaxLength(completion)) return;
+
+      if (!this.#fitsMaxLength(completion)) {
+        return;
+      }
 
       this.input.value = completion;
       this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+
       return;
     }
+
     if (
       [
         'ArrowLeft',
@@ -596,15 +741,19 @@ export class SearchField extends TextField {
         'Delete',
         'Backspace'
       ].includes(event.key)
-    )
+    ) {
       this.#discardInline();
+    }
+
     if (['ArrowDown', 'ArrowUp'].includes(event.key) && this.#listbox && !this.#listbox.hidden) {
       event.preventDefault();
       this.#discardInline();
       this.#listbox.focus();
       this.#setActive(event.key === 'ArrowDown' ? 0 : this.#options.length - 1);
+
       return;
     }
+
     if (event.key === 'Enter') {
       event.preventDefault();
 

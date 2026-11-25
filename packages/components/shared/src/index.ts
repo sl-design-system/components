@@ -12,6 +12,7 @@ export * from './decorators/base.js';
 export * from './decorators/event.js';
 export * from './decorators/observe.js';
 export * from './dom.js';
+export * from './modal.js';
 export * from './directives/anchor.js';
 export * from './path.js';
 export * from './popover.js';

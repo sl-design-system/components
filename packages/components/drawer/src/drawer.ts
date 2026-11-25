@@ -4,6 +4,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonSize } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
+import { dispatchModalToggle } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './drawer.css' with { type: 'css' };
@@ -84,6 +85,10 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
     this.inert = false;
     this.dialog?.showModal();
 
+    if (this.dialog) {
+      dispatchModalToggle(this, this.dialog, true);
+    }
+
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
   }
@@ -120,6 +125,10 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   }
 
   #onClose(): void {
+    if (this.dialog) {
+      dispatchModalToggle(this, this.dialog, false);
+    }
+
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
 

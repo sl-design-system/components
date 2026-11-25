@@ -12,6 +12,7 @@ import {
   EventsController,
   type MediaChangeEvent,
   MediaController,
+  dispatchModalToggle,
   event
 } from '@sl-design-system/shared';
 import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
@@ -318,6 +319,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = false;
     this.dialog?.showModal();
 
+    if (this.dialog) {
+      dispatchModalToggle(this, this.dialog, true);
+    }
+
     // Workaround for broken focus behavior when using <slot> inside <dialog>
     // See https://github.com/whatwg/html/issues/9245
     requestAnimationFrame(() => {
@@ -420,6 +425,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClose(): Promise<void> {
+    if (this.dialog) {
+      dispatchModalToggle(this, this.dialog, false);
+    }
+
     // Only needed if the dialog was closed externally (e.g. via dialog.close() directly)
     if (document.documentElement.classList.contains('sl-dialog-enter')) {
       this.#updateDocumentElement(false);

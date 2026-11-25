@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-11-24T14:42:18Z"
+generated_at = "2026-11-25T09:25:50Z"
 cli_version = "dev"
 dependencies = []
 
@@ -229,9 +229,9 @@ dependencies = []
   advisory_name = "core-css"
   source_ref_type = "branch"
   source_ref_name = "change-brandlightcolorbackgroundaccentgreyinteractivebold-in-magister"
-  preset_hash = "sha256:c83a2735418ea15d54300b6198424b6e037a167d8f72c353ad754b86aa75e341"
-  output_hash = "sha256:89466f9d8eb5dbf1d470c5110a689b19e9e367f423e50b62db92cd5d600f27a7"
-  updated_at = "2026-11-24T14:42:18Z"
+  preset_hash = "sha256:87f13765b65f74b487cf36e61b7d28a842dc2432fec999b0798af256fe819c5e"
+  output_hash = "sha256:2645b2214496ce3b2547d2173dadcc8d3fc639d7618c9338e748abab5d5b0c0d"
+  updated_at = "2026-11-25T09:25:50Z"
 
   [[exports.files]]
     path = "brand/bingel-dc.css"
@@ -433,10 +433,10 @@ dependencies = []
 
   [[exports.files]]
     path = "user-group/poweruser.css"
-    hash = "sha256:429d47cf72d2e10490373abc15ce9610408483afa042b42bc8031f707af72a6a"
-    size = 36431
+    hash = "sha256:bdec38988ad97b232ec6dc817ca154110158b59b91b592540e9515a6f7955149"
+    size = 36406
     tokens = 0
 
 [integrity]
-  lockfile_hash = "sha256:4ed79498d6ec6e2a2a926aa22ec9d8b4dd415472ddbd553968b9471a89b692c6"
+  lockfile_hash = "sha256:27288408c79b2dd27f1903609f59b5b61b3e01970b7fd6b0f5f9e7043633ef3f"
   algorithm = "sha256"

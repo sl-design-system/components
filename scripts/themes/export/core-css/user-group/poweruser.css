@@ -1,4 +1,4 @@
-[data-user-group='poweruser'] {
+body {
   --sl-base-fontSize: 14px;
   --sl-caption-fontFamily-usergroup: 'New Message';
   --sl-caption-lg-fontSize-userGroup: var(--sl-caption-lg-fontSize-superuser);

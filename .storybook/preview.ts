@@ -126,6 +126,14 @@ const preview: Preview = {
 
       return story();
     },
+    (story, { globals }) => {
+      document.body.setAttribute(
+        'data-density',
+        (globals.density as string | undefined) ?? 'default'
+      );
+
+      return story();
+    },
     (story, { globals: { mode = 'light' } }) => {
       // If you remove this it takes the user preference from the system.
       document.documentElement.style.setProperty('--color-scheme', mode);
@@ -181,6 +189,19 @@ const preview: Preview = {
           { value: 'developing', title: 'Developing (Draft)' },
           { value: 'advanced', title: 'Advanced (Draft)' },
           { value: 'superuser', title: 'Superuser' }
+        ]
+      }
+    },
+    density: {
+      name: 'Density',
+      defaultValue: 'default',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'menu',
+        items: [
+          { value: 'compact', title: 'Compact' },
+          { value: 'default', title: 'Default' },
+          { value: 'relaxed', title: 'Relaxed' }
         ]
       }
     },

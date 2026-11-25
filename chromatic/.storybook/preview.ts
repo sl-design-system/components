@@ -77,6 +77,14 @@ const preview: Preview = {
       return story();
     },
     (story, { globals }) => {
+      document.body.setAttribute(
+        'data-density',
+        (globals.density as string | undefined) ?? 'default'
+      );
+
+      return story();
+    },
+    (story, { globals }) => {
       const { theme = 'sanoma-learning', subtheme } = globals as {
           theme?: string;
           subtheme?: string;
@@ -97,7 +105,7 @@ const preview: Preview = {
   ],
   loaders: [
     async ({ globals: { theme = 'sanoma-learning' } }) => {
-      await updateTheme(theme);
+      await updateTheme(theme || 'sanoma-learning');
     }
   ],
   globalTypes: {
@@ -121,6 +129,19 @@ const preview: Preview = {
           { value: 'developing', title: 'Developing (Draft)' },
           { value: 'advanced', title: 'Advanced (Draft)' },
           { value: 'superuser', title: 'Superuser' }
+        ]
+      }
+    },
+    density: {
+      name: 'Density',
+      defaultValue: 'default',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'menu',
+        items: [
+          { value: 'compact', title: 'Compact' },
+          { value: 'default', title: 'Default' },
+          { value: 'relaxed', title: 'Relaxed' }
         ]
       }
     }

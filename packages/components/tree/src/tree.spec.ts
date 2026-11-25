@@ -8,6 +8,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
+import { Basic, Selectable } from './tree.stories.js';
 
 declare global {
   interface ARIAMixin {
@@ -97,6 +98,152 @@ const nestedData: NestedDataNode[] = [
 describe('sl-tree', () => {
   let el: Tree;
 
+  it('should toggle H3B disabled state in the Basic story while its branch is collapsed', async () => {
+    const source = new FlatTreeDataSource(
+        [
+          { id: 1, name: 'Parent', level: 0 },
+          { id: 2, name: 'H3B', level: 1 }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ level }) => level === 0,
+          isExpanded: () => true,
+          isSelected: ({ name }) => name === 'H3B'
+        }
+      ),
+      content = Basic.render!({ dataSource: source, hideGuides: false }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      parent = source.nodes[0],
+      node = parent.children![0];
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(node.disabled).to.be.true;
+    expect(node.selected).to.be.true;
+    expect(tree.renderRoot.querySelector('[id="2"]')).to.have.attribute('aria-disabled', 'true');
+
+    source.collapse(parent);
+    await tree.updateComplete;
+    await userEvent.click(checkbox);
+
+    expect(node.disabled).to.be.false;
+    expect(node.selected).to.be.true;
+
+    source.expand(parent);
+    await tree.updateComplete;
+
+    expect(tree.renderRoot.querySelector('[id="2"]')).not.to.have.attribute('aria-disabled');
+  });
+
+  it('should toggle Biology disabled state in the Selectable story while its branch is collapsed', async () => {
+    const source = new NestedTreeDataSource<NestedDataNode>(
+        [{ id: 1, name: 'Science', children: [{ id: 2, name: 'Biology' }] }],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children,
+          isExpanded: () => true,
+          isSelected: ({ name }) => name === 'Biology',
+          multiple: true
+        }
+      ),
+      content = Selectable.render!({ dataSource: source, hideGuides: true }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      parent = source.nodes[0],
+      node = parent.children![0];
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(node.disabled).to.be.true;
+    expect(node.selected).to.be.true;
+    expect(tree.renderRoot.querySelector('[id="2"]')).to.have.attribute('aria-disabled', 'true');
+
+    source.collapse(parent);
+    await tree.updateComplete;
+    await userEvent.click(checkbox);
+
+    expect(node.disabled).to.be.false;
+    expect(node.selected).to.be.true;
+
+    source.expand(parent);
+    await tree.updateComplete;
+
+    expect(tree.renderRoot.querySelector('[id="2"]')).not.to.have.attribute('aria-disabled');
+  });
+
+  it('should update Science to indeterminate when Biology is re-enabled after selecting Science', async () => {
+    const source = new NestedTreeDataSource<NestedDataNode>(
+        [
+          {
+            id: 1,
+            name: 'Science',
+            children: [
+              { id: 2, name: 'Biology', children: [{ id: 4, name: 'Cell Structure' }] },
+              { id: 3, name: 'Chemistry', children: [{ id: 5, name: 'Chemical Bonding' }] }
+            ]
+          }
+        ],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getChildren: ({ children }) => children,
+          isExpandable: ({ children }) => !!children,
+          isSelectable: ({ children }) => !!children,
+          isExpanded: ({ name }) => name === 'Science',
+          multiple: true
+        }
+      ),
+      content = Selectable.render!({ dataSource: source, hideGuides: true }, {} as never),
+      container = await fixture<HTMLDivElement>(html`<div>${content}</div>`),
+      checkbox = container.querySelector<HTMLInputElement>('input[type="checkbox"]')!,
+      tree = container.querySelector<Tree>('sl-tree')!,
+      science = source.nodes[0],
+      [biology, chemistry] = science.children!,
+      scienceRow = tree.renderRoot.querySelector<HTMLElement>('sl-tree-node[id="1"]')!;
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+
+    expect(biology.disabled).to.be.true;
+    expect(biology.selected).not.to.be.true;
+
+    scienceRow.focus();
+    await userEvent.keyboard('{Space}');
+    await tree.updateComplete;
+    await expect.poll(() => scienceRow.getAttribute('aria-selected')).to.equal('true');
+
+    expect(science.selected).to.be.true;
+    expect(science.indeterminate).to.be.false;
+    expect(source.selection.has(science)).to.be.true;
+    expect(chemistry.selected).to.be.true;
+    expect(biology.selected).not.to.be.true;
+    expect(scienceRow.shadowRoot?.querySelector('sl-checkbox')).to.have.property('checked', true);
+
+    await userEvent.click(checkbox);
+    await tree.updateComplete;
+    await expect.poll(() => scienceRow.getAttribute('aria-selected')).to.equal('false');
+
+    expect(biology.disabled).to.be.false;
+    expect(biology.selected).not.to.be.true;
+    expect(chemistry.selected).to.be.true;
+    expect(science.selected).to.be.false;
+    expect(science.indeterminate).to.be.true;
+    expect(source.selection.has(science)).to.be.false;
+    expect(scienceRow.shadowRoot?.querySelector('sl-checkbox')).to.have.property(
+      'indeterminate',
+      true
+    );
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-tree></sl-tree>`);
@@ -106,6 +253,11 @@ describe('sl-tree', () => {
       const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
 
       expect(wrapper).to.have.attribute('role', 'treegrid');
+    });
+
+    it('should expose the dimensions of an empty treegrid', () => {
+      expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '0');
     });
 
     it('should not hide the indentation guides', () => {
@@ -144,6 +296,85 @@ describe('sl-tree', () => {
     });
   });
 
+  it('should forward the disabled state when expanding a flat-data branch', async () => {
+    const source = new FlatTreeDataSource(
+      [
+        { id: 1, name: 'Lower school', level: 0, disabled: false },
+        { id: 2, name: 'M1B', level: 1, disabled: true }
+      ],
+      {
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isDisabled: ({ disabled }) => disabled,
+        isExpandable: ({ level }) => level === 0
+      }
+    );
+
+    el = await fixture(html`<sl-tree .dataSource=${source}></sl-tree>`);
+    expect(el.renderRoot.querySelectorAll('sl-tree-node')).to.have.length(1);
+
+    source.expand(source.nodes[0]);
+    await el.updateComplete;
+
+    const nodes = el.renderRoot.querySelectorAll('sl-tree-node');
+
+    expect(nodes).to.have.length(2);
+    await nodes[1].updateComplete;
+
+    expect(nodes[0].disabled).not.to.be.true;
+    expect(nodes[0]).not.to.have.attribute('aria-disabled');
+    expect(nodes[1].disabled).to.be.true;
+    expect(nodes[1]).to.have.attribute('disabled');
+    expect(nodes[1]).to.have.attribute('aria-disabled', 'true');
+  });
+
+  it('should expose all expanded rows in the row count when only some rows are rendered', async () => {
+    const source = new NestedTreeDataSource(
+      [
+        {
+          id: 0,
+          children: Array.from({ length: 100 }, (_, index) => ({ id: index + 1 }))
+        }
+      ],
+      {
+        getChildren: item => ('children' in item ? item.children : undefined),
+        getId: ({ id }) => id,
+        getLabel: ({ id }) => `Node ${id}`,
+        isExpandable: item => 'children' in item,
+        isExpanded: () => true
+      }
+    );
+
+    el = await fixture(html`
+      <sl-tree
+        .dataSource=${source}
+        .renderer=${(node: TreeDataSourceNode<{ id: number }>) =>
+          html`<span style="display: inline-block; block-size: 32px">${node.label}</span>`}
+        style="block-size: 128px; overflow: auto"></sl-tree>
+    `);
+
+    await expect
+      .poll(() => el.renderRoot.querySelectorAll('sl-tree-node').length)
+      .to.be.within(1, 100);
+
+    expect(source.items).to.have.length(101);
+    expect(el.wrapper).to.have.attribute('aria-rowcount', '101');
+    expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+
+    el.scrollTop = 1000;
+
+    await expect
+      .poll(() => Number(el.renderRoot.querySelector('sl-tree-node')?.ariaRowIndex ?? 0))
+      .to.be.greaterThan(1);
+
+    expect(el.renderRoot.querySelectorAll('sl-tree-node').length).to.be.lessThan(101);
+    expect(el.wrapper).to.have.attribute('aria-rowcount', '101');
+    el.renderRoot.querySelectorAll('sl-tree-node').forEach(node => {
+      expect(node.ariaRowIndex).to.equal(String(Number(node.getAttribute('data-index')) + 1));
+    });
+  });
+
   describe('accessibility', () => {
     let ds: NestedTreeDataSource;
 
@@ -158,6 +389,23 @@ describe('sl-tree', () => {
       });
 
       el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
+    });
+
+    it('should expose the dimensions of the treegrid', () => {
+      expect(el.wrapper).to.have.attribute('aria-colcount', '1');
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '6');
+    });
+
+    it('should update the row count and indices when a branch is collapsed', async () => {
+      ds.collapse(ds.nodes[0]);
+      await el.updateComplete;
+
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaRowIndex
+      );
+
+      expect(el.wrapper).to.have.attribute('aria-rowcount', '5');
+      expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5']);
     });
 
     it('should have an aria-label for each node', () => {

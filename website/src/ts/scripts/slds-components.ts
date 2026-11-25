@@ -31,6 +31,9 @@ import {
   faBadgeCheck as farBadgeCheck,
   faBellExclamation as farBellExclamation,
   faBold as farBold,
+  faCalendarDay as farCalendarDay,
+  faCalendarDays as farCalendarDays,
+  faCalendarWeek as farCalendarWeek,
   faGear as farGear,
   faGrid as farGrid,
   faItalic as farItalic,
@@ -46,6 +49,9 @@ import {
   faBadgeCheck as fasBadgeCheck,
   faBellExclamation as fasBellExclamation,
   faBold as fasBold,
+  faCalendarDay as fasCalendarDay,
+  faCalendarDays as fasCalendarDays,
+  faCalendarWeek as fasCalendarWeek,
   faGear as fasGear,
   faGrid as fasGrid,
   faHeart as fasHeart,
@@ -56,6 +62,7 @@ import {
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
 import '@sl-design-system/accordion/register.js';
+import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/breadcrumbs/register.js';
@@ -92,6 +99,7 @@ import '@sl-design-system/progress-bar/register.js';
 import '@sl-design-system/radio-group/register.js';
 import { setup } from '@sl-design-system/sanoma-learning';
 import '@sl-design-system/search-field/register.js';
+import '@sl-design-system/segmented-control/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
@@ -148,6 +156,9 @@ Icon.register(
   farBadgeCheck,
   farBellExclamation,
   farBold,
+  farCalendarDay,
+  farCalendarDays,
+  farCalendarWeek,
   farGear,
   farGrid,
   farItalic,
@@ -156,6 +167,9 @@ Icon.register(
   fasBadgeCheck,
   fasBellExclamation,
   fasBold,
+  fasCalendarDay,
+  fasCalendarDays,
+  fasCalendarWeek,
   fasGear,
   fasGrid,
   fasHeart,

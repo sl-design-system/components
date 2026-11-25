@@ -1,4 +1,5 @@
 import { type SlAnnounceEvent } from '@sl-design-system/announcer';
+import { Button } from '@sl-design-system/button';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, html } from 'lit';
 import sinon, { type SinonSpy, spy } from 'sinon';
@@ -791,8 +792,14 @@ describe('sl-select-day', () => {
     beforeEach(async () => {
       focusedArrowLabel = undefined;
       announce = spy(() => {
+        const root = el.renderRoot;
+        const focusedButton = root instanceof ShadowRoot ? root.activeElement : null;
+        const buttonRoot = focusedButton instanceof Button ? focusedButton.renderRoot : null;
+
         focusedArrowLabel =
-          el.shadowRoot?.activeElement?.shadowRoot?.activeElement?.getAttribute('aria-label');
+          buttonRoot instanceof ShadowRoot
+            ? buttonRoot.activeElement?.getAttribute('aria-label')
+            : undefined;
       });
       document.body.addEventListener('sl-announce', announce);
 
@@ -971,8 +978,8 @@ describe('sl-select-day', () => {
 
       it('should announce the previous month when using the mouse', async () => {
         const button = el.renderRoot
-          .querySelector('sl-button.previous-month')!
-          .shadowRoot!.querySelector('button')!;
+          .querySelector<Button>('sl-button.previous-month')!
+          .renderRoot.querySelector('button')!;
 
         button.focus();
         button.click();
@@ -1032,8 +1039,8 @@ describe('sl-select-day', () => {
 
       it('should announce the next month when using the mouse', async () => {
         const button = el.renderRoot
-          .querySelector('sl-button.next-month')!
-          .shadowRoot!.querySelector('button')!;
+          .querySelector<Button>('sl-button.next-month')!
+          .renderRoot.querySelector('button')!;
 
         button.focus();
         button.click();

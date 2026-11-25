@@ -1,27 +1,42 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { type NotificationButton } from './notification-button.js';
-import { createStore, styles } from './notification.stories-utils.js';
+import { createStore } from './notification.stories-utils.js';
 import './register.js';
 
-type Props = Pick<NotificationButton, 'maxCount'> & { unread: number };
+type Props = Pick<NotificationButton, 'drawerBelow' | 'fullscreenBelow' | 'maxCount'> & {
+  read: number;
+  unread: number;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Notification/Notification button',
   args: {
+    drawerBelow: 1024,
+    fullscreenBelow: 600,
     maxCount: 99,
+    read: 14,
     unread: 3
   },
   argTypes: {
+    read: {
+      control: { type: 'number', min: 0, max: 50 }
+    },
     unread: {
       control: { type: 'number', min: 0, max: 150 }
     }
   },
-  render: ({ maxCount, unread }) => html`
+  render: ({ drawerBelow, fullscreenBelow, maxCount, read, unread }) => html`
     <sl-notification-button
+      .drawerBelow=${drawerBelow}
+      .fullscreenBelow=${fullscreenBelow}
       .maxCount=${maxCount}
-      .store=${createStore({ unread })}></sl-notification-button>
+      .store=${createStore({ read, unread })}></sl-notification-button>
+    <p>
+      Use the button to open the manager: a popover, a drawer or full screen, depending on the width
+      of the viewport and the drawerBelow and fullscreenBelow controls.
+    </p>
   `
 } satisfies Meta<Props>;
 
@@ -48,17 +63,21 @@ export const States: Story = {
   `
 };
 
-export const InHeader: Story = {
-  render: () => {
-    const store = createStore({ unread: 3, read: 4 });
+export const Popover: Story = {
+  args: {
+    drawerBelow: 0,
+    fullscreenBelow: 0
+  }
+};
 
-    return html`
-      ${styles}
-      <header class="app-header">
-        <strong>Lesplanner</strong>
-        <sl-notification-button .store=${store} manager="button-inbox"></sl-notification-button>
-      </header>
-      <sl-notification-manager .store=${store} id="button-inbox"></sl-notification-manager>
-    `;
+export const Drawer: Story = {
+  args: {
+    drawerBelow: 10000
+  }
+};
+
+export const FullScreen: Story = {
+  args: {
+    fullscreenBelow: 10000
   }
 };

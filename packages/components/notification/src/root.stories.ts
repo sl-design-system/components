@@ -16,7 +16,7 @@ export default {
  */
 export const Example: Story = {
   render: () => html`
-    ${styles} ${renderAppHeader('example-inbox')} ${renderControls()}
+    ${styles} ${renderAppHeader()} ${renderControls()}
     <p>
       Send several: they pile up; hover, Tab in or click the edges to expand. Press F8 to jump to
       the newest notification. Errors and notifications with an action stay until dismissed. Use the

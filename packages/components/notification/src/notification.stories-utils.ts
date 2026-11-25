@@ -112,16 +112,18 @@ export const styles = html`
   </style>
 `;
 
-/** An app header with a notification button, and the manager it opens. */
+/** An app header with a notification button, which opens the manager. */
 export const renderAppHeader = (
-  id: string,
-  store: NotificationStore = Notification.store
+  store: NotificationStore = Notification.store,
+  options: { drawerBelow?: number; fullscreenBelow?: number } = {}
 ): TemplateResult => html`
   <header class="app-header">
     <strong>Lesplanner</strong>
-    <sl-notification-button .store=${store} manager=${id}></sl-notification-button>
+    <sl-notification-button
+      .drawerBelow=${options.drawerBelow}
+      .fullscreenBelow=${options.fullscreenBelow}
+      .store=${store}></sl-notification-button>
   </header>
-  <sl-notification-manager .store=${store} id=${id}></sl-notification-manager>
 `;
 
 /** Buttons that add notifications to the store, plus a modal dialog to try the stack above it. */

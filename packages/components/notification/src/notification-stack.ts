@@ -19,7 +19,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { patchModalDialogs } from './modal.js';
-import { type NotificationManager } from './notification-manager.js';
+import { type NotificationButton } from './notification-button.js';
 import styles from './notification-stack.css' with { type: 'css' };
 import { Notification, type NotificationStore } from './notification-store.js';
 import { NotificationElement, type SlNotificationCloseEvent } from './notification.js';
@@ -75,7 +75,7 @@ let shortcutHintAnnounced = false;
  * notifications stay visible _and_ usable above the backdrop.
  *
  * ```html
- * <sl-notification-stack manager="inbox" position="bottom-end"></sl-notification-stack>
+ * <sl-notification-stack position="bottom-end"></sl-notification-stack>
  * ```
  *
  * @csspart persistent - The container of the notifications that don't time out.
@@ -153,8 +153,12 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
    */
   @property({ attribute: 'follow-dialogs' }) followDialogs?: NotificationStackFollowDialogs;
 
-  /** The id of the `<sl-notification-manager>` the "View all" button opens. */
-  @property() manager?: string;
+  /**
+   * The id of the `<sl-notification-button>` the "View all" button opens. Without it, the first
+   * notification button in the document that shows the same store is used. The "View all" button is
+   * only shown when there is a notification button to open.
+   */
+  @property() button?: string;
 
   /**
    * The maximum number of notifications shown when the pile is expanded.
@@ -293,7 +297,7 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
       </div>
       <div part="pile">
         ${
-          hidden > 0 && this.manager
+          hidden > 0 && this.#findButton()
             ? html`
                 <button @click=${this.#onViewAll} part="more" type="button">
                   ${msg(str`${hidden} more · View all`, { id: 'sl.notification.moreViewAll' })}
@@ -652,13 +656,19 @@ export class NotificationStack extends ScopedElementsMixin(ElementInternalsMixin
     }
   };
 
-  #onViewAll(): void {
-    const manager = this.manager
-      ? (document.getElementById(this.manager) as NotificationManager | null)
-      : null;
+  #findButton(): NotificationButton | undefined {
+    if (this.button) {
+      return (document.getElementById(this.button) as NotificationButton | null) ?? undefined;
+    }
 
+    return Array.from(document.querySelectorAll('sl-notification-button')).find(
+      button => button.store === this.store
+    );
+  }
+
+  #onViewAll(): void {
     this.collapse();
-    void manager?.show();
+    void this.#findButton()?.show();
   }
 
   #restoreFocus(): void {

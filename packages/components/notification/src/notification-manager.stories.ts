@@ -1,20 +1,16 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { type NotificationManager } from './notification-manager.js';
-import { createStore, renderAppHeader, styles } from './notification.stories-utils.js';
+import { createStore } from './notification.stories-utils.js';
 import './register.js';
 
-type Props = Pick<NotificationManager, 'drawerBelow' | 'fullscreenBelow'> & {
-  read: number;
-  unread: number;
-};
+type Props = Pick<NotificationManager, 'closable'> & { read: number; unread: number };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Notification/Notification manager',
   args: {
-    drawerBelow: 1024,
-    fullscreenBelow: 600,
+    closable: false,
     read: 14,
     unread: 3
   },
@@ -26,39 +22,19 @@ export default {
       control: { type: 'number', min: 0, max: 20 }
     }
   },
-  render: ({ drawerBelow, fullscreenBelow, read, unread }) => {
-    const store = createStore({ read, unread });
-
-    return html`
-      ${styles}
-      <header class="app-header">
-        <strong>Lesplanner</strong>
-        <sl-notification-button .store=${store} manager="manager-inbox"></sl-notification-button>
-      </header>
-      <sl-notification-manager
-        .drawerBelow=${drawerBelow}
-        .fullscreenBelow=${fullscreenBelow}
-        .store=${store}
-        id="manager-inbox"></sl-notification-manager>
-      <p>
-        Use the bell to open the manager. It is a popover from ${drawerBelow}px wide, a drawer below
-        that and full screen below ${fullscreenBelow}px.
-      </p>
-    `;
-  }
+  render: ({ closable, read, unread }) => html`
+    <sl-notification-manager
+      ?closable=${closable}
+      .store=${createStore({ read, unread })}
+      style="block-size: 480px; border: 1px solid var(--sl-color-border-plain); border-radius: var(--sl-size-borderRadius-default); max-inline-size: 400px"></sl-notification-manager>
+  `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const Drawer: Story = {
+export const Closable: Story = {
   args: {
-    drawerBelow: 10000
-  }
-};
-
-export const FullScreen: Story = {
-  args: {
-    fullscreenBelow: 10000
+    closable: true
   }
 };
 
@@ -73,11 +49,4 @@ export const NoHistory: Story = {
     read: 0,
     unread: 0
   }
-};
-
-export const DocumentStore: Story = {
-  render: () => html`
-    ${styles} ${renderAppHeader('document-inbox')}
-    <p>This manager shows the document's store, used by the Example story.</p>
-  `
 };

@@ -1,4 +1,8 @@
 :host {
+  --_arrow-block-size: var(--sl-size-125);
+  --_arrow-inline-size: var(--sl-size-250);
+  --_inline-size: var(--sl-notification-manager-inline-size, 400px);
+
   display: inline-flex;
   position: relative;
   vertical-align: middle;
@@ -24,4 +28,151 @@ sl-badge {
 
 :host(:dir(rtl)) sl-badge {
   translate: -25% 0;
+}
+
+/* The manager is shown in a popover, drawer or full screen dialog */
+dialog {
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  flex-direction: column;
+  font: var(--sl-text-new-body-md);
+  inline-size: min(var(--_inline-size), 100vw - var(--sl-size-200));
+  margin: 0;
+  max-block-size: 70vh;
+  max-inline-size: none;
+  overflow: visible;
+  padding: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete,
+      opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1),
+      translate 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+}
+
+dialog:popover-open,
+dialog[open] {
+  display: flex;
+}
+
+dialog.popover {
+  inset: auto;
+  opacity: 0;
+
+  &:popover-open {
+    opacity: 1;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+/* Drawer: end side, full height, modal */
+dialog.drawer {
+  block-size: 100dvh;
+  border-block: 0;
+  border-inline-end: 0;
+  border-radius: 0;
+  inset: 0 0 0 auto;
+  max-block-size: none;
+  translate: 100% 0;
+
+  &[open] {
+    translate: 0;
+
+    @starting-style {
+      translate: 100% 0;
+    }
+  }
+
+  &:dir(rtl) {
+    border-inline: 0 var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    inset: 0 auto 0 0;
+    translate: -100% 0;
+
+    &[open] {
+      translate: 0;
+
+      @starting-style {
+        translate: -100% 0;
+      }
+    }
+  }
+}
+
+/* Full screen: slides up from the bottom, respects safe areas */
+dialog.fullscreen {
+  block-size: 100dvh;
+  border: 0;
+  border-radius: 0;
+  inline-size: 100vw;
+  inset: 0;
+  max-block-size: none;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  translate: 0 100%;
+
+  &[open] {
+    translate: 0;
+
+    @starting-style {
+      translate: 0 100%;
+    }
+  }
+}
+
+dialog::backdrop {
+  background: var(--sl-color-background-neutral-bold);
+  opacity: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete,
+      opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+}
+
+dialog[open]::backdrop {
+  opacity: 0.4;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+dialog sl-notification-manager {
+  flex: 1;
+}
+
+[part='arrow'] {
+  block-size: var(--_arrow-block-size);
+  inline-size: var(--_arrow-inline-size);
+  pointer-events: none;
+  position: absolute;
+
+  svg {
+    display: block;
+    fill: var(--sl-elevation-surface-raised-default);
+    inline-size: 100%;
+    overflow: visible;
+    stroke: var(--sl-color-border-plain);
+    stroke-width: var(--sl-size-borderWidth-default);
+  }
+}
+
+dialog[actual-placement^='bottom'] [part='arrow'] {
+  inset-block-start: calc(var(--_arrow-block-size) * -1);
+}
+
+dialog[actual-placement^='top'] [part='arrow'] {
+  inset-block-end: calc(var(--_arrow-block-size) * -1);
+  scale: 1 -1;
 }

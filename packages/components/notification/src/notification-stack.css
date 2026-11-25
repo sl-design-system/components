@@ -224,7 +224,12 @@ sl-notification.leaving {
   padding: 0 var(--sl-size-200);
 
   &:hover {
-    background: var(--sl-color-background-neutral-interactive-plain);
+    background: color-mix(
+      in srgb,
+      var(--sl-elevation-surface-raised-default),
+      var(--sl-color-background-neutral-interactive-plain)
+        calc(100% * var(--sl-opacity-interactive-plain-hover))
+    );
   }
 
   &:focus-visible {

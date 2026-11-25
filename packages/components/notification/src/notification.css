@@ -90,7 +90,12 @@
   text-decoration: none;
 
   &:hover {
-    background: var(--sl-color-background-info-interactive-plain);
+    background: color-mix(
+      in srgb,
+      transparent,
+      var(--sl-color-background-info-interactive-plain)
+        calc(100% * var(--sl-opacity-interactive-plain-hover))
+    );
   }
 
   &:focus-visible {

@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { type NotificationStack } from './notification-stack.js';
 import { NotificationStore } from './notification-store.js';
-import { add, renderControls, styles } from './notification.stories-utils.js';
+import { add, renderAppHeader, renderControls, styles } from './notification.stories-utils.js';
 import './register.js';
 
 type Props = Pick<NotificationStack, 'maxVisible' | 'position'>;
@@ -13,7 +13,7 @@ type Story = StoryObj<Props>;
 const store = new NotificationStore();
 
 const renderStack = ({ maxVisible, position }: Props): TemplateResult => html`
-  ${styles} ${renderControls(store)}
+  ${styles} ${renderAppHeader(store)} ${renderControls(store)}
   <p>
     Send several: they pile up with the newest in front; hover, Tab in or click the edges to expand.
     Errors and notifications with an action are never piled. Press F8 to jump to the newest
@@ -23,9 +23,7 @@ const renderStack = ({ maxVisible, position }: Props): TemplateResult => html`
   <sl-notification-stack
     .maxVisible=${maxVisible}
     .position=${position}
-    .store=${store}
-    manager="stack-inbox"></sl-notification-stack>
-  <sl-notification-manager .store=${store} id="stack-inbox"></sl-notification-manager>
+    .store=${store}></sl-notification-stack>
 `;
 
 export default {
@@ -57,23 +55,5 @@ export const Pile: Story = {
     }
 
     return renderStack(args);
-  }
-};
-
-export const ViewAll: Story = {
-  args: {
-    maxVisible: 2
-  },
-  render: args => {
-    if (store.active.length < 4) {
-      ['info', 'success', 'info', 'success'].forEach(variant =>
-        add(variant as 'info' | 'success', store)
-      );
-    }
-
-    return html`
-      ${renderStack(args)}
-      <p>Hover the stack: only 2 are shown, with a button to view all in the manager.</p>
-    `;
   }
 };

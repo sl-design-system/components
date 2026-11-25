@@ -47,6 +47,83 @@ describe('sl-notification-button', () => {
     ).to.have.attribute('aria-label', 'Notifications, more than 2 unread');
   });
 
+  describe('manager', () => {
+    afterEach(() => {
+      el.hide();
+    });
+
+    it('should be closed by default', () => {
+      expect(el.open).not.to.be.true;
+      expect(el.dialog?.matches(':popover-open')).to.be.false;
+      expect(el.dialog?.open).to.be.false;
+    });
+
+    it('should show the manager in a popover on a wide screen', async () => {
+      const onOpen = spy();
+      el.addEventListener('sl-open', onOpen);
+
+      await el.show();
+
+      expect(el.open).to.be.true;
+      expect(el).to.have.attribute('open');
+      expect(el.matches(':state(expanded)')).to.be.true;
+      expect(el.mode).to.equal('popover');
+      expect(el.dialog?.matches(':popover-open')).to.be.true;
+      expect(el.managerElement?.closable).not.to.be.true;
+      expect(onOpen).to.have.been.calledOnce;
+    });
+
+    it('should focus the heading of the manager when opened', async () => {
+      await el.show();
+
+      const manager = el.managerElement!;
+      expect(manager.shadowRoot?.activeElement).to.equal(manager.renderRoot.querySelector('h2'));
+    });
+
+    it('should show the manager in a modal drawer below drawer-below', async () => {
+      el.drawerBelow = 4000;
+      await el.show();
+
+      expect(el.mode).to.equal('drawer');
+      expect(el.dialog?.matches(':modal')).to.be.true;
+      expect(el.managerElement?.closable).to.be.true;
+    });
+
+    it('should show the manager full screen below fullscreen-below', async () => {
+      el.fullscreenBelow = 4000;
+      await el.show();
+
+      expect(el.mode).to.equal('fullscreen');
+      expect(el.dialog?.matches(':modal')).to.be.true;
+    });
+
+    it('should close when the close button of the manager is used', async () => {
+      el.drawerBelow = 4000;
+      await el.show();
+      await el.managerElement?.updateComplete;
+
+      el.managerElement?.renderRoot.querySelector<HTMLElement>('sl-button.close')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.open).to.be.false;
+    });
+
+    it('should toggle and emit sl-close once closed', async () => {
+      const onClose = spy();
+      el.addEventListener('sl-close', onClose);
+
+      el.toggle();
+      await new Promise(resolve => setTimeout(resolve));
+      expect(el.open).to.be.true;
+
+      el.toggle();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.open).to.be.false;
+      expect(onClose).to.have.been.calledOnce;
+    });
+  });
+
   it('should update when notifications are read', async () => {
     const n = store.add({ label: 'One' });
     await el.updateComplete;
@@ -175,62 +252,44 @@ describe('sl-notification-manager', () => {
     el = await fixture(html`<sl-notification-manager .store=${store}></sl-notification-manager>`);
   });
 
-  afterEach(() => {
-    el.hide();
+  it('should render inline, with a heading and the list', () => {
+    expect(el.renderRoot.querySelector('h2')).to.have.trimmed.text('Notifications');
+    expect(el.renderRoot.querySelector('sl-notification-list')).to.exist;
+    expect(el.renderRoot.querySelector('dialog')).not.to.exist;
   });
 
-  it('should be closed by default', () => {
-    expect(el.open).not.to.be.true;
-    expect(el.dialog?.matches(':popover-open')).to.be.false;
-    expect(el.dialog?.open).to.be.false;
+  it('should not have a close button by default', () => {
+    expect(el.renderRoot.querySelector('sl-button.close')).not.to.exist;
   });
 
-  it('should open as a popover on a wide screen', async () => {
-    const onOpen = spy();
-    el.addEventListener('sl-open', onOpen);
-
-    await el.show();
-
-    expect(el.open).to.be.true;
-    expect(el).to.have.attribute('open');
-    expect(el.mode).to.equal('popover');
-    expect(el.dialog?.matches(':popover-open')).to.be.true;
-    expect(onOpen).to.have.been.calledOnce;
-  });
-
-  it('should focus the heading when opened', async () => {
-    await el.show();
-
-    expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('h2'));
-  });
-
-  it('should open as a modal drawer below drawer-below', async () => {
-    el.drawerBelow = 4000;
-    await el.show();
-
-    expect(el.mode).to.equal('drawer');
-    expect(el.dialog?.open).to.be.true;
-    expect(el.dialog?.matches(':modal')).to.be.true;
-    expect(el.renderRoot.querySelector('sl-button.close')).to.exist;
-  });
-
-  it('should close and emit sl-close', async () => {
+  it('should have a close button that emits sl-close when closable', async () => {
     const onClose = spy();
     el.addEventListener('sl-close', onClose);
 
-    await el.show();
-    el.hide();
-    await new Promise(resolve => setTimeout(resolve));
+    el.closable = true;
+    await el.updateComplete;
 
-    expect(el.open).to.be.false;
+    el.renderRoot.querySelector<HTMLElement>('sl-button.close')?.click();
+
     expect(onClose).to.have.been.calledOnce;
   });
 
-  it('should mark all as read', async () => {
-    await el.show();
-
+  it('should mark all as read', () => {
     el.renderRoot.querySelector<HTMLElement>('[part="header"] sl-button')?.click();
 
     expect(store.unreadCount).to.equal(0);
+  });
+
+  it('should disable "Mark all as read" when nothing is unread', async () => {
+    store.markAllRead();
+    await el.updateComplete;
+
+    expect(el.renderRoot.querySelector('[part="header"] sl-button')).to.have.attribute('disabled');
+  });
+
+  it('should focus the heading', () => {
+    el.focusHeading();
+
+    expect(el.shadowRoot?.activeElement).to.equal(el.renderRoot.querySelector('h2'));
   });
 });

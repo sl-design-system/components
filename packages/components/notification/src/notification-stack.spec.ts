@@ -91,7 +91,10 @@ describe('sl-notification-stack', () => {
   });
 
   it('should show at most max-visible notifications with a "View all" button when expanded', async () => {
-    el.manager = 'inbox';
+    const button = document.createElement('sl-notification-button');
+    button.store = store;
+    document.body.append(button);
+
     el.maxVisible = 2;
     ['One', 'Two', 'Three', 'Four'].forEach(label => store.add({ label }));
     el.expand();
@@ -99,6 +102,17 @@ describe('sl-notification-stack', () => {
 
     expect(visible().map(n => n.label)).to.deep.equal(['Three', 'Four']);
     expect(el.renderRoot.querySelector('[part="more"]')).to.have.trimmed.text('2 more · View all');
+
+    button.remove();
+  });
+
+  it('should not show a "View all" button without a notification button to open', async () => {
+    el.maxVisible = 2;
+    ['One', 'Two', 'Three', 'Four'].forEach(label => store.add({ label }));
+    el.expand();
+    await el.updateComplete;
+
+    expect(el.renderRoot.querySelector('[part="more"]')).not.to.exist;
   });
 
   it('should have a single tab stop on the newest notification', async () => {

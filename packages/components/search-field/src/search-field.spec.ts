@@ -440,6 +440,39 @@ describe('sl-search-field', () => {
       );
     });
 
+    it('shows a heading above the suggestions and the status message in one container', async () => {
+      const container = () => el.renderRoot.querySelector<HTMLSlotElement>('.suggestions')!,
+        heading = () => el.querySelector<HTMLElement>('.sl-suggestions-heading')!,
+        message = () => el.querySelector<HTMLElement>('[slot="suggestions"][role="status"]')!;
+
+      expect(container().hidden).to.be.true;
+
+      await userEvent.type(el.input, 'Gar');
+      await el.updateComplete;
+
+      expect(container().hidden).to.be.false;
+      expect(heading().textContent).to.equal('Suggested searches');
+      expect(heading().getAttribute('aria-hidden')).to.equal('true');
+      expect(heading().getBoundingClientRect().bottom).to.be.at.most(
+        list().getBoundingClientRect().top
+      );
+
+      el.suggestions = [];
+      await el.updateComplete;
+
+      expect(container().hidden).to.be.false;
+      expect(list().hidden).to.be.true;
+      expect(message().textContent).to.equal('No suggested searches');
+      expect(getComputedStyle(message()).paddingInlineStart).to.equal(
+        getComputedStyle(heading()).paddingInlineStart
+      );
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(container().hidden).to.be.true;
+    });
+
     it('keeps the typed value separate from the proposed suffix', async () => {
       await userEvent.type(el.input, 'Gar');
       await el.updateComplete;
@@ -798,8 +831,12 @@ describe('sl-search-field', () => {
       expect(getComputedStyle(el).paddingInlineEnd).to.equal('0px');
       expect(field.getBoundingClientRect().left).to.equal(el.getBoundingClientRect().left);
       expect(field.getBoundingClientRect().right).to.equal(el.getBoundingClientRect().right);
-      expect(list().getBoundingClientRect().left).to.equal(field.getBoundingClientRect().left);
-      expect(list().getBoundingClientRect().width).to.equal(field.getBoundingClientRect().width);
+      const suggestions = el.renderRoot.querySelector<HTMLElement>('.suggestions')!;
+
+      expect(suggestions.getBoundingClientRect().left).to.equal(field.getBoundingClientRect().left);
+      expect(suggestions.getBoundingClientRect().width).to.equal(
+        field.getBoundingClientRect().width
+      );
     });
 
     it('removes outer padding from an explicitly medium pill field', async () => {
@@ -1131,7 +1168,9 @@ describe('sl-search-field', () => {
       expect(el.value).to.equal('Gar');
       expect(list().getAttribute('aria-activedescendant')).to.equal(active.id);
       expect(active.hasAttribute('current')).to.be.true;
-      expect(options().map(option => option.selected)).to.deep.equal([false, false, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([false, false, false]);
       expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
         'false',
         'false',
@@ -1141,6 +1180,31 @@ describe('sl-search-field', () => {
       expect(getComputedStyle(list()).outlineStyle).to.equal('none');
       expect(getComputedStyle(active).outlineStyle).to.equal('solid');
       expect(parseFloat(getComputedStyle(active).outlineWidth)).to.be.greaterThan(0);
+    });
+
+    it('keeps the focus outline of the first and last option inside the scrolling list', async () => {
+      el.autocomplete = 'list';
+      el.suggestions = ['García', 'Garden', 'Garland'];
+      await userEvent.type(el.input, 'Gar');
+      await userEvent.keyboard('{ArrowDown}');
+      await Promise.all(options().map(option => option.updateComplete));
+
+      const outline = (option: HTMLElement) =>
+          parseFloat(getComputedStyle(option).outlineOffset) +
+          parseFloat(getComputedStyle(option).outlineWidth),
+        first = options()[0],
+        last = options()[2];
+
+      expect(first.getBoundingClientRect().top - outline(first)).to.be.at.least(
+        list().getBoundingClientRect().top
+      );
+
+      await userEvent.keyboard('{End}');
+      await last.updateComplete;
+
+      expect(last.getBoundingClientRect().bottom + outline(last)).to.be.at.most(
+        list().getBoundingClientRect().bottom
+      );
     });
 
     it('keeps the exact query selected while focus moves to another suggestion', async () => {
@@ -1153,7 +1217,13 @@ describe('sl-search-field', () => {
 
       expect(el.value).to.equal('Garden');
       expect(list().getAttribute('aria-activedescendant')).to.equal(options()[1].id);
-      expect(options().map(option => option.selected)).to.deep.equal([true, false, false]);
+      expect(options()[0].hasAttribute('selected')).to.be.false;
+      expect(getComputedStyle(options()[0].renderRoot.querySelector('sl-icon')!).display).to.equal(
+        'none'
+      );
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([true, false, false]);
       expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
         'true',
         'false',
@@ -1167,7 +1237,9 @@ describe('sl-search-field', () => {
       await expect.poll(suffix).to.equal('cía');
 
       expect(el.value).to.equal('Gar');
-      expect(options().map(option => option.selected)).to.deep.equal([false, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([false, false]);
 
       await userEvent.keyboard('{ArrowRight}');
       await el.updateComplete;
@@ -1175,7 +1247,9 @@ describe('sl-search-field', () => {
       await Promise.all(options().map(option => option.updateComplete));
 
       expect(el.value).to.equal('García');
-      expect(options().map(option => option.selected)).to.deep.equal([true, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([true, false]);
       expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
         'true',
         'false'
@@ -1188,14 +1262,18 @@ describe('sl-search-field', () => {
       await userEvent.type(el.input, 'Garden');
       await el.updateComplete;
 
-      expect(options().map(option => option.selected)).to.deep.equal([true, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([true, false]);
 
       el.clear();
       await userEvent.type(el.input, 'Gar');
       await el.updateComplete;
       await list().updateComplete;
 
-      expect(options().map(option => option.selected)).to.deep.equal([false, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([false, false]);
       expect(options().map(option => option.getAttribute('aria-selected'))).to.deep.equal([
         'false',
         'false'
@@ -1222,7 +1300,9 @@ describe('sl-search-field', () => {
         'false',
         'false'
       ]);
-      expect(options().map(option => option.selected)).to.deep.equal([false, false, false]);
+      expect(
+        options().map(option => option.getAttribute('aria-selected') === 'true')
+      ).to.deep.equal([false, false, false]);
 
       await userEvent.keyboard('{Enter}');
 

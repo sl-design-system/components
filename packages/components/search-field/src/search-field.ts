@@ -9,6 +9,7 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult, html, no
 import { property, state } from 'lit/decorators.js';
 import styles from './search-field.css' with { type: 'css' };
 import { matchSuggestion } from './suggestion-matching.js';
+import { SuggestionOption } from './suggestion-option.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -49,7 +50,7 @@ export type SearchFieldSize = 'md' | 'lg';
  * @slot prefix - Content shown before the input. Defaults to a search icon.
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input. Defaults to the clear button when there is a value.
- * @slot suggestions - Used internally for the suggestion list and its loading, empty and
+ * @slot suggestions - Used internally for the suggestion heading, list and its loading, empty and
  *   unavailable status message. Do not slot your own content here.
  * @slot inline-description - Used internally for the accessible description of an inline
  *   proposal. Do not slot your own content here.
@@ -61,7 +62,7 @@ export class SearchField extends TextField {
 
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
-    return { ...super.scopedElements, 'sl-listbox': Listbox, 'sl-option': Option };
+    return { ...super.scopedElements, 'sl-listbox': Listbox, 'sl-option': SuggestionOption };
   }
 
   /** Suggestion mode. Native browser autocomplete is disabled. */
@@ -89,6 +90,7 @@ export class SearchField extends TextField {
 
   @state() private suggestionOpen = false;
 
+  #heading?: HTMLDivElement;
   #listbox?: Listbox;
   #message?: HTMLDivElement;
   #inlineDescription?: HTMLDivElement;
@@ -200,7 +202,7 @@ export class SearchField extends TextField {
   override render(): TemplateResult {
     return html`
       <div class="field" part="field">${super.render()}</div>
-      <slot name="suggestions" class="suggestions"></slot>
+      <slot name="suggestions" class="suggestions" hidden></slot>
       <slot name="inline-description"></slot>
       <slot
         @slotchange=${() => {
@@ -374,6 +376,10 @@ export class SearchField extends TextField {
     this.#listbox!.hidden = !hasOptions;
     this.#listbox!.tabIndex = hasOptions ? 0 : -1;
     this.#message!.hidden = !showList || hasOptions;
+    this.#message!.toggleAttribute('data-unavailable', this.unavailable);
+    this.renderRoot
+      .querySelector<HTMLSlotElement>('.suggestions')
+      ?.toggleAttribute('hidden', this.#listbox!.hidden && this.#message!.hidden);
 
     if (hasOptions) {
       this.input.setAttribute('aria-controls', this.#listbox!.id);
@@ -390,6 +396,13 @@ export class SearchField extends TextField {
     if (this.#listbox) {
       return;
     }
+
+    this.#heading = document.createElement('div');
+    this.#heading.slot = 'suggestions';
+    this.#heading.className = 'sl-suggestions-heading';
+    // The listbox has the same aria-label, so the visual heading is not read twice.
+    this.#heading.setAttribute('aria-hidden', 'true');
+    this.append(this.#heading);
 
     this.#listbox = this.shadowRoot!.createElement('sl-listbox');
     this.#listbox.id = `sl-search-suggestions-${nextSuggestionId++}`;
@@ -487,10 +500,13 @@ export class SearchField extends TextField {
   #updateSuggestionText(): void {
     this.#updateInlineDescription();
 
-    this.#listbox?.setAttribute(
-      'aria-label',
-      msg('Suggested searches', { id: 'sl.searchField.suggestions' })
-    );
+    const label = msg('Suggested searches', { id: 'sl.searchField.suggestions' });
+
+    this.#listbox?.setAttribute('aria-label', label);
+
+    if (this.#heading && this.#heading.textContent !== label) {
+      this.#heading.textContent = label;
+    }
 
     if (!this.#message) {
       return;

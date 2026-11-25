@@ -19,6 +19,11 @@ Behavior
 - Suggestions can be chosen with the keyboard or the pointer. Inline and list suggestions respect `maxlength`.
 - The suggestion list waits for the bold font (up to 300 ms) before it is first shown, so the emphasised text does not change font.
 
+Design
+
+- Suggestions, loading, empty and unavailable messages share one container with a "Suggested searches" heading.
+- A phrase that matches the query exactly is fully emphasised, without a checkmark or selected background.
+
 Accessibility
 
 - Inline proposals are announced through `sl-announcer`.

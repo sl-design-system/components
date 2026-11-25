@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-11-25T09:25:50Z"
+generated_at = "2026-11-25T15:36:57Z"
 cli_version = "dev"
 dependencies = []
 
@@ -230,8 +230,8 @@ dependencies = []
   source_ref_type = "branch"
   source_ref_name = "change-brandlightcolorbackgroundaccentgreyinteractivebold-in-magister"
   preset_hash = "sha256:87f13765b65f74b487cf36e61b7d28a842dc2432fec999b0798af256fe819c5e"
-  output_hash = "sha256:2645b2214496ce3b2547d2173dadcc8d3fc639d7618c9338e748abab5d5b0c0d"
-  updated_at = "2026-11-25T09:25:50Z"
+  output_hash = "sha256:938ab2314fc03df81d51b2c92efc5f08b51fe3f0d15fbc63703eb087758205f1"
+  updated_at = "2026-11-25T15:36:57Z"
 
   [[exports.files]]
     path = "brand/bingel-dc.css"
@@ -361,19 +361,19 @@ dependencies = []
 
   [[exports.files]]
     path = "device/desktop.css"
-    hash = "sha256:8e166862dc84fecf1002f462700479477db1ae81473dc19196d75ab1565e9e40"
+    hash = "sha256:dc259372754f179a7e78101bd011da5a88f48eb1a669b8a1b5dbb2f340f8d426"
     size = 16476
     tokens = 0
 
   [[exports.files]]
     path = "device/mobile.css"
-    hash = "sha256:68b080a058430396e4be7c07fa59932f0fbfb385bf66e55b3646ff13461e33df"
+    hash = "sha256:2a68f47bef6f099236a51235b697d021ba105aa98ebcf3902b52f35a0673cbaf"
     size = 16746
     tokens = 0
 
   [[exports.files]]
     path = "device/tablet.css"
-    hash = "sha256:b5c4ee84fba6c0028aafb434cf0cfc0913bec959ad293ec74f5fe03c7a3ccd70"
+    hash = "sha256:eaff7d539ed312152e2dcc7979d9b135782e74b30077515937acc80b6af333e0"
     size = 16747
     tokens = 0
 
@@ -415,28 +415,28 @@ dependencies = []
 
   [[exports.files]]
     path = "user-group/advanced.css"
-    hash = "sha256:78f442d2d5af10776dffb1023641c2e93cd0d4aa3a9a9cfbedd875303aa8ed5f"
+    hash = "sha256:a608286b69049256d13fc6d5f9bb62bf971f7dde1b0e706ef7c9f678ef5cf53f"
     size = 36399
     tokens = 0
 
   [[exports.files]]
     path = "user-group/developing.css"
-    hash = "sha256:09f9ecc346210e337b26360f5063034822ecefbc33a5767ab42d22df2a90d699"
+    hash = "sha256:8532717adfa0a3d14fc4847f57908086de76a8f45ed8b9608a8de2933b406849"
     size = 36460
     tokens = 0
 
   [[exports.files]]
     path = "user-group/early.css"
-    hash = "sha256:ea0bdd9df8470b927e6a20faf4a5303b4e70b46abb9f20f35ca7de8c16a4d1e7"
+    hash = "sha256:65206d4d1536f5d38c67dd29a581d2f69025dcd487a37994f72aeb443002068a"
     size = 36341
     tokens = 0
 
   [[exports.files]]
     path = "user-group/poweruser.css"
-    hash = "sha256:bdec38988ad97b232ec6dc817ca154110158b59b91b592540e9515a6f7955149"
+    hash = "sha256:3eca94a3abc2b1c868d3d3eb1c5da8d7bf3e383f0106a9a00dc9a52b4c15234f"
     size = 36406
     tokens = 0
 
 [integrity]
-  lockfile_hash = "sha256:27288408c79b2dd27f1903609f59b5b61b3e01970b7fd6b0f5f9e7043633ef3f"
+  lockfile_hash = "sha256:971b841814e66b7d278b6c95c51c4619244c8bb11ae276f5d084bc4d915a9b53"
   algorithm = "sha256"

@@ -61,3 +61,14 @@ The remote server is `https://mcp.atlassian.com/v2/mcp`; v1 has no attachment to
 
 Ask the developer to start it, with the command from the context file or `package.json`, and for its URL; never start servers or backends yourself without their OK.
 Fallback: no visual check, only if the developer agrees.
+
+## sl-ds setup
+
+Read the app's entry point (`main.ts`, `index.html`, `angular.json` styles) and the lockfile; [frameworks.md](frameworks.md) has what each framework needs.
+
+- No theme: a theme package (`@sl-design-system/<theme>`) with its `theme.css` loaded and its `setup()` called once in a global file; without `setup()` the icons are missing.
+  Ask which theme, never pick one.
+- A component that renders as plain text or unstyled: its `register.js` import, or for Angular its wrapper, is missing.
+- Tooltips, popovers or menus in the wrong place, in browsers without CSS anchor positioning: the polyfills from the getting-started guide (`website/src/categories/getting-started/developers.md` on `main`).
+- A new package does not install: the packages come from the GitHub npm registry (`https://npm.pkg.github.com`), so `.npmrc` needs `@sl-design-system:registry=https://npm.pkg.github.com` and an auth token; the developer sets the token, never you.
+- Fallback: go on and say in the summary that the visual check may be off because of the setup.

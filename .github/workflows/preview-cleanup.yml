@@ -1,20 +1,26 @@
 name: Preview cleanup
 
 on:
-  # `pull_request_target` runs in the context of the base branch, so unlike
-  # `pull_request` it also fires when a PR is closed while it has merge
-  # conflicts. This workflow never checks out or runs code from the PR.
-  pull_request_target:
+  # Note: GitHub doesn't run `pull_request` workflows at all for a PR that has
+  # merge conflicts, so closing such a PR doesn't trigger this. The scheduled
+  # sweep below cleans those up. (`pull_request_target` would fire, but it is
+  # blocked by default in public repositories since December 2, 2026.)
+  pull_request:
     branches:
       - main
     types: [closed]
 
-  # Safety net: remove previews of PRs that are already closed, e.g. when a
-  # cleanup run failed or was skipped.
+  # Safety net: remove previews of PRs that are already closed, e.g. PRs closed
+  # with merge conflicts or when a cleanup run failed.
   schedule:
     - cron: '17 3 * * *'
 
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Only list the previews that would be deleted
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -23,7 +29,7 @@ permissions:
 
 jobs:
   cleanup:
-    if: github.event_name == 'pull_request_target'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Cleanup ${{ matrix.preview }}-${{ github.event.pull_request.number }}
     strategy:
@@ -55,7 +61,7 @@ jobs:
           fi
 
   sweep:
-    if: github.event_name != 'pull_request_target'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     name: Sweep closed PR previews
     steps:
@@ -68,6 +74,7 @@ jobs:
       - name: Delete Amplify branches of closed PRs
         env:
           APP_ID: ${{ secrets.AWS_AMPLIFY_APP_ID }}
+          DRY_RUN: ${{ inputs.dry_run == true }}
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
@@ -83,8 +90,14 @@ jobs:
             STATE=$(gh api "repos/$REPO/pulls/$PR" --jq '.state' 2>/dev/null || true)
 
             if [ "$STATE" == "closed" ]; then
-              aws amplify delete-branch --app-id "$APP_ID" --branch-name "$BRANCH" >/dev/null
-              echo "Deleted '$BRANCH' (PR #$PR is closed)."
+              if [ "$DRY_RUN" == "true" ]; then
+                echo "Would delete '$BRANCH' (PR #$PR is closed)."
+              else
+                aws amplify delete-branch --app-id "$APP_ID" --branch-name "$BRANCH" >/dev/null
+                echo "Deleted '$BRANCH' (PR #$PR is closed)."
+              fi
+            elif [ "$STATE" == "open" ]; then
+              echo "Keeping '$BRANCH' (PR #$PR is open)."
             elif [ -z "$STATE" ]; then
               echo "::warning::Could not look up PR #$PR, keeping '$BRANCH'."
             fi

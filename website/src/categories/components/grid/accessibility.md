@@ -26,6 +26,12 @@ To avoid tabbing through every interactive element in a large grid, the grid pro
 
 <section>
 
+## TODO: include arrows navigation once it's merged
+
+</section>
+
+<section>
+
 ## Semantics
 
 The grid is exposed to assistive technology as a table. Rows and cells use the `row`, `columnheader` and `cell` roles. The grid sets `aria-rowcount` and `aria-colcount`, and rows and cells have an `aria-rowindex` or `aria-colindex`, so screen reader users know where they are in the data.

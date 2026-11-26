@@ -8,13 +8,13 @@ eleventyNavigation:
 ---
 <section class="no-heading">
 
-<div class="ds-example">
+<div class="ds-example" style="display: block;">
 <sl-grid id="grid-code-example">
 <sl-grid-column path="firstName"></sl-grid-column>
 <sl-grid-column path="lastName"></sl-grid-column>
 <sl-grid-column path="email"></sl-grid-column>
-<sl-grid-column path="address.phone" header="Phone"></sl-grid-column>
-<sl-grid-column path="profession"></sl-grid-column>
+<sl-grid-column path="address.phone" header="Guardian phone"></sl-grid-column>
+<sl-grid-column path="grade" header="Grade"></sl-grid-column>
 </sl-grid>
 </div>
 
@@ -25,8 +25,8 @@ eleventyNavigation:
     <sl-grid-column path="firstName"></sl-grid-column>
     <sl-grid-column path="lastName"></sl-grid-column>
     <sl-grid-column path="email"></sl-grid-column>
-    <sl-grid-column path="address.phone" header="Phone"></sl-grid-column>
-    <sl-grid-column path="profession"></sl-grid-column>
+    <sl-grid-column path="address.phone" header="Guardian phone"></sl-grid-column>
+    <sl-grid-column path="grade" header="Grade"></sl-grid-column>
 </sl-grid>
   ```
 
@@ -35,12 +35,13 @@ const grid = document.querySelector('#grid-example');
 
 grid.items = [
   {
-    firstName: 'Aria',
-    lastName: 'Bailey',
-    email: 'aria.bailey@company.com',
+    firstName: 'Mia',
+    lastName: 'Thompson',
+    email: 'mia.thompson@oakwood.edu',
     address: { phone: '555-0100' },
-    profession: 'Endocrinologist'
-  }
+    grade: '6'
+  },
+  ...
 ];
   ```
 
@@ -49,6 +50,51 @@ grid.items = [
 </section>
 
 <ds-install-info link-in-navigation package="grid"></ds-install-info>
+
+<section>
+
+<sl-callout density="relaxed" variant="info">
+  This page covers the basics of the grid: its structure and how to display data. Features such as sorting, filtering, selection and grouping will be documented on a later stage.
+</sl-callout>
+
+</section>
+
+<section>
+
+## Grid structure
+
+A basic grid is made of the following parts:
+
+1. **Header row**: contains the column headers, which describe the data in each column.
+2. **Column**: defines which property of the data is shown and how it is displayed.
+3. **Row**: shows one item of the data.
+4. **Cell**: shows the value of a single property for a single row.
+
+</section>
+
+<section>
+
+## Data
+
+The grid gets its data from a data source. There are two ways to provide data:
+
+- **`items`**: the simplest option. Set an array of objects and the grid wraps it in an in-memory data source for you. Use this when you have all the data available.
+- **`dataSource`**: provide your own data source when you need more control, for example `ArrayListDataSource` for data in memory, or `FetchListDataSource` to load data from a server in pages.
+
+The grid renders whatever the data source provides. When the data source changes, the grid updates its rows automatically.
+
+</section>
+
+<section>
+
+## Key points
+
+- Every column maps to a property of the data using its `path`. Nested properties are supported, for example `address.phone`.
+- The header text of a column is derived from its `path`, or can be set explicitly with the `header` property.
+- Use `striped` to make long rows easier to follow, or `no-border` and `no-row-border` for a lighter look.
+- Use `ellipsize-text` to keep rows on a single line when cell content is long.
+
+</section>
 
 <section>
 
@@ -62,8 +108,8 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 const grid = document.querySelector('#grid-example');
 
 grid.dataSource = new ArrayListDataSource([
-  { firstName: 'Aria', lastName: 'Bailey' },
-  { firstName: 'Aaliyah', lastName: 'Butler' }
+  { firstName: 'Mia', lastName: 'Thompson', grade: '6' },
+  { firstName: 'Noah', lastName: 'Williams', grade: '7' }
 ]);
 ```
 
@@ -101,6 +147,12 @@ While a page is loading, the grid shows placeholder rows. Throw a `FetchListData
 
 </section>
 
+<section>
+
+## TODO: include grand totals once it's merged
+
+</section>
+
 {% include "../component-table.njk" %}
 
 <script>
@@ -108,9 +160,9 @@ const codeGrid = document.querySelector("#grid-code-example");
 
 requestAnimationFrame(() => {
   codeGrid.items = [
-    { id: "0", firstName: "Aria", lastName: "Bailey", email: "aria.bailey@company.com", address: { phone: "555-0100" }, profession: "Endocrinologist" },
-    { id: "1", firstName: "Aaliyah", lastName: "Butler", email: "aaliyah.butler@company.com", address: { phone: "555-0101" }, profession: "Nephrologist" },
-    { id: "2", firstName: "Eleanor", lastName: "Price", email: "eleanor.price@company.com", address: { phone: "555-0102" }, profession: "Ophthalmologist" }
+    { id: "0", firstName: "Mia", lastName: "Thompson", email: "mia.thompson@oakwood.edu", address: { phone: "555-0100" }, grade: "6" },
+    { id: "1", firstName: "Noah", lastName: "Williams", email: "noah.williams@oakwood.edu", address: { phone: "555-0101" }, grade: "7" },
+    { id: "2", firstName: "Ava", lastName: "Martinez", email: "ava.martinez@oakwood.edu", address: { phone: "555-0102" }, grade: "6" }
   ];
 });
 </script>

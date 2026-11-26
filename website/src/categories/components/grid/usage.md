@@ -5,6 +5,49 @@ eleventyNavigation:
   parent: Grid
   key: GridUsage
 ---
+<section class="no-heading">
+
+<div class="ds-example" style="display: block;">
+<sl-grid id="grid-usage-example">
+<sl-grid-column path="subject"></sl-grid-column>
+<sl-grid-column path="teacher"></sl-grid-column>
+<sl-grid-column path="room"></sl-grid-column>
+<sl-grid-column path="day" header="Day"></sl-grid-column>
+<sl-grid-column path="time" header="Time"></sl-grid-column>
+</sl-grid>
+</div>
+
+<div class="ds-code">
+
+  ```html
+<sl-grid id="grid-example">
+    <sl-grid-column path="subject"></sl-grid-column>
+    <sl-grid-column path="teacher"></sl-grid-column>
+    <sl-grid-column path="room"></sl-grid-column>
+    <sl-grid-column path="day" header="Day"></sl-grid-column>
+    <sl-grid-column path="time" header="Time"></sl-grid-column>
+</sl-grid>
+  ```
+
+  ```js
+const grid = document.querySelector('#grid-example');
+
+grid.items = [
+  {
+    subject: 'Mathematics',
+    teacher: 'Ms. Johnson',
+    room: 'A101',
+    day: 'Monday',
+    time: '09:00 - 10:00'
+  },
+  ...
+];
+  ```
+
+</div>
+
+</section>
+
 <section>
 
 ## When to use
@@ -55,3 +98,33 @@ Combine the grid with the paginator to keep the number of rows manageable.
 
 </section>
 
+<section>
+
+## Anatomy
+
+<div class="ds-table-wrapper">
+
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|...	|...|No|
+|2|...	|...|No|
+|3|...	|...|No|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+</section>
+
+<script>
+const usageGrid = document.querySelector("#grid-usage-example");
+
+requestAnimationFrame(() => {
+  usageGrid.items = [
+    { id: "0", subject: "Mathematics", teacher: "Ms. Johnson", room: "A101", day: "Monday", time: "09:00 - 10:00" },
+    { id: "1", subject: "Geography", teacher: "Mr. Patel", room: "B204", day: "Monday", time: "10:15 - 11:15" },
+    { id: "2", subject: "Physics", teacher: "Dr. Nguyen", room: "Lab 2", day: "Tuesday", time: "09:00 - 10:30" },
+    { id: "3", subject: "History", teacher: "Mrs. Carter", room: "C012", day: "Wednesday", time: "13:00 - 14:00" }
+  ];
+});
+</script>

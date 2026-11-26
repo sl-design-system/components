@@ -1,3 +1,4 @@
+import { type Announcer, announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
@@ -91,6 +92,20 @@ describe('sl-dialog', () => {
     it('should not be inert', () => {
       expect(el.inert).to.be.false;
     });
+
+    for (const urgency of ['polite', 'assertive'] as const) {
+      it(`should receive ${urgency} announcements inside the modal`, async () => {
+        const announcer = dialog.querySelector<Announcer>('sl-announcer')!;
+        await announcer.updateComplete;
+
+        announce('A validation error', urgency);
+
+        expect(dialog.matches(':modal')).to.be.true;
+        expect(announcer.renderRoot.querySelector(`[aria-live="${urgency}"]`)).to.have.text(
+          'A validation error'
+        );
+      });
+    }
 
     it('should have an open dialog', () => {
       expect(dialog).to.have.attribute('open');

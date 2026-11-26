@@ -55,6 +55,31 @@ describe('sl-menu', () => {
     });
   });
 
+  describe('separators', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item>Item 1</sl-menu-item>
+          <hr />
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+    });
+
+    it('should hide separators from assistive technologies', () => {
+      expect(el.querySelector('hr')).to.have.attribute('aria-hidden', 'true');
+      expect(el.querySelector('sl-menu-item')).not.to.have.attribute('aria-hidden');
+    });
+
+    it('should hide dynamically added separators from assistive technologies', async () => {
+      const separator = document.createElement('hr');
+
+      el.append(separator);
+
+      await expect.poll(() => separator.getAttribute('aria-hidden')).toBe('true');
+    });
+  });
+
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`

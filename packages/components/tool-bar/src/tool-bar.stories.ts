@@ -24,6 +24,7 @@ import {
   faUnderline as fasUnderline,
   faUniversalAccess as fasUniversalAccess
 } from '@fortawesome/pro-solid-svg-icons';
+import { msg } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -395,6 +396,30 @@ export const Overflow: Story = {
     contained: true,
     description: 'This example shows a tool bar with many items that overflow into a menu.',
     width: '100px'
+  }
+};
+
+export const SingleMenuButton: Story = {
+  args: {
+    description:
+      'This example shows a tool bar that contains only a single menu button. The tool bar should not show an overflow menu, since the menu button fits. Resize the tool bar by dragging its right edge: when it becomes too narrow for the menu button, the button moves into the overflow menu, and when you make it wider again the menu button should reappear. The menu item labels use <code>msg()</code> from <code>@lit/localize</code> to imitate translated content, which verifies that the overflow menu shows clean labels without Lit marker comments.',
+    items: () => html`
+      <sl-menu-button>
+        <span slot="button">Actions</span>
+        <sl-menu-item>
+          <sl-icon name="far-copy"></sl-icon>
+          ${msg('Copy')}
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-paste"></sl-icon>
+          ${msg('Paste')}
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          ${msg('Edit')}
+        </sl-menu-item>
+      </sl-menu-button>
+    `
   }
 };
 

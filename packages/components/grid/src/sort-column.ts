@@ -82,10 +82,13 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
     return html`
       <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         aria-sort=${ifDefined(this.ariaSorting)}
+        id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader"
-        scope="col">
+        role=${this.headerRole}
+        scope=${ifDefined(this.headerScope)}>
         <sl-grid-sorter
           ${ref(this.#sorterRef)}
           .column=${this}

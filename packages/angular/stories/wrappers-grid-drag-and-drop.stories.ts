@@ -102,23 +102,35 @@ export const OnTop: StoryObj = {
     }
   ],
   render: (_, { loaded }) => {
-    const people = loaded['people'] as Person[];
-    const dropFilter = (person: Person): boolean => {
-      return (person as Person & { membership?: string }).membership !== 'Regular';
-    };
+    const dataSource = new ArrayListDataSource(loaded['people'] as Person[]);
+    const dropFilter = ({ membership }: Person): boolean => membership !== 'Regular';
 
     const onDrop = (event: Event): void => {
-      const detail = (event as CustomEvent<{ item: Person; relativeItem: Person }>).detail;
-      console.log('Dropped', detail.item, detail.relativeItem);
+      const { item, relativeItem, position } = (event as SlDropEvent<Person>).detail;
+      if (position !== 'on-top' || !relativeItem || !dropFilter(relativeItem)) {
+        return;
+      }
+
+      const items = dataSource.items,
+        sourceIndex = items.findIndex(source => source.type === item.type && source.id === item.id),
+        targetIndex = items.findIndex(
+          target => isListDataSourceDataItem(target) && target.data === relativeItem
+        );
+
+      if (sourceIndex === -1 || targetIndex === -1 || sourceIndex === targetIndex) {
+        return;
+      }
+
+      dataSource.reorder(item, items[targetIndex], sourceIndex < targetIndex ? 'after' : 'before');
     };
 
     return {
       description:
-        'This example shows drag and drop behavior where you can drop rows on top of other rows. Only rows with certain characteristics (e.g., Premium members) can be drop targets, enforced by a drop filter.',
-      props: { people, dropFilter, onDrop },
+        "Drop a row on a highlighted member to move it to the target member's position. Regular members cannot be drop targets. In on-top mode, the application handles slGridDrop and updates the data source explicitly.",
+      props: { dataSource, dropFilter, onDrop },
       template: `
         <sl-grid
-          [items]="people"
+          [dataSource]="dataSource"
           draggableRows="on-top"
           [dropFilter]="dropFilter"
           [noSkipLinks]="true"
@@ -127,7 +139,7 @@ export const OnTop: StoryObj = {
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>
-          <sl-grid-column path="profession"></sl-grid-column>
+          <sl-grid-column path="membership"></sl-grid-column>
         </sl-grid>
       `
     };

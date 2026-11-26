@@ -1,5 +1,16 @@
 # @sl-design-system/menu
 
+## 1.1.1
+
+### Patch Changes
+
+- [#3789](https://github.com/sl-design-system/components/pull/3789) [`55e7c0c`](https://github.com/sl-design-system/components/commit/55e7c0cf83eb6733a9663a9c89ce8c07b251ad27) - Fix selected `danger` menu items with the `selectable` property not showing the bold background in a menu with `emphasis="bold"`, they now get the same bold styling as other selected items.
+
+- [#3831](https://github.com/sl-design-system/components/pull/3831) [`aeefda9`](https://github.com/sl-design-system/components/commit/aeefda9c87e33fca82e10de1672825cacd1ebfe1) - Hide decorative menu separators from assistive technologies so mobile VoiceOver skips them when navigating menu items. This also applies to dynamically added separators and separators forwarded through a menu button.
+
+- Updated dependencies [[`d7f73ee`](https://github.com/sl-design-system/components/commit/d7f73ee60cb1c85667aed63a3484a80a838d9e4c), [`196ef77`](https://github.com/sl-design-system/components/commit/196ef77d942f737c1fb432bdc6242dd3e84e51b0)]:
+  - @sl-design-system/shared@0.14.2
+
 ## 1.1.0
 
 ### Minor Changes

@@ -7,17 +7,7 @@
 
 :host {
   --_body-cell-background: var(--sl-elevation-surface-raised-default);
-  --_body-cell-background-interactive: linear-gradient(
-    var(--_body-cell-background-interactive-mix),
-    var(--_body-cell-background-interactive-mix)
-  );
   --_body-cell-background-interactive-color: transparent;
-  --_body-cell-background-interactive-mix: color-mix(
-    in srgb,
-    transparent,
-    var(--_body-cell-background-interactive-color)
-      calc(100% * var(--_body-cell-background-interactive-opacity))
-  );
   --_body-cell-background-interactive-opacity: 0;
   --_body-cell-padding-block: var(--sl-size-125);
   --_body-cell-padding-inline: var(--sl-size-150);
@@ -39,6 +29,7 @@
   color: var(--sl-color-foreground-plain);
   display: block;
   outline: none;
+  overflow-anchor: none;
   position: relative;
 }
 
@@ -249,6 +240,7 @@ table {
   inline-size: fit-content;
   min-inline-size: 100%;
   overflow: clip;
+  overflow-anchor: none;
   position: relative;
   z-index: 1;
 }
@@ -297,8 +289,8 @@ tbody {
   border-end-start-radius: var(--sl-size-borderRadius-default);
   border-inline: var(--_border);
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
-  min-block-size: var(--sl-grid-tbody-min-height);
   overflow: auto clip;
+  overflow-anchor: none;
   overscroll-behavior: contain auto;
   scrollbar-width: none;
 
@@ -366,9 +358,10 @@ tr {
     }
   }
 
+  &[part~='active'],
   &[part~='selected'] {
     /**
-     * Manually customize the background color for selected rows, so it's not
+     * Manually customize the background color for active and selected rows, so it's not
      * transparent like --sl-color-background-selected-subtlest
      */
     --_body-cell-background: color-mix(
@@ -397,17 +390,12 @@ td {
 
 th {
   background: var(--_vertical-border), var(--_head-cell-background);
-  font-weight: var(--sl-text-typeset-fontWeight-regular);
-  padding: 0 var(--_head-cell-padding-inline);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  padding: var(--_head-cell-padding-block) var(--_head-cell-padding-inline);
   text-align: start;
 
   &:first-of-type {
     --_vertical-border: none;
-  }
-
-  > span:not(.visually-hidden) {
-    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-    padding-block: var(--_head-cell-padding-block);
   }
 
   .visually-hidden {
@@ -439,6 +427,18 @@ th[part~='selection'] {
 }
 
 td {
+  /* Resolve the overlay on each cell so it uses the row's current interaction state. */
+  --_body-cell-background-interactive: linear-gradient(
+    var(--_body-cell-background-interactive-mix),
+    var(--_body-cell-background-interactive-mix)
+  );
+  --_body-cell-background-interactive-mix: color-mix(
+    in srgb,
+    transparent,
+    var(--_body-cell-background-interactive-color)
+      calc(100% * var(--_body-cell-background-interactive-opacity))
+  );
+
   background: var(--_body-cell-background-interactive), var(--_body-cell-background);
   border-block-end: var(--_border);
   justify-content: start;

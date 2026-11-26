@@ -1,10 +1,11 @@
+import { type Announcer } from '@sl-design-system/announcer';
 import { type Calendar } from '@sl-design-system/calendar';
 import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { DateField } from './date-field.js';
 import './register.js';
 
@@ -382,8 +383,77 @@ describe('sl-date-field', () => {
   });
 
   describe('dialog', () => {
+    const getMaxDateButton = async (): Promise<HTMLButtonElement> => {
+      await vi.waitFor(() => expect(el.dialog?.open).to.be.true);
+      await el.updateComplete;
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      await calendar.updateComplete;
+
+      const selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+
+      const monthView = selectDay.renderRoot.querySelector<RenderRootElement>(
+        'sl-month-view:not([inert])'
+      )!;
+      await monthView.updateComplete;
+
+      const button = Array.from(
+        monthView.renderRoot.querySelectorAll<HTMLButtonElement>(
+          'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+        )
+      ).find(button => button.textContent?.trim() === '31');
+
+      expect(button).to.exist;
+      return button!;
+    };
+
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
+    });
+
+    it('should keep the month table above the extra controls', async () => {
+      el.requireConfirmation = true;
+      el.showPicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      calendar.view = 'month';
+      await calendar.updateComplete;
+
+      const selector = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-month')!;
+      await selector.updateComplete;
+
+      const table = selector.renderRoot.querySelector('table')!,
+        controls = el.renderRoot.querySelector('sl-button-bar')!,
+        tableBounds = table.getBoundingClientRect();
+
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(controls.getBoundingClientRect().top);
+    });
+
+    it('should keep the year table above the extra controls', async () => {
+      el.requireConfirmation = true;
+      el.showPicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      calendar.view = 'year';
+      await calendar.updateComplete;
+
+      const selector = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-year')!;
+      await selector.updateComplete;
+
+      const table = selector.renderRoot.querySelector('table')!,
+        controls = el.renderRoot.querySelector('sl-button-bar')!,
+        tableBounds = table.getBoundingClientRect();
+
+      expect(tableBounds.height).to.be.greaterThan(0);
+      expect(tableBounds.bottom).to.be.at.most(selector.getBoundingClientRect().bottom);
+      expect(tableBounds.bottom).to.be.at.most(controls.getBoundingClientRect().top);
     });
 
     it('should not show calendar initially', () => {
@@ -391,6 +461,71 @@ describe('sl-date-field', () => {
 
       expect(dialog).to.exist;
       expect(dialog!.open).to.be.false;
+    });
+
+    it('should size the localized header and keep the visible dates aligned after opening', async () => {
+      el.locale = 'nl-NL';
+      await el.updateComplete;
+      el.showPicker();
+      await el.updateComplete;
+
+      const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+      await calendar.updateComplete;
+      const selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+      await vi.waitFor(() => {
+        expect(selectDay.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+        const scroller = selectDay.renderRoot.querySelector<HTMLElement>('.scroller')!,
+          month = selectDay.renderRoot.querySelector('sl-month-view:not([inert])')!,
+          label = selectDay.renderRoot.querySelector<HTMLElement>('.current-month sl-format-date')!;
+
+        expect(month.getBoundingClientRect().left).to.be.closeTo(
+          scroller.getBoundingClientRect().left,
+          1
+        );
+        expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+      });
+    });
+
+    it('should show full month names in the picker at a 320px viewport', async () => {
+      await page.viewport(320, 600);
+      try {
+        el.locale = 'en-GB';
+        el.month = new Date(2024, 1, 1);
+        el.style.cssText = 'margin: 8px; font-family: Arial, sans-serif; font-size: 16px';
+        await el.updateComplete;
+        el.showPicker();
+        await el.updateComplete;
+        const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!;
+        await calendar.updateComplete;
+        const selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+        for (const month of [1, 8, 10, 11]) {
+          calendar.month = new Date(2024, month, 1);
+          await calendar.updateComplete;
+          await selectDay.updateComplete;
+          await Promise.all(
+            Array.from(selectDay.renderRoot.querySelectorAll('sl-format-date')).map(
+              label => label.updateComplete
+            )
+          );
+          await vi.waitFor(() => {
+            expect(selectDay.style.getPropertyValue('--_header-inline-size')).not.to.equal('');
+            const label = selectDay.renderRoot.querySelector<HTMLElement>(
+                '.current-month sl-format-date'
+              )!,
+              year = selectDay.renderRoot.querySelector('.current-year')!.getBoundingClientRect(),
+              arrows = selectDay.renderRoot.querySelector('.arrows')!.getBoundingClientRect();
+            expect(label.scrollWidth).to.be.at.most(label.clientWidth + 1);
+            expect(label.getBoundingClientRect().right).to.be.at.most(year.left);
+            expect(year.right).to.be.at.most(arrows.left);
+            expect(arrows.right).to.be.at.most(window.innerWidth);
+          });
+        }
+      } finally {
+        el.hidePicker();
+        await page.viewport(1024, 768);
+      }
     });
 
     it('should render the calendar when the dialog is opened', async () => {
@@ -404,6 +539,114 @@ describe('sl-date-field', () => {
 
       expect(dialog!.open).to.be.true;
       expect(dialog).to.contain('sl-calendar');
+    });
+
+    it('should announce the previous month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a default calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01"></sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
+    });
+
+    it('should announce the previous month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.previous-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'December 2025'
+        )
+      );
+    });
+
+    it('should announce the next month and year inside the modal with a custom calendar', async () => {
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" locale="en-US" month="2026-01-01">
+          <sl-calendar slot="calendar" locale="en-US" month="2026-01-01"></sl-calendar>
+        </sl-date-field>
+      `);
+
+      el.showPicker();
+      await vi.waitFor(() => expect(el.dialog?.matches(':modal')).to.be.true);
+
+      const announcer = el.dialog!.querySelector<Announcer>('sl-announcer');
+
+      expect(announcer).to.exist;
+
+      await announcer!.updateComplete;
+      await el.calendar!.updateComplete;
+
+      const selectDay = el.calendar!.renderRoot.querySelector<RenderRootElement>('sl-select-day')!;
+      await selectDay.updateComplete;
+      selectDay.renderRoot.querySelector<HTMLElement>('sl-button.next-month')!.click();
+
+      await vi.waitFor(() =>
+        expect(announcer!.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+          'February 2026'
+        )
+      );
     });
 
     it('should cancel a pending open when hidePicker is called before updateComplete resolves', async () => {
@@ -539,6 +782,67 @@ describe('sl-date-field', () => {
       );
     });
 
+    it('should keep the max date selectable when value is the first day of the month with a non-midnight time', async () => {
+      el.min = new Date(2027, 3, 1);
+      el.max = new Date(2027, 6, 31);
+      el.value = new Date(2027, 6, 1, 12, 0, 0);
+      await el.updateComplete;
+
+      el.showPicker();
+      const day31Button = await getMaxDateButton();
+
+      expect(day31Button.disabled).to.be.false;
+
+      day31Button.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(new Date(2027, 6, 31));
+    });
+
+    it('should keep max selectable after editing July 2 to July 1 with the keyboard and reloading the saved value', async () => {
+      const min = new Date(2027, 3, 1),
+        max = new Date(2027, 6, 31);
+      el.min = min;
+      el.max = max;
+      el.value = new Date(2027, 6, 2);
+      await el.updateComplete;
+
+      el.showPicker();
+      expect((await getMaxDateButton()).disabled).to.be.false;
+      el.hidePicker();
+      await vi.waitFor(() => expect(el.renderRoot.querySelector('sl-calendar')).to.be.null);
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      el.renderRoot.querySelector<HTMLElement>('[role="spinbutton"][aria-label="Day"]')!.focus();
+      await userEvent.keyboard('{ArrowDown}{Tab}');
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(new Date(2027, 6, 1));
+      expect(el.value?.getHours()).to.equal(0);
+      expect(onChange).to.have.been.called;
+      expect((onChange.lastCall.args[0] as CustomEvent<Date>).detail).to.equalDate(
+        new Date(2027, 6, 1)
+      );
+
+      // Simulate saving and reopening the form with the persisted date.
+      const savedValue = new Date(el.value.getTime());
+      el = await fixture(html`
+        <sl-date-field required aria-label="Date" .min=${min} .max=${max} .value=${savedValue}>
+        </sl-date-field>
+      `);
+      el.showPicker();
+
+      const day31Button = await getMaxDateButton();
+      expect(day31Button.disabled).to.be.false;
+      day31Button.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equalDate(max);
+      expect(el.valid).to.be.true;
+    });
+
     it('should pass month to calendar', async () => {
       const monthDate = new Date(2023, 5, 1);
       el.month = monthDate;
@@ -571,6 +875,52 @@ describe('sl-date-field', () => {
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
     });
+
+    for (const [year, month, lastDay] of [
+      [2026, 3, 30],
+      [2026, 1, 28],
+      [2028, 1, 29]
+    ]) {
+      it(`should open month ${month + 1}/${year} on the first attempt from January 31, including after reopening`, async () => {
+        const value = new Date(year, 0, 31),
+          onChange = vi.fn();
+
+        el.value = value;
+        el.addEventListener('sl-change', onChange);
+        await el.updateComplete;
+
+        for (let attempt = 0; attempt < 2; attempt++) {
+          el.showPicker();
+          await el.updateComplete;
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          const calendar = el.renderRoot.querySelector<Calendar>('sl-calendar')!,
+            selectDay = calendar.renderRoot.querySelector('sl-select-day')!;
+
+          selectDay.renderRoot.querySelector<HTMLElement>('.current-month')!.click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          const monthButtons = calendar.renderRoot
+            .querySelector<RenderRootElement>('sl-select-month')!
+            .renderRoot.querySelectorAll<HTMLButtonElement>('button');
+
+          monthButtons[month].click();
+          await calendar.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+
+          expect(calendar.view).to.equal('day');
+          expect(calendar.month).to.equalDate(new Date(year, month, lastDay));
+          expect(selectDay.month).to.equalDate(new Date(year, month, lastDay));
+          expect(calendar.selected).to.equalDate(value);
+          expect(el.value).to.equalDate(value);
+          expect(onChange).not.toHaveBeenCalled();
+
+          el.hidePicker();
+          await el.updateComplete;
+        }
+      });
+    }
 
     it('should focus the first day of the selected month after choosing a month', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
@@ -2202,6 +2552,20 @@ describe('sl-date-field', () => {
       el.min = new Date(2026, 5, 1);
       el.max = new Date(2026, 5, 30);
       el.value = new Date(2026, 5, 15);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should ignore time components when comparing value against min and max', async () => {
+      el.min = new Date(2027, 3, 1, 18, 0, 0);
+      el.max = new Date(2027, 6, 31, 0, 0, 0);
+      el.value = new Date(2027, 6, 31, 12, 0, 0);
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+
+      el.value = new Date(2027, 3, 1, 0, 0, 0);
       await el.updateComplete;
 
       expect(el.valid).to.be.true;

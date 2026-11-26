@@ -817,7 +817,7 @@ export class TimeField extends FormControlMixin(
 
       // Restore focus after the popover closes (browser handles closing via native popover API)
       requestAnimationFrame(() => {
-        this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+        this.button?.focus();
       });
     } else if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
       event.preventDefault();

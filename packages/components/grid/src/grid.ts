@@ -17,6 +17,7 @@ import {
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
+  ListDataSourcePlaceholder,
   isListDataSourceDataItem
 } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
@@ -38,6 +39,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -196,19 +198,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
-
-  /** Observe the tbody style changes. */
-  #mutationObserver = new MutationObserver(() => {
-    this.#mutationObserver?.disconnect();
-
-    // This is a workaround for the virtualizer not taking the border width into account
-    // We convert the min-height to a CSS variable so we can use it in the styles and
-    // add the border-width to the eventual min-height value.
-    this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
-    this.tbody.style.minHeight = '';
-
-    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
-  });
 
   /** We need to know when the user drags items outside of the grid. */
   #onWindowDragOver = (event: DragEvent) => {
@@ -402,7 +391,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource?.removeEventListener('sl-selection-change', this.#onSelectionChange);
 
     this.#bulkActionsObserver.disconnect();
-    this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
     this.#clearDragArm();
     window.removeEventListener('dragover', this.#onWindowDragOver);
@@ -425,7 +413,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       childList: true,
       subtree: true
     });
-    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onBodyScroll(), { passive: true });
     this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });
@@ -489,6 +476,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('ellipsizeText')) {
       this.#headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
+
+    // Group header texts can change after the first render; keep the copied labels up to date
+    this.#setColumnAccessibility(this.#columnDefinitions);
   }
 
   override render(): TemplateResult {
@@ -515,6 +505,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           : nothing
       }
       <table
+        aria-colcount=${this.#headerRows.at(-1)?.length || 0}
+        aria-rowcount=${this.dataSource?.items.length || 0}
         part="table"
         style=${
           !this.#initialColumnWidthsReady &&
@@ -522,7 +514,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ? 'visibility: hidden'
             : nothing
         }
-        aria-rowcount=${this.dataSource?.items.length || 0}>
+        role="table">
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -539,6 +531,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           ${virtualize({
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
+            // Keep focused controls and native drag sources mounted across data-source updates.
+            // Groups retain their identity; loading placeholders share an ID and need separate keys.
+            keyFunction: item =>
+              isListDataSourceDataItem(item) && item.id !== ListDataSourcePlaceholder
+                ? item.id
+                : item,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -637,11 +635,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
     const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0);
 
+    // Intentionally, `aria-rowindex` is not a global position in the table: header rows and body
+    // rows each start counting at 1. NVDA announced the wrong row index otherwise (see #3377).
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
-          <tr>
-            ${columns.map(col => col.renderHeaderRow(rowIndex))}
+          <tr aria-rowindex=${rowIndex + 1} role="row">
+            ${repeat(
+              columns,
+              col => col,
+              col => col.renderHeaderRow(rowIndex)
+            )}
           </tr>
         `
       )}
@@ -663,7 +667,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
         ...(active ? ['active'] : []),
-        ...(this.#dragItem === item ? ['dragging'] : []),
+        ...(isListDataSourceDataItem(this.#dragItem) && this.#dragItem.data === item.data
+          ? ['dragging']
+          : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
       ariaSelected =
@@ -690,6 +696,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         aria-rowindex=${index + 1}
         aria-selected=${ariaSelected}
         index=${index}
+        role="row"
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -721,9 +728,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
         aria-rowindex=${index + 1}
         .draggable=${groupDraggable}
+        role="row"
         part="group"
         index=${index}>
-        <td part="group-header">
+        <td part="group-header" role="cell">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
@@ -917,6 +925,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target.scopedElements);
+
+    // When the contents of a column group change, the flattened header rows and the
+    // accessibility metadata (group header ids, column indexes) need to be rebuilt.
+    if (event.target instanceof GridColumnGroup && this.#columnDefinitions.length) {
+      this.#updateColumns(this.#columnDefinitions);
+      this.requestUpdate();
+
+      // Refresh the row width, scrollbar measurements and auto-width columns for the new layout
+      void this.recalculateColumnWidths();
+    }
   }
 
   #announceSelection(item: ListDataSourceDataItem<T>, index: number, selected?: boolean): void {
@@ -1163,10 +1181,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
-    event
+    const row = event
       .composedPath()
-      .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement)
-      ?.removeAttribute('draggable');
+      .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
+
+    // Data rows are armed by their handle for each gesture. Group rows keep their
+    // rendered draggable state so the same group can be dragged again.
+    if (row && !row.part.contains('group')) {
+      row.removeAttribute('draggable');
+    }
 
     // Reset any drop targets
     this.renderRoot
@@ -1447,15 +1470,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // needs time for the slotchange event to fire.
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
-    // Cleanup any columns that are no longer in the slot
-    this.#columnDefinitions.forEach(col => {
-      if (!columns.includes(col)) {
-        this.#removeColumn(col);
-      }
-    });
-
-    this.#columnDefinitions = columns;
-    this.#headerRows = this.#flattenColumnGroups(columns);
+    // Cleanup any columns that are no longer in the slot, and rebuild the header rows
+    this.#updateColumns(columns);
 
     // Recalculate the column widths
     await this.recalculateColumnWidths();
@@ -1597,6 +1613,40 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #setColumnAccessibility(
+    columns: Array<GridColumn<T>>,
+    startIndex = 1,
+    parentGroup?: GridColumnGroup<T>
+  ): number {
+    let currentIndex = startIndex;
+
+    columns.forEach(col => {
+      // Hidden columns are still rendered, so they are counted like any other column
+      const parentHeaderIds = parentGroup
+        ? [...parentGroup.groupHeaderIds, parentGroup.headerCellId].filter(
+            (value): value is string => !!value
+          )
+        : [];
+      col.groupHeaderIds = parentHeaderIds;
+      col.groupHeaderLabels = parentGroup
+        ? [...parentGroup.groupHeaderLabels, parentGroup.headerLabelText].filter(Boolean)
+        : [];
+      col.columnIndex = currentIndex;
+
+      if (col instanceof GridColumnGroup) {
+        const childColumns = col.columns as Array<GridColumn<T>>;
+
+        currentIndex = this.#setColumnAccessibility(childColumns, currentIndex, col);
+        col.columnSpan = Math.max(currentIndex - col.columnIndex, 1);
+      } else {
+        col.columnSpan = 1;
+        currentIndex += 1;
+      }
+    });
+
+    return currentIndex;
+  }
+
   #getGroupHeaderClasses(): string[] {
     const columns = this.#getStickyStartColumns();
 
@@ -1646,6 +1696,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return col.width || 100;
   }
 
+  /** Applies new column definitions and cleans up the sort/filter state of removed columns. */
+  #updateColumns(columns: Array<GridColumn<T>>): void {
+    const previous = this.#headerRows.at(-1) ?? [];
+
+    this.#columnDefinitions = columns;
+    this.#headerRows = this.#flattenColumnGroups(columns);
+    this.#setColumnAccessibility(columns);
+
+    const current = this.#headerRows.at(-1) ?? [],
+      removed = previous.filter(col => !current.includes(col));
+
+    if (removed.length) {
+      removed.forEach(col => this.#removeColumn(col));
+      this.dataSource?.update();
+      this.stateChangeEvent.emit({ grid: this });
+    }
+  }
+
   #removeColumn(col: GridColumn): void {
     if (col instanceof GridSortColumn) {
       if (col.direction) {
@@ -1658,6 +1726,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (col instanceof GridFilterColumn) {
       this.#filters = this.#filters.filter(f => f !== col.filterElement);
+
+      // Otherwise an active filter keeps hiding rows after its control is gone
+      this.dataSource?.removeFilter(col.id);
     }
   }
 

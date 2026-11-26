@@ -8,7 +8,7 @@ import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
-import { isSameDate } from '@sl-design-system/shared/date.js';
+import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import {
   type SlChangeEvent,
   type SlSelectEvent,
@@ -26,6 +26,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import styles from './calendar.css' with { type: 'css' };
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
@@ -133,6 +134,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The view the calendar is currently showing. */
   @state() view: 'day' | 'month' | 'year' = 'day';
 
+  /** @internal The number of months that fit in the responsive day view. */
+  @state() visibleMonthCount: 1 | 2 = 1;
+
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month?: Date;
 
@@ -169,17 +173,17 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
-      this.month = this.selected;
+      this.month = normalizeDateTime(this.selected);
     } else if (
       (changes.has('range') || (changes.has('mode') && this.mode === 'range')) &&
       this.range?.length &&
       this.mode === 'range' &&
       !this.#rangeChangedInternally
     ) {
-      this.month = this.#normalizeRange(this.range)[0];
+      this.month = normalizeDateTime(this.#normalizeRange(this.range)[0]);
     } else {
       // Otherwise default to the current month.
-      this.month ??= new Date();
+      this.month ??= normalizeDateTime(new Date());
     }
 
     this.#rangeChangedInternally = false;
@@ -200,6 +204,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         .indicatorDates=${this.indicatorDates}
         .month=${this.month}
         .numberOfMonths=${this.numberOfMonths}
+        .visibleMonthCountChange=${this.#onVisibleMonthCountChange}
         .range=${this.range}
         .rangeSelection=${this.mode === 'range'}
         .rangeStart=${this.rangeStart}
@@ -210,7 +215,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.view === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
+        style=${styleMap({ visibility: this.view === 'day' ? undefined : 'hidden' })}></sl-select-day>
       ${choose(this.view, [
         [
           'month',
@@ -219,8 +224,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               @sl-select=${this.#onSelectMonth}
               @sl-toggle=${this.#onToggleMonthYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .month=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-month>
@@ -232,8 +239,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-year
               @sl-select=${this.#onSelectYear}
               ?show-current=${this.showToday}
-              .selected=${this.selected}
+              .selected=${this.mode === 'range' ? undefined : this.selected}
+              .range=${this.mode === 'range' ? this.range : undefined}
               .year=${this.month}
+              .numberOfMonths=${this.visibleMonthCount}
               max=${ifDefined(this.max?.toISOString())}
               min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
@@ -278,6 +287,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
     `;
   }
+
+  #onVisibleMonthCountChange = (count: 1 | 2): void => {
+    this.visibleMonthCount = count;
+  };
 
   /**
    * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus
@@ -348,11 +361,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(
-      event.detail.getFullYear(),
-      event.detail.getMonth(),
-      this.month!.getDate()
-    );
+    const year = event.detail.getFullYear(),
+      month = event.detail.getMonth(),
+      day = Math.min(this.month!.getDate(), new Date(year, month + 1, 0).getDate());
+
+    // Clamp the day so shorter months do not overflow into the following month.
+    this.month = new Date(year, month, day);
     this.view = 'day';
 
     requestAnimationFrame(() => {
@@ -364,11 +378,12 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(
-      event.detail.getFullYear(),
-      this.month!.getMonth(),
-      this.month!.getDate()
-    );
+    const year = event.detail.getFullYear(),
+      month = this.month!.getMonth(),
+      day = Math.min(this.month!.getDate(), new Date(year, month + 1, 0).getDate());
+
+    // February 29 must stay in February when switching to a non-leap year.
+    this.month = new Date(year, month, day);
     this.view = this.#previousView ?? 'day';
 
     requestAnimationFrame(() => {

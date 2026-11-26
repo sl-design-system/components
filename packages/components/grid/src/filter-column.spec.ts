@@ -52,10 +52,11 @@ describe('sl-grid-filter-column', () => {
       expect(headerRowCount).to.deep.equal([2, 2]);
     });
 
-    it('should set the role of the th elements to "columnheader"', () => {
+    it('should render native column headers with scope', () => {
       const ths = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(ths.every(th => th.role === 'columnheader')).to.be.true;
+      expect(ths.every(th => th.tagName === 'TH')).to.be.true;
+      expect(ths.every(th => th.getAttribute('scope') === 'col')).to.be.true;
     });
 
     it('should set the correct parts on the th elements', () => {

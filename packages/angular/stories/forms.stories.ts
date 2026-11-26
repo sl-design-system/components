@@ -1,5 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, type ElementRef, ViewChild, type WritableSignal, signal } from '@angular/core';
+import {
+  Component,
+  type ElementRef,
+  ViewChild,
+  type WritableSignal,
+  input,
+  signal
+} from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -39,6 +46,25 @@ import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
 import { Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular-vite';
 import { DateFieldDirective } from '../src/forms/date-field.directive';
+
+const formOptions = [
+  { label: 'Option 1', value: '1' },
+  { label: 'Option 2', value: '2' },
+  { label: 'Option 3', value: '3' }
+];
+
+const createInitialValues = () => ({
+  checkboxGroup: ['1'],
+  comboboxMultiple: ['Option 1', 'Option 2'],
+  comboboxSingle: 'Option 1',
+  dateField: '2026-01-01',
+  numberField: 10,
+  radioGroup: '2',
+  select: '1',
+  textArea: 'Text area',
+  textField: 'Text field',
+  timeField: '13:45'
+});
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -108,7 +134,7 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
       </sl-form-field>
 
       <sl-form-field label="Checkbox group">
-        <sl-checkbox-group formControlName="checkboxGroup">
+        <sl-checkbox-group formControlName="checkboxGroup" [required]="withInitialValues()">
           <sl-checkbox value="0">One</sl-checkbox>
           <sl-checkbox value="1">Two</sl-checkbox>
           <sl-checkbox value="2">Three</sl-checkbox>
@@ -116,19 +142,27 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
       </sl-form-field>
 
       <sl-form-field label="Radio group">
-        <sl-radio-group formControlName="radioGroup">
+        <sl-radio-group formControlName="radioGroup" [required]="withInitialValues()">
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
         </sl-radio-group>
       </sl-form-field>
+
+      @if (withInitialValues()) {
+        <sl-button (click)="resetToInitialValues()">Reset</sl-button>
+      }
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
+    @if (withInitialValues()) {
+      <p>Form status: {{ formGroup.status }}</p>
+    }
   `,
   imports: [
     JsonPipe,
     ReactiveFormsModule,
+    ButtonComponent,
     CheckboxDirective,
     CheckboxGroupDirective,
     ComboboxDirective,
@@ -143,12 +177,14 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
   ]
 })
 export class AllFormControlsReactiveComponent {
+  withInitialValues = input(false);
+
   formGroup = new FormGroup({
     checkbox: new FormControl('checked'),
     checkboxGroup: new FormControl(['2', '1', '0']),
     comboboxSingle: new FormControl(''),
-    comboboxMultiple: new FormControl(''),
-    dateField: new FormControl(new Date(2026, 0, 1)),
+    comboboxMultiple: new FormControl<string | string[]>(''),
+    dateField: new FormControl<Date | string>(new Date(2026, 0, 1)),
     numberField: new FormControl(10),
     radioGroup: new FormControl('1'),
     select: new FormControl('1'),
@@ -160,14 +196,21 @@ export class AllFormControlsReactiveComponent {
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
 
+  ngOnInit(): void {
+    if (this.withInitialValues()) {
+      this.options.set(formOptions);
+      this.resetToInitialValues();
+    }
+  }
+
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.options.set([
-        { label: 'Option 1', value: '1' },
-        { label: 'Option 2', value: '2' },
-        { label: 'Option 3', value: '3' }
-      ]);
-    }, 500);
+    if (!this.withInitialValues()) {
+      setTimeout(() => this.options.set(formOptions), 500);
+    }
+  }
+
+  resetToInitialValues(): void {
+    this.formGroup.reset({ ...createInitialValues(), checkbox: 'checked', switch: 'toggled' });
   }
 }
 
@@ -403,6 +446,8 @@ export class AllFormControlsEmptyReactiveComponent {
   ]
 })
 export class AllFormControlsTemplateComponent {
+  withInitialValues = input(false);
+
   formGroup = {
     checkbox: 'checked',
     checkboxGroup: ['2', '1', '0'],
@@ -417,6 +462,12 @@ export class AllFormControlsTemplateComponent {
     textField: 'Text field',
     timeField: '13:45'
   };
+
+  ngOnInit(): void {
+    if (this.withInitialValues()) {
+      this.formGroup = { ...createInitialValues(), checkbox: 'checked', switch: 'toggled' };
+    }
+  }
 }
 
 @Component({
@@ -523,20 +574,28 @@ export class AllFormControlsTemplateComponent {
 export class AllFormControlsTemplateDrivenBlurComponent {
   @ViewChild('form') form!: ElementRef<Form>;
 
+  withInitialValues = input(false);
+
   formGroup = {
     checkbox: false,
-    checkboxGroup: [],
-    comboboxMultiple: [],
+    checkboxGroup: [] as string[],
+    comboboxMultiple: [] as string[],
     comboboxSingle: '',
     dateField: '',
-    numberField: '',
-    radioGroup: null,
+    numberField: '' as string | number,
+    radioGroup: null as string | null,
     select: '',
     switch: false,
     textArea: '',
     textField: '',
     timeField: ''
   };
+
+  ngOnInit(): void {
+    if (this.withInitialValues()) {
+      this.formGroup = { ...createInitialValues(), checkbox: true, switch: true };
+    }
+  }
 
   onClick(): void {
     this.form.nativeElement.reportValidity();
@@ -863,13 +922,15 @@ export class LoginFormComponent {
 export class AllFormControlsReactiveBlurComponent {
   @ViewChild('form') form!: ElementRef<Form>;
 
+  withInitialValues = input(false);
+
   formGroup = new FormGroup({
     checkbox: new FormControl(false, Validators.requiredTrue),
-    checkboxGroup: new FormControl([], Validators.required),
+    checkboxGroup: new FormControl<string[]>([], Validators.required),
     comboboxSingle: new FormControl('', Validators.required),
-    comboboxMultiple: new FormControl('', Validators.required),
+    comboboxMultiple: new FormControl<string | string[]>('', Validators.required),
     dateField: new FormControl('', Validators.required),
-    numberField: new FormControl(null, Validators.required),
+    numberField: new FormControl<number | null>(null, Validators.required),
     radioGroup: new FormControl('', Validators.required),
     select: new FormControl('', Validators.required),
     switch: new FormControl(false),
@@ -880,57 +941,22 @@ export class AllFormControlsReactiveBlurComponent {
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
 
+  ngOnInit(): void {
+    if (this.withInitialValues()) {
+      this.options.set(formOptions);
+      this.formGroup.setValue({ ...createInitialValues(), checkbox: true, switch: true });
+    }
+  }
+
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.options.set([
-        { label: 'Option 1', value: '1' },
-        { label: 'Option 2', value: '2' },
-        { label: 'Option 3', value: '3' }
-      ]);
-    }, 500);
+    if (!this.withInitialValues()) {
+      setTimeout(() => this.options.set(formOptions), 500);
+    }
   }
 
   onClick(): void {
     this.form.nativeElement.reportValidity();
   }
-}
-
-@Component({
-  selector: 'sla-form-control-groups-reactive',
-  imports: [
-    JsonPipe,
-    ReactiveFormsModule,
-    CheckboxComponent,
-    CheckboxGroupComponent,
-    CheckboxGroupDirective,
-    RadioComponent,
-    RadioGroupComponent,
-    RadioGroupDirective
-  ],
-  template: `
-    <form [formGroup]="formGroup">
-      <sl-checkbox-group
-        aria-label="Checkbox options"
-        formControlName="checkboxGroup"
-        [required]="true">
-        <sl-checkbox value="1">One</sl-checkbox>
-        <sl-checkbox value="2">Two</sl-checkbox>
-      </sl-checkbox-group>
-      <sl-radio-group aria-label="Radio options" formControlName="radioGroup" [required]="true">
-        <sl-radio value="1">One</sl-radio>
-        <sl-radio value="2">Two</sl-radio>
-      </sl-radio-group>
-      <button type="button" (click)="formGroup.reset()">Reset</button>
-    </form>
-    <pre>{{ formGroup.value | json }}</pre>
-    <p>Form status: {{ formGroup.status }}</p>
-  `
-})
-export class FormControlGroupsReactiveComponent {
-  formGroup = new FormGroup({
-    checkboxGroup: new FormControl(['1'], { nonNullable: true }),
-    radioGroup: new FormControl('2', { nonNullable: true })
-  });
 }
 
 export default {
@@ -939,7 +965,6 @@ export default {
     moduleMetadata({
       imports: [
         AllFormControlsReactiveComponent,
-        FormControlGroupsReactiveComponent,
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsReactiveBlurComponent,
         AllFormControlsTemplateComponent,
@@ -972,12 +997,6 @@ export const AllReactive: StoryFn = () => ({
   template: '<sla-all-form-controls-reactive></sla-all-form-controls-reactive>'
 });
 
-export const GroupsReactiveInitialValues: StoryFn = () => ({
-  description:
-    'Checkbox and radio groups rendered immediately with formControlName and synchronous initial values. Open this story directly or reload it to check initialization on a cold page load.',
-  template: '<sla-form-control-groups-reactive></sla-form-control-groups-reactive>'
-});
-
 export const AllEmptyReactive: StoryFn = () => ({
   description:
     'An example form that includes all form controls using reactive forms with empty initial values.',
@@ -990,6 +1009,19 @@ export const AllReactiveOnBlur: StoryFn = () => ({
   template: '<sla-all-form-controls-reactive-on-blur></sla-all-form-controls-reactive-on-blur>'
 });
 
+export const AllReactiveInitialValues: StoryFn = () => ({
+  description:
+    'Reactive form with all controls populated during initialization. Open the story directly or reload it to check the initial values and validity.',
+  template:
+    '<sla-all-form-controls-reactive [withInitialValues]="true"></sla-all-form-controls-reactive>'
+});
+
+export const AllReactiveOnBlurInitialValues: StoryFn = () => ({
+  description: 'Reactive form with initial values and SLDS validation feedback on blur.',
+  template:
+    '<sla-all-form-controls-reactive-on-blur [withInitialValues]="true"></sla-all-form-controls-reactive-on-blur>'
+});
+
 export const AllTemplate: StoryFn = () => ({
   description: 'An example form that includes all form controls using template-driven forms.',
   template: '<sla-all-form-controls-template></sla-all-form-controls-template>'
@@ -1000,6 +1032,18 @@ export const AllTemplateDrivenOnBlur: StoryFn = () => ({
     'Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur.',
   template:
     '<sla-all-form-controls-template-driven-on-blur></sla-all-form-controls-template-driven-on-blur>'
+});
+
+export const AllTemplateDrivenInitialValues: StoryFn = () => ({
+  description: 'Template-driven form with initial values bound through ngModel.',
+  template:
+    '<sla-all-form-controls-template [withInitialValues]="true"></sla-all-form-controls-template>'
+});
+
+export const AllTemplateDrivenOnBlurInitialValues: StoryFn = () => ({
+  description: 'Template-driven form with initial values and SLDS validation feedback on blur.',
+  template:
+    '<sla-all-form-controls-template-driven-on-blur [withInitialValues]="true"></sla-all-form-controls-template-driven-on-blur>'
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({

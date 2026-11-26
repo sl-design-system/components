@@ -90,7 +90,6 @@ export const templates = {
   'sl.notification.emptyTitle': 'Sei in pari',
   'sl.notification.end': 'Nessun’altra notifica',
   'sl.notification.hasAction': 'Ha un’azione',
-  'sl.notification.justNow': 'Proprio ora',
   'sl.notification.markAllRead': 'Segna tutte come lette',
   'sl.notification.moreViewAll': str`Altre ${0} · Mostra tutte`,
   'sl.notification.shortcutHint': str`Premi ${0} per andare alle notifiche.`,

@@ -90,7 +90,6 @@ export const templates = {
   'sl.notification.emptyTitle': 'Wszystko przeczytane',
   'sl.notification.end': 'Brak kolejnych powiadomień',
   'sl.notification.hasAction': 'Zawiera akcję',
-  'sl.notification.justNow': 'Przed chwilą',
   'sl.notification.markAllRead': 'Oznacz wszystkie jako przeczytane',
   'sl.notification.moreViewAll': str`Jeszcze ${0} · Pokaż wszystkie`,
   'sl.notification.shortcutHint': str`Naciśnij ${0}, aby przejść do powiadomień.`,

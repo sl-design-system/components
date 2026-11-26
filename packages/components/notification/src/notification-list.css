@@ -97,7 +97,7 @@
   overflow-wrap: anywhere;
 }
 
-time {
+sl-relative-time {
   color: var(--sl-color-foreground-subtle);
   flex: none;
   font: var(--sl-text-new-body-sm);

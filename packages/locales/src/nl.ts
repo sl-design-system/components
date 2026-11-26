@@ -90,7 +90,6 @@ export const templates = {
   'sl.notification.emptyTitle': 'Je bent helemaal bij',
   'sl.notification.end': 'Geen meldingen meer',
   'sl.notification.hasAction': 'Heeft actie',
-  'sl.notification.justNow': 'Zojuist',
   'sl.notification.markAllRead': 'Alles als gelezen markeren',
   'sl.notification.moreViewAll': str`Nog ${0} · Alles bekijken`,
   'sl.notification.shortcutHint': str`Druk op ${0} om naar de meldingen te gaan.`,

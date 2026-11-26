@@ -5,6 +5,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
+import { RelativeTime } from '@sl-design-system/relative-time';
 import {
   type CSSResultGroup,
   LitElement,
@@ -57,7 +58,8 @@ export class NotificationList extends ScopedElementsMixin(LitElement) {
   static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-relative-time': RelativeTime
     };
   }
 
@@ -234,9 +236,7 @@ export class NotificationList extends ScopedElementsMixin(LitElement) {
                     `
               }${label}
             </span>
-            <time datetime=${notification.createdAt.toISOString()}>
-              ${this.#formatTime(notification.createdAt)}
-            </time>
+            <sl-relative-time .date=${notification.createdAt} sync></sl-relative-time>
           </div>
           ${description ? html`<p class="description">${description}</p>` : nothing}
           ${
@@ -279,24 +279,6 @@ export class NotificationList extends ScopedElementsMixin(LitElement) {
     });
 
     return { top, rest };
-  }
-
-  #formatTime(date: Date): string {
-    const seconds = Math.round((Date.now() - date.getTime()) / 1000),
-      locale = this.closest<HTMLElement>('[lang]')?.lang || document.documentElement.lang || 'en',
-      rtf = new Intl.RelativeTimeFormat(locale, { numeric: 'auto' });
-
-    if (seconds < 60) {
-      return msg('Just now', { id: 'sl.notification.justNow' });
-    } else if (seconds < 3600) {
-      return rtf.format(-Math.floor(seconds / 60), 'minute');
-    } else if (seconds < 86400) {
-      return rtf.format(-Math.floor(seconds / 3600), 'hour');
-    } else if (seconds < 7 * 86400) {
-      return rtf.format(-Math.floor(seconds / 86400), 'day');
-    }
-
-    return new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(date);
   }
 
   #onActionKeydown(event: KeyboardEvent & { target: HTMLElement }): void {

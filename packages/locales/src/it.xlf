@@ -590,10 +590,6 @@
   <source>Has action</source>
   <target>Ha un’azione</target>
 </trans-unit>
-<trans-unit id="sl.notification.justNow">
-  <source>Just now</source>
-  <target>Proprio ora</target>
-</trans-unit>
 <trans-unit id="sl.notification.title">
   <source>Notifications</source>
   <target>Notifiche</target>

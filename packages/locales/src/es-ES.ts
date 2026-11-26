@@ -90,7 +90,6 @@ export const templates = {
   'sl.notification.emptyTitle': 'Estás al día',
   'sl.notification.end': 'No hay más notificaciones',
   'sl.notification.hasAction': 'Tiene acción',
-  'sl.notification.justNow': 'Ahora mismo',
   'sl.notification.markAllRead': 'Marcar todo como leído',
   'sl.notification.moreViewAll': str`${0} más · Ver todo`,
   'sl.notification.shortcutHint': str`Pulsa ${0} para ir a las notificaciones.`,

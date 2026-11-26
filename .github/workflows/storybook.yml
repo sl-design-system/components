@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
 
   push:
     branches:
@@ -24,9 +24,13 @@ permissions:
 
 jobs:
   deploy:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Deploy
+    # Shares its group with the cleanup job in preview-cleanup.yml, so closing
+    # a PR cancels a preview deploy that is still running.
+    concurrency:
+      group: ${{ github.event_name == 'pull_request' && format('storybook-pr-{0}', github.event.pull_request.number) || format('storybook-{0}', github.ref) }}
+      cancel-in-progress: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -132,20 +136,3 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: ${{ steps.comment.outputs.body }}
           edit-mode: replace
-
-  cleanup:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Cleanup
-    steps:
-      - uses: aws-actions/configure-aws-credentials@v6
-        with:
-          audience: sts.amazonaws.com
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-
-      - name: Delete PR branch from Amplify
-        run: |
-          aws amplify delete-branch \
-            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
-            --branch-name "storybook-${{ github.event.pull_request.number }}"

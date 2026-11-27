@@ -554,6 +554,30 @@
   <source>Select group</source>
   <target>Selecteer groep</target>
 </trans-unit>
+<trans-unit id="sl.grid.sortingAscending">
+  <source><x id="0" equiv-text="${columnName}"/> sorting ascending</source>
+  <target><x id="0" equiv-text="${columnName}"/>, oplopend gesorteerd</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortingDescending">
+  <source><x id="0" equiv-text="${columnName}"/> sorting descending</source>
+  <target><x id="0" equiv-text="${columnName}"/>, aflopend gesorteerd</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortingRemoved">
+  <source><x id="0" equiv-text="${columnName}"/> sorting removed</source>
+  <target><x id="0" equiv-text="${columnName}"/>, sortering verwijderd</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortAscendingByColumn">
+  <source>Sort ascending by <x id="0" equiv-text="${columnName}"/></source>
+  <target>Sorteer oplopend op <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.sortDescendingByColumn">
+  <source>Sort descending by <x id="0" equiv-text="${columnName}"/></source>
+  <target>Sorteer aflopend op <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.removeSortByColumn">
+  <source>Remove sorting for <x id="0" equiv-text="${columnName}"/></source>
+  <target>Verwijder sortering op <x id="0" equiv-text="${columnName}"/></target>
+</trans-unit>
 </body>
 </file>
 </xliff>

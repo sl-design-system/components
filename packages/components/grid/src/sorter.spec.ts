@@ -37,7 +37,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the inner button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Sort ascending'
+        'Sort ascending by Name'
       );
     });
 
@@ -66,6 +66,32 @@ describe('sl-grid-sorter', () => {
       expect(onSorterChange).to.have.been.calledOnce;
       expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: 'asc' } });
     });
+
+    it('should announce ascending sort after clicking the button', async () => {
+      const onAnnounce = spy();
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(onAnnounce).to.have.been.calledWithMatch({
+          detail: { message: 'Name sorting ascending', urgency: 'polite' }
+        });
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
+  });
+
+  it('should fall back to the action when the column has no name', async () => {
+    el = await fixture(html`<sl-grid-sorter></sl-grid-sorter>`);
+
+    expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
+      'Sort ascending'
+    );
   });
 
   describe('register', () => {
@@ -95,7 +121,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Sort descending'
+        'Sort descending by Name'
       );
     });
 
@@ -124,6 +150,24 @@ describe('sl-grid-sorter', () => {
       expect(onSorterChange).to.have.been.calledOnce;
       expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: 'desc' } });
     });
+
+    it('should announce descending sort after clicking the button', async () => {
+      const onAnnounce = spy();
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(onAnnounce).to.have.been.calledWithMatch({
+          detail: { message: 'Name sorting descending', urgency: 'polite' }
+        });
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
   });
 
   describe('sort descending', () => {
@@ -138,7 +182,7 @@ describe('sl-grid-sorter', () => {
 
     it('should have an aria label on the button', () => {
       expect(getForwardedAccessibleName(el.renderRoot.querySelector('sl-button')!)).to.equal(
-        'Remove sort'
+        'Remove sorting for Name'
       );
     });
 
@@ -167,6 +211,24 @@ describe('sl-grid-sorter', () => {
       expect(onSorterChange).to.have.been.calledOnce;
       expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: undefined } });
     });
+
+    it('should announce sort removal after clicking the button', async () => {
+      const onAnnounce = spy();
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        el.renderRoot.querySelector('sl-button')?.click();
+        await el.updateComplete;
+
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(onAnnounce).to.have.been.calledWithMatch({
+          detail: { message: 'Name sorting removed', urgency: 'polite' }
+        });
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
   });
 
   describe('reset()', () => {
@@ -190,6 +252,21 @@ describe('sl-grid-sorter', () => {
       await el.updateComplete;
 
       expect(onSorterChange).not.to.have.been.called;
+    });
+
+    it('should not announce a sort change', async () => {
+      const onAnnounce = spy();
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        el.reset();
+        await el.updateComplete;
+
+        expect(onAnnounce).not.to.have.been.called;
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
     });
   });
 });

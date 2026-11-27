@@ -1,6 +1,13 @@
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
+import '@sl-design-system/announcer/register.js';
+import { Infotip } from '@sl-design-system/infotip';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import { Grid } from './grid.js';
 import './register.js';
 import { GridSortColumn } from './sort-column.js';
@@ -148,6 +155,227 @@ describe('sl-sort-column', () => {
     });
   });
 
+  describe('sorting announcements', () => {
+    const onAnnounce = spy();
+
+    beforeEach(() => {
+      onAnnounce.resetHistory();
+      document.body.addEventListener('sl-announce', onAnnounce);
+    });
+
+    afterEach(() => document.body.removeEventListener('sl-announce', onAnnounce));
+
+    it('should announce the current sort after every user change', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column header="Student" path="firstName"></sl-grid-sort-column>
+          <sl-grid-sort-column path="age"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      expect(onAnnounce).not.to.have.been.called;
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!,
+        getButtonName = () => getForwardedAccessibleName(button),
+        getAriaSort = () => el.renderRoot.querySelector('th')!.getAttribute('aria-sort');
+
+      await expect.poll(getButtonName).to.equal('Sort ascending by Student');
+
+      button.click();
+      await expect.poll(getAriaSort).to.equal('ascending');
+      await expect.poll(getButtonName).to.equal('Sort descending by Student');
+      expect((onAnnounce.firstCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting ascending',
+        urgency: 'polite'
+      });
+
+      button.click();
+      await expect.poll(getAriaSort).to.equal('descending');
+      await expect.poll(getButtonName).to.equal('Remove sorting for Student');
+      expect((onAnnounce.secondCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting descending',
+        urgency: 'polite'
+      });
+
+      button.click();
+      await expect.poll(getAriaSort).to.equal(null);
+      await expect.poll(getButtonName).to.equal('Sort ascending by Student');
+      expect((onAnnounce.thirdCall.args[0] as SlAnnounceEvent).detail).to.deep.equal({
+        message: 'Student sorting removed',
+        urgency: 'polite'
+      });
+      expect(onAnnounce.callCount).to.equal(3);
+    });
+
+    it('should update the live region when sorting with Space without moving focus', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <sl-announcer></sl-announcer>
+          <sl-grid .items=${ITEMS}>
+            <sl-grid-sort-column header="Student" path="firstName"></sl-grid-sort-column>
+          </sl-grid>
+        </div>
+      `);
+      el = wrapper.querySelector('sl-grid')!;
+      await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
+      await el.updateComplete;
+
+      const announcer = wrapper.querySelector('sl-announcer')!;
+      await announcer.updateComplete;
+
+      // Column measurement can rebuild the header. Focus the current button after it renders.
+      await expect
+        .poll(() => {
+          const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter'),
+            button = sorter?.renderRoot.querySelector('sl-button');
+
+          button?.button?.focus();
+          return !!button?.button && button.shadowRoot?.activeElement === button.button;
+        })
+        .toBe(true);
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!;
+
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
+      await userEvent.keyboard('{Space}');
+
+      expect(announcer.renderRoot.querySelector('[aria-live="polite"]')).to.have.text(
+        'Student sorting ascending'
+      );
+      expect(button.shadowRoot!.activeElement).to.equal(button.button);
+      expect(getForwardedAccessibleName(button)).to.equal('Sort descending by Student');
+    });
+
+    it('should announce only the newly sorted column when switching columns', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column path="firstName" direction="asc"></sl-grid-sort-column>
+          <sl-grid-sort-column
+            header="Surname"
+            path="lastName"
+            hide-header-text
+            form-control-column-label="Action"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      expect(onAnnounce).not.to.have.been.called;
+
+      const sorter = el.renderRoot.querySelectorAll<GridSorter>('sl-grid-sorter')[1];
+      sorter.renderRoot.querySelector('sl-button')!.click();
+      await waitForGridToRenderData(el);
+
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect(onAnnounce).to.have.been.calledWithMatch({
+        detail: { message: 'Surname sorting ascending', urgency: 'polite' }
+      });
+      await expect
+        .poll(() =>
+          Array.from(el.renderRoot.querySelectorAll('th'), th => th.getAttribute('aria-sort'))
+        )
+        .to.deep.equal([null, 'ascending']);
+    });
+
+    it('should use the explicit accessible name of a hidden custom header', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            hide-header-text
+            .header=${() => html`<span>Student</span>`}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const header = el.renderRoot.querySelector('th')!,
+        sorter = header.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!;
+
+      expect(header.getAttribute('aria-label')).to.equal('First name');
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by First name');
+      button.click();
+
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect(onAnnounce).to.have.been.calledWithMatch({
+        detail: { message: 'First name sorting ascending', urgency: 'polite' }
+      });
+    });
+
+    it.each([
+      ['hidden elements', html`<span hidden>Internal note</span>`],
+      [
+        'menu buttons',
+        html`
+          <sl-menu-button aria-label="Student options">
+            <sl-menu-item>Option 1</sl-menu-item>
+          </sl-menu-button>
+        `
+      ]
+    ])('should omit %s from custom header announcements', async (_, auxiliaryContent) => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            .header=${() => html`<span>Student</span>${auxiliaryContent}`}
+            .scopedElements=${{
+              'sl-menu-button': MenuButton,
+              'sl-menu-item': MenuItem
+            }}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter')!,
+        button = sorter.renderRoot.querySelector('sl-button')!;
+
+      expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
+      button.click();
+
+      expect(onAnnounce).to.have.been.calledOnce;
+      expect(onAnnounce).to.have.been.calledWithMatch({
+        detail: { message: 'Student sorting ascending', urgency: 'polite' }
+      });
+    });
+  });
+
+  it('should update the button name when a custom header changes', async () => {
+    const renderHeader = (name: string) => () => html`<span>${name}</span>`;
+
+    el = await fixture(html`
+      <sl-grid .items=${ITEMS}>
+        <sl-grid-sort-column
+          path="firstName"
+          .header=${renderHeader('Student')}></sl-grid-sort-column>
+      </sl-grid>
+    `);
+    await waitForGridToRenderData(el);
+
+    const column = el.querySelector('sl-grid-sort-column')!,
+      button = column.sorterElement!.renderRoot.querySelector('sl-button')!;
+
+    expect(getForwardedAccessibleName(button)).to.equal('Sort ascending by Student');
+
+    column.header = renderHeader('Learner');
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Learner');
+
+    column.hideHeaderText = true;
+    column.header = 'Student';
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Student');
+
+    column.header = 'Learner';
+    await expect
+      .poll(() => getForwardedAccessibleName(button))
+      .to.equal('Sort ascending by Learner');
+  });
+
   describe('scopedElements', () => {
     it('should retain sl-grid-sorter in scopedElements after they are set post-connectedCallback', async () => {
       el = await fixture(html`
@@ -185,6 +413,42 @@ describe('sl-sort-column', () => {
       const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter');
 
       expect(sorter?.querySelector('[data-testid="custom-header"]')).to.have.text('firstName');
+    });
+
+    it('should announce the header label without infotip content when sorting', async () => {
+      const onAnnounce = spy();
+
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            .header=${() => html`
+              <span>First name</span>
+              <sl-infotip describes="First name" size="sm">
+                Sort students by their first name
+              </sl-infotip>
+            `}
+            .scopedElements=${{ 'sl-infotip': Infotip }}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter');
+
+        sorter?.renderRoot.querySelector('sl-button')?.click();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(onAnnounce).to.have.been.calledWithMatch({
+          detail: { message: 'First name sorting ascending', urgency: 'polite' }
+        });
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
     });
   });
 });

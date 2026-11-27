@@ -1,15 +1,16 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import {
   type DataSourceSortDirection,
   type DataSourceSortFunction
 } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getNameByPath } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
@@ -51,11 +52,17 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Observe changes inside custom headers, including edits to existing text nodes. */
+  #headerObserver = new MutationObserver(() => this.requestUpdate());
+
   /** The grid column. */
   @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
   @property({ reflect: true }) direction?: DataSourceSortDirection;
+
+  /** @internal The accessible label of a visually hidden column header. */
+  @property({ attribute: false }) headerAriaLabel?: string;
 
   /** The path to the field to sort on. */
   @property() path?: string;
@@ -72,7 +79,20 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#headerObserver.observe(this, {
+      attributeFilter: ['aria-hidden', 'hidden', 'slot'],
+      characterData: true,
+      childList: true,
+      subtree: true
+    });
+    this.requestUpdate();
     this.sorterRegisterEvent.emit();
+  }
+
+  override disconnectedCallback(): void {
+    this.#headerObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -80,13 +100,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <slot></slot>
       <sl-button
         @click=${this.#onClick}
-        aria-label=${
-          this.direction === 'asc'
-            ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
-            : this.direction === 'desc'
-              ? msg('Remove sort', { id: 'sl.grid.removeSort' })
-              : msg('Sort ascending', { id: 'sl.grid.sortAscending' })
-        }
+        aria-label=${this.#getButtonLabel()}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
         variant=${ifDefined(this.direction ? 'primary' : undefined)}>
@@ -110,9 +124,91 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     this.direction = undefined;
   }
 
+  #getButtonLabel(): string {
+    const columnName = this.#getColumnName();
+
+    switch (this.direction) {
+      case 'asc':
+        return columnName
+          ? msg(str`Sort descending by ${columnName}`, { id: 'sl.grid.sortDescendingByColumn' })
+          : msg('Sort descending', { id: 'sl.grid.sortDescending' });
+      case 'desc':
+        return columnName
+          ? msg(str`Remove sorting for ${columnName}`, { id: 'sl.grid.removeSortByColumn' })
+          : msg('Remove sort', { id: 'sl.grid.removeSort' });
+      default:
+        return columnName
+          ? msg(str`Sort ascending by ${columnName}`, { id: 'sl.grid.sortAscendingByColumn' })
+          : msg('Sort ascending', { id: 'sl.grid.sortAscending' });
+    }
+  }
+
   #onClick(): void {
     this.#toggleDirection();
     this.sorterChangeEvent.emit({ column: this.column, direction: this.direction });
+    this.#announceSort();
+  }
+
+  #announceSort(): void {
+    const columnName = this.#getColumnName();
+
+    if (!columnName) {
+      return;
+    }
+
+    const message =
+      this.direction === 'asc'
+        ? msg(str`${columnName} sorting ascending`, { id: 'sl.grid.sortingAscending' })
+        : this.direction === 'desc'
+          ? msg(str`${columnName} sorting descending`, { id: 'sl.grid.sortingDescending' })
+          : msg(str`${columnName} sorting removed`, { id: 'sl.grid.sortingRemoved' });
+
+    announce(message, 'polite');
+  }
+
+  #getColumnName(): string {
+    const headerAriaLabel = this.headerAriaLabel ?? this.column?.headerAriaLabel;
+
+    if (headerAriaLabel) {
+      return headerAriaLabel;
+    }
+
+    const nodes =
+        this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ??
+        Array.from(this.childNodes),
+      slottedText = nodes
+        .map(node => this.#getNodeText(node))
+        .filter(Boolean)
+        .join(' ');
+
+    return slottedText || (this.path ? getNameByPath(this.path) : '');
+  }
+
+  #getNodeText(node: Node): string {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent?.trim() ?? '';
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const element = node as Element;
+
+      if (
+        element.hasAttribute('hidden') ||
+        element.localName === 'sl-infotip' ||
+        element.localName === 'sl-menu-button' ||
+        element.localName === 'sl-tooltip' ||
+        element.getAttribute('aria-hidden') === 'true'
+      ) {
+        return '';
+      }
+
+      return Array.from(element.childNodes)
+        .map(child => this.#getNodeText(child))
+        .filter(Boolean)
+        .join(' ');
+    }
+
+    return '';
   }
 
   #toggleDirection(): void {

@@ -54,6 +54,10 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     if (changes.has('direction') && this.#sorterRef.value) {
       this.#sorterRef.value.direction = this.direction;
     }
+
+    if (changes.has('header') || changes.has('hideHeaderText')) {
+      this.grid?.requestUpdate();
+    }
   }
 
   override stateChanged(): void {
@@ -78,12 +82,13 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
       return nothing;
     }
 
-    const parts = ['header', 'sort', ...this.getParts()];
+    const headerAriaLabel = this.headerAriaLabel,
+      parts = ['header', 'sort', ...this.getParts()];
 
     return html`
       <th
         aria-colindex=${String(this.columnIndex)}
-        aria-label=${ifDefined(this.headerAriaLabel)}
+        aria-label=${ifDefined(headerAriaLabel)}
         aria-sort=${ifDefined(this.ariaSorting)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
@@ -93,6 +98,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
           ${ref(this.#sorterRef)}
           .column=${this}
           .direction=${this.direction}
+          .headerAriaLabel=${headerAriaLabel}
           .path=${this.path}
           .sorter=${this.sorter}>
           ${this.renderHeaderLabel()}

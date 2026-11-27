@@ -24,6 +24,7 @@ permissions:
 
 jobs:
   deploy:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Deploy
     # Shares its group with the cleanup job in preview-cleanup.yml, so closing

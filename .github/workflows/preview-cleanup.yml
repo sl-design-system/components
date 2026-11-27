@@ -53,11 +53,13 @@ jobs:
           APP_ID: ${{ secrets.AWS_AMPLIFY_APP_ID }}
           BRANCH: ${{ matrix.preview }}-${{ github.event.pull_request.number }}
         run: |
-          if aws amplify get-branch --app-id "$APP_ID" --branch-name "$BRANCH" >/dev/null 2>&1; then
-            aws amplify delete-branch --app-id "$APP_ID" --branch-name "$BRANCH" >/dev/null
+          if ERROR=$(aws amplify delete-branch --app-id "$APP_ID" --branch-name "$BRANCH" 2>&1 >/dev/null); then
             echo "Deleted Amplify branch '$BRANCH'."
-          else
+          elif [[ "$ERROR" == *NotFoundException* ]]; then
             echo "Amplify branch '$BRANCH' does not exist, nothing to clean up."
+          else
+            echo "$ERROR" >&2
+            exit 1
           fi
 
   sweep:
@@ -78,6 +80,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
+          set -o pipefail
+
           BRANCHES=$(aws amplify list-branches --app-id "$APP_ID" --query 'branches[].branchName' --output text | tr '\t' '\n')
 
           for BRANCH in $BRANCHES; do

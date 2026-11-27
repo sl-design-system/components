@@ -314,6 +314,26 @@
   <source>Step up</source>
   <target>Aumenta</target>
 </trans-unit>
+<trans-unit id="sl.searchField.suggestions">
+  <source>Suggested searches</source>
+  <target>Ricerche suggerite</target>
+</trans-unit>
+<trans-unit id="sl.searchField.loading">
+  <source>Finding suggestions…</source>
+  <target>Ricerca dei suggerimenti…</target>
+</trans-unit>
+<trans-unit id="sl.searchField.unavailable">
+  <source>Suggestions unavailable</source>
+  <target>Suggerimenti non disponibili</target>
+</trans-unit>
+<trans-unit id="sl.searchField.empty">
+  <source>No suggested searches</source>
+  <target>Nessuna ricerca suggerita</target>
+</trans-unit>
+<trans-unit id="sl.searchField.inlineCompletion">
+  <source>Suggested completion: <x id="0" equiv-text="${this.inlineValue}"/>. Press Right Arrow or End to accept.</source>
+  <target>Completamento suggerito: <x id="0" equiv-text="${this.inlineValue}"/>. Premi la freccia destra o Fine per accettare.</target>
+</trans-unit>
 <trans-unit id="sl.searchField.clearText">
   <source>Clear text</source>
   <target>Cancella testo</target>

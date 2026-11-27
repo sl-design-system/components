@@ -49,6 +49,49 @@ Avoid using a search field within a page section when dealing with small or limi
 
 <section>
 
+## Search field or Combobox?
+
+Use **Search field** to search or filter content using a phrase. Suggestions assist the query; choosing one is optional, and Enter in the field searches the typed words.
+
+Use [Combobox](/categories/components/combobox/usage) when the task is to choose a form value from options, including configurations that allow custom values or multiple selections. Typing helps users locate a value to select.
+
+Choose based on the user's task: finding content belongs in Search field; choosing a value belongs in Combobox.
+
+</section>
+
+<section>
+
+## Suggested searches
+
+Autocomplete helps users complete names, recognise useful terms and form a search query with less typing. Use it when people may need help finding the right words to search a collection.
+
+### How suggestions appear
+
+- **Inline** proposes the rest of a phrase directly in the field, helping users complete a predictable term.
+- **List** displays matching phrases below the field, helping users compare alternatives.
+- **Both** combines inline completion with a suggestion list.
+
+Suggestions are optional. Users can continue typing or search their own words without accepting a proposal.
+
+### Phrase matching
+
+Matching determines which phrases appear and which text stands out.
+
+- **Starts with** shows phrases beginning with the typed words. For “high”, it can suggest “High **West Institute**”. The added text is emphasised to help users compare completions.
+- **Contains** also finds the typed words within a phrase, such as “Elementary **High** School”. The matching text is emphasised to show why the phrase appears.
+
+Inline completion always uses a starting match.
+
+### Searching with suggestions
+
+Enter in the field searches the typed words. Accepting an inline completion adds it to the query. Choosing a phrase from the list runs that search.
+
+Label the list **“Suggested searches”** to distinguish it from actual results. Loading, empty and unavailable messages describe the suggestions. Users can still search their own words.
+
+</section>
+
+<section>
+
 ## Anatomy
 
 |Item|Name| Description | Optional|

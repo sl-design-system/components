@@ -56,6 +56,7 @@ Our combobox comes with multi-selection capabilities that provide a clear overvi
 <section>
 
 ## When Not to Use
+
 Avoid a Combobox when users would benefit more from seeing all options at once for quick selection.
 
 ### Fully Visible Selection:
@@ -63,6 +64,9 @@ For lists with fewer than 5 options and when your interface has plenty of space,
 
 ### Efficient Selection:
 When the options range from 5 to 15 items or when screen space is limited, using a [Select](/categories/components/select/usage) component is ideal. It presents all available choices in a concise, accessible format, keeping your UI clean and straightforward. For lists exceeding 15 options, a combobox becomes beneficial by offering search and filtering capabilities to help users navigate a bigger set of choices.
+
+### Search or filter content by a phrase
+When the task is to search or filter content by a phrase, use [Search field](/categories/components/search-field/usage). Its optional suggestions assist a query while allowing users to search their own words. Combobox is intended for choosing a form value.
 
 </section>
 

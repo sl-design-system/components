@@ -24,13 +24,36 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 |Command|Description|
 |-|-|
-|Tab|When focus is outside the search field, moves focus to the input container. If focus is on the empty input container, moves focus to the end enhancer (if provided, and interactive). If the input contains a value, moves focus to the clear button.|
-|Esc|Clears the search value when focus is in the input or on the clear button, and returns focus to the input.|
-|Enter/Space|When the clear button has focus, clears the search field and moves focus back to the input.|
+|Tab / Shift+Tab|Moves through the input, the Clear button when present, and the suggestion list when it contains suggestions. Shift+Tab reverses that order.|
+|Enter in the input|Searches the typed words, including any explicitly accepted completion. An unaccepted suffix is excluded. The inherited form-submission behavior is preserved.|
+|Right Arrow / End in the input|Accepts the proposed inline completion as editable text when the caret is at the end of the typed words.|
+|Up Arrow / Down Arrow in the input|When suggestions are visible, moves focus to the last / first suggestion.|
+|Up Arrow / Down Arrow in the list|Moves through the suggestions.|
+|Home / End in the list|Moves to the first / last suggestion.|
+|Enter in the list|Searches the focused phrase and returns focus to the input. It does not submit the surrounding form.|
+|Escape in the input|Dismisses a visible inline proposal, suggestion list or suggestion status. If none is visible, clears the search value immediately.|
+|Escape in the list|Closes suggestions and returns focus to the input without clearing the query.|
+|Enter / Space on Clear|Clears the search field and moves focus back to the input.|
+|Escape on Clear|Clears the search field and moves focus back to the input.|
+|Backspace / Delete|Edits the typed text and selected ranges using normal input behavior. Deleting text hides the inline proposal while the suggestion list continues to update.|
 
 {.ds-table .ds-table-align-top}
 
 </div>
+
+</section>
+
+<section>
+
+## Autocomplete announcements and focus
+
+- **Inline proposals** are announced through `sl-announcer`, so make sure `<sl-announcer>` is present in your application. The proposal and how to accept it are also added to the input's accessible description, next to existing descriptions such as a hint. Proposals that are not accepted are excluded from the value, form submission and validation.
+- **Suggestion modes** are exposed on the input with `aria-autocomplete`. While the suggestion list is visible, the input refers to it with `aria-controls`.
+- **The suggestion list** is a separate, focusable listbox. The active option is identified with `aria-activedescendant`. Moving through the list with the arrow keys does not select a phrase or change the query. `aria-selected` is only `true` for the option that exactly matches the text in the field.
+- **Updating suggestions** keeps the active phrase when it is still available. If no options remain, focus returns to the input.
+- **Loading, empty and unavailable messages** are about suggestions, not about the search results, and use a status region. Searching the typed words stays available.
+
+Keep the field's label and any instructions meaningful without relying on placeholder text.
 
 </section>
 

@@ -1,0 +1,4 @@
+/* Suggested searches have no checkmark; an exact match is only exposed through aria-selected. */
+sl-icon {
+  display: none;
+}

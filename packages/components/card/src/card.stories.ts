@@ -829,10 +829,6 @@ export const LinkWithToggleButton: Story = {
           gap: 8px;
         }
 
-        .link-with-toggle__favorite {
-          clip-path: circle(50%);
-        }
-
         .link-with-toggle__favorite::part(wrapper) {
           padding: var(--sl-size-075);
         }
@@ -971,10 +967,7 @@ export const RealWorldExamples: Story = {
           <h2>L'aventura più grande</h2>
           <p slot="body">Linda Cavadini, Loretta De Martin, Agnese Pianigiani</p>
           <sl-button-bar slot="actions"
-            ><sl-button
-              variant="inverted"
-              @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1">
+            ><sl-button @click=${() => console.log('action button clicked')} style="flex-grow: 1">
               Open 12 volumes
             </sl-button>
           </sl-button-bar>
@@ -984,10 +977,7 @@ export const RealWorldExamples: Story = {
           <h2>Gli snodi della storia</h2>
           <p slot="body">Giovanni Borgognone, Dino Carpanetto</p>
           <sl-button-bar slot="actions"
-            ><sl-button
-              variant="inverted"
-              @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1">
+            ><sl-button @click=${() => console.log('action button clicked')} style="flex-grow: 1">
               Open 9 volumes
             </sl-button>
           </sl-button-bar>

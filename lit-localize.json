@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@lit/localize-tools/config.schema.json",
   "sourceLocale": "en",
   "targetLocales": ["es-ES", "it", "nl", "pl"],
-  "inputFiles": ["packages/components/**/*.ts"],
+  "inputFiles": ["packages/components/**/*.ts", "!packages/components/**/*.stories.ts"],
   "output": {
     "mode": "runtime",
     "language": "ts",

@@ -53,7 +53,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
 
           // If the parent is selected and we have multiple selection enabled,
           // ensure all lazy-loaded children are also selected
-          if (this.multiple && node.selected) {
+          if (this.multiple && node.selected && !childNode.disabled) {
             childNode.selected = true;
             this.selection.add(childNode);
           }
@@ -72,6 +72,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getIcon: options.getIcon,
       getId: options.getId ?? (item => item),
       getLabel: options.getLabel ?? (() => ''),
+      isDisabled: options.isDisabled,
       isExpandable: options.isExpandable ?? (() => false),
       isExpanded: options.isExpanded,
       isSelectable: options.isSelectable,
@@ -107,6 +108,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getIcon,
       getId,
       getLabel,
+      isDisabled,
       isExpandable,
       isExpanded,
       isSelectable,
@@ -122,6 +124,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       childrenCount: getChildrenCount?.(item),
       dataNode: item,
       description: getAriaDescription?.(item),
+      disabled: isDisabled?.(item) ?? false,
       expandable,
       expanded: (expandable && isExpanded?.(item)) ?? false,
       expandedIcon: expandable ? getIcon?.(item, true) : undefined,

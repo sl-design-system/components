@@ -1,4 +1,5 @@
 import { type Button } from '@sl-design-system/button';
+import { type Checkbox } from '@sl-design-system/checkbox';
 import { getForwardedAriaAttribute } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -43,21 +44,56 @@ describe('sl-grid-group-header', () => {
   });
 
   describe('selection checkbox', () => {
-    it('should use the group label in the checkbox aria-label', async () => {
+    it('should be named after the group using aria-labelledby', async () => {
       el = await fixture(html`
-        <sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>
+        <sl-grid-group-header selectable>
+          <span slot="group-heading">Allergist (3)</span>
+        </sl-grid-group-header>
       `);
 
-      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+      const checkbox = el.renderRoot.querySelector<Checkbox>('sl-checkbox'),
+        [label, heading] = checkbox?.getProxyTarget()?.ariaLabelledByElements ?? [];
 
       expect(checkbox).to.exist;
-      expect(getForwardedAriaAttribute(checkbox!, 'aria-label')).to.equal('Allergist group');
+      expect(label?.textContent?.trim()).to.equal('Select group');
+      expect(heading).to.have.attribute('part', 'group-heading');
+    });
+
+    it('should fall back to group-label when no heading is slotted', async () => {
+      el = await fixture(
+        html`<sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>`
+      );
+
+      const fallback = el.renderRoot.querySelector<HTMLElement>('#group-heading .visually-hidden');
+      expect(fallback).to.have.text('Allergist');
+      expect(getComputedStyle(fallback!).display).to.not.equal('none');
     });
   });
 
   describe('toggle button', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
+    });
+
+    it('should be named after the group using aria-labelledby', async () => {
+      el = await fixture(html`
+        <sl-grid-group-header>
+          <span slot="group-heading">Allergist (3)</span>
+        </sl-grid-group-header>
+      `);
+
+      const button = el.renderRoot.querySelector<Button>('sl-button'),
+        [label, heading] = button?.getProxyTarget()?.ariaLabelledByElements ?? [],
+        slot = heading?.querySelector('slot');
+
+      expect(label?.textContent?.trim()).to.equal('Toggle group');
+      expect(heading).to.have.attribute('part', 'group-heading');
+      expect(
+        slot
+          ?.assignedNodes({ flatten: true })
+          .map(node => node.textContent?.trim())
+          .join('')
+      ).to.equal('Allergist (3)');
     });
 
     it('should update aria-expanded from "true" to "false"', async () => {

@@ -1,5 +1,11 @@
 # @sl-design-system/tree
 
+## 0.3.4
+
+### Patch Changes
+
+- [#3866](https://github.com/sl-design-system/components/pull/3866) [`e19fc9f`](https://github.com/sl-design-system/components/commit/e19fc9f24adcad7cf434428dc366d0c74a20ae00) - Fixes screenreader not announcing disabled tree nodes correctly and fixes the amount of rows mentioned by screenreader
+
 ## 0.3.3
 
 ### Patch Changes

@@ -58,3 +58,23 @@ Use `no-skip-links` to remove the skip links only when the grid has no tab stops
 
 </section>
 
+<section>
+
+## WAI-ARIA
+
+{{ 'aria-attributes' | recurringText }}
+
+### Input
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-label`	|string|... |
+|`...`|...|...|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+</section>

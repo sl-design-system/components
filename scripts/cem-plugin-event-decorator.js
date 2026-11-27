@@ -24,8 +24,11 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
     currClass = moduleDoc?.declarations?.find(decl => decl.name === className);
 
   classNode?.members
-    ?.filter(member =>
-      member?.modifiers?.some(mod => mod?.expression?.expression?.getText() === 'event')
+    ?.filter(
+      member =>
+        member?.modifiers?.some(mod => mod?.expression?.expression?.getText() === 'event') &&
+        // Events tagged with `@private` are not (yet) part of the documentation
+        !member?.jsDoc?.some(doc => doc.tags?.some(tag => tag.tagName.getText() === 'private'))
     )
     .forEach(member => {
       const eventDecorator = member.modifiers.find(decorator('event')),

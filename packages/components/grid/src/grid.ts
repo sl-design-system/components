@@ -116,11 +116,19 @@ export type SlSelectionChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 
-@localized()
 /**
  * Data grid component. This component is designed to be highly customizable and can be used to
  * display a wide variety of data. It supports sorting, filtering, grouping, and more.
+ *
+ * @omit-method renderGroupRow - Not documented until grouping is covered in the documentation.
+ * @omit activeRow - Not documented until row actions are covered in the documentation.
+ * @omit draggableRows - Not documented until drag and drop is covered in the documentation.
+ * @omit dropFilter - Not documented until drag and drop is covered in the documentation.
+ * @omit groupHeaderRenderer - Not documented until grouping is covered in the documentation.
+ * @omit rowAction - Not documented until row actions are covered in the documentation.
+ * @omit selects - Not documented until selection is covered in the documentation.
  */
+@localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -241,7 +249,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
 
-  /** @internal Emits when the active row has changed. */
+  /**
+   * @private Not Documented until grid selection is covered in the documentation.
+   * @internal Emits when the active row has changed.
+   */
   @event({ name: 'sl-grid-active-row-change' }) activeRowChangeEvent!: EventEmitter<
     SlActiveRowChangeEvent<T>
   >;
@@ -275,13 +286,22 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: 'draggable-rows' }) draggableRows?: GridDraggableRows;
 
-  /** @internal Emits when a drag operation is starting. */
+  /**
+   * @private Not Documented until drag and drop is covered in the documentation.
+   * @internal Emits when a drag operation is starting.
+   */
   @event({ name: 'sl-grid-dragstart' }) dragStartEvent!: EventEmitter<SlDragStartEvent<T>>;
 
-  /** @internal Emits when a drag operation has finished. */
+  /**
+   * @private Not Documented until drag and drop is covered in the documentation.
+   * @internal Emits when a drag operation has finished.
+   */
   @event({ name: 'sl-grid-dragend' }) dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
 
-  /** @internal Emits when an item has been dropped. */
+  /**
+   * @private Not Documented until drag and drop is covered in the documentation.
+   * @internal Emits when an item has been dropped.
+   */
   @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
 
   /**
@@ -340,7 +360,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Will render a custom horizontal scrollbar when set. */
   @state() scrollbar?: boolean;
 
-  /** @internal Emits when the selection in the grid changes. */
+  /**
+   * @private Not Documented until grid selection is covered in the documentation.
+   * @internal Emits when the selection in the grid changes.
+   */
   @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<
     SlSelectionChangeEvent<T>
   >;
@@ -360,19 +383,39 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
 
-  /** The table body element. */
+  /**
+   * The table body element.
+   *
+   * @ignore
+   */
   @query('tbody') tbody!: HTMLTableSectionElement;
 
-  /** The table head element. */
+  /**
+   * The table head element.
+   *
+   * @ignore
+   */
   @query('thead') thead!: HTMLTableSectionElement;
 
-  /** The table element. */
+  /**
+   * The table element.
+   *
+   * @ignore
+   */
   @query('table') table!: HTMLTableElement;
 
-  /** The table foot element. */
+  /**
+   * The table foot element.
+   *
+   * @ignore
+   */
   @query('tfoot') tfoot!: HTMLTableSectionElement;
 
-  /** The model used for rendering the grid. */
+  /**
+   * The model used for rendering the grid.
+   *
+   * @ignore
+   */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
 
   override connectedCallback(): void {
@@ -590,6 +633,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /**
+   * Renders the styles for the columns: width, alignment, sticky offsets and any column-specific
+   * styles.
+   *
+   * @ignore
+   */
   renderStyles(): TemplateResult | typeof nothing {
     const rows = this.#headerRows;
     if (!rows.length) {
@@ -632,6 +681,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /**
+   * Renders the header rows for the given columns, one row per header level (for example when
+   * columns are grouped).
+   *
+   * @ignore
+   */
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
     const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0);
 
@@ -652,12 +707,22 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /**
+   * Renders a row for the given item: a group row for groups, an item row for data items.
+   *
+   * @ignore
+   */
   renderItem(item: ListDataSourceItem<T>, index: number): TemplateResult {
     return item.type === 'group'
       ? this.renderGroupRow(item, index)
       : this.renderItemRow(item, index);
   }
 
+  /**
+   * Renders the row for a single data item.
+   *
+   * @ignore
+   */
   renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
     const rows = this.#headerRows,
       active = this.activeRow === item.data,
@@ -703,6 +768,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /** Renders the row for a group, containing the group header. */
   renderGroupRow(item: ListDataSourceGroupItem<T>, index: number): TemplateResult {
     const collapsed = this.dataSource?.isGroupCollapsed(item.id),
       draggable = !!this.#columnDefinitions.find(

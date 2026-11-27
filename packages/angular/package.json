@@ -42,6 +42,7 @@
     "start": {
       "command": "ng run angular:storybook",
       "dependencies": [
+        "build",
         "extract-templates",
         "../..:build"
       ],

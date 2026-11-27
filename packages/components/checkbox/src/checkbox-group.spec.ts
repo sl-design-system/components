@@ -12,6 +12,31 @@ import './register.js';
 describe('sl-checkbox-group', () => {
   let el: CheckboxGroup;
 
+  describe('initialization before connection', () => {
+    it('should support synchronous form validation before being connected', async () => {
+      el = document.createElement('sl-checkbox-group');
+      el.name = 'options';
+      el.formValue = ['1'];
+
+      // Angular reactive forms can validate immediately after writing the initial value.
+      expect(el.isConnected).to.be.false;
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+      expect(el.formControlElement).to.equal(el);
+
+      el.innerHTML = `
+        <sl-checkbox value="0">Option 1</sl-checkbox>
+        <sl-checkbox value="1">Option 2</sl-checkbox>
+      `;
+      await fixture(el);
+
+      expect(el.formValue).to.deep.equal(['1']);
+      await expect.poll(() => el.boxes?.map(box => box.checked)).toEqual([false, true]);
+      expect(el.boxes?.every(box => box.name === 'options')).to.be.true;
+      expect(el.valid).to.be.true;
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`

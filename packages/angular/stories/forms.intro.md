@@ -1,5 +1,10 @@
 This page shows how SLDS validation integrates with Angular forms.
 
+The **All Reactive Initial Values** and **All Template Driven Initial Values** stories populate all
+controls on the first render. Each has an **On Blur Initial Values** variant that shows SLDS
+validation feedback when a control loses focus. Open a story directly or reload it to check the
+initial values, including the checkbox and radio selections.
+
 In practice, validation is shared between Angular and SLDS:
 
 - **Angular forms** track form state (`touched`, `dirty` etc.) and run Angular validators you configure.

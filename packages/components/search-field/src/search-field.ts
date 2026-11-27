@@ -98,6 +98,7 @@ export class SearchField extends TextField {
   #activeIndex = -1;
   @state() private inlineValue?: string;
   #composing = false;
+  #lastEditWasDeletion = false;
   #boldFontReady = false;
   #boldFontLoading = false;
   #suggestionsDirty = true;
@@ -371,15 +372,14 @@ export class SearchField extends TextField {
     this.#createListbox();
     this.#renderOptions(query, showList ? listPhrases : []);
 
-    const hasOptions = this.#options.length > 0;
+    const hasOptions = this.#options.length > 0,
+      container = this.renderRoot.querySelector<HTMLSlotElement>('.suggestions');
 
     this.#listbox!.hidden = !hasOptions;
     this.#listbox!.tabIndex = hasOptions ? 0 : -1;
     this.#message!.hidden = !showList || hasOptions;
-    this.#message!.toggleAttribute('data-unavailable', this.unavailable);
-    this.renderRoot
-      .querySelector<HTMLSlotElement>('.suggestions')
-      ?.toggleAttribute('hidden', this.#listbox!.hidden && this.#message!.hidden);
+    container?.classList.toggle('has-options', hasOptions);
+    container?.toggleAttribute('hidden', this.#listbox!.hidden && this.#message!.hidden);
 
     if (hasOptions) {
       this.input.setAttribute('aria-controls', this.#listbox!.id);
@@ -473,6 +473,7 @@ export class SearchField extends TextField {
   #proposeInline(query: string, phrases: string[]): void {
     if (
       this.#composing ||
+      this.#lastEditWasDeletion ||
       !this.input.matches(':focus') ||
       query !== query.trim() ||
       this.input.selectionStart !== query.length ||
@@ -704,6 +705,7 @@ export class SearchField extends TextField {
 
   protected override onInput(event: Event & { target: HTMLInputElement }): void {
     this.inlineValue = undefined;
+    this.#lastEditWasDeletion = event instanceof InputEvent && event.inputType.startsWith('delete');
     super.onInput(event);
 
     if (this.#composing) {

@@ -35,7 +35,7 @@ Here's an overview of the common keyboard interactions associated with a search 
 |Escape in the list|Closes suggestions and returns focus to the input without clearing the query.|
 |Enter / Space on Clear|Clears the search field and moves focus back to the input.|
 |Escape on Clear|Clears the search field and moves focus back to the input.|
-|Backspace / Delete|Edits the typed text and selected ranges using normal input behavior. The visual inline suffix does not become part of the native input until accepted.|
+|Backspace / Delete|Edits the typed text and selected ranges using normal input behavior. Deleting text hides the inline proposal while the suggestion list continues to update.|
 
 {.ds-table .ds-table-align-top}
 

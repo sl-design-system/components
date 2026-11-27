@@ -674,14 +674,30 @@ describe('sl-search-field', () => {
       expect(onSearch).to.have.been.calledOnceWith('García');
     });
 
-    it('deletes a typed character in one Backspace while showing an inline proposal', async () => {
+    it('updates the list without proposing an inline completion after Backspace', async () => {
+      el.suggestionThreshold = 2;
+      el.suggestions = ['García', 'Gates'];
       await userEvent.type(el.input, 'Gar');
+      await expect.poll(suffix).to.equal('cía');
+
       await userEvent.keyboard('{Backspace}');
       await el.updateComplete;
 
       expect(el.value).to.equal('Ga');
       expect(el.input.value).to.equal('Ga');
-      expect(list().hidden).to.be.true;
+      expect(suffix()).to.be.undefined;
+      expect(options()).to.have.length(2);
+
+      el.suggestions = ['García', 'Gates', 'Garden'];
+      await el.updateComplete;
+
+      expect(suffix()).to.be.undefined;
+      expect(options()).to.have.length(3);
+
+      await userEvent.keyboard('r');
+
+      await expect.poll(suffix).to.equal('cía');
+      expect(options()).to.have.length(2);
     });
 
     it('dismisses the suffix with Delete while preserving typed words', async () => {

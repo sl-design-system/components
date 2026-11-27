@@ -146,9 +146,9 @@ button {
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
-  inset-block-start: calc(100% + var(--sl-size-050));
+  inset-block-start: 100%;
   inset-inline-start: 0;
-  padding-block: var(--sl-size-100) var(--sl-size-025);
+  margin-block-start: 6px;
   position: absolute;
   z-index: 1;
 }
@@ -158,7 +158,6 @@ button {
 }
 
 :host([suggestion-placement='flow']) .suggestions {
-  margin-block-start: var(--sl-size-050);
   position: static;
 }
 
@@ -168,17 +167,18 @@ button {
 
 .suggestions::slotted(.sl-suggestions-heading) {
   color: var(--sl-color-foreground-subtlest);
-  font-family: var(--sl-text-new-body-sm-fontFamily);
   font-size: var(--sl-text-new-body-sm-fontSize);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   line-height: var(--sl-text-new-body-sm-lineHeight);
-  padding: var(--sl-size-050) var(--sl-size-200) var(--sl-size-025);
+  padding: var(--sl-size-100) var(--sl-size-100) 0;
+}
+
+.suggestions.has-options::slotted(.sl-suggestions-heading) {
+  padding-inline: var(--sl-size-200);
 }
 
 .suggestions::slotted(sl-listbox) {
   max-block-size: 20rem;
-  /* Leaves room for the focus outline of the active option, which the scrolling list would clip. */
-  padding-block: var(--sl-size-075);
 }
 
 /* The active option supplies the keyboard focus indicator inside the list. */
@@ -187,13 +187,8 @@ button {
 }
 
 .suggestions::slotted([role='status']) {
-  color: var(--sl-color-foreground-subtlest);
-  font: var(--sl-text-new-body-md);
-  padding: var(--sl-size-075) var(--sl-size-200) var(--sl-size-100);
-}
-
-.suggestions::slotted([role='status'][data-unavailable]) {
   color: var(--sl-color-foreground-plain);
+  padding: var(--sl-size-100);
 }
 
 .input-wrapper {

@@ -18,6 +18,20 @@ import { type Person, people } from './list-data-source.spec.js';
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
 
+  it('should retain the group on unloaded placeholders', () => {
+    const request = Promise.withResolvers<FetchListDataSourceCallbackResult<Person>>(),
+      source = new FetchListDataSource<Person>({
+        groups: [{ id: 'A', size: 20, collapsed: false }],
+        pageSize: 10,
+        fetchPage: () => request.promise
+      }),
+      group = source.items[0] as ListDataSourceGroupItem<Person>,
+      placeholder = source.items[1] as ListDataSourceDataItem<Person>;
+
+    expect(placeholder.data).to.equal(ListDataSourcePlaceholder);
+    expect(placeholder.group).to.equal(group);
+  });
+
   it('should recover from empty results without totalItems and without pagination', async () => {
     ds = new FetchListDataSource({
       pageSize: 2,

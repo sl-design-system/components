@@ -17,6 +17,24 @@
 }
 
 @font-face {
+  font-family: 'New Message Text';
+  font-weight: 400;
+  src: url('./fonts/NewMessage-Text-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message Text';
+  font-weight: 600;
+  src: url('./fonts/NewMessage-Text-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message Text';
+  font-weight: 700;
+  src: url('./fonts/NewMessage-Text-Bold.woff2') format('woff2');
+}
+
+@font-face {
   font-family: 'New Message Text Condensed';
   font-weight: 400;
   src: url('./fonts/NewMessage-Text-Condensed-Regular.woff2') format('woff2');
@@ -26,4 +44,22 @@
   font-family: 'New Message Text Condensed';
   font-weight: 600;
   src: url('./fonts/NewMessage-Text-Condensed-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message Junior';
+  font-weight: 400;
+  src: url('./fonts/NewMessage-Junior-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message Junior';
+  font-weight: 600;
+  src: url('./fonts/NewMessage-Junior-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message Junior';
+  font-weight: 700;
+  src: url('./fonts/NewMessage-Junior-Bold.woff2') format('woff2');
 }

@@ -34,6 +34,8 @@ export default {
 
 Only `.css` imports that use the `with { type: 'css' }` attribute are handled; all other CSS imports are left untouched.
 
+The plugin can be registered in both a shared Vitest configuration and Storybook's `viteFinal`. When both registrations are active in Storybook tests, stylesheet virtual modules are passed through between plugin instances.
+
 ## How it works
 
 - It resolves each matching `.css` import to a stable virtual module via `resolveId`, using the bundler's own resolver so aliases and bare specifiers work.

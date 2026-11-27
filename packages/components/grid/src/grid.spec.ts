@@ -14,7 +14,7 @@ import '@sl-design-system/menu/register.js';
 import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
+import { html, render } from 'lit';
 import { type SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
@@ -299,7 +299,6 @@ describe('sl-grid', () => {
           return rows.slice(1).every((row, index) => Math.abs(row.top - rows[index].bottom) <= 1);
         })
         .toBe(true);
-
       await expect
         .poll(() => {
           const body = el.tbody.getBoundingClientRect(),
@@ -3357,6 +3356,396 @@ describe('sl-grid', () => {
   });
 
   describe('group headers with sticky columns', () => {
+    it('should keep the current group below the sticky grid header after its row is virtualized', async () => {
+      const dataSource = new ArrayListDataSource(
+          Array.from({ length: 200 }, (_, index) => ({
+            firstName: `Person ${index}`,
+            lastName: 'Example',
+            group: index < 100 ? 'Group A' : 'Group B'
+          })),
+          { groupBy: 'group' }
+        ),
+        wrapper = await fixture<HTMLDivElement>(html`
+          <div style="height: 250px; width: 300px; overflow: auto">
+            <sl-grid .dataSource=${dataSource}>
+              <sl-grid-column-group header="Person">
+                <sl-grid-column path="firstName" sticky width="160"></sl-grid-column>
+                <sl-grid-column path="lastName" width="300"></sl-grid-column>
+              </sl-grid-column-group>
+            </sl-grid>
+          </div>
+        `),
+        grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+      await waitForGridToRenderData(grid);
+      grid.thead.style.insetBlockStart = '20px';
+      wrapper.scrollTop = 2000;
+
+      await expect
+        .poll(() => {
+          const bottom = grid.thead.getBoundingClientRect().bottom;
+          return Array.from(grid.renderRoot.querySelectorAll('sl-grid-group-header')).some(
+            header => {
+              const rect = header.getBoundingClientRect();
+              return !!header.textContent?.includes('Group A') && Math.abs(rect.top - bottom) < 2;
+            }
+          );
+        })
+        .toBe(true);
+      expect(grid.thead.getBoundingClientRect().top).to.be.closeTo(
+        wrapper.getBoundingClientRect().top + 20,
+        1
+      );
+    });
+
+    it('should push the current group out when the next group reaches it', async () => {
+      const dataSource = new ArrayListDataSource(
+          Array.from({ length: 200 }, (_, index) => ({
+            firstName: `Person ${index}`,
+            lastName: 'Example',
+            group: index < 100 ? 'Group A' : 'Group B'
+          })),
+          { groupBy: 'group' }
+        ),
+        wrapper = await fixture<HTMLDivElement>(html`
+          <div style="height: 250px; overflow: auto">
+            <sl-grid .dataSource=${dataSource}>
+              <sl-grid-column path="firstName" width="200"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `),
+        grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+      await waitForGridToRenderData(grid);
+      grid.style.setProperty('--sl-elevation-surface-raised-sunken', 'rgb(210, 220, 230)');
+      wrapper.scrollTop = 3200;
+      await expect
+        .poll(() => {
+          return Array.from(grid.tbody.querySelectorAll('tr[part~="group"]')).some(row =>
+            row.textContent?.includes('Group B')
+          );
+        })
+        .toBe(true);
+
+      const next = Array.from(grid.tbody.querySelectorAll('tr[part~="group"]')).find(row =>
+        row.textContent?.includes('Group B')
+      )!;
+      await expect.poll(() => grid.renderRoot.querySelector('.sticky-group-content')).toBeTruthy();
+
+      const sticky = grid.renderRoot.querySelector<HTMLElement>('.sticky-group-content')!,
+        height = sticky.getBoundingClientRect().height,
+        boundary = grid.thead.getBoundingClientRect().bottom;
+      wrapper.scrollTop += next.getBoundingClientRect().top - boundary - height / 2;
+
+      await expect
+        .poll(() => {
+          return Math.abs(sticky.getBoundingClientRect().bottom - next.getBoundingClientRect().top);
+        })
+        .toBeLessThan(2);
+      expect(sticky.getBoundingClientRect().top).to.be.lessThan(
+        grid.thead.getBoundingClientRect().bottom
+      );
+
+      const scroller = grid.renderRoot.querySelector<HTMLElement>('.sticky-group-scroller')!,
+        nextRect = next.getBoundingClientRect(),
+        hit = grid.shadowRoot!.elementFromPoint(nextRect.left + 20, nextRect.top + 2);
+      expect(getComputedStyle(scroller).backgroundColor).to.equal('rgba(0, 0, 0, 0)');
+      expect(getComputedStyle(sticky).backgroundColor).to.equal('rgb(210, 220, 230)');
+      expect(next.contains(hit)).to.be.true;
+
+      wrapper.scrollTop +=
+        next.getBoundingClientRect().top - grid.thead.getBoundingClientRect().bottom;
+      grid.thead.style.insetBlockStart = `${
+        next.getBoundingClientRect().top - grid.thead.getBoundingClientRect().bottom
+      }px`;
+      wrapper.dispatchEvent(new Event('scroll'));
+      expect(next.getBoundingClientRect().top).to.be.closeTo(
+        grid.thead.getBoundingClientRect().bottom,
+        0.1
+      );
+      await expect.poll(() => grid.renderRoot.querySelector('.sticky-group-content')).toBeNull();
+      expect(next.textContent).to.contain('Group B');
+      expect(
+        next.contains(
+          grid.shadowRoot!.elementFromPoint(
+            next.getBoundingClientRect().left + 20,
+            next.getBoundingClientRect().top + 2
+          )
+        )
+      ).to.be.true;
+
+      wrapper.scrollTop += 1;
+      await expect
+        .poll(() => {
+          const current = grid.renderRoot.querySelector<HTMLElement>('.sticky-group-content');
+          return (
+            current?.textContent?.includes('Group B') &&
+            Math.abs(
+              current.getBoundingClientRect().top - grid.thead.getBoundingClientRect().bottom
+            ) < 1
+          );
+        })
+        .toBe(true);
+    });
+
+    it('should not stick a collapsed group and should respond when it is expanded or collapsed', async () => {
+      const dataSource = new ArrayListDataSource(
+        Array.from({ length: 161 }, (_, index) => ({
+          firstName: `Person ${index}`,
+          lastName: 'Example',
+          group: index < 80 ? 'Group A' : index === 80 ? 'Group B' : 'Group C'
+        })),
+        { groupBy: 'group' }
+      );
+      dataSource.collapseGroup('Group B');
+      dataSource.update();
+
+      const wrapper = await fixture<HTMLDivElement>(html`
+          <div style="height: 250px; overflow: auto">
+            <sl-grid .dataSource=${dataSource}>
+              <sl-grid-column path="firstName" width="200"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `),
+        grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+      await waitForGridToRenderData(grid);
+      wrapper.scrollTop = 2600;
+      await expect
+        .poll(() =>
+          Array.from(grid.tbody.querySelectorAll('tr[part~="group"]')).some(row =>
+            row.textContent?.includes('Group B')
+          )
+        )
+        .toBe(true);
+      await expect
+        .poll(() => grid.renderRoot.querySelector('.sticky-group-content')?.textContent)
+        .toContain('Group A');
+
+      const collapsedRow = Array.from(
+        grid.tbody.querySelectorAll<HTMLTableRowElement>('tr[part~="group"]')
+      ).find(row => row.textContent?.includes('Group B'))!;
+      wrapper.scrollTop +=
+        collapsedRow.getBoundingClientRect().top -
+        grid.thead.getBoundingClientRect().bottom +
+        collapsedRow.getBoundingClientRect().height / 2;
+
+      await expect.poll(() => grid.renderRoot.querySelector('.sticky-group-content')).toBeNull();
+      expect(collapsedRow.inert).to.be.false;
+      expect(collapsedRow.querySelector('sl-grid-group-header')).to.exist;
+
+      dataSource.expandGroup('Group B');
+      dataSource.update();
+      await expect
+        .poll(() => grid.renderRoot.querySelector('.sticky-group-content')?.textContent)
+        .toContain('Group B');
+
+      const stickyHeader = grid.renderRoot.querySelector<GridGroupHeader>(
+        '.sticky-group-content sl-grid-group-header'
+      )!;
+      await userEvent.click(stickyHeader.renderRoot.querySelector<HTMLElement>('sl-button')!);
+      await expect.poll(() => dataSource.isGroupCollapsed('Group B')).toBe(true);
+      await expect.poll(() => grid.renderRoot.querySelector('.sticky-group-content')).toBeNull();
+      await expect
+        .poll(() => {
+          const header = collapsedRow.querySelector('sl-grid-group-header');
+          return !!header && grid.shadowRoot!.activeElement === header;
+        })
+        .toBe(true);
+
+      wrapper.scrollTop += collapsedRow.getBoundingClientRect().height;
+      await expect
+        .poll(() => grid.renderRoot.querySelector('.sticky-group-content')?.textContent)
+        .toContain('Group C');
+    });
+
+    it.each(['toggle', 'action'] as const)(
+      'should preserve %s focus when a group header becomes sticky and returns to its row',
+      async control => {
+        const dataSource = new ArrayListDataSource(
+            Array.from({ length: 60 }, (_, index) => ({
+              firstName: `Person ${index}`,
+              lastName: 'Example',
+              group: 'Group A'
+            })),
+            { groupBy: 'group' }
+          ),
+          wrapper = await fixture<HTMLDivElement>(html`
+            <div style="height: 250px; overflow: auto">
+              <sl-grid
+                .dataSource=${dataSource}
+                .groupHeaderRenderer=${(item: ListDataSourceGroupItem<Person>) => html`
+                  <span slot="group-heading">${item.label}</span>
+                  <button>Action</button>
+                `}>
+                <sl-grid-column path="firstName" width="200"></sl-grid-column>
+              </sl-grid>
+            </div>
+          `),
+          grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+        await waitForGridToRenderData(grid);
+        const original = grid.tbody.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+          originalHeight = original.closest('tr')!.getBoundingClientRect().height;
+        await original.updateComplete;
+        (control === 'toggle'
+          ? original.renderRoot.querySelector<HTMLElement>('sl-button')!
+          : original.querySelector<HTMLButtonElement>('button')!
+        ).focus();
+        expect(grid.shadowRoot!.activeElement).to.equal(
+          control === 'toggle' ? original : original.querySelector('button')
+        );
+
+        wrapper.scrollTop = 100;
+        await expect
+          .poll(() => {
+            const sticky = grid.renderRoot.querySelector<GridGroupHeader>(
+              '.sticky-group-content sl-grid-group-header'
+            );
+            return (
+              sticky &&
+              grid.shadowRoot!.activeElement ===
+                (control === 'toggle' ? sticky : sticky.querySelector('button'))
+            );
+          })
+          .toBe(true);
+        const originalRow = grid.tbody.querySelector<HTMLTableRowElement>('tr[part~="group"]')!;
+        expect(originalRow.inert).to.be.true;
+        expect(originalRow).to.have.attribute('aria-hidden', 'true');
+        expect(originalRow.querySelector('sl-grid-group-header')).not.to.exist;
+        expect(originalRow.getBoundingClientRect().height).to.be.closeTo(originalHeight, 1);
+
+        wrapper.scrollTop = 0;
+        await expect
+          .poll(() => {
+            const restored = originalRow.querySelector('sl-grid-group-header');
+            return (
+              restored &&
+              grid.shadowRoot!.activeElement ===
+                (control === 'toggle' ? restored : restored.querySelector('button'))
+            );
+          })
+          .toBe(true);
+        expect(originalRow.inert).to.be.false;
+      }
+    );
+
+    it('should keep the group visible while its rows are loading', async () => {
+      const request = Promise.withResolvers<{ items: Person[]; totalItems: number }>(),
+        dataSource = new FetchListDataSource<Person>({
+          groups: [{ id: 'A', label: 'Group A', size: 100, collapsed: false }],
+          pageSize: 20,
+          fetchPage: () => request.promise
+        }),
+        wrapper = await fixture<HTMLDivElement>(html`
+          <div style="height: 250px; overflow: auto">
+            <sl-grid .dataSource=${dataSource}>
+              <sl-grid-column path="firstName" width="200"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `),
+        grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+      await waitForGridToRenderData(grid);
+      wrapper.scrollTop = 1500;
+      await expect
+        .poll(() => {
+          return grid.renderRoot
+            .querySelector('.sticky-group-content')
+            ?.textContent?.includes('Group A');
+        })
+        .toBe(true);
+    });
+
+    it('should respond to a scroll container inside a shadow root', async () => {
+      const host = await fixture<HTMLDivElement>(html`<div></div>`),
+        root = host.attachShadow({ mode: 'open' }),
+        dataSource = new ArrayListDataSource(
+          Array.from({ length: 60 }, (_, index) => ({
+            firstName: `Person ${index}`,
+            lastName: 'Example',
+            group: 'Group A'
+          })),
+          { groupBy: 'group' }
+        );
+      render(
+        html`
+          <div style="height: 250px; overflow: auto">
+            <sl-grid .dataSource=${dataSource}>
+              <sl-grid-column path="firstName" width="200"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `,
+        root
+      );
+      const wrapper = root.querySelector('div')!,
+        grid = root.querySelector<Grid<Person>>('sl-grid')!;
+      await waitForGridToRenderData(grid);
+      wrapper.scrollTop = 1000;
+      await expect
+        .poll(() => {
+          return grid.renderRoot
+            .querySelector('.sticky-group-content')
+            ?.textContent?.includes('Group A');
+        })
+        .toBe(true);
+    });
+
+    it('should keep sticky group controls usable while scrolling horizontally', async () => {
+      const dataSource = new ArrayListDataSource(
+          Array.from({ length: 100 }, (_, index) => ({
+            firstName: `Person ${index}`,
+            lastName: 'Example',
+            group: 'Group A'
+          })),
+          { groupBy: 'group', selects: 'multiple' }
+        ),
+        action = spy(),
+        wrapper = await fixture<HTMLDivElement>(html`
+          <div style="height: 250px; width: 300px; overflow: auto">
+            <sl-grid
+              .dataSource=${dataSource}
+              .groupHeaderRenderer=${(item: ListDataSourceGroupItem<Person>) => html`
+                <span slot="group-heading">${item.label}</span>
+                <button @click=${action}>Action</button>
+              `}>
+              <sl-grid-selection-column sticky></sl-grid-selection-column>
+              <sl-grid-column path="firstName" sticky width="160"></sl-grid-column>
+              <sl-grid-column path="lastName" width="300"></sl-grid-column>
+            </sl-grid>
+          </div>
+        `),
+        grid = wrapper.querySelector<Grid<Person>>('sl-grid')!;
+
+      await waitForGridToRenderData(grid);
+      wrapper.scrollTop = 1500;
+      await expect.poll(() => grid.renderRoot.querySelector('.sticky-group-content')).toBeTruthy();
+      grid.tbody.scrollLeft = 100;
+
+      const header = grid.renderRoot.querySelector<GridGroupHeader>(
+          '.sticky-group-content sl-grid-group-header'
+        )!,
+        heading = header.renderRoot.querySelector<HTMLElement>('[part="group-heading-wrapper"]')!,
+        actionButton = header.querySelector<HTMLButtonElement>('button')!;
+      await expect
+        .poll(() => {
+          return Math.abs(
+            heading.getBoundingClientRect().left - grid.tbody.getBoundingClientRect().left
+          );
+        })
+        .toBeLessThan(2);
+      await userEvent.click(actionButton);
+      expect(action).to.have.been.calledOnce;
+
+      const checkbox = header.renderRoot.querySelector<Checkbox>('sl-checkbox')!;
+      await userEvent.click(checkbox);
+      await expect.poll(() => dataSource.selected).toBe(100);
+
+      const toggle = header.renderRoot.querySelector<HTMLElement>('sl-button')!;
+      await userEvent.click(toggle);
+      await expect.poll(() => dataSource.isGroupCollapsed('Group A')).toBe(true);
+    });
+
     it('should make the group header follow the sticky start columns', async () => {
       const dataSource = new ArrayListDataSource(
           [

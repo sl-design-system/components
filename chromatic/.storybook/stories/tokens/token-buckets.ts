@@ -16,7 +16,7 @@ const MISSING = '<missing>';
 export const normalizeValue = (value: string): string => value.replace(/\s+/g, ' ').trim();
 
 export const appliesToUserGroup = (name: string, userGroup: string): boolean => {
-  const suffix = name.match(/-(early|developing|advanced|superuser)$/)?.[1];
+  const suffix = name.match(/-(early|developing|advanced|poweruser)$/)?.[1];
 
   return suffix === undefined || suffix === userGroup;
 };

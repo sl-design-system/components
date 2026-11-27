@@ -661,7 +661,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return {
       id: ListDataSourcePlaceholder,
       type: 'data',
-      data: ListDataSourcePlaceholder
+      data: ListDataSourcePlaceholder,
+      group: this.#groups.has(FetchListDataSourceDummyGroup) ? undefined : group
     } as ListDataSourceDataItem<T>;
   }
 

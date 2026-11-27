@@ -498,7 +498,7 @@
   --sl-brand-dark-elevation-surface-raised-default: var(--sl-brand-dark-color-palette-grey-050);
   --sl-brand-dark-elevation-surface-raised-inverted: var(--sl-brand-dark-color-palette-grey-300);
   --sl-brand-dark-elevation-surface-raised-primary: var(--sl-brand-dark-color-palette-blue-700);
-  --sl-brand-dark-elevation-surface-raised-sunken: #ffffff0d;
+  --sl-brand-dark-elevation-surface-raised-sunken: var(--sl-brand-dark-color-palette-grey-100);
   --sl-brand-dark-elevation-surface-shadow: var(--sl-color-transparent);
   --sl-brand-dark-opacity-bold: 1;
   --sl-brand-dark-opacity-interactive-bold-active: 0.4;

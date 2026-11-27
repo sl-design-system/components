@@ -54,6 +54,9 @@
 
 sl-button {
   margin-inline-start: var(--sl-size-150);
+  /* without this the icon flickers with unstyled content of the svg in the icon when scrolling with sticky group headers */
+  inline-size: calc(1lh + var(--sl-size-050));
+  overflow: hidden;
 
   sl-icon {
     @media (prefers-reduced-motion: no-preference) {

@@ -199,6 +199,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
 
+  /** The group displayed while its row is above the sticky grid header. */
+  @state() private stickyGroup?: ListDataSourceGroupItem<T>;
+
+  #stickyUpdateFrame?: number;
+
+  #stickyScrollRoots: ShadowRoot[] = [];
+
+  #stickyScroller?: HTMLElement;
+
+  #onStickyScroll = (): void => {
+    this.#scheduleStickyGroupUpdate();
+  };
+
+  #stickyResizeObserver = new ResizeObserver(() => this.#scheduleStickyGroupUpdate());
+
   /** We need to know when the user drags items outside of the grid. */
   #onWindowDragOver = (event: DragEvent) => {
     const grid = event.composedPath().find(el => el instanceof Grid);
@@ -379,9 +394,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#resizeObserver.observe(this);
+    window.addEventListener('scroll', this.#onStickyScroll, true);
+    let root = this.getRootNode();
+    while (root instanceof ShadowRoot) {
+      root.addEventListener('scroll', this.#onStickyScroll, true);
+      this.#stickyScrollRoots.push(root);
+      root = root.host.getRootNode();
+    }
 
     if (this.hasUpdated && !this.#initialColumnWidthsReady) {
       void this.#initializeColumnWidths();
+    }
+    if (this.hasUpdated) {
+      this.#stickyResizeObserver.observe(this.thead);
+      this.#scheduleStickyGroupUpdate();
     }
   }
 
@@ -392,6 +418,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#bulkActionsObserver.disconnect();
     this.#resizeObserver?.disconnect();
+    this.#stickyResizeObserver.disconnect();
+    window.removeEventListener('scroll', this.#onStickyScroll, true);
+    this.#stickyScrollRoots.forEach(root =>
+      root.removeEventListener('scroll', this.#onStickyScroll, true)
+    );
+    this.#stickyScrollRoots = [];
+    this.#stickyScroller = undefined;
+    if (this.#stickyUpdateFrame !== undefined) {
+      cancelAnimationFrame(this.#stickyUpdateFrame);
+      this.#stickyUpdateFrame = undefined;
+    }
     this.#clearDragArm();
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
@@ -417,6 +454,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.tbody.addEventListener('scroll', () => this.#onBodyScroll(), { passive: true });
     this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });
     this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
+    this.#stickyResizeObserver.observe(this.thead);
 
     await this.#initializeColumnWidths();
   }
@@ -490,6 +528,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
+      <div class="sticky-group-container">
+        ${
+          this.stickyGroup
+            ? html`
+                <div class="sticky-group-scroller">
+                  ${this.renderGroupRow(this.stickyGroup, -1, true)}
+                </div>
+              `
+            : nothing
+        }
+      </div>
       ${
         !this.noSkipLinks
           ? html`
@@ -527,7 +576,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <tbody
           id="tbody"
           part="tbody"
-          @rangeChanged=${() => this.#scheduleColumnWidthCalculation(true)}>
+          @rangeChanged=${() => {
+            void this.#scheduleColumnWidthCalculation(true);
+            this.#scheduleStickyGroupUpdate();
+          }}>
           ${virtualize({
             layout: { type: GridFlowLayout },
             items: this.#headerRows.length ? (this.dataSource?.items ?? []) : [],
@@ -703,20 +755,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroupRow(item: ListDataSourceGroupItem<T>, index: number): TemplateResult {
-    const collapsed = this.dataSource?.isGroupCollapsed(item.id),
-      draggable = !!this.#columnDefinitions.find(
+  renderGroupRow(item: ListDataSourceGroupItem<T>, index: number, sticky = false): TemplateResult {
+    const draggable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridDragHandleColumn
       ),
       groupDraggable =
         draggable &&
         !!item.members?.length &&
         (this.draggableRows === 'between' || this.draggableRows === 'between-or-on-top'),
-      groupHeaderClasses = this.#getGroupHeaderClasses(),
-      groupHeaderStyles = this.#getGroupHeaderStyles(),
-      selectable = !!this.#columnDefinitions.find(
-        col => !col.hidden && col instanceof GridSelectionColumn
-      );
+      hidden = !sticky && !!this.stickyGroup && Object.is(this.stickyGroup.id, item.id);
 
     return html`
       <tr
@@ -726,33 +773,52 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
-        aria-rowindex=${index + 1}
+        aria-hidden=${hidden ? 'true' : 'false'}
+        aria-rowindex=${sticky ? nothing : index + 1}
+        class=${sticky ? 'sticky-group-content' : ''}
         .draggable=${groupDraggable}
-        role="row"
+        .inert=${hidden}
+        role=${sticky ? 'presentation' : 'row'}
         part="group"
         index=${index}>
-        <td part="group-header" role="cell">
-          <sl-grid-group-header
-            @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
-            @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
-            class=${ifDefined(groupHeaderClasses.join(' ') || undefined)}
-            ?collapsed=${collapsed}
-            ?drag-handle=${draggable}
-            group-label=${ifDefined(item.label)}
-            ?selectable=${selectable}
-            .selected=${item.selected ?? 'none'}
-            style=${ifDefined(groupHeaderStyles)}>
-            ${
-              this.groupHeaderRenderer?.(item) ??
-              html`
-                <span slot="group-heading">
-                  ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
-                </span>
-              `
-            }
-          </sl-grid-group-header>
+        <td part="group-header" role=${sticky ? 'presentation' : 'cell'}>
+          ${hidden ? nothing : this.#renderGroupHeader(item)}
         </td>
       </tr>
+    `;
+  }
+
+  #renderGroupHeader(item: ListDataSourceGroupItem<T>): TemplateResult {
+    const collapsed = this.dataSource?.isGroupCollapsed(item.id),
+      draggable = !!this.#columnDefinitions.find(
+        col => !col.hidden && col instanceof GridDragHandleColumn
+      ),
+      groupHeaderClasses = this.#getGroupHeaderClasses(),
+      groupHeaderStyles = this.#getGroupHeaderStyles(),
+      selectable = !!this.#columnDefinitions.find(
+        col => !col.hidden && col instanceof GridSelectionColumn
+      );
+
+    return html`
+      <sl-grid-group-header
+        @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
+        @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+        class=${ifDefined(groupHeaderClasses.join(' ') || undefined)}
+        ?collapsed=${collapsed}
+        ?drag-handle=${draggable}
+        group-label=${ifDefined(item.label)}
+        ?selectable=${selectable}
+        .selected=${item.selected ?? 'none'}
+        style=${ifDefined(groupHeaderStyles)}>
+        ${
+          this.groupHeaderRenderer?.(item) ??
+          html`
+            <span slot="group-heading">
+              ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
+            </span>
+          `
+        }
+      </sl-grid-group-header>
     `;
   }
 
@@ -986,6 +1052,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onDataSourceUpdate = () => {
     this.requestUpdate();
+    this.#scheduleStickyGroupUpdate();
     // A data source can refresh existing rows while retaining its items array.
     // In that case the virtualizer does not emit a rangeChanged event.
     void this.#scheduleColumnWidthCalculation(true);
@@ -1344,6 +1411,149 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onScroll();
   }
 
+  #scheduleStickyGroupUpdate(): void {
+    if (this.#stickyUpdateFrame !== undefined || !this.isConnected || !this.hasUpdated) {
+      return;
+    }
+
+    this.#stickyUpdateFrame = requestAnimationFrame(() => {
+      this.#stickyUpdateFrame = undefined;
+      this.#updateStickyGroup();
+    });
+  }
+
+  #updateStickyGroup(): void {
+    const headerRect = this.thead.getBoundingClientRect(),
+      rows = Array.from(this.tbody.querySelectorAll<HTMLTableRowElement>('tr[index]')),
+      boundary = headerRect.bottom,
+      row = rows.find(candidate => {
+        const rect = candidate.getBoundingClientRect();
+        return rect.top <= boundary && rect.bottom > boundary;
+      }),
+      item = row ? this.dataSource?.items[Number(row.getAttribute('index'))] : undefined,
+      // A group header at the boundary is already visible in its original row.
+      candidateGroup =
+        item?.type === 'group'
+          ? row?.getBoundingClientRect().top === boundary
+            ? undefined
+            : item
+          : item?.group,
+      group =
+        candidateGroup && !this.dataSource?.isGroupCollapsed(candidateGroup.id)
+          ? candidateGroup
+          : undefined;
+
+    const headerInset = parseFloat(getComputedStyle(this.thead).insetBlockStart);
+    this.style.setProperty(
+      '--_sticky-grid-header-height',
+      `${headerRect.height + (Number.isFinite(headerInset) ? headerInset : 0)}px`
+    );
+
+    if (this.stickyGroup !== group) {
+      const previous = this.stickyGroup,
+        source = previous
+          ? this.renderRoot.querySelector<GridGroupHeader>(
+              '.sticky-group-content sl-grid-group-header'
+            )
+          : this.#findGroupRow(group?.id)?.querySelector<GridGroupHeader>('sl-grid-group-header'),
+        sameGroup = !!previous && !!group && Object.is(previous.id, group.id),
+        focusPath = !sameGroup && source ? this.#getGroupFocusPath(source) : undefined;
+
+      if (!sameGroup && group) {
+        const row = this.#findGroupRow(group.id);
+        if (row) {
+          this.style.setProperty(
+            '--_sticky-group-row-height',
+            `${row.getBoundingClientRect().height}px`
+          );
+        }
+      }
+
+      this.stickyGroup = group;
+      void this.updateComplete.then(async () => {
+        if (focusPath && this.stickyGroup === group) {
+          const target = previous
+            ? this.#findGroupRow(previous.id)?.querySelector<GridGroupHeader>(
+                'sl-grid-group-header'
+              )
+            : this.renderRoot.querySelector<GridGroupHeader>(
+                '.sticky-group-content sl-grid-group-header'
+              );
+          if (target) {
+            await target.updateComplete;
+            this.#restoreGroupFocus(target, focusPath);
+          }
+        }
+        this.#scheduleStickyGroupUpdate();
+      });
+    }
+
+    const scroller = this.renderRoot.querySelector<HTMLElement>('.sticky-group-scroller'),
+      content = this.renderRoot.querySelector<HTMLElement>('.sticky-group-content'),
+      next = rows.find(candidate => {
+        const rect = candidate.getBoundingClientRect();
+        return candidate.part.contains('group') && rect.top > boundary;
+      });
+
+    if (this.#stickyScroller !== scroller) {
+      if (this.#stickyScroller) this.#stickyResizeObserver.unobserve(this.#stickyScroller);
+      this.#stickyScroller = scroller ?? undefined;
+      if (scroller) this.#stickyResizeObserver.observe(scroller);
+    }
+
+    if (scroller && content && group) {
+      scroller.scrollLeft = this.tbody.scrollLeft;
+      this.style.setProperty('--_sticky-group-row-height', `${scroller.offsetHeight}px`);
+      const offset = next
+        ? Math.min(0, next.getBoundingClientRect().top - boundary - scroller.offsetHeight)
+        : 0;
+      content.style.translate = `0 ${offset}px`;
+    }
+  }
+
+  #findGroupRow(id: unknown): HTMLTableRowElement | undefined {
+    return Array.from(this.tbody.querySelectorAll<HTMLTableRowElement>('tr[part~="group"]')).find(
+      row => Object.is(this.dataSource?.items[Number(row.getAttribute('index'))]?.id, id)
+    );
+  }
+
+  #getGroupFocusPath(group: GridGroupHeader): Array<number | 'shadow'> | undefined {
+    let active = this.shadowRoot?.activeElement ?? null;
+    while (active?.shadowRoot?.activeElement) {
+      active = active.shadowRoot.activeElement;
+    }
+
+    const path: Array<number | 'shadow'> = [];
+    let node: Node | null = active;
+    while (node && node !== group) {
+      const parent: Node | null = node.parentNode;
+      if (!parent) return undefined;
+      path.unshift(Array.from(parent.childNodes).indexOf(node as ChildNode));
+      if (parent instanceof ShadowRoot) {
+        path.unshift('shadow');
+        node = parent.host;
+      } else {
+        node = parent;
+      }
+    }
+    return node === group ? path : undefined;
+  }
+
+  #restoreGroupFocus(group: GridGroupHeader, path: Array<number | 'shadow'>): void {
+    let node: Node | null = group;
+    for (const step of path) {
+      node =
+        step === 'shadow'
+          ? node instanceof Element
+            ? node.shadowRoot
+            : null
+          : (node?.childNodes[step] ?? null);
+    }
+    if (node instanceof HTMLElement) {
+      node.focus({ preventScroll: true });
+    }
+  }
+
   #onHeaderScroll(): void {
     if (this.thead.scrollLeft === this.tbody.scrollLeft) {
       return;
@@ -1358,6 +1568,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.scrollbar = scrollWidth > offsetWidth;
     this.#syncScrollLeft(this.tbody, this.thead);
+    this.#scheduleStickyGroupUpdate();
 
     this.toggleAttribute('scrollable', this.scrollbar);
     this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);

@@ -11,7 +11,7 @@
   --_body-cell-background-interactive-opacity: 0;
   --_body-cell-padding-block: var(--sl-size-125);
   --_body-cell-padding-inline: var(--sl-size-150);
-  --_head-cell-background: var(--sl-elevation-surface-raised-alternative);
+  --_head-cell-background: var(--sl-elevation-surface-raised-sunken);
   --_head-cell-padding-block: var(--sl-size-175);
   --_head-cell-padding-inline: var(--sl-size-150);
   --_border: var(--_border-width) solid var(--_border-color);
@@ -35,6 +35,28 @@
 
 :host([items-group-by]) {
   --_first-cell-padding-inline-start: 28px;
+}
+
+.sticky-group-container {
+  block-size: 0;
+  inset-block-start: var(--_sticky-grid-header-height, 0);
+  pointer-events: none;
+  position: sticky;
+  z-index: 2;
+}
+
+.sticky-group-scroller {
+  border-inline: var(--_border);
+  max-inline-size: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sticky-group-content {
+  background: var(--sl-elevation-surface-raised-sunken);
+  display: flex;
+  inline-size: max(var(--sl-grid-row-width), 100%);
+  pointer-events: auto;
 }
 
 :host([no-border]) {
@@ -124,7 +146,8 @@
     inline-size: 1rem;
     inset: 0 auto 0 0;
     position: absolute;
-    z-index: 2; /* Make sure we are above the <thead> element */
+    z-index: 2;
+    /* Make sure we are above the <thead> element */
   }
 
   :is(td, th).sticky-start-last {
@@ -223,7 +246,8 @@
 :host(:where([scrollable-start], [scrollable-end])) {
   th[class*='sticky'],
   td[class*='sticky'] {
-    z-index: 1; /* Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade overlay */
+    z-index: 1;
+    /* Ensure the sticky cell is above relatively positioned elements in other columns, but below the scroll fade overlay */
   }
 }
 
@@ -252,7 +276,8 @@ caption {
   position: absolute;
   position-anchor: --thead;
   position-area: center;
-  z-index: 1; /* Ensure caption is above tbody and below thead (because of DOM order) */
+  z-index: 1;
+  /* Ensure caption is above tbody and below thead (because of DOM order) */
 
   @supports not (position-area: center) {
     display: none;
@@ -271,9 +296,11 @@ thead {
   border-start-start-radius: var(--sl-size-borderRadius-default);
   inset-block-start: 0;
   max-inline-size: var(--sl-grid-width);
-  overflow-x: hidden; /* We can't use clip because we scroll programmatically */
+  overflow-x: hidden;
+  /* We can't use clip because we scroll programmatically */
   position: sticky;
-  z-index: 1; /* Ensure thead is above tbody and caption (because of DOM order) */
+  z-index: 1;
+  /* Ensure thead is above tbody and caption (because of DOM order) */
 
   tr + tr {
     th {
@@ -313,7 +340,8 @@ tbody {
       inset: 0;
       pointer-events: none;
       position: absolute;
-      z-index: 1; /* Ensure drop target outline is above the rows */
+      z-index: 1;
+      /* Ensure drop target outline is above the rows */
     }
   }
 
@@ -334,7 +362,8 @@ tr {
   margin: 0;
 
   &:focus-within {
-    z-index: 1; /* Ensure row is above other rows for focus outline */
+    z-index: 1;
+    /* Ensure row is above other rows for focus outline */
   }
 
   &[draggable='true'] {
@@ -342,7 +371,8 @@ tr {
   }
 
   &[part~='group'] {
-    z-index: 1; /* Ensure drag handles don't "shine through" group headers */
+    z-index: 1;
+    /* Ensure drag handles don't "shine through" group headers */
   }
 
   &[part~='dragging'] {
@@ -354,7 +384,8 @@ tr {
       content: '';
       inset: 0;
       position: absolute;
-      z-index: 1; /* Ensure dragging background is above the row */
+      z-index: 1;
+      /* Ensure dragging background is above the row */
     }
   }
 
@@ -485,6 +516,10 @@ td[part~='group-header'] {
   padding: 0;
 }
 
+tr[aria-hidden='true'] td[part~='group-header'] {
+  block-size: var(--_sticky-group-row-height);
+}
+
 td[part~='placeholder'] {
   padding-block: var(--_body-cell-padding-block);
 
@@ -546,7 +581,8 @@ a[class^='skip-link'] {
     outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-size-outlineOffset-default);
     pointer-events: auto;
-    z-index: 2; /* the positioning of the skip link is relative to the table, so we need to ensure it is above the table */
+    z-index: 2;
+    /* the positioning of the skip link is relative to the table, so we need to ensure it is above the table */
   }
 
   &:hover {

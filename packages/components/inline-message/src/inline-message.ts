@@ -212,6 +212,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     const lineHeight = parseInt(getComputedStyle(this).lineHeight),
       contentOverflow = entry.contentRect.height / lineHeight > 2;
 
+    console.log(getComputedStyle(this).lineHeight);
+
     if (contentOverflow && !this.contentOverflow) {
       this.contentOverflow = contentOverflow;
 

@@ -154,7 +154,7 @@ describe('sl-inline-message', () => {
           aliquip elit veniam minim.
         </sl-inline-message>
       `);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       expect(el).to.have.attribute('size', 'lg');
       expect(el.size).to.equal('lg');

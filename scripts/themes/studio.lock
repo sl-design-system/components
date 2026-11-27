@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-11-26T11:02:28Z"
+generated_at = "2026-11-27T10:37:56Z"
 cli_version = "dev"
 dependencies = []
 
@@ -23,7 +23,7 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-11-26T11:02:26Z"
+  updated_at = "2026-11-27T10:37:55Z"
 
 [[exports]]
   name = "core-css"
@@ -33,8 +33,8 @@ dependencies = []
   source_ref_name = "grid-header-color-in-darkmodes"
   preset_hash = "sha256:c83a2735418ea15d54300b6198424b6e037a167d8f72c353ad754b86aa75e341"
   output_hash = "sha256:ef80bb141d80cc84346cdd51a5fbc2ba5da1f2eda74052e6ef7bce6a61a166ae"
-  updated_at = "2026-11-26T11:02:25Z"
+  updated_at = "2026-11-27T10:37:53Z"
 
 [integrity]
-  lockfile_hash = "sha256:cbc28b8790d05b32985944ae82279ca2f2712952426181e25f53e200deb65fba"
+  lockfile_hash = "sha256:00bc170898ef19abf759205abc2c851c48f176a93cacf3c18df8e18e3958b17f"
   algorithm = "sha256"

@@ -21,6 +21,7 @@ import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
+import { classesGrandTotals, pupils, yesNo } from './wrappers-grid-grand-totals-utils';
 
 type StudentType = Awaited<ReturnType<typeof getStudents>>['students'][number];
 
@@ -498,6 +499,171 @@ export const ReorderColumns: StoryObj = {
           @for (col of columns; track col.path) {
             <sl-grid-column [path]="col.path" [header]="col.header"></sl-grid-column>
           }
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const GrandTotalsRow: StoryObj = {
+  render: () => {
+    const items = pupils.slice(0, 11);
+
+    return {
+      description:
+        'A grand totals row shows the totals of the columns. Set grand-totals-type on a column to show a total: number columns show the sum or average, text columns the number of non-empty values and boolean columns a fraction, count or percentage. Columns without a total show a dash. For totals the grid cannot calculate, set the grandTotals input to your own text.',
+      props: {
+        classes: classesGrandTotals(items),
+        homework: yesNo('homework'),
+        items,
+        present: yesNo('present')
+      },
+      template: `
+        <sl-grid [items]="items" [noSkipLinks]="true">
+          <sl-grid-column
+            header="Student"
+            path="name"
+            grand-totals-label="students"
+            grand-totals-type="text"></sl-grid-column>
+          <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            header="Homework"
+            path="homework"
+            grand-totals-type="boolean"
+            [renderer]="homework"></sl-grid-column>
+          <sl-grid-column
+            header="Present"
+            path="present"
+            grand-totals-type="boolean"
+            [renderer]="present"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const GrandTotalsRowTop: StoryObj = {
+  render: () => {
+    return {
+      description:
+        'Use grand-totals-position="top" to show the grand totals row below the header. It sticks to the header when you scroll.',
+      props: { classes: classesGrandTotals(pupils), items: pupils },
+      template: `
+        <sl-grid grand-totals-position="top" [items]="items" [noSkipLinks]="true">
+          <sl-grid-column
+            header="Student"
+            path="name"
+            grand-totals-label="students"
+            grand-totals-type="text"></sl-grid-column>
+          <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
+            grand-totals-type="number"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const GrandTotalsRowFormatMenu: StoryObj = {
+  render: () => {
+    const items = pupils.slice(0, 11);
+
+    return {
+      description:
+        'Add grand-totals-menu to a column to show a menu beside its total. The menu changes the format of all boolean totals that do not have a fixed grand-totals-format. The format only changes how the total is displayed, never the calculated value.',
+      props: {
+        classes: classesGrandTotals(items),
+        homework: yesNo('homework'),
+        items,
+        passed: yesNo('passed'),
+        present: yesNo('present')
+      },
+      template: `
+        <sl-grid [items]="items" [noSkipLinks]="true">
+          <sl-grid-column
+            header="Student"
+            path="name"
+            grand-totals-label="students"
+            grand-totals-menu
+            grand-totals-type="text"></sl-grid-column>
+          <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+          <sl-grid-column
+            header="Homework"
+            path="homework"
+            grand-totals-type="boolean"
+            [renderer]="homework"></sl-grid-column>
+          <sl-grid-column
+            header="Present"
+            path="present"
+            grand-totals-type="boolean"
+            [renderer]="present"></sl-grid-column>
+          <sl-grid-column
+            header="Passed (always a count)"
+            path="passed"
+            grand-totals-format="count"
+            grand-totals-type="boolean"
+            [renderer]="passed"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Trip fee paid (€)"
+            path="tripFee"
+            grand-totals-format="sum"
+            grand-totals-type="number"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const GrandTotalsRowCustomContent: StoryObj = {
+  render: () => {
+    const items = pupils.slice(0, 11);
+
+    return {
+      description:
+        'Use the grandTotals input to replace the calculated total with a string or a renderer function. The renderer receives the raw totals of the column.',
+      props: {
+        averageGrade: (totals?: { evaluated: number; sum: number }) =>
+          totals?.evaluated ? `${(totals.sum / totals.evaluated).toFixed(1)} on average` : '-',
+        items
+      },
+      template: `
+        <sl-grid [items]="items" [noSkipLinks]="true">
+          <sl-grid-column header="Student" path="name" [grandTotals]="'Totals'"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-type="number"
+            [grandTotals]="averageGrade"></sl-grid-column>
         </sl-grid>
       `
     };

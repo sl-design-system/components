@@ -1,4 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
@@ -31,6 +32,8 @@ export const NoBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -50,6 +53,8 @@ export const NoRowBorder: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -69,11 +74,42 @@ export const Striped: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
+};
+
+export const StripedGrouping: Story = {
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    return html`
+      <p>
+        This example combines grouping with the <code>striped</code> attribute and a grand totals
+        row. The rows alternate between two background colors, and the grand totals row shows the
+        total for all the students, not per group.
+      </p>
+      <sl-grid .dataSource=${dataSource} striped>
+        <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          grand-totals-label="students"
+          grand-totals-type="text"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
+        <sl-grid-column header="City" path="school.city"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const ColumnDivider: Story = {
@@ -88,6 +124,8 @@ export const ColumnDivider: Story = {
         grow="3"
         header="Student"
         path="fullName"
+        grand-totals-label="students"
+        grand-totals-type="text"
         .renderer=${avatarRenderer}
         .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
@@ -146,10 +184,11 @@ export const Parts: Story = {
       </style>
       <p>
         This example shows how you can customize the rendering of the grid by using CSS parts. This
-        is a combination of the <code>itemParts</code> property on <code>sl-grid</code> to customize
-        the parts of <code>tr</code> elements and the CSS parts on <code>td</code> elements. A
-        column automatically gets a part name based on the <code>path</code> property of the column.
-        In this case, the column with the path <code>grades</code> will get the part name
+        is a combination of the
+        <code>itemParts</code> property on <code>sl-grid</code> to customize the parts of
+        <code>tr</code> elements and the CSS parts on <code>td</code> elements. A column
+        automatically gets a part name based on the <code>path</code> property of the column. In
+        this case, the column with the path <code>grades</code> will get the part name
         <code>grades</code>. You can customize this further by setting the
         <code>parts</code> property on the column.
       </p>
@@ -166,12 +205,17 @@ export const Parts: Story = {
           grow="3"
           header="Student"
           path="fullName"
+          grand-totals-label="students"
+          grand-totals-type="text"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Rating (0-10)"
-          path="grades"
+          parts="grades"
+          path="averageGrade"
+          grand-totals-format="average"
+          grand-totals-type="number"
           .renderer=${ratingRenderer}></sl-grid-column>
       </sl-grid>
     `;

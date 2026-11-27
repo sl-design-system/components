@@ -1,3 +1,4 @@
+import { msg } from '@lit/localize';
 import {
   type ListDataSourceDataItem,
   ListDataSourcePlaceholder
@@ -10,9 +11,24 @@ import {
   getNameByPath,
   getValueByPath
 } from '@sl-design-system/shared';
-import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResult,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import {
+  type GridGrandTotals,
+  type GridGrandTotalsFormat,
+  type GridGrandTotalsType,
+  formatGrandTotals,
+  getGrandTotalsFormats,
+  resolveGrandTotalsFormat
+} from './grand-totals.js';
 import { type Grid } from './grid.js';
 
 declare global {
@@ -38,6 +54,13 @@ export type GridColumnHeaderRenderer<T = any> = (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
+/** Custom renderer type for the cells in the grand totals row. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnGrandTotalsRenderer<T = any> = (
+  totals: GridGrandTotals | undefined,
+  column: GridColumn<T>
+) => string | undefined | TemplateResult;
+
 /** Custom type for providing parts to a cell. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
@@ -50,10 +73,25 @@ export type GridColumnParts<T = any> = (model: T) => string | undefined;
 export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
+export type SlColumnUpdateEvent<T = any> = CustomEvent<{
+  grid: Grid;
+  column: GridColumn<T>;
+}>;
 
 let nextHeaderCellId = 0;
 
+/**
+ * The base column component for the grid. It defines how the header, data and grand totals cells of
+ * a column are rendered. The cells are rendered by the parent grid, so the parts below are exposed
+ * on the grid.
+ *
+ * @csspart header - The header cell (`<th>`) of the column
+ * @csspart data - A data cell (`<td>`) of the column
+ * @csspart grand-totals - The cell (`<td>`) of the column in the grand totals row
+ * @csspart placeholder - A data cell of a row that is still loading; combined with `data`
+ * @csspart <path> - The dasherized `path` of the column (dots replaced by dashes), set on every cell of the column
+ * @csspart <custom> - Any custom parts set via the `parts` property
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */
@@ -111,13 +149,16 @@ export class GridColumn<T = any> extends LitElement {
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
-  @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+  @property({ type: Boolean, attribute: 'ellipsize-text' })
+  ellipsizeText?: boolean;
 
   /** Optional column label for form controls rendered inside a cell. */
-  @property({ attribute: 'form-control-column-label' }) formControlColumnLabel?: string;
+  @property({ attribute: 'form-control-column-label' })
+  formControlColumnLabel?: string;
 
   /** Optional row context to add to form controls rendered inside a cell. */
-  @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
+  @property({ attribute: false })
+  formControlLabel?: GridColumnFormControlLabel<T>;
 
   /** The parent grid instance. */
   @property({ attribute: false })
@@ -143,7 +184,8 @@ export class GridColumn<T = any> extends LitElement {
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** Whether the column header text should be visually hidden. */
-  @property({ type: Boolean, attribute: 'hide-header-text' }) hideHeaderText?: boolean;
+  @property({ type: Boolean, attribute: 'hide-header-text' })
+  hideHeaderText?: boolean;
 
   /** The number of header rows for this column. */
   headerRowCount = 1;
@@ -179,6 +221,40 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean }) sticky?: boolean;
+
+  /**
+   * Custom content for the cell of this column in the grand totals row. When set, this replaces the
+   * content that is calculated from `grandTotalsType`.
+   */
+  @property({ attribute: false }) grandTotals?: string | GridColumnGrandTotalsRenderer<T>;
+
+  /**
+   * The format in which the total is displayed. Setting this fixes the format for this column; the
+   * format menu does not change it. When not set, the default for the `grandTotalsType` is used.
+   * For boolean columns, the format follows the `grandTotalsFormat` of the grid.
+   */
+  @property({ attribute: 'grand-totals-format' })
+  grandTotalsFormat?: GridGrandTotalsFormat;
+
+  /** A label that is displayed after the total, for example "students". */
+  @property({ attribute: 'grand-totals-label' }) grandTotalsLabel?: string;
+
+  /**
+   * Shows a menu beside the total of this column, so the user can change the format of the totals
+   * of all boolean columns in the grid. When no column sets this, the menu is shown automatically
+   * in the first column of the grand totals row if there are boolean totals without a fixed
+   * format.
+   */
+  @property({ type: Boolean, attribute: 'grand-totals-menu' })
+  grandTotalsMenu?: boolean;
+
+  /**
+   * The kind of data in this column, which determines what the total shows and which formats are
+   * available: `number` (sum or average), `text` (count of non-empty values) or `boolean` (count,
+   * fraction or percentage). Columns without a type show a dash in the grand totals row.
+   */
+  @property({ attribute: 'grand-totals-type' })
+  grandTotalsType?: GridGrandTotalsType;
 
   /** Whether this column is the first or last sticky column. */
   @state() stickyOrder?: 'first' | 'last';
@@ -218,6 +294,23 @@ export class GridColumn<T = any> extends LitElement {
     super.disconnectedCallback();
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    // The grid renders the grand totals cells, so it needs to render again when a property that
+    // affects them changes after the initial render, for example when custom content arrives
+    // asynchronously.
+    if (
+      changes.has('grandTotals') ||
+      changes.has('grandTotalsFormat') ||
+      changes.has('grandTotalsLabel') ||
+      changes.has('grandTotalsMenu') ||
+      changes.has('grandTotalsType')
+    ) {
+      this.#grid?.requestUpdate();
+    }
+  }
+
   /**
    * This method is called when the contents of the grid has changed. This happens when the items
    * property is directly set or when the data source has changed.
@@ -233,6 +326,19 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal */
   get headerCellId(): string {
     return this.#headerCellId;
+  }
+
+  /**
+   * @internal The `aria-labelledby` value for data and grand totals cells. Grouped leaf headers are
+   * plain cells, so they can't be found as column headers. Name the cell by its group header(s) and
+   * column header instead (e.g. "Name First name"); the rendered value is still read as the
+   * content. This applies to every cell in a grouped column, including empty cells and cells with
+   * custom templates.
+   */
+  get cellLabelledBy(): string | undefined {
+    return this.groupHeaderIds.length > 0
+      ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+      : undefined;
   }
 
   /** @internal */
@@ -330,14 +436,7 @@ export class GridColumn<T = any> extends LitElement {
     const classes = this.getClasses(item.data),
       data = this.getDisplayValue(item.data),
       parts = ['data', ...this.getParts(item.data)],
-      // Grouped leaf headers are plain cells, so they can't be found as column headers. Name the
-      // data cell by its group header(s) and column header instead (e.g. "Name First name"); the
-      // rendered value is still read as the content. This applies to every cell in a grouped
-      // column, including empty cells and cells with custom templates.
-      labelledBy =
-        this.groupHeaderIds.length > 0
-          ? [...this.groupHeaderIds, this.headerCellId].join(' ')
-          : undefined;
+      labelledBy = this.cellLabelledBy;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
@@ -364,6 +463,118 @@ export class GridColumn<T = any> extends LitElement {
         </td>
       `;
     }
+  }
+
+  /**
+   * This method renders the `<td>` element for the grand totals row. Override this method if you
+   * want to customize how the grand totals cell is rendered. Do not override this if you only want
+   * to change the content; use the `grandTotals`, `grandTotalsType` and `grandTotalsFormat`
+   * properties for that.
+   */
+  renderGrandTotals(totals?: GridGrandTotals, options?: { menu?: boolean }): TemplateResult {
+    const classes = this.getClasses(),
+      parts = ['grand-totals', ...this.getParts()],
+      content = this.renderGrandTotalsContent(totals),
+      // Truncate long text, like in the data cells, and show the full text in a tooltip
+      display =
+        this.ellipsizeText && typeof content === 'string'
+          ? html`<sl-ellipsize-text>${content}</sl-ellipsize-text>`
+          : content;
+
+    return html`
+      <td
+        aria-labelledby=${ifDefined(this.cellLabelledBy)}
+        aria-colindex=${String(this.columnIndex)}
+        class=${ifDefined(classes.join(' ') || undefined)}
+        headers=${this.headerIds}
+        part=${parts.join(' ')}
+        role="cell">
+        ${
+          (options?.menu ?? this.grandTotalsMenu)
+            ? html`
+                <span class="grand-totals-with-menu">
+                  <span>${display}</span>
+                  ${this.renderGrandTotalsMenu()}
+                </span>
+              `
+            : display
+        }
+      </td>
+    `;
+  }
+
+  /** Renders the content of the grand totals cell; the calculated total or the custom content. */
+  renderGrandTotalsContent(totals?: GridGrandTotals): string | undefined | TemplateResult {
+    if (typeof this.grandTotals === 'function') {
+      return this.grandTotals(totals, this);
+    } else if (typeof this.grandTotals === 'string') {
+      return this.grandTotals;
+    } else if (!this.grandTotalsType) {
+      return '-';
+    }
+
+    const format = this.getGrandTotalsFormat(),
+      value = formatGrandTotals(totals, this.grandTotalsType, format, this.#getLocale());
+
+    if (value === '-') {
+      return value;
+    }
+
+    const prefix =
+        format === 'average' ? `${msg('avg.', { id: 'sl.grid.grandTotals.average' })} ` : '',
+      suffix = this.grandTotalsLabel ? ` ${this.grandTotalsLabel}${this.#getScopeLabel()}` : '';
+
+    return `${prefix}${value}${suffix}`;
+  }
+
+  /** Renders the menu for changing the format of the totals. */
+  renderGrandTotalsMenu(): TemplateResult {
+    const format = resolveGrandTotalsFormat('boolean', this.grid?.grandTotalsFormat),
+      labels: Record<string, string> = {
+        count: msg('Count', { id: 'sl.grid.grandTotals.format.count' }),
+        fraction: msg('Fractions', {
+          id: 'sl.grid.grandTotals.format.fraction'
+        }),
+        percentage: msg('Percentage', {
+          id: 'sl.grid.grandTotals.format.percentage'
+        })
+      };
+
+    return html`
+      <sl-menu-button
+        aria-label=${msg('Grand totals format', {
+          id: 'sl.grid.grandTotals.formatMenu'
+        })}
+        fill="ghost"
+        size="sm">
+        <sl-icon name="angle-down" slot="button"></sl-icon>
+        <sl-menu-item-group selects="single">
+          ${getGrandTotalsFormats('boolean').map(
+            option => html`
+              <sl-menu-item
+                @sl-select=${(event: Event) => this.#onGrandTotalsFormatSelect(event, option)}
+                ?selected=${option === format}
+                selectable>
+                ${labels[option]}
+              </sl-menu-item>
+            `
+          )}
+        </sl-menu-item-group>
+      </sl-menu-button>
+    `;
+  }
+
+  /** Returns the format that applies to this column's total. */
+  getGrandTotalsFormat(): GridGrandTotalsFormat | undefined {
+    if (!this.grandTotalsType) {
+      return undefined;
+    }
+
+    return resolveGrandTotalsFormat(
+      this.grandTotalsType,
+      this.grandTotalsFormat ??
+        (this.grandTotalsType === 'boolean' ? this.grid?.grandTotalsFormat : undefined)
+    );
   }
 
   /** Override this method to provide internal styling for a cell. */
@@ -442,5 +653,34 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
+  }
+
+  #getLocale(): string | undefined {
+    return document.documentElement.lang || undefined;
+  }
+
+  /** Clarifies which rows the totals cover when the data is paginated. */
+  #getScopeLabel(): string {
+    if (!this.grid?.dataSource?.pagination) {
+      return '';
+    }
+
+    return this.grid.grandTotalsScope === 'page'
+      ? ` (${msg('Page total', { id: 'sl.grid.grandTotals.pageTotal' })})`
+      : ` (${msg('on the Grid', { id: 'sl.grid.grandTotals.onTheGrid' })})`;
+  }
+
+  #onGrandTotalsFormatSelect(event: Event, format: GridGrandTotalsFormat): void {
+    if (this.grid) {
+      this.grid.grandTotalsFormat = format;
+    }
+
+    // The menu item group stops the `sl-select` event, so the menu button never gets a chance
+    // to close the menu. Close it here, once the selection has been made.
+    const menuButton = (event.target as HTMLElement).closest('sl-menu-button') as
+      | (HTMLElement & { menu?: HTMLElement })
+      | null;
+
+    menuButton?.menu?.hidePopover();
   }
 }

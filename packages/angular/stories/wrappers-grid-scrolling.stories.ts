@@ -7,6 +7,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
+import { classesGrandTotals, pupils } from './wrappers-grid-grand-totals-utils';
 
 const avatarRenderer = (student: Student) => html`
   <sl-avatar
@@ -211,6 +212,71 @@ export const BothSticky: StoryObj = {
           <sl-grid-column path="school.address"></sl-grid-column>
           <sl-grid-column path="school.city"></sl-grid-column>
           <sl-grid-column path="school.country" [sticky]="true"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+const overflowStyles = `
+  <style>
+    .overflow-grid {
+      block-size: 320px;
+      border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+      border-radius: var(--sl-size-borderRadius-default);
+      overflow-y: auto;
+    }
+  </style>
+`;
+
+export const VerticalOverflowGrandTotalsRow: StoryObj = {
+  render: () => {
+    return {
+      description:
+        'A grand totals row in a grid with a scrollable container. The header sticks to the top and the grand totals row sticks to the bottom of the scroll container, so the totals are always visible while you scroll through the rows.',
+      props: { classes: classesGrandTotals(pupils), items: pupils },
+      template: `
+        ${overflowStyles}
+        <sl-grid [items]="items" class="overflow-grid" [noBorder]="true" [noSkipLinks]="true">
+          <sl-grid-column
+            header="Student"
+            path="name"
+            grand-totals-label="students"
+            grand-totals-type="text"></sl-grid-column>
+          <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const VerticalOverflowGrandTotalsRowTop: StoryObj = {
+  render: () => {
+    return {
+      description:
+        'A grand totals row at the top of a scrollable grid. It sticks below the header, so the totals stay visible while you scroll through the rows.',
+      props: { classes: classesGrandTotals(pupils), items: pupils },
+      template: `
+        ${overflowStyles}
+        <sl-grid grand-totals-position="top" [items]="items" class="overflow-grid" [noBorder]="true" [noSkipLinks]="true">
+          <sl-grid-column
+            header="Student"
+            path="name"
+            grand-totals-label="students"
+            grand-totals-type="text"></sl-grid-column>
+          <sl-grid-column header="Class" path="class" [grandTotals]="classes"></sl-grid-column>
+          <sl-grid-column
+            align="end"
+            header="Grade"
+            path="grade"
+            grand-totals-format="average"
+            grand-totals-type="number"></sl-grid-column>
         </sl-grid>
       `
     };

@@ -554,6 +554,34 @@
   <source>Select group</source>
   <target>Zaznacz grupę</target>
 </trans-unit>
+<trans-unit id="sl.grid.grandTotals.average">
+  <source>avg.</source>
+  <target>śr.</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.format.count">
+  <source>Count</source>
+  <target>Liczba</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.format.fraction">
+  <source>Fractions</source>
+  <target>Ułamki</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.format.percentage">
+  <source>Percentage</source>
+  <target>Procent</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.formatMenu">
+  <source>Grand totals format</source>
+  <target>Format podsumowania</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.pageTotal">
+  <source>Page total</source>
+  <target>Suma strony</target>
+</trans-unit>
+<trans-unit id="sl.grid.grandTotals.onTheGrid">
+  <source>on the Grid</source>
+  <target>w tabeli</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

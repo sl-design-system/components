@@ -1,4 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { Checkbox } from '@sl-design-system/checkbox';
 import {
   FetchListDataSource,
   FetchListDataSourceError,
@@ -9,13 +10,18 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
+import { Radio } from '@sl-design-system/radio-group';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
+import { createRef, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
-import { avatarRenderer } from './story-utils.js';
+import { type GridGrandTotals, calculateGrandTotals } from '../grand-totals.js';
+import { type Grid } from '../grid.js';
+import { type Pupil, avatarRenderer, classesGrandTotals, pupils } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -545,5 +551,474 @@ export const ReorderColumns: Story = {
     }
 
     return html`<grid-reorder-example></grid-reorder-example>`;
+  }
+};
+
+export const GrandTotalsRow: Story = {
+  render: () => html`
+    <p>
+      A grand totals row shows the totals of the columns. Set
+      <code>grand-totals-type</code> on a column to show a total: <code>number</code> columns show
+      the sum (<code>grand-totals-format="sum"</code>, the default) or the average
+      (<code>grand-totals-format="average"</code>), <code>text</code> columns the number of
+      non-empty values and <code>boolean</code> columns a fraction, count or percentage. A dash is
+      shown in columns without a total. The grand totals row is shown at the bottom by default and
+      stays visible while you scroll.
+    </p>
+    <p>
+      There is no <code>grand-totals-type</code> for every kind of total. For example, the "Class"
+      column shows how many different classes there are, which can't be calculated from its values
+      by the grid. For such cases, set the <code>grandTotals</code> property on the column to your
+      own text, like <code>.grandTotals=\${'2 classes'}</code>. Calculate the text yourself from
+      your data. The grid doesn't recalculate this text when the rows change, but you can update it:
+      when you set a new value on the <code>grandTotals</code> property, for example after the data
+      or the filters change, the grand totals row shows the new text.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .grandTotals=${classesGrandTotals(pupils.slice(0, 11))}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        header="Homework"
+        path="homework"
+        grand-totals-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Present"
+        path="present"
+        grand-totals-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+interface SubjectRow {
+  [subject: string]: boolean | number | string;
+  class: string;
+  grade: number;
+  name: string;
+  profile: string;
+}
+
+const subjects = ['AK', 'EC', 'EN', 'NSK1', 'WI', 'VT', 'ZW', 'TE', 'EC2', 'rtF2', 'mgez'],
+  /** Which subjects are checked: every subject has its own deterministic pattern. */
+  subjectPattern: Record<string, (index: number) => boolean> = {
+    AK: () => true,
+    EC: index => index === 2 || index === 6,
+    EN: () => true,
+    NSK1: index => [2, 4, 6, 7].includes(index),
+    WI: index => index === 4,
+    VT: () => true,
+    ZW: index => index === 6,
+    TE: index => [2, 4, 6].includes(index),
+    EC2: index => [2, 4, 6, 7].includes(index),
+    rtF2: () => true,
+    mgez: index => index === 2 || index === 6
+  },
+  subjectRows: SubjectRow[] = [
+    ['Irma Akpinar', 'F3CB', 'N&G', 4.1],
+    ['Josien Veenstra', 'F3CB', 'N&G', 7.3],
+    ['Sjors de Jong', 'F3CB', 'N&G', 6.7],
+    ['Rene Top', 'F5AB', '-', 5.5],
+    ['Fleur Fauna', 'F3CB', 'N&G', 7.8],
+    ['Gert Flits', 'F3CB', 'N&G', 3.5],
+    ['Gers Dijkstra', 'F3CB', '-', 9.2],
+    ['Mees Aka', 'F3CB', 'N&G', 6.3],
+    ['Josien Veenstra', 'F3CB', 'N&G', 7.3],
+    ['Rene Top', 'F3CB', '-', 5.5],
+    ['Gert Flits', 'F5AB', 'N&G', 3.5]
+  ].map(([name, className, profile, grade], index) => ({
+    class: className as string,
+    grade: grade as number,
+    name: name as string,
+    profile: profile as string,
+    ...Object.fromEntries(subjects.map(subject => [subject, subjectPattern[subject](index)]))
+  }));
+
+export const GrandTotalsRowCheckboxColumns: Story = {
+  render: () => {
+    const gridRef = createRef<Grid>(),
+      checkboxRenderer =
+        (subject: string): GridColumnDataRenderer<SubjectRow> =>
+        row =>
+          html`
+            <sl-checkbox
+              @sl-change=${({ detail }: SlChangeEvent<boolean>) => {
+                // Update the data, then re-render the grid so the totals are recalculated
+                row[subject] = detail;
+                gridRef.value?.requestUpdate();
+              }}
+              aria-label="${subject}: ${row.name}"
+              ?checked=${row[subject]}
+              size="sm"></sl-checkbox>
+          `;
+
+    return html`
+      <p>
+        A grand total row for a grid with many boolean columns. There is no dedicated column type
+        for checkboxes, so the columns use a
+        <code>renderer</code> that renders an <code>sl-checkbox</code>, while
+        <code>grand-totals-type="boolean"</code> calculates the fractions from the underlying
+        values. Use the menu beside the label to switch between fractions, counts and percentages.
+      </p>
+      <sl-grid ${ref(gridRef)} .items=${subjectRows}>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
+        <sl-grid-column
+          grow="0"
+          header="Class"
+          path="class"
+          width="100"
+          .grandTotals=${classesGrandTotals(subjectRows)}></sl-grid-column>
+        <sl-grid-column grow="0" header="Profile" path="profile" width="80"></sl-grid-column>
+        ${subjects.map(
+          subject => html`
+            <sl-grid-column
+              align="center"
+              grow="0"
+              header=${subject.replace(/2$/, '')}
+              path=${subject}
+              grand-totals-type="boolean"
+              width="70"
+              .renderer=${checkboxRenderer(subject)}
+              .scopedElements=${{ 'sl-checkbox': Checkbox }}></sl-grid-column>
+          `
+        )}
+        <sl-grid-column
+          align="end"
+          grow="0"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"
+          width="80"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+interface LevelRow {
+  above: boolean;
+  below: boolean;
+  grade: number;
+  name: string;
+  onTrack: boolean;
+}
+
+const levels = [
+    { header: 'Below level', key: 'below' },
+    { header: 'On track', key: 'onTrack' },
+    { header: 'Above level', key: 'above' }
+  ] as const,
+  levelRows: LevelRow[] = pupils.slice(0, 11).map(({ grade, name }) => ({
+    above: grade >= 8,
+    below: grade < 5.5,
+    grade,
+    name,
+    onTrack: grade >= 5.5 && grade < 8
+  }));
+
+export const GrandTotalsRowRadioColumns: Story = {
+  render: () => {
+    const gridRef = createRef<Grid>(),
+      radioRenderer =
+        (key: (typeof levels)[number]['key'], header: string): GridColumnDataRenderer<LevelRow> =>
+        row => {
+          // A row has exactly one level: update the data, then re-render the grid so the
+          // totals are recalculated
+          const select = () => {
+            for (const level of levels) {
+              row[level.key] = level.key === key;
+            }
+
+            gridRef.value?.requestUpdate();
+          };
+
+          return html`
+            <sl-radio
+              @click=${select}
+              @keydown=${(event: KeyboardEvent) => {
+                // The radio checks itself on Enter and Space without dispatching a click
+                if (['Enter', ' '].includes(event.key)) {
+                  select();
+                }
+              }}
+              .checked=${row[key]}
+              size="sm">
+              <span
+                style="block-size: 1px; clip-path: inset(50%); inline-size: 1px; overflow: hidden; position: absolute; white-space: nowrap">
+                ${header}: ${row.name}
+              </span>
+            </sl-radio>
+          `;
+        };
+
+    return html`
+      <p>
+        This example is similar to the one with checkboxes, but every student can only have one
+        level, so only one radio button per row is checked. The columns use a
+        <code>renderer</code> that renders an <code>sl-radio</code>, while
+        <code>grand-totals-type="boolean"</code> calculates the totals from the underlying values.
+        Because there is exactly one choice per row, the totals of the level columns always add up
+        to the number of students. Select another level to see the totals update.
+      </p>
+      <sl-grid ${ref(gridRef)} .items=${levelRows}>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
+        ${levels.map(
+          ({ header, key }) => html`
+            <sl-grid-column
+              align="center"
+              header=${header}
+              path=${key}
+              grand-totals-type="boolean"
+              .renderer=${radioRenderer(key, header)}
+              .scopedElements=${{ 'sl-radio': Radio }}></sl-grid-column>
+          `
+        )}
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const GrandTotalsRowTop: Story = {
+  render: () => html`
+    <p>
+      Use <code>grand-totals-position="top"</code> to show the grand totals row below the header. It
+      sticks to the header when you scroll.
+    </p>
+    <sl-grid grand-totals-position="top" .items=${pupils}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        grand-totals-label="students"
+        grand-totals-type="text"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
+        grand-totals-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const GrandTotalsRowFormatMenu: Story = {
+  render: () => html`
+    <p>
+      Add <code>grand-totals-menu</code> to a column to show a menu beside its total. The menu
+      changes the format of all boolean totals that don't have a fixed
+      <code>grand-totals-format</code>. The format only changes how the total is displayed, never
+      the calculated value or the number of records it is relative to. You can also set the format
+      on the grid with <code>grand-totals-format</code>.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column
+        header="Student"
+        path="name"
+        grand-totals-label="students"
+        grand-totals-menu
+        grand-totals-type="text"></sl-grid-column>
+      <sl-grid-column
+        header="Class"
+        path="class"
+        .grandTotals=${classesGrandTotals(pupils.slice(0, 11))}></sl-grid-column>
+      <sl-grid-column
+        header="Homework"
+        path="homework"
+        grand-totals-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.homework ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Present"
+        path="present"
+        grand-totals-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        header="Passed (always a count)"
+        path="passed"
+        grand-totals-format="count"
+        grand-totals-type="boolean"
+        .renderer=${(pupil: Pupil) => (pupil.passed ? 'Yes' : 'No')}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        grand-totals-format="average"
+        grand-totals-type="number"></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Trip fee paid (€)"
+        path="tripFee"
+        grand-totals-format="sum"
+        grand-totals-type="number"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const GrandTotalsRowCustomContent: Story = {
+  render: () => html`
+    <p>
+      Use the <code>grandTotals</code> property to replace the calculated total with a string or a
+      renderer function. The renderer receives the raw totals of the column.
+    </p>
+    <sl-grid .items=${pupils.slice(0, 11)}>
+      <sl-grid-column header="Student" path="name" .grandTotals=${'Totals'}></sl-grid-column>
+      <sl-grid-column
+        align="end"
+        header="Grade"
+        path="grade"
+        grand-totals-type="number"
+        .grandTotals=${(totals?: GridGrandTotals) =>
+          totals?.evaluated
+            ? `${(totals.sum / totals.evaluated).toFixed(1)} on average`
+            : '-'}></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const GrandTotalsRowEllipsizeText: Story = {
+  render: (_, { loaded: { students } }) => {
+    // The example students have no boolean values, so add a deterministic one
+    const rows = (students as Student[]).map((student, index) => ({
+      ...student,
+      present: index % 5 !== 0
+    }));
+
+    return html`
+      <p>
+        This example combines <code>ellipsize-text</code> with a grand totals row. Text that
+        overflows its column is truncated in the rows as well as in the grand totals row, and the
+        full text is available in a tooltip. When a column also has <code>grand-totals-menu</code>,
+        the menu button always stays visible and only the text is truncated. The menu changes the
+        format of the boolean totals, here the "Present" column.
+      </p>
+      <sl-grid
+        .items=${rows}
+        style="max-inline-size: 500px"
+        ellipsize-text
+        column-divider
+        no-skip-links>
+        <sl-grid-column
+          path="firstName"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"
+          width="110"></sl-grid-column>
+        <sl-grid-column path="lastName" width="80"></sl-grid-column>
+        <sl-grid-column path="school.name" grand-totals-type="text" width="100"></sl-grid-column>
+        <sl-grid-column
+          header="Present"
+          path="present"
+          grand-totals-type="boolean"
+          width="90"
+          .renderer=${(row: { present: boolean }) => (row.present ? 'Yes' : 'No')}></sl-grid-column>
+        <sl-grid-column path="school.city" width="65"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const GrandTotalsRowFetch: Story = {
+  render: () => {
+    const ds = new FetchListDataSource<Pupil>({
+      pageSize: 10,
+      fetchPage: ({ page, pageSize }) => {
+        // A real server calculates the totals for all the records matching the filters. The
+        // totals are the raw values, so the format can be changed without fetching again.
+        const grandTotals = {
+          name: calculateGrandTotals(pupils.map(pupil => pupil.name)),
+          grade: calculateGrandTotals(pupils.map(pupil => pupil.grade)),
+          present: calculateGrandTotals(pupils.map(pupil => pupil.present))
+        };
+
+        return new Promise(resolve =>
+          setTimeout(
+            () =>
+              resolve({
+                items: pupils.slice(page * pageSize, page * pageSize + pageSize),
+                grandTotals,
+                totalItems: pupils.length
+              }),
+            500
+          )
+        );
+      }
+    });
+
+    return html`
+      <p>
+        A <code>FetchListDataSource</code> doesn't have all the rows, so it can't calculate the
+        totals itself. Return the raw totals as <code>grandTotals</code> from the
+        <code>fetchPage</code> callback, next to <code>items</code> and <code>totalItems</code>. The
+        grand totals row shows a dash until the totals have arrived.
+      </p>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column
+          header="Student"
+          path="name"
+          grand-totals-label="students"
+          grand-totals-menu
+          grand-totals-type="text"></sl-grid-column>
+        <sl-grid-column
+          header="Class"
+          path="class"
+          .grandTotals=${classesGrandTotals(pupils)}></sl-grid-column>
+        <sl-grid-column
+          align="end"
+          header="Grade"
+          path="grade"
+          grand-totals-format="average"
+          grand-totals-type="number"></sl-grid-column>
+        <sl-grid-column
+          header="Present"
+          path="present"
+          grand-totals-type="boolean"
+          .renderer=${(pupil: Pupil) => (pupil.present ? 'Yes' : 'No')}></sl-grid-column>
+      </sl-grid>
+    `;
   }
 };

@@ -14,18 +14,6 @@
     {
       "name": "Grid column group",
       "selector": "sl-grid-column-group"
-    },
-    {
-      "name": "Grid filter column",
-      "selector": "sl-grid-filter-column"
-    },
-    {
-      "name": "Grid selection column",
-      "selector": "sl-grid-selection-column"
-    },
-    {
-      "name": "Grid sort column",
-      "selector": "sl-grid-sort-column"
     }
-  ]
+    ]
 }

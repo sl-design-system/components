@@ -68,6 +68,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
    */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
+  /** @ignore */
   override headerRowCount = 2;
 
   /** The path to use for the displayed value in the column. */

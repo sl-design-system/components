@@ -239,6 +239,14 @@ export function omitPlugin() {
             return true;
           });
 
+          declaration.fields = declaration.fields?.filter(
+            field => !omitTags.properties.has(field.name)
+          );
+
+          declaration.methods = declaration.methods?.filter(
+            method => !omitTags.methods.has(method.name)
+          );
+
           declaration.attributes = declaration.attributes?.filter(attr => {
             return !omitTags.properties.has(attr.name) && !omitTags.properties.has(attr.fieldName);
           });

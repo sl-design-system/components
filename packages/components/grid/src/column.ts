@@ -54,6 +54,12 @@ export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: Gri
 
 let nextHeaderCellId = 0;
 
+/**
+ * Defines which property of the data a column shows and how it is displayed.
+ *
+ * @omit-method itemsChanged - Not documented until custom columns are covered in the documentation.
+ * @omit-method stateChanged - Not documented until custom columns are covered in the documentation.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */
@@ -107,7 +113,10 @@ export class GridColumn<T = any> extends LitElement {
     return {};
   }
 
-  /** @internal Emits when the column definition has changed. */
+  /**
+   * @private Internal Communication between columns and the grid.
+   * @internal Emits when the column definition has changed.
+   */
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
@@ -119,7 +128,11 @@ export class GridColumn<T = any> extends LitElement {
   /** Optional row context to add to form controls rendered inside a cell. */
   @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
 
-  /** The parent grid instance. */
+  /**
+   * The parent grid instance.
+   *
+   * @ignore
+   */
   @property({ attribute: false })
   set grid(value: Grid<T> | undefined) {
     this.#grid?.removeEventListener('sl-grid-state-change', this.#onStateChanged);
@@ -127,6 +140,7 @@ export class GridColumn<T = any> extends LitElement {
     this.#grid?.addEventListener('sl-grid-state-change', this.#onStateChanged);
   }
 
+  /** @ignore */
   get grid(): Grid<T> | undefined {
     return this.#grid;
   }
@@ -145,7 +159,11 @@ export class GridColumn<T = any> extends LitElement {
   /** Whether the column header text should be visually hidden. */
   @property({ type: Boolean, attribute: 'hide-header-text' }) hideHeaderText?: boolean;
 
-  /** The number of header rows for this column. */
+  /**
+   * The number of header rows for this column.
+   *
+   * @ignore
+   */
   headerRowCount = 1;
 
   /** @internal IDs of ancestor group headers that apply to this column header. */
@@ -180,10 +198,18 @@ export class GridColumn<T = any> extends LitElement {
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean }) sticky?: boolean;
 
-  /** Whether this column is the first or last sticky column. */
+  /**
+   * Whether this column is the first or last sticky column.
+   *
+   * @ignore
+   */
   @state() stickyOrder?: 'first' | 'last';
 
-  /** The position where the column should be sticky: at the start of the grid, or at the end. */
+  /**
+   * The position where the column should be sticky: at the start of the grid, or at the end.
+   *
+   * @ignore
+   */
   @state() stickyPosition?: 'start' | 'end';
 
   set width(value: number | undefined) {
@@ -225,7 +251,7 @@ export class GridColumn<T = any> extends LitElement {
   itemsChanged(): void {}
 
   /**
-   * This method is called when the state of the grid has changed. This happens for examples when a
+   * This method is called when the state of the grid has changed. This happens for example when a
    * filter or sorting changes.
    */
   stateChanged(): void {}

@@ -14,6 +14,13 @@ layout: base.njk
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
       <ds-component-status component-name="{{post.data.packageName}}" storybook-component-name="{% if post.data.storybookComponentName != null %}{{ post.data.storybookComponentName }}{% else %}{{post.data.packageName}}{% endif %}" storybook-category="{{post.data.storybookCategory}}" version="{{version[post.data.packageName]}}" status="{{ post.data.componentStatus }}">{{post.data.status}}</ds-component-status>
+      {% if post.data.packageName == "grid" %}
+      <div class="ds-component__callout">
+        <sl-callout density="relaxed" variant="warning">
+          This documentation covers only <strong>the grid basics</strong>, not all variants of the grid component yet.
+        </sl-callout>
+      </div>
+      {% endif %}
       <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
         {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}

@@ -9,11 +9,39 @@ declare global {
   }
 }
 
+/**
+ * Groups nested columns under a shared header.
+ *
+ * @omit path - Not applicable to a column group, it does not render cells.
+ * @omit renderer - Not applicable to a column group, it does not render cells.
+ * @omit parts - Not applicable to a column group, it does not render cells.
+ * @omit ellipsizeText - Not applicable to a column group, it does not render cells.
+ * @omit autoWidth - Not applicable to a column group, it does not render cells.
+ * @omit grow - Not applicable to a column group, it does not render cells.
+ * @omit sticky - Not applicable to a column group, it does not render cells.
+ * @omit formControlColumnLabel - Not applicable to a column group, it does not render cells.
+ * @omit formControlLabel - Not applicable to a column group, it does not render cells.
+ * @omit scopedElements - Not applicable to a column group, it does not render cells.
+ * @omit-method getClasses - Not applicable to a column group, it does not render cells.
+ * @omit-method getDisplayValue - Not applicable to a column group, it does not render cells.
+ * @omit-method getFormControlLabel - Not applicable to a column group, it does not render cells.
+ * @omit-method getParts - Not applicable to a column group, it does not render cells.
+ * @omit-method itemsChanged - Not applicable to a column group, it does not render cells.
+ * @omit-method stateChanged - Not applicable to a column group, it does not render cells.
+ * @omit-method renderData - Not applicable to a column group, it does not render cells.
+ * @omit-method renderHeaderLabel - Not applicable to a column group, it does not render cells.
+ * @omit-method renderHeaderRow - Internal rendering of the group header, not meant to be overridden.
+ * @omit-method renderStyles - Not applicable to a column group, it does not render cells.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumnGroup<T = any> extends GridColumn<T> {
   #width?: number;
 
-  /** The nested columns in the group. */
+  /**
+   * The nested columns in the group.
+   *
+   * @ignore
+   */
   @state() columns: Array<GridColumn<T>> = [];
 
   override set width(value: number) {

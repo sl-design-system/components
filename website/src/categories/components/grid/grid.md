@@ -1,16 +1,15 @@
 ---
 title: Grid
-description: Grid description
+description: A grid displays structured data in rows and columns, allowing users to scan, compare and interact with large sets of data.
 componentType: grid
-shortDescription: We are still working on the grid component
+shortDescription: A grid displays structured data in rows and columns.
 layout: "categories/components/components.njk"
 tags: component
 packageName: grid
 storybookCategory: grid
-eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Grid
-  status: coming
+  status: new
 ---
 

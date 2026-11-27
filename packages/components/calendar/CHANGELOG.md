@@ -1,5 +1,11 @@
 # @sl-design-system/calendar
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3836](https://github.com/sl-design-system/components/pull/3836) [`c253b6a`](https://github.com/sl-design-system/components/commit/c253b6a19117c1a81c7abe7fb7dc19cfed4ece76) - Fix month and year tables overflowing the calendar and overlapping helper text or date field controls in Safari.
+
 ## 0.2.0
 
 ### Minor Changes

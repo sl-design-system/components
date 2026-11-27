@@ -1,0 +1,238 @@
+:host {
+  --_gap: var(--sl-size-100);
+  --_margin: var(--sl-size-300);
+  --_inline-size: var(--sl-notification-stack-inline-size, 380px);
+
+  background: transparent;
+  border: 0;
+  box-sizing: border-box;
+
+  /* Inside a dialog the stack would inherit its font and color; set them explicitly */
+  color: var(--sl-color-foreground-plain);
+  font: var(--sl-text-new-body-md);
+  gap: var(--_gap);
+  inline-size: min(var(--_inline-size), 100vw - 2 * var(--_margin));
+  inset: auto var(--_margin) var(--_margin) auto;
+  interpolate-size: allow-keywords;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  position: fixed;
+}
+
+:host(:popover-open) {
+  display: flex;
+  flex-direction: column;
+}
+
+:host([position^='top']) {
+  flex-direction: column-reverse;
+  inset-block: var(--_margin) auto;
+
+  [part='persistent'],
+  [part='pile'] {
+    flex-direction: column-reverse;
+  }
+}
+
+:host([position$='start']) {
+  inset-inline: var(--_margin) auto;
+}
+
+:host([position$='center']) {
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+:host(:state(small)) {
+  --_margin: var(--sl-size-200);
+
+  flex-direction: column;
+  inline-size: calc(100vw - 2 * var(--_margin));
+  inset: auto var(--_margin) var(--_margin);
+
+  [part='persistent'],
+  [part='pile'] {
+    flex-direction: column;
+  }
+}
+
+[part='persistent'],
+[part='pile'] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--_gap);
+}
+
+[part='persistent']:empty,
+[part='pile']:empty {
+  display: none;
+}
+
+sl-notification {
+  --_easing: cubic-bezier(0.25, 0, 0.3, 1);
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Let `display` (and the size) transition too, so collapsing the pile animates like expanding */
+    transition:
+      opacity 0.2s var(--_easing),
+      translate 0.2s var(--_easing),
+      block-size 0.2s var(--_easing),
+      padding-block 0.2s var(--_easing),
+      border-block-width 0.2s var(--_easing),
+      margin-block 0.2s var(--_easing),
+      display 0.2s allow-discrete;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition:
+      opacity 0.2s linear,
+      display 0.2s allow-discrete;
+  }
+
+  /* Flex items don't shrink below their content by default; let them fold away completely */
+  min-block-size: 0;
+
+  /*
+   * A new notification grows in from nothing at the edge of the screen, so it doesn't push the
+   * others away first; the gap before it grows along.
+   */
+  @starting-style {
+    block-size: 0;
+    border-block-width: 0;
+    margin-block-start: calc(var(--_gap) * -1);
+    opacity: 0;
+    padding-block: 0;
+    translate: 0 var(--sl-size-200);
+  }
+}
+
+:host([position^='top']:not(:state(small))) sl-notification {
+  @starting-style {
+    margin-block: 0 calc(var(--_gap) * -1);
+    translate: 0 calc(var(--sl-size-200) * -1);
+  }
+}
+
+/*
+ * Notifications behind the front one of a collapsed pile. They fold into the front card: fade out,
+ * slide towards it and shrink to nothing (cancelling the gap), before `display: none` kicks in.
+ */
+sl-notification[hidden] {
+  block-size: 0;
+  border-block-width: 0;
+  display: none;
+  margin-block-end: calc(var(--_gap) * -1);
+  opacity: 0;
+  padding-block: 0;
+  translate: 0 var(--sl-size-200);
+
+  @media (prefers-reduced-motion: reduce) {
+    translate: none;
+  }
+}
+
+:host([position^='top']:not(:state(small))) sl-notification[hidden] {
+  margin-block: calc(var(--_gap) * -1) 0;
+  translate: 0 calc(var(--sl-size-200) * -1);
+}
+
+/* A notification that was closed folds away in place, so the others move along smoothly */
+sl-notification.leaving {
+  block-size: 0;
+  border-block-width: 0;
+  margin-block-end: calc(var(--_gap) * -1);
+  opacity: 0;
+  padding-block: 0;
+  pointer-events: none;
+  translate: 0 var(--sl-size-200);
+
+  @media (prefers-reduced-motion: reduce) {
+    translate: none;
+  }
+}
+
+:host([position^='top']:not(:state(small))) sl-notification.leaving {
+  margin-block: calc(var(--_gap) * -1) 0;
+  translate: 0 calc(var(--sl-size-200) * -1);
+}
+
+/* The edges of the cards behind the front notification of a collapsed pile */
+.edges {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  /* Edges touch the front card; without edges this cancels the extra gap around them */
+  margin-block-end: calc(var(--_gap) * -1);
+
+  &:not(.has-edges) {
+    pointer-events: none;
+  }
+}
+
+:host([position^='top']:not(:state(small))) .edges {
+  flex-direction: column-reverse;
+  margin-block: calc(var(--_gap) * -1) 0;
+
+  .edge {
+    border-block: 0 var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-radius: 0 0 var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default);
+  }
+}
+
+.edge {
+  background: var(--sl-elevation-surface-raised-sunken);
+  block-size: var(--sl-size-100);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-block-end: 0;
+  border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+  box-sizing: border-box;
+  margin-inline: calc(var(--_inset) * var(--sl-size-100));
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      block-size 0.2s cubic-bezier(0.25, 0, 0.3, 1),
+      border-width 0.2s cubic-bezier(0.25, 0, 0.3, 1),
+      opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
+  &:last-child {
+    background: var(--sl-elevation-surface-raised-default);
+  }
+
+  &.off {
+    block-size: 0;
+    border-width: 0;
+    opacity: 0;
+  }
+}
+
+[part='more'] {
+  align-self: center;
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-full);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
+  font: var(--sl-text-new-body-sm);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  min-block-size: var(--sl-size-400);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-borderWidth-focusRing);
+  padding: 0 var(--sl-size-200);
+
+  &:hover {
+    background: color-mix(
+      in srgb,
+      var(--sl-elevation-surface-raised-default),
+      var(--sl-color-background-neutral-interactive-plain)
+        calc(100% * var(--sl-opacity-interactive-plain-hover))
+    );
+  }
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+}

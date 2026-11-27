@@ -1,0 +1,135 @@
+:host {
+  --_accent: var(--sl-color-foreground-info-bold);
+
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  display: grid;
+  font: var(--sl-text-new-body-md);
+  gap: 0 var(--sl-size-150);
+  grid-template-columns: auto 1fr auto;
+  inline-size: var(--sl-notification-inline-size, 100%);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-borderWidth-focusRing);
+  overflow: clip;
+  padding-block: var(--sl-size-175) 0;
+  padding-inline: var(--sl-size-200) var(--sl-size-125);
+  position: relative;
+}
+
+:host(:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host([variant='success']) {
+  --_accent: var(--sl-color-foreground-positive-bold);
+}
+
+:host([variant='warning']) {
+  --_accent: var(--sl-color-foreground-caution-bold);
+}
+
+:host([variant='error']) {
+  --_accent: var(--sl-color-foreground-negative-bold);
+}
+
+[part='icon'] {
+  align-items: center;
+  block-size: 1lh;
+  color: var(--_accent);
+  display: inline-flex;
+}
+
+[part='content'] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-025);
+  min-inline-size: 0;
+  padding-block-end: var(--sl-size-175);
+}
+
+[part='label'] {
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  overflow-wrap: anywhere;
+}
+
+[part='description'] {
+  color: var(--sl-color-foreground-subtle);
+  font: var(--sl-text-new-body-sm);
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+[part='actions'] {
+  display: flex;
+  gap: var(--sl-size-050);
+  margin-block-start: var(--sl-size-050);
+  margin-inline-start: calc(var(--sl-size-100) * -1);
+}
+
+[hidden] {
+  display: none;
+}
+
+.action {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-info-bold);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  min-block-size: var(--sl-size-400);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  padding: 0 var(--sl-size-100);
+  text-decoration: none;
+
+  &:hover {
+    background: color-mix(
+      in srgb,
+      transparent,
+      var(--sl-color-background-info-interactive-plain)
+        calc(100% * var(--sl-opacity-interactive-plain-hover))
+    );
+  }
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+}
+
+sl-button {
+  align-self: start;
+  margin-block-start: calc(var(--sl-size-075) * -1);
+}
+
+[part='timer'] {
+  background: var(--sl-color-background-neutral-subtlest);
+  block-size: var(--sl-size-050);
+  grid-column: 1 / -1;
+  margin-inline: calc(var(--sl-size-200) * -1) calc(var(--sl-size-125) * -1);
+}
+
+/* While paused (focused or hovered) the time left isn't relevant, so hide the bar */
+:host(:state(timed):not(:state(running))) [part='bar'] {
+  visibility: hidden;
+}
+
+[part='bar'] {
+  background: var(--_accent);
+  block-size: 100%;
+  transform-origin: left;
+}
+
+:host(:dir(rtl)) [part='bar'] {
+  transform-origin: right;
+}
+
+:host(:not(:state(timed))) [part='timer'] {
+  display: none;
+}

@@ -554,6 +554,66 @@
   <source>Select group</source>
   <target>Seleccionar grupo</target>
 </trans-unit>
+<trans-unit id="sl.notification.buttonLabelOverflow">
+  <source>Notifications, more than <x id="0" equiv-text="${max}"/> unread</source>
+  <target>Notificaciones, más de <x id="0" equiv-text="${max}"/> sin leer</target>
+</trans-unit>
+<trans-unit id="sl.notification.buttonLabel">
+  <source>Notifications, <x id="0" equiv-text="${this.count}"/> unread</source>
+  <target>Notificaciones, <x id="0" equiv-text="${this.count}"/> sin leer</target>
+</trans-unit>
+<trans-unit id="sl.notification.emptyTitle">
+  <source>You’re all caught up</source>
+  <target>Estás al día</target>
+</trans-unit>
+<trans-unit id="sl.notification.emptyText">
+  <source>No unread notifications.</source>
+  <target>No hay notificaciones sin leer.</target>
+</trans-unit>
+<trans-unit id="sl.notification.earlier">
+  <source>Earlier</source>
+  <target>Anteriores</target>
+</trans-unit>
+<trans-unit id="sl.notification.showEarlier">
+  <source>Show earlier notifications</source>
+  <target>Mostrar notificaciones anteriores</target>
+</trans-unit>
+<trans-unit id="sl.notification.end">
+  <source>No more notifications</source>
+  <target>No hay más notificaciones</target>
+</trans-unit>
+<trans-unit id="sl.notification.unread">
+  <source>Unread</source>
+  <target>Sin leer</target>
+</trans-unit>
+<trans-unit id="sl.notification.hasAction">
+  <source>Has action</source>
+  <target>Tiene acción</target>
+</trans-unit>
+<trans-unit id="sl.notification.title">
+  <source>Notifications</source>
+  <target>Notificaciones</target>
+</trans-unit>
+<trans-unit id="sl.notification.markAllRead">
+  <source>Mark all as read</source>
+  <target>Marcar todo como leído</target>
+</trans-unit>
+<trans-unit id="sl.notification.close">
+  <source>Close notifications</source>
+  <target>Cerrar notificaciones</target>
+</trans-unit>
+<trans-unit id="sl.notification.moreViewAll">
+  <source><x id="0" equiv-text="${hidden}"/> more · View all</source>
+  <target><x id="0" equiv-text="${hidden}"/> más · Ver todo</target>
+</trans-unit>
+<trans-unit id="sl.notification.shortcutHint">
+  <source>Press <x id="0" equiv-text="${this.shortcut ?? 'F8'}"/> to go to notifications.</source>
+  <target>Pulsa <x id="0" equiv-text="${this.shortcut ?? 'F8'}"/> para ir a las notificaciones.</target>
+</trans-unit>
+<trans-unit id="sl.notification.dismiss">
+  <source>Dismiss notification</source>
+  <target>Descartar notificación</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

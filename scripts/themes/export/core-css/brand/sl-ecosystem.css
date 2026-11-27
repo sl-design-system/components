@@ -661,10 +661,10 @@
   --sl-brand-text-new-typeset-fontFamily-icon: var(--sl-icon-typeset-fontFamily-classic);
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
   --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
-  --sl-caption-fontFamily: 'New Message';
-  --sl-display-fontFamily: 'New Message';
-  --sl-heading-fontFamily: 'New Message';
-  --sl-label-fontFamily: 'New Message';
-  --sl-text-fontFamily: 'New Message Text Condensed';
-  --sl-title-fontFamily: 'New Message';
+  --sl-caption-fontFamily: var(--sl-caption-fontFamily-usergroup);
+  --sl-display-fontFamily: var(--sl-display-fontFamily-usergroup);
+  --sl-heading-fontFamily: var(--sl-heading-fontFamily-usergroup);
+  --sl-label-fontFamily: var(--sl-label-fontFamily-usergroup);
+  --sl-text-fontFamily: var(--sl-text-fontFamily-usergroup);
+  --sl-title-fontFamily: var(--sl-title-fontFamily-usergroup);
 }

@@ -164,18 +164,18 @@ const renderTypographyContent = (variant: string) => html`
     <span>Typography</span>
     <div><h1 class="display lg">Display LG</h1></div>
     <div><h1 class="display md">Display MD</h1></div>
-    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+    <div class=${variant !== 'advanced' && variant !== 'poweruser' ? 'fallback' : ''}>
       <h1 class="display sm">Display SM</h1>
     </div>
 
     <div><h2 class="heading lg">Heading LG</h2></div>
     <div><h2 class="heading md">Heading MD</h2></div>
-    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+    <div class=${variant !== 'advanced' && variant !== 'poweruser' ? 'fallback' : ''}>
       <h2 class="heading sm">Heading SM</h2>
     </div>
 
     <div><h2 class="title lg">Title LG</h2></div>
-    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+    <div class=${variant !== 'advanced' && variant !== 'poweruser' ? 'fallback' : ''}>
       <h2 class="title md">Title MD</h2>
     </div>
     <div class="fallback">

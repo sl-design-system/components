@@ -15,7 +15,7 @@ export default {
         'sanoma-learning': {
           ...allModes.default,
           ...allModes['sanoma-learning'],
-          userGroup: 'superuser'
+          userGroup: 'poweruser'
         }
       }
     }

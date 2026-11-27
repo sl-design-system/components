@@ -32,6 +32,11 @@
   background: transparent;
 }
 
+:host([chips]:not([fill='outline'])) ::slotted(sl-toggle-button[disabled]) {
+  background: var(--sl-color-background-disabled);
+  border-radius: var(--_button-border-radius);
+}
+
 :host([shape='pill']) {
   --_border-radius: var(--sl-size-borderRadius-full);
   --_pill-compensation: calc(var(--sl-space-150) - var(--sl-space-125));

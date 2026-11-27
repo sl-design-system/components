@@ -1,13 +1,26 @@
+import { faBook, faCopy } from '@fortawesome/pro-regular-svg-icons';
 import { AccordionComponent, AccordionItemComponent } from '@sl-design-system/angular/accordion';
+import { ButtonComponent } from '@sl-design-system/angular/button';
 import { CardComponent } from '@sl-design-system/angular/card';
+import { IconComponent } from '@sl-design-system/angular/icon';
 import { PanelComponent } from '@sl-design-system/angular/panel';
+import { Icon as SlIcon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+
+SlIcon.register(faBook, faCopy);
 
 export default {
   title: 'Wrappers/Layout',
   decorators: [
     moduleMetadata({
-      imports: [AccordionComponent, AccordionItemComponent, CardComponent, PanelComponent]
+      imports: [
+        AccordionComponent,
+        AccordionItemComponent,
+        ButtonComponent,
+        CardComponent,
+        IconComponent,
+        PanelComponent
+      ]
     })
   ]
 } as Meta;
@@ -45,7 +58,13 @@ export const Panel: StoryObj = {
     description: 'A panel is a bordered box with an optional header section.',
     template: `
       <sl-panel>
-        <span slot="header">Panel Title</span>
+        <span slot="heading">Panel Title</span>
+        <sl-button fill="ghost" slot="actions" tooltip="Copy">
+            <sl-icon name="far-copy"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" slot="actions" tooltip="Book">
+            <sl-icon name="far-book"> </sl-icon>
+        </sl-button>
         <p>This is the panel content area.</p>
         <p>You can add any content here.</p>
       </sl-panel>

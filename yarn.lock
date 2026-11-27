@@ -8136,8 +8136,8 @@ __metadata:
     "@figma-export/output-components-as-svg": "npm:^6.2.3"
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
     "@tokens-studio/sd-transforms": "npm:^2.0.1"
-    "@tokens-studio/sdk": "npm:^3.0.0"
-    "@tokens-studio/studio-cli": "npm:0.2.0-rc.3"
+    "@tokens-studio/sdk": "npm:^3.0.1"
+    "@tokens-studio/studio-cli": "npm:0.3.2"
     cssnano: "npm:^7.1.9"
     fast-glob: "npm:^3.3.3"
     oxfmt: "npm:^0.62.0"
@@ -8870,9 +8870,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sdk@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@tokens-studio/sdk@npm:3.0.0"
+"@tokens-studio/sdk@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@tokens-studio/sdk@npm:3.0.1"
   dependencies:
     "@apollo/client": "npm:^3.11.4"
     "@tokens-studio/cli-kit": "npm:^0.0.1"
@@ -8892,16 +8892,16 @@ __metadata:
     ws: "npm:^8.18.0"
   bin:
     tokensstudio: dist/cli/index.js
-  checksum: 10c0/dd1e5a12bdd63ba83e8ec7eb9f77ed5b891a8c6924c6af0dd9947c57a68b00be4ba974d58a1f38ac6d30f6176108773fdfcbb17dcfe6c898ad7aeefec4f62830
+  checksum: 10c0/40ec8afa115af0b69cd8450278d983ca47740f0ab154c732c0a00345255ba92a71379c1d0bb4c9a9e4093384f7b69c8382c51dbb0ae1a024e3a8bbf9732d2e52
   languageName: node
   linkType: hard
 
-"@tokens-studio/studio-cli@npm:0.2.0-rc.3":
-  version: 0.2.0-rc.3
-  resolution: "@tokens-studio/studio-cli@npm:0.2.0-rc.3"
+"@tokens-studio/studio-cli@npm:0.3.2":
+  version: 0.3.2
+  resolution: "@tokens-studio/studio-cli@npm:0.3.2"
   bin:
     studio: bin/studio
-  checksum: 10c0/a0faf5cf721684a2842933ca20694786333b56912cfaeeb2ae0704b8ca2f0aad7b56cc8007afd77904263da43f2c1c5ff90a6159dc9513209767b46a7b7916c3
+  checksum: 10c0/c55f1745ac27f9ffd53957e54bdce1029f8a3ef000f88814068434e76a2cd73c5310dbae9d84fc251aa1b24d927235252ac5d4191311997aac205d800588a2b1
   languageName: node
   linkType: hard
 

@@ -6,15 +6,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "import-tokens": "yarn exec studio pull && yarn oxfmt --no-error-on-unmatched-pattern ./export/**/*.* && yarn node setup-themes.js"
+    "import-tokens": "yarn exec studio pull && yarn oxfmt --no-error-on-unmatched-pattern ./export/**/*.* && yarn node setup-themes.js",
+    "studio-auth": "yarn exec studio auth login"
   },
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
     "@figma-export/output-components-as-svg": "^6.2.3",
     "@figma-export/transform-svg-with-svgo": "^6.2.3",
     "@tokens-studio/sd-transforms": "^2.0.1",
-    "@tokens-studio/sdk": "^3.0.0",
-    "@tokens-studio/studio-cli": "0.2.0-rc.3",
+    "@tokens-studio/sdk": "^3.0.1",
+    "@tokens-studio/studio-cli": "0.3.2",
     "cssnano": "^7.1.9",
     "fast-glob": "^3.3.3",
     "oxfmt": "^0.62.0",

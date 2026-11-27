@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-11-02T08:40:42Z"
+generated_at = "2026-11-25T15:36:57Z"
 cli_version = "dev"
 dependencies = []
 
@@ -23,18 +23,420 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-11-02T08:40:40Z"
+  updated_at = "2026-11-24T14:23:39Z"
+
+  [[exports.files]]
+    path = "$metadata.json"
+    hash = "sha256:bb41c107f322a0706e8ff4295b21eefc9a1d2edac60e3063ad2216471f5c88fc"
+    size = 692
+    tokens = 0
+
+  [[exports.files]]
+    path = "$themes.json"
+    hash = "sha256:904650372d4c47c66d20f71cdeb5c93d523a9d7d4b89c3d61d584a7237b75748"
+    size = 2496
+    tokens = 0
+
+  [[exports.files]]
+    path = "bingel-dc/base.json"
+    hash = "sha256:14c9d6e44cc23b3d7457239136f4390d3342cd0aed0dd78d637a6ee9efd8b544"
+    size = 78650
+    tokens = 0
+
+  [[exports.files]]
+    path = "bingel-dc/light.json"
+    hash = "sha256:373eb60b25c28a18b25e99242652f90c6172cc6a37f26c861a7b0316afe9559d"
+    size = 170579
+    tokens = 0
+
+  [[exports.files]]
+    path = "bingel-int/base.json"
+    hash = "sha256:1b4baa6926206673567b685cf5af88f109010c4d9edc43cd6738fe4367b7cb6f"
+    size = 80552
+    tokens = 0
+
+  [[exports.files]]
+    path = "bingel-int/light.json"
+    hash = "sha256:a88cc9f8b4885cbaef9829a6dc0c406b187f5a2f6f8ac7f790604e1e2531d6cb"
+    size = 172341
+    tokens = 0
+
+  [[exports.files]]
+    path = "clickedu/base.json"
+    hash = "sha256:247f8868d724a0fe8ccf35f50819102d3a3dc385af2556c2dfe48f98edde8efd"
+    size = 78860
+    tokens = 0
+
+  [[exports.files]]
+    path = "clickedu/light.json"
+    hash = "sha256:4652f54bad303236d25a5fc5841968da1aa688ca7c3ab02ec415ffbaf515444a"
+    size = 167209
+    tokens = 0
+
+  [[exports.files]]
+    path = "core.json"
+    hash = "sha256:e58f0ad4ea8941814c6fc2f991581ff7e1bb9444c65110f02bbde2fbb533b23f"
+    size = 72461
+    tokens = 0
+
+  [[exports.files]]
+    path = "editorial-suite/base.json"
+    hash = "sha256:35e7983475d9a3247aca0594d81445d59eac064bb7f0744bce7fed553f101461"
+    size = 80208
+    tokens = 0
+
+  [[exports.files]]
+    path = "editorial-suite/light.json"
+    hash = "sha256:4dc3ba4c82576921ea5147dbe12b2f114b92163baecd1d1e761d53bed604c42d"
+    size = 173637
+    tokens = 0
+
+  [[exports.files]]
+    path = "itslearning/base.json"
+    hash = "sha256:f17945c1b3e1dd843a7c428496118b04d037835ea7adae772b878556c1ee44c1"
+    size = 78581
+    tokens = 0
+
+  [[exports.files]]
+    path = "itslearning/light.json"
+    hash = "sha256:ef6f861848a17d79f0544604f6fc7ace2b34cc1daf8819d130dbaecfd32eab0b"
+    size = 166532
+    tokens = 0
+
+  [[exports.files]]
+    path = "kampus/base.json"
+    hash = "sha256:5262ccc8ed1d13bf7918e2bf576191f6171c7e31ffb751889d3f3e2ff1a037fa"
+    size = 79460
+    tokens = 0
+
+  [[exports.files]]
+    path = "kampus/light.json"
+    hash = "sha256:41cac2f44eccb88fa65b08f7b5b56336ea8e88d32dac22691ab83daf29a9fbf0"
+    size = 167627
+    tokens = 0
+
+  [[exports.files]]
+    path = "magister/base.json"
+    hash = "sha256:6f1fb2b8ccb92f8a70c4b0224badef4efe3da7b299a03c6915df4746d9c98926"
+    size = 79710
+    tokens = 0
+
+  [[exports.files]]
+    path = "magister/dark.json"
+    hash = "sha256:7d673c14fc09d256428126bb4e6f3b9480b47a109cd531f1e45f169830c9db7c"
+    size = 168056
+    tokens = 0
+
+  [[exports.files]]
+    path = "magister/light.json"
+    hash = "sha256:845d1116bd0a58056cabc93a799a13792216d0752df1f9ac9b9a7198ccb29c49"
+    size = 178451
+    tokens = 0
+
+  [[exports.files]]
+    path = "max/base.json"
+    hash = "sha256:1f142c4f7fb2ab9a7625cd337f251aa4fff30103e3b097033f41d81572e94824"
+    size = 79278
+    tokens = 0
+
+  [[exports.files]]
+    path = "max/light.json"
+    hash = "sha256:25bdca834c2507e4d835f4e85b212ed75a02aca292d29477d5832b5bfd6f2921"
+    size = 166247
+    tokens = 0
+
+  [[exports.files]]
+    path = "my-digital-book/base.json"
+    hash = "sha256:dcec62502098e800d6a440f438bc1df650736a4fb2b6b6e159014fb660cc3cdc"
+    size = 78981
+    tokens = 0
+
+  [[exports.files]]
+    path = "my-digital-book/light.json"
+    hash = "sha256:7075e31af679b8e47487de097ab8cd46fd942f5716b345a9bbf13bc25df3fad6"
+    size = 172815
+    tokens = 0
+
+  [[exports.files]]
+    path = "neon/base.json"
+    hash = "sha256:edea9b39e1b9a4f30f85bd11f5e7a1580c6333033a9301c9b0c862104c0a6363"
+    size = 79722
+    tokens = 0
+
+  [[exports.files]]
+    path = "neon/dark.json"
+    hash = "sha256:8d3da10e0a0ac02b7c2ee5208aa03296953b87aa156504fc7b47cb602913a71b"
+    size = 164571
+    tokens = 0
+
+  [[exports.files]]
+    path = "neon/light.json"
+    hash = "sha256:cdde474add31df62b83c27e3f91925c8bfe330762fb584b25946624d87c5d917"
+    size = 164679
+    tokens = 0
+
+  [[exports.files]]
+    path = "sanoma-learning/base.json"
+    hash = "sha256:29cccf99e0afa35334f68e1af698a937698b3b9b77c5c12f806822e30d7d78f4"
+    size = 78513
+    tokens = 0
+
+  [[exports.files]]
+    path = "sanoma-learning/dark.json"
+    hash = "sha256:84d31e2275ef105a8c9cf75daba2252979ffd1c9393bec3f43ad84f05e6323f8"
+    size = 171259
+    tokens = 0
+
+  [[exports.files]]
+    path = "sanoma-learning/light.json"
+    hash = "sha256:3d57c0c0141cb93e6dd85f37e7db95ae5218133123c7c910dfa993eb96be44bf"
+    size = 172258
+    tokens = 0
+
+  [[exports.files]]
+    path = "system.json"
+    hash = "sha256:60b4e37dcad515206c49e2c58df5aa51afc48cd107c0906c4f89c87e9c4d32dd"
+    size = 9251
+    tokens = 0
+
+  [[exports.files]]
+    path = "teas/base.json"
+    hash = "sha256:9a59a6913565b61ae8b1b11d6f74464f8fe77a0574a910c2ed43f0b143b5a630"
+    size = 83793
+    tokens = 0
+
+  [[exports.files]]
+    path = "teas/light.json"
+    hash = "sha256:5bc4ceca56d8be6a08f8dd2191062f457356aa52405ccc4b9434fa06e8b5f7c3"
+    size = 171598
+    tokens = 0
+
+  [[exports.files]]
+    path = "tig/base.json"
+    hash = "sha256:dbff65c684fe0c6ddfe0144359fe4835f28a9bae3ad4995d1db60bdaeec868c7"
+    size = 78520
+    tokens = 0
+
+  [[exports.files]]
+    path = "tig/light.json"
+    hash = "sha256:9b767a7a6129c67940596b317c4ec00410eaacedea497ea7be93b53a7b852421"
+    size = 172258
+    tokens = 0
 
 [[exports]]
   name = "core-css"
   preset_id = "898af612-5ca5-43b7-9cf7-c826a742b36d"
   advisory_name = "core-css"
   source_ref_type = "branch"
-  source_ref_name = "main"
-  preset_hash = "sha256:c83a2735418ea15d54300b6198424b6e037a167d8f72c353ad754b86aa75e341"
-  output_hash = "sha256:27271f890476a453cee1729ea65aba2dae3289ea61471f0eb340a80d0ddc9c1b"
-  updated_at = "2026-11-02T08:40:38Z"
+  source_ref_name = "change-brandlightcolorbackgroundaccentgreyinteractivebold-in-magister"
+  preset_hash = "sha256:87f13765b65f74b487cf36e61b7d28a842dc2432fec999b0798af256fe819c5e"
+  output_hash = "sha256:938ab2314fc03df81d51b2c92efc5f08b51fe3f0d15fbc63703eb087758205f1"
+  updated_at = "2026-11-25T15:36:57Z"
+
+  [[exports.files]]
+    path = "brand/bingel-dc.css"
+    hash = "sha256:fba393b03a289a60da524b7363f5c6549936d9add6f70162944ca584996725e7"
+    size = 32637
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/bingel-int.css"
+    hash = "sha256:05108566012dabb076e31a5353fa3b53efd07ecc54590e8a34f19fe289a3ecab"
+    size = 32675
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/clickedu.css"
+    hash = "sha256:9fe3aebc56a219e474366393c6eab8fca80f682c721a7fe081d3442cff1189f8"
+    size = 32584
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/editorial-suite.css"
+    hash = "sha256:b12a27936a6c4f284b5d43107ff479586a38057266c3b624eef8f8fdec27c6cb"
+    size = 32458
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/itslearning.css"
+    hash = "sha256:5781f6038fa95adfe9932585587ecf65e7642676b634bdadc0dc616fd1d9b8a6"
+    size = 32510
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/kampus.css"
+    hash = "sha256:2ae7042b9e4719a4c9a4713ce99932d91ad3f3ab6a5db44972bc13dfc5071929"
+    size = 32673
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/magister.css"
+    hash = "sha256:60185813bb6e709cd19736ef2636ca5c41471f8ab396594734b812069994b65a"
+    size = 59699
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/max.css"
+    hash = "sha256:c4e35b9ce26d6e548172d29f5e4ed27afaa81b701a49ee2bb03e379962bfaec7"
+    size = 32684
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/my-digital-book.css"
+    hash = "sha256:91390265f0254624069d9071d033f33bb648c8aa059fcd86ad5250b565e310ac"
+    size = 32586
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/neon.css"
+    hash = "sha256:d883b5ead1a0e2bf6612ab2cdc9ef9962c45fd6127f05394b0c29f61144e6b66"
+    size = 59349
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/sanoma-learning.css"
+    hash = "sha256:3c755c216e223152b27260b3f0597b1cfe37dd50a4e609dd40261d360d55fef7"
+    size = 59476
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/sanoma-pro.css"
+    hash = "sha256:70f98e46531a4a341271f9b832c84e9de75a738192689b70efd9648b96837815"
+    size = 32923
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/sanoma-utbildning.css"
+    hash = "sha256:51b4787c9fd466d06b36a26b9ef2e3b991bcba560a3f16a320ee5a270ff4ee38"
+    size = 32666
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/sl-ecosystem.css"
+    hash = "sha256:eb55ba244698ecc58d7225ac152e66c3a44501250efe042384a2514737627ff8"
+    size = 33119
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/teas.css"
+    hash = "sha256:708cf4db870ec722b9a67a0ad6f564d98a774ecc9b7822d0f0ce8a8c315f1af4"
+    size = 32640
+    tokens = 0
+
+  [[exports.files]]
+    path = "brand/tig.css"
+    hash = "sha256:b2a98ca8d808a3c1d25133f20bb6088e93017dd2a290f9ce1dfa7853f63b0e13"
+    size = 32481
+    tokens = 0
+
+  [[exports.files]]
+    path = "color/dark.css"
+    hash = "sha256:f89ecaa65a2fe8d7307363fbf746043c993b3245fb0001a4368c023677091ae0"
+    size = 29765
+    tokens = 0
+
+  [[exports.files]]
+    path = "color/light.css"
+    hash = "sha256:b1050568b17e7a7f2efdc95445a564ff42ed46cdb82dd4cdd2becc1787270849"
+    size = 29396
+    tokens = 0
+
+  [[exports.files]]
+    path = "density/compact.css"
+    hash = "sha256:7559e7fdfe2af4e4c7229d603457684ccc3dbf96c71203746e60df35f59f0dc3"
+    size = 4468
+    tokens = 0
+
+  [[exports.files]]
+    path = "density/default.css"
+    hash = "sha256:73562d34b32a017fd9dfe2d8e1ff1ccb580cd9e1a2ed6d36d93e16cccfe5b98e"
+    size = 4465
+    tokens = 0
+
+  [[exports.files]]
+    path = "density/relaxed.css"
+    hash = "sha256:74ac74cd12ffe228b991a19c2be8ca100bf4bc91608aad20c4b37566052a1cd2"
+    size = 4468
+    tokens = 0
+
+  [[exports.files]]
+    path = "device/desktop.css"
+    hash = "sha256:dc259372754f179a7e78101bd011da5a88f48eb1a669b8a1b5dbb2f340f8d426"
+    size = 16476
+    tokens = 0
+
+  [[exports.files]]
+    path = "device/mobile.css"
+    hash = "sha256:2a68f47bef6f099236a51235b697d021ba105aa98ebcf3902b52f35a0673cbaf"
+    size = 16746
+    tokens = 0
+
+  [[exports.files]]
+    path = "device/tablet.css"
+    hash = "sha256:eaff7d539ed312152e2dcc7979d9b135782e74b30077515937acc80b6af333e0"
+    size = 16747
+    tokens = 0
+
+  [[exports.files]]
+    path = "sl-ecosystem-subthemes/blue.css"
+    hash = "sha256:4079ff1c54d4c69d17de94eee4ea0348b2d56279ae00cc117942d3d385e204c1"
+    size = 3597
+    tokens = 0
+
+  [[exports.files]]
+    path = "sl-ecosystem-subthemes/green.css"
+    hash = "sha256:0d933cb78292b8ce7fe3785bc4edafb56cd07b7e40d6bb79c8ca5428348db4f8"
+    size = 3628
+    tokens = 0
+
+  [[exports.files]]
+    path = "sl-ecosystem-subthemes/orange.css"
+    hash = "sha256:9f9b922007d16824523abea8434b1675111a4e05b2579bb9053e8ac87a4a673f"
+    size = 3658
+    tokens = 0
+
+  [[exports.files]]
+    path = "sl-ecosystem-subthemes/purple.css"
+    hash = "sha256:dbce5ccf92c409817c076d72fb3899b5fd568af317ed18d259fabbdde6309e48"
+    size = 3623
+    tokens = 0
+
+  [[exports.files]]
+    path = "sl-ecosystem-subthemes/teal.css"
+    hash = "sha256:37eb46084aae4dc5ae401c6a8efd4e166439643c6bebb87264f27def428139d5"
+    size = 3597
+    tokens = 0
+
+  [[exports.files]]
+    path = "system/default.css"
+    hash = "sha256:eae9f3e701809c841b88074c2dd84f8ad3838be39b27856c557816fdd555398a"
+    size = 21542
+    tokens = 0
+
+  [[exports.files]]
+    path = "user-group/advanced.css"
+    hash = "sha256:a608286b69049256d13fc6d5f9bb62bf971f7dde1b0e706ef7c9f678ef5cf53f"
+    size = 36399
+    tokens = 0
+
+  [[exports.files]]
+    path = "user-group/developing.css"
+    hash = "sha256:8532717adfa0a3d14fc4847f57908086de76a8f45ed8b9608a8de2933b406849"
+    size = 36460
+    tokens = 0
+
+  [[exports.files]]
+    path = "user-group/early.css"
+    hash = "sha256:65206d4d1536f5d38c67dd29a581d2f69025dcd487a37994f72aeb443002068a"
+    size = 36341
+    tokens = 0
+
+  [[exports.files]]
+    path = "user-group/poweruser.css"
+    hash = "sha256:3eca94a3abc2b1c868d3d3eb1c5da8d7bf3e383f0106a9a00dc9a52b4c15234f"
+    size = 36406
+    tokens = 0
 
 [integrity]
-  lockfile_hash = "sha256:5ed5c2f852c3a91b8b9555d0f70ca22c8e6624b2bca4cada1cd14873c0b21a57"
+  lockfile_hash = "sha256:971b841814e66b7d278b6c95c51c4619244c8bb11ae276f5d084bc4d915a9b53"
   algorithm = "sha256"

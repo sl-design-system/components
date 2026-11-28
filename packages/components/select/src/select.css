@@ -21,13 +21,16 @@ button {
   cursor: pointer;
   display: inline-grid;
   font: inherit;
-  inline-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   inset-block: 0;
-  inset-inline-end: calc(var(--sl-size-150) + var(--sl-size-100) + var(--sl-size-200));
+  /* clear button padding + divider spacing x 2 + dropdown button + padding */
+  inset-inline-end: calc(
+    var(--sl-size-100) + (var(--sl-size-050) * 2) + var(--sl-size-borderWidth-default) +
+      var(--sl-size-200) + var(--sl-size-150)
+  );
   justify-content: center;
   margin-block: auto;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  padding: 0;
+  padding: 0 var(--sl-size-100);
   position: absolute;
 
   &:focus-visible {
@@ -71,8 +74,11 @@ button {
 
 :host([size='lg']) button {
   block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
-  inline-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
-  inset-inline-end: calc(var(--sl-size-200) + var(--sl-size-100) + var(--sl-size-200));
+  /* clear button padding + divider spacing x 2 + dropdown button + padding */
+  inset-inline-end: calc(
+    var(--sl-size-100) + (var(--sl-size-050) * 2) + var(--sl-size-borderWidth-default) +
+      var(--sl-size-200) + var(--sl-size-200)
+  );
 }
 
 sl-listbox {

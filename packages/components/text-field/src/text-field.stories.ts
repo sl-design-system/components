@@ -27,6 +27,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
+  mark?: 'required' | 'optional' | '';
   control?(): TemplateResult;
   slot?(): TemplateResult;
 };
@@ -45,6 +46,10 @@ export default {
     showValid: false
   },
   argTypes: {
+    mark: {
+      control: 'inline-radio',
+      options: ['required', 'optional', '']
+    },
     maxLength: { type: 'number' },
     minLength: { type: 'number' },
     shape: {
@@ -65,6 +70,7 @@ export default {
     disabled,
     hint,
     label,
+    mark,
     maxLength,
     minLength,
     pattern,
@@ -84,7 +90,7 @@ export default {
 
     return html`
       <sl-form>
-        <sl-form-field .hint=${hint} .label=${label}>
+        <sl-form-field .hint=${hint} .label=${label} .mark=${mark}>
           ${
             control?.() ??
             html`

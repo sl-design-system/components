@@ -384,6 +384,7 @@
 | `align`   |         | `ButtonBarAlign \| undefined` | `'start'`   | The alignment of the buttons within the bar.      |                |
 | `fill`    |         | `ButtonFill \| undefined`     | `undefined` | Determines the fill of all buttons in the bar.    |                |
 | `reverse` |         | `boolean \| undefined`        | `false`     | When set to true, the button order is reversed.   |                |
+| `shape`   |         | `ButtonShape \| undefined`    | `undefined` | Determines the shape of all buttons in the bar.   |                |
 | `size`    |         | `ButtonSize \| undefined`     | `undefined` | Determines the size of all buttons in the bar.    |                |
 | `variant` |         | `ButtonVariant \| undefined`  | `undefined` | Determines the variant of all buttons in the bar. |                |
 
@@ -395,6 +396,7 @@
 | `fill`    | fill    |                |
 | `reverse` | reverse |                |
 | `size`    | size    |                |
+| `shape`   | shape   |                |
 | `variant` | variant |                |
 
 ### Slots
@@ -2775,6 +2777,31 @@
 | `js` | `*`  | *           | packages/components/shared/src/path.js                        |         |
 | `js` | `*`  | *           | packages/components/shared/src/popover.js                     |         |
 | `js` | `*`  | *           | packages/components/shared/src/string.js                      |         |
+
+# `../packages/components/shared/src/mixins/forward-aria.ts`:
+
+## mixin: `ForwardAriaMixin`
+
+### Parameters
+
+| Name                 | Type       | Default | Description |
+| -------------------- | ---------- | ------- | ----------- |
+| `constructor`        | `T`        |         |             |
+| `observedAttributes` | `string[]` |         |             |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters     | Return | Inherited From |
+| ----------------- | ------- | ----------- | -------------- | ------ | -------------- |
+| `removeAttribute` |         |             | `name: string` | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                                   | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------- | ------- |
+| `js` | `ForwardAriaMixin` | ForwardAriaMixin | ../packages/components/shared/src/mixins/forward-aria.ts |         |
 
 # `../packages/components/shared/src/mixins/locale.ts`:
 
@@ -7447,31 +7474,6 @@
 | ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
 | `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts`:
-
-## mixin: `ForwardAriaMixin`
-
-### Parameters
-
-| Name                 | Type       | Default | Description |
-| -------------------- | ---------- | ------- | ----------- |
-| `constructor`        | `T`        |         |             |
-| `observedAttributes` | `string[]` |         |             |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters     | Return | Inherited From |
-| ----------------- | ------- | ----------- | -------------- | ------ | -------------- |
-| `removeAttribute` |         |             | `name: string` | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                                                                             | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts |         |
-
 # `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
 
 ## Functions
@@ -8491,12 +8493,12 @@
 
 ## Functions
 
-| Name                  | Description | Parameters               | Return              |
-| --------------------- | ----------- | ------------------------ | ------------------- |
-| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton` |
-| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`     |
-| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`   |
-| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton` |
+| Name                  | Description | Parameters               | Return                                 |
+| --------------------- | ----------- | ------------------------ | -------------------------------------- |
+| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton`                    |
+| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`                        |
+| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`                      |
+| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton \| ToolBarItemMenu` |
 
 <hr/>
 

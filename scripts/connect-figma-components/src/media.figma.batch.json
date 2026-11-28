@@ -1,0 +1,20 @@
+[
+  {
+    "templateFile": "./avatar.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7401-934",
+        "id": "avatar"
+      }
+    ]
+  },
+  {
+    "templateFile": "./icon.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-41090",
+        "id": "Icon"
+      }
+    ]
+  }
+]

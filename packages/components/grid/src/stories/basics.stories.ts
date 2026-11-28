@@ -64,6 +64,57 @@ export const Basic: Story = {
   }
 };
 
+export const ArrowNavigation: Story = {
+  render: () => html`
+    <p>
+      Tab into the grid, then use the arrow keys to move between cells. Press Enter or Space to edit
+      a note or access its row actions. Cells with multiple actions receive focus as a whole. Press
+      Escape to return to cell navigation. While interacting with actions, Tab and Shift+Tab stay in
+      the cell and skip hidden controls. Escape closes an open menu first; press it again to return
+      to grid navigation.
+    </p>
+    <p><button type="button">Before the grid</button></p>
+    <sl-grid
+      aria-label="Invoices"
+      keyboard-navigation="arrows"
+      .items=${Array.from({ length: 25 }, (_, index) => ({
+        invoice: 1042 + index,
+        customer: ['Acme', 'Northwind', 'Contoso'][index % 3],
+        note: index === 0 ? 'Payment pending' : ''
+      }))}>
+      <sl-grid-sort-column header="Invoice" path="invoice" width="100"></sl-grid-sort-column>
+      <sl-grid-column header="Customer" path="customer" width="140"></sl-grid-column>
+      <sl-grid-text-field-column
+        header="Note"
+        path="note"
+        placeholder="Add a note"
+        width="180"></sl-grid-text-field-column>
+      <sl-grid-column
+        header="Actions"
+        width="270"
+        .renderer=${({ invoice }: { invoice: number }) => html`
+          <span data-grid-actions-label="invoice ${invoice}">
+            <sl-menu-button size="sm">
+              <span slot="button">Options</span>
+              <sl-menu-item>Download</sl-menu-item>
+            </sl-menu-button>
+            <sl-button aria-disabled="true" size="sm">Archive</sl-button>
+          </span>
+        `}
+        .scopedElements=${{ 'sl-menu-button': MenuButtonComponent, 'sl-menu-item': MenuItem }}
+        .renderStyles=${() => css`
+          & [data-grid-actions-label] {
+            align-items: center;
+            display: inline-flex;
+            gap: var(--sl-size-100);
+          }
+        `}>
+      </sl-grid-column>
+    </sl-grid>
+    <p><button type="button">After the grid</button></p>
+  `
+};
+
 export const ColumnGroups: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>

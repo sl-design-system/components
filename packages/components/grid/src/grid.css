@@ -650,3 +650,45 @@ tfoot {
   /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
   position-anchor: initial;
 }
+
+table[role='grid'] {
+  :is(th, td):focus-visible {
+    outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+    outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
+  }
+
+  :is([data-grid-access], [data-grid-edit], [data-grid-editor])[hidden],
+  input[data-grid-inactive-input] {
+    display: none;
+  }
+
+  [data-grid-access] {
+    margin-inline-end: var(--sl-size-100);
+  }
+
+  /* The edit button shows the value of the cell, so it should read like the other cells. */
+  [data-grid-edit] {
+    inline-size: 100%;
+    min-inline-size: 0;
+
+    &::part(button) {
+      outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
+      font-weight: inherit;
+      justify-content: start;
+      min-block-size: var(--sl-size-400);
+      padding-inline: var(--sl-size-100);
+      text-align: start;
+    }
+  }
+
+  [data-grid-editor] {
+    inline-size: 100%;
+    min-inline-size: 0;
+    /* Keep the field's own focus ring inside the cell's clipped bounds. */
+    outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
+  }
+
+  [data-grid-edit] [part='placeholder'] {
+    color: var(--sl-color-foreground-subtlest);
+  }
+}

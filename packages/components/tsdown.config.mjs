@@ -1,10 +1,10 @@
 import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
-import { readFileSync } from 'node:fs';
-import { URL } from 'node:url';
+import { globSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-  workspace: '*',
+  workspace: globSync('*/package.json', { cwd: new URL('.', import.meta.url) }).map(dirname),
   entry: ['src/index.ts', 'src/register.ts'],
   plugins: [importCssSheet()],
 

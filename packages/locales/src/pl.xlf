@@ -554,6 +554,50 @@
   <source>Select group</source>
   <target>Zaznacz grupę</target>
 </trans-unit>
+<trans-unit id="sl.grid.accessInstructions">
+  <source>Press Enter or Space to access controls. Use Tab to move between controls. Press Escape to return to grid navigation.</source>
+  <target>Naciśnij Enter lub Spację, aby przejść do kontrolek. Użyj Tab, aby przechodzić między kontrolkami. Naciśnij Escape, aby wrócić do nawigacji po siatce.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editInstructions">
+  <source>Press Enter or Space to edit. Press Escape to return to grid navigation.</source>
+  <target>Naciśnij Enter lub Spację, aby edytować. Naciśnij Escape, aby wrócić do nawigacji po siatce.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editCell">
+  <source>Edit <x id="0" equiv-text="${context}"/></source>
+  <target>Edytuj <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.editCellFallback">
+  <source>Edit cell</source>
+  <target>Edytuj komórkę</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionsForCell">
+  <source>Actions for <x id="0" equiv-text="${context}"/></source>
+  <target>Akcje dla <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cellActions">
+  <source>Cell actions</source>
+  <target>Akcje komórki</target>
+</trans-unit>
+<trans-unit id="sl.grid.edit">
+  <source>Edit</source>
+  <target>Edytuj</target>
+</trans-unit>
+<trans-unit id="sl.grid.actions">
+  <source>Actions</source>
+  <target>Akcje</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionCellContext">
+  <source><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, row <x id="1" equiv-text="${row}"/></source>
+  <target><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, wiersz <x id="1" equiv-text="${row}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cell">
+  <source>Cell</source>
+  <target>Komórka</target>
+</trans-unit>
+<trans-unit id="sl.grid.editEmptyCell">
+  <source>Edit empty cell</source>
+  <target>Edytuj pustą komórkę</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

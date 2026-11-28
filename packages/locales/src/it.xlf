@@ -554,6 +554,50 @@
   <source>Select group</source>
   <target>Seleziona gruppo</target>
 </trans-unit>
+<trans-unit id="sl.grid.accessInstructions">
+  <source>Press Enter or Space to access controls. Use Tab to move between controls. Press Escape to return to grid navigation.</source>
+  <target>Premi Invio o Spazio per accedere ai controlli. Usa Tab per spostarti tra i controlli. Premi Esc per tornare alla navigazione della griglia.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editInstructions">
+  <source>Press Enter or Space to edit. Press Escape to return to grid navigation.</source>
+  <target>Premi Invio o Spazio per modificare. Premi Esc per tornare alla navigazione della griglia.</target>
+</trans-unit>
+<trans-unit id="sl.grid.editCell">
+  <source>Edit <x id="0" equiv-text="${context}"/></source>
+  <target>Modifica <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.editCellFallback">
+  <source>Edit cell</source>
+  <target>Modifica cella</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionsForCell">
+  <source>Actions for <x id="0" equiv-text="${context}"/></source>
+  <target>Azioni per <x id="0" equiv-text="${context}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cellActions">
+  <source>Cell actions</source>
+  <target>Azioni della cella</target>
+</trans-unit>
+<trans-unit id="sl.grid.edit">
+  <source>Edit</source>
+  <target>Modifica</target>
+</trans-unit>
+<trans-unit id="sl.grid.actions">
+  <source>Actions</source>
+  <target>Azioni</target>
+</trans-unit>
+<trans-unit id="sl.grid.actionCellContext">
+  <source><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, row <x id="1" equiv-text="${row}"/></source>
+  <target><x id="0" equiv-text="${label || msg('Cell', { id: 'sl.grid.cell' })}"/>, riga <x id="1" equiv-text="${row}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.cell">
+  <source>Cell</source>
+  <target>Cella</target>
+</trans-unit>
+<trans-unit id="sl.grid.editEmptyCell">
+  <source>Edit empty cell</source>
+  <target>Modifica cella vuota</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

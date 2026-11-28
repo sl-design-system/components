@@ -70,10 +70,15 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
       draggable = !!getValueByPath(item.data, this.path);
     }
 
+    const classes = this.getClasses(item.data);
+
     // FIXME: Once `pointerdown` works properly in WebKit, use that instead
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td
+        aria-colindex=${String(this.columnIndex)}
+        class=${ifDefined(classes.join(' ') || undefined)}
+        data-grid-column=${this.headerCellId}
         @mousedown=${(event: Event & { target: HTMLElement }) =>
           this.#onStartDrag(event, item.data)}
         @touchstart=${(event: Event & { target: HTMLElement }) =>
@@ -86,7 +91,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
         )}
         headers=${this.headerIds}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
-        role="cell">
+        role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
         ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}
       </td>
     `;

@@ -3,8 +3,9 @@ import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
 import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -28,8 +29,21 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   @property({ type: Array }) options?: Array<{ label: string; value: any }> | string[];
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
+    const classes = this.getClasses(item.data),
+      labelledBy =
+        this.groupHeaderIds.length > 0
+          ? [...this.groupHeaderIds, this.headerCellId].join(' ')
+          : undefined;
+
     return html`
-      <td part="data select delegate-focus">
+      <td
+        aria-colindex=${String(this.columnIndex)}
+        aria-labelledby=${ifDefined(labelledBy)}
+        class=${ifDefined(classes.join(' ') || undefined)}
+        data-grid-column=${this.headerCellId}
+        headers=${this.headerIds}
+        part="data select delegate-focus"
+        role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : nothing}>
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item.data)}
           aria-label=${this.getFormControlLabel(item.data)}

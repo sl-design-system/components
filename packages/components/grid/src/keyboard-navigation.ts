@@ -1,0 +1,855 @@
+import { msg, str } from '@lit/localize';
+import { type VirtualizerHostElement, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { type ForwardAriaMixinInterface } from '@sl-design-system/shared/mixins/forward-aria.js';
+import { type Grid } from './grid.js';
+
+declare global {
+  interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
+  }
+}
+
+interface Position {
+  row: number;
+  column: number;
+  id?: unknown;
+  type?: string;
+  columnId?: string;
+}
+
+type Editor = HTMLElement & { value?: string };
+
+interface Cell {
+  element: HTMLTableCellElement;
+  start: number;
+  end: number;
+  controls: HTMLElement[];
+  target: HTMLElement;
+  access?: HTMLElement;
+  editor?: Editor;
+}
+
+const controlSelector =
+  'a[href], button, input:not([type="hidden"]), select, textarea, summary, [contenteditable="true"], [tabindex], [role="button"], [role="link"], [role="combobox"]';
+
+const disabledSelector = ':disabled, [disabled], [aria-disabled="true"]';
+
+function isDisabled(control: HTMLElement): boolean {
+  // Components such as `<sl-button>` forward `aria-disabled` to an element in their shadow root.
+  const proxy = (control as Partial<ForwardAriaMixinInterface>).getProxyTarget?.();
+
+  return control.matches(disabledSelector) || !!proxy?.matches(disabledSelector);
+}
+
+function eventControl(event: Event, controls: HTMLElement[]): HTMLElement | undefined {
+  return event
+    .composedPath()
+    .find((node): node is HTMLElement => node instanceof HTMLElement && controls.includes(node));
+}
+
+/** Returns the visible text of an element, ignoring the contents of `<style>` and hidden elements. */
+function visibleText(element: Element): string {
+  return ((element as HTMLElement).innerText ?? '').replace(/\s+/g, ' ').trim();
+}
+
+export class GridKeyboardNavigation {
+  #cells = new Map<HTMLTableCellElement, Cell>();
+  #rows = new Map<number, Cell[]>();
+  #active?: Position;
+  #session?: { cell: Cell; draft?: string; control?: HTMLElement };
+  #tabIndices = new Map<HTMLElement, string | null>();
+  #disabledControls = new Set<HTMLElement>();
+  #temporarilyEnabled = new Set<HTMLElement>();
+  #accessButtons = new Map<HTMLTableCellElement, HTMLElement>();
+  #observers = new Map<Node, MutationObserver>();
+  #actionCells = new Map<HTMLTableCellElement, string | null>();
+  #closingPopup?: HTMLElement;
+  #popupListeners?: AbortController;
+  #move = 0;
+  #parkingFocus = false;
+  #pointerDown = false;
+  #pointerListeners?: AbortController;
+
+  constructor(private grid: Grid) {}
+
+  disconnect(): void {
+    this.#move++;
+    this.#closingPopup = undefined;
+    this.#popupListeners?.abort();
+    this.#popupListeners = undefined;
+    this.#pointerListeners?.abort();
+    this.#pointerListeners = undefined;
+    this.#pointerDown = false;
+    this.#finish(false, false);
+    this.#observers.forEach(observer => observer.disconnect());
+    this.#observers.clear();
+    this.#temporarilyEnabled.forEach(control => control.setAttribute('disabled', ''));
+    this.#temporarilyEnabled.clear();
+    this.#tabIndices.forEach((value, element) => this.#restoreTabIndex(element, value));
+    this.#tabIndices.clear();
+    this.#disabledControls.forEach(control => control.removeAttribute('aria-disabled'));
+    this.#disabledControls.clear();
+    this.#accessButtons.forEach(button => button.remove());
+    this.#accessButtons.clear();
+    this.#actionCells.forEach((description, cell) => this.#restoreActionCell(cell, description));
+    this.#actionCells.clear();
+    this.#cells.clear();
+    this.#rows.clear();
+  }
+
+  refresh = (): void => {
+    const { table, thead, tbody, dataSource } = this.grid;
+    if (this.grid.keyboardNavigation !== 'arrows' || !table || !this.grid.isConnected) return;
+
+    const roots = new Set<Node>([table]),
+      managed = new Set<HTMLElement>(),
+      accessCells = new Set<HTMLTableCellElement>(),
+      disabledControls = new Set<HTMLElement>();
+
+    this.#rows.clear();
+    this.#cells.clear();
+    const addRow = (row: HTMLTableRowElement, index: number): void => {
+      const cells: Cell[] = [];
+      Array.from(row.cells).forEach((element, columnIndex) => {
+        if (element.closest('[hidden], [inert]') || getComputedStyle(element).display === 'none')
+          return;
+
+        const start = Number(element.getAttribute('aria-colindex')) || columnIndex + 1,
+          span = row.part.contains('group')
+            ? Number(table.getAttribute('aria-colcount')) || 1
+            : element.colSpan,
+          controls = this.#getControls(element, roots),
+          editButton = element.querySelector<HTMLElement>('[data-grid-edit]'),
+          editable = (control: HTMLElement): boolean =>
+            control.matches(
+              'select, textarea, [role="combobox"], [contenteditable="true"], input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"], [type="reset"])'
+            ),
+          singleEditable = controls.length === 1 && editable(controls[0]),
+          input = controls[0],
+          nativeEditor =
+            singleEditable &&
+            !editButton &&
+            input instanceof HTMLInputElement &&
+            input.getRootNode() === element.getRootNode() &&
+            ['text', 'search', 'tel', 'url', 'email'].includes(input.type)
+              ? input
+              : undefined,
+          editor = nativeEditor ?? element.querySelector<Editor>('[data-grid-editor]') ?? undefined,
+          needsAccess = !editButton && (controls.length > 1 || singleEditable);
+        let access: HTMLElement | undefined;
+        if (needsAccess && !singleEditable) {
+          access = element;
+          if (!this.#actionCells.has(element)) {
+            this.#actionCells.set(element, element.getAttribute('aria-describedby'));
+          }
+          element.dataset.gridActions = '';
+          const description = this.#actionCells.get(element);
+          element.setAttribute(
+            'aria-describedby',
+            [description, 'grid-access-instructions'].filter(Boolean).join(' ')
+          );
+        } else if (needsAccess) {
+          accessCells.add(element);
+          access = this.#accessButtons.get(element);
+          if (!access) {
+            access = this.grid.shadowRoot!.createElement('sl-button');
+            access.setAttribute('size', 'sm');
+            element.prepend(access);
+            this.#accessButtons.set(element, access);
+          }
+          access.dataset.gridAccess = 'edit';
+          access.setAttribute('fill', 'outline');
+          const context = this.#getCellContext(element, start),
+            value = nativeEditor?.value.trim(),
+            label = nativeEditor
+              ? value || msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' })
+              : context
+                ? msg(str`Edit ${context}`, { id: 'sl.grid.editCell' })
+                : msg('Edit cell', { id: 'sl.grid.editCellFallback' }),
+            text = nativeEditor ? label : msg('Edit', { id: 'sl.grid.edit' }),
+            describedBy = 'grid-edit-instructions';
+          // `<sl-button>` moves ARIA attributes to its internal button, so track what was set.
+          if (access.dataset.gridLabel !== label) {
+            access.dataset.gridLabel = label;
+            access.setAttribute('aria-label', label);
+          }
+          if (access.dataset.gridDescribedby !== describedBy) {
+            access.dataset.gridDescribedby = describedBy;
+            access.setAttribute('aria-describedby', describedBy);
+          }
+          if (access.textContent !== text) access.textContent = text;
+          managed.add(access);
+        }
+
+        controls.forEach(control => {
+          control.toggleAttribute(
+            'data-grid-inactive-input',
+            control === nativeEditor && this.#session?.cell.element !== element
+          );
+          if (
+            (control.matches(':disabled') || this.#temporarilyEnabled.has(control)) &&
+            (!control.hasAttribute('aria-disabled') || this.#disabledControls.has(control))
+          ) {
+            if (!control.hasAttribute('aria-disabled'))
+              control.setAttribute('aria-disabled', 'true');
+            disabledControls.add(control);
+          }
+          managed.add(control);
+        });
+        managed.add(element);
+        if (editButton) managed.add(editButton);
+        controls.forEach(control => {
+          if (this.#disabledControls.has(control) && !disabledControls.has(control)) {
+            control.removeAttribute('aria-disabled');
+          }
+        });
+        if (access && access !== element) {
+          const accessDisabled = String(controls.every(isDisabled));
+          if (access.dataset.gridDisabled !== accessDisabled) {
+            access.dataset.gridDisabled = accessDisabled;
+            // `<sl-button>` treats any `aria-disabled` attribute as disabled, so clear it instead.
+            access.ariaDisabled = accessDisabled === 'true' ? 'true' : null;
+          }
+        }
+        const target =
+            editButton ?? access ?? controls.find(control => !isDisabled(control)) ?? element,
+          cell = { element, start, end: start + span - 1, controls, target, access, editor };
+        cells.push(cell);
+        this.#cells.set(element, cell);
+      });
+      if (cells.length) this.#rows.set(index, cells);
+    };
+
+    Array.from(thead.rows).forEach((row, index) => addRow(row, index - thead.rows.length));
+    Array.from(tbody.rows).forEach(row => {
+      if (row.hasAttribute('index')) addRow(row, Number(row.getAttribute('index')));
+    });
+
+    this.#actionCells.forEach((description, cell) => {
+      if (this.#cells.get(cell)?.access !== cell) {
+        this.#restoreActionCell(cell, description);
+        this.#actionCells.delete(cell);
+      }
+    });
+    this.#accessButtons.forEach((button, cell) => {
+      if (!accessCells.has(cell)) {
+        button.remove();
+        this.#accessButtons.delete(cell);
+      }
+    });
+    this.#disabledControls.forEach(control => {
+      if (!disabledControls.has(control)) control.removeAttribute('aria-disabled');
+    });
+    this.#disabledControls = disabledControls;
+
+    const session = this.#session;
+    if (session) {
+      const current = this.#cells.get(session.cell.element);
+      if (current?.target === session.cell.target) {
+        session.cell = current;
+      } else {
+        this.#finish(false, false, false);
+      }
+    }
+
+    if (this.#active && this.#active.row >= 0 && this.#active.id !== ListDataSourcePlaceholder) {
+      const { id, type, row } = this.#active,
+        items = dataSource?.items ?? [];
+      if (items[row]?.id !== id || items[row]?.type !== type) {
+        const index = items.findIndex(item => item.id === id && item.type === type);
+        const fallback = Math.min(row, items.length - 1);
+        if (index < 0 && fallback < 0) {
+          this.#active = undefined;
+        } else {
+          this.#active = {
+            ...this.#active,
+            row: index < 0 ? fallback : index,
+            ...this.#rowIdentity(index < 0 ? fallback : index)
+          };
+        }
+      }
+    }
+
+    const firstRow = this.#rows.keys().next().value;
+    if (!this.#active && firstRow !== undefined) {
+      this.#active = this.#position(firstRow, this.#rows.get(firstRow)![0]);
+    } else if (this.#active && this.#active.row < -thead.rows.length) {
+      this.#active =
+        firstRow === undefined ? undefined : this.#position(firstRow, this.#rows.get(firstRow)![0]);
+    }
+    const active = this.#active && this.#cellAt(this.#active);
+    const entry = active?.target ?? table;
+    managed.add(table);
+    this.#tabIndices.forEach((value, element) => {
+      if (!managed.has(element)) {
+        if (this.#temporarilyEnabled.delete(element)) {
+          element.setAttribute('disabled', '');
+        }
+        this.#restoreTabIndex(element, value);
+        this.#tabIndices.delete(element);
+      }
+    });
+    managed.forEach(element => {
+      this.#setTabIndex(element, !this.#session && element === entry ? 0 : -1);
+    });
+
+    this.#observers.forEach((observer, root) => {
+      if (!roots.has(root)) {
+        observer.disconnect();
+        this.#observers.delete(root);
+      }
+    });
+    roots.forEach(root => {
+      if (this.#observers.has(root)) return;
+      const observer = new MutationObserver(this.refresh);
+      observer.observe(root, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: [
+          'aria-disabled',
+          'disabled',
+          'hidden',
+          'inert',
+          'href',
+          'class',
+          'style',
+          'open'
+        ]
+      });
+      this.#observers.set(root, observer);
+    });
+  };
+
+  onPointerDown = (): void => {
+    if (this.grid.keyboardNavigation !== 'arrows') return;
+    this.#pointerListeners?.abort();
+    const listeners = new AbortController();
+    this.#pointerListeners = listeners;
+    this.#pointerDown = true;
+    const clear = (): void => {
+      listeners.abort();
+      // Wait for click, without finishing a newer interaction or a disconnected grid.
+      setTimeout(() => {
+        if (this.#pointerListeners !== listeners) return;
+        this.#pointerListeners = undefined;
+        this.#pointerDown = false;
+        if (
+          this.#session?.cell.access &&
+          this.#session.cell.access !== this.#session.cell.element
+        ) {
+          this.#session.cell.access.hidden = true;
+        }
+      });
+    };
+    window.addEventListener('mouseup', clear, { signal: listeners.signal });
+    window.addEventListener('pointercancel', clear, { signal: listeners.signal });
+  };
+
+  onFocusIn = (event: FocusEvent): void => {
+    if (this.grid.keyboardNavigation !== 'arrows') return;
+    const [target] = event.composedPath();
+    if (target === this.grid.table) {
+      if (this.#active && !this.#parkingFocus) void this.#focus(this.#active);
+      return;
+    }
+    const cell = this.#eventCell(event);
+    if (!cell) return;
+    const control = eventControl(event, cell.controls);
+    if (this.#session?.cell.element === cell.element) {
+      // Focus in a popup may no longer be on the trigger itself.
+      if (control) this.#session.control = control;
+      return;
+    }
+    if (this.#session) this.#leave();
+
+    const row = this.#rowIndex(cell.element);
+    if (target !== cell.target && cell.access && control) {
+      if (!this.#pointerDown && cell.access !== cell.element) cell.access.hidden = true;
+      this.#session = { cell, control, draft: cell.editor?.value };
+      this.#prepareDisabledControls(cell);
+    }
+    this.#active = this.#position(row, cell);
+    this.refresh();
+  };
+
+  onFocusOut = (event: FocusEvent): void => {
+    if (this.grid.keyboardNavigation !== 'arrows') return;
+    const session = this.#session;
+    if (!session) {
+      if (event.relatedTarget && !this.grid.table.contains(event.relatedTarget as Node))
+        this.#move++;
+      return;
+    }
+    // A popup can briefly leave focus on the body before restoring it to its trigger.
+    queueMicrotask(() => {
+      // Top-layer popovers are DOM descendants but do not propagate :focus-within to the cell.
+      if (
+        this.#session === session &&
+        !this.#closingPopup &&
+        !session.cell.element.contains(this.grid.shadowRoot!.activeElement)
+      ) {
+        this.#leave();
+      }
+    });
+  };
+
+  onClick = (event: MouseEvent): void => {
+    this.#pointerDown = false;
+    if (this.grid.keyboardNavigation !== 'arrows') return;
+    const cell = this.#eventCell(event);
+    if (!cell) return;
+    const path = event.composedPath();
+    if (
+      cell.controls.some(control => path.includes(control) && isDisabled(control)) ||
+      (path.includes(cell.target) && isDisabled(cell.target))
+    ) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else if (
+      path.includes(cell.target) &&
+      (cell.access || cell.editor) &&
+      !eventControl(event, cell.controls)
+    ) {
+      event.stopPropagation();
+      this.#enter(cell);
+    } else if (
+      cell.access &&
+      cell.access !== cell.element &&
+      cell.controls.some(control => path.includes(control))
+    ) {
+      cell.access.hidden = true;
+    }
+  };
+
+  onNavigationKeyDown = (event: KeyboardEvent): void => {
+    if (this.grid.keyboardNavigation !== 'arrows' || event.isComposing) return;
+    const cell = this.#eventCell(event);
+    if (!cell) return;
+    const path = event.composedPath(),
+      onDisabledControl =
+        cell.controls.some(control => path.includes(control) && isDisabled(control)) ||
+        (path.includes(cell.target) && isDisabled(cell.target));
+    if (
+      this.#session?.cell.element === cell.element &&
+      onDisabledControl &&
+      event.key !== 'Tab' &&
+      event.key !== 'Escape'
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    if (
+      this.#session?.cell.element !== cell.element &&
+      onDisabledControl &&
+      (event.key === 'Enter' || event.key === ' ')
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    const interacting = this.#session?.cell.element === cell.element;
+    if (!(interacting && event.key === 'Tab') && this.#hasOpenPopup(event)) {
+      if (interacting && event.key === 'Escape') this.#trackPopupClose(event);
+      return;
+    }
+    if (interacting) {
+      this.#handleSessionKey(event, cell);
+    } else {
+      this.#navigate(event, cell);
+    }
+  };
+
+  #handleSessionKey(event: KeyboardEvent, cell: Cell): void {
+    const { key } = event;
+    if (key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.#finish(false, true);
+    } else if (cell.editor && key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.#finish(true, true);
+    } else if (key === 'Tab') {
+      event.preventDefault();
+      event.stopPropagation();
+      const controls = cell.editor
+          ? [cell.editor]
+          : cell.controls.filter(
+              control =>
+                !control.matches(':disabled') &&
+                control.checkVisibility({ visibilityProperty: true })
+            ),
+        current = eventControl(event, controls) ?? this.#session?.control,
+        index = current ? controls.indexOf(current) : -1;
+      controls[index + (event.shiftKey ? -1 : 1)]?.focus();
+    }
+  }
+
+  #navigate(event: KeyboardEvent, cell: Cell): void {
+    const { key } = event;
+    if (
+      event.altKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      (event.ctrlKey && key !== 'Home' && key !== 'End')
+    )
+      return;
+    const row = this.#rowIndex(cell.element),
+      column = Math.max(cell.start, Math.min(this.#active?.column ?? cell.start, cell.end)),
+      siblings = this.#rows.get(row)!,
+      index = siblings.indexOf(cell),
+      first = -this.grid.thead.rows.length,
+      last = (this.grid.dataSource?.items.length ?? 0) - 1,
+      pageSize =
+        Number.isFinite(this.grid.keyboardPageSize) && this.grid.keyboardPageSize >= 1
+          ? Math.floor(this.grid.keyboardPageSize)
+          : 10;
+    if (cell.access === cell.element && (key === 'Enter' || key === ' ')) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (cell.controls.some(control => !isDisabled(control))) this.#enter(cell);
+      return;
+    }
+    let next: Position | undefined;
+    switch (key) {
+      case 'ArrowLeft':
+      case 'ArrowRight': {
+        const right = key === 'ArrowRight',
+          rtl = getComputedStyle(this.grid).direction === 'rtl',
+          target = siblings[index + (right === rtl ? -1 : 1)];
+        if (target) next = this.#position(row, target);
+        break;
+      }
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'PageUp':
+      case 'PageDown': {
+        const offset = key.startsWith('Page') ? pageSize : 1;
+        next = {
+          row: Math.max(first, Math.min(last, row + (key.endsWith('Up') ? -offset : offset))),
+          column
+        };
+        break;
+      }
+      case 'Home':
+      case 'End': {
+        const start = key === 'Home';
+        if (event.ctrlKey) {
+          const targetRow = start ? first : last,
+            cells = this.#rows.get(targetRow),
+            target = start ? cells?.[0] : cells?.at(-1);
+          next = target
+            ? this.#position(targetRow, target)
+            : {
+                row: targetRow,
+                column: start ? 1 : Number(this.grid.table.getAttribute('aria-colcount'))
+              };
+        } else {
+          next = this.#position(row, start ? siblings[0] : siblings.at(-1)!);
+        }
+        break;
+      }
+      default:
+        return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (next && (next.row !== row || next.column !== column)) void this.#focus(next);
+  }
+
+  #getControls(cell: HTMLTableCellElement, roots: Set<Node>): HTMLElement[] {
+    const controls: HTMLElement[] = [];
+    const isControl = (node: Element): node is HTMLElement => {
+      if (
+        !(node instanceof HTMLElement) ||
+        node.matches('sl-button, sl-menu-button') ||
+        (!node.matches(controlSelector) &&
+          !this.#tabIndices.has(node) &&
+          !node.hasAttribute('data-grid-control'))
+      ) {
+        return false;
+      }
+      // Keep discovering inputs hidden by navigation mode, but not renderer-hidden actions.
+      if (
+        node.hasAttribute('data-grid-inactive-input')
+          ? getComputedStyle(node).visibility !== 'visible'
+          : !node.checkVisibility({ visibilityProperty: true })
+      )
+        return false;
+      if (node.hasAttribute('data-grid-control')) return true;
+      const tabIndex = this.#tabIndices.has(node)
+        ? this.#tabIndices.get(node)
+        : node.getAttribute('tabindex');
+      return (
+        tabIndex !== '-1' ||
+        (isDisabled(node) && node.matches('[role="button"], [role="link"], [role="combobox"]'))
+      );
+    };
+    const walk = (node: Element): void => {
+      if (
+        node.matches(
+          '[hidden], [inert], [data-grid-access], [data-grid-edit], [data-grid-editor], [popover]'
+        ) ||
+        (getComputedStyle(node).display === 'none' &&
+          !node.hasAttribute('data-grid-inactive-input'))
+      )
+        return;
+
+      if (node instanceof HTMLSlotElement) {
+        const assigned = node.assignedElements({ flatten: true });
+        (assigned.length ? assigned : Array.from(node.children)).forEach(walk);
+      } else if (node instanceof HTMLElement && node.hasAttribute('data-grid-control')) {
+        if (node.checkVisibility({ visibilityProperty: true })) controls.push(node);
+      } else if (node.shadowRoot) {
+        const before = controls.length;
+        roots.add(node.shadowRoot);
+        Array.from(node.shadowRoot.children).forEach(walk);
+        if (controls.length === before) {
+          Array.from(node.children).forEach(walk);
+        }
+        if (controls.length === before && isControl(node)) {
+          controls.push(node);
+        }
+      } else {
+        if (isControl(node)) {
+          controls.push(node);
+        }
+        Array.from(node.children).forEach(walk);
+      }
+    };
+    Array.from(cell.children).forEach(walk);
+    return controls;
+  }
+
+  #getCellContext(cell: HTMLTableCellElement, column: number): string {
+    const context =
+      cell.querySelector('[data-grid-actions-label]')?.getAttribute('data-grid-actions-label') ||
+      // Group rows span all columns, so the group label describes them better than a header.
+      cell.querySelector('sl-grid-group-header')?.getAttribute('group-label');
+    if (context) return context;
+
+    const header = Array.from(this.grid.thead.rows)
+        .reverse()
+        .flatMap(row => Array.from(row.cells))
+        .find(header => header.id && Number(header.getAttribute('aria-colindex')) === column),
+      label = header && (header.getAttribute('aria-label') || visibleText(header)),
+      row = this.#rowIndex(cell) + 1;
+    return row > 0
+      ? msg(str`${label || msg('Cell', { id: 'sl.grid.cell' })}, row ${row}`, {
+          id: 'sl.grid.actionCellContext'
+        })
+      : label || '';
+  }
+
+  #rowIndex(cell: HTMLTableCellElement): number {
+    const row = cell.parentElement as HTMLTableRowElement;
+    return row.hasAttribute('index')
+      ? Number(row.getAttribute('index'))
+      : row.sectionRowIndex - this.grid.thead.rows.length;
+  }
+
+  #rowIdentity(row: number): Pick<Position, 'id' | 'type'> {
+    const item = this.grid.dataSource?.items[row];
+    return { id: item?.id, type: item?.type };
+  }
+
+  #position(row: number, cell: Cell): Position {
+    return {
+      row,
+      column: cell.start,
+      columnId: cell.element.id || cell.element.getAttribute('data-grid-column') || undefined,
+      ...this.#rowIdentity(row)
+    };
+  }
+
+  #cellAt({ row, column, columnId }: Position): Cell | undefined {
+    const cells = this.#rows.get(row);
+    return (
+      cells?.find(
+        cell =>
+          columnId &&
+          (cell.element.id === columnId ||
+            cell.element.getAttribute('data-grid-column') === columnId)
+      ) ??
+      cells?.find(cell => cell.start <= column && column <= cell.end) ??
+      cells?.find(cell => cell.start > column) ??
+      cells?.at(-1)
+    );
+  }
+
+  #eventCell(event: Event): Cell | undefined {
+    for (const node of event.composedPath()) {
+      if (node instanceof HTMLTableCellElement && this.#cells.has(node))
+        return this.#cells.get(node);
+    }
+    return undefined;
+  }
+
+  async #focus(position: Position): Promise<void> {
+    const move = ++this.#move;
+    let cell = this.#cellAt(position);
+    if (!cell && position.row >= 0) {
+      // Keep focus in the grid while the virtualizer removes the previously focused row.
+      this.#parkingFocus = true;
+      this.grid.table.focus({ preventScroll: true });
+      this.#parkingFocus = false;
+      const virtualizer = (this.grid.tbody as VirtualizerHostElement)[virtualizerRef];
+      virtualizer?.element(position.row)?.scrollIntoView({ block: 'nearest' });
+      try {
+        await virtualizer?.layoutComplete;
+      } catch {
+        return;
+      }
+      if (move !== this.#move || !this.grid.isConnected) return;
+      this.refresh();
+      cell = this.#cellAt(position);
+    }
+    if (!cell || !this.grid.table.matches(':focus-within')) return;
+    cell.target.focus();
+    this.#active = { ...this.#position(position.row, cell), column: position.column };
+    this.refresh();
+  }
+
+  #enter(cell: Cell): void {
+    if (this.#session?.cell.element === cell.element) return;
+    this.#leave();
+    this.#active = this.#position(this.#rowIndex(cell.element), cell);
+    this.#session = { cell, draft: cell.editor?.value };
+    if (cell.target !== cell.element) cell.target.hidden = true;
+    if (cell.editor) {
+      if (cell.editor instanceof HTMLInputElement)
+        cell.editor.removeAttribute('data-grid-inactive-input');
+      else cell.editor.hidden = false;
+      cell.editor.focus();
+    } else {
+      this.#prepareDisabledControls(cell);
+      cell.controls.find(control => !isDisabled(control))?.focus();
+    }
+    this.refresh();
+  }
+
+  #prepareDisabledControls(cell: Cell): void {
+    // Retain the disabled announcement and block activation while making the control focusable.
+    cell.controls.forEach(control => {
+      if (control.matches(':disabled[disabled]') && control.hasAttribute('aria-disabled')) {
+        this.#temporarilyEnabled.add(control);
+        control.removeAttribute('disabled');
+      }
+    });
+  }
+
+  #finish(commit: boolean, restoreFocus: boolean, refresh = true): void {
+    if (!this.#session) return;
+    const { cell, draft } = this.#session;
+    this.#popupListeners?.abort();
+    this.#popupListeners = undefined;
+    this.#closingPopup = undefined;
+    this.#session = undefined;
+    if (cell.editor instanceof HTMLInputElement) {
+      if (!commit && cell.editor.value !== draft) {
+        cell.editor.value = draft ?? '';
+        // Keep renderers bound to the native input event in sync with the restored value.
+        cell.editor.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      }
+    } else if (cell.editor) {
+      if (commit) cell.editor.dispatchEvent(new Event('sl-grid-edit-commit'));
+      else cell.editor.value = draft ?? '';
+      cell.editor.hidden = true;
+    }
+    this.#temporarilyEnabled.forEach(control => control.setAttribute('disabled', ''));
+    this.#temporarilyEnabled.clear();
+    if (cell.target !== cell.element) cell.target.hidden = false;
+    if (restoreFocus) cell.target.focus();
+    if (refresh) this.refresh();
+  }
+
+  /** Ends the session because focus moved elsewhere; pending edits are kept. */
+  #leave(): void {
+    this.#finish(!!this.#session?.cell.editor, false);
+  }
+
+  #restoreActionCell(cell: HTMLTableCellElement, description: string | null): void {
+    cell.removeAttribute('data-grid-actions');
+    if (description === null) cell.removeAttribute('aria-describedby');
+    else cell.setAttribute('aria-describedby', description);
+  }
+
+  #trackPopupClose(event: KeyboardEvent): void {
+    const session = this.#session;
+    if (!session) return;
+    const popup = event
+      .composedPath()
+      .flatMap(node =>
+        node instanceof HTMLElement
+          ? [
+              node,
+              ...Array.from(node.shadowRoot?.querySelectorAll<HTMLElement>(':popover-open') ?? [])
+            ]
+          : []
+      )
+      .find(node => node.matches(':popover-open'));
+    if (!popup || this.#closingPopup === popup) return;
+    this.#popupListeners?.abort();
+    const listeners = new AbortController();
+    this.#popupListeners = listeners;
+    this.#closingPopup = popup;
+    const restore = (): void => {
+      if (this.#closingPopup !== popup || popup.matches(':popover-open')) return;
+      listeners.abort();
+      this.#popupListeners = undefined;
+      this.#closingPopup = undefined;
+      if (this.#session === session && this.grid.isConnected) session.control?.focus();
+    };
+    // Closing may blur the menu before its queued toggle event is dispatched. Observe
+    // beforetoggle in capture phase, then check focus after the native close and layout complete.
+    popup.addEventListener(
+      'beforetoggle',
+      event => {
+        if (event.newState === 'closed') requestAnimationFrame(restore);
+      },
+      { capture: true, signal: listeners.signal }
+    );
+    popup.addEventListener('toggle', restore, { signal: listeners.signal });
+  }
+
+  #hasOpenPopup(event: Event): boolean {
+    const path = event.composedPath(),
+      table = path.indexOf(this.grid.table);
+
+    // Only look inside the cell; the grid itself hosts popovers such as the bulk actions.
+    return path
+      .slice(0, table < 0 ? path.length : table)
+      .some(
+        node =>
+          node instanceof HTMLElement &&
+          (node.matches(
+            ':popover-open, [aria-expanded="true"][aria-haspopup], [role="combobox"][aria-expanded="true"]'
+          ) ||
+            !!node.shadowRoot?.querySelector(':popover-open'))
+      );
+  }
+
+  #setTabIndex(element: HTMLElement, value: number): void {
+    if (!this.#tabIndices.has(element))
+      this.#tabIndices.set(element, element.getAttribute('tabindex'));
+    if (element.getAttribute('tabindex') !== String(value))
+      element.setAttribute('tabindex', String(value));
+    // `<sl-button>` applies its `tabIndex` property to the button in its shadow root.
+    if (element.matches('[data-grid-access], [data-grid-edit]') && element.tabIndex !== value) {
+      element.tabIndex = value;
+    }
+  }
+
+  #restoreTabIndex(element: HTMLElement, value: string | null): void {
+    element.removeAttribute('data-grid-inactive-input');
+    if (value === null) element.removeAttribute('tabindex');
+    else element.setAttribute('tabindex', value);
+  }
+}

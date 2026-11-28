@@ -62,7 +62,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
         aria-label=${ifDefined(this.headerAriaLabel)}
         colspan=${Math.max(this.columnSpan, 1)}
         id=${this.headerCellId}
-        role="cell">
+        role=${this.grid?.keyboardNavigation === 'arrows' ? 'gridcell' : 'cell'}>
         ${this.renderHeaderLabel()}
       </th>
     `;

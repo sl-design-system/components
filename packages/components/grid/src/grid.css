@@ -666,18 +666,13 @@ table[role='grid'] {
     margin-inline-end: var(--sl-size-100);
   }
 
-  /* Keep the row actions in place while the access button is hidden. */
-  [data-grid-access='actions'][hidden] {
-    display: inline-flex;
-    visibility: hidden;
-  }
-
   /* The edit button shows the value of the cell, so it should read like the other cells. */
   [data-grid-edit] {
-    inline-size: calc(100% + var(--sl-size-200));
-    margin-inline: calc(var(--sl-size-100) * -1);
+    inline-size: 100%;
+    min-inline-size: 0;
 
     &::part(button) {
+      outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
       font-weight: inherit;
       justify-content: start;
       min-block-size: var(--sl-size-400);
@@ -688,6 +683,9 @@ table[role='grid'] {
 
   [data-grid-editor] {
     inline-size: 100%;
+    min-inline-size: 0;
+    /* Keep the field's own focus ring inside the cell's clipped bounds. */
+    outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
   }
 
   [data-grid-edit] [part='placeholder'] {

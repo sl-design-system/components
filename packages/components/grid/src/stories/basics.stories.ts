@@ -68,7 +68,8 @@ export const ArrowNavigation: Story = {
   render: () => html`
     <p>
       Tab into the grid, then use the arrow keys to move between cells. Press Enter or Space to edit
-      a note or access its row actions. While interacting with actions, Tab and Shift+Tab stay in
+      a note or access its row actions. Cells with multiple actions receive focus as a whole. Press
+      Escape to return to cell navigation. While interacting with actions, Tab and Shift+Tab stay in
       the cell and skip hidden controls. Escape closes an open menu first; press it again to return
       to grid navigation.
     </p>

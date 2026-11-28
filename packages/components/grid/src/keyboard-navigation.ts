@@ -67,6 +67,9 @@ export class GridKeyboardNavigation {
   #temporarilyEnabled = new Set<HTMLElement>();
   #accessButtons = new Map<HTMLTableCellElement, HTMLElement>();
   #observers = new Map<Node, MutationObserver>();
+  #actionCells = new Map<HTMLTableCellElement, string | null>();
+  #closingPopup?: HTMLElement;
+  #popupListeners?: AbortController;
   #move = 0;
   #parkingFocus = false;
   #pointerDown = false;
@@ -76,6 +79,9 @@ export class GridKeyboardNavigation {
 
   disconnect(): void {
     this.#move++;
+    this.#closingPopup = undefined;
+    this.#popupListeners?.abort();
+    this.#popupListeners = undefined;
     this.#pointerListeners?.abort();
     this.#pointerListeners = undefined;
     this.#pointerDown = false;
@@ -90,6 +96,8 @@ export class GridKeyboardNavigation {
     this.#disabledControls.clear();
     this.#accessButtons.forEach(button => button.remove());
     this.#accessButtons.clear();
+    this.#actionCells.forEach((description, cell) => this.#restoreActionCell(cell, description));
+    this.#actionCells.clear();
     this.#cells.clear();
     this.#rows.clear();
   }
@@ -134,7 +142,18 @@ export class GridKeyboardNavigation {
           editor = nativeEditor ?? element.querySelector<Editor>('[data-grid-editor]') ?? undefined,
           needsAccess = !editButton && (controls.length > 1 || singleEditable);
         let access: HTMLElement | undefined;
-        if (needsAccess) {
+        if (needsAccess && !singleEditable) {
+          access = element;
+          if (!this.#actionCells.has(element)) {
+            this.#actionCells.set(element, element.getAttribute('aria-describedby'));
+          }
+          element.dataset.gridActions = '';
+          const description = this.#actionCells.get(element);
+          element.setAttribute(
+            'aria-describedby',
+            [description, 'grid-access-instructions'].filter(Boolean).join(' ')
+          );
+        } else if (needsAccess) {
           accessCells.add(element);
           access = this.#accessButtons.get(element);
           if (!access) {
@@ -143,28 +162,17 @@ export class GridKeyboardNavigation {
             element.prepend(access);
             this.#accessButtons.set(element, access);
           }
-          const kind = singleEditable ? 'edit' : 'actions';
-          if (access.dataset.gridAccess !== kind) {
-            access.dataset.gridAccess = kind;
-            access.setAttribute('fill', singleEditable ? 'outline' : 'ghost');
-          }
+          access.dataset.gridAccess = 'edit';
+          access.setAttribute('fill', 'outline');
           const context = this.#getCellContext(element, start),
             value = nativeEditor?.value.trim(),
             label = nativeEditor
               ? value || msg('Edit empty cell', { id: 'sl.grid.editEmptyCell' })
-              : singleEditable
-                ? context
-                  ? msg(str`Edit ${context}`, { id: 'sl.grid.editCell' })
-                  : msg('Edit cell', { id: 'sl.grid.editCellFallback' })
-                : context
-                  ? msg(str`Actions for ${context}`, { id: 'sl.grid.actionsForCell' })
-                  : msg('Cell actions', { id: 'sl.grid.cellActions' }),
-            text = nativeEditor
-              ? label
-              : singleEditable
-                ? msg('Edit', { id: 'sl.grid.edit' })
-                : msg('Actions', { id: 'sl.grid.actions' }),
-            describedBy = singleEditable ? 'grid-edit-instructions' : 'grid-access-instructions';
+              : context
+                ? msg(str`Edit ${context}`, { id: 'sl.grid.editCell' })
+                : msg('Edit cell', { id: 'sl.grid.editCellFallback' }),
+            text = nativeEditor ? label : msg('Edit', { id: 'sl.grid.edit' }),
+            describedBy = 'grid-edit-instructions';
           // `<sl-button>` moves ARIA attributes to its internal button, so track what was set.
           if (access.dataset.gridLabel !== label) {
             access.dataset.gridLabel = label;
@@ -200,7 +208,7 @@ export class GridKeyboardNavigation {
             control.removeAttribute('aria-disabled');
           }
         });
-        if (access) {
+        if (access && access !== element) {
           const accessDisabled = String(controls.every(isDisabled));
           if (access.dataset.gridDisabled !== accessDisabled) {
             access.dataset.gridDisabled = accessDisabled;
@@ -222,6 +230,12 @@ export class GridKeyboardNavigation {
       if (row.hasAttribute('index')) addRow(row, Number(row.getAttribute('index')));
     });
 
+    this.#actionCells.forEach((description, cell) => {
+      if (this.#cells.get(cell)?.access !== cell) {
+        this.#restoreActionCell(cell, description);
+        this.#actionCells.delete(cell);
+      }
+    });
     this.#accessButtons.forEach((button, cell) => {
       if (!accessCells.has(cell)) {
         button.remove();
@@ -325,7 +339,10 @@ export class GridKeyboardNavigation {
         if (this.#pointerListeners !== listeners) return;
         this.#pointerListeners = undefined;
         this.#pointerDown = false;
-        if (this.#session?.cell.access) {
+        if (
+          this.#session?.cell.access &&
+          this.#session.cell.access !== this.#session.cell.element
+        ) {
           this.#session.cell.access.hidden = true;
         }
       });
@@ -353,7 +370,7 @@ export class GridKeyboardNavigation {
 
     const row = this.#rowIndex(cell.element);
     if (target !== cell.target && cell.access && control) {
-      if (!this.#pointerDown) cell.access.hidden = true;
+      if (!this.#pointerDown && cell.access !== cell.element) cell.access.hidden = true;
       this.#session = { cell, control, draft: cell.editor?.value };
       this.#prepareDisabledControls(cell);
     }
@@ -374,6 +391,7 @@ export class GridKeyboardNavigation {
       // Top-layer popovers are DOM descendants but do not propagate :focus-within to the cell.
       if (
         this.#session === session &&
+        !this.#closingPopup &&
         !session.cell.element.contains(this.grid.shadowRoot!.activeElement)
       ) {
         this.#leave();
@@ -393,10 +411,18 @@ export class GridKeyboardNavigation {
     ) {
       event.preventDefault();
       event.stopImmediatePropagation();
-    } else if (path.includes(cell.target) && (cell.access || cell.editor)) {
+    } else if (
+      path.includes(cell.target) &&
+      (cell.access || cell.editor) &&
+      !eventControl(event, cell.controls)
+    ) {
       event.stopPropagation();
       this.#enter(cell);
-    } else if (cell.access && cell.controls.some(control => path.includes(control))) {
+    } else if (
+      cell.access &&
+      cell.access !== cell.element &&
+      cell.controls.some(control => path.includes(control))
+    ) {
       cell.access.hidden = true;
     }
   };
@@ -429,7 +455,10 @@ export class GridKeyboardNavigation {
       return;
     }
     const interacting = this.#session?.cell.element === cell.element;
-    if (!(interacting && event.key === 'Tab') && this.#hasOpenPopup(event)) return;
+    if (!(interacting && event.key === 'Tab') && this.#hasOpenPopup(event)) {
+      if (interacting && event.key === 'Escape') this.#trackPopupClose(event);
+      return;
+    }
     if (interacting) {
       this.#handleSessionKey(event, cell);
     } else {
@@ -482,6 +511,12 @@ export class GridKeyboardNavigation {
         Number.isFinite(this.grid.keyboardPageSize) && this.grid.keyboardPageSize >= 1
           ? Math.floor(this.grid.keyboardPageSize)
           : 10;
+    if (cell.access === cell.element && (key === 'Enter' || key === ' ')) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (cell.controls.some(control => !isDisabled(control))) this.#enter(cell);
+      return;
+    }
     let next: Position | undefined;
     switch (key) {
       case 'ArrowLeft':
@@ -687,7 +722,7 @@ export class GridKeyboardNavigation {
     this.#leave();
     this.#active = this.#position(this.#rowIndex(cell.element), cell);
     this.#session = { cell, draft: cell.editor?.value };
-    cell.target.hidden = true;
+    if (cell.target !== cell.element) cell.target.hidden = true;
     if (cell.editor) {
       if (cell.editor instanceof HTMLInputElement)
         cell.editor.removeAttribute('data-grid-inactive-input');
@@ -713,6 +748,9 @@ export class GridKeyboardNavigation {
   #finish(commit: boolean, restoreFocus: boolean, refresh = true): void {
     if (!this.#session) return;
     const { cell, draft } = this.#session;
+    this.#popupListeners?.abort();
+    this.#popupListeners = undefined;
+    this.#closingPopup = undefined;
     this.#session = undefined;
     if (cell.editor instanceof HTMLInputElement) {
       if (!commit && cell.editor.value !== draft) {
@@ -727,7 +765,7 @@ export class GridKeyboardNavigation {
     }
     this.#temporarilyEnabled.forEach(control => control.setAttribute('disabled', ''));
     this.#temporarilyEnabled.clear();
-    cell.target.hidden = false;
+    if (cell.target !== cell.element) cell.target.hidden = false;
     if (restoreFocus) cell.target.focus();
     if (refresh) this.refresh();
   }
@@ -735,6 +773,50 @@ export class GridKeyboardNavigation {
   /** Ends the session because focus moved elsewhere; pending edits are kept. */
   #leave(): void {
     this.#finish(!!this.#session?.cell.editor, false);
+  }
+
+  #restoreActionCell(cell: HTMLTableCellElement, description: string | null): void {
+    cell.removeAttribute('data-grid-actions');
+    if (description === null) cell.removeAttribute('aria-describedby');
+    else cell.setAttribute('aria-describedby', description);
+  }
+
+  #trackPopupClose(event: KeyboardEvent): void {
+    const session = this.#session;
+    if (!session) return;
+    const popup = event
+      .composedPath()
+      .flatMap(node =>
+        node instanceof HTMLElement
+          ? [
+              node,
+              ...Array.from(node.shadowRoot?.querySelectorAll<HTMLElement>(':popover-open') ?? [])
+            ]
+          : []
+      )
+      .find(node => node.matches(':popover-open'));
+    if (!popup || this.#closingPopup === popup) return;
+    this.#popupListeners?.abort();
+    const listeners = new AbortController();
+    this.#popupListeners = listeners;
+    this.#closingPopup = popup;
+    const restore = (): void => {
+      if (this.#closingPopup !== popup || popup.matches(':popover-open')) return;
+      listeners.abort();
+      this.#popupListeners = undefined;
+      this.#closingPopup = undefined;
+      if (this.#session === session && this.grid.isConnected) session.control?.focus();
+    };
+    // Closing may blur the menu before its queued toggle event is dispatched. Observe
+    // beforetoggle in capture phase, then check focus after the native close and layout complete.
+    popup.addEventListener(
+      'beforetoggle',
+      event => {
+        if (event.newState === 'closed') requestAnimationFrame(restore);
+      },
+      { capture: true, signal: listeners.signal }
+    );
+    popup.addEventListener('toggle', restore, { signal: listeners.signal });
   }
 
   #hasOpenPopup(event: Event): boolean {

@@ -5,10 +5,22 @@ import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { server, userEvent } from 'vitest/browser';
 import { type Grid } from './grid.js';
 import './register.js';
 import { waitForGridToRenderData } from './utils.js';
+
+async function tab(options?: { shift?: boolean }): Promise<void> {
+  // WebKit on macOS skips ordinary buttons with Tab by default. Option+Tab includes
+  // all controls, matching Safari's full keyboard navigation setting.
+  if (server.browser === 'webkit' && server.platform === 'darwin') {
+    await userEvent.keyboard(
+      options?.shift ? '{Alt>}{Shift>}{Tab}{/Shift}{/Alt}' : '{Alt>}{Tab}{/Alt}'
+    );
+  } else {
+    await userEvent.tab(options);
+  }
+}
 
 async function mount(
   count = 2
@@ -54,24 +66,24 @@ describe('sl-grid arrow navigation', () => {
   it('has one tab stop and restores the last cell from either direction', async () => {
     const { grid } = await mount();
 
-    await userEvent.tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(grid.thead.rows[0].cells[0]);
 
     await userEvent.keyboard('{ArrowLeft}{ArrowDown}{End}');
-    const actions = grid.tbody.rows[0].querySelector('[data-grid-access]');
+    const actions = grid.tbody.rows[0].cells[2];
 
     expect(grid.shadowRoot!.activeElement).toBe(actions);
 
-    await userEvent.tab();
+    await tab();
 
     expect(document.activeElement?.id).toBe('after');
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(grid.shadowRoot!.activeElement).toBe(actions);
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(document.activeElement?.id).toBe('before');
   });
@@ -79,7 +91,7 @@ describe('sl-grid arrow navigation', () => {
   it('commits with Enter, discards with Escape and keeps Tab inside the editor', async () => {
     const { grid, items } = await mount();
 
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{ArrowRight}{Enter}');
 
     const editor = grid.tbody.querySelector<TextField>('[data-grid-editor]')!,
@@ -106,11 +118,11 @@ describe('sl-grid arrow navigation', () => {
   it('enters on the first enabled action and reaches disabled actions without wrapping', async () => {
     const { grid } = await mount();
 
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{End}');
 
     const cell = grid.tbody.rows[0].cells[2],
-      entry = cell.querySelector<HTMLElement>('[data-grid-access]')!,
+      entry = cell,
       [disabled, enabled] = cell.querySelectorAll('button'),
       link = cell.querySelector('a'),
       { x, y } = enabled.getBoundingClientRect();
@@ -118,18 +130,19 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.keyboard('{Enter}');
 
     expect(grid.shadowRoot!.activeElement).toBe(enabled);
-    expect(entry.checkVisibility({ visibilityProperty: true })).toBe(false);
+    expect(entry.checkVisibility({ visibilityProperty: true })).toBe(true);
+    expect(cell.querySelector('[data-grid-access]')).toBeNull();
     expect(enabled.getBoundingClientRect()).toMatchObject({ x, y });
 
-    await userEvent.tab({ shift: true });
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
+    await tab({ shift: true });
 
     expect(grid.shadowRoot!.activeElement).toBe(disabled);
     expect(disabled.getAttribute('aria-disabled')).toBe('true');
 
-    await userEvent.tab();
-    await userEvent.tab();
-    await userEvent.tab();
+    await tab();
+    await tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(link);
 
@@ -137,6 +150,36 @@ describe('sl-grid arrow navigation', () => {
 
     expect(grid.shadowRoot!.activeElement).toBe(entry);
     expect(disabled.disabled).toBe(true);
+  });
+
+  it('shows one inset focus indicator on the edit button or editor without outlining the cell', async () => {
+    const { grid } = await mount();
+    await tab();
+    await userEvent.keyboard('{ArrowDown}{ArrowRight}');
+    const cell = grid.tbody.rows[0].cells[1],
+      edit = cell.querySelector<Button>('[data-grid-edit]')!,
+      editor = cell.querySelector<TextField>('[data-grid-editor]')!;
+    await edit.updateComplete;
+    const assertVisibleOutline = (target: HTMLElement): void => {
+      const style = getComputedStyle(target),
+        bounds = target.getBoundingClientRect(),
+        cellBounds = cell.getBoundingClientRect();
+      expect(getComputedStyle(cell).outlineStyle).toBe('none');
+      expect(style.outlineStyle).toBe('solid');
+      expect(parseFloat(style.outlineWidth)).toBeGreaterThan(0);
+      expect(style.outlineColor).not.toBe('rgba(0, 0, 0, 0)');
+      expect(parseFloat(style.outlineOffset)).toBeLessThan(0);
+      expect(bounds.left).toBeGreaterThanOrEqual(cellBounds.left);
+      expect(bounds.right).toBeLessThanOrEqual(cellBounds.right);
+      expect(bounds.top).toBeGreaterThanOrEqual(cellBounds.top);
+      expect(bounds.bottom).toBeLessThanOrEqual(cellBounds.bottom);
+    };
+    assertVisibleOutline(edit.button);
+    await userEvent.keyboard('{Enter}');
+    await expect.poll(() => editor.hasFocusRing).toBe(true);
+    assertVisibleOutline(editor);
+    await userEvent.keyboard('{Escape}');
+    assertVisibleOutline(edit.button);
   });
 
   it('shows the placeholder for an empty cell without saving it as the value', async () => {
@@ -249,11 +292,11 @@ describe('sl-grid arrow navigation', () => {
 
     expect(grid.shadowRoot!.activeElement).toBe(open);
 
-    await userEvent.tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(more);
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(grid.shadowRoot!.activeElement).toBe(open);
   });
@@ -286,10 +329,22 @@ describe('sl-grid arrow navigation', () => {
     await menuButton.updateComplete;
 
     wrapper.querySelector('button')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{Enter}{ArrowDown}');
 
     await expect.poll(() => menuButton.menu.matches(':popover-open')).toBe(true);
+
+    // Reproduce browsers that drop focus before the closing toggle restores the trigger.
+    menuButton.menu.addEventListener(
+      'beforetoggle',
+      event => {
+        if (event.newState !== 'closed') return;
+        let focused = document.activeElement;
+        while (focused?.shadowRoot?.activeElement) focused = focused.shadowRoot.activeElement;
+        if (focused instanceof HTMLElement) focused.blur();
+      },
+      { once: true }
+    );
 
     await userEvent.keyboard('{Escape}');
 
@@ -298,26 +353,26 @@ describe('sl-grid arrow navigation', () => {
 
     await userEvent.keyboard('{Escape}');
 
-    expect(grid.shadowRoot!.activeElement?.hasAttribute('data-grid-access')).toBe(true);
+    expect(grid.shadowRoot!.activeElement?.hasAttribute('data-grid-actions')).toBe(true);
 
     await userEvent.keyboard('{Enter}{ArrowDown}');
 
     await expect.poll(() => menuButton.menu.matches(':popover-open')).toBe(true);
 
     const cell = grid.tbody.rows[0].cells[0],
-      access = cell.querySelector<HTMLElement>('[data-grid-access]')!;
+      access = cell;
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
-    expect(access.hidden).toBe(true);
+    expect(access.hidden).toBe(false);
     expect(cell.contains(grid.shadowRoot!.activeElement)).toBe(true);
 
-    await userEvent.tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('button'));
     expect(menuButton.menu.matches(':popover-open')).toBe(false);
 
-    await userEvent.tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('button'));
 
@@ -329,7 +384,7 @@ describe('sl-grid arrow navigation', () => {
   it('keeps the column when paging and focuses an offscreen row with Ctrl+End', async () => {
     const { grid } = await mount(200);
 
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowRight}{ArrowDown}{PageDown}');
 
     const focusedRow = (): string | null | undefined =>
@@ -341,14 +396,14 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.keyboard('{Control>}{End}{/Control}');
 
     await expect.poll(focusedRow).toBe('199');
-    expect(grid.shadowRoot!.activeElement?.hasAttribute('data-grid-access')).toBe(true);
+    expect(grid.shadowRoot!.activeElement?.hasAttribute('data-grid-actions')).toBe(true);
 
-    await userEvent.tab();
+    await tab();
     grid.parentElement!.scrollTop = 0;
 
     await expect.poll(() => grid.tbody.querySelector('tr[index="199"]')).toBeNull();
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     await expect.poll(focusedRow).toBe('199');
   });
@@ -367,7 +422,8 @@ describe('sl-grid arrow navigation', () => {
     await userEvent.click(openButton);
 
     expect(clicked).toBe(true);
-    expect(cell.querySelector<HTMLElement>('[data-grid-access]')?.hidden).toBe(true);
+    expect(cell.querySelector('[data-grid-access]')).toBeNull();
+    expect(cell.hidden).toBe(false);
     expect(grid.shadowRoot!.activeElement).toBe(openButton);
   });
 
@@ -395,7 +451,7 @@ describe('sl-grid arrow navigation', () => {
     await grid.updateComplete;
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}');
 
     const access = grid.tbody.rows[0].querySelector<Button>('[data-grid-access]')!;
@@ -403,11 +459,11 @@ describe('sl-grid arrow navigation', () => {
     expect(grid.shadowRoot!.activeElement).toBe(access);
     expect(access.button.getAttribute('aria-label')).toBe('Edit Status, row 1');
 
-    await userEvent.tab();
+    await tab();
 
     expect(document.activeElement?.id).toBe('after');
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(grid.shadowRoot!.activeElement).toBe(access);
 
@@ -460,7 +516,7 @@ describe('sl-grid arrow navigation', () => {
       button = cell.querySelector('button')!;
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}');
 
     expect(grid.shadowRoot!.activeElement).toBe(cell);
@@ -500,16 +556,16 @@ describe('sl-grid arrow navigation', () => {
     expect(link.getAttribute('tabindex')).toBe('-1');
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{Enter}');
 
     expect(grid.shadowRoot!.activeElement).toBe(summary);
 
-    await userEvent.tab();
+    await tab();
 
     expect(grid.shadowRoot!.activeElement).toBe(link);
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(grid.shadowRoot!.activeElement).toBe(summary);
   });
@@ -541,25 +597,25 @@ describe('sl-grid arrow navigation', () => {
       summary = details.querySelector('summary')!;
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{Enter}');
 
     expect(details.open).toBe(true);
 
-    await userEvent.tab();
+    await tab();
 
     expect(document.activeElement?.id).toBe('after');
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
-    expect(grid.shadowRoot!.activeElement).toBe(cell.querySelector('[data-grid-access]'));
+    expect(grid.shadowRoot!.activeElement).toBe(cell);
 
     await userEvent.keyboard('{Enter}{Enter}');
 
     expect(details.open).toBe(false);
     expect(grid.shadowRoot!.activeElement).toBe(summary);
 
-    await userEvent.tab({ shift: true });
+    await tab({ shift: true });
 
     expect(document.activeElement?.id).toBe('before');
   });
@@ -580,12 +636,12 @@ describe('sl-grid arrow navigation', () => {
     await waitForGridToRenderData(grid);
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown} ');
 
     await expect.poll(() => grid.dataSource?.selected).toBe(1);
 
-    await userEvent.tab();
+    await tab();
     const cancelSelection = grid.shadowRoot!.querySelector('[part="bulk-actions"] sl-button');
 
     expect(grid.shadowRoot!.activeElement).toBe(cancelSelection);
@@ -606,7 +662,7 @@ describe('sl-grid arrow navigation', () => {
     await waitForGridToRenderData(grid);
 
     wrapper.querySelector<HTMLButtonElement>('#before')!.focus();
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown} ');
 
     await expect
@@ -639,16 +695,16 @@ describe('sl-grid arrow navigation', () => {
     `);
     await waitForGridToRenderData(grid);
 
-    const access = grid.tbody.querySelector<Button>('tr[part~="group"] [data-grid-access]')!;
-    await access.updateComplete;
-
-    expect(access.button.getAttribute('aria-label')).toBe('Actions for Group A');
+    const cell = grid.tbody.querySelector<HTMLElement>('tr[part~="group"] td')!;
+    expect(cell.hasAttribute('data-grid-actions')).toBe(true);
+    expect(cell.textContent).toContain('Group A');
+    expect(cell.getAttribute('aria-describedby')).toContain('grid-access-instructions');
   });
 
   it('saves the edit when focus leaves the cell', async () => {
     const { grid, items } = await mount();
 
-    await userEvent.tab();
+    await tab();
     await userEvent.keyboard('{ArrowDown}{ArrowRight}{Enter}{End} changed');
     await userEvent.click(grid.tbody.rows[1].cells[0]);
 

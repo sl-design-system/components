@@ -1,22 +1,22 @@
 ---
-title: Editor
+title: Rich text editor
 tags: overview
 eleventyNavigation:
-  parent: Editor
-  key: EditorOverview
+  parent: Rich text editor
+  key: RichTextEditorOverview
 ---
 <section>
 
 <div class="ds-example">
 
-<sl-editor id="editor-example"></sl-editor>
+<sl-rich-text-editor id="rich-text-editor-example"></sl-rich-text-editor>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-<sl-editor id="editor-example"></sl-editor>
+<sl-rich-text-editor id="rich-text-editor-example"></sl-rich-text-editor>
 
 <script>
   const editor = document.querySelector("#editor-example");

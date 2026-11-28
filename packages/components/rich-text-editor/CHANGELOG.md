@@ -1,4 +1,4 @@
-# @sl-design-system/editor
+# @sl-design-system/rich-text-editor
 
 ## 0.2.1
 

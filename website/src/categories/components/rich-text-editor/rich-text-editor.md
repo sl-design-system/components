@@ -1,15 +1,16 @@
 ---
-title: Editor
-description: Editor component description
+title: Rich text editor
+description: Rich text editor component description
 componentType: form
-shortDescription: We are still working on the editor component
+shortDescription: We are still working on the rich text editor component
 layout: "categories/components/components.njk"
 tags: component
+packageName: rich-text-editor
 storybookCategory: form
 eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
-  key: Editor
+  key: Rich text editor
   status: coming
 ---
 

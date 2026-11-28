@@ -1,15 +1,15 @@
 ---
-title: Editor accessibility
+title: Rich text editor accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Editor
-  key: EditorAccessibility
+  parent: Rich text editor
+  key: RichTextEditorAccessibility
 ---
 <section>
 
-## Editor accessibility content
+## Rich text editor accessibility content
 
-This is the accessibility content of the editor component
+This is the accessibility content of the rich text editor component
 
 </section>
 

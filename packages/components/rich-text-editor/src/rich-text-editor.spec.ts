@@ -1,0 +1,796 @@
+import { type Dialog } from '@sl-design-system/dialog';
+import { type Form } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
+import { type TextField } from '@sl-design-system/text-field';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { undoDepth } from 'prosemirror-history';
+import { TextSelection } from 'prosemirror-state';
+import { type SinonStub, spy, stub } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { DEFAULT_FEATURES, resolveFeatures } from './features.js';
+import './register.js';
+import { type RichTextEditor } from './rich-text-editor.js';
+
+const toolbarLabels = (el: RichTextEditor): string[] =>
+  Array.from(el.renderRoot.querySelectorAll('[data-toolbar-item]')).map(
+    item =>
+      item.getAttribute('aria-label') ??
+      item.shadowRoot?.querySelector('button')?.getAttribute('aria-label') ??
+      ''
+  );
+
+const undoDepthOf = (el: RichTextEditor): number => undoDepth(el.view!.state) as number;
+
+const content = (el: RichTextEditor): HTMLElement =>
+  el.querySelector<HTMLElement>('.sl-rich-text-editor-content')!;
+
+describe('resolveFeatures', () => {
+  it('should use the default set when nothing is given', () => {
+    expect([...resolveFeatures()]).to.deep.equal([...DEFAULT_FEATURES]);
+    expect([...resolveFeatures('')]).to.deep.equal([...DEFAULT_FEATURES]);
+  });
+
+  it('should add and remove features left to right', () => {
+    const features = resolveFeatures('default checklist -strike');
+
+    expect(features.has('checklist')).to.be.true;
+    expect(features.has('strike')).to.be.false;
+    expect(features.has('bold')).to.be.true;
+  });
+
+  it('should only have the named features without default', () => {
+    expect([...resolveFeatures('bold italic link')]).to.deep.equal(['bold', 'italic', 'link']);
+  });
+
+  it('should skip unknown features with a warning', () => {
+    const warn = spy(console, 'warn');
+
+    try {
+      expect([...resolveFeatures('bold sparkles')]).to.deep.equal(['bold']);
+      expect(warn).to.have.been.calledOnce;
+    } finally {
+      warn.restore();
+    }
+  });
+
+  it('should never include opt-in features in default', () => {
+    expect(DEFAULT_FEATURES).not.to.include('code');
+    expect(DEFAULT_FEATURES).not.to.include('checklist');
+    expect(DEFAULT_FEATURES).not.to.include('character-count');
+  });
+});
+
+describe('sl-rich-text-editor', () => {
+  let el: RichTextEditor;
+
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-rich-text-editor></sl-rich-text-editor>`);
+    });
+
+    it('should render the editable in light DOM', () => {
+      expect(content(el)).to.exist;
+      expect(content(el)).to.have.attribute('slot', 'content');
+      expect(content(el)).to.have.attribute('contenteditable', 'true');
+    });
+
+    it('should give the editable the textbox role', () => {
+      expect(content(el)).to.have.attribute('role', 'textbox');
+      expect(content(el)).to.have.attribute('aria-multiline', 'true');
+    });
+
+    it('should have a formatting toolbar', () => {
+      const toolbar = el.renderRoot.querySelector('[role="toolbar"]');
+
+      expect(toolbar).to.exist;
+      expect((toolbar as HTMLElement).ariaControlsElements).to.deep.equal([content(el)]);
+    });
+
+    it('should have a text style select', () => {
+      expect(el.renderRoot.querySelector('sl-select')).to.exist;
+    });
+
+    it('should have buttons for the default features', () => {
+      expect(toolbarLabels(el)).to.include.members([
+        'Bold',
+        'Italic',
+        'Underline',
+        'Strikethrough',
+        'Link',
+        'Bulleted list',
+        'Numbered list',
+        'Quote',
+        'Undo',
+        'Redo'
+      ]);
+    });
+
+    it('should not have buttons for opt-in features', () => {
+      expect(toolbarLabels(el)).not.to.include.members(['Inline code']);
+      expect(toolbarLabels(el)).not.to.include('Checklist');
+    });
+
+    it('should not have a footer', () => {
+      expect(el.renderRoot.querySelector('[part="footer"]')).not.to.exist;
+    });
+
+    it('should not have a value', () => {
+      expect(el.value).to.equal('');
+    });
+
+    it('should be empty', () => {
+      expect(el.matches(':state(empty)')).to.be.true;
+    });
+
+    it('should be valid', () => {
+      expect(el.valid).to.be.true;
+    });
+
+    it('should disable undo and redo without history', () => {
+      const undo = el.renderRoot.querySelector('sl-button[aria-label="Undo"], sl-button');
+
+      expect(undo).to.have.attribute('disabled');
+    });
+  });
+
+  describe('value', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-rich-text-editor
+          .value=${'<p>Plants turn <strong>light energy</strong> into food.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    it('should render the value', () => {
+      expect(content(el).querySelector('strong')).to.have.trimmed.text('light energy');
+    });
+
+    it('should not be empty', () => {
+      expect(el.matches(':state(empty)')).to.be.false;
+    });
+
+    it('should return the value as HTML', () => {
+      expect(el.value).to.equal('<p>Plants turn <strong>light energy</strong> into food.</p>');
+    });
+
+    it('should update the content when the value changes', async () => {
+      el.value = '<p>Something else</p>';
+      await el.updateComplete;
+
+      expect(content(el)).to.have.trimmed.text('Something else');
+    });
+
+    it('should mark the bold button pressed when the caret is in bold text', async () => {
+      const view = el.view!;
+      let pos = -1;
+
+      view.state.doc.descendants((node, p) => {
+        if (pos < 0 && node.isText && node.text === 'light energy') {
+          pos = p + 2;
+        }
+      });
+      view.dispatch(view.state.tr.setSelection(TextSelection.create(view.state.doc, pos)));
+      await el.updateComplete;
+
+      const bold = el.renderRoot.querySelector<HTMLElement & { pressed?: boolean }>(
+        'sl-toggle-button[id$="-bold"]'
+      );
+
+      expect(bold?.pressed).to.be.true;
+    });
+
+    it('should drop content a missing feature needs, but keep its text', async () => {
+      el.features = 'italic';
+      await el.updateComplete;
+
+      expect(content(el).querySelector('strong')).not.to.exist;
+      expect(el.value).to.equal('<p>Plants turn light energy into food.</p>');
+    });
+  });
+
+  describe('features', () => {
+    it('should only show the toolbar buttons for the given features', async () => {
+      el = await fixture(html`<sl-rich-text-editor features="bold italic"></sl-rich-text-editor>`);
+
+      expect(toolbarLabels(el)).to.deep.equal(['Bold', 'Italic']);
+      expect(el.renderRoot.querySelector('sl-select')).not.to.exist;
+    });
+
+    it('should show a character count with the character-count feature', async () => {
+      el = await fixture(html`
+        <sl-rich-text-editor
+          features="default character-count"
+          maxlength="10"
+          .value=${'<p>Hello</p>'}></sl-rich-text-editor>
+      `);
+
+      expect(el.renderRoot.querySelector('.count')).to.have.trimmed.text('5 / 10');
+    });
+
+    it('should be invalid when over the maximum length', async () => {
+      el = await fixture(html`
+        <sl-rich-text-editor
+          features="default character-count"
+          maxlength="3"
+          .value=${'<p>Hello</p>'}></sl-rich-text-editor>
+      `);
+
+      expect(el.valid).to.be.false;
+      expect(el.validity.tooLong).to.be.true;
+    });
+
+    it('should report whether it has a feature', async () => {
+      el = await fixture(
+        html`<sl-rich-text-editor features="default checklist"></sl-rich-text-editor>`
+      );
+
+      expect(el.hasFeature('checklist')).to.be.true;
+      expect(el.hasFeature('code')).to.be.false;
+    });
+  });
+
+  describe('checklist', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-rich-text-editor
+          features="default checklist"
+          .value=${'<ul data-type="task-list"><li data-task="a" data-checked="true"><p>Read chapter 4.2</p></li><li data-task="b" data-checked="false"><p>Answer questions 1–5</p></li></ul>'}></sl-rich-text-editor>
+      `);
+    });
+
+    it('should render an sl-checkbox per item', () => {
+      const boxes = content(el).querySelectorAll('sl-checkbox');
+
+      expect(boxes).to.have.length(2);
+      expect(boxes[0].checked).to.be.true;
+      expect(boxes[1].checked).to.be.false;
+    });
+
+    it('should name each checkbox by its item text', async () => {
+      const input = content(el).querySelector('sl-checkbox input')!;
+
+      // The checkbox forwards its name to the inner input after it has rendered
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(input).to.have.attribute('aria-label', 'Read chapter 4.2');
+    });
+
+    it('should not include nested items in the checkbox name', async () => {
+      el.value =
+        '<ul data-type="task-list"><li data-task="a" data-checked="false"><p>Answer questions 1–5</p><ul data-type="task-list"><li data-task="b" data-checked="false"><p>Draw the Calvin cycle</p></li></ul></li></ul>';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const inputs = content(el).querySelectorAll('sl-checkbox input');
+
+      expect(inputs[0]).to.have.attribute('aria-label', 'Answer questions 1–5');
+      expect(inputs[1]).to.have.attribute('aria-label', 'Draw the Calvin cycle');
+    });
+
+    it('should name the checkbox of an empty item', async () => {
+      el.value =
+        '<ul data-type="task-list"><li data-task="a" data-checked="false"><p></p></li></ul>';
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(content(el).querySelector('sl-checkbox input')).to.have.attribute(
+        'aria-label',
+        'Checklist item'
+      );
+    });
+
+    it('should keep the checkboxes out of the Tab order while editing', async () => {
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const inputs = Array.from(
+        content(el).querySelectorAll<HTMLInputElement>('sl-checkbox input')
+      );
+
+      expect(inputs).to.have.length(2);
+      expect(inputs.every(input => input.tabIndex === -1)).to.be.true;
+    });
+
+    it('should announce the new state when ticking with Ctrl/⌘+Enter', async () => {
+      const onAnnounce = spy(),
+        mac = /Mac/.test(navigator.platform),
+        view = el.view!;
+
+      document.body.addEventListener('sl-announce', onAnnounce);
+
+      try {
+        view.dispatch(view.state.tr.setSelection(TextSelection.create(view.state.doc, 3)));
+        content(el).dispatchEvent(
+          new KeyboardEvent('keydown', {
+            bubbles: true,
+            ctrlKey: !mac,
+            key: 'Enter',
+            metaKey: mac
+          })
+        );
+        await el.updateComplete;
+
+        expect(el.value).to.contain('<li data-checked="false" data-task="a">');
+        expect(onAnnounce).to.have.been.calledOnce;
+        expect(
+          (onAnnounce.firstCall.args[0] as CustomEvent<{ message: string }>).detail.message
+        ).to.equal('Read chapter 4.2, not checked');
+      } finally {
+        document.body.removeEventListener('sl-announce', onAnnounce);
+      }
+    });
+
+    it('should not let the checkbox events leave the editor', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      content(el).querySelectorAll('sl-checkbox')[1].click();
+      await el.updateComplete;
+
+      expect(onChange).not.to.have.been.called;
+      expect(el.value).to.contain('<li data-checked="true" data-task="b">');
+    });
+
+    it('should keep the checkbox out of the editable text', () => {
+      const label = content(el).querySelector('.task-box');
+
+      expect(label).to.have.attribute('contenteditable', 'false');
+    });
+
+    it('should toggle an item and keep its id', async () => {
+      content(el).querySelectorAll('sl-checkbox')[1].click();
+      await el.updateComplete;
+
+      expect(el.value).to.contain('<li data-checked="true" data-task="b">');
+    });
+
+    it('should make the toggle undoable', async () => {
+      content(el).querySelectorAll('sl-checkbox')[1].click();
+      await el.updateComplete;
+
+      const undo = el.renderRoot.querySelector('sl-button')!;
+      expect(undo).not.to.have.attribute('disabled');
+    });
+
+    it('should give items without an id a new one', async () => {
+      el.value =
+        '<ul data-type="task-list"><li data-task="" data-checked="false"><p>New</p></li></ul>';
+      await el.updateComplete;
+
+      expect(el.value).to.match(/data-task="[^"]+"/);
+    });
+
+    it('should have a checklist button', () => {
+      expect(toolbarLabels(el)).to.include('Checklist');
+    });
+
+    it('should disable the checkboxes when read-only', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      const boxes = content(el).querySelectorAll('sl-checkbox');
+
+      expect(Array.from(boxes).every(box => box.disabled)).to.be.true;
+    });
+  });
+
+  describe('states', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        html`<sl-rich-text-editor .value=${'<p>Nice structure.</p>'}></sl-rich-text-editor>`
+      );
+    });
+
+    it('should hide the toolbar when read-only', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('[role="toolbar"]')).not.to.exist;
+      expect(content(el)).to.have.attribute('contenteditable', 'false');
+      expect(content(el)).to.have.attribute('aria-readonly', 'true');
+    });
+
+    it('should disable the toolbar and editable when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const items = Array.from(el.renderRoot.querySelectorAll('[data-toolbar-item]'));
+
+      expect(items.every(item => item.hasAttribute('disabled'))).to.be.true;
+      expect(content(el)).to.have.attribute('contenteditable', 'false');
+      expect(content(el)).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should be invalid when required and empty', async () => {
+      el.required = true;
+      el.value = '';
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
+      expect(content(el)).to.have.attribute('aria-required', 'true');
+    });
+
+    it('should mark the editable invalid after reporting validity', async () => {
+      el.required = true;
+      el.value = '';
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+      expect(content(el)).to.have.attribute('aria-invalid', 'true');
+    });
+
+    it('should show the placeholder when empty', async () => {
+      el.placeholder = 'Write your feedback…';
+      el.value = '';
+      await el.updateComplete;
+
+      expect(content(el).querySelector('.placeholder')).to.have.attribute(
+        'data-placeholder',
+        'Write your feedback…'
+      );
+      expect(el.value).to.equal('');
+    });
+  });
+
+  describe('touch', () => {
+    let matchMedia: SinonStub;
+
+    beforeEach(async () => {
+      const original = window.matchMedia.bind(window);
+
+      // Pretend to be a phone: a coarse pointer
+      matchMedia = stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          features="default character-count"
+          .value=${'<ul><li><p>Light absorption</p></li></ul><p>Plants turn light into energy.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    const focusEditor = async (): Promise<void> => {
+      content(el).focus();
+      await el.updateComplete;
+    };
+
+    it('should not show a toolbar at rest', () => {
+      expect(el.renderRoot.querySelector('[role="toolbar"]')).not.to.exist;
+      expect(el.matches(':state(docked)')).to.be.false;
+    });
+
+    it('should dock the toolbar while editing', async () => {
+      await focusEditor();
+
+      expect(el.matches(':state(docked)')).to.be.true;
+      expect(el.renderRoot.querySelector('[role="toolbar"]')).to.exist;
+      expect(getComputedStyle(el.renderRoot.querySelector('[role="toolbar"]')!).position).to.equal(
+        'fixed'
+      );
+    });
+
+    it('should hide the footer while docked', async () => {
+      expect(el.renderRoot.querySelector('[part="footer"]')).to.exist;
+
+      await focusEditor();
+
+      expect(el.renderRoot.querySelector('[part="footer"]')).not.to.exist;
+    });
+
+    it('should leave the text style select out of the docked toolbar', async () => {
+      await focusEditor();
+
+      expect(el.renderRoot.querySelector('sl-select')).not.to.exist;
+    });
+
+    it('should not show tooltips on touch', async () => {
+      await focusEditor();
+
+      const items = Array.from(el.renderRoot.querySelectorAll('[data-toolbar-item]'));
+
+      expect(items.length).to.be.greaterThan(0);
+      expect(items.some(item => item.hasAttribute('tooltip'))).to.be.false;
+    });
+
+    it('should put the list buttons first when the caret is in a list', async () => {
+      await focusEditor();
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, 4))
+      );
+      await el.updateComplete;
+
+      expect(toolbarLabels(el)[0]).to.equal('Bulleted list');
+    });
+
+    it('should keep the default order outside a list', async () => {
+      await focusEditor();
+
+      const end = el.view!.state.doc.content.size - 1;
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, end))
+      );
+      await el.updateComplete;
+
+      expect(toolbarLabels(el)[0]).to.equal('Bold');
+    });
+
+    it('should hide the keyboard with the hide keyboard button', async () => {
+      await focusEditor();
+
+      const button = el.renderRoot.querySelector<HTMLElement>('.hide-keyboard');
+      expect(button).to.exist;
+
+      button!.click();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(document.activeElement).not.to.equal(content(el));
+      expect(el.matches(':state(docked)')).to.be.false;
+    });
+  });
+
+  describe('link sheet', () => {
+    let matchMedia: SinonStub;
+
+    const coarsePointer = (): SinonStub => {
+      const original = window.matchMedia.bind(window);
+
+      return stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+    };
+
+    const sheet = (): Dialog => el.renderRoot.querySelector<Dialog>('sl-dialog.link-sheet')!;
+
+    const field = (name: 'text' | 'url'): TextField =>
+      el.renderRoot.querySelector<TextField>(`.link-${name}`)!;
+
+    const openSheetAt = async (pos: number): Promise<void> => {
+      content(el).focus();
+      el.view!.dispatch(
+        el.view!.state.tr.setSelection(TextSelection.create(el.view!.state.doc, pos))
+      );
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<HTMLElement>('sl-toggle-button[id$="-link"]')!.click();
+      await el.updateComplete;
+    };
+
+    beforeEach(async () => {
+      matchMedia = coarsePointer();
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          .value=${'<p>Read <a href="https://example.com/4-2">chapter 4.2</a> first.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    it('should use a sheet instead of the popover on touch', () => {
+      expect(sheet()).to.exist;
+      expect(el.renderRoot.querySelector('sl-popover')).not.to.exist;
+    });
+
+    it('should edit the whole link the caret is in', async () => {
+      await openSheetAt(9);
+
+      expect(sheet().renderRoot.querySelector('dialog')?.open).to.be.true;
+      expect(sheet()).to.contain.text('Edit link');
+      expect(field('text').value).to.equal('chapter 4.2');
+      expect(field('url').value).to.equal('https://example.com/4-2');
+      expect(sheet().querySelector('sl-button.link-remove')).to.exist;
+    });
+
+    it('should apply the new text and address', async () => {
+      await openSheetAt(9);
+
+      field('text').value = 'chapter 4.3';
+      field('url').value = 'https://example.com/4-3';
+      sheet().querySelector<HTMLElement>('sl-button.link-apply')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(
+        '<p>Read <a href="https://example.com/4-3">chapter 4.3</a> first.</p>'
+      );
+    });
+
+    it('should remove the link but keep its text', async () => {
+      await openSheetAt(9);
+
+      sheet().querySelector<HTMLElement>('sl-button.link-remove')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal('<p>Read chapter 4.2 first.</p>');
+    });
+
+    it('should add a link without a remove button outside a link', async () => {
+      await openSheetAt(2);
+
+      expect(sheet()).to.contain.text('Add link');
+      expect(field('text').value).to.equal('');
+      expect(sheet().querySelector('sl-button.link-remove')).not.to.exist;
+    });
+
+    it('should leave the content alone when cancelled', async () => {
+      await openSheetAt(9);
+
+      field('url').value = 'https://example.com/other';
+      sheet().querySelector<HTMLElement>('sl-button.link-cancel')!.click();
+      await el.updateComplete;
+
+      expect(el.value).to.equal(
+        '<p>Read <a href="https://example.com/4-2">chapter 4.2</a> first.</p>'
+      );
+    });
+
+    it('should keep the sheet fields out of a surrounding form', async () => {
+      const form = await fixture<Form>(html`
+        <sl-form><sl-rich-text-editor name="description"></sl-rich-text-editor></sl-form>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(form.controls).to.have.length(1);
+    });
+  });
+
+  describe('full screen', () => {
+    let matchMedia: SinonStub;
+
+    beforeEach(async () => {
+      const original = window.matchMedia.bind(window);
+
+      matchMedia = stub(window, 'matchMedia').callsFake(query =>
+        query === '(pointer: coarse)'
+          ? ({
+              matches: true,
+              media: query,
+              addEventListener: () => {},
+              removeEventListener: () => {}
+            } as unknown as MediaQueryList)
+          : original(query)
+      );
+
+      el = await fixture(html`
+        <sl-rich-text-editor
+          aria-label="Description"
+          .value=${'<p>Read chapter 4.2.</p>'}></sl-rich-text-editor>
+      `);
+    });
+
+    afterEach(() => matchMedia.restore());
+
+    const dialog = (): HTMLDialogElement | null =>
+      el.renderRoot.querySelector<HTMLDialogElement>('dialog.expanded');
+
+    it('should show a full-screen button at rest on touch', () => {
+      const button = el.renderRoot.querySelector('sl-button.expand');
+
+      expect(button).to.exist;
+      // sl-button forwards its aria-label to the native button inside it
+      expect(button!.shadowRoot!.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Edit Description full screen'
+      );
+    });
+
+    it('should not show a full-screen button on desktop unless expandable', async () => {
+      matchMedia.restore();
+      el = await fixture(html`<sl-rich-text-editor></sl-rich-text-editor>`);
+
+      expect(el.renderRoot.querySelector('sl-button.expand')).not.to.exist;
+
+      el.expandable = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-button.expand')).to.exist;
+      matchMedia = stub(window, 'matchMedia').callThrough();
+    });
+
+    it('should open full screen with the same editable', async () => {
+      const onExpand = spy(),
+        editable = content(el);
+
+      el.addEventListener('sl-expand', onExpand);
+      el.renderRoot.querySelector<HTMLElement>('sl-button.expand')!.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.true;
+      expect(dialog()?.open).to.be.true;
+      expect(dialog()).to.contain.text('Description');
+      expect(content(el)).to.equal(editable);
+      expect(dialog()!.querySelector('slot[name="content"]')).to.exist;
+      expect(onExpand).to.have.been.calledOnce;
+    });
+
+    it('should keep the undo history in full screen', async () => {
+      el.view!.dispatch(el.view!.state.tr.insertText('!', 1));
+      await el.expand();
+
+      expect(el.renderRoot.querySelector('sl-button[aria-label="Undo"]')).to.exist;
+      expect(undoDepthOf(el)).to.equal(1);
+    });
+
+    it('should return to the form with Done', async () => {
+      const onCollapse = spy();
+
+      el.addEventListener('sl-collapse', onCollapse);
+      await el.expand();
+      dialog()!.querySelector<HTMLElement>('.expanded-done')!.click();
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+      expect(dialog()).not.to.exist;
+      expect(el.renderRoot.querySelector('slot[name="content"]')?.parentNode).to.equal(
+        el.renderRoot
+      );
+      expect(onCollapse).to.have.been.calledOnce;
+    });
+
+    it('should return to the form on Escape', async () => {
+      await el.expand();
+      dialog()!.dispatchEvent(new Event('cancel', { cancelable: true }));
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+    });
+
+    it('should not expand when read-only', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+      await el.expand();
+
+      expect(el.matches(':state(expanded)')).to.be.false;
+      expect(el.renderRoot.querySelector('sl-button.expand')).not.to.exist;
+    });
+  });
+
+  describe('form', () => {
+    let form: Form;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <sl-form>
+          <sl-rich-text-editor name="description" .value=${'<p>Hello</p>'}></sl-rich-text-editor>
+        </sl-form>
+      `);
+      el = form.querySelector('sl-rich-text-editor')!;
+
+      // The form registers its controls in the next animation frame
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should register only the editor with the form, not its toolbar controls', () => {
+      expect(form.controls).to.have.length(1);
+      expect(form.controls[0]).to.equal(el);
+    });
+
+    it('should add its value to the form value', () => {
+      expect(form.value).to.deep.equal({ description: '<p>Hello</p>' });
+    });
+  });
+});

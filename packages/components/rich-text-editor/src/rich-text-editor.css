@@ -1,0 +1,252 @@
+:host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+  --_divider: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  --_tap-size: calc(var(--sl-size-500) + var(--sl-size-050));
+
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+  border: var(--sl-size-borderWidth-default) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
+
+  /* A block-level field with the toolbar, content and footer stacked */
+  display: flex;
+  flex-direction: column;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+
+  /* For the full-screen button in the corner */
+  position: relative;
+}
+
+:host(:hover:not(:focus-within)) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+/* The ring goes around the whole field, also while the toolbar has focus. */
+:host(:focus-within) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) {
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+}
+
+:host([readonly]) {
+  --_bg-color: var(--sl-color-background-neutral-subtlest);
+  --_border: var(--sl-color-border-disabled);
+
+  cursor: auto;
+}
+
+:host([disabled]) {
+  --_divider: var(--sl-size-borderWidth-default) solid var(--sl-color-border-disabled);
+
+  background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-disabled);
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, :focus-within)) {
+    transition: 200ms ease-in-out;
+    transition-property: background, border, outline-color;
+  }
+}
+
+[part='toolbar'] {
+  align-items: center;
+  border-block-end: var(--_divider);
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-050);
+  padding: var(--sl-size-075) var(--sl-size-100);
+
+  hr {
+    align-self: stretch;
+    border: 0;
+    border-inline-start: var(--_divider);
+    margin: var(--sl-size-050) var(--sl-size-050);
+  }
+}
+
+/* Lays the items out in the toolbar row itself; only the docked toolbar gives them their own row. */
+.items {
+  display: contents;
+}
+
+/*
+ * On touch devices, while editing, the toolbar docks above the on-screen keyboard. The docked
+ * toolbar controller sets its block start and width from the visual viewport; it sits right
+ * above that line.
+ */
+:host(:state(docked)) [part='toolbar'] {
+  background: var(--sl-color-background-neutral-subtlest);
+  border-block-end: 0;
+  border-block-start: var(--_divider);
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  gap: 0;
+  padding: 0;
+  position: fixed;
+  transform: translateY(-100%);
+  z-index: 1;
+
+  .items {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    gap: var(--sl-size-025);
+    min-inline-size: 0;
+    overflow-x: auto;
+    padding: var(--sl-size-050);
+    scrollbar-width: none;
+  }
+
+  hr {
+    display: none;
+  }
+
+  sl-button::part(button),
+  sl-toggle-button::part(button) {
+    box-sizing: border-box;
+    min-block-size: var(--_tap-size);
+    min-inline-size: var(--_tap-size);
+  }
+
+  /* Buttons pinned at the end of the docked toolbar, after a divider */
+  .pinned {
+    flex: none;
+  }
+
+  .items + .pinned {
+    border-inline-start: var(--_divider);
+  }
+}
+
+/* The full-screen button in the corner of the field, while not editing */
+.expand {
+  inset-block-start: var(--sl-size-025);
+  inset-inline-end: var(--sl-size-025);
+  position: absolute;
+}
+
+/* Keep the text clear of the full-screen button */
+slot[name='content']:has(~ .expand) {
+  padding-inline-end: var(--_tap-size);
+}
+
+/* Full screen: the same editable, shown in a modal dialog that covers the page */
+dialog.expanded {
+  background: var(--sl-color-background-input-plain);
+  block-size: 100%;
+  border: 0;
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  flex-direction: column;
+  inline-size: 100%;
+  inset: 0;
+  margin: 0;
+  max-block-size: none;
+  max-inline-size: none;
+  padding: 0;
+
+  &[open] {
+    display: flex;
+  }
+
+  header {
+    align-items: center;
+    border-block-end: var(--_divider);
+    display: flex;
+    flex: none;
+    justify-content: space-between;
+    min-block-size: calc(var(--sl-size-600) + var(--sl-size-100));
+    padding-block: 0;
+    padding-inline: var(--sl-size-200) var(--sl-size-100);
+  }
+
+  h2 {
+    font-size: var(--sl-text-new-heading-sm-fontSize);
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    line-height: var(--sl-text-new-heading-sm-lineHeight);
+    margin: 0;
+  }
+}
+
+.expanded-body {
+  flex: 1;
+  min-block-size: 0;
+  overflow-y: auto;
+}
+
+/* Toolbar buttons only show a border while pressed, so the row reads as icons, not boxes. */
+sl-toggle-button:not([pressed])::part(button) {
+  border-color: transparent;
+}
+
+.block-type {
+  inline-size: calc(var(--sl-size-1000) + var(--sl-size-400));
+}
+
+slot[name='content'] {
+  display: block;
+  flex: 1;
+}
+
+[part='footer'] {
+  align-items: center;
+  border-block-start: var(--_divider);
+  color: var(--sl-color-foreground-subtle);
+  cursor: default;
+  display: flex;
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  gap: var(--sl-size-200);
+  justify-content: space-between;
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+  padding: var(--sl-size-100) var(--sl-size-200);
+}
+
+:host([disabled]) [part='footer'] {
+  color: var(--sl-color-foreground-disabled);
+}
+
+.count {
+  margin-inline-start: auto;
+}
+
+.link-sheet-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200);
+
+  /* iOS Safari zooms the page into any focused input smaller than 16px. */
+  sl-text-field {
+    font-size: var(--sl-text-new-body-lg-fontSize);
+  }
+}
+
+.link-form {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+
+  sl-text-field {
+    inline-size: calc(var(--sl-size-1000) * 3);
+  }
+}

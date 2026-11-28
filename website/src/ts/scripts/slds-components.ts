@@ -77,7 +77,6 @@ import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } fr
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
-import '@sl-design-system/editor/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/format-date/register.js';
 import '@sl-design-system/format-number/register.js';
@@ -97,6 +96,7 @@ import '@sl-design-system/panel/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
 import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/rich-text-editor/register.js';
 import { setup } from '@sl-design-system/sanoma-learning';
 import '@sl-design-system/search-field/register.js';
 import '@sl-design-system/segmented-control/register.js';
